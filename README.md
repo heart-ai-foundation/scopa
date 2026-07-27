@@ -13,9 +13,10 @@ reference implementation.
 
 ## Status
 
-SCOPA is pre-release Foundation work. S0 Conformance Harness and S1 Sealed Core
-are complete; S2 Enforcement Loop is active under the canonical Macro Delta.
-The package is private and no publication is permitted before S3 closes v0.1.
+SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
+and S2 Enforcement Loop are complete. S3 Legibility is active under the
+canonical Macro Delta. The package is private and no publication is permitted
+before S3 closes v0.1.
 
 Start with:
 
@@ -23,7 +24,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-26-S2-enforcement-loop.md`
+5. `next-prompt-protocols/active/2026-07-26-S3-legibility.md`
 
 ## Sealed core
 
@@ -52,9 +53,9 @@ yet provided. If a process dies after an ACT
 returns but before its sealed recovery receipt is durable, the pending claim
 fails closed for operator reconciliation rather than risking a duplicate ACT.
 
-## Enforcement-loop candidate
+## Enforcement loop
 
-The active S2 candidate provides:
+S2 provides:
 
 - a hashed, closed-schema slice lock;
 - a reference agent-host process that owns its mutation implementation;

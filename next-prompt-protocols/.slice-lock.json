@@ -1,45 +1,40 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "20079cc",
+  "current_commit": "08a914f",
   "current_phase": "phase-1-foundation",
-  "active_protocol": "active/2026-07-26-S2-enforcement-loop.md",
+  "active_protocol": "active/2026-07-26-S3-legibility.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "enforcement",
+  "active_module": "legibility",
   "crosses": [
-    "agent-surface"
+    "journal"
   ],
   "advances_contracts": [
-    "E1",
-    "E2",
-    "E3",
-    "E4",
-    "A1",
-    "A2",
-    "A3"
+    "L1",
+    "L2",
+    "L3",
+    "L4"
   ],
-  "active_protocol_sha256": "sha256:f39c97fb5f68270f3bd941c37ac48ebd9f8ec30164f1f5fdea0f9968bd7f17ba",
-  "active_objective": "Build slice-lock and allowed-path enforcement, a real verification-gate runner,\ncheckable stop-condition evaluator, compact orientation call, denial payloads,\nand cold-resume rotation state.",
+  "active_protocol_sha256": "sha256:adc8d157112c311691d5bffc8e091682e12fbe9d9d11f55444f5b5c5636ff20d",
+  "active_objective": "Build the reconstructability scorer, observe-mode runner,\ndeclared-versus-observed gap reporter, coverage readout, and initial\ncoding-agent profile. Produce a boundary map from a real session whose\nboundaries were not declared in advance.",
   "allowed_files": [
-    ".gitignore",
     "README.md",
     "package.json",
-    "spec/**",
     "next-prompt-protocols/**",
     "packages/conformance/**",
-    "packages/enforcement/**",
-    "packages/agent-surface/**",
-    "fixtures/**",
-    "notes/S2/**",
-    "runs/S2/**",
-    "evidence/S2/**"
+    "packages/journal/**",
+    "packages/legibility/**",
+    "fixtures/S3/**",
+    "notes/S3/**",
+    "runs/S3/**",
+    "evidence/S3/**"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s2",
-    "upstream_conformance": "npm run test:s1",
+    "fast_slice_local": "npm run test:s3",
+    "upstream_conformance": "npm run test:s2",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop if enforcement depends on agent cooperation, if an alternate mutation path bypasses the dispatcher, if gate definition can self-certify without a trusted principal DECISION, or if cold resume accepts state not bound to the active lock and git commit."
+  "stop_condition": "Stop if reconstructability or coverage can be read as proving activity that was not observed, or if an unexercised path is reported as absent rather than not-observed."
 }

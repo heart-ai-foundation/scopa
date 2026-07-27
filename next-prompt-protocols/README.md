@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `20079cc`
+Current commit reference: `08a914f`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `enforcement`
-Advances contracts: `E1, E2, E3, E4, A1, A2, A3`
+Active protocol module: `legibility`
+Advances contracts: `L1, L2, L3, L4`
 
 ## Slice Class
 
@@ -92,9 +92,10 @@ Read in this order:
 3. `macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `role-context.md`
 5. `phases/phase-1/README.md`
-6. `active/2026-07-26-S2-enforcement-loop.md`
-7. `completed/2026-07-26-S0-conformance-harness.md`
-8. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-26-S3-legibility.md`
+7. `completed/2026-07-26-S2-enforcement-loop.md`
+8. `completed/2026-07-26-S0-conformance-harness.md`
+9. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -128,9 +129,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Build slice-lock and allowed-path enforcement, a real verification-gate runner,
-> checkable stop-condition evaluator, compact orientation call, denial payloads,
-> and cold-resume rotation state.
+> Build the reconstructability scorer, observe-mode runner,
+> declared-versus-observed gap reporter, coverage readout, and initial
+> coding-agent profile. Produce a boundary map from a real session whose
+> boundaries were not declared in advance.
 
 ## Behavior rules
 
@@ -148,18 +150,16 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 These protocols are specific to:
 
-- `.gitignore`
 - `README.md`
 - `package.json`
-- `spec/**`
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
-- `packages/enforcement/**`
-- `packages/agent-surface/**`
-- `fixtures/**`
-- `notes/S2/**`
-- `runs/S2/**`
-- `evidence/S2/**`
+- `packages/journal/**`
+- `packages/legibility/**`
+- `fixtures/S3/**`
+- `notes/S3/**`
+- `runs/S3/**`
+- `evidence/S3/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -168,4 +168,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-1/README.md`
-- `active/2026-07-26-S2-enforcement-loop.md`
+- `active/2026-07-26-S3-legibility.md`

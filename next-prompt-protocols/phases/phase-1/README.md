@@ -1,40 +1,39 @@
 # Phase 1 Foundation
 
-Current commit reference: `20079cc`
-Current active protocol: `active/2026-07-26-S2-enforcement-loop.md`
+Current commit reference: `08a914f`
+Current active protocol: `active/2026-07-26-S3-legibility.md`
 
 ## Scope
 
-Block A foundation work. Build and falsify the enforcement loop against real tool-boundary writes, completion gates, and cold resume. No publication is permitted.
+Block A foundation work. Build observe-mode legibility and coverage that never overstates unobserved activity. S3 must close before publication.
 
 ## Active objective
 
-> Build slice-lock and allowed-path enforcement, a real verification-gate runner,
-> checkable stop-condition evaluator, compact orientation call, denial payloads,
-> and cold-resume rotation state.
+> Build the reconstructability scorer, observe-mode runner,
+> declared-versus-observed gap reporter, coverage readout, and initial
+> coding-agent profile. Produce a boundary map from a real session whose
+> boundaries were not declared in advance.
 
 ## Files in play
 
-- `.gitignore`
 - `README.md`
 - `package.json`
-- `spec/**`
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
-- `packages/enforcement/**`
-- `packages/agent-surface/**`
-- `fixtures/**`
-- `notes/S2/**`
-- `runs/S2/**`
-- `evidence/S2/**`
+- `packages/journal/**`
+- `packages/legibility/**`
+- `fixtures/S3/**`
+- `notes/S3/**`
+- `runs/S3/**`
+- `evidence/S3/**`
 
 ## Non-goals
 
-- No npm publication or public release before S3 closes v0.1
-- No operating-system sandbox claim; S2 binds at the trusted host tool-call boundary
-- No alternate unguarded mutation tool in a conforming host integration
-- No self-verified principal DECISION or agent-writable rotation state
-- No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export
+- No forensic-reconstruction claim for activity observe mode did not see
+- No inference that an unexercised path or effect is absent
+- No enforcement changes, signing, anchoring, INFER provider integration, or CASE/UCO export
+- No community profile catalog beyond the initial coding-agent profile
+- No npm publication or public release until S3 acceptance closes v0.1
 - No effect categories outside the canonical Macro Delta and Kernel Specification
 - No queue entries that are not sourced from the canonical Macro Delta
 
@@ -44,14 +43,17 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- A real agent write outside the declared allowed paths is blocked before the
-  tool executes.
-- A claimed completion is refused because a configured command actually fails.
-- Stop state is machine-checkable and gate mutation fails closed.
-- Orientation and denial payload contracts pass.
-- Rotation state restores the slice after a cold context clear.
-- S0 and S1 release gates remain green.
-- `npm run protocol:check`.
+- `npm run test:s3`
+- `npm test`
+- `npm run protocol:check`
+- Observe mode journals without enforcing.
+- An undeclared real agent session produces a deterministic boundary map.
+- Manual inspection agrees with the map for the events actually observed.
+- Declared-versus-observed gaps are findings, not silent normalization.
+- Coverage labels unexercised paths as `not-observed`, never `not-present`.
+- Reconstructability scoring is derived from explicit journal completeness
+  signals and cannot be presented as a forensic reconstruction.
+- S0, S1, and S2 release gates remain green.
 
 ## Handoff
 

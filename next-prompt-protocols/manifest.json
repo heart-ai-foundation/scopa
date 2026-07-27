@@ -3,44 +3,43 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "20079cc",
+  "current_commit": "08a914f",
   "current_phase": "phase-1-foundation",
-  "phase_scope": "Block A foundation work. Build and falsify the enforcement loop against real tool-boundary writes, completion gates, and cold resume. No publication is permitted.",
+  "phase_scope": "Block A foundation work. Build observe-mode legibility and coverage that never overstates unobserved activity. S3 must close before publication.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": "active/2026-07-26-S2-enforcement-loop.md",
-  "active_objective": "Build slice-lock and allowed-path enforcement, verification-gate execution, stop evaluation, orientation, denial payloads, and cold-resume rotation state.",
+  "active_protocol": "active/2026-07-26-S3-legibility.md",
+  "active_objective": "Build reconstructability scoring, observe mode, declared-versus-observed gaps, honest coverage, and the initial coding-agent profile.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-26-S2-enforcement-loop.md",
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
-    ".gitignore",
     "README.md",
     "package.json",
-    "spec/**",
     "next-prompt-protocols/**",
     "packages/conformance/**",
-    "packages/enforcement/**",
-    "packages/agent-surface/**",
-    "fixtures/**",
-    "notes/S2/**",
-    "runs/S2/**",
-    "evidence/S2/**"
+    "packages/journal/**",
+    "packages/legibility/**",
+    "fixtures/S3/**",
+    "notes/S3/**",
+    "runs/S3/**",
+    "evidence/S3/**"
   ],
   "non_goals": [
-    "No npm publication or public release before S3 closes v0.1",
-    "No operating-system sandbox claim; S2 binds at the trusted host tool-call boundary",
-    "No alternate unguarded mutation tool in a conforming host integration",
-    "No self-verified principal DECISION or agent-writable rotation state",
-    "No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export",
+    "No forensic-reconstruction claim for activity observe mode did not see",
+    "No inference that an unexercised path or effect is absent",
+    "No enforcement changes, signing, anchoring, INFER provider integration, or CASE/UCO export",
+    "No community profile catalog beyond the initial coding-agent profile",
+    "No npm publication or public release until S3 acceptance closes v0.1",
     "No effect categories outside the canonical Macro Delta and Kernel Specification",
     "No queue entries that are not sourced from the canonical Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s2",
-    "upstream_conformance": "npm run test:s1",
+    "fast_slice_local": "npm run test:s3",
+    "upstream_conformance": "npm run test:s2",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -335,5 +334,5 @@
       ]
     }
   },
-  "stop_condition": "Stop if enforcement depends on agent cooperation, if an alternate mutation path bypasses the dispatcher, if gate definition can self-certify without a trusted principal DECISION, or if cold resume accepts state not bound to the active lock and git commit."
+  "stop_condition": "Stop if reconstructability or coverage can be read as proving activity that was not observed, or if an unexercised path is reported as absent rather than not-observed."
 }
