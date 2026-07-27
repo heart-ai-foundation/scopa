@@ -282,7 +282,7 @@
         {
           "id": "D1",
           "statement": "The signing layer carries an algorithm identifier per record.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Independent signature verification",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S4"
@@ -290,7 +290,7 @@
         {
           "id": "D2",
           "statement": "Device key classes are recorded and never overstated.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Key-class representation tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S4"
@@ -298,7 +298,7 @@
         {
           "id": "D3",
           "statement": "External timestamp anchoring is optional and verifiable.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Independent anchor receipt verification",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S4"
@@ -306,7 +306,7 @@
         {
           "id": "D4",
           "statement": "INFER records pin provider, snapshot, prompt hash, and parameters.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Offline INFER replay fixture",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S4"

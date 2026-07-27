@@ -14,9 +14,10 @@ reference implementation.
 ## Status
 
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
-and S2 Enforcement Loop are complete. S3 Legibility is active under the
-canonical Macro Delta. The package is private and no publication is permitted
-before S3 closes v0.1.
+S2 Enforcement Loop, S3 Legibility, and S4 Signing and Anchoring are complete.
+S5 Interop Export remains deferred under the canonical Macro Delta until an
+external CASE consumer is identified. The package remains private; publication
+requires a separate principal request.
 
 Start with:
 
@@ -24,7 +25,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-26-S3-legibility.md`
+5. `next-prompt-protocols/active/2026-07-26-S4-signing-and-anchoring.md`
 
 ## Sealed core
 
@@ -43,9 +44,9 @@ S1 provides:
 - SES Compartments with ambient time, entropy, network, process, console, and
   non-portable numeric authority removed.
 
-Suffix truncation is detected against an external chain commitment. Until S4
-adds signing and anchoring, that commitment is integrity input—not an
-independently authenticated statement.
+Suffix truncation is detected against an external chain commitment. S4 can
+bind that commitment into a portable signed packet with an optional
+authority-backed timestamp.
 
 The file journal adapter is intentionally single-writer in S1. ACT key claims
 are cross-process atomic, but general multi-writer journal serialization is not
@@ -100,8 +101,32 @@ S3 completes the v0.1 runtime with:
 
 The score describes only captured boundary-event completeness. It is not a
 forensic reconstruction score, and the host counter is explicitly reported as
-host-supplied rather than cryptographically authenticated. S4 is responsible
-for signatures and third-party binding.
+host-supplied. S4 can sign the resulting journal commitment but does not turn
+an unauthenticated host counter into provider or hardware evidence.
+
+## Signing and anchoring
+
+S4 adds:
+
+- Ed25519 signatures over a versioned dCBOR commitment-and-INFER-pin payload;
+- closed software, platform-keystore, and hardware-backed key classes;
+- required external attestation verification for stronger-than-software
+  claims;
+- nonce-bearing RFC 3161 requests over the complete signature envelope;
+- HTTPS timestamp transport and OpenSSL verification against roots supplied by
+  the relying party;
+- explicit timestamp-required verification policy to prevent silent
+  downgrade;
+- retained, hash-bound INFER responses for provider-free replay; and
+- a standalone fresh-process packet verifier.
+
+The acceptance evidence includes both an ephemeral local test TSA and a real
+FreeTSA receipt whose actual CMS signer-certificate fingerprint is pinned by
+the relying party. Every INFER pin is referenced by a sealed journal record. A
+software key proves possession only. The real Codex model ID is labeled a
+requested alias, not an immutable snapshot; a content-addressed deterministic
+fixture exercises the immutable-snapshot pin. Neither is provider-signed
+provenance.
 
 Run the gates:
 
@@ -109,9 +134,13 @@ Run the gates:
 npm test
 npm run test:s1
 npm run test:s2
+npm run test:s3
+npm run test:s4
 npm run test:cross-runtime
 npm run test:lockdown
 npm run probe:s2
+npm run probe:s3
+npm run probe:s4
 npm run protocol:check
 ```
 

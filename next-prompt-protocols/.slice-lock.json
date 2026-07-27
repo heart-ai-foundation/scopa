@@ -16,7 +16,7 @@
     "D3",
     "D4"
   ],
-  "active_protocol_sha256": "sha256:b7f1e688f052570b5df3acb756ee2809f9bcdab3df9aa80b016660bf3d9e456d",
+  "active_protocol_sha256": "sha256:621da879365050cee2ebc989173e0f8c3ac21b072b34712c11f7d70e19c27284",
   "active_objective": "Build algorithm-identified signatures over sealed journal commitments, honest\ndevice-key-class representation, optional externally verifiable timestamp\nreceipts, and offline-verifiable INFER pins. Produce a self-contained packet\nthat a fresh verifier can validate without executing the original workflow or\ncalling the model provider.",
   "allowed_files": [
     "README.md",

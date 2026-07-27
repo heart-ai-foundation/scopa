@@ -1,0 +1,71 @@
+{
+  "schema": "scopa.evidence-packet-verification.v1",
+  "ok": true,
+  "chain": {
+    "length": 4,
+    "rootHash": "7047b7552a8026ee2c12530a51e0f500042b82e8637c01dc3bf17bce3a18c565"
+  },
+  "inferPins": [
+    {
+      "pinId": "97a0564fe246a4c065cc5fd327b3cb1d414f0b997c91af208a84270cb3e752cf",
+      "provider": "openai",
+      "modelSnapshot": "requested:gpt-5.6-terra",
+      "snapshotAuthority": "host-reported-not-provider-signed",
+      "snapshotStatus": "requested-alias-not-snapshot",
+      "snapshotPinned": false,
+      "responseHash": "f96035d3a246dc5e3db8332d73e4bdc753b141ee17c581999d4176cc19f05513"
+    },
+    {
+      "pinId": "3c825998f9465b5a243b812d76fb68029d7ae943f51cee38e222642f3223bc2d",
+      "provider": "scopa-deterministic-fixture",
+      "modelSnapshot": "sha256:4b92cffe334e19ed2a3f126fc65fe6951d311cbe3de56d15973b9d04bc900c81",
+      "snapshotAuthority": "host-reported-not-provider-signed",
+      "snapshotStatus": "content-addressed-immutable-snapshot",
+      "snapshotPinned": true,
+      "responseHash": "e232735dacffdef7e6fd5450f87fd79fdb34e277469966cd70e04cc8031ee70f"
+    }
+  ],
+  "inferLinkage": {
+    "schema": "scopa.infer-pin-linkage-verification.v1",
+    "ok": true,
+    "linkedRecordCount": 2,
+    "linkedPinIds": [
+      "97a0564fe246a4c065cc5fd327b3cb1d414f0b997c91af208a84270cb3e752cf",
+      "3c825998f9465b5a243b812d76fb68029d7ae943f51cee38e222642f3223bc2d"
+    ]
+  },
+  "signature": {
+    "schema": "scopa.commitment-signature-verification.v1",
+    "ok": true,
+    "algorithm": "ed25519",
+    "domain": "SCOPA-COMMITMENT-SIGNATURE-v1",
+    "keyId": "2b7bec8e517096d088424c0d6983ab96306836abb92115b355565f5febf90cde",
+    "keyClass": {
+      "id": "software",
+      "assurance": "key-possession-only",
+      "attested": false
+    },
+    "signingInputSha256": "d674c69b47bbff589aa56a805f7e32017dc4613c252bd4767270f92d538ff9cb"
+  },
+  "timestamp": {
+    "schema": "scopa.rfc3161-anchor-verification.v1",
+    "ok": true,
+    "authorityId": "freetsa.org-2026",
+    "authorityIdPolicyMatched": true,
+    "signerCertificatePolicyMatched": true,
+    "trust": "verifier-supplied-root-required",
+    "imprintAlgorithm": "sha256",
+    "imprintHex": "914b3e7a151552abd9a467c15440f7f719c699d5577a24438e6e98f7c172a821",
+    "policyOid": "tsa_policy1",
+    "serialNumber": "0x06848D97",
+    "authorityTime": "Jul 27 05:28:43 2026 GMT",
+    "certificateValidationTime": "Jul 27 05:28:43 2026 GMT",
+    "revocationStatus": "not-checked",
+    "signerCertificateSha256": "32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",
+    "signerSubject": "O=Free TSA\nOU=TSA\ndescription=This certificate digitally signs documents and time stamp requests made using the freetsa.org online services\nCN=www.freetsa.org\nemailAddress=busilezas@mailbox.org\nL=Wuerzburg\nC=DE\nST=Bayern",
+    "signerIssuer": "O=Free TSA\nOU=Root CA\nCN=www.freetsa.org\nemailAddress=busilezas@gmail.com\nL=Wuerzburg\nST=Bayern\nC=DE",
+    "verifier": "openssl-ts",
+    "verifierOutput": "Verification: OK"
+  },
+  "claim": "signed commitment with RFC 3161 time assertion under verifier-supplied trust"
+}

@@ -129,3 +129,30 @@ This arc slice requires all three evidence surfaces:
 - Tampering with commitment, signature metadata, key class, timestamp receipt,
   INFER parameters, or retained output fails closed.
 - S0–S3 release gates remain green.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S4 suite: 6 passed, 0 failed.
+- Full release gate: 70 passed, 0 failed; all S0–S3 gates and conformance
+  controls remained green.
+- A self-contained packet binds a verified four-record journal commitment,
+  ordered INFER pins, Ed25519 key identity, and an honest software
+  key-possession-only class under `SCOPA-COMMITMENT-SIGNATURE-v1`.
+- Each packet pin is referenced exactly once by a sealed `INFER` journal
+  record. Both retained results replay offline without a provider call.
+- A fresh process verified the packet without the signing private key or
+  original workflow.
+- The external FreeTSA receipt verified its nonce, message imprint, token
+  signature, actual CMS signer certificate, relying-party-pinned signer
+  fingerprint, and caller-supplied trust chain at the authority time.
+- Revocation remains explicitly `not-checked`; the packet makes no
+  long-term-validation claim.
+- Independent `gpt-5.6-terra` review first issued `HOLD` on INFER linkage and
+  timestamp-authority policy. After remediation, its fresh retest returned
+  `ACCEPT` with no blockers and independently passed the 70-test release gate.
+- Evidence: `notes/S4/`, `runs/S4/`, and `evidence/S4/`.
+- Non-goals remained intact. No post-quantum implementation, CASE/UCO export,
+  npm publication, or public release occurred.
+- S5 remains deferred because no external CASE consumer has been identified.
