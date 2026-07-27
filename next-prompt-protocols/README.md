@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `9191256`
+Current commit reference: `ce763f1`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `distribution`
-Advances contracts: `DS1, DS2, DS3`
+Active protocol module: `adapter-host`
+Advances contracts: `AH1, AH2, AH3`
 
 ## Slice Class
 
@@ -97,13 +97,14 @@ Read in this order:
 3. `macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `role-context.md`
 5. `phases/phase-4/README.md`
-6. `active/2026-07-27-S6-installable-developer-surface.md`
-7. `completed/2026-07-26-S5-interop-export.md`
-8. `completed/2026-07-26-S4-signing-and-anchoring.md`
-9. `completed/2026-07-26-S3-legibility.md`
-10. `completed/2026-07-26-S2-enforcement-loop.md`
-11. `completed/2026-07-26-S0-conformance-harness.md`
-12. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-27-S7-model-neutral-adapter-bridge.md`
+7. `completed/2026-07-27-S6-installable-developer-surface.md`
+8. `completed/2026-07-26-S5-interop-export.md`
+9. `completed/2026-07-26-S4-signing-and-anchoring.md`
+10. `completed/2026-07-26-S3-legibility.md`
+11. `completed/2026-07-26-S2-enforcement-loop.md`
+12. `completed/2026-07-26-S0-conformance-harness.md`
+13. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -137,11 +138,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Create a locally packable SCOPA distribution with one `scopa` CLI that can
-> initialize a clean repository, report orientation and stop state, run declared
-> checks through the existing enforcement surface, and verify retained evidence.
-> Prove it by installing the packed artifact into a fresh fixture repository
-> that contains no SCOPA source.
+> Expose the trusted SCOPA host through a model-neutral bridge suitable for
+> headless coding agents. Prove with a deterministic fake agent that reads,
+> allowed mutations, denied mutations, and stop-state checks cross only the
+> bridge, while every request, agent/CLI identity, tool outcome, effect, and
+> terminal state is captured in a closed structured transcript.
 
 ## Behavior rules
 
@@ -159,16 +160,16 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 These protocols are specific to:
 
-- `packages/cli/**`
+- `packages/adapter-host/**`
 - `packages/conformance/**`
-- `fixtures/S6/**`
+- `fixtures/S7/**`
 - `package.json`
 - `package-lock.json`
 - `README.md`
 - `next-prompt-protocols/**`
-- `notes/S6/**`
-- `runs/S6/**`
-- `evidence/S6/**`
+- `notes/S7/**`
+- `runs/S7/**`
+- `evidence/S7/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -177,4 +178,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-4/README.md`
-- `active/2026-07-27-S6-installable-developer-surface.md`
+- `active/2026-07-27-S7-model-neutral-adapter-bridge.md`

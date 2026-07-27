@@ -1,39 +1,41 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "9191256",
+  "current_commit": "ce763f1",
   "current_phase": "phase-4-developer-preview",
-  "active_protocol": "active/2026-07-27-S6-installable-developer-surface.md",
+  "active_protocol": "active/2026-07-27-S7-model-neutral-adapter-bridge.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "distribution",
+  "active_module": "adapter-host",
   "crosses": [
+    "enforcement",
+    "agent-surface",
     "conformance"
   ],
   "advances_contracts": [
-    "DS1",
-    "DS2",
-    "DS3"
+    "AH1",
+    "AH2",
+    "AH3"
   ],
-  "active_protocol_sha256": "sha256:602ebff98f77fff52167bf77401105038944ed87c3b003c151e40c915352bcb5",
-  "active_objective": "Create a locally packable SCOPA distribution with one `scopa` CLI that can\ninitialize a clean repository, report orientation and stop state, run declared\nchecks through the existing enforcement surface, and verify retained evidence.\nProve it by installing the packed artifact into a fresh fixture repository\nthat contains no SCOPA source.",
+  "active_protocol_sha256": "sha256:26b70aa8d8a903e852a984949e159ff5424fc5cab2838af2211bc3dbcda81ef5",
+  "active_objective": "Expose the trusted SCOPA host through a model-neutral bridge suitable for\nheadless coding agents. Prove with a deterministic fake agent that reads,\nallowed mutations, denied mutations, and stop-state checks cross only the\nbridge, while every request, agent/CLI identity, tool outcome, effect, and\nterminal state is captured in a closed structured transcript.",
   "allowed_files": [
-    "packages/cli/**",
+    "packages/adapter-host/**",
     "packages/conformance/**",
-    "fixtures/S6/**",
+    "fixtures/S7/**",
     "package.json",
     "package-lock.json",
     "README.md",
     "next-prompt-protocols/**",
-    "notes/S6/**",
-    "runs/S6/**",
-    "evidence/S6/**"
+    "notes/S7/**",
+    "runs/S7/**",
+    "evidence/S7/**"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s6",
-    "package_consumer": "install npm pack output into a fresh temporary repository and invoke its local scopa binary",
+    "fast_slice_local": "npm run test:s7",
+    "fake_agent": "drive the packaged stdio bridge from a deterministic fake agent in a temporary repository",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop S6 if the local package depends on SCOPA source checkout paths, initialization overwrites existing project files, or CLI success is not represented by stable machine-readable state and exit codes."
+  "stop_condition": "Stop S7 if policy is delegated to the model, the bridge creates an unjournaled mutation path, or a known bypass is hidden behind a full-assurance claim."
 }

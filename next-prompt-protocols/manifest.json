@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "9191256",
+  "current_commit": "ce763f1",
   "current_phase": "phase-4-developer-preview",
   "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
-  "active_protocol": "active/2026-07-27-S6-installable-developer-surface.md",
-  "active_objective": "Package SCOPA behind one safe CLI and prove local-artifact installation in a fresh repository without monorepo-relative resolution.",
+  "active_protocol": "active/2026-07-27-S7-model-neutral-adapter-bridge.md",
+  "active_objective": "Expose the trusted SCOPA host through one model-neutral bridge and prove allowed, denied, and stop states with a deterministic fake agent, complete transcript, and honest bypass matrix.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-27-S6-installable-developer-surface.md",
     "completed/2026-07-26-S5-interop-export.md",
     "completed/2026-07-26-S4-signing-and-anchoring.md",
     "completed/2026-07-26-S3-legibility.md",
@@ -20,31 +21,31 @@
     "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
-    "packages/cli/**",
+    "packages/adapter-host/**",
     "packages/conformance/**",
-    "fixtures/S6/**",
+    "fixtures/S7/**",
     "package.json",
     "package-lock.json",
     "README.md",
     "next-prompt-protocols/**",
-    "notes/S6/**",
-    "runs/S6/**",
-    "evidence/S6/**"
+    "notes/S7/**",
+    "runs/S7/**",
+    "evidence/S7/**"
   ],
   "non_goals": [
-    "No Claude Code, Codex, MCP, hook, or plugin integration in S6",
-    "No change to the frozen effect taxonomy, journal encoding, enforcement semantics, signed packet, or CASE mapping",
-    "No registry lookup requirement or dependency on a published SCOPA package",
+    "No real Claude Code or Codex invocation in S7",
+    "No provider-specific policy, prompt-obedience guard, or model-based authorization decision",
+    "No native shell, patch, filesystem, subprocess, plugin, or network mutation capability exposed outside the SCOPA dispatcher",
+    "No change to the frozen effect taxonomy, journal encoding, enforcement semantics, signed packet, CASE mapping, or S6 CLI contract",
+    "No full-assurance provider claim unless native capabilities are closed or explicitly labeled",
     "No npm publication, public repository, public release, or production installation",
     "No final trademark, package-name, license, or contribution-model claim",
-    "No silent overwrite of existing project files",
-    "No shell-string command execution; preserve argv-based gate execution",
-    "No claim that an installed CLI alone makes an agent adapter conforming",
+    "No shell-string command execution or unjournaled mutation transport",
     "No queue entries outside the authorized Developer Preview Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s6",
-    "package_consumer": "install npm pack output into a fresh temporary repository and invoke its local scopa binary",
+    "fast_slice_local": "npm run test:s7",
+    "fake_agent": "drive the packaged stdio bridge from a deterministic fake agent in a temporary repository",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -526,5 +527,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S6 if the local package depends on SCOPA source checkout paths, initialization overwrites existing project files, or CLI success is not represented by stable machine-readable state and exit codes."
+  "stop_condition": "Stop S7 if policy is delegated to the model, the bridge creates an unjournaled mutation path, or a known bypass is hidden behind a full-assurance claim."
 }
