@@ -3,15 +3,17 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "3a93ee2",
+  "current_commit": "f6dc629",
   "current_phase": "phase-1-foundation",
-  "phase_scope": "Block A foundation work. Build the conformance detector before the sealed core and enforcement loop. No publication is permitted.",
+  "phase_scope": "Block A foundation work. Build the sealed deterministic core and journal under lockdown before the enforcement loop. No publication is permitted.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
-  "active_objective": "Build the replay-equivalence and untrusted-data containment harnesses before the features they guard.",
+  "active_protocol": "active/2026-07-26-S1-sealed-core.md",
+  "active_objective": "Build effect types, deterministic envelope, hash chain, append-only adapter, content-addressed blob boundary, execution loop, and ACT replay suppression under lockdown.",
   "active_class": "arc",
   "active_compound": false,
-  "completed_protocols": [],
+  "completed_protocols": [
+    "completed/2026-07-26-S0-conformance-harness.md"
+  ],
   "allowed_files": [
     ".gitignore",
     "README.md",
@@ -20,27 +22,29 @@
     "next-prompt-protocols/**",
     "packages/conformance/**",
     "packages/kernel-core/**",
+    "packages/journal/**",
     "fixtures/**",
-    "notes/S0/**",
-    "runs/S0/**",
-    "evidence/S0/**"
+    "notes/S1/**",
+    "runs/S1/**",
+    "evidence/S1/**"
   ],
   "non_goals": [
     "No npm publication or public release before S3 closes v0.1",
-    "No production agent enforcement in S0",
-    "No sealed journal implementation beyond the minimal seams required by S0 fixtures",
-    "No signing, anchoring, INFER provider integration, or CASE/UCO export",
+    "No production agent enforcement or live tool-boundary interception in S1",
+    "No slice-lock write enforcement, completion evaluator, orientation surface, or cold-resume state",
+    "No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export",
     "No effect categories outside the canonical Macro Delta and Kernel Specification",
     "No queue entries that are not sourced from the canonical Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "node --test packages/conformance/test/*.test.js",
+    "fast_slice_local": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
+    "upstream_conformance": "node --test packages/conformance/test/*.test.js",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": "..",
+  "closeout_evidence_path": null,
   "modules": {
     "conformance": {
       "root": [

@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `3a93ee2`
+Current commit reference: `f6dc629`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `conformance`
-Advances contracts: `C1, C2, C3`
+Active protocol module: `kernel-core`
+Advances contracts: `K1, K2, K3, K4, J1, J2, J3, J4, J5`
 
 ## Slice Class
 
@@ -92,8 +92,8 @@ Read in this order:
 3. `macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `role-context.md`
 5. `phases/phase-1/README.md`
-6. `active/2026-07-26-S0-conformance-harness.md`
-
+6. `active/2026-07-26-S1-sealed-core.md`
+7. `completed/2026-07-26-S0-conformance-harness.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -127,9 +127,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Build the replay-equivalence and untrusted-data containment harnesses before the
-> features they guard. The harness must fail on deliberately injected
-> non-deterministic behavior and instruction leakage, then pass on clean controls.
+> Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain
+> sealer, append-only adapter, content-addressed blob boundary, and generator
+> execution loop under lockdown. Enforce ACT replay suppression with idempotency
+> keys.
 
 ## Behavior rules
 
@@ -154,10 +155,11 @@ These protocols are specific to:
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
 - `packages/kernel-core/**`
+- `packages/journal/**`
 - `fixtures/**`
-- `notes/S0/**`
-- `runs/S0/**`
-- `evidence/S0/**`
+- `notes/S1/**`
+- `runs/S1/**`
+- `evidence/S1/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -166,4 +168,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-1/README.md`
-- `active/2026-07-26-S0-conformance-harness.md`
+- `active/2026-07-26-S1-sealed-core.md`

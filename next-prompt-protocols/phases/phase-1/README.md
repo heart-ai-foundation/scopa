@@ -1,17 +1,18 @@
 # Phase 1 Foundation
 
-Current commit reference: `3a93ee2`
-Current active protocol: `active/2026-07-26-S0-conformance-harness.md`
+Current commit reference: `f6dc629`
+Current active protocol: `active/2026-07-26-S1-sealed-core.md`
 
 ## Scope
 
-Block A foundation work. Build the conformance detector before the sealed core and enforcement loop. No publication is permitted.
+Block A foundation work. Build the sealed deterministic core and journal under lockdown before the enforcement loop. No publication is permitted.
 
 ## Active objective
 
-> Build the replay-equivalence and untrusted-data containment harnesses before the
-> features they guard. The harness must fail on deliberately injected
-> non-deterministic behavior and instruction leakage, then pass on clean controls.
+> Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain
+> sealer, append-only adapter, content-addressed blob boundary, and generator
+> execution loop under lockdown. Enforce ACT replay suppression with idempotency
+> keys.
 
 ## Files in play
 
@@ -22,17 +23,18 @@ Block A foundation work. Build the conformance detector before the sealed core a
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
 - `packages/kernel-core/**`
+- `packages/journal/**`
 - `fixtures/**`
-- `notes/S0/**`
-- `runs/S0/**`
-- `evidence/S0/**`
+- `notes/S1/**`
+- `runs/S1/**`
+- `evidence/S1/**`
 
 ## Non-goals
 
 - No npm publication or public release before S3 closes v0.1
-- No production agent enforcement in S0
-- No sealed journal implementation beyond the minimal seams required by S0 fixtures
-- No signing, anchoring, INFER provider integration, or CASE/UCO export
+- No production agent enforcement or live tool-boundary interception in S1
+- No slice-lock write enforcement, completion evaluator, orientation surface, or cold-resume state
+- No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export
 - No effect categories outside the canonical Macro Delta and Kernel Specification
 - No queue entries that are not sourced from the canonical Macro Delta
 
@@ -43,12 +45,19 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 ## Verification
 
 - `node --test packages/conformance/test/*.test.js`
+- `node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js`
 - `npm test`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- Injected divergence and instruction leakage are observed failing for the
-  expected reasons.
-- Clean controls pass.
-- The release gate invokes both harnesses.
+- The same workflow encoded and sealed by two independent runtimes produces
+  byte-identical records.
+- Hash-chain verification accepts the clean chain and rejects mutation and
+  truncation.
+- The append-only file adapter satisfies the persistence-port suite.
+- Content-addressed blobs are stored outside the chain and resolve by digest.
+- Schema and kernel versions are pinned in every record.
+- A repeated ACT idempotency key is suppressed before a second execution.
+- The generator core passes the S0 replay-equivalence and escaped-effect gates
+  under lockdown.
 
 ## Handoff
 

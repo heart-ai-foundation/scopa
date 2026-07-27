@@ -1,22 +1,28 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "3a93ee2",
+  "current_commit": "f6dc629",
   "current_phase": "phase-1-foundation",
-  "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
+  "active_protocol": "active/2026-07-26-S1-sealed-core.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "conformance",
+  "active_module": "kernel-core",
   "crosses": [
-    "kernel-core"
+    "journal"
   ],
   "advances_contracts": [
-    "C1",
-    "C2",
-    "C3"
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J5"
   ],
-  "active_protocol_sha256": "sha256:2fa56676e12a1a3383ec17d9c21a208644d645d6b1e8f727cfb6d8590b31d658",
-  "active_objective": "Build the replay-equivalence and untrusted-data containment harnesses before the\nfeatures they guard. The harness must fail on deliberately injected\nnon-deterministic behavior and instruction leakage, then pass on clean controls.",
+  "active_protocol_sha256": "sha256:c0a9b109dcb6c32c9eecfbb775a7f3b462da4d46d6d3f27aa96b3706f13597a9",
+  "active_objective": "Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain\nsealer, append-only adapter, content-addressed blob boundary, and generator\nexecution loop under lockdown. Enforce ACT replay suppression with idempotency\nkeys.",
   "allowed_files": [
     ".gitignore",
     "README.md",
@@ -25,13 +31,15 @@
     "next-prompt-protocols/**",
     "packages/conformance/**",
     "packages/kernel-core/**",
+    "packages/journal/**",
     "fixtures/**",
-    "notes/S0/**",
-    "runs/S0/**",
-    "evidence/S0/**"
+    "notes/S1/**",
+    "runs/S1/**",
+    "evidence/S1/**"
   ],
   "verification": {
-    "fast_slice_local": "node --test packages/conformance/test/*.test.js",
+    "fast_slice_local": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
+    "upstream_conformance": "node --test packages/conformance/test/*.test.js",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
