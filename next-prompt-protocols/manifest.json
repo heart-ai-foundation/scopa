@@ -326,7 +326,7 @@
         {
           "id": "I1",
           "statement": "Effect categories map to CASE Action, Identity, Tool, and Relationship.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Mapping fixtures and review",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S5"
@@ -334,7 +334,7 @@
         {
           "id": "I2",
           "statement": "Export validates against the CASE context.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "External CASE conformance verifier",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S5"

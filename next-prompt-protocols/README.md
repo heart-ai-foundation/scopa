@@ -43,8 +43,8 @@ Module progress:
 - agent-surface: 3/3 (100%)
 - legibility: 4/4 (100%)
 - depth: 4/4 (100%)
-- interop: 0/2 (0%)
-Arc total: 27/29 (93%)
+- interop: 2/2 (100%)
+Arc total: 29/29 (100%)
 
 ## Descriptor Rung Stop Rule
 

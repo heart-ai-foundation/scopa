@@ -14,7 +14,7 @@
     "I1",
     "I2"
   ],
-  "active_protocol_sha256": "sha256:2d366cb9c5c461820eeeddcf125bcd83d8a3e28f40090f54fd1c803a49082205",
+  "active_protocol_sha256": "sha256:a9ab26fb499549ab2a29ad22470af51f72530f1b280e75822c96bb3384b9313f",
   "active_objective": "Export a verified SCOPA packet as deterministic CASE/UCO 1.4.0 JSON-LD without\ndistorting the frozen effect categories or upgrading SCOPA's evidence claims.\nPreserve the exact native packet for byte-identical round trip, validate the\ngraph with the independent CASE validator, and make its meaning legible to a\nreviewer unfamiliar with SCOPA.",
   "allowed_files": [
     ".github/workflows/**",

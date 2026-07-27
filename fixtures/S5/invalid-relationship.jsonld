@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "kb": "https://heart-ai.foundation/scopa/case/kb/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:relationship-00000000-0000-4000-8000-000000000003",
+      "@type": "uco-core:Relationship",
+      "uco-core:isDirectional": true
+    }
+  ]
+}

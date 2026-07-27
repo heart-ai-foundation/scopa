@@ -16,13 +16,19 @@
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
     "test:s4": "node packages/conformance/src/run-node-tests.js packages/depth/test/depth.test.js",
+    "test:s5": "node packages/conformance/src/run-node-tests.js packages/interop/test/interop.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",
     "probe:act-suppression": "node packages/kernel-core/src/act-suppression-probe.js",
     "probe:s2": "node packages/enforcement/src/live-probe.js",
     "probe:s3": "node packages/legibility/src/live-observe-probe.js",
-    "probe:s4": "node packages/depth/src/acceptance-probe.js"
+    "probe:s4": "node packages/depth/src/acceptance-probe.js",
+    "export:case:s5": "node packages/interop/src/export-cli.js",
+    "verify:case:s5": "node packages/interop/src/verify-case-cli.js",
+    "verify:case:s5:artifact": "node packages/interop/src/verify-case-cli.js --export evidence/S5/scopa-case-export.jsonld --timestamp-roots fixtures/S4/freetsa-root.pem --require-timestamp --timestamp-authority-id freetsa.org-2026 --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",
+    "validate:case:s5": "node packages/interop/src/case-validator-cli.js --export evidence/S5/scopa-case-export.jsonld",
+    "validate:case:s5:negative": "node packages/interop/src/case-validator-cli.js --export fixtures/S5/invalid-relationship.jsonld --expect-invalid"
   },
   "engines": {
     "node": ">=22"

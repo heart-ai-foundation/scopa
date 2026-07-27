@@ -135,3 +135,42 @@ This arc slice requires all three evidence surfaces:
   recorded it, what was signed, and the limits of the evidence without a
   separate translation guide.
 - S0–S4 release gates remain green.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S5 suite: 6 passed, 0 failed.
+- Full release gate: 76 passed, 0 failed; all S0–S4 gates and injected
+  conformance controls remained green.
+- The deterministic 33,872-byte CASE/UCO 1.4.0 artifact contains 13 nodes,
+  including four Actions and five directional Relationships, and regenerates
+  byte-identically at SHA-256
+  `cb54ceaf93247517455547404fb68ca95aa9883c123a163e425d27af38d3fbc7`.
+- Pinned `case-utils 0.17.0` returned `Conforms: True` under default strict
+  severity handling. The malformed Relationship control returned
+  `Conforms: False` with missing source and target violations.
+- All ten frozen effect categories have exact generic UCO Action mappings with
+  unique original-category tags and no ontology-driven category distortion.
+- Exact native packet bytes recovered at SHA-256
+  `f30c9fa735b0a9f76de71eeefa135f6fbf5967b62d36666aa16771cf0653bfcd`
+  and passed S4 verification with required FreeTSA authority and signer policy.
+- CASE Identity, Tool, and Relationship semantics identify only a
+  cryptographic key, the recording runtime, and graph edges. The graph and
+  documentation explicitly deny human, device, provider, and
+  cryptography-by-CASE implications.
+- Independent `gpt-5.6-terra` review issued two successive `HOLD` verdicts on
+  direct-verifier container normalization: first an enumerable `__proto__`
+  omission, then a hostile Array-prototype method override. Both were fixed
+  with descriptor/prototype validation, regression coverage, and verification
+  over a fresh normalized clone.
+- A third fresh outside retest reproduced both prior attacks and adjacent
+  hostile-container cases, observed zero hostile method calls, reran every
+  acceptance gate, and returned `ACCEPT`.
+- CI installs the pinned independent consumer, runs the accumulated release
+  gate, verifies the committed native packet under the FreeTSA trust policy,
+  and executes both CASE controls.
+- Evidence: `notes/S5/`, `runs/S5/`, and `evidence/S5/`.
+- Non-goals remained intact. No CASE 1.5 claim, effect-category change, lossy
+  replacement, npm publication, public release, or new queue entry occurred.
+- S5 closes the canonical S0–S5 Macro Delta queue.

@@ -1,0 +1,2 @@
+# Independent CASE/UCO conformance consumer used by the S5 release gate.
+case-utils==0.17.0

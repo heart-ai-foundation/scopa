@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.case-export-verification.v1",
+  "ok": true,
+  "caseOntologyVersion": "1.4.0",
+  "caseUtilsVersion": "0.17.0",
+  "nativePacketSha256": "f30c9fa735b0a9f76de71eeefa135f6fbf5967b62d36666aa16771cf0653bfcd",
+  "graph": {
+    "nodeCount": 13,
+    "actionCount": 4,
+    "relationshipCount": 5
+  },
+  "packet": {
+    "chainLength": 4,
+    "chainRootHash": "7047b7552a8026ee2c12530a51e0f500042b82e8637c01dc3bf17bce3a18c565",
+    "signatureAlgorithm": "ed25519",
+    "signatureKeyId": "2b7bec8e517096d088424c0d6983ab96306836abb92115b355565f5febf90cde",
+    "timestampAuthorityId": "freetsa.org-2026"
+  },
+  "exactNativePacketRecovered": true,
+  "claim": "CASE/UCO graph structure plus exact native SCOPA packet recovery; CASE validation does not replace SCOPA cryptographic verification"
+}

@@ -14,11 +14,11 @@ reference implementation.
 ## Status
 
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
-S2 Enforcement Loop, S3 Legibility, and S4 Signing and Anchoring are complete.
-S5 Interop Export is active under the canonical Macro Delta after preflighting
-the CASE community's external validator against its bundled CASE 1.4.0
-ontology. The package remains private; publication requires a separate
-principal request.
+S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, and S5 Interop
+Export are complete. The canonical Macro Delta queue is complete. S5's
+deterministic CASE/UCO 1.4.0 JSON-LD artifact passes the independent CASE
+community validator and losslessly recovers the signed S4 packet. The package
+remains private; publication requires a separate principal request.
 
 Start with:
 
@@ -26,7 +26,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-26-S5-interop-export.md`
+5. `next-prompt-protocols/completed/2026-07-26-S5-interop-export.md`
 
 ## Sealed core
 
@@ -129,6 +129,24 @@ requested alias, not an immutable snapshot; a content-addressed deterministic
 fixture exercises the immutable-snapshot pin. Neither is provider-signed
 provenance.
 
+## CASE/UCO interoperability
+
+S5 projects a verified S4 evidence packet into a deterministic CASE/UCO 1.4.0
+graph:
+
+- each journal record becomes a UCO Action carrying its exact frozen SCOPA
+  category and effect kind;
+- Tool, cryptographic-key Identity, and directional Relationship nodes make
+  the recording structure legible without implying a human performer,
+  provider attestation, or device identity; and
+- the exact native packet is embedded with a SHA-256 digest for byte-identical
+  recovery and independent S4 verification.
+
+The graph is checked by pinned `case-utils 0.17.0` against its bundled
+`case-1.4.0` ontology. CASE validation checks graph conformance; it does not
+verify SCOPA cryptography or provenance. See `packages/interop/README.md` for
+both required verification paths.
+
 Run the gates:
 
 ```sh
@@ -137,11 +155,13 @@ npm run test:s1
 npm run test:s2
 npm run test:s3
 npm run test:s4
+npm run test:s5
 npm run test:cross-runtime
 npm run test:lockdown
 npm run probe:s2
 npm run probe:s3
 npm run probe:s4
+npm run validate:case:s5
 npm run protocol:check
 ```
 

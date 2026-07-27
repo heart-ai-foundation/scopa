@@ -1,0 +1,11 @@
+{
+  "schema": "scopa.external-case-validation.v1",
+  "ok": true,
+  "validator": "case_validate",
+  "caseUtilsVersion": "0.17.0",
+  "caseOntologyVersion": "1.4.0",
+  "strictSeverityHandling": true,
+  "validatorExitCode": 0,
+  "expectedConforms": true,
+  "conforms": true
+}
