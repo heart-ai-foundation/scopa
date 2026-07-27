@@ -6,7 +6,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Heart-AI-Foundation/scopa.git"
+    "url": "https://github.com/heart-ai-foundation/scopa.git"
   },
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
