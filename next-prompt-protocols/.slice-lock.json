@@ -1,40 +1,42 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "f36950a",
+  "current_commit": "8be70bd",
   "current_phase": "phase-4-developer-preview",
-  "active_protocol": "active/2026-07-27-S8-claude-code-headless-integration.md",
+  "active_protocol": "active/2026-07-27-S9-codex-headless-integration-and-parity.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "claude-adapter",
+  "active_module": "codex-adapter",
   "crosses": [
     "adapter-host",
+    "claude-adapter",
     "enforcement",
     "conformance"
   ],
   "advances_contracts": [
-    "CL1",
-    "CL2",
-    "CL3"
+    "CX1",
+    "CX2",
+    "CX3"
   ],
-  "active_protocol_sha256": "sha256:e1421d5dac1ad5071799b8169557bfe75892c0ec0a506b30fdd6e047879b93e4",
-  "active_objective": "Run Claude Code non-interactively against live SCOPA fixtures with an explicit,\nreproducible MCP and tool surface. Prove that Claude completes an allowed task,\nreceives a correction-bearing scope denial, cannot assert completion over a\nfailing gate, and can orient after a cold adapter restart. Publish the raw and\nnormalized transcripts plus an assurance matrix that preserves every route\nwhich could not be closed.",
+  "active_protocol_sha256": "sha256:bb8d451247172f655470c34663ba9ecdb5a04a270d1c3691134c04845c997fdf",
+  "active_objective": "Run a pinned Codex CLI non-interactively through the installed S7 bridge in a\nfresh fixture repository. Reproduce S8's allowed-write, blocked-scope,\nfalse-green-refusal, and cold-restart outcomes, then publish a machine-readable\nClaude/Codex parity report and retain every provider-specific assurance gap.",
   "allowed_files": [
-    "packages/integrations/claude/**",
-    "fixtures/S8/**",
+    "packages/integrations/codex/**",
+    "fixtures/S9/**",
     "package.json",
     "package-lock.json",
     "README.md",
     "next-prompt-protocols/**",
-    "notes/S8/**",
-    "runs/S8/**",
-    "evidence/S8/**"
+    "notes/S9/**",
+    "runs/S9/**",
+    "evidence/S9/**"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s8",
-    "live_claude": "npm run probe:s8:live",
+    "fast_deterministic": "npm run test:s9",
+    "live_codex": "npm run probe:s9:live",
+    "parity": "npm run verify:s9:parity",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop S8 if Claude retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, or raw evidence cannot distinguish SCOPA enforcement from prompt cooperation."
+  "stop_condition": "Stop S9 if Codex retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, Claude/Codex differences are hidden, or evidence cannot distinguish SCOPA enforcement from prompt cooperation."
 }

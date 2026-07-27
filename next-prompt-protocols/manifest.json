@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "f36950a",
+  "current_commit": "8be70bd",
   "current_phase": "phase-4-developer-preview",
   "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
-  "active_protocol": "active/2026-07-27-S8-claude-code-headless-integration.md",
-  "active_objective": "Run Claude Code headlessly with only the explicit SCOPA MCP surface, prove allowed work, blocked scope, refused false-green completion, and cold restart, then publish raw evidence and honest partial/full assurance.",
+  "active_protocol": "active/2026-07-27-S9-codex-headless-integration-and-parity.md",
+  "active_objective": "Run Codex headlessly through the shared bridge, prove the same four governed outcomes as Claude, publish an explicit parity result, and retain every provider-specific gap as partial assurance.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-27-S8-claude-code-headless-integration.md",
     "completed/2026-07-27-S7-model-neutral-adapter-bridge.md",
     "completed/2026-07-27-S6-installable-developer-surface.md",
     "completed/2026-07-26-S5-interop-export.md",
@@ -22,31 +23,31 @@
     "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
-    "packages/integrations/claude/**",
-    "fixtures/S8/**",
+    "packages/integrations/codex/**",
+    "fixtures/S9/**",
     "package.json",
     "package-lock.json",
     "README.md",
     "next-prompt-protocols/**",
-    "notes/S8/**",
-    "runs/S8/**",
-    "evidence/S8/**"
+    "notes/S9/**",
+    "runs/S9/**",
+    "evidence/S9/**"
   ],
   "non_goals": [
-    "No dangerous permission bypass, built-in mutation tool, Chrome, IDE, plugin, hook, skill, unapproved MCP source, or unbounded additional directory",
-    "No reliance on Claude prompt obedience for scope or completion enforcement",
+    "No dangerous sandbox or approval bypass, unbounded workspace, or claim that a Codex-native mutation route is SCOPA-mediated",
+    "No reliance on Codex prompt obedience for scope or completion enforcement",
     "No mutation of the SCOPA source checkout by a live model",
     "No provider-attested identity or immutable-model-snapshot claim",
-    "No full-assurance claim while provider network, admin policy, or another native route remains active and uncontrolled",
-    "No Codex adapter implementation; Codex may perform read-only outside review",
-    "No change to S0-S7 semantics or the frozen effect taxonomy",
+    "No full-assurance claim while native shell, patch, process, network, managed policy, plugin, hook, skill, session, or another route remains active and uncontrolled",
+    "No change to Claude adapter behavior, S0-S8 semantics, or the frozen effect taxonomy",
     "No npm publication, public repository, public release, or production installation",
     "No final trademark, package-name, license, or contribution-model claim",
     "No queue entries outside the authorized Developer Preview Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s8",
-    "live_claude": "npm run probe:s8:live",
+    "fast_deterministic": "npm run test:s9",
+    "live_codex": "npm run probe:s9:live",
+    "parity": "npm run verify:s9:parity",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -429,24 +430,24 @@
         {
           "id": "CL1",
           "statement": "Headless Claude runs with an explicit, reproducible tool and MCP surface.",
-          "status": "open",
-          "verifies_via": "Pinned CLI receipt and strict headless launch configuration",
+          "status": "satisfied",
+          "verifies_via": "Pinned Claude Code 2.1.170 installed-package launcher, strict MCP surface, exact initialization inventory, and deterministic profile tests",
           "discovered_on": "2026-07-27",
           "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
         },
         {
           "id": "CL2",
           "statement": "Claude live fixtures prove blocked scope, refused false-green completion, and cold resume.",
-          "status": "open",
-          "verifies_via": "Headless clean and fault sessions with structured transcripts",
+          "status": "satisfied",
+          "verifies_via": "Live allowed-write, scope-denial, false-green, and fresh-process cold-resume sessions with normalized structured transcripts",
           "discovered_on": "2026-07-27",
           "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
         },
         {
           "id": "CL3",
           "statement": "The Claude adapter publishes evidence-derived assurance and known bypasses.",
-          "status": "open",
-          "verifies_via": "Capability matrix, bypass controls, and non-Claude outside review",
+          "status": "satisfied",
+          "verifies_via": "Evidence-derived partial-assurance matrix, committed redacted proof, exact private raw proof, and independent Codex ACCEPT review",
           "discovered_on": "2026-07-27",
           "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
         }
@@ -528,5 +529,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S8 if Claude retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, or raw evidence cannot distinguish SCOPA enforcement from prompt cooperation."
+  "stop_condition": "Stop S9 if Codex retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, Claude/Codex differences are hidden, or evidence cannot distinguish SCOPA enforcement from prompt cooperation."
 }

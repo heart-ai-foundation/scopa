@@ -17,8 +17,9 @@ SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
 S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, S5 Interop
 Export, and S6 Installable Developer Surface are complete. The authorized
 Developer Preview Macro Delta has also completed S7's model-neutral MCP bridge
-and is actively validating S8's separately evidenced Claude Code integration;
-Codex parity follows in S9. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
+and S8's separately evidenced Claude Code integration. S9 is actively
+validating Codex headless integration and cross-agent parity. S5's
+deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
 the independent CASE community validator and losslessly recovers the signed
 S4 packet. The package and repository remain private; publication requires a
 separate principal request.
@@ -29,7 +30,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-27-S8-claude-code-headless-integration.md`
+5. `next-prompt-protocols/active/2026-07-27-S9-codex-headless-integration-and-parity.md`
 
 ## Developer CLI
 

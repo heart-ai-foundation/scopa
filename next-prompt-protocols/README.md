@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f36950a`
+Current commit reference: `8be70bd`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `claude-adapter`
-Advances contracts: `CL1, CL2, CL3`
+Active protocol module: `codex-adapter`
+Advances contracts: `CX1, CX2, CX3`
 
 ## Slice Class
 
@@ -46,10 +46,10 @@ Module progress:
 - interop: 2/2 (100%)
 - distribution: 3/3 (100%)
 - adapter-host: 3/3 (100%)
-- claude-adapter: 0/3 (0%)
+- claude-adapter: 3/3 (100%)
 - codex-adapter: 0/3 (0%)
 - release-readiness: 0/3 (0%)
-Arc total: 35/44 (80%)
+Arc total: 38/44 (86%)
 
 ## Descriptor Rung Stop Rule
 
@@ -97,15 +97,16 @@ Read in this order:
 3. `macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `role-context.md`
 5. `phases/phase-4/README.md`
-6. `active/2026-07-27-S8-claude-code-headless-integration.md`
-7. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-8. `completed/2026-07-27-S6-installable-developer-surface.md`
-9. `completed/2026-07-26-S5-interop-export.md`
-10. `completed/2026-07-26-S4-signing-and-anchoring.md`
-11. `completed/2026-07-26-S3-legibility.md`
-12. `completed/2026-07-26-S2-enforcement-loop.md`
-13. `completed/2026-07-26-S0-conformance-harness.md`
-14. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-27-S9-codex-headless-integration-and-parity.md`
+7. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+8. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+9. `completed/2026-07-27-S6-installable-developer-surface.md`
+10. `completed/2026-07-26-S5-interop-export.md`
+11. `completed/2026-07-26-S4-signing-and-anchoring.md`
+12. `completed/2026-07-26-S3-legibility.md`
+13. `completed/2026-07-26-S2-enforcement-loop.md`
+14. `completed/2026-07-26-S0-conformance-harness.md`
+15. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -139,12 +140,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Run Claude Code non-interactively against live SCOPA fixtures with an explicit,
-> reproducible MCP and tool surface. Prove that Claude completes an allowed task,
-> receives a correction-bearing scope denial, cannot assert completion over a
-> failing gate, and can orient after a cold adapter restart. Publish the raw and
-> normalized transcripts plus an assurance matrix that preserves every route
-> which could not be closed.
+> Run a pinned Codex CLI non-interactively through the installed S7 bridge in a
+> fresh fixture repository. Reproduce S8's allowed-write, blocked-scope,
+> false-green-refusal, and cold-restart outcomes, then publish a machine-readable
+> Claude/Codex parity report and retain every provider-specific assurance gap.
 
 ## Behavior rules
 
@@ -162,15 +161,15 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 These protocols are specific to:
 
-- `packages/integrations/claude/**`
-- `fixtures/S8/**`
+- `packages/integrations/codex/**`
+- `fixtures/S9/**`
 - `package.json`
 - `package-lock.json`
 - `README.md`
 - `next-prompt-protocols/**`
-- `notes/S8/**`
-- `runs/S8/**`
-- `evidence/S8/**`
+- `notes/S9/**`
+- `runs/S9/**`
+- `evidence/S9/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -179,4 +178,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-4/README.md`
-- `active/2026-07-27-S8-claude-code-headless-integration.md`
+- `active/2026-07-27-S9-codex-headless-integration-and-parity.md`
