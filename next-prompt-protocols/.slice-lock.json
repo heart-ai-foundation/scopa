@@ -15,7 +15,7 @@
     "DS2",
     "DS3"
   ],
-  "active_protocol_sha256": "sha256:8e1cb3d610b55f015517e9ab6236c9682110a6f1a6c29138444582aa86034d5d",
+  "active_protocol_sha256": "sha256:602ebff98f77fff52167bf77401105038944ed87c3b003c151e40c915352bcb5",
   "active_objective": "Create a locally packable SCOPA distribution with one `scopa` CLI that can\ninitialize a clean repository, report orientation and stop state, run declared\nchecks through the existing enforcement surface, and verify retained evidence.\nProve it by installing the packed artifact into a fresh fixture repository\nthat contains no SCOPA source.",
   "allowed_files": [
     "packages/cli/**",

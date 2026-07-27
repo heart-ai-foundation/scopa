@@ -44,12 +44,12 @@ Module progress:
 - legibility: 4/4 (100%)
 - depth: 4/4 (100%)
 - interop: 2/2 (100%)
-- distribution: 0/3 (0%)
+- distribution: 3/3 (100%)
 - adapter-host: 0/3 (0%)
 - claude-adapter: 0/3 (0%)
 - codex-adapter: 0/3 (0%)
 - release-readiness: 0/3 (0%)
-Arc total: 29/44 (66%)
+Arc total: 32/44 (73%)
 
 ## Descriptor Rung Stop Rule
 

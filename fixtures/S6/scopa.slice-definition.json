@@ -1,0 +1,26 @@
+{
+  "schema": "scopa.slice-definition.v1",
+  "sliceId": "S6-clean-install",
+  "allowedPaths": [
+    "workspace/**"
+  ],
+  "amendmentPath": ".scopa/amendment.json",
+  "gates": [
+    {
+      "id": "fixture-gate",
+      "command": [
+        "node",
+        "-e",
+        "process.exit(0)"
+      ],
+      "cwd": ".",
+      "timeoutMs": 5000
+    }
+  ],
+  "nonGoals": [
+    "No writes outside workspace"
+  ],
+  "stopCondition": {
+    "kind": "all-gates-pass"
+  }
+}

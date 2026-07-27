@@ -127,3 +127,30 @@ This arc slice requires all three evidence surfaces:
   output text or an agent assertion.
 - Path, gate, and evidence errors fail closed with correction-bearing output.
 - S0-S5 release gates remain green.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S6 suite: 7 passed, 0 failed.
+- Full release gate: 83 passed, 0 failed; all accumulated tests and clean/fault
+  conformance probes retained their expected outcomes.
+- The root package exposes one `scopa` binary and an explicit four-rule file
+  allowlist. Its 90-entry dry-run manifest contained no governance, evidence,
+  fixture, key, log, or temporary-artifact surface.
+- A real tarball installed into a fresh temporary consumer. Its binary
+  resolved inside consumer `node_modules` and completed `init`, `status`,
+  `check`, `run`, and retained-packet `verify` without resolving into the
+  SCOPA checkout.
+- Initialization is byte-idempotent for unchanged state, refuses conflicting
+  state, rejects an aliased `.scopa` directory, and does not create control
+  state from a read command.
+- A gate exiting 7 produced observable blocked status and mandatory check exit
+  4; output text or agent assertion could not convert it to success.
+- An allowed file mutation completed through the trusted reference host, while
+  a repository-escape request was denied before execution.
+- The retained S4 FreeTSA packet passed verification only with caller-supplied
+  authority, signer fingerprint, and root policy.
+- Evidence: `notes/S6/`, `runs/S6/`, and `evidence/S6/`.
+- Non-goals remained intact. No agent integration, registry lookup, npm
+  publication, public release, license choice, or semantic change occurred.

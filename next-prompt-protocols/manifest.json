@@ -355,7 +355,7 @@
         {
           "id": "DS1",
           "statement": "A local SCOPA package installs in a clean repository without monorepo-relative resolution.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Packed-artifact installation in a fresh temporary repository",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S6"
@@ -363,7 +363,7 @@
         {
           "id": "DS2",
           "statement": "The scopa CLI exposes init, status, check, run, and verify with stable machine-readable results and exit codes.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "CLI contract tests over clean and failing fixtures",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S6"
@@ -371,7 +371,7 @@
         {
           "id": "DS3",
           "statement": "Initialization is idempotent and refuses destructive overwrite of existing project files.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Repeated initialization and conflicting-file denial fixtures",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S6"

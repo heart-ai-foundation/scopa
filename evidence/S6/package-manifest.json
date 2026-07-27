@@ -1,0 +1,37 @@
+{
+  "schema": "scopa.package-manifest-evidence.v1",
+  "package": "@heart-ai-foundation/scopa",
+  "version": "0.0.0",
+  "private": true,
+  "entryCount": 90,
+  "packedBytes": 67513,
+  "unpackedBytes": 265812,
+  "sha1": "cedb4729e02f9938274e197c0ed2c2cc38b2aff0",
+  "integrity": "sha512-CSEyM2zbc+jPYWUY0ncnXCNRNlp/ZtDmfOlKS1Y3uip7iOWkkrTtE+7GUtcdaBrZCNBiLD/e1jnq3ay7qlyjZQ==",
+  "allowlist": [
+    "README.md",
+    "packages/*/README.md",
+    "packages/*/package.json",
+    "packages/*/src/**"
+  ],
+  "requiredEntries": [
+    "packages/cli/src/cli.js",
+    "packages/enforcement/src/lock.js"
+  ],
+  "forbiddenPrefixes": [
+    ".github/",
+    "evidence/",
+    "fixtures/",
+    "next-prompt-protocols/",
+    "notes/",
+    "runs/",
+    "spec/"
+  ],
+  "forbiddenSuffixes": [
+    ".log",
+    ".pem",
+    ".tmp"
+  ],
+  "policyCheck": "passed",
+  "cleanInstall": "passed"
+}

@@ -31,6 +31,35 @@ Start with:
 4. `next-prompt-protocols/role-context.md`
 5. `next-prompt-protocols/active/2026-07-27-S6-installable-developer-surface.md`
 
+## Developer CLI
+
+S6 packages the runtime behind one `scopa` command. During the private
+developer preview, build and install a local tarball rather than resolving a
+registry package:
+
+```sh
+npm pack
+npm install --ignore-scripts /path/to/heart-ai-foundation-scopa-0.0.0.tgz
+```
+
+In a repository with a closed slice definition:
+
+```sh
+scopa init --definition scopa.slice-definition.json
+scopa status
+scopa check
+scopa run --request-json \
+  '{"name":"write_file","arguments":{"path":"src/example.js","content":"ok"}}'
+scopa verify --packet evidence.json
+```
+
+Every command except `--help` returns one versioned JSON result. `status`
+observes a blocked slice without changing it; `check` exits nonzero when a
+real gate fails; and `init` is idempotent but refuses conflicting or aliased
+control state. `run` is a raw trusted-host call for local operation, not yet a
+model adapter. See `packages/cli/README.md` for its exit-code contract and
+timestamp-verification options.
+
 ## Sealed core
 
 S1 provides:
@@ -159,6 +188,7 @@ npm run test:s2
 npm run test:s3
 npm run test:s4
 npm run test:s5
+npm run test:s6
 npm run test:cross-runtime
 npm run test:lockdown
 npm run probe:s2
