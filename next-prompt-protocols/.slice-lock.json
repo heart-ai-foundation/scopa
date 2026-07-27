@@ -1,19 +1,39 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "5b861fe",
-  "current_phase": "phase-3-interop",
-  "active_protocol": null,
-  "active_class": null,
+  "current_commit": "9191256",
+  "current_phase": "phase-4-developer-preview",
+  "active_protocol": "active/2026-07-27-S6-installable-developer-surface.md",
+  "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "No active protocol. The canonical SCOPA S0-S5 Macro Delta queue is complete.",
-  "allowed_files": [],
+  "active_module": "distribution",
+  "crosses": [
+    "conformance"
+  ],
+  "advances_contracts": [
+    "DS1",
+    "DS2",
+    "DS3"
+  ],
+  "active_protocol_sha256": "sha256:8e1cb3d610b55f015517e9ab6236c9682110a6f1a6c29138444582aa86034d5d",
+  "active_objective": "Create a locally packable SCOPA distribution with one `scopa` CLI that can\ninitialize a clean repository, report orientation and stop state, run declared\nchecks through the existing enforcement surface, and verify retained evidence.\nProve it by installing the packed artifact into a fresh fixture repository\nthat contains no SCOPA source.",
+  "allowed_files": [
+    "packages/cli/**",
+    "packages/conformance/**",
+    "fixtures/S6/**",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "next-prompt-protocols/**",
+    "notes/S6/**",
+    "runs/S6/**",
+    "evidence/S6/**"
+  ],
   "verification": {
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
+    "fast_slice_local": "npm run test:s6",
+    "package_consumer": "install npm pack output into a fresh temporary repository and invoke its local scopa binary",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
   },
-  "stop_condition": "Stop: the canonical S0-S5 Macro Delta queue is complete. New work requires principal direction and a new or amended Macro Delta."
+  "stop_condition": "Stop S6 if the local package depends on SCOPA source checkout paths, initialization overwrites existing project files, or CLI success is not represented by stable machine-readable state and exit codes."
 }

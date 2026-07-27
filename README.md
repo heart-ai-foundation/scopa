@@ -15,18 +15,21 @@ reference implementation.
 
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
 S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, and S5 Interop
-Export are complete. The canonical Macro Delta queue is complete. S5's
-deterministic CASE/UCO 1.4.0 JSON-LD artifact passes the independent CASE
-community validator and losslessly recovers the signed S4 packet. The package
-remains private; publication requires a separate principal request.
+Export are complete. The authorized Developer Preview Macro Delta is now
+active at S6, which packages the proven runtime behind an installable local
+CLI before the shared adapter bridge and separately evidenced Claude Code and
+Codex integrations. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
+the independent CASE community validator and losslessly recovers the signed
+S4 packet. The package and repository remain private; publication requires a
+separate principal request.
 
 Start with:
 
 1. `next-prompt-protocols/.slice-lock.json`
 2. `next-prompt-protocols/manifest.json`
-3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
+3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/completed/2026-07-26-S5-interop-export.md`
+5. `next-prompt-protocols/active/2026-07-27-S6-installable-developer-surface.md`
 
 ## Sealed core
 

@@ -3,13 +3,13 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "5b861fe",
-  "current_phase": "phase-3-interop",
-  "phase_scope": "Block B interoperability work and the canonical S0-S5 Macro Delta queue are complete.",
-  "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": null,
-  "active_objective": "No active protocol. The canonical SCOPA S0-S5 Macro Delta queue is complete.",
-  "active_class": null,
+  "current_commit": "9191256",
+  "current_phase": "phase-4-developer-preview",
+  "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
+  "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
+  "active_protocol": "active/2026-07-27-S6-installable-developer-surface.md",
+  "active_objective": "Package SCOPA behind one safe CLI and prove local-artifact installation in a fresh repository without monorepo-relative resolution.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
     "completed/2026-07-26-S5-interop-export.md",
@@ -19,22 +19,34 @@
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [],
+  "allowed_files": [
+    "packages/cli/**",
+    "packages/conformance/**",
+    "fixtures/S6/**",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "next-prompt-protocols/**",
+    "notes/S6/**",
+    "runs/S6/**",
+    "evidence/S6/**"
+  ],
   "non_goals": [
-    "No claim that software keys are hardware-backed, device-bound, or human-identity-bound",
-    "No mandatory signing or timestamp service for ordinary local execution",
-    "No post-quantum signature implementation; retain algorithm agility",
-    "No provider re-call during INFER replay or provider-signed claim without provider evidence",
-    "No CASE 1.5.0 conformance claim while the pinned validator supports through CASE 1.4.0",
-    "No claim that CASE validation verifies SCOPA cryptography or provenance",
-    "No distortion of frozen SCOPA effect categories to force an ontology match",
-    "No lossy replacement of the native signed packet by its graph projection",
-    "No npm publication or public release without a separate principal request",
-    "No effect categories outside the canonical Macro Delta and Kernel Specification",
-    "No queue entries that are not sourced from the canonical Macro Delta"
+    "No Claude Code, Codex, MCP, hook, or plugin integration in S6",
+    "No change to the frozen effect taxonomy, journal encoding, enforcement semantics, signed packet, or CASE mapping",
+    "No registry lookup requirement or dependency on a published SCOPA package",
+    "No npm publication, public repository, public release, or production installation",
+    "No final trademark, package-name, license, or contribution-model claim",
+    "No silent overwrite of existing project files",
+    "No shell-string command execution; preserve argv-based gate execution",
+    "No claim that an installed CLI alone makes an agent adapter conforming",
+    "No queue entries outside the authorized Developer Preview Macro Delta"
   ],
   "verification": {
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
+    "fast_slice_local": "npm run test:s6",
+    "package_consumer": "install npm pack output into a fresh temporary repository and invoke its local scopa binary",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
@@ -325,7 +337,194 @@
           "discovered_because": "SCOPA Macro Delta S5"
         }
       ]
+    },
+    "distribution": {
+      "root": [
+        "packages/cli",
+        "package.json",
+        "package-lock.json",
+        "README.md",
+        "fixtures/S6",
+        "notes/S6",
+        "runs/S6",
+        "evidence/S6",
+        "next-prompt-protocols"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "DS1",
+          "statement": "A local SCOPA package installs in a clean repository without monorepo-relative resolution.",
+          "status": "open",
+          "verifies_via": "Packed-artifact installation in a fresh temporary repository",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S6"
+        },
+        {
+          "id": "DS2",
+          "statement": "The scopa CLI exposes init, status, check, run, and verify with stable machine-readable results and exit codes.",
+          "status": "open",
+          "verifies_via": "CLI contract tests over clean and failing fixtures",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S6"
+        },
+        {
+          "id": "DS3",
+          "statement": "Initialization is idempotent and refuses destructive overwrite of existing project files.",
+          "status": "open",
+          "verifies_via": "Repeated initialization and conflicting-file denial fixtures",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S6"
+        }
+      ]
+    },
+    "adapter-host": {
+      "root": [
+        "packages/adapter-host",
+        "fixtures/S7",
+        "notes/S7",
+        "runs/S7",
+        "evidence/S7"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "AH1",
+          "statement": "A model-neutral bridge exposes only SCOPA-mediated mutations.",
+          "status": "open",
+          "verifies_via": "Fake-agent protocol tests and direct-bypass fault fixtures",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S7"
+        },
+        {
+          "id": "AH2",
+          "statement": "The bridge captures request, model and CLI identity, structured transcript, effects, and terminal state.",
+          "status": "open",
+          "verifies_via": "Transcript completeness and replay fixtures",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S7"
+        },
+        {
+          "id": "AH3",
+          "statement": "A machine-readable capability and bypass matrix prevents unsupported adapter-conformance claims.",
+          "status": "open",
+          "verifies_via": "Assurance-schema validation and known-bypass negative controls",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S7"
+        }
+      ]
+    },
+    "claude-adapter": {
+      "root": [
+        "packages/integrations/claude",
+        "fixtures/S8",
+        "notes/S8",
+        "runs/S8",
+        "evidence/S8"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "CL1",
+          "statement": "Headless Claude runs with an explicit, reproducible tool and MCP surface.",
+          "status": "open",
+          "verifies_via": "Pinned CLI receipt and strict headless launch configuration",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
+        },
+        {
+          "id": "CL2",
+          "statement": "Claude live fixtures prove blocked scope, refused false-green completion, and cold resume.",
+          "status": "open",
+          "verifies_via": "Headless clean and fault sessions with structured transcripts",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
+        },
+        {
+          "id": "CL3",
+          "statement": "The Claude adapter publishes evidence-derived assurance and known bypasses.",
+          "status": "open",
+          "verifies_via": "Capability matrix, bypass controls, and non-Claude outside review",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Principal-requested Claude integration in Macro Delta S8"
+        }
+      ]
+    },
+    "codex-adapter": {
+      "root": [
+        "packages/integrations/codex",
+        "fixtures/S9",
+        "notes/S9",
+        "runs/S9",
+        "evidence/S9"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "CX1",
+          "statement": "Headless Codex runs with an explicit, reproducible tool, sandbox, hook, and MCP surface.",
+          "status": "open",
+          "verifies_via": "Pinned CLI receipt and isolated non-interactive launch configuration",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S9"
+        },
+        {
+          "id": "CX2",
+          "statement": "Codex live fixtures prove blocked scope, refused false-green completion, and cold resume.",
+          "status": "open",
+          "verifies_via": "Headless clean and fault sessions with JSON event transcripts",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S9"
+        },
+        {
+          "id": "CX3",
+          "statement": "Codex and Claude satisfy one behavior contract or report an explicit machine-readable parity gap.",
+          "status": "open",
+          "verifies_via": "Cross-agent outcome comparison and non-Codex outside review",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S9"
+        }
+      ]
+    },
+    "release-readiness": {
+      "root": [
+        "docs",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "fixtures/S10",
+        "notes/S10",
+        "runs/S10",
+        "evidence/S10"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "RC1",
+          "statement": "An unfamiliar consumer completes the local-artifact quickstart in a fresh repository.",
+          "status": "open",
+          "verifies_via": "Independent clean-environment consumer transcript",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S10"
+        },
+        {
+          "id": "RC2",
+          "statement": "Threat model, security route, schemas, fixtures, versioning, governance, and licensing state are explicit.",
+          "status": "open",
+          "verifies_via": "Release-readiness policy and artifact audit",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S10"
+        },
+        {
+          "id": "RC3",
+          "statement": "An independent reviewer can reproduce claims and distinguish verified behavior from non-claims.",
+          "status": "open",
+          "verifies_via": "Outside consumer reproduction and claim-boundary review",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "SCOPA Developer Preview Macro Delta S10"
+        }
+      ]
     }
   },
-  "stop_condition": "Stop: the canonical S0-S5 Macro Delta queue is complete. New work requires principal direction and a new or amended Macro Delta."
+  "stop_condition": "Stop S6 if the local package depends on SCOPA source checkout paths, initialization overwrites existing project files, or CLI success is not represented by stable machine-readable state and exit codes."
 }

@@ -1,5 +1,11 @@
 # Macro Deltas
 
+- `2026-07-27-scopa-developer-preview.md` — authorized S6-S10 implementation
+  queue for local distribution, a shared adapter bridge, separately evidenced
+  Claude Code and Codex integrations, and private release-candidate testing.
+- `2026-07-26-scopa-kernel-build.md` — completed S0-S5 kernel foundation,
+  enforcement, legibility, signing, and CASE/UCO interoperability queue.
+
 A macro delta is a **multi-slice oversight artifact** that operates above the
 per-slice next-prompt protocols. It catches drift the slice protocols can't
 see by themselves — accumulated scope, trajectory wobble, forbidden-surface

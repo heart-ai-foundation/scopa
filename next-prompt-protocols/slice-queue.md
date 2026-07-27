@@ -1,17 +1,16 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-07-26-scopa-kernel-build.md`
+**Authority:** `macro-deltas/2026-07-27-scopa-developer-preview.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
 | Slot | Slice | Module | Objective | Value gate | Validation gate | Dependencies | Stop/defer condition | Evidence path | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| S0 | Conformance harness | `conformance` | Build replay-equivalence and untrusted-data containment harnesses before the features they guard | A deliberately injected non-deterministic call fails the harness | Property-based synthetic workflows and golden records; injected faults fail and clean input passes | None | Stop if the harness cannot detect an injected effect leak | `evidence/S0/` | `completed` |
-| S1 | Sealed core | `kernel-core` | Build effect types, deterministic envelope, hash chain, append-only adapter, execution loop, and lockdown | The same workflow sealed on two runtimes produces byte-identical records | S0 passes; cross-runtime encoding comparison; ACT replay suppression | S0 | Stop if a required dependency cannot run under lockdown and no vetted shim exists | `evidence/S1/` | `completed` |
-| S2 | Enforcement loop | `enforcement` | Build slice lock, path enforcement, verification gate, stop evaluator, orientation call, and rotation state | A real agent is blocked outside the slice and a false-green completion is refused | Live agent session, blocked write, rejected completion, and cold resume | S1 | Stop if the gate can self-modify or enforcement depends on agent cooperation | `evidence/S2/` | `completed` |
-| S3 | Legibility | `legibility` | Build scoring, observe mode, gap reporting, coverage, and starting profiles | Observe mode produces an undeclared boundary map from a real session | Several observed sessions compared with manual inspection | S2 | Stop if the output can be mistaken for a forensic reconstruction | `evidence/S3/` | `completed` |
-| S4 | Signing and anchoring | `depth` | Add signing, key classes, timestamp anchoring, and INFER pinning | A third party verifies a signed and anchored record | Independent signature and timestamp verification; offline INFER replay | S3 | Stop if key backing can be overstated; defer post-quantum signatures | `evidence/S4/` | `completed` |
-| S5 | Interop export | `interop` | Map effects to CASE/UCO and export through a CASE context | An exported packet passes the external CASE verifier | CASE verifier, round trip, and unfamiliar-reviewer legibility | S4 | Stop if mapping distorts a category | `evidence/S5/` | `completed` |
+| S6 | Installable developer surface | `distribution` | Package SCOPA behind one safe CLI and prove operation outside its source checkout | A clean repository installs the local tarball and runs core commands | Pack/install harness, CLI contracts, idempotency, overwrite refusal, and accumulated gate | S5 | Stop on monorepo-relative resolution, destructive initialization, or prose-only success | `evidence/S6/` | `active` |
+| S7 | Model-neutral adapter bridge | `adapter-host` | Give supported agents one trusted SCOPA mutation boundary | A fake agent reaches allowed, denied, and stop states only through the bridge | Hostile tool calls, direct bypass attempts, transcript completeness, and capability matrix | S6 | Stop if policy is delegated to the model or transport creates an unjournaled mutation path | `evidence/S7/` | `queued` |
+| S8 | Claude Code headless integration | `claude-adapter` | Exercise the shared bridge with Claude through a strict recorded tool surface | Claude is blocked out of scope and refused false-green while an allowed task completes | Headless clean/fault runs, cold resume, capability matrix, and non-Claude review | S7 | Stop or label partial assurance if tools, plugins, hooks, settings, or subprocesses bypass SCOPA | `evidence/S8/` | `queued` |
+| S9 | Codex headless integration and parity | `codex-adapter` | Exercise the same contract with Codex and compare outcomes with Claude | Codex satisfies the Claude behavior contract or reports a parity gap | Headless clean/fault runs, cold resume, parity report, and non-Codex review | S8 | Stop or label partial assurance if shell, patch, hooks, plugins, MCP, or subprocesses bypass SCOPA | `evidence/S9/` | `queued` |
+| S10 | Developer-preview release candidate | `release-readiness` | Prove private-candidate adoption outside the build repository | An unfamiliar consumer installs, runs, and independently verifies the candidate | Consumer quickstart, policy audit, hosted gate, and independent review | S9 and release decisions | Defer while naming, license, contribution, or publication decisions remain open | `evidence/S10/` | `queued` |
 
-The canonical S0-S5 queue is complete. New work requires principal direction
-and a new or explicitly amended Macro Delta.
+S0-S5 remain completed under the predecessor Macro Delta. S6 is the only
+active slice; S7-S10 are ordered candidates, not authorization to run ahead.
