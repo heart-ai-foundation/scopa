@@ -1,33 +1,23 @@
 # Phase 3 Interop
 
-Current commit reference: `66bdd60`
-Current active protocol: `active/2026-07-26-S5-interop-export.md`
+Current commit reference: `5b861fe`
+Current active protocol: `none`
 
 ## Scope
 
-Export signed SCOPA packets as deterministic CASE/UCO 1.4.0 JSON-LD and prove conformance plus exact native round trip.
+Phase 3 is complete. Signed SCOPA packets export as deterministic CASE/UCO
+1.4.0 JSON-LD with external conformance and exact native round trip.
 
-## Active objective
+## Completed objective
 
-> Export a verified SCOPA packet as deterministic CASE/UCO 1.4.0 JSON-LD without
-> distorting the frozen effect categories or upgrading SCOPA's evidence claims.
-> Preserve the exact native packet for byte-identical round trip, validate the
-> graph with the independent CASE validator, and make its meaning legible to a
-> reviewer unfamiliar with SCOPA.
+S5 closed the canonical S0-S5 Macro Delta queue. Its artifact passes pinned
+CASE validation, preserves every frozen category mapping, recovers and
+verifies the exact signed S4 packet, and passed unfamiliar outside-model
+review after adversarial remediation.
 
 ## Files in play
 
-- `.github/workflows/**`
-- `README.md`
-- `package.json`
-- `next-prompt-protocols/**`
-- `packages/conformance/**`
-- `packages/depth/**`
-- `packages/interop/**`
-- `fixtures/S5/**`
-- `notes/S5/**`
-- `runs/S5/**`
-- `evidence/S5/**`
+No active scope boundaries are declared.
 
 ## Non-goals
 
@@ -43,36 +33,14 @@ Export signed SCOPA packets as deterministic CASE/UCO 1.4.0 JSON-LD and prove co
 - No effect categories outside the canonical Macro Delta and Kernel Specification
 - No queue entries that are not sourced from the canonical Macro Delta
 
-## Descriptor Rung Stop Rule
+## Verification record
 
-Descriptor-only slices are allowed only when they unlock an executable test, probe, handoff, replay activation path, runtime consumer boundary, or production-off invariant needed before runtime code changes. Do not continue descriptor ladders as standalone progress. If runtime behavior remains `0%` for more than one consecutive sextuplet, the next protocol must target a test-controlled runtime-adjacent action.
-
-## Verification
-
-- `npm run test:s5`
-- `npm test`
-- `npm run protocol:check`
-- Exported JSON-LD validates with `case-utils 0.17.0` and its bundled
-  `case-1.4.0` ontology under default strict severity handling.
-- A deliberately malformed CASE Relationship is rejected by that validator.
-- Every frozen SCOPA effect category maps one-to-one to a UCO Action carrying
-  its original category as an explicit SCOPA tag.
-- CASE Identity, Tool, and Relationship nodes describe cryptographic identity,
-  runtime tooling, and graph edges without implying a human performer or
-  provider attestation.
-- The exact native packet bytes round-trip from JSON-LD and pass the S4 packet
-  verifier with caller-supplied timestamp trust policy.
-- Repeated export of the same packet produces byte-identical JSON-LD.
-- Unknown, duplicate, missing, or category-distorting graph mappings fail
-  closed on round trip.
-- A reviewer unfamiliar with SCOPA can identify what happened, which tool
-  recorded it, what was signed, and the limits of the evidence without a
-  separate translation guide.
-- S0–S4 release gates remain green.
-
-## Handoff
-
-Before handing off a completed slice, write the companion note, run record, and reviewer-facing evidence under `..`, then run the sync script with the current HEAD commit and confirm `--check` passes.
+- `npm run test:s5`: 6/6
+- `npm test`: 76/76
+- `case_validate` positive control: `Conforms: True`
+- malformed Relationship control: `Conforms: False`
+- exact signed native-packet recovery: pass
+- final fresh outside-model verdict: `ACCEPT`
 
 ## Slice lock
 
@@ -80,4 +48,5 @@ Before handing off a completed slice, write the companion note, run record, and 
 
 ## Stop condition
 
-If the active slice is already complete, stop and report that. Do not widen scope.
+The canonical S0-S5 Macro Delta queue is complete. New work requires principal
+direction and a new or amended Macro Delta.

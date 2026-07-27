@@ -1,40 +1,19 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "66bdd60",
+  "current_commit": "5b861fe",
   "current_phase": "phase-3-interop",
-  "active_protocol": "active/2026-07-26-S5-interop-export.md",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "interop",
-  "crosses": [
-    "depth"
-  ],
-  "advances_contracts": [
-    "I1",
-    "I2"
-  ],
-  "active_protocol_sha256": "sha256:a9ab26fb499549ab2a29ad22470af51f72530f1b280e75822c96bb3384b9313f",
-  "active_objective": "Export a verified SCOPA packet as deterministic CASE/UCO 1.4.0 JSON-LD without\ndistorting the frozen effect categories or upgrading SCOPA's evidence claims.\nPreserve the exact native packet for byte-identical round trip, validate the\ngraph with the independent CASE validator, and make its meaning legible to a\nreviewer unfamiliar with SCOPA.",
-  "allowed_files": [
-    ".github/workflows/**",
-    "README.md",
-    "package.json",
-    "next-prompt-protocols/**",
-    "packages/conformance/**",
-    "packages/depth/**",
-    "packages/interop/**",
-    "fixtures/S5/**",
-    "notes/S5/**",
-    "runs/S5/**",
-    "evidence/S5/**"
-  ],
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "No active protocol. The canonical SCOPA S0-S5 Macro Delta queue is complete.",
+  "allowed_files": [],
   "verification": {
-    "fast_slice_local": "npm run test:s5",
-    "external_consumer": "case_validate --built-version case-1.4.0 evidence/S5/scopa-case-export.jsonld",
-    "upstream_conformance": "npm run test:s4",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
-  "stop_condition": "Stop if CASE export distorts an effect category, loses exact native packet recovery, or implies evidence stronger than the signed SCOPA packet."
+  "stop_condition": "Stop: the canonical S0-S5 Macro Delta queue is complete. New work requires principal direction and a new or amended Macro Delta."
 }

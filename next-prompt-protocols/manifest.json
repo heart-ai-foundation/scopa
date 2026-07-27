@@ -3,34 +3,23 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "66bdd60",
+  "current_commit": "5b861fe",
   "current_phase": "phase-3-interop",
-  "phase_scope": "Export signed SCOPA packets as deterministic CASE/UCO 1.4.0 JSON-LD and prove conformance plus exact native round trip.",
+  "phase_scope": "Block B interoperability work and the canonical S0-S5 Macro Delta queue are complete.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": "active/2026-07-26-S5-interop-export.md",
-  "active_objective": "Build deterministic CASE/UCO 1.4.0 JSON-LD export, external conformance validation, and exact signed-packet round trip.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "No active protocol. The canonical SCOPA S0-S5 Macro Delta queue is complete.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-26-S5-interop-export.md",
     "completed/2026-07-26-S4-signing-and-anchoring.md",
     "completed/2026-07-26-S3-legibility.md",
     "completed/2026-07-26-S2-enforcement-loop.md",
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [
-    ".github/workflows/**",
-    "README.md",
-    "package.json",
-    "next-prompt-protocols/**",
-    "packages/conformance/**",
-    "packages/depth/**",
-    "packages/interop/**",
-    "fixtures/S5/**",
-    "notes/S5/**",
-    "runs/S5/**",
-    "evidence/S5/**"
-  ],
+  "allowed_files": [],
   "non_goals": [
     "No claim that software keys are hardware-backed, device-bound, or human-identity-bound",
     "No mandatory signing or timestamp service for ordinary local execution",
@@ -45,11 +34,7 @@
     "No queue entries that are not sourced from the canonical Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s5",
-    "external_consumer": "case_validate --built-version case-1.4.0 evidence/S5/scopa-case-export.jsonld",
-    "upstream_conformance": "npm run test:s4",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
@@ -342,5 +327,5 @@
       ]
     }
   },
-  "stop_condition": "Stop if CASE export distorts an effect category, loses exact native packet recovery, or implies evidence stronger than the signed SCOPA packet."
+  "stop_condition": "Stop: the canonical S0-S5 Macro Delta queue is complete. New work requires principal direction and a new or amended Macro Delta."
 }
