@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `08a914f`
+Current commit reference: `29ed965`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `legibility`
-Advances contracts: `L1, L2, L3, L4`
+Active protocol module: `depth`
+Advances contracts: `D1, D2, D3, D4`
 
 ## Slice Class
 
@@ -91,11 +91,12 @@ Read in this order:
 2. `manifest.json`
 3. `macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `role-context.md`
-5. `phases/phase-1/README.md`
-6. `active/2026-07-26-S3-legibility.md`
-7. `completed/2026-07-26-S2-enforcement-loop.md`
-8. `completed/2026-07-26-S0-conformance-harness.md`
-9. `completed/2026-07-26-S1-sealed-core.md`
+5. `phases/phase-2/README.md`
+6. `active/2026-07-26-S4-signing-and-anchoring.md`
+7. `completed/2026-07-26-S3-legibility.md`
+8. `completed/2026-07-26-S2-enforcement-loop.md`
+9. `completed/2026-07-26-S0-conformance-harness.md`
+10. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -121,18 +122,19 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 - run `node tools/sync-protocols.mjs --commit $(git rev-parse --short=8 HEAD)`,
 - run `node tools/sync-protocols.mjs --check`,
-- do not hand off until `README.md`, `phases/phase-1/README.md`, `manifest.json`, and `.slice-lock.json` are in sync.
+- do not hand off until `README.md`, `phases/phase-2/README.md`, `manifest.json`, and `.slice-lock.json` are in sync.
 
 ## Current phase
 
-- `Phase 1 Foundation`
+- `Phase 2 Depth`
 
 ## Current active objective
 
-> Build the reconstructability scorer, observe-mode runner,
-> declared-versus-observed gap reporter, coverage readout, and initial
-> coding-agent profile. Produce a boundary map from a real session whose
-> boundaries were not declared in advance.
+> Build algorithm-identified signatures over sealed journal commitments, honest
+> device-key-class representation, optional externally verifiable timestamp
+> receipts, and offline-verifiable INFER pins. Produce a self-contained packet
+> that a fresh verifier can validate without executing the original workflow or
+> calling the model provider.
 
 ## Behavior rules
 
@@ -155,11 +157,11 @@ These protocols are specific to:
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
 - `packages/journal/**`
-- `packages/legibility/**`
-- `fixtures/S3/**`
-- `notes/S3/**`
-- `runs/S3/**`
-- `evidence/S3/**`
+- `packages/depth/**`
+- `fixtures/S4/**`
+- `notes/S4/**`
+- `runs/S4/**`
+- `evidence/S4/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -167,5 +169,5 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 
 Start with:
 
-- `phases/phase-1/README.md`
-- `active/2026-07-26-S3-legibility.md`
+- `phases/phase-2/README.md`
+- `active/2026-07-26-S4-signing-and-anchoring.md`

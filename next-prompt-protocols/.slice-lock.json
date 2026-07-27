@@ -1,40 +1,40 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "08a914f",
-  "current_phase": "phase-1-foundation",
-  "active_protocol": "active/2026-07-26-S3-legibility.md",
+  "current_commit": "29ed965",
+  "current_phase": "phase-2-depth",
+  "active_protocol": "active/2026-07-26-S4-signing-and-anchoring.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "legibility",
+  "active_module": "depth",
   "crosses": [
     "journal"
   ],
   "advances_contracts": [
-    "L1",
-    "L2",
-    "L3",
-    "L4"
+    "D1",
+    "D2",
+    "D3",
+    "D4"
   ],
-  "active_protocol_sha256": "sha256:bb117d82b2498b1dd5f9221cbd567852dbcb38d8360900a0e72b0f6c4bd6d450",
-  "active_objective": "Build the reconstructability scorer, observe-mode runner,\ndeclared-versus-observed gap reporter, coverage readout, and initial\ncoding-agent profile. Produce a boundary map from a real session whose\nboundaries were not declared in advance.",
+  "active_protocol_sha256": "sha256:b7f1e688f052570b5df3acb756ee2809f9bcdab3df9aa80b016660bf3d9e456d",
+  "active_objective": "Build algorithm-identified signatures over sealed journal commitments, honest\ndevice-key-class representation, optional externally verifiable timestamp\nreceipts, and offline-verifiable INFER pins. Produce a self-contained packet\nthat a fresh verifier can validate without executing the original workflow or\ncalling the model provider.",
   "allowed_files": [
     "README.md",
     "package.json",
     "next-prompt-protocols/**",
     "packages/conformance/**",
     "packages/journal/**",
-    "packages/legibility/**",
-    "fixtures/S3/**",
-    "notes/S3/**",
-    "runs/S3/**",
-    "evidence/S3/**"
+    "packages/depth/**",
+    "fixtures/S4/**",
+    "notes/S4/**",
+    "runs/S4/**",
+    "evidence/S4/**"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s3",
-    "upstream_conformance": "npm run test:s2",
+    "fast_slice_local": "npm run test:s4",
+    "upstream_conformance": "npm run test:s3",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop if reconstructability or coverage can be read as proving activity that was not observed, or if an unexercised path is reported as absent rather than not-observed."
+  "stop_condition": "Stop if a packet can imply stronger identity, key backing, timestamp authority, or provider provenance than its verifiable evidence supports."
 }
