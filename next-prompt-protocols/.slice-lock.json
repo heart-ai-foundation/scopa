@@ -19,7 +19,7 @@
     "A2",
     "A3"
   ],
-  "active_protocol_sha256": "sha256:5d3aba6b952d416a1ac786c2269874e8338cf80a64f6502cff7d324f0fa065f7",
+  "active_protocol_sha256": "sha256:f39c97fb5f68270f3bd941c37ac48ebd9f8ec30164f1f5fdea0f9968bd7f17ba",
   "active_objective": "Build slice-lock and allowed-path enforcement, a real verification-gate runner,\ncheckable stop-condition evaluator, compact orientation call, denial payloads,\nand cold-resume rotation state.",
   "allowed_files": [
     ".gitignore",
@@ -36,10 +36,10 @@
     "evidence/S2/**"
   ],
   "verification": {
-    "fast_slice_local": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
-    "upstream_conformance": "node --test packages/conformance/test/*.test.js",
+    "fast_slice_local": "npm run test:s2",
+    "upstream_conformance": "npm run test:s1",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop if the S0 harness cannot detect an injected effect leak or instruction leak, if scaffold state disagrees, or if work would exceed the canonical Macro Delta."
+  "stop_condition": "Stop if enforcement depends on agent cooperation, if an alternate mutation path bypasses the dispatcher, if gate definition can self-certify without a trusted principal DECISION, or if cold resume accepts state not bound to the active lock and git commit."
 }

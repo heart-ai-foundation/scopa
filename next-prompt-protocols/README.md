@@ -39,12 +39,12 @@ Module progress:
 - conformance: 3/3 (100%)
 - kernel-core: 4/4 (100%)
 - journal: 5/5 (100%)
-- enforcement: 0/4 (0%)
-- agent-surface: 0/3 (0%)
+- enforcement: 4/4 (100%)
+- agent-surface: 3/3 (100%)
 - legibility: 0/4 (0%)
 - depth: 0/4 (0%)
 - interop: 0/2 (0%)
-Arc total: 12/29 (41%)
+Arc total: 19/29 (66%)
 
 ## Descriptor Rung Stop Rule
 

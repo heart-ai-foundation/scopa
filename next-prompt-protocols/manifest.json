@@ -5,7 +5,7 @@
   "diff_head": null,
   "current_commit": "20079cc",
   "current_phase": "phase-1-foundation",
-  "phase_scope": "Block A foundation work. Build the sealed deterministic core and journal under lockdown before the enforcement loop. No publication is permitted.",
+  "phase_scope": "Block A foundation work. Build and falsify the enforcement loop against real tool-boundary writes, completion gates, and cold resume. No publication is permitted.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
   "active_protocol": "active/2026-07-26-S2-enforcement-loop.md",
   "active_objective": "Build slice-lock and allowed-path enforcement, verification-gate execution, stop evaluation, orientation, denial payloads, and cold-resume rotation state.",
@@ -31,15 +31,16 @@
   ],
   "non_goals": [
     "No npm publication or public release before S3 closes v0.1",
-    "No production agent enforcement or live tool-boundary interception in S1",
-    "No slice-lock write enforcement, completion evaluator, orientation surface, or cold-resume state",
+    "No operating-system sandbox claim; S2 binds at the trusted host tool-call boundary",
+    "No alternate unguarded mutation tool in a conforming host integration",
+    "No self-verified principal DECISION or agent-writable rotation state",
     "No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export",
     "No effect categories outside the canonical Macro Delta and Kernel Specification",
     "No queue entries that are not sourced from the canonical Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
-    "upstream_conformance": "node --test packages/conformance/test/*.test.js",
+    "fast_slice_local": "npm run test:s2",
+    "upstream_conformance": "npm run test:s1",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -174,7 +175,7 @@
         {
           "id": "E1",
           "statement": "Slice lock and allowed-path enforcement block writes at the tool-call boundary.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Live agent blocked-write proof",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -182,7 +183,7 @@
         {
           "id": "E2",
           "statement": "The verification gate executes real commands and rejects asserted success.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Refused false-green completion proof",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -190,7 +191,7 @@
         {
           "id": "E3",
           "statement": "The stop-condition evaluator returns a checkable state.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Stop-condition contract tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -198,7 +199,7 @@
         {
           "id": "E4",
           "statement": "The gate definition is immutable without a principal DECISION.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Gate-mutation denial tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -212,7 +213,7 @@
         {
           "id": "A1",
           "statement": "The orientation call returns compact status.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Orientation output contract test",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -220,7 +221,7 @@
         {
           "id": "A2",
           "statement": "Denials carry the allowed set and amendment path.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Denial payload contract tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -228,7 +229,7 @@
         {
           "id": "A3",
           "statement": "The rotation state file permits cold resume.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Cold-resume integration proof",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
@@ -334,5 +335,5 @@
       ]
     }
   },
-  "stop_condition": "Stop if the S0 harness cannot detect an injected effect leak or instruction leak, if scaffold state disagrees, or if work would exceed the canonical Macro Delta."
+  "stop_condition": "Stop if enforcement depends on agent cooperation, if an alternate mutation path bypasses the dispatcher, if gate definition can self-certify without a trusted principal DECISION, or if cold resume accepts state not bound to the active lock and git commit."
 }

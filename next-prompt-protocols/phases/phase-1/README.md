@@ -5,7 +5,7 @@ Current active protocol: `active/2026-07-26-S2-enforcement-loop.md`
 
 ## Scope
 
-Block A foundation work. Build the sealed deterministic core and journal under lockdown before the enforcement loop. No publication is permitted.
+Block A foundation work. Build and falsify the enforcement loop against real tool-boundary writes, completion gates, and cold resume. No publication is permitted.
 
 ## Active objective
 
@@ -31,8 +31,9 @@ Block A foundation work. Build the sealed deterministic core and journal under l
 ## Non-goals
 
 - No npm publication or public release before S3 closes v0.1
-- No production agent enforcement or live tool-boundary interception in S1
-- No slice-lock write enforcement, completion evaluator, orientation surface, or cold-resume state
+- No operating-system sandbox claim; S2 binds at the trusted host tool-call boundary
+- No alternate unguarded mutation tool in a conforming host integration
+- No self-verified principal DECISION or agent-writable rotation state
 - No signing, device-key claim, anchoring, INFER provider integration, or CASE/UCO export
 - No effect categories outside the canonical Macro Delta and Kernel Specification
 - No queue entries that are not sourced from the canonical Macro Delta

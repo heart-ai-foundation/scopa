@@ -34,9 +34,12 @@ async function testFiles() {
 }
 
 function runNode(args) {
+  const env = { ...process.env };
+  delete env.NODE;
   return spawnSync(process.execPath, args, {
     cwd: ROOT,
     encoding: 'utf8',
+    env,
   });
 }
 
@@ -70,7 +73,7 @@ function probe(kind, mode, expectedExitCode, expectedOk) {
 
 async function main() {
   const files = await testFiles();
-  const tests = runNode(['--test', ...files]);
+  const tests = runNode(['--test', '--test-concurrency=1', ...files]);
   process.stdout.write(tests.stdout);
   process.stderr.write(tests.stderr);
   if (tests.status !== 0) {

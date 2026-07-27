@@ -57,3 +57,29 @@ and refused a false-green completion.
 - Rotation state restores the slice after a cold context clear.
 - S0 and S1 release gates remain green.
 - `npm run protocol:check`.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S2 suite: 13 passed, 0 failed.
+- Full release gate: 54 passed, 0 failed; all S0 and S1 gates retained.
+- A separate-process reference host with a fixed tool registry rejected an
+  out-of-scope agent-shaped write with `SCOPA_SCOPE_DENIED`; the mutation
+  handler did not run and the target remained absent.
+- Registered mutations are serialized, authorizations are bound to the active
+  lock, and path topology is revalidated immediately before execution.
+- A real verification command exited 9 and asserted completion was refused
+  with a machine-checkable failed-gate state.
+- Rotation state survived a cold reload only when its lock hash, state hash,
+  slice, stop state, and git commit all matched.
+- The threat model explicitly excludes a separately privileged local process
+  racing filesystem topology after final revalidation; that deployment class
+  requires OS isolation or an inode-pinned adapter.
+- Codex hooks were evaluated and retained only as defense in depth, not as the
+  conforming enforcement boundary.
+- Independent `gpt-5.6-terra` review issued an initial `HOLD` on host binding
+  and TOCTOU overclaiming. Both findings were resolved; its final verdict was
+  `ACCEPT`.
+- Evidence: `notes/S2/`, `runs/S2/`, and `evidence/S2/`.
+- Non-goals remained intact; no publication occurred.
