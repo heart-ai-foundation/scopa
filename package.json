@@ -11,9 +11,22 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js"
+    "test": "node packages/conformance/src/release-gate.js",
+    "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
+    "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
+    "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
+    "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",
+    "probe:act-suppression": "node packages/kernel-core/src/act-suppression-probe.js"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@endo/lockdown": "1.0.19",
+    "@noble/hashes": "2.2.0",
+    "cborg": "5.1.8"
+  },
+  "devDependencies": {
+    "deno": "2.9.4"
   }
 }

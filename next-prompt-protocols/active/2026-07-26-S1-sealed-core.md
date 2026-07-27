@@ -123,3 +123,21 @@ This arc slice requires all three evidence surfaces:
 - A repeated ACT idempotency key is suppressed before a second execution.
 - The generator core passes the S0 replay-equivalence and escaped-effect gates
   under lockdown.
+
+## Closeout
+
+**Result:** complete.
+
+- Release gate: 41 passed, 0 failed; S0 clean/fault probes retained.
+- Node 22 and Deno 2.9.4 produced byte-identical records with root
+  `f986dad18ee8f29c6219a73d47a67c116ca4c8ba09f7667624a58cadb3218066`.
+- Integrity mutation and suffix truncation probes failed closed.
+- Separate processes could not both claim one ACT key.
+- A sealed OBSERVE prefix resumed without shell calls and repaired an ACT after
+  a simulated journal-append crash; the ACT executed once.
+- SES denied all 11 probed ambient authorities.
+- Production dependency audit: 0 vulnerabilities.
+- Independent `gpt-5.6-terra` review issued HOLD twice, both findings were
+  resolved, and the final verdict was `ACCEPT` with 19 focused tests passing.
+- Evidence: `notes/S1/`, `runs/S1/`, and `evidence/S1/`.
+- Non-goals remained intact.

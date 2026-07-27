@@ -21,7 +21,7 @@
     "J4",
     "J5"
   ],
-  "active_protocol_sha256": "sha256:c0a9b109dcb6c32c9eecfbb775a7f3b462da4d46d6d3f27aa96b3706f13597a9",
+  "active_protocol_sha256": "sha256:dbbfe7cd8612d9a96bd48a61e9316037fe9a027162a03000a94a9ac9aea2bea0",
   "active_objective": "Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain\nsealer, append-only adapter, content-addressed blob boundary, and generator\nexecution loop under lockdown. Enforce ACT replay suppression with idempotency\nkeys.",
   "allowed_files": [
     ".gitignore",

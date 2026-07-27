@@ -44,7 +44,7 @@
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": null,
+  "closeout_evidence_path": "..",
   "modules": {
     "conformance": {
       "root": [
@@ -89,7 +89,7 @@
         {
           "id": "K1",
           "statement": "Effect category types are frozen and exported.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Type and API conformance tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -97,7 +97,7 @@
         {
           "id": "K2",
           "statement": "The pure generator performs no input or output under lockdown.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Replay-equivalence and effect-leak fault injection",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -105,7 +105,7 @@
         {
           "id": "K3",
           "statement": "The execution loop yields, fulfills, and seals effects.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Execution-loop integration tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -113,7 +113,7 @@
         {
           "id": "K4",
           "statement": "ACT replay suppression is enforced with idempotency keys.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Second-execution suppression test",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -127,7 +127,7 @@
         {
           "id": "J1",
           "statement": "The dCBOR envelope encodes deterministically across runtimes.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Cross-runtime byte comparison",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -135,7 +135,7 @@
         {
           "id": "J2",
           "statement": "The hash chain seals and verifies.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Seal, verify, mutation, and truncation fixtures",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -143,7 +143,7 @@
         {
           "id": "J3",
           "statement": "The append-only file adapter satisfies the persistence port.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Persistence port contract suite",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -151,7 +151,7 @@
         {
           "id": "J4",
           "statement": "Content addressing separates blobs from the chain.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Blob addressing and chain-size tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"
@@ -159,7 +159,7 @@
         {
           "id": "J5",
           "statement": "Schema and kernel versions are pinned per record.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Envelope schema tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S1"

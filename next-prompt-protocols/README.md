@@ -37,14 +37,14 @@ Module tags are structural metadata, not a folder hierarchy. They let the protoc
 
 Module progress:
 - conformance: 3/3 (100%)
-- kernel-core: 0/4 (0%)
-- journal: 0/5 (0%)
+- kernel-core: 4/4 (100%)
+- journal: 5/5 (100%)
 - enforcement: 0/4 (0%)
 - agent-surface: 0/3 (0%)
 - legibility: 0/4 (0%)
 - depth: 0/4 (0%)
 - interop: 0/2 (0%)
-Arc total: 3/29 (10%)
+Arc total: 12/29 (41%)
 
 ## Descriptor Rung Stop Rule
 

@@ -16,6 +16,10 @@ export class ReplayDivergenceError extends Error {
 
 function deepFreeze(value) {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    // Typed-array elements cannot be frozen in JavaScript. ReplayJournalSource
+    // returns a fresh structured clone, so callers still cannot mutate the
+    // harness-owned journal through this view.
+    if (ArrayBuffer.isView(value)) return value;
     Object.freeze(value);
     for (const child of Object.values(value)) {
       deepFreeze(child);
