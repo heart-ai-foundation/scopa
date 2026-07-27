@@ -15,9 +15,10 @@ reference implementation.
 
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
 S2 Enforcement Loop, S3 Legibility, and S4 Signing and Anchoring are complete.
-S5 Interop Export remains deferred under the canonical Macro Delta until an
-external CASE consumer is identified. The package remains private; publication
-requires a separate principal request.
+S5 Interop Export is active under the canonical Macro Delta after preflighting
+the CASE community's external validator against its bundled CASE 1.4.0
+ontology. The package remains private; publication requires a separate
+principal request.
 
 Start with:
 
@@ -25,7 +26,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-26-S4-signing-and-anchoring.md`
+5. `next-prompt-protocols/active/2026-07-26-S5-interop-export.md`
 
 ## Sealed core
 
