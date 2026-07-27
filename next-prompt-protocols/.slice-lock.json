@@ -1,40 +1,19 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "29ed965",
+  "current_commit": "ede5d9b",
   "current_phase": "phase-2-depth",
-  "active_protocol": "active/2026-07-26-S4-signing-and-anchoring.md",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "depth",
-  "crosses": [
-    "journal"
-  ],
-  "advances_contracts": [
-    "D1",
-    "D2",
-    "D3",
-    "D4"
-  ],
-  "active_protocol_sha256": "sha256:621da879365050cee2ebc989173e0f8c3ac21b072b34712c11f7d70e19c27284",
-  "active_objective": "Build algorithm-identified signatures over sealed journal commitments, honest\ndevice-key-class representation, optional externally verifiable timestamp\nreceipts, and offline-verifiable INFER pins. Produce a self-contained packet\nthat a fresh verifier can validate without executing the original workflow or\ncalling the model provider.",
-  "allowed_files": [
-    "README.md",
-    "package.json",
-    "next-prompt-protocols/**",
-    "packages/conformance/**",
-    "packages/journal/**",
-    "packages/depth/**",
-    "fixtures/S4/**",
-    "notes/S4/**",
-    "runs/S4/**",
-    "evidence/S4/**"
-  ],
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "No active protocol. S5 remains deferred pending an external CASE consumer and principal direction.",
+  "allowed_files": [],
   "verification": {
-    "fast_slice_local": "npm run test:s4",
-    "upstream_conformance": "npm run test:s3",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
-  "stop_condition": "Stop if a packet can imply stronger identity, key backing, timestamp authority, or provider provenance than its verifiable evidence supports."
+  "stop_condition": "Stop: S4 is complete. Do not activate S5 without an external CASE consumer and principal direction."
 }

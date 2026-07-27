@@ -3,32 +3,22 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "29ed965",
+  "current_commit": "ede5d9b",
   "current_phase": "phase-2-depth",
-  "phase_scope": "Block B depth work. Add portable signing, honest key-class claims, optional authority-backed timestamps, and offline-verifiable INFER pins.",
+  "phase_scope": "Block B depth work is complete. S5 interop remains deferred pending an external CASE consumer.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": "active/2026-07-26-S4-signing-and-anchoring.md",
-  "active_objective": "Build algorithm-identified signatures, honest key classes, optional verifiable timestamp anchoring, offline INFER pins, and a standalone third-party verifier.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "No active protocol. S5 remains deferred pending an external CASE consumer and principal direction.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-26-S4-signing-and-anchoring.md",
     "completed/2026-07-26-S3-legibility.md",
     "completed/2026-07-26-S2-enforcement-loop.md",
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [
-    "README.md",
-    "package.json",
-    "next-prompt-protocols/**",
-    "packages/conformance/**",
-    "packages/journal/**",
-    "packages/depth/**",
-    "fixtures/S4/**",
-    "notes/S4/**",
-    "runs/S4/**",
-    "evidence/S4/**"
-  ],
+  "allowed_files": [],
   "non_goals": [
     "No claim that software keys are hardware-backed, device-bound, or human-identity-bound",
     "No mandatory signing or timestamp service for ordinary local execution",
@@ -40,10 +30,7 @@
     "No queue entries that are not sourced from the canonical Macro Delta"
   ],
   "verification": {
-    "fast_slice_local": "npm run test:s4",
-    "upstream_conformance": "npm run test:s3",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
@@ -336,5 +323,5 @@
       ]
     }
   },
-  "stop_condition": "Stop if a packet can imply stronger identity, key backing, timestamp authority, or provider provenance than its verifiable evidence supports."
+  "stop_condition": "Stop: S4 is complete. Do not activate S5 without an external CASE consumer and principal direction."
 }
