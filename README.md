@@ -85,6 +85,24 @@ processes require OS isolation or an inode-pinned mutation adapter; SCOPA does
 not imply TOCTOU resistance outside that boundary. Codex hooks are useful
 defense in depth but are not, by themselves, a conforming enforcement host.
 
+## Legibility
+
+S3 completes the v0.1 runtime with:
+
+- post-tool observe mode that never gates tool execution;
+- a profile-bound coding-agent observation journal;
+- deterministic boundary maps derived from verified journal chains;
+- declared-versus-observed findings;
+- per-operation coverage that says `not-observed`, never `not-present`;
+- capture-gap reporting for schema, duplicate-ID, and journal failures; and
+- an integer boundary-event completeness score tied to a host-owned attempted
+  event counter.
+
+The score describes only captured boundary-event completeness. It is not a
+forensic reconstruction score, and the host counter is explicitly reported as
+host-supplied rather than cryptographically authenticated. S4 is responsible
+for signatures and third-party binding.
+
 Run the gates:
 
 ```sh

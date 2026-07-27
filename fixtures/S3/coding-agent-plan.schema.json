@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SCOPA S3 coding-agent probe plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "calls"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "scopa.coding-agent-plan.v1"
+    },
+    "calls": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "eventId",
+          "operation",
+          "target",
+          "toolName",
+          "content"
+        ],
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "read",
+              "write"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "workspace/source.txt",
+              "workspace/agent-output.txt"
+            ]
+          },
+          "toolName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4096
+          }
+        }
+      }
+    }
+  }
+}

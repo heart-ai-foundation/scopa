@@ -16,7 +16,7 @@
     "L3",
     "L4"
   ],
-  "active_protocol_sha256": "sha256:adc8d157112c311691d5bffc8e091682e12fbe9d9d11f55444f5b5c5636ff20d",
+  "active_protocol_sha256": "sha256:bb117d82b2498b1dd5f9221cbd567852dbcb38d8360900a0e72b0f6c4bd6d450",
   "active_objective": "Build the reconstructability scorer, observe-mode runner,\ndeclared-versus-observed gap reporter, coverage readout, and initial\ncoding-agent profile. Produce a boundary map from a real session whose\nboundaries were not declared in advance.",
   "allowed_files": [
     "README.md",

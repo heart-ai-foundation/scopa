@@ -113,3 +113,32 @@ This arc slice requires all three evidence surfaces:
 - Reconstructability scoring is derived from explicit journal completeness
   signals and cannot be presented as a forensic reconstruction.
 - S0, S1, and S2 release gates remain green.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S3 suite: 10 passed, 0 failed.
+- Full release gate: 64 passed, 0 failed; all S0–S2 gates and clean/fault
+  conformance probes remained green.
+- Two actual filesystem sessions produced deterministic boundary maps that
+  matched independent host traces, including one schema-constrained
+  `gpt-5.6-terra` plan executed by the trusted host.
+- The model-session evidence retains the Codex JSONL stream and a hash-bound
+  local client receipt. It explicitly does not claim provider-signed
+  provenance.
+- Embedded sealed records, commitment, and host summary independently
+  recompute the model-session map, score, and ordered trace.
+- Invalid classification, duplicate IDs, and append failures became visible
+  capture gaps without gating successful tool execution.
+- Declared-versus-observed differences are explicit findings, and unexercised
+  operations are only `not-observed`, never absent.
+- The 10,000-basis-point result is labeled boundary-event completeness only;
+  it is not a forensic reconstruction claim, and the host counter remains
+  unauthenticated until S4.
+- Independent `gpt-5.6-terra` review first issued `HOLD` on provenance,
+  replayability, and trace precision. After evidence hardening, its fresh
+  retest returned `ACCEPT` with no blockers.
+- Evidence: `notes/S3/`, `runs/S3/`, and `evidence/S3/`.
+- Non-goals remained intact; no signing, anchoring, CASE export, npm
+  publication, or public release occurred.

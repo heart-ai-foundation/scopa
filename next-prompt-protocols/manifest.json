@@ -242,7 +242,7 @@
         {
           "id": "L1",
           "statement": "The reconstructability score computes from journal completeness.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Scoring fixtures",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S3"
@@ -250,7 +250,7 @@
         {
           "id": "L2",
           "statement": "Observe mode journals without enforcing.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Observe-mode agent session",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S3"
@@ -258,7 +258,7 @@
         {
           "id": "L3",
           "statement": "Declared-versus-observed gaps are reported as findings.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Gap-report fixtures",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S3"
@@ -266,7 +266,7 @@
         {
           "id": "L4",
           "statement": "Coverage distinguishes not observed from not present.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Unexercised-path coverage fixtures",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S3"

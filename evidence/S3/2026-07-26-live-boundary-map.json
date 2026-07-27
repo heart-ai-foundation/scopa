@@ -1,0 +1,124 @@
+{
+  "schema": "scopa.live-observe-probe.v1",
+  "ok": true,
+  "manualComparison": {
+    "agrees": true,
+    "expected": [
+      "read\u0000workspace/source.txt",
+      "write\u0000workspace/generated.txt"
+    ],
+    "observed": [
+      "read\u0000workspace/source.txt",
+      "write\u0000workspace/generated.txt"
+    ]
+  },
+  "boundaryMap": {
+    "schema": "scopa.boundary-map.v1",
+    "claimBoundary": {
+      "scope": "observed-host-events-only",
+      "summaryAuthority": "host-reported-not-cryptographically-bound",
+      "statement": "This map describes captured events, not a forensic reconstruction of all activity."
+    },
+    "run": {
+      "runId": "S3-live-observe-session",
+      "scope": "workspace",
+      "journalLength": 2,
+      "journalRootHash": "910b60802c26ae6c0a6db607de133a8f466cf325cab445740e8ef4c7bff221c5",
+      "profileHash": "1653924b759b008990e49c18dcd22353431449bcec9913f09f3f7f42fa7730f8"
+    },
+    "boundaries": [
+      {
+        "category": "TOOL.QUERY",
+        "kind": "OBSERVE",
+        "observationCount": 1,
+        "operation": "read",
+        "resultStatusCounts": {
+          "fulfilled": 1,
+          "rejected": 0
+        },
+        "target": "workspace/source.txt",
+        "toolNames": [
+          "read_file"
+        ]
+      },
+      {
+        "category": "TOOL.COMMAND",
+        "kind": "ACT",
+        "observationCount": 1,
+        "operation": "write",
+        "resultStatusCounts": {
+          "fulfilled": 1,
+          "rejected": 0
+        },
+        "target": "workspace/generated.txt",
+        "toolNames": [
+          "write_file"
+        ]
+      }
+    ],
+    "coverage": {
+      "schema": "scopa.observation-coverage.v1",
+      "profileId": "coding-agent.v1",
+      "operations": [
+        {
+          "category": "EMIT",
+          "count": 0,
+          "operation": "emit",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.COMMAND",
+          "count": 0,
+          "operation": "execute",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.QUERY",
+          "count": 0,
+          "operation": "query",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.QUERY",
+          "count": 1,
+          "operation": "read",
+          "status": "observed"
+        },
+        {
+          "category": "TOOL.COMMAND",
+          "count": 1,
+          "operation": "write",
+          "status": "observed"
+        }
+      ],
+      "attemptedEventCount": 2,
+      "recordedEventCount": 2,
+      "captureGapCount": 0,
+      "unclassifiedRecordCount": 0,
+      "epistemicRule": "not-observed means this session supplied no evidence; it never means not-present"
+    },
+    "findings": [
+      {
+        "kind": "observed-not-declared",
+        "operation": "read",
+        "target": "workspace/source.txt",
+        "status": "observed"
+      },
+      {
+        "kind": "observed-not-declared",
+        "operation": "write",
+        "target": "workspace/generated.txt",
+        "status": "observed"
+      }
+    ],
+    "reconstructability": {
+      "schema": "scopa.reconstructability-score.v1",
+      "attemptedEventCount": 2,
+      "completeEventCount": 2,
+      "scoreBasisPoints": 10000,
+      "status": "complete-for-captured-boundary-events",
+      "claim": "boundary-event-completeness-only"
+    },
+    "mapId": "07e1af1d59b71ef70e2b90c13cbff55248ef00eaac394112b4757fd97385daea"
+  }
+}

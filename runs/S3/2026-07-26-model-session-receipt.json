@@ -1,0 +1,22 @@
+{
+  "schema": "scopa.local-model-session-receipt.v1",
+  "capturedAt": "2026-07-27T04:59:40.239Z",
+  "claim": "locally captured Codex CLI transcript; not provider-signed",
+  "client": {
+    "name": "codex-cli",
+    "version": "codex-cli 0.145.0"
+  },
+  "request": {
+    "outputSchemaSha256": "e050b49186ec4e063c20a5605a5015969490d2c02aa84a08b73fe8e7217718fc",
+    "prompt": "You are the model component of a coding-agent integration test for SCOPA observe mode. Return only one valid plan matching the supplied schema. Choose a sensible read of workspace/source.txt and a write to workspace/agent-output.txt. Use unique event IDs, conventional tool names, and concise original content that reflects the source sentence. Do not perform tools yourself; the trusted host will execute your proposed calls.",
+    "promptSha256": "9998168a7ba49eabb5c584b3503349e278e9b8157ca9fb19acfcc7ebf22aef87",
+    "provider": "openai",
+    "requestedModel": "gpt-5.6-terra"
+  },
+  "response": {
+    "planSha256": "f96035d3a246dc5e3db8332d73e4bdc753b141ee17c581999d4176cc19f05513",
+    "threadId": "019fa1f1-4c0b-7643-936a-477aece702b9",
+    "transcriptSha256": "078f8c1b436fea54c9f60760196e6229a00de3b762deb2341a40ff3c16572641"
+  },
+  "receiptHash": "6a43b832c6458ce55ab0806dbf2ae68965110a4c55151a561ec66de6c3ae9085"
+}

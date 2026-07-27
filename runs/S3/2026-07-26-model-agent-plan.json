@@ -1,0 +1,1 @@
+{"schema":"scopa.coding-agent-plan.v1","calls":[{"eventId":"evt_read_source_001","operation":"read","target":"workspace/source.txt","toolName":"read_file","content":null},{"eventId":"evt_write_output_002","operation":"write","target":"workspace/agent-output.txt","toolName":"write_file","content":"A concise, original response reflecting the source sentence."}]}

@@ -1,0 +1,212 @@
+{
+  "schema": "scopa.agent-plan-probe.v1",
+  "ok": true,
+  "plan": {
+    "schema": "scopa.coding-agent-plan.v1",
+    "calls": [
+      {
+        "eventId": "evt_read_source_001",
+        "operation": "read",
+        "target": "workspace/source.txt",
+        "toolName": "read_file",
+        "content": null
+      },
+      {
+        "eventId": "evt_write_output_002",
+        "operation": "write",
+        "target": "workspace/agent-output.txt",
+        "toolName": "write_file",
+        "content": "A concise, original response reflecting the source sentence."
+      }
+    ]
+  },
+  "hostTrace": [
+    {
+      "eventId": "evt_read_source_001",
+      "operation": "read",
+      "resultStatus": "fulfilled",
+      "sequence": 0,
+      "target": "workspace/source.txt",
+      "toolName": "read_file"
+    },
+    {
+      "eventId": "evt_write_output_002",
+      "operation": "write",
+      "resultStatus": "fulfilled",
+      "sequence": 1,
+      "target": "workspace/agent-output.txt",
+      "toolName": "write_file"
+    }
+  ],
+  "journalTrace": [
+    {
+      "eventId": "evt_read_source_001",
+      "operation": "read",
+      "resultStatus": "fulfilled",
+      "sequence": 0,
+      "target": "workspace/source.txt",
+      "toolName": "read_file"
+    },
+    {
+      "eventId": "evt_write_output_002",
+      "operation": "write",
+      "resultStatus": "fulfilled",
+      "sequence": 1,
+      "target": "workspace/agent-output.txt",
+      "toolName": "write_file"
+    }
+  ],
+  "traceComparison": {
+    "agrees": true,
+    "comparedFields": [
+      "sequence",
+      "eventId",
+      "operation",
+      "target",
+      "toolName",
+      "resultStatus"
+    ]
+  },
+  "manualComparison": {
+    "agrees": true,
+    "expected": [
+      "read\u0000workspace/source.txt",
+      "write\u0000workspace/agent-output.txt"
+    ],
+    "observed": [
+      "read\u0000workspace/source.txt",
+      "write\u0000workspace/agent-output.txt"
+    ]
+  },
+  "journalEvidence": {
+    "commitment": {
+      "algorithm": "sha256",
+      "length": 2,
+      "rootHash": "632676ad81667adf210772002406ae805d7d0ed57fc3e282b000f6ab955ebf65",
+      "schema": "scopa.chain-commitment.v1"
+    },
+    "recordHex": [
+      "ab637365710064686173687840303664616662623561613333333032633361646264653733616633386661363338396361643537353030353865373233306431383562396537306232623931656572756e4964781a53332d6d6f64656c2d67656e6572617465642d73657373696f6e6573636f706569776f726b737061636566656666656374a36573636f706569776f726b7370616365677061796c6f6164a56674617267657474776f726b73706163652f736f757263652e747874676576656e744964736576745f726561645f736f757263655f30303168746f6f6c4e616d6569726561645f66696c65696f7065726174696f6e64726561646c726573756c745374617475736966756c66696c6c65646863617465676f72796a544f4f4c2e5155455259676f7574636f6d65a26576616c7565a16b6f62736572766174696f6e686361707475726564667374617475736966756c66696c6c656468626c6f6252656673806a736372697074486173687840313635333932346237353962303038393930653439633138646364323233353334333134343962636563393931336630396633663766343266613737333066386c70726576696f757348617368f66d6b65726e656c56657273696f6e65302e312e306d736368656d6156657273696f6e7373636f70612e72756e2d7265636f72642e7631",
+      "ab637365710164686173687840363332363736616438313636376164663231303737323030323430366165383035643764306564353766633365323832623030306636616239353565626636356572756e4964781a53332d6d6f64656c2d67656e6572617465642d73657373696f6e6573636f706569776f726b737061636566656666656374a46573636f706569776f726b7370616365677061796c6f6164a566746172676574781a776f726b73706163652f6167656e742d6f75747075742e747874676576656e744964746576745f77726974655f6f75747075745f30303268746f6f6c4e616d656a77726974655f66696c65696f7065726174696f6e6577726974656c726573756c745374617475736966756c66696c6c65646863617465676f72796c544f4f4c2e434f4d4d414e446e6964656d706f74656e63794b6579781c6f6273657276653a6576745f77726974655f6f75747075745f303032676f7574636f6d65a26576616c7565a16b6f62736572766174696f6e686361707475726564667374617475736966756c66696c6c656468626c6f6252656673806a736372697074486173687840313635333932346237353962303038393930653439633138646364323233353334333134343962636563393931336630396633663766343266613737333066386c70726576696f7573486173687840303664616662623561613333333032633361646264653733616633386661363338396361643537353030353865373233306431383562396537306232623931656d6b65726e656c56657273696f6e65302e312e306d736368656d6156657273696f6e7373636f70612e72756e2d7265636f72642e7631"
+    ],
+    "summary": {
+      "runId": "S3-model-generated-session",
+      "scope": "workspace",
+      "schema": "scopa.observation-session-summary.v1",
+      "profileId": "coding-agent.v1",
+      "captureGaps": [],
+      "recordedEvents": 2,
+      "attemptedEvents": 2,
+      "captureGapCount": 0
+    }
+  },
+  "boundaryMap": {
+    "schema": "scopa.boundary-map.v1",
+    "claimBoundary": {
+      "scope": "observed-host-events-only",
+      "summaryAuthority": "host-reported-not-cryptographically-bound",
+      "statement": "This map describes captured events, not a forensic reconstruction of all activity."
+    },
+    "run": {
+      "runId": "S3-model-generated-session",
+      "scope": "workspace",
+      "journalLength": 2,
+      "journalRootHash": "632676ad81667adf210772002406ae805d7d0ed57fc3e282b000f6ab955ebf65",
+      "profileHash": "1653924b759b008990e49c18dcd22353431449bcec9913f09f3f7f42fa7730f8"
+    },
+    "boundaries": [
+      {
+        "category": "TOOL.QUERY",
+        "kind": "OBSERVE",
+        "observationCount": 1,
+        "operation": "read",
+        "resultStatusCounts": {
+          "fulfilled": 1,
+          "rejected": 0
+        },
+        "target": "workspace/source.txt",
+        "toolNames": [
+          "read_file"
+        ]
+      },
+      {
+        "category": "TOOL.COMMAND",
+        "kind": "ACT",
+        "observationCount": 1,
+        "operation": "write",
+        "resultStatusCounts": {
+          "fulfilled": 1,
+          "rejected": 0
+        },
+        "target": "workspace/agent-output.txt",
+        "toolNames": [
+          "write_file"
+        ]
+      }
+    ],
+    "coverage": {
+      "schema": "scopa.observation-coverage.v1",
+      "profileId": "coding-agent.v1",
+      "operations": [
+        {
+          "category": "EMIT",
+          "count": 0,
+          "operation": "emit",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.COMMAND",
+          "count": 0,
+          "operation": "execute",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.QUERY",
+          "count": 0,
+          "operation": "query",
+          "status": "not-observed"
+        },
+        {
+          "category": "TOOL.QUERY",
+          "count": 1,
+          "operation": "read",
+          "status": "observed"
+        },
+        {
+          "category": "TOOL.COMMAND",
+          "count": 1,
+          "operation": "write",
+          "status": "observed"
+        }
+      ],
+      "attemptedEventCount": 2,
+      "recordedEventCount": 2,
+      "captureGapCount": 0,
+      "unclassifiedRecordCount": 0,
+      "epistemicRule": "not-observed means this session supplied no evidence; it never means not-present"
+    },
+    "findings": [
+      {
+        "kind": "observed-not-declared",
+        "operation": "read",
+        "target": "workspace/source.txt",
+        "status": "observed"
+      },
+      {
+        "kind": "observed-not-declared",
+        "operation": "write",
+        "target": "workspace/agent-output.txt",
+        "status": "observed"
+      }
+    ],
+    "reconstructability": {
+      "schema": "scopa.reconstructability-score.v1",
+      "attemptedEventCount": 2,
+      "completeEventCount": 2,
+      "scoreBasisPoints": 10000,
+      "status": "complete-for-captured-boundary-events",
+      "claim": "boundary-event-completeness-only"
+    },
+    "mapId": "1bfa52f33d4b4355217e72b58e9c88758cbb23d804758cd0784667053ec2ae97"
+  }
+}
