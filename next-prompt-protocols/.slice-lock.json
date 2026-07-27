@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "00000000",
+  "current_commit": "42d8e50",
   "current_phase": "phase-1-foundation",
   "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
   "active_class": "arc",

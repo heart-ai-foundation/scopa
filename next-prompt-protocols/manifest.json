@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "00000000",
+  "current_commit": "42d8e50",
   "current_phase": "phase-1-foundation",
   "phase_scope": "Block A foundation work. Build the conformance detector before the sealed core and enforcement loop. No publication is permitted.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
