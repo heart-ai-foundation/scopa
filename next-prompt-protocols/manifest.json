@@ -3,16 +3,17 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "f6dc629",
+  "current_commit": "20079cc",
   "current_phase": "phase-1-foundation",
   "phase_scope": "Block A foundation work. Build the sealed deterministic core and journal under lockdown before the enforcement loop. No publication is permitted.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
-  "active_protocol": "active/2026-07-26-S1-sealed-core.md",
-  "active_objective": "Build effect types, deterministic envelope, hash chain, append-only adapter, content-addressed blob boundary, execution loop, and ACT replay suppression under lockdown.",
+  "active_protocol": "active/2026-07-26-S2-enforcement-loop.md",
+  "active_objective": "Build slice-lock and allowed-path enforcement, verification-gate execution, stop evaluation, orientation, denial payloads, and cold-resume rotation state.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
-    "completed/2026-07-26-S0-conformance-harness.md"
+    "completed/2026-07-26-S0-conformance-harness.md",
+    "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
     ".gitignore",
@@ -21,12 +22,12 @@
     "spec/**",
     "next-prompt-protocols/**",
     "packages/conformance/**",
-    "packages/kernel-core/**",
-    "packages/journal/**",
+    "packages/enforcement/**",
+    "packages/agent-surface/**",
     "fixtures/**",
-    "notes/S1/**",
-    "runs/S1/**",
-    "evidence/S1/**"
+    "notes/S2/**",
+    "runs/S2/**",
+    "evidence/S2/**"
   ],
   "non_goals": [
     "No npm publication or public release before S3 closes v0.1",
@@ -44,7 +45,7 @@
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": "..",
+  "closeout_evidence_path": null,
   "modules": {
     "conformance": {
       "root": [

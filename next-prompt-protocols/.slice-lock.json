@@ -1,28 +1,26 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "f6dc629",
+  "current_commit": "20079cc",
   "current_phase": "phase-1-foundation",
-  "active_protocol": "active/2026-07-26-S1-sealed-core.md",
+  "active_protocol": "active/2026-07-26-S2-enforcement-loop.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "kernel-core",
+  "active_module": "enforcement",
   "crosses": [
-    "journal"
+    "agent-surface"
   ],
   "advances_contracts": [
-    "K1",
-    "K2",
-    "K3",
-    "K4",
-    "J1",
-    "J2",
-    "J3",
-    "J4",
-    "J5"
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "A1",
+    "A2",
+    "A3"
   ],
-  "active_protocol_sha256": "sha256:dbbfe7cd8612d9a96bd48a61e9316037fe9a027162a03000a94a9ac9aea2bea0",
-  "active_objective": "Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain\nsealer, append-only adapter, content-addressed blob boundary, and generator\nexecution loop under lockdown. Enforce ACT replay suppression with idempotency\nkeys.",
+  "active_protocol_sha256": "sha256:5d3aba6b952d416a1ac786c2269874e8338cf80a64f6502cff7d324f0fa065f7",
+  "active_objective": "Build slice-lock and allowed-path enforcement, a real verification-gate runner,\ncheckable stop-condition evaluator, compact orientation call, denial payloads,\nand cold-resume rotation state.",
   "allowed_files": [
     ".gitignore",
     "README.md",
@@ -30,12 +28,12 @@
     "spec/**",
     "next-prompt-protocols/**",
     "packages/conformance/**",
-    "packages/kernel-core/**",
-    "packages/journal/**",
+    "packages/enforcement/**",
+    "packages/agent-surface/**",
     "fixtures/**",
-    "notes/S1/**",
-    "runs/S1/**",
-    "evidence/S1/**"
+    "notes/S2/**",
+    "runs/S2/**",
+    "evidence/S2/**"
   ],
   "verification": {
     "fast_slice_local": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",

@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f6dc629`
+Current commit reference: `20079cc`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `kernel-core`
-Advances contracts: `K1, K2, K3, K4, J1, J2, J3, J4, J5`
+Active protocol module: `enforcement`
+Advances contracts: `E1, E2, E3, E4, A1, A2, A3`
 
 ## Slice Class
 
@@ -92,8 +92,9 @@ Read in this order:
 3. `macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `role-context.md`
 5. `phases/phase-1/README.md`
-6. `active/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-26-S2-enforcement-loop.md`
 7. `completed/2026-07-26-S0-conformance-harness.md`
+8. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -127,10 +128,9 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain
-> sealer, append-only adapter, content-addressed blob boundary, and generator
-> execution loop under lockdown. Enforce ACT replay suppression with idempotency
-> keys.
+> Build slice-lock and allowed-path enforcement, a real verification-gate runner,
+> checkable stop-condition evaluator, compact orientation call, denial payloads,
+> and cold-resume rotation state.
 
 ## Behavior rules
 
@@ -154,12 +154,12 @@ These protocols are specific to:
 - `spec/**`
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
-- `packages/kernel-core/**`
-- `packages/journal/**`
+- `packages/enforcement/**`
+- `packages/agent-surface/**`
 - `fixtures/**`
-- `notes/S1/**`
-- `runs/S1/**`
-- `evidence/S1/**`
+- `notes/S2/**`
+- `runs/S2/**`
+- `evidence/S2/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -168,4 +168,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-1/README.md`
-- `active/2026-07-26-S1-sealed-core.md`
+- `active/2026-07-26-S2-enforcement-loop.md`

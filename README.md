@@ -13,8 +13,8 @@ reference implementation.
 
 ## Status
 
-SCOPA is pre-release Foundation work. S0 Conformance Harness is complete and S1
-Sealed Core is active under the canonical Macro Delta. The package is private
+SCOPA is pre-release Foundation work. S0 Conformance Harness and S1 Sealed Core
+are complete; S2 Enforcement Loop is active under the canonical Macro Delta. The package is private
 and no publication is permitted before S3 closes v0.1.
 
 Start with:
@@ -23,7 +23,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-26-scopa-kernel-build.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-26-S1-sealed-core.md`
+5. `next-prompt-protocols/active/2026-07-26-S2-enforcement-loop.md`
 
 ## Sealed-core candidate
 

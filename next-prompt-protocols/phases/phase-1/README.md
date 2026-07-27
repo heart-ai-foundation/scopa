@@ -1,7 +1,7 @@
 # Phase 1 Foundation
 
-Current commit reference: `f6dc629`
-Current active protocol: `active/2026-07-26-S1-sealed-core.md`
+Current commit reference: `20079cc`
+Current active protocol: `active/2026-07-26-S2-enforcement-loop.md`
 
 ## Scope
 
@@ -9,10 +9,9 @@ Block A foundation work. Build the sealed deterministic core and journal under l
 
 ## Active objective
 
-> Build the effect taxonomy types, deterministic dCBOR envelope, hash-chain
-> sealer, append-only adapter, content-addressed blob boundary, and generator
-> execution loop under lockdown. Enforce ACT replay suppression with idempotency
-> keys.
+> Build slice-lock and allowed-path enforcement, a real verification-gate runner,
+> checkable stop-condition evaluator, compact orientation call, denial payloads,
+> and cold-resume rotation state.
 
 ## Files in play
 
@@ -22,12 +21,12 @@ Block A foundation work. Build the sealed deterministic core and journal under l
 - `spec/**`
 - `next-prompt-protocols/**`
 - `packages/conformance/**`
-- `packages/kernel-core/**`
-- `packages/journal/**`
+- `packages/enforcement/**`
+- `packages/agent-surface/**`
 - `fixtures/**`
-- `notes/S1/**`
-- `runs/S1/**`
-- `evidence/S1/**`
+- `notes/S2/**`
+- `runs/S2/**`
+- `evidence/S2/**`
 
 ## Non-goals
 
@@ -44,20 +43,14 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- `node --test packages/conformance/test/*.test.js`
-- `node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js`
-- `npm test`
-- `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- The same workflow encoded and sealed by two independent runtimes produces
-  byte-identical records.
-- Hash-chain verification accepts the clean chain and rejects mutation and
-  truncation.
-- The append-only file adapter satisfies the persistence-port suite.
-- Content-addressed blobs are stored outside the chain and resolve by digest.
-- Schema and kernel versions are pinned in every record.
-- A repeated ACT idempotency key is suppressed before a second execution.
-- The generator core passes the S0 replay-equivalence and escaped-effect gates
-  under lockdown.
+- A real agent write outside the declared allowed paths is blocked before the
+  tool executes.
+- A claimed completion is refused because a configured command actually fails.
+- Stop state is machine-checkable and gate mutation fails closed.
+- Orientation and denial payload contracts pass.
+- Rotation state restores the slice after a cold context clear.
+- S0 and S1 release gates remain green.
+- `npm run protocol:check`.
 
 ## Handoff
 
