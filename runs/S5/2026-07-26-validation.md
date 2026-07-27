@@ -43,6 +43,13 @@ Negative control:
 
 Both paths are wired into `.github/workflows/case-validation.yml`.
 
+The first GitHub-hosted run (`30264961525`) stopped before test execution
+because `setup-python` could not discover the intentionally nonstandard
+validator requirements filename. The workflow now declares
+`packages/interop/requirements-case-validator.txt` as its explicit pip cache
+dependency path; this changes CI dependency discovery only, not the validated
+artifact or runtime.
+
 ## Candidate artifact
 
 - CASE JSON-LD bytes: `33,872`
