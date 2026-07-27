@@ -8,11 +8,17 @@
     "scopa": "./packages/cli/src/cli.js",
     "scopa-mcp": "./packages/adapter-host/src/cli.js"
   },
+  "exports": {
+    "./claude": "./packages/integrations/claude/src/index.js"
+  },
   "files": [
     "README.md",
     "packages/*/README.md",
     "packages/*/package.json",
-    "packages/*/src/**"
+    "packages/*/src/**",
+    "packages/integrations/*/README.md",
+    "packages/integrations/*/package.json",
+    "packages/integrations/*/src/**"
   ],
   "repository": {
     "type": "git",
@@ -21,7 +27,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s8",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
@@ -29,6 +35,7 @@
     "test:s5": "node packages/conformance/src/run-node-tests.js packages/interop/test/interop.test.js",
     "test:s6": "node packages/conformance/src/run-node-tests.js packages/cli/test/cli.test.js",
     "test:s7": "node packages/conformance/src/run-node-tests.js packages/adapter-host/test/adapter-host.test.js",
+    "test:s8": "node packages/conformance/src/run-node-tests.js packages/integrations/claude/test/claude.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",
@@ -36,6 +43,7 @@
     "probe:s2": "node packages/enforcement/src/live-probe.js",
     "probe:s3": "node packages/legibility/src/live-observe-probe.js",
     "probe:s4": "node packages/depth/src/acceptance-probe.js",
+    "probe:s8:live": "node packages/integrations/claude/src/live-probe.js",
     "export:case:s5": "node packages/interop/src/export-cli.js",
     "verify:case:s5": "node packages/interop/src/verify-case-cli.js",
     "verify:case:s5:artifact": "node packages/interop/src/verify-case-cli.js --export evidence/S5/scopa-case-export.jsonld --timestamp-roots fixtures/S4/freetsa-root.pem --require-timestamp --timestamp-authority-id freetsa.org-2026 --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",

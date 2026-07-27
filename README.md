@@ -16,9 +16,9 @@ reference implementation.
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
 S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, S5 Interop
 Export, and S6 Installable Developer Surface are complete. The authorized
-Developer Preview Macro Delta is now active at S7, which exposes the trusted
-runtime through a model-neutral MCP stdio bridge before separately evidenced
-Claude Code and Codex integrations. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
+Developer Preview Macro Delta has also completed S7's model-neutral MCP bridge
+and is actively validating S8's separately evidenced Claude Code integration;
+Codex parity follows in S9. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
 the independent CASE community validator and losslessly recovers the signed
 S4 packet. The package and repository remain private; publication requires a
 separate principal request.
@@ -29,7 +29,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-27-S7-model-neutral-adapter-bridge.md`
+5. `next-prompt-protocols/active/2026-07-27-S8-claude-code-headless-integration.md`
 
 ## Developer CLI
 
@@ -78,6 +78,21 @@ independent filesystem-write, process, network, or plugin primitive. Its
 machine-readable matrix downgrades any active uncontrolled capability to
 partial assurance. See `packages/adapter-host/README.md` for schemas, protocol
 revisions, threat boundaries, and launcher requirements.
+
+## Claude Code integration
+
+The installed package exports `@heart-ai-foundation/scopa/claude`. Its reviewed
+profile pins Claude Code 2.1.170, waits for the strict explicit MCP server
+before sending streaming input, and exposes exactly the six
+`mcp__scopa__*` tools observed in Claude's initialization event. It caps each
+run at 12 turns, USD 0.20, 120 seconds, and 20 MiB of captured output.
+
+The live S8 proof covers an allowed write, a correction-bearing denied escape,
+a failing completion gate that remains blocked, and a cold restart in a fresh
+Claude/bridge process. Assurance is deliberately `partial`: provider network,
+managed policy, auto-memory discovery, and a small Claude session-title
+metadata write remain uncontrolled. See
+`packages/integrations/claude/README.md` for the API and non-claims.
 
 ## Sealed core
 
@@ -209,6 +224,8 @@ npm run test:s4
 npm run test:s5
 npm run test:s6
 npm run test:s7
+npm run test:s8
+npm run probe:s8:live
 npm run test:cross-runtime
 npm run test:lockdown
 npm run probe:s2
