@@ -1,0 +1,42 @@
+{
+  "consumedEffects": 1,
+  "differences": [
+    {
+      "live": 23,
+      "path": "$.output.value",
+      "reason": "values differ",
+      "replay": 31
+    },
+    {
+      "live": 23,
+      "path": "$.emitted[0].value",
+      "reason": "values differ",
+      "replay": 31
+    },
+    {
+      "live": 0,
+      "path": "$.unexpectedEffects",
+      "reason": "an effect escaped the journal boundary",
+      "replay": 2
+    }
+  ],
+  "journalEntries": 1,
+  "ok": false,
+  "output": {
+    "value": 31
+  },
+  "outputSha256": "b82199f3d72825995e6301e0539bb0a95a55d6b3f38eaaaf6d7d9d3ee2e40f19",
+  "schema": "scopa.conformance.replay-equivalence.v1",
+  "unexpectedEffects": [
+    {
+      "category": "AMBIENT",
+      "key": "ambient-clock",
+      "phase": "live"
+    },
+    {
+      "category": "AMBIENT",
+      "key": "ambient-clock",
+      "phase": "replay"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Phase 1 Foundation
 
-Current commit reference: `42d8e50`
+Current commit reference: `3a93ee2`
 Current active protocol: `active/2026-07-26-S0-conformance-harness.md`
 
 ## Scope

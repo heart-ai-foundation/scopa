@@ -1,0 +1,31 @@
+{
+  "plan": {
+    "initial": 5,
+    "steps": [
+      {
+        "type": "observe",
+        "category": "CLOCK",
+        "key": "clock",
+        "operator": "add"
+      },
+      {
+        "type": "hidden-observe",
+        "key": "ambient-clock",
+        "operator": "add"
+      },
+      {
+        "type": "emit",
+        "label": "final"
+      }
+    ]
+  },
+  "observations": {
+    "clock": 7
+  },
+  "liveHidden": {
+    "ambient-clock": 11
+  },
+  "replayHidden": {
+    "ambient-clock": 19
+  }
+}

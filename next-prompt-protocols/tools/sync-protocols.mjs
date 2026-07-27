@@ -248,6 +248,72 @@ function validateDiffScope(manifest, activeProtocolText) {
   return errors;
 }
 
+async function resolveGitDirectory(repoRoot) {
+  const dotGit = path.join(repoRoot, '.git');
+  const content = await readFile(dotGit, 'utf8').catch(() => null);
+  if (content === null) return dotGit;
+  const match = content.trim().match(/^gitdir:\s*(.+)$/);
+  if (!match) {
+    throw new Error(`invalid gitdir file: ${dotGit}`);
+  }
+  return path.resolve(repoRoot, match[1]);
+}
+
+async function readHeadCommit(repoRoot) {
+  const gitDirectory = await resolveGitDirectory(repoRoot);
+  const head = (await readFile(path.join(gitDirectory, 'HEAD'), 'utf8')).trim();
+  if (!head.startsWith('ref: ')) return head;
+
+  const ref = head.slice(5);
+  const looseRef = await readFile(path.join(gitDirectory, ref), 'utf8').catch(
+    () => null,
+  );
+  if (looseRef !== null) return looseRef.trim();
+
+  const packedRefs = await readFile(
+    path.join(gitDirectory, 'packed-refs'),
+    'utf8',
+  ).catch(() => '');
+  const match = packedRefs
+    .split(/\r?\n/)
+    .find((line) => line.endsWith(` ${ref}`));
+  if (!match) {
+    throw new Error(`could not resolve HEAD ref: ${ref}`);
+  }
+  return match.split(' ', 1)[0];
+}
+
+async function validateCurrentCommit(manifest) {
+  if (!manifest.repo_root || !manifest.current_commit) return [];
+  if (!/^[0-9a-f]{7,40}$/i.test(manifest.current_commit)) {
+    return [`manifest.current_commit is not a git commit: ${manifest.current_commit}`];
+  }
+
+  const repoRoot = path.resolve(manifest.repo_root);
+  const gitDirectory = await resolveGitDirectory(repoRoot);
+  const head = await readHeadCommit(repoRoot);
+  if (head.startsWith(manifest.current_commit)) return [];
+
+  // Rotation metadata is committed after the executable slice it activates.
+  // Accept that single activation commit while rejecting a lock that has
+  // drifted across additional commits.
+  const reflog = await readFile(path.join(gitDirectory, 'logs', 'HEAD'), 'utf8').catch(
+    () => '',
+  );
+  const lastTransition = reflog.trim().split(/\r?\n/).at(-1)?.match(
+    /^([0-9a-f]{40}) ([0-9a-f]{40}) /i,
+  );
+  const activationCommit =
+    lastTransition &&
+    lastTransition[2] === head &&
+    lastTransition[1].startsWith(manifest.current_commit);
+  return activationCommit
+    ? []
+    : [
+        `manifest.current_commit (${manifest.current_commit}) matches neither HEAD (${head.slice(0, 8)}) nor its single activation transition`,
+      ];
+}
+
 function validateProtocolShape(manifest, activeProtocolText) {
   const errors = [];
   const activeClass = manifest.active_class;
@@ -841,6 +907,7 @@ async function main() {
   const protocolShapeErrors = validateProtocolShape(manifest, activeProtocolText);
   const moduleErrors = validateModules(manifest, activeProtocolText);
   const diffScopeErrors = validateDiffScope(manifest, activeProtocolText);
+  const currentCommitErrors = await validateCurrentCommit(manifest);
   const closeoutEvidenceErrors = await validateCloseoutEvidence(manifest);
 
   if (checkOnly) {
@@ -859,7 +926,13 @@ async function main() {
     if (currentLock !== stableJson(nextLock)) {
       mismatches.push('.slice-lock.json is out of sync with manifest.json');
     }
-    mismatches.push(...protocolShapeErrors, ...moduleErrors, ...diffScopeErrors, ...closeoutEvidenceErrors);
+    mismatches.push(
+      ...protocolShapeErrors,
+      ...moduleErrors,
+      ...diffScopeErrors,
+      ...currentCommitErrors,
+      ...closeoutEvidenceErrors,
+    );
     if (mismatches.length > 0) {
       throw new Error(`${mismatches.length} drift mismatch(es):\n  - ${mismatches.join('\n  - ')}\nRun \`npm run protocol:sync\` to regenerate.`);
     }

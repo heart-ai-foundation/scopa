@@ -1,0 +1,34 @@
+{
+  "plan": {
+    "initial": 5,
+    "steps": [
+      {
+        "type": "observe",
+        "category": "CLOCK",
+        "key": "clock",
+        "operator": "add"
+      },
+      {
+        "type": "observe",
+        "category": "ENTROPY",
+        "key": "entropy",
+        "operator": "multiply"
+      },
+      {
+        "type": "observe",
+        "category": "TOOL.QUERY",
+        "key": "query",
+        "operator": "add"
+      },
+      {
+        "type": "emit",
+        "label": "final"
+      }
+    ]
+  },
+  "observations": {
+    "clock": 7,
+    "entropy": 3,
+    "query": 4
+  }
+}

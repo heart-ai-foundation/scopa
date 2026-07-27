@@ -1,0 +1,13 @@
+command: node packages/conformance/src/probe.js containment clean
+cwd: /home/dylan/scopa
+exit_code: 0
+runtime: node v22.22.2, linux x64
+
+{
+  "checkedInferCalls": 1,
+  "ok": true,
+  "schema": "scopa.conformance.untrusted-data-containment.v1",
+  "taintedDataSegments": 1,
+  "trackedNodes": 3,
+  "violations": []
+}

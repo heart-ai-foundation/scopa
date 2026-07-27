@@ -1,0 +1,47 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "slice": "S0",
+  "status": "acceptance-gates-passed",
+  "contracts": {
+    "C1": {
+      "status": "satisfied",
+      "finding": "Declared hidden-effect injections produced SCOPA_REPLAY_DIVERGENCE at $.output.value and $.unexpectedEffects; Date values, actual harness-owned journal consumption, and cancelling hidden effects are adversarially covered.",
+      "cleanControlExitCode": 0,
+      "faultProbeExitCode": 1
+    },
+    "C2": {
+      "status": "satisfied",
+      "finding": "Derived SOURCE content in an INFER instruction channel produced SCOPA_UNTRUSTED_INSTRUCTION_FLOW; malformed, cyclic, laundered, duplicate, and alternate-field provenance fails closed.",
+      "cleanControlExitCode": 0,
+      "faultProbeExitCode": 1
+    },
+    "C3": {
+      "status": "satisfied",
+      "finding": "The executable root release gate enumerated both current conformance test files, ran all 14 tests, then independently required clean/fault exit semantics for all four probes.",
+      "releaseGateExitCode": 0
+    }
+  },
+  "generatedCases": {
+    "replayWorkflows": 256,
+    "provenanceDags": 256
+  },
+  "testResult": {
+    "tests": 14,
+    "passed": 14,
+    "failed": 0
+  },
+  "runtime": {
+    "node": "v22.22.2",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "independentModelReview": {
+    "model": "gpt-5.6-terra",
+    "initialVerdict": "hold",
+    "initialFindings": 7,
+    "resolvedFindings": 7,
+    "finalVerdict": "accept",
+    "evidence": "evidence/S0/independent-model-adversarial-review.json"
+  },
+  "coverageBoundary": "Synthetic conformance coverage only. Real effect interception and live-agent enforcement remain unproven until S1 and S2."
+}

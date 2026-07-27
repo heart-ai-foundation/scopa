@@ -1,0 +1,8 @@
+{
+  "checkedInferCalls": 1,
+  "ok": true,
+  "schema": "scopa.conformance.untrusted-data-containment.v1",
+  "taintedDataSegments": 1,
+  "trackedNodes": 3,
+  "violations": []
+}

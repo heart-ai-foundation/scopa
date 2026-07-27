@@ -1,0 +1,61 @@
+{
+  "schema": "scopa.independent-model-review.v1",
+  "slice": "S0",
+  "reviewModel": "gpt-5.6-terra",
+  "reviewMode": "read-only adversarial",
+  "initialVerdict": "hold",
+  "findings": [
+    {
+      "id": "date-value-divergence",
+      "resolution": "Date values are canonicalized and compared by timestamp; a distinct-Date regression test fails on divergence.",
+      "status": "resolved"
+    },
+    {
+      "id": "spoofed-consumption-count",
+      "resolution": "Replay consumption is measured by a private harness-owned journal cursor.",
+      "status": "resolved"
+    },
+    {
+      "id": "cancelling-hidden-effects",
+      "resolution": "The declared synthetic fault seam reports escaped effects even when their values cancel.",
+      "status": "resolved"
+    },
+    {
+      "id": "provenance-laundering",
+      "resolution": "Trusted and untrusted source nodes cannot claim derived provenance.",
+      "status": "resolved"
+    },
+    {
+      "id": "shared-generator-oracle",
+      "resolution": "The generated containment oracle uses an independent iterative fixed-point calculation.",
+      "status": "resolved"
+    },
+    {
+      "id": "release-gate-circularity",
+      "resolution": "The release gate enumerates executable tests and independently spawns all clean/fault probes.",
+      "status": "resolved"
+    },
+    {
+      "id": "open-provenance-schema",
+      "resolution": "Node and INFER call records now use closed schemas and reject alternate fields, wrong shapes, and duplicate call ids.",
+      "status": "resolved"
+    }
+  ],
+  "scopeBoundary": "Arbitrary unreported ambient authority is intentionally not claimed by S0. Structural interception and SES confinement are S1 and S2 concerns.",
+  "finalRetest": {
+    "verdict": "accept",
+    "status": "completed",
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "cleanProbeExitCodes": [
+      0,
+      0
+    ],
+    "faultProbeExitCodes": [
+      1,
+      1
+    ],
+    "protocolCheck": "passed",
+    "formerBypasses": "fail-closed"
+  }
+}

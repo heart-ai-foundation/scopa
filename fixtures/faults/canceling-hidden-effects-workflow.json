@@ -1,0 +1,30 @@
+{
+  "plan": {
+    "initial": 5,
+    "steps": [
+      {
+        "type": "hidden-observe",
+        "key": "ambient-add",
+        "operator": "add"
+      },
+      {
+        "type": "hidden-observe",
+        "key": "ambient-subtract",
+        "operator": "subtract"
+      },
+      {
+        "type": "emit",
+        "label": "final"
+      }
+    ]
+  },
+  "observations": {},
+  "liveHidden": {
+    "ambient-add": 11,
+    "ambient-subtract": 11
+  },
+  "replayHidden": {
+    "ambient-add": 19,
+    "ambient-subtract": 19
+  }
+}

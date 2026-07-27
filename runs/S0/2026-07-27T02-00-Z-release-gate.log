@@ -1,0 +1,26 @@
+command: npm test
+cwd: /home/dylan/scopa
+exit_code: 0
+runtime: node v22.22.2, linux x64
+
+> @heart-ai-foundation/scopa@0.0.0 test
+> node packages/conformance/src/release-gate.js
+
+tests: 14
+passed: 14
+failed: 0
+
+{
+  "ok": true,
+  "probes": [
+    { "exitCode": 0, "ok": true, "probe": "replay:clean" },
+    { "exitCode": 1, "ok": false, "probe": "replay:fault" },
+    { "exitCode": 0, "ok": true, "probe": "containment:clean" },
+    { "exitCode": 1, "ok": false, "probe": "containment:fault" }
+  ],
+  "schema": "scopa.conformance.release-gate.v1",
+  "testFiles": [
+    "packages/conformance/test/replay-equivalence.test.js",
+    "packages/conformance/test/untrusted-data-containment.test.js"
+  ]
+}

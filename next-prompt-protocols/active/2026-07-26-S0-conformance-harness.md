@@ -107,3 +107,32 @@ This slice commits all three evidence surfaces:
   expected reasons.
 - Clean controls pass.
 - The release gate invokes both harnesses.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused tests: 14 passed, 0 failed.
+- Release gate: 14 passed, 0 failed; both test files enumerated and all four
+  clean/fault probes independently checked.
+- Generated coverage: 256 replay workflows and 256 provenance DAGs.
+- Clean replay probe: exit `0`.
+- Injected hidden-effect replay probe: expected exit `1`, divergence reported
+  at `$.output.value`, `$.emitted[0].value`, and `$.unexpectedEffects`.
+- Clean containment probe: exit `0`.
+- Injected instruction-leak probe: expected exit `1`, origin `source-1`
+  reported at `infer-1:extract-1`.
+- Adversarial regressions: Date divergence, spoofed replay consumption,
+  cancelling hidden effects, provenance laundering, alternate schema fields,
+  malformed graphs, and duplicate call IDs are covered.
+- Independent model: `gpt-5.6-terra` issued an initial hold, all findings were
+  resolved, and its final frozen-worktree verdict was `ACCEPT`.
+- Protocol check: passed.
+- Syntax and JSON validation: passed.
+- Evidence: `notes/S0/`, `runs/S0/`, and `evidence/S0/`.
+- Non-goals: all preserved.
+
+S0 proves the declared synthetic fault detectors. Its escaped-effect detector
+operates through the explicit synthetic reporting seam. It does not claim
+structural ambient-authority removal, real effect interception, or live-agent
+enforcement; those remain S1 and S2 work.

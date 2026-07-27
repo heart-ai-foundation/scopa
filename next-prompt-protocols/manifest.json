@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "42d8e50",
+  "current_commit": "3a93ee2",
   "current_phase": "phase-1-foundation",
   "phase_scope": "Block A foundation work. Build the conformance detector before the sealed core and enforcement loop. No publication is permitted.",
   "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
@@ -40,7 +40,7 @@
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": null,
+  "closeout_evidence_path": "..",
   "modules": {
     "conformance": {
       "root": [
@@ -55,7 +55,7 @@
         {
           "id": "C1",
           "statement": "The replay-equivalence harness fails on injected divergence.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Property-based synthetic workflows and injected effect-leak fixtures",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S0"
@@ -63,7 +63,7 @@
         {
           "id": "C2",
           "statement": "The untrusted-data containment harness fails on injected instruction leakage.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Injected instruction-leak fixtures and clean containment controls",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S0"
@@ -71,7 +71,7 @@
         {
           "id": "C3",
           "statement": "Both conformance harnesses are wired as the release gate.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "npm test and repository release-gate configuration",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S0"

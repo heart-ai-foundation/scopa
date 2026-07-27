@@ -1,0 +1,12 @@
+{
+  "consumedEffects": 3,
+  "differences": [],
+  "journalEntries": 3,
+  "ok": true,
+  "output": {
+    "value": 40
+  },
+  "outputSha256": "971f7d8618808060fff500a786c67f1b9c53eca3e9680593e73d067a8012d601",
+  "schema": "scopa.conformance.replay-equivalence.v1",
+  "unexpectedEffects": []
+}

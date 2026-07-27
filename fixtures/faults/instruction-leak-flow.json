@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    {
+      "id": "principal-policy",
+      "kind": "trusted"
+    },
+    {
+      "id": "source-1",
+      "kind": "untrusted"
+    },
+    {
+      "id": "extract-1",
+      "kind": "derived",
+      "derivedFrom": [
+        "source-1"
+      ]
+    }
+  ],
+  "inferCalls": [
+    {
+      "id": "infer-1",
+      "instructionNodeIds": [
+        "principal-policy",
+        "extract-1"
+      ],
+      "dataNodeIds": []
+    }
+  ]
+}

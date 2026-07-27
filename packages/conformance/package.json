@@ -1,0 +1,10 @@
+{
+  "name": "@heart-ai-foundation/scopa-conformance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./replay-equivalence": "./src/replay-equivalence.js",
+    "./untrusted-data-containment": "./src/untrusted-data-containment.js"
+  }
+}

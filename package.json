@@ -11,7 +11,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node --test packages/*/test/*.test.js"
+    "test": "node packages/conformance/src/release-gate.js"
   },
   "engines": {
     "node": ">=22"

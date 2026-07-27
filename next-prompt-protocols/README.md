@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `42d8e50`
+Current commit reference: `3a93ee2`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -36,7 +36,7 @@ Every active protocol declares:
 Module tags are structural metadata, not a folder hierarchy. They let the protocol check module ownership, boundary slices, and contract progress without creating another required nesting level.
 
 Module progress:
-- conformance: 0/3 (0%)
+- conformance: 3/3 (100%)
 - kernel-core: 0/4 (0%)
 - journal: 0/5 (0%)
 - enforcement: 0/4 (0%)
@@ -44,7 +44,7 @@ Module progress:
 - legibility: 0/4 (0%)
 - depth: 0/4 (0%)
 - interop: 0/2 (0%)
-Arc total: 0/29 (0%)
+Arc total: 3/29 (10%)
 
 ## Descriptor Rung Stop Rule
 

@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "42d8e50",
+  "current_commit": "3a93ee2",
   "current_phase": "phase-1-foundation",
   "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
   "active_class": "arc",
@@ -15,7 +15,7 @@
     "C2",
     "C3"
   ],
-  "active_protocol_sha256": "sha256:5de009291f51dfe1ec88623619e6b9b15f3bc59e1cf59694e12fa452cc5caa0f",
+  "active_protocol_sha256": "sha256:2fa56676e12a1a3383ec17d9c21a208644d645d6b1e8f727cfb6d8590b31d658",
   "active_objective": "Build the replay-equivalence and untrusted-data containment harnesses before the\nfeatures they guard. The harness must fail on deliberately injected\nnon-deterministic behavior and instruction leakage, then pass on clean controls.",
   "allowed_files": [
     ".gitignore",

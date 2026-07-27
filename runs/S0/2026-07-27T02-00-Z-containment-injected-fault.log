@@ -1,0 +1,22 @@
+command: node packages/conformance/src/probe.js containment fault
+cwd: /home/dylan/scopa
+exit_code: 1
+expected_exit: 1
+runtime: node v22.22.2, linux x64
+
+{
+  "checkedInferCalls": 1,
+  "ok": false,
+  "schema": "scopa.conformance.untrusted-data-containment.v1",
+  "taintedDataSegments": 0,
+  "trackedNodes": 3,
+  "violations": [
+    {
+      "inferCallId": "infer-1",
+      "nodeId": "extract-1",
+      "origins": [
+        "source-1"
+      ]
+    }
+  ]
+}

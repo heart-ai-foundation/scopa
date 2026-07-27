@@ -1,0 +1,41 @@
+command: node --test packages/conformance/test/*.test.js
+cwd: /home/dylan/scopa
+exit_code: 0
+runtime: node v22.22.2, linux x64
+
+TAP version 13
+# Subtest: clean golden workflow replays equivalently
+ok 1 - clean golden workflow replays equivalently
+# Subtest: injected hidden effect fails loudly at the divergent output
+ok 2 - injected hidden effect fails loudly at the divergent output
+# Subtest: actual journal consumption is measured by a harness-owned source
+ok 3 - actual journal consumption is measured by a harness-owned source
+# Subtest: canceling hidden effects fail even when output and emissions match
+ok 4 - canceling hidden effects fail even when output and emissions match
+# Subtest: distinct Date outputs are compared by value
+ok 5 - distinct Date outputs are compared by value
+# Subtest: generated synthetic workflows preserve the replay-equivalence property
+ok 6 - generated synthetic workflows preserve the replay-equivalence property
+# Subtest: replay fails closed when a journal effect does not match the plan
+ok 7 - replay fails closed when a journal effect does not match the plan
+# Subtest: clean golden flow permits untrusted content only in the data channel
+ok 8 - clean golden flow permits untrusted content only in the data channel
+# Subtest: derived untrusted content in an INFER instruction channel fails
+ok 9 - derived untrusted content in an INFER instruction channel fails
+# Subtest: generated provenance DAGs report exactly the tainted instruction nodes
+ok 10 - generated provenance DAGs report exactly the tainted instruction nodes
+# Subtest: trusted source nodes cannot launder untrusted provenance
+ok 11 - trusted source nodes cannot launder untrusted provenance
+# Subtest: unknown provenance and instruction-channel fields fail closed
+ok 12 - unknown provenance and instruction-channel fields fail closed
+# Subtest: duplicate INFER call ids fail closed
+ok 13 - duplicate INFER call ids fail closed
+# Subtest: unknown provenance and provenance cycles fail closed
+ok 14 - unknown provenance and provenance cycles fail closed
+1..14
+# tests 14
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
