@@ -1,0 +1,333 @@
+{
+  "project": "SCOPA",
+  "repo_root": "/home/dylan/scopa",
+  "diff_base": null,
+  "diff_head": null,
+  "current_commit": "00000000",
+  "current_phase": "phase-1-foundation",
+  "phase_scope": "Block A foundation work. Build the conformance detector before the sealed core and enforcement loop. No publication is permitted.",
+  "macro_delta": "macro-deltas/2026-07-26-scopa-kernel-build.md",
+  "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
+  "active_objective": "Build the replay-equivalence and untrusted-data containment harnesses before the features they guard.",
+  "active_class": "arc",
+  "active_compound": false,
+  "completed_protocols": [],
+  "allowed_files": [
+    ".gitignore",
+    "README.md",
+    "package.json",
+    "spec/**",
+    "next-prompt-protocols/**",
+    "packages/conformance/**",
+    "packages/kernel-core/**",
+    "fixtures/**",
+    "notes/S0/**",
+    "runs/S0/**",
+    "evidence/S0/**"
+  ],
+  "non_goals": [
+    "No npm publication or public release before S3 closes v0.1",
+    "No production agent enforcement in S0",
+    "No sealed journal implementation beyond the minimal seams required by S0 fixtures",
+    "No signing, anchoring, INFER provider integration, or CASE/UCO export",
+    "No effect categories outside the canonical Macro Delta and Kernel Specification",
+    "No queue entries that are not sourced from the canonical Macro Delta"
+  ],
+  "verification": {
+    "fast_slice_local": "node --test packages/conformance/test/*.test.js",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
+  },
+  "slice_queue": "slice-queue.md",
+  "evidence_root": "..",
+  "closeout_evidence_path": null,
+  "modules": {
+    "conformance": {
+      "root": [
+        "packages/conformance",
+        "fixtures",
+        "notes/S0",
+        "runs/S0",
+        "evidence/S0"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "C1",
+          "statement": "The replay-equivalence harness fails on injected divergence.",
+          "status": "open",
+          "verifies_via": "Property-based synthetic workflows and injected effect-leak fixtures",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S0"
+        },
+        {
+          "id": "C2",
+          "statement": "The untrusted-data containment harness fails on injected instruction leakage.",
+          "status": "open",
+          "verifies_via": "Injected instruction-leak fixtures and clean containment controls",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S0"
+        },
+        {
+          "id": "C3",
+          "statement": "Both conformance harnesses are wired as the release gate.",
+          "status": "open",
+          "verifies_via": "npm test and repository release-gate configuration",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S0"
+        }
+      ]
+    },
+    "kernel-core": {
+      "root": "packages/kernel-core",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "K1",
+          "statement": "Effect category types are frozen and exported.",
+          "status": "open",
+          "verifies_via": "Type and API conformance tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "K2",
+          "statement": "The pure generator performs no input or output under lockdown.",
+          "status": "open",
+          "verifies_via": "Replay-equivalence and effect-leak fault injection",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "K3",
+          "statement": "The execution loop yields, fulfills, and seals effects.",
+          "status": "open",
+          "verifies_via": "Execution-loop integration tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "K4",
+          "statement": "ACT replay suppression is enforced with idempotency keys.",
+          "status": "open",
+          "verifies_via": "Second-execution suppression test",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        }
+      ]
+    },
+    "journal": {
+      "root": "packages/journal",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "J1",
+          "statement": "The dCBOR envelope encodes deterministically across runtimes.",
+          "status": "open",
+          "verifies_via": "Cross-runtime byte comparison",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "J2",
+          "statement": "The hash chain seals and verifies.",
+          "status": "open",
+          "verifies_via": "Seal, verify, mutation, and truncation fixtures",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "J3",
+          "statement": "The append-only file adapter satisfies the persistence port.",
+          "status": "open",
+          "verifies_via": "Persistence port contract suite",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "J4",
+          "statement": "Content addressing separates blobs from the chain.",
+          "status": "open",
+          "verifies_via": "Blob addressing and chain-size tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        },
+        {
+          "id": "J5",
+          "statement": "Schema and kernel versions are pinned per record.",
+          "status": "open",
+          "verifies_via": "Envelope schema tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S1"
+        }
+      ]
+    },
+    "enforcement": {
+      "root": "packages/enforcement",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "E1",
+          "statement": "Slice lock and allowed-path enforcement block writes at the tool-call boundary.",
+          "status": "open",
+          "verifies_via": "Live agent blocked-write proof",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "E2",
+          "statement": "The verification gate executes real commands and rejects asserted success.",
+          "status": "open",
+          "verifies_via": "Refused false-green completion proof",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "E3",
+          "statement": "The stop-condition evaluator returns a checkable state.",
+          "status": "open",
+          "verifies_via": "Stop-condition contract tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "E4",
+          "statement": "The gate definition is immutable without a principal DECISION.",
+          "status": "open",
+          "verifies_via": "Gate-mutation denial tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        }
+      ]
+    },
+    "agent-surface": {
+      "root": "packages/agent-surface",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "A1",
+          "statement": "The orientation call returns compact status.",
+          "status": "open",
+          "verifies_via": "Orientation output contract test",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "A2",
+          "statement": "Denials carry the allowed set and amendment path.",
+          "status": "open",
+          "verifies_via": "Denial payload contract tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "A3",
+          "statement": "The rotation state file permits cold resume.",
+          "status": "open",
+          "verifies_via": "Cold-resume integration proof",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S2"
+        }
+      ]
+    },
+    "legibility": {
+      "root": "packages/legibility",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "L1",
+          "statement": "The reconstructability score computes from journal completeness.",
+          "status": "open",
+          "verifies_via": "Scoring fixtures",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S3"
+        },
+        {
+          "id": "L2",
+          "statement": "Observe mode journals without enforcing.",
+          "status": "open",
+          "verifies_via": "Observe-mode agent session",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S3"
+        },
+        {
+          "id": "L3",
+          "statement": "Declared-versus-observed gaps are reported as findings.",
+          "status": "open",
+          "verifies_via": "Gap-report fixtures",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S3"
+        },
+        {
+          "id": "L4",
+          "statement": "Coverage distinguishes not observed from not present.",
+          "status": "open",
+          "verifies_via": "Unexercised-path coverage fixtures",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S3"
+        }
+      ]
+    },
+    "depth": {
+      "root": "packages/depth",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "D1",
+          "statement": "The signing layer carries an algorithm identifier per record.",
+          "status": "open",
+          "verifies_via": "Independent signature verification",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S4"
+        },
+        {
+          "id": "D2",
+          "statement": "Device key classes are recorded and never overstated.",
+          "status": "open",
+          "verifies_via": "Key-class representation tests",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S4"
+        },
+        {
+          "id": "D3",
+          "statement": "External timestamp anchoring is optional and verifiable.",
+          "status": "open",
+          "verifies_via": "Independent anchor receipt verification",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S4"
+        },
+        {
+          "id": "D4",
+          "statement": "INFER records pin provider, snapshot, prompt hash, and parameters.",
+          "status": "open",
+          "verifies_via": "Offline INFER replay fixture",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S4"
+        }
+      ]
+    },
+    "interop": {
+      "root": "packages/interop",
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "I1",
+          "statement": "Effect categories map to CASE Action, Identity, Tool, and Relationship.",
+          "status": "open",
+          "verifies_via": "Mapping fixtures and review",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S5"
+        },
+        {
+          "id": "I2",
+          "statement": "Export validates against the CASE context.",
+          "status": "open",
+          "verifies_via": "External CASE conformance verifier",
+          "discovered_on": "2026-07-26",
+          "discovered_because": "SCOPA Macro Delta S5"
+        }
+      ]
+    }
+  },
+  "stop_condition": "Stop if the S0 harness cannot detect an injected effect leak or instruction leak, if scaffold state disagrees, or if work would exceed the canonical Macro Delta."
+}

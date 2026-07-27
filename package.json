@@ -1,0 +1,19 @@
+{
+  "name": "@heart-ai-foundation/scopa",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Open enforcement runtime for bounded, verifiable autonomous coding work",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Heart-AI-Foundation/scopa.git"
+  },
+  "scripts": {
+    "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
+    "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "test": "node --test packages/*/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

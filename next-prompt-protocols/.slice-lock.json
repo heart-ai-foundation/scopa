@@ -1,0 +1,39 @@
+{
+  "lock_version": 1,
+  "project": "SCOPA",
+  "current_commit": "00000000",
+  "current_phase": "phase-1-foundation",
+  "active_protocol": "active/2026-07-26-S0-conformance-harness.md",
+  "active_class": "arc",
+  "active_compound": false,
+  "active_module": "conformance",
+  "crosses": [
+    "kernel-core"
+  ],
+  "advances_contracts": [
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "active_protocol_sha256": "sha256:5de009291f51dfe1ec88623619e6b9b15f3bc59e1cf59694e12fa452cc5caa0f",
+  "active_objective": "Build the replay-equivalence and untrusted-data containment harnesses before the\nfeatures they guard. The harness must fail on deliberately injected\nnon-deterministic behavior and instruction leakage, then pass on clean controls.",
+  "allowed_files": [
+    ".gitignore",
+    "README.md",
+    "package.json",
+    "spec/**",
+    "next-prompt-protocols/**",
+    "packages/conformance/**",
+    "packages/kernel-core/**",
+    "fixtures/**",
+    "notes/S0/**",
+    "runs/S0/**",
+    "evidence/S0/**"
+  ],
+  "verification": {
+    "fast_slice_local": "node --test packages/conformance/test/*.test.js",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
+  },
+  "stop_condition": "Stop if the S0 harness cannot detect an injected effect leak or instruction leak, if scaffold state disagrees, or if work would exceed the canonical Macro Delta."
+}
