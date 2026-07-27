@@ -137,3 +137,41 @@ This arc slice requires all three evidence surfaces:
 - The transport does not execute shell strings or create an unjournaled
   mutation path.
 - S0-S6 release gates remain green.
+
+## Closeout
+
+**Result:** complete.
+
+- Focused S7 suite: 7 passed, 0 failed.
+- Full accumulated release gate: 90 passed, 0 failed; clean and injected-fault
+  conformance probes retained their expected outcomes.
+- A dependency-free `scopa-mcp` binary implements stable newline JSON-RPC
+  stdio with four compatible MCP revisions, strict lifecycle ordering,
+  duplicate-ID refusal, closed tool arguments, and a 1 MiB message limit.
+- A source-free packed consumer discovered six tools, completed a governed
+  write, received a correction-bearing escape denial, ran the real stop gate,
+  and retrieved a validated operational transcript.
+- Static and executable checks found no adapter-owned filesystem mutation,
+  process, network, plugin, or raw tool-pass-through route. The sole advertised
+  mutation calls the trusted S2 dispatcher.
+- Repository reads are contained, symlink-resolved, regular-file-only, and
+  capped at 512 KiB.
+- Hostile `shell`, `apply_patch`, unsupported method, duplicate ID, malformed
+  argument, oversized read, outside read, and outside write controls failed
+  without unauthorized mutation.
+- An exit-7 gate remained blocked and surfaced as `isError: true`; model output
+  could not assert a false-green stop.
+- Capability validation requires bridge and native capability coverage,
+  computes `partial` for active uncontrolled routes, and rejects a false
+  `full` claim. The committed `full` matrix is scoped only to the stream-only
+  deterministic fake agent.
+- The closed transcript binds launcher request, launcher-declared model label,
+  actual MCP client identity, ordered calls/results, denials, protocol errors,
+  and terminal state; false-green, missing, reordered, duplicate, unknown, and
+  non-canonical mutations are rejected.
+- `npm audit` reported zero vulnerabilities. The 100-entry private tarball
+  candidate contains both `scopa` and `scopa-mcp`.
+- Evidence: `notes/S7/`, `runs/S7/`, and `evidence/S7/`.
+- Non-goals remained intact. No real Claude/Codex invocation, provider
+  assurance claim, OS-sandbox claim, npm publication, public release, or
+  semantic change occurred.

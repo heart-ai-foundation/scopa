@@ -1,0 +1,91 @@
+{
+  "schema": "scopa.capability-matrix.v1",
+  "subject": {
+    "adapter": "scopa-mcp@0.1.0",
+    "client": "scopa-fake-agent@0.1.0",
+    "transport": "mcp-stdio"
+  },
+  "capabilities": [
+    {
+      "id": "scopa.orientation",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "scopa_orientation tool schema and protocol test"
+    },
+    {
+      "id": "scopa.read_file",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "repository-contained read test"
+    },
+    {
+      "id": "scopa.write_file",
+      "category": "mutate",
+      "exposure": "advertised",
+      "mediation": "scopa-dispatcher",
+      "effect": "MUTATE",
+      "evidence": "allowed and denied dispatcher calls"
+    },
+    {
+      "id": "scopa.check",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "scopa-gate",
+      "effect": "OBSERVE",
+      "evidence": "real passing and failing gate tests"
+    },
+    {
+      "id": "scopa.assurance",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "closed capability matrix tool"
+    },
+    {
+      "id": "scopa.transcript",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "closed transcript snapshot tool"
+    },
+    {
+      "id": "native.filesystem-write",
+      "category": "mutate",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "deterministic fake agent has stream-only API"
+    },
+    {
+      "id": "native.process-execution",
+      "category": "execute",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "deterministic fake agent has stream-only API"
+    },
+    {
+      "id": "native.network",
+      "category": "network",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "deterministic fake agent has stream-only API"
+    },
+    {
+      "id": "native.extensions",
+      "category": "extension",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "deterministic fake agent has no plugin surface"
+    }
+  ],
+  "assurance": "full"
+}

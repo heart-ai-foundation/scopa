@@ -5,7 +5,8 @@
   "description": "Open enforcement runtime for bounded, verifiable autonomous coding work",
   "type": "module",
   "bin": {
-    "scopa": "./packages/cli/src/cli.js"
+    "scopa": "./packages/cli/src/cli.js",
+    "scopa-mcp": "./packages/adapter-host/src/cli.js"
   },
   "files": [
     "README.md",
@@ -27,6 +28,7 @@
     "test:s4": "node packages/conformance/src/run-node-tests.js packages/depth/test/depth.test.js",
     "test:s5": "node packages/conformance/src/run-node-tests.js packages/interop/test/interop.test.js",
     "test:s6": "node packages/conformance/src/run-node-tests.js packages/cli/test/cli.test.js",
+    "test:s7": "node packages/conformance/src/run-node-tests.js packages/adapter-host/test/adapter-host.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",

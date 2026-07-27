@@ -14,11 +14,11 @@ reference implementation.
 ## Status
 
 SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
-S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, and S5 Interop
-Export are complete. The authorized Developer Preview Macro Delta is now
-active at S6, which packages the proven runtime behind an installable local
-CLI before the shared adapter bridge and separately evidenced Claude Code and
-Codex integrations. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
+S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, S5 Interop
+Export, and S6 Installable Developer Surface are complete. The authorized
+Developer Preview Macro Delta is now active at S7, which exposes the trusted
+runtime through a model-neutral MCP stdio bridge before separately evidenced
+Claude Code and Codex integrations. S5's deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
 the independent CASE community validator and losslessly recovers the signed
 S4 packet. The package and repository remain private; publication requires a
 separate principal request.
@@ -29,7 +29,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-27-S6-installable-developer-surface.md`
+5. `next-prompt-protocols/active/2026-07-27-S7-model-neutral-adapter-bridge.md`
 
 ## Developer CLI
 
@@ -59,6 +59,25 @@ real gate fails; and `init` is idempotent but refuses conflicting or aliased
 control state. `run` is a raw trusted-host call for local operation, not yet a
 model adapter. See `packages/cli/README.md` for its exit-code contract and
 timestamp-verification options.
+
+## Model-neutral bridge
+
+The installed package also exposes `scopa-mcp`, a local MCP stdio server with
+six closed tools for orientation, contained reads, governed writes, real stop
+checks, assurance inspection, and transcript inspection:
+
+```sh
+scopa-mcp \
+  --repo /path/to/repository \
+  --session-file /trusted/session.json \
+  --matrix-file /trusted/capability-matrix.json
+```
+
+All mutations reach the existing SCOPA dispatcher; the bridge runtime has no
+independent filesystem-write, process, network, or plugin primitive. Its
+machine-readable matrix downgrades any active uncontrolled capability to
+partial assurance. See `packages/adapter-host/README.md` for schemas, protocol
+revisions, threat boundaries, and launcher requirements.
 
 ## Sealed core
 
@@ -189,6 +208,7 @@ npm run test:s3
 npm run test:s4
 npm run test:s5
 npm run test:s6
+npm run test:s7
 npm run test:cross-runtime
 npm run test:lockdown
 npm run probe:s2

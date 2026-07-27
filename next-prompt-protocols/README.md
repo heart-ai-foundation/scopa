@@ -45,11 +45,11 @@ Module progress:
 - depth: 4/4 (100%)
 - interop: 2/2 (100%)
 - distribution: 3/3 (100%)
-- adapter-host: 0/3 (0%)
+- adapter-host: 3/3 (100%)
 - claude-adapter: 0/3 (0%)
 - codex-adapter: 0/3 (0%)
 - release-readiness: 0/3 (0%)
-Arc total: 32/44 (73%)
+Arc total: 35/44 (80%)
 
 ## Descriptor Rung Stop Rule
 

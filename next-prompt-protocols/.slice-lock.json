@@ -17,7 +17,7 @@
     "AH2",
     "AH3"
   ],
-  "active_protocol_sha256": "sha256:26b70aa8d8a903e852a984949e159ff5424fc5cab2838af2211bc3dbcda81ef5",
+  "active_protocol_sha256": "sha256:51b7bd81d59a7f3c5b445279d931a102eb2806cfd95faed4f8ce63d65a0949d0",
   "active_objective": "Expose the trusted SCOPA host through a model-neutral bridge suitable for\nheadless coding agents. Prove with a deterministic fake agent that reads,\nallowed mutations, denied mutations, and stop-state checks cross only the\nbridge, while every request, agent/CLI identity, tool outcome, effect, and\nterminal state is captured in a closed structured transcript.",
   "allowed_files": [
     "packages/adapter-host/**",

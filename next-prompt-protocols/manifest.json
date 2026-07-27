@@ -392,7 +392,7 @@
         {
           "id": "AH1",
           "statement": "A model-neutral bridge exposes only SCOPA-mediated mutations.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Fake-agent protocol tests and direct-bypass fault fixtures",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S7"
@@ -400,7 +400,7 @@
         {
           "id": "AH2",
           "statement": "The bridge captures request, model and CLI identity, structured transcript, effects, and terminal state.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Transcript completeness and replay fixtures",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S7"
@@ -408,7 +408,7 @@
         {
           "id": "AH3",
           "statement": "A machine-readable capability and bypass matrix prevents unsupported adapter-conformance claims.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Assurance-schema validation and known-bypass negative controls",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S7"

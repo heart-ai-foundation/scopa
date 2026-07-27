@@ -1,0 +1,10 @@
+{
+  "schema": "scopa.adapter-session.v1",
+  "sessionId": "S7-fake-agent-clean",
+  "request": "Read the fixture, write workspace/bridge.txt, and prove the real stop state.",
+  "agent": {
+    "provider": "fixture",
+    "model": "deterministic-fake-agent",
+    "provenance": "launcher-declared"
+  }
+}
