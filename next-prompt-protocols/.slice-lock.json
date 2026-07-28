@@ -1,23 +1,40 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "6ecc581",
-  "current_phase": "phase-4-developer-preview",
-  "active_protocol": null,
-  "active_class": null,
+  "current_commit": "ef44d18",
+  "current_phase": "phase-5-adversarial-hardening",
+  "active_protocol": "active/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
+  "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "Developer Preview S6-S10 is complete. No protocol is active; further implementation or publication requires separately ratified authority.",
-  "allowed_files": [],
+  "active_module": "proof-integrity",
+  "crosses": [
+    "release-readiness",
+    "conformance"
+  ],
+  "advances_contracts": [
+    "PI1",
+    "PI2",
+    "PI3"
+  ],
+  "active_protocol_sha256": "sha256:a5d193d1134082012d807a42189905219c0ccaf718281437ea75023f1b59b229",
+  "active_objective": "Create one mechanically checked proof-validation language across the runtime\nand published schemas. Enforce closed fields, non-empty and unique arrays,\npositive package cardinalities, safe paths, and aggregate invariants. Replace\ngeneric recursive substitution with field-specific publication that rejects\nor explicitly reports collisions and computes semantic preservation from the\nactual before/after proof.",
+  "allowed_files": [
+    "packages/release-readiness/**",
+    "schemas/**",
+    "fixtures/S11/**",
+    "package.json",
+    "package-lock.json",
+    "next-prompt-protocols/**",
+    "notes/S11/**",
+    "runs/S11/**",
+    "evidence/S11/**"
+  ],
   "verification": {
-    "fast_deterministic": "npm run test:s10",
-    "consumer_probe": "npm run probe:s10:consumer",
-    "policy_audit": "npm run audit:s10:policy",
+    "fast_deterministic": "npm run test:s11",
+    "parity_probe": "npm run probe:s11:parity",
+    "s10_regression": "npm run test:s10",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "No active protocol. Do not implement, publish, change visibility, or deploy without separately ratified authority."
+  "stop_condition": "Stop S11 on validator disagreement, schema weakening, semantic collision, false semantic-equivalence receipt, accepted-proof drift, scope escape, or any attempted S12/S13 implementation before rotation."
 }

@@ -1,5 +1,8 @@
 # Macro Deltas
 
+- `2026-07-27-scopa-adversarial-release-hardening.md` — authorized S11-S13
+  queue for proof-contract convergence, installed-surface hardening, and
+  fresh-agent candidate requalification.
 - `2026-07-27-scopa-developer-preview.md` — authorized S6-S10 implementation
   queue for local distribution, a shared adapter bridge, separately evidenced
   Claude Code and Codex integrations, and private release-candidate testing.

@@ -3,13 +3,13 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "6ecc581",
-  "current_phase": "phase-4-developer-preview",
-  "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
-  "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
-  "active_protocol": null,
-  "active_objective": "Developer Preview S6-S10 is complete. No protocol is active; further implementation or publication requires separately ratified authority.",
-  "active_class": null,
+  "current_commit": "ef44d18",
+  "current_phase": "phase-5-adversarial-hardening",
+  "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
+  "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
+  "active_protocol": "active/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
+  "active_objective": "Align runtime proof validators with the published contract and make public-proof redaction field-specific, collision-aware, deterministic, and mechanically honest about semantic change.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
     "completed/2026-07-27-S10-developer-preview-release-candidate.md",
@@ -24,27 +24,41 @@
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [],
+  "allowed_files": [
+    "packages/release-readiness/**",
+    "schemas/**",
+    "fixtures/S11/**",
+    "package.json",
+    "package-lock.json",
+    "next-prompt-protocols/**",
+    "notes/S11/**",
+    "runs/S11/**",
+    "evidence/S11/**"
+  ],
   "non_goals": [
-    "No npm publication, public repository, public release, visibility change, production installation, or customer deployment",
-    "No license text, contribution policy, release name, trademark claim, or publication date inferred without a principal decision",
+    "No npm publication, GitHub Release, public repository, visibility change, deployment, customer use, public announcement, certification, or trademark claim",
+    "No rewrite of S10 historical proof, candidate bytes, acceptance, or closeout",
+    "No weakening of a published closed-schema, cardinality, uniqueness, numeric, path, aggregate, or false-green constraint",
+    "No generic whole-document replacement of path-like values",
+    "No new product feature, provider integration, effect category, mutation route, or adapter-assurance claim",
+    "No credential value or credential-rotation evidence in the repository",
     "No claim that partial Claude or Codex assurance is full enforcement",
     "No hiding of provider-specific uncontrolled capability routes",
-    "No source-checkout import, private evidence dependency, or institutional knowledge in the consumer quickstart",
     "No removal of known-failing fixtures, public verifier capability, or independently useful free functionality",
     "No change to S0-S9 runtime semantics or the frozen effect taxonomy",
-    "No queue entries outside the authorized Developer Preview Macro Delta"
+    "No S12 or S13 implementation before prior closeout and protocol rotation",
+    "No queue entries outside the authorized Adversarial Release Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s10",
-    "consumer_probe": "npm run probe:s10:consumer",
-    "policy_audit": "npm run audit:s10:policy",
+    "fast_deterministic": "npm run test:s11",
+    "parity_probe": "npm run probe:s11:parity",
+    "s10_regression": "npm run test:s10",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": null,
+  "closeout_evidence_path": "../",
   "modules": {
     "conformance": {
       "root": [
@@ -518,7 +532,123 @@
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
         }
       ]
+    },
+    "proof-integrity": {
+      "root": [
+        "packages/release-readiness",
+        "schemas",
+        "fixtures/S11",
+        "notes/S11",
+        "runs/S11",
+        "evidence/S11"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "PI1",
+          "statement": "Runtime validators and published proof schemas agree over the complete positive and negative corpus.",
+          "status": "open",
+          "verifies_via": "Differential schema-parity corpus through both official validation paths",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Post-S10 adversarial finding RR-01"
+        },
+        {
+          "id": "PI2",
+          "statement": "Closed fields, non-empty and unique arrays, cardinality, numeric, path, and aggregate constraints fail consistently.",
+          "status": "open",
+          "verifies_via": "Hostile mutation corpus with exact accept and reject receipts",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Post-S10 adversarial finding RR-01"
+        },
+        {
+          "id": "PI3",
+          "statement": "Public proof redaction is field-specific, collision-aware, deterministic, and mechanically reports semantic change.",
+          "status": "open",
+          "verifies_via": "Collision, substring, overlap, placeholder-injection, and semantic-projection corpus",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Post-S10 adversarial finding RR-02"
+        }
+      ]
+    },
+    "distribution-hardening": {
+      "root": [
+        "package.json",
+        "package-lock.json",
+        "packages/adapter-host",
+        "packages/release-readiness",
+        ".github",
+        "docs",
+        "fixtures/S12",
+        "notes/S12",
+        "runs/S12",
+        "evidence/S12"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "DH1",
+          "statement": "Every shipped bin, export, and script either runs from an installed tarball or is absent from the consumer contract.",
+          "status": "open",
+          "verifies_via": "Tarball-only installed-command inventory and execution matrix",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Post-S10 adversarial finding PKG-01"
+        },
+        {
+          "id": "DH2",
+          "statement": "Package bytes contain no contributor-specific path sentinel and default launcher failures expose no stack or absolute install path.",
+          "status": "open",
+          "verifies_via": "Package privacy scan and hostile structured-launcher error corpus",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Post-S10 adversarial findings PRIV-01 and ERR-01"
+        },
+        {
+          "id": "DH3",
+          "statement": "Hosted CI uses supported action runtimes without action-runtime deprecation warnings.",
+          "status": "open",
+          "verifies_via": "Workflow version audit and successful warning-free hosted release gate",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "S10 terminal hosted-run maintenance warning"
+        }
+      ]
+    },
+    "release-requalification": {
+      "root": [
+        "packages/release-readiness",
+        "schemas",
+        "docs",
+        "fixtures/S13",
+        "notes/S13",
+        "runs/S13",
+        "evidence/S13"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "RQ1",
+          "statement": "An exact clean candidate passes source-free install, governed adapter, known-failure, signature, schema, redaction, package, and error-surface corpora.",
+          "status": "open",
+          "verifies_via": "Exact private artifact and source-free adversarial consumer receipts",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Adversarial Release Hardening Macro Delta S13"
+        },
+        {
+          "id": "RQ2",
+          "statement": "Three fresh isolated reviewers reproduce the candidate claims and return ACCEPT with no critical, high, or medium finding.",
+          "status": "open",
+          "verifies_via": "Three independent structured outside-review reports over exact candidate bytes",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Principal-requested adversarial requalification standard"
+        },
+        {
+          "id": "RQ3",
+          "statement": "Dependency audit, credential-rotation confirmation, protocol check, and hosted gate pass before the hardening queue closes.",
+          "status": "open",
+          "verifies_via": "Audit receipt, provider-side rotation confirmation, local protocol receipt, and hosted CI result",
+          "discovered_on": "2026-07-27",
+          "discovered_because": "Adversarial Release Hardening Macro Delta S13"
+        }
+      ]
     }
   },
-  "stop_condition": "No active protocol. Do not implement, publish, change visibility, or deploy without separately ratified authority."
+  "stop_condition": "Stop S11 on validator disagreement, schema weakening, semantic collision, false semantic-equivalence receipt, accepted-proof drift, scope escape, or any attempted S12/S13 implementation before rotation."
 }
