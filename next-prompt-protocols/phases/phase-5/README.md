@@ -1,6 +1,6 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `ef44d18`
+Current commit reference: `7d28de8`
 Current active protocol: `active/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
 
 ## Scope

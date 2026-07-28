@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ef44d18",
+  "current_commit": "7d28de8",
   "current_phase": "phase-5-adversarial-hardening",
   "active_protocol": "active/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
   "active_class": "arc",

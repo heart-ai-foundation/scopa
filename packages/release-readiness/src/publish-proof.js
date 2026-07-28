@@ -37,45 +37,101 @@ function sha256(text) {
   return createHash('sha256').update(text).digest('hex');
 }
 
-function replaceStrings(value, replacements) {
+const REDACTIONS = Object.freeze([
+  Object.freeze({
+    field: '/environment/sourceRoot',
+    key: 'sourceRoot',
+    replacement: '[SCOPA_SOURCE_ROOT]',
+  }),
+  Object.freeze({
+    field: '/environment/temporaryRoot',
+    key: 'temporaryRoot',
+    replacement: '[SCOPA_CONSUMER_TEMP_ROOT]',
+  }),
+]);
+
+function visitStrings(value, pointer = '', entries = []) {
   if (typeof value === 'string') {
-    let result = value;
-    for (const [source, replacement] of replacements) {
-      if (source) result = result.split(source).join(replacement);
-    }
-    return result;
+    entries.push({ pointer: pointer || '/', value });
+    return entries;
   }
   if (Array.isArray(value)) {
-    return value.map((item) => replaceStrings(item, replacements));
+    value.forEach((item, index) => {
+      visitStrings(item, `${pointer}/${index}`, entries);
+    });
+    return entries;
   }
   if (value !== null && typeof value === 'object') {
-    return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [
-        key,
-        replaceStrings(item, replacements),
-      ]),
-    );
+    for (const [key, item] of Object.entries(value)) {
+      const escaped = key.replaceAll('~', '~0').replaceAll('/', '~1');
+      visitStrings(item, `${pointer}/${escaped}`, entries);
+    }
   }
-  return value;
+  return entries;
+}
+
+function failOnPublicationCollision(raw) {
+  const designated = new Set(REDACTIONS.map(({ field }) => field));
+  const entries = visitStrings(raw);
+  const reserved = REDACTIONS.map(({ replacement }) => replacement);
+
+  for (const { pointer, value } of entries) {
+    if (reserved.some((placeholder) => value.includes(placeholder))) {
+      throw new TypeError(
+        `public proof contains a reserved redaction placeholder at ${pointer}`,
+      );
+    }
+  }
+
+  for (const { field, key } of REDACTIONS) {
+    const source = raw.environment[key];
+    for (const entry of entries) {
+      if (!designated.has(entry.pointer) && entry.value.includes(source)) {
+        throw new TypeError(
+          `private-root semantic collision outside designated field ${field}`,
+        );
+      }
+    }
+  }
+}
+
+export function consumerProofSemanticProjection(value) {
+  const projection = structuredClone(value);
+  delete projection.environment.sourceRoot;
+  delete projection.environment.temporaryRoot;
+  return projection;
+}
+
+export function consumerProofSemanticFieldsChanged(before, after) {
+  return canonicalJsonPretty(consumerProofSemanticProjection(before)) !==
+    canonicalJsonPretty(consumerProofSemanticProjection(after));
 }
 
 export function createPublicConsumerProof(rawText) {
   const raw = validateConsumerProof(JSON.parse(rawText));
-  const replacements = [
-    [raw.environment.temporaryRoot, '[SCOPA_CONSUMER_TEMP_ROOT]'],
-    [raw.environment.sourceRoot, '[SCOPA_SOURCE_ROOT]'],
-  ].sort((left, right) => right[0].length - left[0].length);
-  const proof = validateConsumerProof(replaceStrings(raw, replacements));
+  failOnPublicationCollision(raw);
+
+  const candidate = structuredClone(raw);
+  for (const { key, replacement } of REDACTIONS) {
+    candidate.environment[key] = replacement;
+  }
+  const proof = validateConsumerProof(candidate);
+  const semanticFieldsChanged = consumerProofSemanticFieldsChanged(raw, proof);
+  if (semanticFieldsChanged) {
+    throw new TypeError('public proof transformation changed semantic fields');
+  }
+
   return {
     proof,
     receipt: {
       schema: RELEASE_SCHEMAS.publicationReceipt,
       sourceSha256: sha256(rawText),
-      redactions: replacements.map(([source, replacement]) => ({
+      redactions: REDACTIONS.map(({ field, replacement }) => ({
+        field,
         replacement,
-        occurrences: rawText.split(source).length - 1,
+        occurrences: 1,
       })),
-      semanticFieldsChanged: false,
+      semanticFieldsChanged,
     },
   };
 }

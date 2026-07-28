@@ -165,12 +165,15 @@ test('release posture is closed and rejects unknown fields or publication drift'
   assert.deepEqual(validateReleasePosture(releasePosture()), releasePosture());
   const unknown = releasePosture();
   unknown.extra = true;
-  assert.throws(() => validateReleasePosture(unknown), /keys must be exactly/);
+  assert.throws(
+    () => validateReleasePosture(unknown),
+    /contract violation/,
+  );
   const publicRelease = releasePosture();
   publicRelease.publication.npm = true;
   assert.throws(
     () => validateReleasePosture(publicRelease),
-    /publication npm/,
+    /contract violation/,
   );
 });
 
@@ -183,13 +186,13 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
   escaped.files[0].path = '../README.md';
   assert.throws(
     () => validateCandidateManifest(escaped),
-    /normalized and relative/,
+    /contract violation/,
   );
   const wrong = candidateManifest();
   wrong.package.version = '0.2.0';
   assert.throws(
     () => validateCandidateManifest(wrong),
-    /candidate package version/,
+    /contract violation/,
   );
 });
 
@@ -217,13 +220,13 @@ test('consumer proof is closed and refuses false-green or sourceful installs', (
   falseGreen.knownFailing.canStop = true;
   assert.throws(
     () => validateConsumerProof(falseGreen),
-    /known-failing canStop/,
+    /contract violation/,
   );
   const sourceful = consumerProof();
   sourceful.install.sourceFree = false;
   assert.throws(
     () => validateConsumerProof(sourceful),
-    /source-free install/,
+    /contract violation/,
   );
 });
 

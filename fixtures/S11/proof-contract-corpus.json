@@ -1,0 +1,397 @@
+{
+  "schema": "scopa.proof-contract-corpus.v1",
+  "bases": {
+    "posture": {
+      "schema": "scopa.release-posture.v1",
+      "project": "SCOPA",
+      "publisher": "Heart AI Foundation",
+      "version": "0.2.0-dev.1",
+      "license": "Apache-2.0",
+      "contributions": {
+        "model": "DCO-1.1",
+        "requiresSignoff": true,
+        "claRequired": false
+      },
+      "naming": {
+        "package": "@heart-ai-foundation/scopa",
+        "bins": {
+          "scopa": "./packages/cli/src/cli.js",
+          "scopa-mcp": "./packages/adapter-host/src/cli.js"
+        },
+        "trademarkStatus": "working-name-no-registration-claim"
+      },
+      "publication": {
+        "repositoryVisibility": "private",
+        "artifactChannel": "local-tarball",
+        "npm": false,
+        "githubRelease": false,
+        "publicRelease": false,
+        "production": false,
+        "requiresSeparatePrincipalApproval": true
+      },
+      "freeToolBoundary": {
+        "verificationPaidDependency": false,
+        "consultationBoundary": [
+          "governance installation",
+          "profile design"
+        ]
+      }
+    },
+    "candidate": {
+      "schema": "scopa.candidate-manifest.v1",
+      "source": {
+        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dirty": false
+      },
+      "package": {
+        "name": "@heart-ai-foundation/scopa",
+        "version": "0.2.0-dev.1",
+        "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+        "entryCount": 2,
+        "packedBytes": 1024,
+        "unpackedBytes": 4096,
+        "shasum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "integrity": "sha512-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "files": [
+        {
+          "path": "LICENSE",
+          "size": 11357,
+          "mode": 420
+        },
+        {
+          "path": "README.md",
+          "size": 4096,
+          "mode": 420
+        }
+      ]
+    },
+    "consumer": {
+      "schema": "scopa.consumer-proof.v1",
+      "candidate": {
+        "schema": "scopa.candidate-manifest.v1",
+        "source": {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "dirty": false
+        },
+        "package": {
+          "name": "@heart-ai-foundation/scopa",
+          "version": "0.2.0-dev.1",
+          "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+          "entryCount": 2,
+          "packedBytes": 1024,
+          "unpackedBytes": 4096,
+          "shasum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "integrity": "sha512-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "files": [
+          {
+            "path": "LICENSE",
+            "size": 11357,
+            "mode": 420
+          },
+          {
+            "path": "README.md",
+            "size": 4096,
+            "mode": 420
+          }
+        ]
+      },
+      "policyAudit": {
+        "ok": true,
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "environment": {
+        "node": "v22.0.0",
+        "npm": "10.0.0",
+        "sourceRoot": "/private/source",
+        "temporaryRoot": "/private/consumer"
+      },
+      "install": {
+        "exitCode": 0,
+        "sourceFree": true,
+        "monorepoRelativeReferences": []
+      },
+      "adapter": {
+        "schema": "scopa.consumer-adapter-result.v1",
+        "toolNames": [
+          "scopa_assurance",
+          "scopa_check"
+        ],
+        "allowedWrite": true,
+        "scopeDenied": true,
+        "terminal": {
+          "status": "satisfied",
+          "canStop": true
+        },
+        "assurance": "partial"
+      },
+      "verification": {
+        "exitCode": 0,
+        "nativePacket": true,
+        "ok": true
+      },
+      "knownFailing": {
+        "exitCode": 4,
+        "code": "SCOPA_COMPLETION_BLOCKED",
+        "canStop": false
+      },
+      "claimBoundary": {
+        "verified": [
+          "source-free local installation"
+        ],
+        "nonClaims": [
+          "no public publication"
+        ]
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "posture-valid",
+      "target": "posture",
+      "expected": "accept"
+    },
+    {
+      "id": "candidate-valid",
+      "target": "candidate",
+      "expected": "accept"
+    },
+    {
+      "id": "consumer-valid",
+      "target": "consumer",
+      "expected": "accept"
+    },
+    {
+      "id": "adapter-tool-names-empty",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/adapter/toolNames",
+          "value": []
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "adapter-tool-names-duplicate",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/adapter/toolNames",
+          "value": [
+            "scopa_check",
+            "scopa_check"
+          ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "verified-claims-empty",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/verified",
+          "value": []
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "verified-claims-duplicate",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/verified",
+          "value": [
+            "same",
+            "same"
+          ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "non-claims-empty",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/nonClaims",
+          "value": []
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "packed-bytes-zero",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/candidate/package/packedBytes",
+          "value": 0
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "unpacked-bytes-negative",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/package/unpackedBytes",
+          "value": -1
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "entry-count-zero",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/package/entryCount",
+          "value": 0
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "entry-count-mismatch",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/package/entryCount",
+          "value": 1
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-duplicate",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/1/path",
+          "value": "LICENSE"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-unsorted",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "z-last"
+        },
+        {
+          "operation": "replace",
+          "path": "/files/1/path",
+          "value": "a-first"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-escape",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "../LICENSE"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "unsafe-integer",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/package/packedBytes",
+          "value": 9007199254740992
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-unknown-field",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "add",
+          "path": "/unexpected",
+          "value": true
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-missing-field",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "remove",
+          "path": "/verification"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-false-green",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/knownFailing/canStop",
+          "value": true
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "posture-publication-drift",
+      "target": "posture",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/publication/npm",
+          "value": true
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "posture-duplicate-consultation-boundary",
+      "target": "posture",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/freeToolBoundary/consultationBoundary",
+          "value": [
+            "profile design",
+            "profile design"
+          ]
+        }
+      ],
+      "expected": "reject"
+    }
+  ]
+}
