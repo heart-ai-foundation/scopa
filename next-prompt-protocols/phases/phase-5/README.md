@@ -1,7 +1,7 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `7b686e3`
-Current active protocol: `active/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+Current commit reference: `f83b3c1`
+Current active protocol: `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
 
 ## Scope
 
@@ -9,38 +9,40 @@ Adversarial release hardening only: converge proof validation and publication, r
 
 ## Active objective
 
-> Create one mechanically checked proof-validation language across the runtime
-> and published schemas. Enforce closed fields, non-empty and unique arrays,
-> positive package cardinalities, safe paths, and aggregate invariants. Replace
-> generic recursive substitution with field-specific publication that rejects
-> or explicitly reports collisions and computes semantic preservation from the
-> actual before/after proof.
+> Create an explicit consumer package contract. Build the tarball through a
+> deterministic staging path whose package metadata exposes only runnable
+> consumer bins and exports, then exercise every retained entry from installed
+> bytes. Make launcher failures closed, structured, stack-free, and path-free by
+> default with an explicit diagnostic opt-in. Replace contributor-specific
+> privacy sentinels with generic structural checks and update hosted actions to
+> authoritative Node.js 24-compatible versions.
 
 ## Files in play
 
-- `packages/release-readiness/**`
-- `schemas/**`
-- `fixtures/S11/**`
 - `package.json`
 - `package-lock.json`
+- `README.md`
+- `docs/**`
+- `.github/**`
+- `packages/release-readiness/**`
+- `packages/adapter-host/**`
+- `packages/cli/test/cli.test.js`
+- `fixtures/S12/**`
 - `next-prompt-protocols/**`
-- `notes/S11/**`
-- `runs/S11/**`
-- `evidence/S11/**`
+- `notes/S12/**`
+- `runs/S12/**`
+- `evidence/S12/**`
 
 ## Non-goals
 
 - No npm publication, GitHub Release, public repository, visibility change, deployment, customer use, public announcement, certification, or trademark claim
-- No rewrite of S10 historical proof, candidate bytes, acceptance, or closeout
-- No weakening of a published closed-schema, cardinality, uniqueness, numeric, path, aggregate, or false-green constraint
-- No generic whole-document replacement of path-like values
-- No new product feature, provider integration, effect category, mutation route, or adapter-assurance claim
+- No removal of consumer bins, exports, public schemas, verifier capability, known-failing fixtures, or independently useful free functionality merely to make the inventory green
+- No rewrite of S10 or S11 retained evidence
+- No change to enforcement semantics, effect categories, adapter assurance, trust policy, signature verification, or proof-contract acceptance
+- No contributor-specific username, home directory, or private evidence path in package bytes
+- No default launcher stack, source location, file URL, absolute build/install path, or uncontrolled input echo
 - No credential value or credential-rotation evidence in the repository
-- No claim that partial Claude or Codex assurance is full enforcement
-- No hiding of provider-specific uncontrolled capability routes
-- No removal of known-failing fixtures, public verifier capability, or independently useful free functionality
-- No change to S0-S9 runtime semantics or the frozen effect taxonomy
-- No S12 or S13 implementation before prior closeout and protocol rotation
+- No S13 candidate assembly or outside requalification before protocol rotation
 - No queue entries outside the authorized Adversarial Release Hardening Macro Delta
 
 ## Descriptor Rung Stop Rule
@@ -49,27 +51,29 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s12`
+- `npm run probe:s12:installed`
 - `npm run test:s11`
-- `npm run probe:s11:parity`
-- `npm run test:s10`
 - `npm test`
 - `npm audit`
 - `npm run protocol:check`
-- The exact accepted S10 proof remains valid without editing its retained
-  evidence.
-- Every positive and negative corpus entry returns the same result through
-  runtime and published-contract validation.
-- Empty or duplicate adapter tool names, empty or duplicate verified/non-claim
-  arrays, zero or negative package cardinalities, unknown or missing fields,
-  invalid paths, and fabricated aggregate states fail closed.
-- Redaction modifies only the designated environment roots in the public proof.
-- Root collisions with assurance labels, claims, package metadata, filenames,
-  tool names, placeholders, substrings, or overlapping roots cannot produce a
-  valid receipt that falsely reports semantic preservation.
-- `semanticFieldsChanged` is computed from a defined semantic projection and
-  is never hard-coded.
-- Raw source bytes and the public proof remain digest-bound and deterministic.
-- PI1, PI2, and PI3 are independently reviewable and satisfied.
+- The official pack path is deterministic, source-clean, and produces a
+  consumer `package.json` with no contributor-only scripts.
+- Every retained bin and export resolves and executes or imports from a fresh
+  tarball-only installation.
+- Every retained consumer script, if any, executes from installed bytes; no
+  command references omitted tests, fixtures, build output, or source paths.
+- Invalid session, capability-matrix, launcher-option, and protocol inputs
+  fail with a closed versioned JSON envelope.
+- Default launcher errors contain no stack, source line, `file:` URL, absolute
+  build/install path, or uncontrolled input echo.
+- Diagnostic stack output is explicit opt-in and documented.
+- Package bytes contain no contributor-specific home/path sentinel,
+  recognizable credential value, private evidence root, or repository-only
+  control/evidence surface.
+- Supported action versions remove the Node.js action-runtime deprecation
+  annotation in hosted CI.
+- DH1, DH2, and DH3 are independently reviewable and satisfied.
 
 ## Handoff
 

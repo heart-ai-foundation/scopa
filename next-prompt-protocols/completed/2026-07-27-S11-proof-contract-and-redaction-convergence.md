@@ -133,3 +133,22 @@ This slice commits the evidence set under the standard S11 trio:
   is never hard-coded.
 - Raw source bytes and the public proof remain digest-bound and deterministic.
 - PI1, PI2, and PI3 are independently reviewable and satisfied.
+
+## Closeout
+
+Completed on 2026-07-28.
+
+- Final executable source: `7b686e3`
+- Evidence commit: `f83b3c1`
+- Focused S11 tests: 8/8
+- Differential parity corpus: 24/24 expected outcomes, validator agreement
+- Accumulated local release gate: 105/105 plus focused adapter/S10/S11 gates
+- Exact retained S10 raw and public proofs: valid
+- Dependency audit: 0 vulnerabilities
+- Claude Sonnet outside review: `ACCEPT`, no critical/high/medium finding
+- Outside-review low and informational findings: remediated
+- Hosted release gate: run `30337823696`, success
+- Contracts PI1, PI2, and PI3: satisfied
+
+The hosted Node.js action-runtime warning transfers to DH3 under S12. This
+closeout does not authorize public release or S13 work.

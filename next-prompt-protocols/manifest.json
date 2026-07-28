@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "7b686e3",
+  "current_commit": "f83b3c1",
   "current_phase": "phase-5-adversarial-hardening",
   "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
-  "active_protocol": "active/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
-  "active_objective": "Align runtime proof validators with the published contract and make public-proof redaction field-specific, collision-aware, deterministic, and mechanically honest about semantic change.",
+  "active_protocol": "active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
+  "active_objective": "Build a coherent tarball-only consumer surface, make default launcher failures structured and path-free, remove contributor-specific package residue, and clear hosted action-runtime warnings.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
     "completed/2026-07-27-S10-developer-preview-release-candidate.md",
     "completed/2026-07-27-S9-codex-headless-integration-and-parity.md",
     "completed/2026-07-27-S8-claude-code-headless-integration.md",
@@ -25,34 +26,35 @@
     "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
-    "packages/release-readiness/**",
-    "schemas/**",
-    "fixtures/S11/**",
     "package.json",
     "package-lock.json",
+    "README.md",
+    "docs/**",
+    ".github/**",
+    "packages/release-readiness/**",
+    "packages/adapter-host/**",
+    "packages/cli/test/cli.test.js",
+    "fixtures/S12/**",
     "next-prompt-protocols/**",
-    "notes/S11/**",
-    "runs/S11/**",
-    "evidence/S11/**"
+    "notes/S12/**",
+    "runs/S12/**",
+    "evidence/S12/**"
   ],
   "non_goals": [
     "No npm publication, GitHub Release, public repository, visibility change, deployment, customer use, public announcement, certification, or trademark claim",
-    "No rewrite of S10 historical proof, candidate bytes, acceptance, or closeout",
-    "No weakening of a published closed-schema, cardinality, uniqueness, numeric, path, aggregate, or false-green constraint",
-    "No generic whole-document replacement of path-like values",
-    "No new product feature, provider integration, effect category, mutation route, or adapter-assurance claim",
+    "No removal of consumer bins, exports, public schemas, verifier capability, known-failing fixtures, or independently useful free functionality merely to make the inventory green",
+    "No rewrite of S10 or S11 retained evidence",
+    "No change to enforcement semantics, effect categories, adapter assurance, trust policy, signature verification, or proof-contract acceptance",
+    "No contributor-specific username, home directory, or private evidence path in package bytes",
+    "No default launcher stack, source location, file URL, absolute build/install path, or uncontrolled input echo",
     "No credential value or credential-rotation evidence in the repository",
-    "No claim that partial Claude or Codex assurance is full enforcement",
-    "No hiding of provider-specific uncontrolled capability routes",
-    "No removal of known-failing fixtures, public verifier capability, or independently useful free functionality",
-    "No change to S0-S9 runtime semantics or the frozen effect taxonomy",
-    "No S12 or S13 implementation before prior closeout and protocol rotation",
+    "No S13 candidate assembly or outside requalification before protocol rotation",
     "No queue entries outside the authorized Adversarial Release Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s11",
-    "parity_probe": "npm run probe:s11:parity",
-    "s10_regression": "npm run test:s10",
+    "fast_deterministic": "npm run test:s12",
+    "installed_probe": "npm run probe:s12:installed",
+    "s11_regression": "npm run test:s11",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -547,7 +549,7 @@
         {
           "id": "PI1",
           "statement": "Runtime validators and published proof schemas agree over the complete positive and negative corpus.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Differential schema-parity corpus through both official validation paths",
           "discovered_on": "2026-07-27",
           "discovered_because": "Post-S10 adversarial finding RR-01"
@@ -555,7 +557,7 @@
         {
           "id": "PI2",
           "statement": "Closed fields, non-empty and unique arrays, cardinality, numeric, path, and aggregate constraints fail consistently.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Hostile mutation corpus with exact accept and reject receipts",
           "discovered_on": "2026-07-27",
           "discovered_because": "Post-S10 adversarial finding RR-01"
@@ -563,7 +565,7 @@
         {
           "id": "PI3",
           "statement": "Public proof redaction is field-specific, collision-aware, deterministic, and mechanically reports semantic change.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Collision, substring, overlap, placeholder-injection, and semantic-projection corpus",
           "discovered_on": "2026-07-27",
           "discovered_because": "Post-S10 adversarial finding RR-02"
@@ -650,5 +652,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S11 on validator disagreement, schema weakening, semantic collision, false semantic-equivalence receipt, accepted-proof drift, scope escape, or any attempted S12/S13 implementation before rotation."
+  "stop_condition": "Stop S12 on a broken retained bin/export/script, default launcher stack or absolute-path disclosure, contributor-specific package residue, credential match, unsupported action runtime, regression of S0-S11 behavior, or any S13 implementation before rotation."
 }

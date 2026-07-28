@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `7b686e3`
+Current commit reference: `f83b3c1`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `proof-integrity`
-Advances contracts: `PI1, PI2, PI3`
+Active protocol module: `distribution-hardening`
+Advances contracts: `DH1, DH2, DH3`
 
 ## Slice Class
 
@@ -49,10 +49,10 @@ Module progress:
 - claude-adapter: 3/3 (100%)
 - codex-adapter: 3/3 (100%)
 - release-readiness: 3/3 (100%)
-- proof-integrity: 0/3 (0%)
+- proof-integrity: 3/3 (100%)
 - distribution-hardening: 0/3 (0%)
 - release-requalification: 0/3 (0%)
-Arc total: 44/53 (83%)
+Arc total: 47/53 (89%)
 
 ## Descriptor Rung Stop Rule
 
@@ -100,18 +100,19 @@ Read in this order:
 3. `macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md`
 4. `role-context.md`
 5. `phases/phase-5/README.md`
-6. `active/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-7. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-8. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-9. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-10. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-11. `completed/2026-07-27-S6-installable-developer-surface.md`
-12. `completed/2026-07-26-S5-interop-export.md`
-13. `completed/2026-07-26-S4-signing-and-anchoring.md`
-14. `completed/2026-07-26-S3-legibility.md`
-15. `completed/2026-07-26-S2-enforcement-loop.md`
-16. `completed/2026-07-26-S0-conformance-harness.md`
-17. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+7. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+8. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+9. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+10. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+11. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+12. `completed/2026-07-27-S6-installable-developer-surface.md`
+13. `completed/2026-07-26-S5-interop-export.md`
+14. `completed/2026-07-26-S4-signing-and-anchoring.md`
+15. `completed/2026-07-26-S3-legibility.md`
+16. `completed/2026-07-26-S2-enforcement-loop.md`
+17. `completed/2026-07-26-S0-conformance-harness.md`
+18. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -145,12 +146,13 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Create one mechanically checked proof-validation language across the runtime
-> and published schemas. Enforce closed fields, non-empty and unique arrays,
-> positive package cardinalities, safe paths, and aggregate invariants. Replace
-> generic recursive substitution with field-specific publication that rejects
-> or explicitly reports collisions and computes semantic preservation from the
-> actual before/after proof.
+> Create an explicit consumer package contract. Build the tarball through a
+> deterministic staging path whose package metadata exposes only runnable
+> consumer bins and exports, then exercise every retained entry from installed
+> bytes. Make launcher failures closed, structured, stack-free, and path-free by
+> default with an explicit diagnostic opt-in. Replace contributor-specific
+> privacy sentinels with generic structural checks and update hosted actions to
+> authoritative Node.js 24-compatible versions.
 
 ## Behavior rules
 
@@ -168,15 +170,19 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 These protocols are specific to:
 
-- `packages/release-readiness/**`
-- `schemas/**`
-- `fixtures/S11/**`
 - `package.json`
 - `package-lock.json`
+- `README.md`
+- `docs/**`
+- `.github/**`
+- `packages/release-readiness/**`
+- `packages/adapter-host/**`
+- `packages/cli/test/cli.test.js`
+- `fixtures/S12/**`
 - `next-prompt-protocols/**`
-- `notes/S11/**`
-- `runs/S11/**`
-- `evidence/S11/**`
+- `notes/S12/**`
+- `runs/S12/**`
+- `evidence/S12/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -185,4 +191,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-5/README.md`
-- `active/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+- `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`

@@ -136,11 +136,24 @@ provide the executable results.
 
 ## Hosted gate
 
-Pending the evidence commit and GitHub-hosted run. S11 must not rotate until
-the pushed gate succeeds and this section is amended with the exact run.
+Foundation-hosted run `30337823696` passed on exact pushed evidence commit
+`f83b3c16fb6ddd0143bd4e46a340165fcd5a75b0`.
+
+All steps passed:
+
+- clean JavaScript dependency installation;
+- accumulated SCOPA release gate;
+- signed native-packet recovery and verification;
+- independent CASE validation;
+- malformed CASE graph rejection.
+
+The run retained one non-blocking annotation: `actions/checkout@v4`,
+`actions/setup-node@v4`, and `actions/setup-python@v5` target the deprecated
+Node.js 20 action runtime and were compatibility-run on Node.js 24. That exact
+warning is DH3 and transfers to active S12 authority.
 
 ## Boundary
 
-This closes proof-integrity behavior only after the hosted result is recorded.
-It does not authorize npm publication, a GitHub Release, repository visibility
-change, deployment, customer use, certification, or S13 requalification.
+This closes proof-integrity behavior. It does not authorize npm publication, a
+GitHub Release, repository visibility change, deployment, customer use,
+certification, or S13 requalification.

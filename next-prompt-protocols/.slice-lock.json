@@ -1,40 +1,45 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "7b686e3",
+  "current_commit": "f83b3c1",
   "current_phase": "phase-5-adversarial-hardening",
-  "active_protocol": "active/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
+  "active_protocol": "active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "proof-integrity",
+  "active_module": "distribution-hardening",
   "crosses": [
-    "release-readiness",
+    "adapter-host",
+    "distribution",
     "conformance"
   ],
   "advances_contracts": [
-    "PI1",
-    "PI2",
-    "PI3"
+    "DH1",
+    "DH2",
+    "DH3"
   ],
-  "active_protocol_sha256": "sha256:a5d193d1134082012d807a42189905219c0ccaf718281437ea75023f1b59b229",
-  "active_objective": "Create one mechanically checked proof-validation language across the runtime\nand published schemas. Enforce closed fields, non-empty and unique arrays,\npositive package cardinalities, safe paths, and aggregate invariants. Replace\ngeneric recursive substitution with field-specific publication that rejects\nor explicitly reports collisions and computes semantic preservation from the\nactual before/after proof.",
+  "active_protocol_sha256": "sha256:7edf8ea9c4b08e1fce3a26a3572cf6105c7545e33fce0cda5af1758109e3daae",
+  "active_objective": "Create an explicit consumer package contract. Build the tarball through a\ndeterministic staging path whose package metadata exposes only runnable\nconsumer bins and exports, then exercise every retained entry from installed\nbytes. Make launcher failures closed, structured, stack-free, and path-free by\ndefault with an explicit diagnostic opt-in. Replace contributor-specific\nprivacy sentinels with generic structural checks and update hosted actions to\nauthoritative Node.js 24-compatible versions.",
   "allowed_files": [
-    "packages/release-readiness/**",
-    "schemas/**",
-    "fixtures/S11/**",
     "package.json",
     "package-lock.json",
+    "README.md",
+    "docs/**",
+    ".github/**",
+    "packages/release-readiness/**",
+    "packages/adapter-host/**",
+    "packages/cli/test/cli.test.js",
+    "fixtures/S12/**",
     "next-prompt-protocols/**",
-    "notes/S11/**",
-    "runs/S11/**",
-    "evidence/S11/**"
+    "notes/S12/**",
+    "runs/S12/**",
+    "evidence/S12/**"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s11",
-    "parity_probe": "npm run probe:s11:parity",
-    "s10_regression": "npm run test:s10",
+    "fast_deterministic": "npm run test:s12",
+    "installed_probe": "npm run probe:s12:installed",
+    "s11_regression": "npm run test:s11",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop S11 on validator disagreement, schema weakening, semantic collision, false semantic-equivalence receipt, accepted-proof drift, scope escape, or any attempted S12/S13 implementation before rotation."
+  "stop_condition": "Stop S12 on a broken retained bin/export/script, default launcher stack or absolute-path disclosure, contributor-specific package residue, credential match, unsupported action runtime, regression of S0-S11 behavior, or any S13 implementation before rotation."
 }
