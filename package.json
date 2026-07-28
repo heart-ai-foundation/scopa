@@ -11,7 +11,8 @@
   },
   "exports": {
     "./claude": "./packages/integrations/claude/src/index.js",
-    "./codex": "./packages/integrations/codex/src/index.js"
+    "./codex": "./packages/integrations/codex/src/index.js",
+    "./release-readiness": "./packages/release-readiness/src/index.js"
   },
   "files": [
     "README.md",
@@ -29,7 +30,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9 && npm run test:s10",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
@@ -39,6 +40,7 @@
     "test:s7": "node packages/conformance/src/run-node-tests.js packages/adapter-host/test/adapter-host.test.js",
     "test:s8": "node packages/conformance/src/run-node-tests.js packages/integrations/claude/test/claude.test.js",
     "test:s9": "node packages/conformance/src/run-node-tests.js packages/integrations/codex/test/codex.test.js",
+    "test:s10": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/release-readiness.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",
@@ -50,6 +52,8 @@
     "probe:s9:live": "node packages/integrations/codex/src/live-probe.js",
     "publish:s9:proof": "node packages/integrations/codex/src/publish-proof.js",
     "verify:s9:parity": "node packages/integrations/codex/src/verify-parity.js",
+    "audit:s10:policy": "node packages/release-readiness/src/audit-policy.js",
+    "publish:s10:proof": "node packages/release-readiness/src/publish-proof.js",
     "export:case:s5": "node packages/interop/src/export-cli.js",
     "verify:case:s5": "node packages/interop/src/verify-case-cli.js",
     "verify:case:s5:artifact": "node packages/interop/src/verify-case-cli.js --export evidence/S5/scopa-case-export.jsonld --timestamp-roots fixtures/S4/freetsa-root.pem --require-timestamp --timestamp-authority-id freetsa.org-2026 --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",

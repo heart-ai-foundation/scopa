@@ -16,13 +16,13 @@ or authorize publication.
 
 ## Task 2 — Implement executable release-readiness controls
 
-- [ ] Add the release-readiness package under
+- [x] Add the release-readiness package under
   `packages/release-readiness/`.
-- [ ] Implement closed release-posture, policy-audit, candidate-manifest, and
+- [x] Implement closed release-posture, policy-audit, candidate-manifest, and
   consumer-proof validators.
-- [ ] Implement exact artifact packing/integrity inspection and a fail-closed
+- [x] Implement exact artifact packing/integrity inspection and a fail-closed
   policy audit.
-- [ ] Add deterministic S10 tests and root scripts in `package.json`.
+- [x] Add deterministic S10 tests and root scripts in `package.json`.
 
 ## Task 3 — Build the consumer and policy surfaces
 
