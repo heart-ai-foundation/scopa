@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.redaction-collision-evidence.v1",
+  "sourceCommit": "7b686e3",
+  "designatedFields": [
+    "/environment/sourceRoot",
+    "/environment/temporaryRoot"
+  ],
+  "cases": [
+    {"id": "ordinary-private-roots", "expected": "publish", "result": "publish", "semanticFieldsChanged": false, "privateValuesPresent": false},
+    {"id": "exact-assurance-collision", "expected": "reject", "result": "reject"},
+    {"id": "claim-substring-collision", "expected": "reject", "result": "reject"},
+    {"id": "reserved-placeholder-injection", "expected": "reject", "result": "reject"},
+    {"id": "overlapping-designated-roots", "expected": "publish", "result": "publish", "semanticFieldsChanged": false, "privateValuesPresent": false},
+    {"id": "equal-designated-roots", "expected": "publish", "result": "publish", "semanticFieldsChanged": false, "privateValuesPresent": false},
+    {"id": "semantic-assurance-mutation", "expected": "detect-change", "result": "detect-change", "semanticFieldsChanged": true},
+    {"id": "repeat-publication", "expected": "byte-equivalent-object", "result": "byte-equivalent-object"}
+  ],
+  "sourceDigestBound": true,
+  "redactionCountComputed": true,
+  "ok": true
+}

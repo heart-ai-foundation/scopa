@@ -1,0 +1,15 @@
+{
+  "schema": "scopa.s10-proof-regression.v1",
+  "sourceCommit": "7b686e3",
+  "retainedPublicProof": "evidence/S10/consumer-proof.public.json",
+  "privateRawProofLocation": "private evidence home; value not retained here",
+  "publicProofValid": true,
+  "rawProofValid": true,
+  "republication": {
+    "accepted": true,
+    "redactionCount": 2,
+    "semanticFieldsChanged": false
+  },
+  "retainedS10EvidenceModified": false,
+  "ok": true
+}
