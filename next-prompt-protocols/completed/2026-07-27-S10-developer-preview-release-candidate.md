@@ -63,7 +63,7 @@ and creates no independent work.
 | S7 | Model-neutral adapter bridge | Give supported agents one trusted mutation boundary | Fake agent reaches allowed, denied, and stop states only through the bridge | Hostile tool calls, bypass attempts, transcript and matrix checks | `completed` |
 | S8 | Claude Code headless integration | Exercise the bridge with Claude through strict tool configuration | Claude is blocked out of scope and refused false-green while an allowed task completes | Headless clean/fault runs, cold resume, outside review | `completed` |
 | S9 | Codex headless integration and parity | Exercise the same contract with Codex and compare outcomes | Codex satisfies the Claude behavior contract or reports a parity gap | Headless clean/fault runs, parity report, outside review | `completed` |
-| S10 | Developer-preview release candidate | Prove adoption outside the build repository | Unfamiliar consumer installs, runs, and independently verifies the candidate | Consumer quickstart, policy audit, hosted gate, independent review | `active` |
+| S10 | Developer-preview release candidate | Prove adoption outside the build repository | Unfamiliar consumer installs, runs, and independently verifies the candidate | Consumer quickstart, policy audit, hosted gate, independent review | `completed` |
 
 ## Files in play
 
@@ -163,3 +163,23 @@ This arc slice requires all three evidence surfaces:
 - An unfamiliar outside reviewer reproduces the quickstart from the exact
   artifact and issues an explicit accept/hold verdict.
 - The accumulated release gate passes in hosted CI.
+
+## Closeout
+
+Completed on 2026-07-27.
+
+- Accepted candidate source:
+  `be913542e1e723bc8ca499436ef727ac0b922926`
+- Candidate SHA-256:
+  `10e0173940c1730d3a812268e43a9ea7a32103ad169398ad693cb13d57ebc7db`
+- Source-free consumer proof: pass
+- Closed release-policy audit: 37/37
+- Accumulated local release gate: pass
+- Dependency audit: 0 vulnerabilities
+- Final Claude Sonnet outside review: `ACCEPT`, 10/10, zero findings
+- Hosted release gate: run `30332097112`, success
+- Contracts RC1, RC2, and RC3: satisfied
+
+This closeout completes the authorized Developer Preview Macro Delta. It does
+not authorize npm publication, a GitHub Release, public repository visibility,
+production deployment, or customer use.

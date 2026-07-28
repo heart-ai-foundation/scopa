@@ -1,43 +1,17 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ce768e9",
+  "current_commit": "6ecc581",
   "current_phase": "phase-4-developer-preview",
-  "active_protocol": "active/2026-07-27-S10-developer-preview-release-candidate.md",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "release-readiness",
-  "crosses": [
-    "distribution",
-    "adapter-host",
-    "conformance"
-  ],
-  "advances_contracts": [
-    "RC1",
-    "RC2",
-    "RC3"
-  ],
-  "active_protocol_sha256": "sha256:7fa2acd004fdf835e9d56b9aa234fd580561dfca0470ec8a3c95a2bbaeda91a6",
-  "active_objective": "After the principal records the release license, contribution model, working\nrelease name, and publication posture, assemble a private v0.2\ndeveloper-preview candidate. Run its documented quickstart from the packed\nartifact in a fresh repository, exercise one supported adapter, reproduce the\ncore enforcement proof, independently verify the evidence packet, and obtain\nan outside consumer/reviewer verdict.",
-  "allowed_files": [
-    "packages/release-readiness/**",
-    "packages/cli/test/cli.test.js",
-    "fixtures/S10/**",
-    "docs/**",
-    "schemas/**",
-    "SECURITY.md",
-    "CONTRIBUTING.md",
-    "GOVERNANCE.md",
-    "LICENSE",
-    "package.json",
-    "package-lock.json",
-    "README.md",
-    ".github/**",
-    "next-prompt-protocols/**",
-    "notes/S10/**",
-    "runs/S10/**",
-    "evidence/S10/**"
-  ],
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "Developer Preview S6-S10 is complete. No protocol is active; further implementation or publication requires separately ratified authority.",
+  "allowed_files": [],
   "verification": {
     "fast_deterministic": "npm run test:s10",
     "consumer_probe": "npm run probe:s10:consumer",
@@ -45,5 +19,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop S9 if Codex retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, Claude/Codex differences are hidden, or evidence cannot distinguish SCOPA enforcement from prompt cooperation."
+  "stop_condition": "No active protocol. Do not implement, publish, change visibility, or deploy without separately ratified authority."
 }

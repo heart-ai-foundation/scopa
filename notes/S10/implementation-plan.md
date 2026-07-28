@@ -55,9 +55,9 @@ or authorize publication.
 
 ## Task 6 — Close the developer-preview queue
 
-- [ ] Run accumulated tests, dependency audit, policy audit, protocol check,
+- [x] Run accumulated tests, dependency audit, policy audit, protocol check,
   diff hygiene, and hosted CI.
-- [ ] Mark RC1-RC3 satisfied only if the evidence supports each contract.
-- [ ] Move S10 to completed with no active protocol and preserve the final
+- [x] Mark RC1-RC3 satisfied only if the evidence supports each contract.
+- [x] Move S10 to completed with no active protocol and preserve the final
   queue state.
-- [ ] Update the durable evidence home with the release-candidate closeout.
+- [x] Update the durable evidence home with the release-candidate closeout.

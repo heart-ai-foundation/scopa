@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "ce768e9",
+  "current_commit": "6ecc581",
   "current_phase": "phase-4-developer-preview",
   "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
-  "active_protocol": "active/2026-07-27-S10-developer-preview-release-candidate.md",
-  "active_objective": "After the required principal release decisions are recorded, assemble and externally test a private v0.2 developer-preview candidate from the exact packed artifact in an unfamiliar source-free consumer repository.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "Developer Preview S6-S10 is complete. No protocol is active; further implementation or publication requires separately ratified authority.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-27-S10-developer-preview-release-candidate.md",
     "completed/2026-07-27-S9-codex-headless-integration-and-parity.md",
     "completed/2026-07-27-S8-claude-code-headless-integration.md",
     "completed/2026-07-27-S7-model-neutral-adapter-bridge.md",
@@ -23,25 +24,7 @@
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [
-    "packages/release-readiness/**",
-    "packages/cli/test/cli.test.js",
-    "fixtures/S10/**",
-    "docs/**",
-    "schemas/**",
-    "SECURITY.md",
-    "CONTRIBUTING.md",
-    "GOVERNANCE.md",
-    "LICENSE",
-    "package.json",
-    "package-lock.json",
-    "README.md",
-    ".github/**",
-    "next-prompt-protocols/**",
-    "notes/S10/**",
-    "runs/S10/**",
-    "evidence/S10/**"
-  ],
+  "allowed_files": [],
   "non_goals": [
     "No npm publication, public repository, public release, visibility change, production installation, or customer deployment",
     "No license text, contribution policy, release name, trademark claim, or publication date inferred without a principal decision",
@@ -513,7 +496,7 @@
         {
           "id": "RC1",
           "statement": "An unfamiliar consumer completes the local-artifact quickstart in a fresh repository.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Independent clean-environment consumer transcript",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
@@ -521,7 +504,7 @@
         {
           "id": "RC2",
           "statement": "Threat model, security route, schemas, fixtures, versioning, governance, and licensing state are explicit.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Release-readiness policy and artifact audit",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
@@ -529,7 +512,7 @@
         {
           "id": "RC3",
           "statement": "An independent reviewer can reproduce claims and distinguish verified behavior from non-claims.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Outside consumer reproduction and claim-boundary review",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
@@ -537,5 +520,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S9 if Codex retains an unmediated model-controlled mutation route while full assurance is claimed, a live test can escape its temporary fixture, Claude/Codex differences are hidden, or evidence cannot distinguish SCOPA enforcement from prompt cooperation."
+  "stop_condition": "No active protocol. Do not implement, publish, change visibility, or deploy without separately ratified authority."
 }
