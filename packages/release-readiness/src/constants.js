@@ -9,6 +9,37 @@ export const RELEASE_BINS = Object.freeze({
   'scopa-mcp': './packages/adapter-host/src/cli.js',
 });
 
+export const CONSUMER_ADAPTER_SCHEMA =
+  'scopa.consumer-adapter-result.v1';
+
+export const CONSUMER_TOOL_NAMES = Object.freeze([
+  'scopa_assurance',
+  'scopa_check',
+  'scopa_orientation',
+  'scopa_read_file',
+  'scopa_transcript',
+  'scopa_write_file',
+]);
+
+export const CONSUMER_ASSURANCE = 'full';
+
+export const CONSUMER_VERIFIED_CLAIMS = Object.freeze([
+  'exact local tarball installed without source-checkout resolution',
+  'six-tool model-neutral adapter completed allowed work',
+  'escaping mutation received SCOPA_SCOPE_DENIED',
+  'real clean gate reached satisfied canStop true',
+  'retained signed packet verified with caller trust policy',
+  'known exit-7 fixture remained blocked',
+]);
+
+export const CONSUMER_NON_CLAIMS = Object.freeze([
+  'no npm, GitHub Release, public repository, or production publication',
+  'no operating-system sandbox claim',
+  'no provider or human identity attestation',
+  'no transfer of full assurance to Claude or Codex',
+  'no formal compliance or trademark claim',
+]);
+
 export const RELEASE_SCHEMAS = Object.freeze({
   posture: 'scopa.release-posture.v1',
   policyAudit: 'scopa.release-policy-audit.v1',

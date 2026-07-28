@@ -17,7 +17,7 @@
     "RQ2",
     "RQ3"
   ],
-  "active_protocol_sha256": "sha256:9a5d9f27435a3e3ea922e8426279c86b20c676a80b1de1e26868aa8732619cd6",
+  "active_protocol_sha256": "sha256:dcd7aa5ab9d50e1b05eccc17b3ce8b94c832bdaeaedd726b7ac3efed1697502e",
   "active_objective": "Build and retain one exact private candidate from a clean commit, run the full\nsource-free hostile corpus against those bytes, and assign three fresh isolated\nreviewers to attack artifact/distribution, evidence/proof, and runtime/\ncontainment boundaries. Require each reviewer to issue a structured `ACCEPT`\nwith no critical, high, or medium finding before closeout.",
   "allowed_files": [
     "package.json",
@@ -28,18 +28,20 @@
     "packages/release-readiness/**",
     "packages/adapter-host/**",
     "packages/cli/test/cli.test.js",
-    "fixtures/S12/**",
+    "schemas/**",
+    "fixtures/S13/**",
     "next-prompt-protocols/**",
-    "notes/S12/**",
-    "runs/S12/**",
-    "evidence/S12/**"
+    "notes/S13/**",
+    "runs/S13/**",
+    "evidence/S13/**"
   ],
   "verification": {
     "fast_deterministic": "npm run test:s12",
     "installed_probe": "npm run probe:s12:installed",
-    "s11_regression": "npm run test:s11",
+    "proof_parity": "npm run probe:s11:parity",
+    "dependency_audit": "npm audit --audit-level=low",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
-  "stop_condition": "Stop S12 on a broken retained bin/export/script, default launcher stack or absolute-path disclosure, contributor-specific package residue, credential match, unsupported action runtime, regression of S0-S11 behavior, or any S13 implementation before rotation."
+  "stop_condition": "Stop S13 on any critical, high, or medium reviewer finding, proof or artifact mismatch, sourceful resolution, unsafe redaction, broken installed command, containment or signature bypass, false-green state, unconfirmed credential rotation, hosted-gate failure, or publication attempt."
 }

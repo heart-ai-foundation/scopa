@@ -72,6 +72,7 @@ Macro Delta and creates no independent work.
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
 - `packages/cli/test/cli.test.js`
+- `schemas/**`
 - `fixtures/S13/**`
 - `next-prompt-protocols/**`
 - `notes/S13/**`
@@ -107,6 +108,14 @@ primary attack surfaces:
 Each report must bind the exact source commit and candidate SHA-256, state what
 was executed, distinguish static review from command execution, and return
 `ACCEPT` or `REJECT` with severity-ranked findings.
+
+If a fresh reviewer returns `REJECT`, the active S13 scope may remediate only
+the reported proof-integrity, distribution, or conformance boundary needed to
+remove that finding. Existing published schemas are in play for such
+fail-closed corrections; adding a new schema or capability remains a non-goal.
+The rejected candidate and report must be retained, a new clean candidate must
+be built, and all three final reviews must use fresh agents against the new
+exact bytes.
 
 Provider-side confirmation that the affected S10 Slack, OpenRouter, and Valyu
 credentials were rotated and their old values invalidated is required for RQ3.

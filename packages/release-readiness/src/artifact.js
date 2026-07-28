@@ -13,6 +13,9 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import {
+  candidatePathIsCanonical,
+} from './candidate-path.js';
+import {
   FORBIDDEN_PACKED_PREFIXES,
   RELEASE_PACKAGE_NAME,
   RELEASE_SCHEMAS,
@@ -67,11 +70,7 @@ function assertPackedSurface(files) {
     }
   }
   for (const filePath of paths) {
-    if (
-      filePath.startsWith('/') ||
-      filePath.includes('\\') ||
-      filePath.split('/').includes('..')
-    ) {
+    if (!candidatePathIsCanonical(filePath)) {
       throw new Error(`candidate package contains unsafe path ${filePath}`);
     }
     const forbidden = FORBIDDEN_PACKED_PREFIXES.find(
@@ -128,14 +127,10 @@ async function createConsumerStage(root) {
   try {
     for (const entry of records[0].files) {
       if (entry.path === 'package.json') continue;
-      const parts = entry.path.split('/');
-      if (
-        entry.path.startsWith('/') ||
-        entry.path.includes('\\') ||
-        parts.includes('..')
-      ) {
-        throw new Error('npm pack inventory contains an unsafe path');
+      if (!candidatePathIsCanonical(entry.path)) {
+        throw new Error('npm pack inventory contains a non-canonical path');
       }
+      const parts = entry.path.split('/');
       const source = path.join(root, ...parts);
       const destination = path.join(stageRoot, ...parts);
       await mkdir(path.dirname(destination), { recursive: true });

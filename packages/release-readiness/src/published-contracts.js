@@ -1,5 +1,8 @@
 import { readFileSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';
+import {
+  normalizeCandidatePath,
+} from './candidate-path.js';
 
 const SCHEMA_FILES = [
   'scopa.candidate-manifest.v1.schema.json',
@@ -22,13 +25,30 @@ function candidateInvariants(enabled, value) {
   const errors = [];
   const files = Array.isArray(value?.files) ? value.files : [];
   const paths = files.map((entry) => entry?.path);
+  const normalizedPaths = paths.map(normalizeCandidatePath);
 
-  if (new Set(paths).size !== paths.length) {
+  if (
+    normalizedPaths.some(
+      (normalizedPath, index) => normalizedPath !== paths[index],
+    )
+  ) {
     errors.push({
       instancePath: '/files',
       keyword: 'x-scopa-candidate-invariants',
-      message: 'must contain unique file paths',
-      params: { invariant: 'unique-file-paths' },
+      message: 'must contain only canonical POSIX-relative file paths',
+      params: { invariant: 'canonical-file-paths' },
+    });
+  }
+
+  if (
+    normalizedPaths.includes(null) ||
+    new Set(normalizedPaths).size !== normalizedPaths.length
+  ) {
+    errors.push({
+      instancePath: '/files',
+      keyword: 'x-scopa-candidate-invariants',
+      message: 'must contain unique normalized file paths',
+      params: { invariant: 'unique-normalized-file-paths' },
     });
   }
 

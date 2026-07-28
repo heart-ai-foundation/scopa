@@ -8,7 +8,7 @@
   "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
   "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
-  "active_objective": "Build a coherent tarball-only consumer surface, make default launcher failures structured and path-free, remove contributor-specific package residue, and clear hosted action-runtime warnings.",
+  "active_objective": "Build and retain one exact private candidate from a clean commit, run the full source-free hostile corpus against those bytes, and assign three fresh isolated reviewers to attack artifact/distribution, evidence/proof, and runtime/containment boundaries. Require each reviewer to issue a structured ACCEPT with no critical, high, or medium finding before closeout.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
@@ -35,27 +35,28 @@
     "packages/release-readiness/**",
     "packages/adapter-host/**",
     "packages/cli/test/cli.test.js",
-    "fixtures/S12/**",
+    "schemas/**",
+    "fixtures/S13/**",
     "next-prompt-protocols/**",
-    "notes/S12/**",
-    "runs/S12/**",
-    "evidence/S12/**"
+    "notes/S13/**",
+    "runs/S13/**",
+    "evidence/S13/**"
   ],
   "non_goals": [
-    "No npm publication, GitHub Release, public repository, visibility change, deployment, customer use, public announcement, certification, or trademark claim",
-    "No removal of consumer bins, exports, public schemas, verifier capability, known-failing fixtures, or independently useful free functionality merely to make the inventory green",
-    "No rewrite of S10 or S11 retained evidence",
-    "No change to enforcement semantics, effect categories, adapter assurance, trust policy, signature verification, or proof-contract acceptance",
-    "No contributor-specific username, home directory, or private evidence path in package bytes",
-    "No default launcher stack, source location, file URL, absolute build/install path, or uncontrolled input echo",
-    "No credential value or credential-rotation evidence in the repository",
-    "No S13 candidate assembly or outside requalification before protocol rotation",
+    "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
+    "No new product feature, provider integration, command, export, schema, assurance level, effect category, trust policy, or verification primitive",
+    "No weakening or removal of consumer bins, exports, verifier capability, known-failing fixtures, hostile corpus cases, or independently useful free functionality",
+    "No rewrite of historical S10-S12 evidence",
+    "No credential value, credential screenshot, or rotation secret in any retained file",
+    "No false claim that reviewer agreement is provider attestation, production certification, or permission to publish",
+    "No hardening-queue closeout while credential rotation is unconfirmed",
     "No queue entries outside the authorized Adversarial Release Hardening Macro Delta"
   ],
   "verification": {
     "fast_deterministic": "npm run test:s12",
     "installed_probe": "npm run probe:s12:installed",
-    "s11_regression": "npm run test:s11",
+    "proof_parity": "npm run probe:s11:parity",
+    "dependency_audit": "npm audit --audit-level=low",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -653,5 +654,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S12 on a broken retained bin/export/script, default launcher stack or absolute-path disclosure, contributor-specific package residue, credential match, unsupported action runtime, regression of S0-S11 behavior, or any S13 implementation before rotation."
+  "stop_condition": "Stop S13 on any critical, high, or medium reviewer finding, proof or artifact mismatch, sourceful resolution, unsafe redaction, broken installed command, containment or signature bypass, false-green state, unconfirmed credential rotation, hosted-gate failure, or publication attempt."
 }

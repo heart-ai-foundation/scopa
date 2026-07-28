@@ -5,6 +5,8 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import {
+  CONSUMER_NON_CLAIMS,
+  CONSUMER_VERIFIED_CLAIMS,
   consumerProofSemanticFieldsChanged,
   createPublicConsumerProof,
   runProofParityCorpus,
@@ -79,6 +81,35 @@ test('RR-01 empty, duplicate, and zero states now fail closed', () => {
   }
 });
 
+test('consumer proof v1 rejects semantic adapter and claim drift', () => {
+  const mutations = [
+    (value) => {
+      value.adapter.schema = 'unrelated.nonempty.schema';
+    },
+    (value) => {
+      value.adapter.toolNames = ['unrelated_tool'];
+    },
+    (value) => {
+      value.adapter.assurance = 'unrelated-nonempty-level';
+    },
+    (value) => {
+      value.claimBoundary.verified = ['arbitrary assertion'];
+    },
+    (value) => {
+      value.claimBoundary.nonClaims = ['arbitrary boundary'];
+    },
+  ];
+
+  for (const mutate of mutations) {
+    const value = proof();
+    mutate(value);
+    assert.throws(() => validateConsumerProof(value), /contract violation/);
+  }
+
+  assert.deepEqual(proof().claimBoundary.verified, CONSUMER_VERIFIED_CLAIMS);
+  assert.deepEqual(proof().claimBoundary.nonClaims, CONSUMER_NON_CLAIMS);
+});
+
 test('public proof changes only designated roots and binds raw bytes', () => {
   const raw = rawProof();
   const publication = createPublicConsumerProof(raw);
@@ -91,7 +122,7 @@ test('public proof changes only designated roots and binds raw bytes', () => {
     publication.proof.environment.temporaryRoot,
     '[SCOPA_CONSUMER_TEMP_ROOT]',
   );
-  assert.equal(publication.proof.adapter.assurance, 'partial');
+  assert.equal(publication.proof.adapter.assurance, 'full');
   assert.equal(publication.receipt.semanticFieldsChanged, false);
   assert.deepEqual(
     publication.receipt.redactions.map(({ field }) => field),
@@ -129,7 +160,7 @@ test('reserved placeholder injection fails closed', () => {
   value.claimBoundary.nonClaims = ['[SCOPA_SOURCE_ROOT] injection'];
   assert.throws(
     () => createPublicConsumerProof(rawProof(value)),
-    /reserved redaction placeholder/,
+    /contract violation|reserved redaction placeholder/,
   );
 });
 
@@ -164,7 +195,7 @@ test('semantic change is computed from an explicit projection', () => {
   );
 
   const altered = structuredClone(rootsOnly);
-  altered.adapter.assurance = 'full';
+  altered.adapter.assurance = 'partial';
   assert.equal(
     consumerProofSemanticFieldsChanged(before, altered),
     true,

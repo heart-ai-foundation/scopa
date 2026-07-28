@@ -101,17 +101,34 @@
       ],
       "properties": {
         "schema": {
-          "type": "string",
-          "minLength": 1
+          "const": "scopa.consumer-adapter-result.v1"
         },
         "toolNames": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 6,
+          "maxItems": 6,
           "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
+          "prefixItems": [
+            {
+              "const": "scopa_assurance"
+            },
+            {
+              "const": "scopa_check"
+            },
+            {
+              "const": "scopa_orientation"
+            },
+            {
+              "const": "scopa_read_file"
+            },
+            {
+              "const": "scopa_transcript"
+            },
+            {
+              "const": "scopa_write_file"
+            }
+          ],
+          "items": false
         },
         "allowedWrite": {
           "const": true
@@ -136,8 +153,7 @@
           }
         },
         "assurance": {
-          "type": "string",
-          "minLength": 1
+          "const": "full"
         }
       }
     },
@@ -191,21 +207,54 @@
       "properties": {
         "verified": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 6,
+          "maxItems": 6,
           "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
+          "prefixItems": [
+            {
+              "const": "exact local tarball installed without source-checkout resolution"
+            },
+            {
+              "const": "six-tool model-neutral adapter completed allowed work"
+            },
+            {
+              "const": "escaping mutation received SCOPA_SCOPE_DENIED"
+            },
+            {
+              "const": "real clean gate reached satisfied canStop true"
+            },
+            {
+              "const": "retained signed packet verified with caller trust policy"
+            },
+            {
+              "const": "known exit-7 fixture remained blocked"
+            }
+          ],
+          "items": false
         },
         "nonClaims": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 5,
+          "maxItems": 5,
           "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
+          "prefixItems": [
+            {
+              "const": "no npm, GitHub Release, public repository, or production publication"
+            },
+            {
+              "const": "no operating-system sandbox claim"
+            },
+            {
+              "const": "no provider or human identity attestation"
+            },
+            {
+              "const": "no transfer of full assurance to Claude or Codex"
+            },
+            {
+              "const": "no formal compliance or trademark claim"
+            }
+          ],
+          "items": false
         }
       }
     }

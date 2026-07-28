@@ -13,6 +13,8 @@ import {
   fileURLToPath,
 } from 'node:url';
 import {
+  CONSUMER_NON_CLAIMS,
+  CONSUMER_VERIFIED_CLAIMS,
   RELEASE_SCHEMAS,
   auditReleasePolicies,
   createPublicConsumerProof,
@@ -144,8 +146,8 @@ function consumerProof() {
       canStop: false,
     },
     claimBoundary: {
-      verified: ['source-free local installation'],
-      nonClaims: ['no public publication'],
+      verified: [...CONSUMER_VERIFIED_CLAIMS],
+      nonClaims: [...CONSUMER_NON_CLAIMS],
     },
   };
 }
@@ -194,6 +196,20 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
     () => validateCandidateManifest(wrong),
     /contract violation/,
   );
+  for (const nonCanonical of [
+    './README.md',
+    'docs/./README.md',
+    'docs//README.md',
+    'docs/README.md/',
+    'docs\\README.md',
+  ]) {
+    const aliased = candidateManifest();
+    aliased.files[0].path = nonCanonical;
+    assert.throws(
+      () => validateCandidateManifest(aliased),
+      /contract violation/,
+    );
+  }
 });
 
 test('policy audit cannot claim green over a failed constituent check', () => {
@@ -228,6 +244,31 @@ test('consumer proof is closed and refuses false-green or sourceful installs', (
     () => validateConsumerProof(sourceful),
     /contract violation/,
   );
+  const semanticDrifts = [
+    (value) => {
+      value.adapter.schema = 'unrelated.nonempty.schema';
+    },
+    (value) => {
+      value.adapter.toolNames = ['unrelated_tool'];
+    },
+    (value) => {
+      value.adapter.assurance = 'unrelated-nonempty-level';
+    },
+    (value) => {
+      value.claimBoundary.verified = ['arbitrary assertion'];
+    },
+    (value) => {
+      value.claimBoundary.nonClaims = ['arbitrary boundary'];
+    },
+  ];
+  for (const mutate of semanticDrifts) {
+    const drifted = consumerProof();
+    mutate(drifted);
+    assert.throws(
+      () => validateConsumerProof(drifted),
+      /contract violation/,
+    );
+  }
 });
 
 test('public proof replaces private roots and binds the exact raw bytes', () => {

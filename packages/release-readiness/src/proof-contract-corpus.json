@@ -119,7 +119,11 @@
         "schema": "scopa.consumer-adapter-result.v1",
         "toolNames": [
           "scopa_assurance",
-          "scopa_check"
+          "scopa_check",
+          "scopa_orientation",
+          "scopa_read_file",
+          "scopa_transcript",
+          "scopa_write_file"
         ],
         "allowedWrite": true,
         "scopeDenied": true,
@@ -127,7 +131,7 @@
           "status": "satisfied",
           "canStop": true
         },
-        "assurance": "partial"
+        "assurance": "full"
       },
       "verification": {
         "exitCode": 0,
@@ -141,10 +145,19 @@
       },
       "claimBoundary": {
         "verified": [
-          "source-free local installation"
+          "exact local tarball installed without source-checkout resolution",
+          "six-tool model-neutral adapter completed allowed work",
+          "escaping mutation received SCOPA_SCOPE_DENIED",
+          "real clean gate reached satisfied canStop true",
+          "retained signed packet verified with caller trust policy",
+          "known exit-7 fixture remained blocked"
         ],
         "nonClaims": [
-          "no public publication"
+          "no npm, GitHub Release, public repository, or production publication",
+          "no operating-system sandbox claim",
+          "no provider or human identity attestation",
+          "no transfer of full assurance to Claude or Codex",
+          "no formal compliance or trademark claim"
         ]
       }
     }
@@ -164,6 +177,72 @@
       "id": "consumer-valid",
       "target": "consumer",
       "expected": "accept"
+    },
+    {
+      "id": "adapter-schema-drift",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/adapter/schema",
+          "value": "unrelated.nonempty.schema"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "adapter-tool-inventory-drift",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/adapter/toolNames",
+          "value": [
+            "unrelated_tool"
+          ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "adapter-assurance-drift",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/adapter/assurance",
+          "value": "unrelated-nonempty-level"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "verified-claim-drift",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/verified",
+          "value": [
+            "arbitrary assertion"
+          ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "non-claim-drift",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/nonClaims",
+          "value": [
+            "arbitrary boundary"
+          ]
+        }
+      ],
+      "expected": "reject"
     },
     {
       "id": "adapter-tool-names-empty",
@@ -343,6 +422,54 @@
           "operation": "replace",
           "path": "/files/0/path",
           "value": "../LICENSE"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-normalized-alias",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "./README.md"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-dot-segment",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "docs/./LICENSE"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-repeated-separator",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "docs//LICENSE"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-trailing-separator",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "LICENSE/"
         }
       ],
       "expected": "reject"

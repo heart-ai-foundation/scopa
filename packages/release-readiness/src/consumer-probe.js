@@ -18,7 +18,11 @@ import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { canonicalJsonPretty } from '../../enforcement/src/index.js';
 import { packCandidate } from './artifact.js';
-import { RELEASE_SCHEMAS } from './constants.js';
+import {
+  CONSUMER_NON_CLAIMS,
+  CONSUMER_VERIFIED_CLAIMS,
+  RELEASE_SCHEMAS,
+} from './constants.js';
 import { auditReleasePolicies } from './policy.js';
 import { validateConsumerProof } from './schema.js';
 
@@ -273,21 +277,8 @@ export async function runConsumerProbe({
         canStop: false,
       },
       claimBoundary: {
-        verified: [
-          'exact local tarball installed without source-checkout resolution',
-          'six-tool model-neutral adapter completed allowed work',
-          'escaping mutation received SCOPA_SCOPE_DENIED',
-          'real clean gate reached satisfied canStop true',
-          'retained signed packet verified with caller trust policy',
-          'known exit-7 fixture remained blocked',
-        ],
-        nonClaims: [
-          'no npm, GitHub Release, public repository, or production publication',
-          'no operating-system sandbox claim',
-          'no provider or human identity attestation',
-          'no transfer of full assurance to Claude or Codex',
-          'no formal compliance or trademark claim',
-        ],
+        verified: [...CONSUMER_VERIFIED_CLAIMS],
+        nonClaims: [...CONSUMER_NON_CLAIMS],
       },
     });
     await writeFile(output, canonicalJsonPretty(proof));

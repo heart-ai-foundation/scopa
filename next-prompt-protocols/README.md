@@ -177,11 +177,12 @@ These protocols are specific to:
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
 - `packages/cli/test/cli.test.js`
-- `fixtures/S12/**`
+- `schemas/**`
+- `fixtures/S13/**`
 - `next-prompt-protocols/**`
-- `notes/S12/**`
-- `runs/S12/**`
-- `evidence/S12/**`
+- `notes/S13/**`
+- `runs/S13/**`
+- `evidence/S13/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 

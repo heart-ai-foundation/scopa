@@ -25,22 +25,22 @@ Adversarial release hardening only: converge proof validation and publication, r
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
 - `packages/cli/test/cli.test.js`
-- `fixtures/S12/**`
+- `schemas/**`
+- `fixtures/S13/**`
 - `next-prompt-protocols/**`
-- `notes/S12/**`
-- `runs/S12/**`
-- `evidence/S12/**`
+- `notes/S13/**`
+- `runs/S13/**`
+- `evidence/S13/**`
 
 ## Non-goals
 
-- No npm publication, GitHub Release, public repository, visibility change, deployment, customer use, public announcement, certification, or trademark claim
-- No removal of consumer bins, exports, public schemas, verifier capability, known-failing fixtures, or independently useful free functionality merely to make the inventory green
-- No rewrite of S10 or S11 retained evidence
-- No change to enforcement semantics, effect categories, adapter assurance, trust policy, signature verification, or proof-contract acceptance
-- No contributor-specific username, home directory, or private evidence path in package bytes
-- No default launcher stack, source location, file URL, absolute build/install path, or uncontrolled input echo
-- No credential value or credential-rotation evidence in the repository
-- No S13 candidate assembly or outside requalification before protocol rotation
+- No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim
+- No new product feature, provider integration, command, export, schema, assurance level, effect category, trust policy, or verification primitive
+- No weakening or removal of consumer bins, exports, verifier capability, known-failing fixtures, hostile corpus cases, or independently useful free functionality
+- No rewrite of historical S10-S12 evidence
+- No credential value, credential screenshot, or rotation secret in any retained file
+- No false claim that reviewer agreement is provider attestation, production certification, or permission to publish
+- No hardening-queue closeout while credential rotation is unconfirmed
 - No queue entries outside the authorized Adversarial Release Hardening Macro Delta
 
 ## Descriptor Rung Stop Rule
