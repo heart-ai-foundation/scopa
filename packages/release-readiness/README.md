@@ -18,6 +18,14 @@ If either private value occurs elsewhere, or a reserved placeholder is already
 present, publication fails closed. Semantic preservation is computed from the
 proof with those two designated fields projected out.
 
+S12 builds the candidate through an isolated consumer stage. The staged
+`package.json` retains the release identity, dependencies, bins, exports,
+engine, license, repository, and file allowlist while omitting contributor
+scripts and development dependencies. The installed-surface probe packs twice
+to prove deterministic bytes, installs only the tarball, imports every export,
+executes every bin, and scans every installed file for structural private-path
+or recognizable credential residue.
+
 The package does not publish anything. `package.json` remains private, and the
 S10 commands create only local tarballs and evidence receipts.
 
@@ -32,6 +40,8 @@ npm run publish:s10:proof -- \
   --output evidence/S10/consumer-proof.public.json
 npm run test:s11
 npm run probe:s11:parity
+npm run test:s12
+npm run probe:s12:installed
 ```
 
 ## Claim boundary

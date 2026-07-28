@@ -19,6 +19,9 @@ import {
   validatePolicyAudit,
   validateReleasePosture,
 } from './schema.js';
+import {
+  scanPrivateText,
+} from './package-privacy.js';
 
 async function exists(filePath) {
   try {
@@ -185,8 +188,7 @@ export async function auditReleasePolicies({ root }) {
       add(
         check.id,
         includesAll(text, check.phrases) &&
-          !text.includes('/home/dylan') &&
-          !text.includes('llm-memories'),
+          scanPrivateText(text).length === 0,
         `${check.path} contains its bounded release requirements and no private path`,
       );
     } catch (error) {

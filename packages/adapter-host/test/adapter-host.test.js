@@ -33,6 +33,13 @@ import {
   createAdapterBridge,
 } from '../src/bridge.js';
 import {
+  LauncherError,
+  launcherErrorEnvelope,
+  main as launcherMain,
+  parseArguments as parseLauncherArguments,
+  readJson as readLauncherJson,
+} from '../src/cli.js';
+import {
   FakeAgentClient,
 } from '../src/fake-agent-client.js';
 import {
@@ -132,11 +139,16 @@ function structured(reply) {
   return reply.result.structuredContent;
 }
 
-async function invoke(command, cwd, args) {
+async function invoke(command, cwd, args, {
+  env = process.env,
+} = {}) {
+  const childEnv = { ...env };
+  delete childEnv.NODE_TEST_CONTEXT;
   try {
     const result = await execFileAsync(command, args, {
       cwd,
       encoding: 'utf8',
+      env: childEnv,
       maxBuffer: 10 * 1024 * 1024,
     });
     return {
@@ -152,6 +164,108 @@ async function invoke(command, cwd, args) {
     };
   }
 }
+
+test('launcher failures are closed JSON without topology or input echo', async (context) => {
+  const hostileValue = path.join(ROOT, 'hostile-private-value');
+  for (const args of [
+    [],
+    ['--uncontrolled-option', hostileValue],
+    ['--session-file', hostileValue],
+  ]) {
+    assert.throws(
+      () => parseLauncherArguments(args),
+      (error) => {
+        const serialized = JSON.stringify(launcherErrorEnvelope(error));
+        assert.equal(error.code, 'SCOPA_LAUNCHER_ARGUMENT_INVALID');
+        assert.equal(serialized.includes(ROOT), false);
+        assert.equal(serialized.includes(hostileValue), false);
+        assert.equal(serialized.includes('file:'), false);
+        assert.doesNotMatch(serialized, /\s+at\s/);
+        return true;
+      },
+    );
+  }
+
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-launcher-'));
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const absent = path.join(temporary, 'absent.json');
+  await assert.rejects(
+    () => readLauncherJson(absent),
+    (error) =>
+      error instanceof LauncherError &&
+      error.code === 'SCOPA_LAUNCHER_INPUT_UNAVAILABLE',
+  );
+  const malformed = path.join(temporary, 'malformed.json');
+  await writeFile(malformed, '{not-json\n');
+  await assert.rejects(
+    () => readLauncherJson(malformed),
+    (error) =>
+      error instanceof LauncherError &&
+      error.code === 'SCOPA_LAUNCHER_INPUT_INVALID',
+  );
+
+  const root = await repository(context);
+  const sessionFile = path.join(temporary, 'session.json');
+  const matrixFile = path.join(temporary, 'matrix.json');
+  await writeFile(sessionFile, '{}\n');
+  await writeFile(matrixFile, `${JSON.stringify(MATRIX)}\n`);
+  await assert.rejects(
+    () => launcherMain([
+      '--repo',
+      root,
+      '--session-file',
+      sessionFile,
+      '--matrix-file',
+      matrixFile,
+    ]),
+    (error) => {
+      const envelope = launcherErrorEnvelope(error);
+      assert.equal(
+        envelope.error.code,
+        'SCOPA_LAUNCHER_CONFIGURATION_INVALID',
+      );
+      assert.equal(JSON.stringify(envelope).includes(root), false);
+      return true;
+    },
+  );
+
+  await writeFile(sessionFile, `${JSON.stringify(SESSION)}\n`);
+  await writeFile(matrixFile, '{}\n');
+  await assert.rejects(
+    () => launcherMain([
+      '--repo',
+      root,
+      '--session-file',
+      sessionFile,
+      '--matrix-file',
+      matrixFile,
+    ]),
+    (error) =>
+      error instanceof LauncherError &&
+      error.code === 'SCOPA_LAUNCHER_CONFIGURATION_INVALID',
+  );
+});
+
+test('launcher stack diagnostics require explicit opt-in', async () => {
+  const source = await readFile(
+    path.join(ROOT, 'packages/adapter-host/src/cli.js'),
+    'utf8',
+  );
+  const documentation = await readFile(
+    path.join(ROOT, 'packages/adapter-host/README.md'),
+    'utf8',
+  );
+  assert.match(source, /SCOPA_DEBUG_ERRORS === '1'/);
+  assert.match(documentation, /SCOPA_DEBUG_ERRORS=1/);
+  assert.equal(
+    JSON.stringify(
+      launcherErrorEnvelope(
+        new LauncherError('SCOPA_LAUNCHER_ARGUMENT_INVALID'),
+      ),
+    ).includes('stack'),
+    false,
+  );
+});
 
 test('capability matrix computes assurance and rejects overclaim or omission', () => {
   const full = validateCapabilityMatrix(MATRIX);
@@ -509,6 +623,8 @@ test('packed scopa-mcp binary interoperates over real newline JSON-RPC stdio', a
     true,
   );
 
+  const childEnv = { ...process.env };
+  delete childEnv.NODE_TEST_CONTEXT;
   const child = spawn(binary, [
     '--repo',
     consumer,
@@ -518,6 +634,7 @@ test('packed scopa-mcp binary interoperates over real newline JSON-RPC stdio', a
     path.join(consumer, 'capability-matrix.json'),
   ], {
     cwd: consumer,
+    env: childEnv,
     stdio: ['pipe', 'pipe', 'pipe'],
   });
   context.after(() => {

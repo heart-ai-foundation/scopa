@@ -5,8 +5,15 @@ import {
   execFile,
 } from 'node:child_process';
 import {
+  chmod,
+  copyFile,
+  mkdir,
+  mkdtemp,
   readFile,
+  rm,
+  writeFile,
 } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import {
   promisify,
@@ -24,11 +31,33 @@ import {
 
 const execFileAsync = promisify(execFile);
 
+const CONSUMER_PACKAGE_FIELDS = Object.freeze([
+  'name',
+  'version',
+  'private',
+  'license',
+  'description',
+  'type',
+  'bin',
+  'exports',
+  'files',
+  'repository',
+  'engines',
+  'dependencies',
+]);
+
 async function invoke(command, args, options = {}) {
+  const {
+    env: providedEnv = process.env,
+    ...execOptions
+  } = options;
+  const env = { ...providedEnv };
+  delete env.NODE_TEST_CONTEXT;
   const result = await execFileAsync(command, args, {
     encoding: 'utf8',
+    env,
     maxBuffer: 20 * 1024 * 1024,
-    ...options,
+    ...execOptions,
   });
   return {
     stdout: result.stdout,
@@ -72,6 +101,84 @@ function assertPackedSurface(files) {
   }
 }
 
+export function createConsumerPackageJson(sourcePackage) {
+  if (
+    sourcePackage === null ||
+    typeof sourcePackage !== 'object' ||
+    Array.isArray(sourcePackage)
+  ) {
+    throw new TypeError('source package metadata must be an object');
+  }
+  const consumerPackage = {};
+  for (const field of CONSUMER_PACKAGE_FIELDS) {
+    if (!Object.hasOwn(sourcePackage, field)) {
+      throw new TypeError(
+        `source package metadata is missing consumer field ${field}`,
+      );
+    }
+    consumerPackage[field] = structuredClone(sourcePackage[field]);
+  }
+  if (
+    consumerPackage.name !== RELEASE_PACKAGE_NAME ||
+    consumerPackage.version !== RELEASE_VERSION
+  ) {
+    throw new TypeError('consumer package identity does not match release');
+  }
+  return consumerPackage;
+}
+
+async function createConsumerStage(root) {
+  const dryRun = await invoke('npm', [
+    'pack',
+    '--dry-run',
+    '--ignore-scripts',
+    '--json',
+  ], { cwd: root });
+  const records = JSON.parse(dryRun.stdout);
+  if (!Array.isArray(records) || records.length !== 1) {
+    throw new Error('npm pack dry run must return exactly one record');
+  }
+  const stageRoot = await mkdtemp(
+    path.join(os.tmpdir(), 'scopa-consumer-stage-'),
+  );
+  try {
+    for (const entry of records[0].files) {
+      if (entry.path === 'package.json') continue;
+      const parts = entry.path.split('/');
+      if (
+        entry.path.startsWith('/') ||
+        entry.path.includes('\\') ||
+        parts.includes('..')
+      ) {
+        throw new Error('npm pack inventory contains an unsafe path');
+      }
+      const source = path.join(root, ...parts);
+      const destination = path.join(stageRoot, ...parts);
+      await mkdir(path.dirname(destination), { recursive: true });
+      await copyFile(source, destination);
+      if (Number.isSafeInteger(entry.mode)) {
+        await chmod(destination, entry.mode);
+      }
+    }
+    const sourcePackage = JSON.parse(
+      await readFile(path.join(root, 'package.json'), 'utf8'),
+    );
+    const consumerPackage = createConsumerPackageJson(sourcePackage);
+    await writeFile(
+      path.join(stageRoot, 'package.json'),
+      `${JSON.stringify(consumerPackage, null, 2)}\n`,
+      { mode: 0o644 },
+    );
+    return {
+      consumerPackage,
+      stageRoot,
+    };
+  } catch (error) {
+    await rm(stageRoot, { recursive: true, force: true });
+    throw error;
+  }
+}
+
 export async function packCandidate({
   sourceRoot,
   outputDirectory,
@@ -90,12 +197,24 @@ export async function packCandidate({
   if (!/^[0-9a-f]{40}$/.test(commit)) {
     throw new Error('candidate source commit could not be resolved');
   }
-  const packResult = await invoke('npm', [
-    'pack',
-    '--json',
-    '--pack-destination',
-    path.resolve(outputDirectory),
-  ], { cwd: root });
+  const destination = path.resolve(outputDirectory);
+  await mkdir(destination, { recursive: true });
+  const {
+    consumerPackage,
+    stageRoot,
+  } = await createConsumerStage(root);
+  let packResult;
+  try {
+    packResult = await invoke('npm', [
+      'pack',
+      '--ignore-scripts',
+      '--json',
+      '--pack-destination',
+      destination,
+    ], { cwd: stageRoot });
+  } finally {
+    await rm(stageRoot, { recursive: true, force: true });
+  }
   const records = JSON.parse(packResult.stdout);
   if (!Array.isArray(records) || records.length !== 1) {
     throw new Error('npm pack must return exactly one candidate record');
@@ -120,7 +239,7 @@ export async function packCandidate({
   assertPackedSurface(files);
 
   const artifactPath = path.join(
-    path.resolve(outputDirectory),
+    destination,
     record.filename,
   );
   const bytes = await readFile(artifactPath);
@@ -150,6 +269,7 @@ export async function packCandidate({
   });
   return {
     artifactPath,
+    consumerPackage,
     manifest,
   };
 }

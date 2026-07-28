@@ -45,6 +45,14 @@ matrix to the launcher actually opening the connection. Provider adapters
 must create their own inventories rather than reuse the deterministic fake
 agent's matrix.
 
+Launcher configuration failures write one
+`scopa.launcher-error.v1` JSON envelope to stderr and exit with status `2`.
+The default envelope uses closed error codes and does not include stack traces,
+input values, source locations, or absolute paths. Local maintainers can opt
+into a diagnostic stack for troubleshooting by setting
+`SCOPA_DEBUG_ERRORS=1`; diagnostic output must not be captured as public
+evidence or shared without review.
+
 ## Protocol behavior
 
 - Initialization and `notifications/initialized` are ordered strictly.
