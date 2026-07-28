@@ -1,5 +1,6 @@
 {
   "schema": "scopa.proof-contract-corpus.v1",
+  "description": "Shipped positive and hostile corpus for official SCOPA proof-contract validation",
   "bases": {
     "posture": {
       "schema": "scopa.release-posture.v1",
@@ -231,6 +232,21 @@
       "expected": "reject"
     },
     {
+      "id": "non-claims-duplicate",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/claimBoundary/nonClaims",
+          "value": [
+            "same",
+            "same"
+          ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
       "id": "packed-bytes-zero",
       "target": "consumer",
       "mutations": [
@@ -303,6 +319,18 @@
           "operation": "replace",
           "path": "/files/1/path",
           "value": "a-first"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-embedded-file-path-duplicate",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/candidate/files/1/path",
+          "value": "LICENSE"
         }
       ],
       "expected": "reject"
@@ -389,6 +417,18 @@
             "profile design",
             "profile design"
           ]
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "posture-empty-consultation-boundary",
+      "target": "posture",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/freeToolBoundary/consultationBoundary",
+          "value": []
         }
       ],
       "expected": "reject"

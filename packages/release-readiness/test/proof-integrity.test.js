@@ -16,7 +16,7 @@ const ROOT = path.resolve(
 );
 const CORPUS_PATH = path.join(
   ROOT,
-  'fixtures/S11/proof-contract-corpus.json',
+  'packages/release-readiness/src/proof-contract-corpus.json',
 );
 const CORPUS = JSON.parse(await readFile(CORPUS_PATH, 'utf8'));
 const PACKAGE = JSON.parse(
@@ -46,10 +46,12 @@ test('runtime and published contracts agree over the hostile S11 corpus', () => 
 });
 
 test('the installed package carries the parity probe corpus and validator dependency', () => {
-  assert.equal(PACKAGE.files.includes('fixtures/S11/**'), true);
+  assert.equal(PACKAGE.files.includes('packages/*/src/**'), true);
   assert.equal(PACKAGE.dependencies.ajv, '8.20.0');
   assert.equal(
-    PACKAGE.scripts['probe:s11:parity'].includes('fixtures/S11/'),
+    PACKAGE.scripts['probe:s11:parity'].includes(
+      'packages/release-readiness/src/proof-contract-corpus.json',
+    ),
     true,
   );
 });

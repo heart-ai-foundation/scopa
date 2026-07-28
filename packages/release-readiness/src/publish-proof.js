@@ -126,10 +126,10 @@ export function createPublicConsumerProof(rawText) {
     receipt: {
       schema: RELEASE_SCHEMAS.publicationReceipt,
       sourceSha256: sha256(rawText),
-      redactions: REDACTIONS.map(({ field, replacement }) => ({
+      redactions: REDACTIONS.map(({ field, key, replacement }) => ({
         field,
         replacement,
-        occurrences: 1,
+        occurrences: Number(raw.environment[key] !== proof.environment[key]),
       })),
       semanticFieldsChanged,
     },
