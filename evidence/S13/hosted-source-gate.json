@@ -1,22 +1,25 @@
 {
-  "schema": "scopa.hosted-gate.v1",
-  "runId": 30372117384,
-  "jobId": 90318395183,
-  "sourceCommit": "73a969293a6450134e6cce1e7cbcac47e9eea67f",
-  "status": "completed",
   "conclusion": "success",
-  "startedAt": "2026-07-28T15:11:28Z",
-  "completedAt": "2026-07-28T15:12:10Z",
-  "stepsPassed": 14,
-  "node20ActionRuntimeWarning": false,
-  "deprecationOrCompatibilityWarning": false,
   "genericWarnings": [
     {
-      "source": "git",
-      "classification": "initial-branch-name hint",
-      "actionRuntimeRelated": false
+      "category": "git-initial-branch-name-hint",
+      "count": 1
     }
   ],
-  "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30372117384",
-  "ok": true
+  "job": {
+    "conclusion": "success",
+    "id": 90336372272,
+    "name": "test-and-case-validate",
+    "recordedStepCount": 14,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30377371496/job/90336372272"
+  },
+  "nodeActionRuntimeDeprecationWarning": false,
+  "run": {
+    "id": 30377371496,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30377371496",
+    "workflow": "SCOPA release gate"
+  },
+  "schema": "scopa.hosted-source-gate.v1",
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "status": "completed"
 }

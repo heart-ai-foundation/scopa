@@ -425,6 +425,51 @@ The accumulated local gate passes all 119 discovered tests. These results
 authorize construction of a new candidate only; fresh Round 7 review remains
 mandatory.
 
+## Round 7 exact candidate
+
+Clean source:
+`5a6b29832910db26497095289badb3e859bca48c`
+
+Official private candidate:
+
+- path:
+  `/home/dylan/llm-memories/projects/scopa/evidence/S13/round-7-candidate/heart-ai-foundation-scopa-0.2.0-dev.1.tgz`;
+- SHA-256:
+  `6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692`;
+- npm SHA-1: `c1e50abe73c5030c27ace9a4d86ed9a2e540f0a0`;
+- npm integrity:
+  `sha512-jlBxCxal+obC5MOpYZSWRE/TGl4D+u58mz9Om2+o5zmBmUHO8e7TLW3UcGGS5ZsIQE91QIPkRBLs2L7DywkT3A==`;
+- packed/unpacked bytes: 150104 / 584212;
+- entries: 153;
+- repeated official packing and manifest regeneration: byte-identical.
+
+Receipt SHA-256 bindings:
+
+- manifest:
+  `8b503078366e0d1fb5c5f407fe60cf05df45feef4e623333d3ad8252710fb131`;
+- raw proof:
+  `467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61`;
+- public proof:
+  `0f16a0eeb42793d36db73a2bec1a7744addd81a5f048cc789aa8a97955201199`;
+- installed surface:
+  `f050a8445acd23499139bc3c7a77fd2ce7beceb60c18e32e0e1b5fe7437f0a5f`;
+- parity:
+  `e819c08fa8508510d0ffcdaa90a30b4b18af3580a6b32d81cfc9a177ce3599ad`;
+- collision:
+  `26fe9a701b6cf753f34836c8e2a14417846af2ec254bc2cd1e6dc6497e8cfd34`;
+- dependency:
+  `626111ea1566c58d6618ec1c5d0ac5710cb7f41ccc27feab674291433416fdf1`;
+- hosted source:
+  `7b7935b129b4e0ecf64f02b72b9f269703df3920049ac99c180c7638df477318`;
+- exact consistency:
+  `17e359a33849f4ef46de7d4f009369a626bb53880878b1d4eaa6d48f177ba2eb`.
+
+The exact receipt reports `allNamedBindingsMatch: true`; parity is 41/41,
+collision regression is 5/5, dependency audit reports zero vulnerabilities,
+and source-free consumer/installed-surface probes pass. Hosted source run
+`30377371496`, job `90336372272`, succeeds with no Node action-runtime
+deprecation warning. Three fresh exact-byte reviews are pending.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

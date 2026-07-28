@@ -1,22 +1,25 @@
 {
-  "schema": "scopa.dependency-audit.v1",
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
   "command": "npm audit --json --audit-level=low",
-  "exitCode": 0,
-  "ok": true,
   "dependencies": {
-    "prod": 13,
     "dev": 7,
     "optional": 6,
     "peer": 0,
     "peerOptional": 0,
+    "prod": 13,
     "total": 19
   },
+  "exitCode": 0,
+  "ok": true,
+  "packageLockSha256": "3a4bf16aa2629bbfe8d2ccc07d90aaf30cd7d38fb2372a58ac736f15005530ec",
+  "schema": "scopa.dependency-audit.v1",
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
   "vulnerabilities": {
+    "critical": 0,
+    "high": 0,
     "info": 0,
     "low": 0,
     "moderate": 0,
-    "high": 0,
-    "critical": 0,
     "total": 0
   }
 }

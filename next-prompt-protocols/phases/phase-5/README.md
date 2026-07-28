@@ -1,6 +1,6 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `18a50da`
+Current commit reference: `5a6b2983`
 Current active protocol: `active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
 
 ## Scope

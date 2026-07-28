@@ -15,6 +15,8 @@ Round 5 candidate source:
 `18a50da693282760e1b912258fdaae1c5df049d4`
 Round 6 candidate source:
 `73a969293a6450134e6cce1e7cbcac47e9eea67f`
+Round 7 candidate source:
+`5a6b29832910db26497095289badb3e859bca48c`
 
 ## Exact-candidate boundary
 
@@ -259,6 +261,26 @@ checkout prescriptions in their own local command context. Together with the
 hardlink and descriptor-bound write changes, the accumulated gate passes all
 119 discovered tests. A newly packed candidate and three fresh reviewers are
 still required; no prior rejection is displaced.
+
+## Round 7 exact candidate
+
+Round 7 binds clean source
+`5a6b29832910db26497095289badb3e859bca48c` to candidate SHA-256
+`6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692`.
+The official package has 153 regular entries, 150104 packed bytes, and 584212
+unpacked bytes. Two independent official repacks and regenerated manifest
+bytes are identical.
+
+The exact-consistency receipt hashes and checks the manifest, raw and public
+proofs, installed-surface result, bound 41-case parity result, collision
+result, lockfile-bound dependency audit, and hosted source gate. Every named
+binding matches. Public proof regeneration is byte-identical and changes only
+the two designated environment fields.
+
+Hosted run `30377371496`, job `90336372272`, passed against the exact source.
+The retained generic warning is Git's initial-branch-name hint; there is no
+Node action-runtime deprecation warning. Three newly created reviewers must
+still independently attack these exact bytes.
 
 ## Fresh-review separation
 

@@ -1,8 +1,8 @@
 {
   "schema": "scopa.release-requalification-matrix.v1",
-  "round": 6,
-  "sourceCommit": "73a969293a6450134e6cce1e7cbcac47e9eea67f",
-  "candidateSha256": "ddabd2cf3e68e6065531ec59d21cd64548603940f94f5d0f1813fcf587548234",
+  "round": 7,
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
   "candidateEntryCount": 153,
   "checks": [
     {
@@ -18,12 +18,12 @@
     {
       "id": "runtime-published-schema-parity",
       "status": "passed",
-      "evidence": "evidence/S13/proof-contract-parity.json; 37/37 expected outcomes"
+      "evidence": "evidence/S13/proof-contract-parity.json; 41/41 expected outcomes with exact input binding"
     },
     {
       "id": "semantic-path-and-cli-remediations",
       "status": "passed-locally-awaiting-final-review",
-      "evidence": "semantic constants, canonical and bounded paths, and stable verification exits"
+      "evidence": "semantic constants, 4096-byte canonical paths, closed mode domain, and stable verification exits"
     },
     {
       "id": "mcp-transport-evidence-remediation",
@@ -38,7 +38,17 @@
     {
       "id": "packed-documentation-remediation",
       "status": "passed-locally-awaiting-final-review",
-      "evidence": "root files, local globs, generic URI schemes, and source-checkout qualification audited across every packed Markdown document"
+      "evidence": "root files and root globs, generic URI schemes, and prescription-local source-checkout qualification audited across every packed Markdown document"
+    },
+    {
+      "id": "evidence-chain-binding-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "every named receipt hashed; parity binds corpus and validators; dependency receipt binds lockfile"
+    },
+    {
+      "id": "hardlink-and-atomic-write-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "multi-link reads denied; governed writes use identity-checked descriptor-directory atomic commit"
     },
     {
       "id": "redaction-collision-regression",
@@ -73,7 +83,7 @@
     {
       "id": "accumulated-local-gate",
       "status": "passed",
-      "evidence": "117/117 discovered tests plus S8-S12 focused gates"
+      "evidence": "119/119 discovered tests plus S8-S12 focused gates"
     },
     {
       "id": "hosted-source-gate",
@@ -82,17 +92,17 @@
     },
     {
       "id": "fresh-final-artifact-review",
-      "status": "rejected-medium",
+      "status": "pending",
       "evidence": "evidence/S13/artifact-review.final.md"
     },
     {
       "id": "fresh-final-evidence-review",
-      "status": "rejected-medium",
+      "status": "pending",
       "evidence": "evidence/S13/evidence-review.final.md"
     },
     {
       "id": "fresh-final-runtime-review",
-      "status": "rejected-high",
+      "status": "pending",
       "evidence": "evidence/S13/runtime-review.final.md"
     },
     {

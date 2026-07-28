@@ -1,4 +1,5 @@
 {
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
   "cases": [
     {
       "id": "exact-semantic-collision",
@@ -28,6 +29,6 @@
   "ok": true,
   "schema": "scopa.redaction-collision-regression.v1",
   "semanticPreservationComputed": true,
-  "sourceCommit": "73a969293a6450134e6cce1e7cbcac47e9eea67f",
-  "sourceDigest": "93c598ba02e0125acc8882f5ec0f1481f51dc28d1f0b1b85e9bd9d7e02f39b95"
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "sourceDigest": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61"
 }

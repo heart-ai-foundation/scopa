@@ -1,6 +1,47 @@
 {
   "acceptedCount": 3,
-  "caseCount": 37,
+  "binding": {
+    "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+    "corpusSha256": "29c28c03a75b17cd4b5ca4f921cb466f5994945d5a017fb0367f727f0a1266b2",
+    "manifestSha256": "8b503078366e0d1fb5c5f407fe60cf05df45feef4e623333d3ad8252710fb131",
+    "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+    "validatorInputs": [
+      {
+        "path": "packages/release-readiness/src/candidate-path.js",
+        "sha256": "82f7c7eefca6b2eddc6ad7d1910754942556a27ee0647b2d4ce04589ceb89c3d"
+      },
+      {
+        "path": "packages/release-readiness/src/constants.js",
+        "sha256": "c98502eaf7c80bb7e84ff58c0b1f80b5afddd539c4d64f0142e6ac80a0383e60"
+      },
+      {
+        "path": "packages/release-readiness/src/published-contracts.js",
+        "sha256": "ced09a12aae8112215d717d2b9613e4aaf459cab882ae6bbcff55c94d6c14e24"
+      },
+      {
+        "path": "packages/release-readiness/src/proof-parity-probe.js",
+        "sha256": "8f5aab7adb571b5953abcee438ef2adc721ce27ec25cc5faae1e34316f22cf39"
+      },
+      {
+        "path": "packages/release-readiness/src/schema.js",
+        "sha256": "a1f7880f4ed15757eefabb6568caca0c98117011950147ea6605848e4bc949f0"
+      },
+      {
+        "path": "schemas/scopa.candidate-manifest.v1.schema.json",
+        "sha256": "b089dd12dcae045b7fb9dee24db994dc5b380ddc35bf722fc4ebbeb8816ecaec"
+      },
+      {
+        "path": "schemas/scopa.consumer-proof.v1.schema.json",
+        "sha256": "edd30fc59d50f3fe234a58a3175842455a6c0281cd8f3f84836056e79b894d0a"
+      },
+      {
+        "path": "schemas/scopa.release-posture.v1.schema.json",
+        "sha256": "043b0be8b0be2c92085682b69fc712edbaf8f7e64a02a38043be255454b1ff85"
+      }
+    ],
+    "validatorSetSha256": "f5f0e0579b62ee530d2a67033f3e920ac8631e8b0f183fa48923ea7f6ab266ae"
+  },
+  "caseCount": 41,
   "cases": [
     {
       "agreed": true,
@@ -351,6 +392,66 @@
       "agreed": true,
       "expectationMet": true,
       "expected": "reject",
+      "id": "file-path-utf8-byte-limit",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-embedded-file-path-utf8-byte-limit",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-mode-domain",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files/0/mode must be equal to one of the allowed values"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files/0/mode must be equal to one of the allowed values"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-embedded-file-mode-domain",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /candidate/files/0/mode must be equal to one of the allowed values"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /candidate/files/0/mode must be equal to one of the allowed values"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
       "id": "file-path-dot-segment",
       "published": {
         "accepted": false,
@@ -561,7 +662,7 @@
   "corpusSchema": "scopa.proof-contract-corpus.v1",
   "expectationsMet": true,
   "ok": true,
-  "rejectedCount": 34,
+  "rejectedCount": 38,
   "schema": "scopa.proof-contract-parity-receipt.v1",
   "validatorsAgree": true
 }

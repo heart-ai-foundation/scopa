@@ -1,17 +1,17 @@
-# S13 round 6 runtime/containment review request
+# S13 round 7 runtime/containment review request
 
 Return `ACCEPT` or `REJECT` for these exact bytes:
 
 - source commit:
-  `73a969293a6450134e6cce1e7cbcac47e9eea67f`
+  `5a6b29832910db26497095289badb3e859bca48c`
 - private candidate:
-  `/home/dylan/llm-memories/projects/scopa/evidence/S13/final/heart-ai-foundation-scopa-0.2.0-dev.1.tgz`
+  `/home/dylan/llm-memories/projects/scopa/evidence/S13/round-7-candidate/heart-ai-foundation-scopa-0.2.0-dev.1.tgz`
 - candidate SHA-256:
-  `ddabd2cf3e68e6065531ec59d21cd64548603940f94f5d0f1813fcf587548234`
+  `6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692`
 - installed receipt:
-  `/home/dylan/llm-memories/projects/scopa/evidence/S13/final/installed-surface-regression.json`
+  `/home/dylan/llm-memories/projects/scopa/evidence/S13/round-7-candidate/installed-surface-regression.json`
 - installed receipt SHA-256:
-  `8eafb223e3d4b363c6bb1a2a2060052d67a81de612d2f0a429e68fbab2b6b319`
+  `f050a8445acd23499139bc3c7a77fd2ce7beceb60c18e32e0e1b5fe7437f0a5f`
 
 Install source-free and offline in a fresh temporary directory with scripts
 disabled. Do not modify the repository or retained evidence. Do not use
@@ -41,7 +41,12 @@ Primary attack surface:
    `protocol_error` evidence with no hostile frame content.
 7. Attack read/write scope with absolute, dot, parent, symlink, hardlink,
    directory, topology-change, and outside-state controls. Verify false-green
-   completion remains impossible.
+   completion remains impossible. For reads, prove same-filesystem hardlinks
+   to outside files fail closed. For writes, attempt parent swaps both before
+   and after final revalidation; check descriptor-facility unavailability,
+   immediate-parent absence, existing mode preservation, target aliasing, and
+   temporary-file cleanup. Distinguish executed attacks from static race
+   analysis.
 8. Exercise all five launcher failure classes for closed one-line envelopes,
    diagnostic opt-in, path/input/stack privacy, and no amplification.
 
