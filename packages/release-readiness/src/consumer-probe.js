@@ -13,7 +13,10 @@ import {
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  fileURLToPath,
+  pathToFileURL,
+} from 'node:url';
 import { canonicalJsonPretty } from '../../enforcement/src/index.js';
 import { packCandidate } from './artifact.js';
 import {
@@ -166,18 +169,15 @@ export async function runConsumerProbe({
       throw new Error('source-free scopa init did not succeed');
     }
 
-    const adapterRun = await invoke(process.execPath, [
+    const consumerClient = await import(pathToFileURL(
       path.join(fixtureRoot, 'consumer-client.mjs'),
-      '--server',
-      path.join(binRoot, 'scopa-mcp'),
-      '--repo',
-      cleanRepo,
-      '--session',
-      path.join(fixtureRoot, 'session.json'),
-      '--matrix',
-      path.join(fixtureRoot, 'capability-matrix.json'),
-    ], { cwd: consumerRoot });
-    const adapter = parseJson(adapterRun.stdout, 'consumer adapter');
+    ));
+    const adapter = await consumerClient.runConsumerClient({
+      server: path.join(binRoot, 'scopa-mcp'),
+      repo: cleanRepo,
+      session: path.join(fixtureRoot, 'session.json'),
+      matrix: path.join(fixtureRoot, 'capability-matrix.json'),
+    });
     await mustNotExist(path.join(temporaryRoot, 'consumer-escape.txt'));
 
     const verificationRun = await invoke(path.join(binRoot, 'scopa'), [

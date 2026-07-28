@@ -6,6 +6,9 @@ import {
 import {
   createInterface,
 } from 'node:readline';
+import {
+  fileURLToPath,
+} from 'node:url';
 
 function parseArgs(argv) {
   const options = {};
@@ -40,7 +43,7 @@ function toolRequest(id, name, args = {}) {
   };
 }
 
-async function run(options) {
+export async function runConsumerClient(options) {
   const serverArgs = [
     '--repo',
     options.repo,
@@ -176,12 +179,17 @@ async function run(options) {
     assurance: matrix.assurance,
     transcript: transcript.result.structuredContent,
   };
-  process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  return report;
 }
 
-try {
-  await run(parseArgs(process.argv.slice(2)));
-} catch (error) {
-  process.stderr.write(`${error.stack ?? error.message}\n`);
-  process.exitCode = 1;
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  try {
+    const report = await runConsumerClient(
+      parseArgs(process.argv.slice(2)),
+    );
+    process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  } catch (error) {
+    process.stderr.write(`${error.stack ?? error.message}\n`);
+    process.exitCode = 1;
+  }
 }

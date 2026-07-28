@@ -72,6 +72,7 @@ Macro Delta and creates no independent work.
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
 - `packages/cli/test/cli.test.js`
+- `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
 - `fixtures/S13/**`
 - `next-prompt-protocols/**`
