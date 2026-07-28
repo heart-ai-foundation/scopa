@@ -2,22 +2,20 @@ import {
   createHash,
 } from 'node:crypto';
 import {
-  execFile,
+  spawn,
 } from 'node:child_process';
 import {
   chmod,
   copyFile,
   mkdir,
   mkdtemp,
+  open,
   readFile,
   rm,
   writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import {
-  promisify,
-} from 'node:util';
 import {
   FORBIDDEN_PACKED_PREFIXES,
   RELEASE_PACKAGE_NAME,
@@ -28,8 +26,6 @@ import {
 import {
   validateCandidateManifest,
 } from './schema.js';
-
-const execFileAsync = promisify(execFile);
 
 const CONSUMER_PACKAGE_FIELDS = Object.freeze([
   'name',
@@ -53,16 +49,56 @@ async function invoke(command, args, options = {}) {
   } = options;
   const env = { ...providedEnv };
   delete env.NODE_TEST_CONTEXT;
-  const result = await execFileAsync(command, args, {
-    encoding: 'utf8',
-    env,
-    maxBuffer: 20 * 1024 * 1024,
-    ...execOptions,
-  });
-  return {
-    stdout: result.stdout,
-    stderr: result.stderr,
-  };
+  const captureRoot = await mkdtemp(
+    path.join(os.tmpdir(), 'scopa-process-capture-'),
+  );
+  const stdoutPath = path.join(captureRoot, 'stdout');
+  const stderrPath = path.join(captureRoot, 'stderr');
+  const stdoutHandle = await open(stdoutPath, 'w', 0o600);
+  const stderrHandle = await open(stderrPath, 'w', 0o600);
+  let outcome;
+  let spawnError = null;
+  try {
+    const child = spawn(command, args, {
+      env,
+      ...execOptions,
+      stdio: [
+        'ignore',
+        stdoutHandle.fd,
+        stderrHandle.fd,
+      ],
+    });
+    outcome = await new Promise((resolve, reject) => {
+      child.once('error', reject);
+      child.once('close', (code, signal) => resolve({ code, signal }));
+    });
+  } catch (error) {
+    spawnError = error;
+  } finally {
+    await Promise.all([
+      stdoutHandle.close(),
+      stderrHandle.close(),
+    ]);
+  }
+  try {
+    if (spawnError) throw spawnError;
+    const [stdout, stderr] = await Promise.all([
+      readFile(stdoutPath, 'utf8'),
+      readFile(stderrPath, 'utf8'),
+    ]);
+    if (outcome.code !== 0) {
+      const error = new Error(
+        `${command} exited with status ${outcome.code ?? outcome.signal}`,
+      );
+      error.code = outcome.code;
+      error.stdout = stdout;
+      error.stderr = stderr;
+      throw error;
+    }
+    return { stdout, stderr };
+  } finally {
+    await rm(captureRoot, { recursive: true, force: true });
+  }
 }
 
 function hash(bytes, algorithm, encoding = 'hex') {
