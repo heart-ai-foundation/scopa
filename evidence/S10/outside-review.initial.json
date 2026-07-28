@@ -1,0 +1,82 @@
+{
+  "reviewer": "claude-sonnet-4-6 (independent outside reviewer)",
+  "artifactSha256": "e647100c5b051fd5e0e522d0de40e632b2accf767fe07c32da1d4a0de96ee9db",
+  "checks": [
+    {
+      "id": "sha256-match",
+      "passed": true,
+      "evidence": "sha256sum produced e647100c5b051fd5e0e522d0de40e632b2accf767fe07c32da1d4a0de96ee9db; proof.candidate.package.sha256 is identical"
+    },
+    {
+      "id": "tarball-inventory-clean",
+      "passed": true,
+      "evidence": "tar -t yields exactly 146 non-directory entries matching proof.candidate.package.entryCount=146; no .env, private keys (freetsa-root.pem is a public CA root), node_modules, .git, or unexpected build artifacts present; all paths are under package/"
+    },
+    {
+      "id": "install-source-free",
+      "passed": true,
+      "evidence": "npm install --ignore-scripts --no-audit --no-fund completed exit 0; 8 packages added from tarball alone; proof.install.exitCode=0 and sourceFree=true confirmed; monorepoRelativeReferences=[]"
+    },
+    {
+      "id": "consumer-client-tool-inventory",
+      "passed": true,
+      "evidence": "consumer-client.mjs reported toolNames=[scopa_assurance,scopa_check,scopa_orientation,scopa_read_file,scopa_transcript,scopa_write_file]; matches proof.adapter.toolNames exactly"
+    },
+    {
+      "id": "consumer-client-allowed-write",
+      "passed": true,
+      "evidence": "scopa_write_file to workspace/consumer.txt returned {written:true}; top-level allowedWrite:true in adapter result; matches proof.adapter.allowedWrite=true"
+    },
+    {
+      "id": "consumer-client-scope-denied",
+      "passed": true,
+      "evidence": "scopa_write_file to ../consumer-escape.txt returned SCOPA_SCOPE_DENIED with boundary=scope, reason='target resolves outside repository'; scopeDenied:true; matches proof.adapter.scopeDenied=true"
+    },
+    {
+      "id": "consumer-client-terminal-state",
+      "passed": true,
+      "evidence": "scopa_check after allowed write returned status:satisfied, canStop:true, failedGates:[]; top-level terminal={status:satisfied,canStop:true}; matches proof.adapter.terminal"
+    },
+    {
+      "id": "consumer-client-assurance",
+      "passed": true,
+      "evidence": "scopa_assurance returned assurance:full; matches proof.adapter.assurance=full"
+    },
+    {
+      "id": "packet-verification-independent",
+      "passed": true,
+      "evidence": "scopa verify exited 0 with ok:true; RFC 3161 anchor: authorityId=freetsa.org-2026, signerCertificateSha256=32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc (matches --timestamp-signer-sha256 arg), openssl-ts Verification: OK; signature algorithm=ed25519, ok:true; matches proof.verification.ok=true and nativePacket=true"
+    },
+    {
+      "id": "known-failing-fixture-blocked",
+      "passed": true,
+      "evidence": "scopa check in failing-repo exited 4 with error.code=SCOPA_COMPLETION_BLOCKED, canStop:false, failedGates=[known-exit-7]; matches proof.knownFailing={exitCode:4,code:SCOPA_COMPLETION_BLOCKED,canStop:false}"
+    },
+    {
+      "id": "proof-comparison",
+      "passed": true,
+      "evidence": "All independently observed values (SHA-256, toolNames, allowedWrite, scopeDenied, terminal, assurance, verification.ok, knownFailing) match consumer-proof.public.json; environment paths are appropriately redacted in proof"
+    },
+    {
+      "id": "documentation-review",
+      "passed": true,
+      "evidence": "SECURITY.md: correctly scopes to pre-release, explains boundary (not OS sandbox), no bounty/SLA commitment. THREAT_MODEL.md: comprehensive with explicit residual risks. CLAIMS.md: verified claims are reproducible; non-claims are explicit and consistent with observations. VERSIONING.md: clearly marks -dev.1 as non-production. release-posture.json: npm=false, githubRelease=false, publicRelease=false, production=false; no inflated claims found"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "low",
+      "id": "tsa-revocation-not-checked",
+      "description": "The scopa verify command reports revocationStatus: 'not-checked' for the FreeTSA RFC 3161 signer certificate. CRL and OCSP revocation status are not verified during offline packet verification.",
+      "remediation": "Document explicitly in QUICKSTART.md and THREAT_MODEL.md that revocation checking is not performed in the source-free offline verification path. Consider adding an optional --check-revocation flag or a note that evaluators requiring revocation confirmation must perform a separate CRL/OCSP check against the FreeTSA endpoints."
+    },
+    {
+      "severity": "low",
+      "id": "model-pin-alias-not-snapshot",
+      "description": "The S10 packet contains a pin for provider=openai with modelSnapshot='requested:gpt-5.6-terra' and snapshotStatus='requested-alias-not-snapshot', meaning the model was invoked by an alias rather than a content-addressed snapshot. Immutability of that execution trace cannot be guaranteed by SCOPA.",
+      "remediation": "No action required beyond current documentation. CLAIMS.md and THREAT_MODEL.md already explicitly state SCOPA does not attest immutable model snapshots without separate evidence. The snapshotAuthority field correctly reads 'host-reported-not-provider-signed'. Consider surfacing this distinction more prominently in the packet's human-readable summary for evaluators who may not inspect the raw JSON."
+    }
+  ],
+  "verdict": "ACCEPT",
+  "verdictReason": "All twelve required checks passed independently from the tarball alone. The computed SHA-256 matches the proof exactly. The tarball inventory is clean with no unexpected private surfaces, secrets, or build artifacts. A source-free install succeeded. The consumer client reproduced all four claimed outcomes (allowed write, scope denial, satisfied terminal, full assurance) with the correct six-tool inventory. The RFC 3161 packet verified cleanly against the caller-supplied freetsa-root.pem and signer pin. The known-failing fixture remained blocked at exit 4. All observed values match consumer-proof.public.json. Documentation is honest, non-claims are explicit, and the release posture is appropriately conservative for a private developer-preview candidate. Two low-severity findings were identified; neither represents an inflated claim or misrepresented boundary — both are consistent with documented non-claims."
+}

@@ -59,6 +59,12 @@ From `consumer-repo`:
   --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc
 ```
 
+This is an offline trust-policy check against the caller-supplied root and
+signer pin. Its report records `revocationStatus: "not-checked"`: SCOPA does
+not fetch or validate CRL/OCSP state in this path. Evaluators who require
+current revocation status must perform a separate provider-authoritative
+revocation check.
+
 ## Prove a known failure remains blocked
 
 Create a second repository with

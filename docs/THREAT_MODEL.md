@@ -38,6 +38,7 @@ privileged local attacker.
 | Hidden adapter mutation route | Explicit tool inventory and capability/bypass matrix | S8/S9 live proofs and parity report | Claude and Codex remain `partial` because native routes are not all SCOPA-controlled |
 | Unknown or reordered model events | Closed stream normalizers bound to SCOPA transcript | S8/S9 negative controls | Provider event formats can change and require a pinned adapter update |
 | Journal or packet tampering | Deterministic encoding, hash chain, signatures, optional RFC 3161 anchor | S1/S4 mutation tests and fresh-process verification | Software keys do not prove hardware identity |
+| Stale or revoked timestamp signer | Caller-supplied root and signer-certificate pin; explicit offline verification report | S4/S10 native-packet verification | The offline path records `revocationStatus: "not-checked"` and does not fetch CRL/OCSP state |
 | Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | S10 candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
 | Monorepo-relative or private-path dependency | Explicit package allowlist and source-free install probe | S6 and S10 consumer probes | npm dependencies still rely on their registries/caches |
 | False policy readiness | Closed posture schema and constituent policy audit | `npm run audit:s10:policy` | Policies are project commitments, not formal compliance certification |
@@ -50,6 +51,8 @@ privileged local attacker.
 - The candidate remains `"private": true` and is packed locally.
 - Live models run only in disposable fixture repositories.
 - Verification uses caller-supplied timestamp roots and signer pins.
+- Offline timestamp verification reports that certificate revocation is not
+  checked; revocation-sensitive evaluators need a separate CRL/OCSP check.
 - Known-failing fixtures remain part of the release boundary.
 - GitHub Actions uses read-only repository contents permission.
 - Security reporting avoids public exploit disclosure.
@@ -65,6 +68,7 @@ between them.
 
 The highest residual risks are adapter-native authority outside SCOPA,
 provider/account policy drift, concurrent privileged filesystem mutation,
-software-key provenance limits, dependency-registry compromise, and evaluator
-failure to authenticate the expected candidate manifest. These risks are
-documented; they are not converted into full assurance.
+software-key provenance and offline revocation-status limits,
+dependency-registry compromise, and evaluator failure to authenticate the
+expected candidate manifest. These risks are documented; they are not
+converted into full assurance.

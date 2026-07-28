@@ -25,8 +25,8 @@ SCOPA does not:
 
 - provide an operating-system sandbox or protect against a separately
   privileged local process;
-- attest provider identity, immutable model snapshots, human identity, or
-  hardware-backed key provenance without separate evidence;
+- attest provider identity, immutable model snapshots, model-alias resolution,
+  human identity, or hardware-backed key provenance without separate evidence;
 - turn CASE graph validation into cryptographic verification;
 - make Claude/Codex behavior parity a full-assurance claim;
 - guarantee the completeness of external vulnerability databases;
@@ -36,4 +36,6 @@ SCOPA does not:
   exclusivity, customer deployment, or a public launch.
 
 Every claim is relative to the recorded version, fixture, tool inventory,
-capability matrix, and trust policy.
+capability matrix, and trust policy. A recorded
+`snapshotStatus: "requested-alias-not-snapshot"` is an explicit provenance
+limit, not an immutable model-version claim.
