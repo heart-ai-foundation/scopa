@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "e17bbc2",
+  "current_commit": "ccc2672",
   "current_phase": "phase-5-adversarial-hardening",
   "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
   "active_class": "arc",

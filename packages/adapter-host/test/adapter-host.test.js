@@ -701,11 +701,18 @@ test('packed scopa-mcp binary interoperates over real newline JSON-RPC stdio', a
   assert.equal(wire.status, 0, wire.stderr || wire.stdout);
   const summary = JSON.parse(wire.stdout);
   assert.equal(summary.serverName, 'scopa-mcp');
+  assert.equal(summary.parseError, -32700);
+  assert.equal(summary.sizeError, -32600);
   assert.equal(summary.toolCount, 6);
   assert.equal(summary.writeError, false);
   assert.equal(summary.deniedError, true);
   assert.equal(summary.deniedCode, 'SCOPA_SCOPE_DENIED');
   assert.equal(summary.canStop, true);
+  assert.deepEqual(summary.protocolErrorCodes, [-32700, -32600]);
+  assert.equal(
+    JSON.stringify(summary.transcript).includes('x'.repeat(32)),
+    false,
+  );
   assert.equal(
     validateTranscript(summary.transcript).terminal.canStop,
     true,

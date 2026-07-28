@@ -30,6 +30,8 @@ messages = [
         "jsonrpc": "2.0",
         "method": "notifications/initialized",
     },
+    "{malformed",
+    "x" * ((1024 * 1024) + 1),
     request(2, "tools/list", {}),
     request(3, "tools/call", {
         "name": "scopa_write_file",
@@ -55,7 +57,11 @@ messages = [
     }),
 ]
 wire = "".join(
-    json.dumps(message, separators=(",", ":")) + "\n"
+    (
+        message
+        if isinstance(message, str)
+        else json.dumps(message, separators=(",", ":"))
+    ) + "\n"
     for message in messages
 )
 completed = subprocess.run(
@@ -86,16 +92,24 @@ replies = [
     for line in completed.stdout.splitlines()
     if line
 ]
-if len(replies) != 6:
-    raise RuntimeError(f"expected 6 replies, received {len(replies)}")
+if len(replies) != 8:
+    raise RuntimeError(f"expected 8 replies, received {len(replies)}")
 
+transcript = replies[7]["result"]["structuredContent"]
 summary = {
     "serverName": replies[0]["result"]["serverInfo"]["name"],
-    "toolCount": len(replies[1]["result"]["tools"]),
-    "writeError": replies[2]["result"]["isError"],
-    "deniedError": replies[3]["result"]["isError"],
-    "deniedCode": replies[3]["result"]["structuredContent"]["code"],
-    "canStop": replies[4]["result"]["structuredContent"]["state"]["canStop"],
-    "transcript": replies[5]["result"]["structuredContent"],
+    "parseError": replies[1]["error"]["code"],
+    "sizeError": replies[2]["error"]["code"],
+    "toolCount": len(replies[3]["result"]["tools"]),
+    "writeError": replies[4]["result"]["isError"],
+    "deniedError": replies[5]["result"]["isError"],
+    "deniedCode": replies[5]["result"]["structuredContent"]["code"],
+    "canStop": replies[6]["result"]["structuredContent"]["state"]["canStop"],
+    "protocolErrorCodes": [
+        event["result"]["code"]
+        for event in transcript["events"]
+        if event["kind"] == "protocol_error"
+    ],
+    "transcript": transcript,
 }
 sys.stdout.write(json.dumps(summary, separators=(",", ":")) + "\n")

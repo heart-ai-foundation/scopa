@@ -103,7 +103,8 @@ discards oversize bytes through the next frame boundary, and records bounded
 parse/size errors after initialization without retaining hostile frame
 content.
 
-The direct installed-stdio regression uses an independent Python wire client.
+The direct installed-stdio regression uses an independent Python wire client
+and reproduces the parse/oversize transcript events on the packed binary.
 This preserves real binary coverage while avoiding the managed runner's
 reproduced nested-Node pipe suppression. The packed README now points only to
 shipped consumer documentation, and the stale private installed receipt was
