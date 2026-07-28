@@ -48,17 +48,17 @@
         {
           "mode": 420,
           "path": "docs/CLAIMS.md",
-          "size": 1724
+          "size": 1879
         },
         {
           "mode": 420,
           "path": "docs/QUICKSTART.md",
-          "size": 2708
+          "size": 3026
         },
         {
           "mode": 420,
           "path": "docs/THREAT_MODEL.md",
-          "size": 4565
+          "size": 5003
         },
         {
           "mode": 420,
@@ -754,17 +754,17 @@
       "package": {
         "entryCount": 146,
         "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
-        "integrity": "sha512-fhElXsdNtIpM5FqiI34JNSUWe1Z/VDogjsPeGx0WVKuMEuagLvw15ecKSKMUVHNTlWKjBJarBdfbPAMAKVwUNA==",
+        "integrity": "sha512-l1zw9cJAtihj1mw5sXek/cA7ZzzV87NU05XkI/FKEpk0yOtNO1xspDBGxUk7r+Q+Etm19n8b6vFWFOwK4WXSag==",
         "name": "@heart-ai-foundation/scopa",
-        "packedBytes": 134553,
-        "sha256": "e647100c5b051fd5e0e522d0de40e632b2accf767fe07c32da1d4a0de96ee9db",
-        "shasum": "1cb34337c9449b9e62367c658d320c276f080fdb",
-        "unpackedBytes": 514308,
+        "packedBytes": 134871,
+        "sha256": "10e0173940c1730d3a812268e43a9ea7a32103ad169398ad693cb13d57ebc7db",
+        "shasum": "28d4d99e6810383a356714a5f3b3a43a145d5d5d",
+        "unpackedBytes": 515219,
         "version": "0.2.0-dev.1"
       },
       "schema": "scopa.candidate-manifest.v1",
       "source": {
-        "commit": "bffa5af6743e5f1331592b2cb5198e8e50df2ac8",
+        "commit": "be913542e1e723bc8ca499436ef727ac0b922926",
         "dirty": false
       }
     },
@@ -825,6 +825,6 @@
     ],
     "schema": "scopa.proof-publication-receipt.v1",
     "semanticFieldsChanged": false,
-    "sourceSha256": "b9298fd189e3eda54d10faa6f82fd491a8e4b9d2102784198120095c22a65fa4"
+    "sourceSha256": "63b657d1f4c769b1c5dfbd79e9ea61b114c7e1d290e7a5ab2bc523f64d16d3ec"
   }
 }

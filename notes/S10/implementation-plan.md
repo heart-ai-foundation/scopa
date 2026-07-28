@@ -47,11 +47,11 @@ or authorize publication.
 
 ## Task 5 — Independent outside-model review
 
-- [ ] Give an unfamiliar outside model only the candidate artifact,
+- [x] Give an unfamiliar outside model only the candidate artifact,
   quickstart, and public evidence needed to reproduce claims.
-- [ ] Require deterministic gates, consumer reproduction, security/non-claim
+- [x] Require deterministic gates, consumer reproduction, security/non-claim
   review, and an explicit accept/hold verdict.
-- [ ] Remediate findings and rerun affected gates.
+- [x] Remediate findings and rerun affected gates.
 
 ## Task 6 — Close the developer-preview queue
 

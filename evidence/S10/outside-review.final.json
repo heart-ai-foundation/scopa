@@ -1,0 +1,59 @@
+{
+  "reviewer": "claude-sonnet-4-6",
+  "artifactSha256": "10e0173940c1730d3a812268e43a9ea7a32103ad169398ad693cb13d57ebc7db",
+  "checks": [
+    {
+      "id": "sha256-match",
+      "passed": true,
+      "evidence": "sha256sum: 10e0173940c1730d3a812268e43a9ea7a32103ad169398ad693cb13d57ebc7db — matches proof.candidate.package.sha256 exactly"
+    },
+    {
+      "id": "tarball-inventory-clean",
+      "passed": true,
+      "evidence": "146 entries, all under package/ prefix; no symlinks, no path traversal, no .env/.key/private-key files; only .pem is fixtures/S10/freetsa-root.pem, confirmed as public self-signed X.509 CA (O=Free TSA, valid 2016-2041)"
+    },
+    {
+      "id": "source-free-install",
+      "passed": true,
+      "evidence": "npm install --ignore-scripts --no-audit --no-fund exited 0; 8 packages added; no monorepo-relative references; proof install.sourceFree=true confirmed"
+    },
+    {
+      "id": "consumer-client-adapter",
+      "passed": true,
+      "evidence": "consumer-client.mjs output: allowedWrite=true, scopeDenied=true (SCOPA_SCOPE_DENIED for ../consumer-escape.txt), terminal.status=satisfied, terminal.canStop=true, assurance=full, toolNames=[scopa_assurance,scopa_check,scopa_orientation,scopa_read_file,scopa_transcript,scopa_write_file] — all match proof.adapter"
+    },
+    {
+      "id": "packet-verification",
+      "passed": true,
+      "evidence": "scopa verify exited 0, ok=true; authorityId=freetsa.org-2026 matched, signerCertificateSha256=32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc matched pin, openssl Verification: OK; revocationStatus=not-checked (explicitly documented non-check)"
+    },
+    {
+      "id": "known-failing-fixture",
+      "passed": true,
+      "evidence": "scopa check exit code 4, error.code=SCOPA_COMPLETION_BLOCKED, canStop=false, failedGates=[known-exit-7] with gate exitCode=7 — matches proof.knownFailing exactly"
+    },
+    {
+      "id": "proof-comparison",
+      "passed": true,
+      "evidence": "All observed adapter, install, verification, and knownFailing values match consumer-proof.public.json; file list of 146 entries corresponds to proof.candidate.files; SHA-256 and npm integrity bind exact bytes"
+    },
+    {
+      "id": "offline-revocation-explicit",
+      "passed": true,
+      "evidence": "QUICKSTART.md states that the report records revocationStatus: not-checked, SCOPA does not fetch or validate CRL/OCSP state in this path, and evaluators requiring current revocation status need a separate provider-authoritative check. THREAT_MODEL.md repeats this, and live verify output confirms the value."
+    },
+    {
+      "id": "model-alias-provenance-explicit",
+      "passed": true,
+      "evidence": "CLAIMS.md states that snapshotStatus: requested-alias-not-snapshot is an explicit provenance limit, not an immutable model-version claim. Live verify output shows snapshotPinned=false and snapshotAuthority=host-reported-not-provider-signed for the requested alias."
+    },
+    {
+      "id": "docs-review",
+      "passed": true,
+      "evidence": "SECURITY.md, THREAT_MODEL.md, CLAIMS.md, VERSIONING.md, and release-posture.json are conservative and mutually consistent. The posture retains npm=false, githubRelease=false, publicRelease=false, production=false, and requiresSeparatePrincipalApproval=true. No inflated claims or contradictions were found."
+    }
+  ],
+  "findings": [],
+  "verdict": "ACCEPT",
+  "verdictReason": "All ten checks passed with no critical or high findings. SHA-256 matches the proof. The tarball is clean with 146 files, no symlinks, no secrets, and no unsafe paths. Source-free install, adapter exercise, packet verification, and known-failing fixture all independently reproduce the proof values. Both specifically flagged items are now explicit: offline revocation status is documented in QUICKSTART.md and THREAT_MODEL.md as revocationStatus=not-checked with a CRL/OCSP disclaimer, confirmed in live verify output; model-alias provenance limits are disclosed in CLAIMS.md and confirmed in the verify report. Documentation is conservative, non-claims are comprehensive, and release posture correctly reflects a private pre-release candidate."
+}

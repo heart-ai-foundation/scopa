@@ -1,7 +1,7 @@
 # S10 private developer-preview candidate report
 
 Date: 2026-07-27
-Candidate source: `bffa5af6743e5f1331592b2cb5198e8e50df2ac8`
+Candidate source: `be913542e1e723bc8ca499436ef727ac0b922926`
 Source state: clean
 
 ## Artifact
@@ -9,13 +9,13 @@ Source state: clean
 - package: `@heart-ai-foundation/scopa@0.2.0-dev.1`
 - filename: `heart-ai-foundation-scopa-0.2.0-dev.1.tgz`
 - entries: 146
-- packed bytes: 134553
-- unpacked bytes: 514308
+- packed bytes: 134871
+- unpacked bytes: 515219
 - SHA-256:
-  `e647100c5b051fd5e0e522d0de40e632b2accf767fe07c32da1d4a0de96ee9db`
-- npm shasum: `1cb34337c9449b9e62367c658d320c276f080fdb`
+  `10e0173940c1730d3a812268e43a9ea7a32103ad169398ad693cb13d57ebc7db`
+- npm shasum: `28d4d99e6810383a356714a5f3b3a43a145d5d5d`
 - npm integrity:
-  `sha512-fhElXsdNtIpM5FqiI34JNSUWe1Z/VDogjsPeGx0WVKuMEuagLvw15ecKSKMUVHNTlWKjBJarBdfbPAMAKVwUNA==`
+  `sha512-l1zw9cJAtihj1mw5sXek/cA7ZzzV87NU05XkI/FKEpk0yOtNO1xspDBGxUk7r+Q+Etm19n8b6vFWFOwK4WXSag==`
 
 The retained private tarball independently reproduced the candidate SHA-256,
 shasum, integrity, byte sizes, and entry count recorded by the consumer probe.
@@ -40,21 +40,30 @@ All 37 closed release-policy checks passed. The canonical audit SHA-256 is:
 
 The private raw proof SHA-256 is:
 
-`b9298fd189e3eda54d10faa6f82fd491a8e4b9d2102784198120095c22a65fa4`
+`63b657d1f4c769b1c5dfbd79e9ea61b114c7e1d290e7a5ab2bc523f64d16d3ec`
 
 The path-redacted proof is `consumer-proof.public.json`, whose SHA-256 is:
 
-`8fe1ed4fa18b0e1ecf5014939ac77742eeb81aa1f1de8238258fef9c9c0f9c67`
+`87a229b100aa74a0becf9c8f2818be7feefdc0bade14d9ad18e83fe7df68f3fc`
 
 Its publication receipt records two path substitutions and
 `semanticFieldsChanged: false`.
 
-## Finding resolved during proof
+## Findings resolved
 
 The first elevated probe found that artifact assembly used locale collation
 while the candidate schema required deterministic code-point ordering. Commit
 `bffa5af` replaced locale sorting with code-point sorting. The clean candidate
 proof above was generated only after that correction.
+
+An initial tarball-only Claude Sonnet review returned `ACCEPT` with two low
+documentation findings: offline timestamp revocation status was not explicit
+enough, and requested model-alias provenance could be surfaced more directly.
+Commit `be91354` added both boundaries to the packaged quickstart, threat
+model, and claims. A fresh Claude Sonnet session then reran the independent
+review against the new candidate bytes and returned `ACCEPT` with all ten
+checks passing and zero findings. The exact structured reviews are retained as
+`outside-review.initial.json` and `outside-review.final.json`.
 
 ## Boundary
 
