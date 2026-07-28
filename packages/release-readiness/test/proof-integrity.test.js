@@ -34,11 +34,16 @@ function rawProof(value = proof()) {
 }
 
 test('runtime and published contracts agree over the hostile S11 corpus', () => {
-  const receipt = runProofParityCorpus(CORPUS);
+  const binding = {
+    sourceCommit: 'a'.repeat(40),
+    candidateSha256: 'b'.repeat(64),
+  };
+  const receipt = runProofParityCorpus(CORPUS, binding);
   assert.equal(receipt.caseCount, CORPUS.cases.length);
   assert.equal(receipt.validatorsAgree, true);
   assert.equal(receipt.expectationsMet, true);
   assert.equal(receipt.ok, true);
+  assert.deepEqual(receipt.binding, binding);
   assert.equal(
     receipt.cases.every((entry) => (
       entry.runtime.accepted === entry.published.accepted

@@ -281,6 +281,12 @@ async function containedReadPath(repoRoot, requestedPath) {
       'requested path is not a regular file',
     );
   }
+  if (metadata.nlink !== 1) {
+    throw new AdapterReadDeniedError(
+      requestedPath,
+      'hard-linked read targets are not allowed',
+    );
+  }
   if (metadata.size > MAX_READ_BYTES) {
     throw new AdapterReadDeniedError(
       requestedPath,

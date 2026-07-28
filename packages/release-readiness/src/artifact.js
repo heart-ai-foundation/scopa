@@ -87,9 +87,12 @@ function assertPackedSurface(files) {
 const EXTERNAL_URI =
   /\b[A-Za-z][A-Za-z0-9+.-]*:(?:\/\/)?[^\s)\]}>]+/g;
 const PACKED_DOCUMENT_REFERENCE =
-  /\b(?:(?:docs|fixtures|packages|schemas|spec)\/[A-Za-z0-9@._/*?-]+|[A-Z][A-Z0-9_-]*\.[A-Za-z0-9._-]+|LICENSE|package\.json)(?=$|[\s`'"),.;:#\]}>])/g;
-const CONTRIBUTOR_NPM_COMMAND = /\bnpm\s+(?:audit\b|run\b|test\b)/i;
+  /\b(?:(?:docs|fixtures|packages|schemas|spec)\/[A-Za-z0-9@._/*?-]+|[A-Z*?][A-Z0-9_*?-]*\.[A-Za-z0-9._*?-]+|LICENSE|package\.json)(?=$|[\s`'"),.;:#\]}>])/g;
+const CONTRIBUTOR_NPM_COMMAND = /\bnpm\s+(?:audit\b|run\b|test\b)/ig;
 const SOURCE_CHECKOUT_QUALIFICATION = /\bsource[- ]checkout\b/i;
+const INSTALLED_CONSUMER_QUALIFICATION =
+  /\b(?:installed\s+(?:users?|consumers?)|source-free|tarball-only)\b/i;
+const NPM_QUALIFICATION_WINDOW = 1024;
 
 function globPattern(reference) {
   let source = '^';
@@ -177,14 +180,35 @@ export function findUnqualifiedPackedNpmScriptDocuments(documents) {
   ) {
     throw new TypeError('npm documentation audit requires documents');
   }
-  return documents
-    .filter(
-      ({ text }) =>
-        CONTRIBUTOR_NPM_COMMAND.test(text) &&
-        !SOURCE_CHECKOUT_QUALIFICATION.test(text),
-    )
-    .map(({ path: documentPath }) => documentPath)
-    .sort();
+  const unqualified = [];
+  for (const { path: documentPath, text } of documents) {
+    let failed = false;
+    for (const match of text.matchAll(CONTRIBUTOR_NPM_COMMAND)) {
+      const start = Math.max(0, match.index - NPM_QUALIFICATION_WINDOW);
+      const prefix = text.slice(start, match.index);
+      const sourceMatches = [...prefix.matchAll(
+        new RegExp(SOURCE_CHECKOUT_QUALIFICATION.source, 'ig'),
+      )];
+      const lastSource = sourceMatches.at(-1)?.index ?? -1;
+      const sentenceStart = Math.max(
+        prefix.lastIndexOf('.'),
+        prefix.lastIndexOf('!'),
+        prefix.lastIndexOf('?'),
+        prefix.lastIndexOf('\n|'),
+        prefix.lastIndexOf('\n\n'),
+      ) + 1;
+      const commandSentencePrefix = prefix.slice(sentenceStart);
+      if (
+        lastSource === -1 ||
+        INSTALLED_CONSUMER_QUALIFICATION.test(commandSentencePrefix)
+      ) {
+        failed = true;
+        break;
+      }
+    }
+    if (failed) unqualified.push(documentPath);
+  }
+  return unqualified.sort();
 }
 
 async function assertPackedDocumentationReferences(root, files) {

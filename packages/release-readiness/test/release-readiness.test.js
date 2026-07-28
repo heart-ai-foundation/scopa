@@ -217,6 +217,26 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
       /contract violation/,
     );
   }
+  const oversizedAscii = candidateManifest();
+  oversizedAscii.files[0].path = 'a'.repeat(4097);
+  assert.throws(
+    () => validateCandidateManifest(oversizedAscii),
+    /contract violation/,
+  );
+  const oversizedUtf8 = candidateManifest();
+  oversizedUtf8.files[0].path = 'é'.repeat(2049);
+  assert.throws(
+    () => validateCandidateManifest(oversizedUtf8),
+    /contract violation/,
+  );
+  for (const invalidMode of [0, 512, Number.MAX_SAFE_INTEGER]) {
+    const invalid = candidateManifest();
+    invalid.files[0].mode = invalidMode;
+    assert.throws(
+      () => validateCandidateManifest(invalid),
+      /contract violation/,
+    );
+  }
 });
 
 test('candidate documentation cannot reference absent packed files', () => {
@@ -265,6 +285,23 @@ test('candidate documentation cannot reference absent packed files', () => {
       documents: [
         {
           path: 'README.md',
+          text: 'Review `Z*.md` before proceeding.',
+        },
+      ],
+      packedPaths,
+    }),
+    [
+      {
+        document: 'README.md',
+        reference: 'Z*.md',
+      },
+    ],
+  );
+  assert.deepEqual(
+    findMissingPackedDocumentationReferences({
+      documents: [
+        {
+          path: 'README.md',
           text:
             'Read `CHANGELOG.md` and `spec/definitely-absent*.md`.',
         },
@@ -305,6 +342,17 @@ test('packed npm contributor commands require source-checkout qualification', ()
       {
         path: 'packages/example/README.md',
         text: 'Run `npm run source-only`.',
+      },
+    ]),
+    ['packages/example/README.md'],
+  );
+  assert.deepEqual(
+    findUnqualifiedPackedNpmScriptDocuments([
+      {
+        path: 'packages/example/README.md',
+        text:
+          'A source checkout may exist. ' +
+          'Installed\nusers should run `npm run absent-script`.',
       },
     ]),
     ['packages/example/README.md'],

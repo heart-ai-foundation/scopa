@@ -2,12 +2,15 @@ import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import {
   access,
+  chmod,
   link,
   mkdir,
   mkdtemp,
   readFile,
+  rename,
   rm,
   symlink,
+  stat,
   writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
@@ -152,6 +155,57 @@ test('authorization is invalidated when target topology changes', async (context
       error instanceof ScopeDeniedError &&
       error.details.reason === 'target resolves outside repository',
   );
+});
+
+test('atomic write denies a parent swap after final revalidation', async (context) => {
+  const root = await fixture(context);
+  const outside = await mkdtemp(path.join(os.tmpdir(), 'scopa-atomic-race-'));
+  context.after(() => rm(outside, { recursive: true, force: true }));
+  const boundary = new PathBoundary({
+    repoRoot: root,
+    lock: createSliceLock(definition()),
+  });
+  const target = 'packages/enforcement/raced.txt';
+  const authorization = await boundary.authorize(target);
+  const originalRevalidate = boundary.revalidate.bind(boundary);
+  const moved = path.join(root, 'packages/enforcement-moved');
+  boundary.revalidate = async (...args) => {
+    const current = await originalRevalidate(...args);
+    await rename(path.join(root, 'packages/enforcement'), moved);
+    await symlink(outside, path.join(root, 'packages/enforcement'));
+    return current;
+  };
+  await assert.rejects(
+    () => boundary.writeFileAtomic(authorization, 'must not escape'),
+    (error) =>
+      error instanceof ScopeDeniedError &&
+      error.details.reason === 'atomic mutation could not be committed',
+  );
+  await assert.rejects(
+    () => access(path.join(outside, 'raced.txt')),
+    { code: 'ENOENT' },
+  );
+  await assert.rejects(
+    () => access(path.join(moved, 'raced.txt')),
+    { code: 'ENOENT' },
+  );
+});
+
+test('atomic write preserves an existing regular-file mode', async (context) => {
+  const root = await fixture(context);
+  const lock = createSliceLock(definition());
+  const host = createReferenceAgentHost({ repoRoot: root, lock });
+  const target = path.join(root, 'packages/enforcement/executable.sh');
+  await writeFile(target, '#!/bin/sh\nexit 1\n');
+  await chmod(target, 0o750);
+
+  await host.invoke({
+    name: 'write_file',
+    arguments: { path: target, content: '#!/bin/sh\nexit 0\n' },
+  });
+
+  assert.equal((await stat(target)).mode & 0o777, 0o750);
+  assert.equal(await readFile(target, 'utf8'), '#!/bin/sh\nexit 0\n');
 });
 
 test('reference host accepts concurrent calls through its exclusive dispatcher', async (context) => {

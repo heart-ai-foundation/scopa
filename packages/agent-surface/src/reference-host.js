@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import {
   PathBoundary,
   createEnforcedToolDispatcher,
@@ -26,8 +26,12 @@ export function createReferenceAgentHost({
       write_file: {
         effect: 'MUTATE',
         pathArguments: ['path'],
-        async execute({ path, content }) {
-          await writeFile(path, content, { encoding: 'utf8' });
+        async execute({ content }, { authorizations, decision }) {
+          await boundary.writeFileAtomic(
+            authorizations.path,
+            content,
+            { decision, encoding: 'utf8' },
+          );
           return { written: true };
         },
       },

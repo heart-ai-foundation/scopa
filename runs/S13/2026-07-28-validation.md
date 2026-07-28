@@ -327,6 +327,104 @@ Post-remediation gates pass: 117/117 accumulated tests, S8-S12 focused gates,
 zero dependency vulnerabilities, protocol synchronization, and diff checks.
 A new clean candidate and three new exact-byte reviewers are required.
 
+## Round 6 exact candidate
+
+Clean source:
+`73a969293a6450134e6cce1e7cbcac47e9eea67f`
+
+Official private round 6 candidate:
+
+- filename: `heart-ai-foundation-scopa-0.2.0-dev.1.tgz`;
+- SHA-256:
+  `ddabd2cf3e68e6065531ec59d21cd64548603940f94f5d0f1813fcf587548234`;
+- npm SHA-1: `76558a5f8374eb018949ad326024ff330bbeb722`;
+- npm integrity:
+  `sha512-tOuXq0QyZedVfHaQPIVXKv8dAMGek8nCgQxyhVml6RDHLQ4mVxROd1DCeXQ5cjodPYqPTVfwoFpRaMFeXRSwkA==`;
+- packed/unpacked bytes: 147435 / 571866;
+- entries: 153;
+- repeated official pack: byte-identical.
+
+Exact private/public receipt hashes:
+
+- candidate manifest:
+  `51e670f3941edc82d63373055991754bafa08f33de99c79e56125cdb0d7fe3fb`;
+- raw proof:
+  `93c598ba02e0125acc8882f5ec0f1481f51dc28d1f0b1b85e9bd9d7e02f39b95`;
+- public proof:
+  `01866081eab5d8fa6bb7680eee1bd04d5899a52bbd482963688599d75d33105a`;
+- installed receipt:
+  `8eafb223e3d4b363c6bb1a2a2060052d67a81de612d2f0a429e68fbab2b6b319`.
+
+Source-free proof, installed-surface deterministic repack, 37/37 parity cases,
+five redaction-collision cases, exact binding, package privacy, and dependency
+audit pass. The hosted source run `30372117384`, job `90318395183`, passed all
+14 recorded steps. It contains no Node action-runtime deprecation warning;
+the sole generic warning is Git's initial-branch-name hint.
+
+Three entirely new isolated reviewers are assigned these exact bytes. Their
+proof/evidence reviewer returned `REJECT` with two medium findings:
+
+1. published/runtime candidate validators accepted megabyte-scale paths that
+   could survive into public evidence;
+2. the parity and dependency receipts were not bound to source/candidate/input
+   bytes, and the consistency receipt did not name or hash them.
+
+The reviewer independently reproduced the actual round 6 candidate and
+37-case conclusion, so the current result is true, but the retained evidence
+chain could not prove it was not stale. A low mode-domain weakness was also
+reported.
+
+The artifact reviewer separately returned `REJECT` after proving two medium
+documentation-audit false greens: unresolved root globs were skipped, and one
+unrelated `source checkout` phrase qualified every contributor npm command in
+a document. A possible spawned-client startup race was also reported at
+medium and is independently reproduced before remediation because the managed
+runner has a known nested-Node stdio suppression. Reflection of one
+caller-supplied path was reported at low. Round 6 cannot satisfy RQ2. Runtime
+review completion is retained for a complete rejected-candidate record.
+
+Root adjudication installed only the exact tarball and followed the packed
+quickstart. The spawned client reproduced its early close inside the managed
+nested-process sandbox, then passed unchanged outside that sandbox: exit 0,
+six tools, allowed write, scope denial, satisfied terminal state, full
+deterministic-fixture assurance, and an 11-event transcript. This is the
+previously characterized runner suppression, not a product defect. The two
+documentation findings remain medium and require remediation.
+
+The first round 6 runtime reviewer was automatically refused before returning
+any product result. Under the S13 method this is an orchestration failure,
+neither acceptance nor a finding. A newly created replacement reviewer was
+assigned the same immutable candidate with a narrower conformance wording.
+
+The replacement runtime reviewer returned `REJECT` with one executed high
+finding and one static medium finding. An in-repository hardlink exposed the
+exact contents of an outside same-filesystem file through `scopa_read_file`.
+The write side rejected that alias, but its revalidation and subsequent
+pathname open were not atomic against a concurrent topology actor.
+
+Narrow remediation now rejects multi-link reads. The governed reference-host
+write path carries its authorization into a descriptor-bound atomic write:
+the authorized parent device/inode is pinned, a private single-link temporary
+file is written and synced through the directory descriptor, and rename
+commits through the same bound directory. A parent-swap-after-revalidation
+regression proves no content reaches either the outside replacement or moved
+directory. Focused S2 and S7 gates pass.
+
+Round 6 remediation also closes the two evidence-chain findings and both
+packed-document findings:
+
+- candidate paths are bounded to 4096 UTF-8 bytes and manifest modes are
+  closed to `0644`/`0755`;
+- parity receipts bind the source, candidate, manifest, corpus, validator
+  inputs, and validator set;
+- the next exact-consistency and dependency receipts bind every named input;
+- root-level Markdown globs and locally qualified source-checkout npm audit
+  prescriptions are covered by the packed-document gate.
+
+The accumulated local gate passes all 119 discovered tests. These results
+authorize construction of a new candidate only; fresh Round 7 review remains
+mandatory.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

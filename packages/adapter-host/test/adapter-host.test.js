@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {
   access,
   cp,
+  link,
   mkdir,
   mkdtemp,
   readFile,
@@ -374,6 +375,32 @@ test('fake agent reaches allowed, denied, hostile, and stop states only through 
   assert.equal(
     deniedRead.result.structuredContent.code,
     'SCOPA_READ_DENIED',
+  );
+  const outsideReadTarget = path.join(
+    path.dirname(root),
+    `${path.basename(root)}-outside-read.txt`,
+  );
+  context.after(() => rm(outsideReadTarget, { force: true }));
+  await writeFile(outsideReadTarget, 'outside-state-original');
+  await link(
+    outsideReadTarget,
+    path.join(root, 'workspace', 'outside-read-hardlink.txt'),
+  );
+  const deniedHardlinkRead = await handle(call(60, 'scopa_read_file', {
+    path: 'workspace/outside-read-hardlink.txt',
+  }));
+  assert.equal(deniedHardlinkRead.result.isError, true);
+  assert.equal(
+    deniedHardlinkRead.result.structuredContent.code,
+    'SCOPA_READ_DENIED',
+  );
+  assert.match(
+    deniedHardlinkRead.result.structuredContent.details.reason,
+    /hard-linked read targets/,
+  );
+  assert.equal(
+    await readFile(outsideReadTarget, 'utf8'),
+    'outside-state-original',
   );
   await writeFile(
     path.join(root, 'oversized.txt'),

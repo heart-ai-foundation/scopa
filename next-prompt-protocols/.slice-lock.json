@@ -17,7 +17,7 @@
     "RQ2",
     "RQ3"
   ],
-  "active_protocol_sha256": "sha256:b608f4d9d61f4c431779f394482709c7dbe05649f4a1b9652c06527bd73cff1a",
+  "active_protocol_sha256": "sha256:c56f682506410cd67f213ca037a73d52cbc6d86c071596b11f4f6f71c7c99124",
   "active_objective": "Build and retain one exact private candidate from a clean commit, run the full\nsource-free hostile corpus against those bytes, and assign three fresh isolated\nreviewers to attack artifact/distribution, evidence/proof, and runtime/\ncontainment boundaries. Require each reviewer to issue a structured `ACCEPT`\nwith no critical, high, or medium finding before closeout.",
   "allowed_files": [
     "package.json",

@@ -72,6 +72,10 @@ Macro Delta and creates no independent work.
 - `.github/**`
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
+- `packages/enforcement/src/path-boundary.js`
+- `packages/enforcement/src/tool-dispatcher.js`
+- `packages/enforcement/test/enforcement-loop.test.js`
+- `packages/agent-surface/src/reference-host.js`
 - `packages/cli/src/command.js`
 - `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`

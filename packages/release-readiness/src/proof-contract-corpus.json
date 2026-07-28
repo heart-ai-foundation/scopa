@@ -439,6 +439,56 @@
       "expected": "reject"
     },
     {
+      "id": "file-path-utf8-byte-limit",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace-repeat-string",
+          "path": "/files/0/path",
+          "value": "é",
+          "count": 2049
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-embedded-file-path-utf8-byte-limit",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace-repeat-string",
+          "path": "/candidate/files/0/path",
+          "value": "é",
+          "count": 2049
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-mode-domain",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/mode",
+          "value": 512
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "consumer-embedded-file-mode-domain",
+      "target": "consumer",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/candidate/files/0/mode",
+          "value": 512
+        }
+      ],
+      "expected": "reject"
+    },
+    {
       "id": "file-path-dot-segment",
       "target": "candidate",
       "mutations": [

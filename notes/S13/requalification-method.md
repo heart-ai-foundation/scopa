@@ -13,6 +13,8 @@ Round 4 candidate source:
 `1d4239cc5a30226bbf41e263fb217b84fb7ecf04`
 Round 5 candidate source:
 `18a50da693282760e1b912258fdaae1c5df049d4`
+Round 6 candidate source:
+`73a969293a6450134e6cce1e7cbcac47e9eea67f`
 
 ## Exact-candidate boundary
 
@@ -168,6 +170,95 @@ commands now requires an explicit source-checkout qualification. Read/write
 paths are rejected above 4096 UTF-8 bytes before transcript admission or
 filesystem resolution and are not echoed; the exact large-path poisoning case
 retains a valid transcript.
+
+## Round 6 exact candidate
+
+Round 6 binds source
+`73a969293a6450134e6cce1e7cbcac47e9eea67f` to candidate SHA-256
+`ddabd2cf3e68e6065531ec59d21cd64548603940f94f5d0f1813fcf587548234`.
+The candidate contains 153 entries, is 147435 packed bytes and 571866
+unpacked bytes, and repeated official packing is byte-identical.
+
+Its exact manifest, private raw proof, collision-safe public proof, installed
+receipt, 37-case parity receipt, five-case collision receipt, dependency
+audit, and hosted source gate agree on the same source and candidate. The
+source hosted run passed without a Node action-runtime deprecation warning;
+the only generic warning was Git's initial-branch-name hint.
+
+Three entirely new isolated reviewers receive the round 6 bytes. Their
+artifact assignment emphasizes the repaired root/glob/URI/documented-command
+audit. Their evidence assignment emphasizes independent exact binding,
+schema/runtime parity, hostile paths, and collision-safe publication. Their
+runtime assignment emphasizes finite session state, pre-execution
+call/result reservation, oversized-path poisoning, backpressure, containment,
+and stable CLI exits.
+
+The fresh proof/evidence reviewer rejected round 6 with two medium findings.
+First, candidate-manifest paths had no UTF-8 byte bound, so megabyte-scale
+hostile paths could validate and enter retained/public proof. Second, the
+parity and dependency receipts lacked source/candidate/input bindings, and
+the exact-consistency receipt did not name or hash them, allowing a stale
+receipt to be transplanted while the matrix remained green. The reviewer also
+reported a low mode-domain weakness. The exact round 6 inventory is clean,
+and its parity conclusion was independently reproduced, but those facts do
+not repair the false-green contract/evidence boundary. Round 6 cannot satisfy
+RQ2 and must be retained.
+
+The fresh artifact reviewer also rejected round 6. Safe hostile fixtures
+proved that the documentation audit skipped unresolved root globs and treated
+one unrelated `source checkout` phrase as qualifying every contributor npm
+command in a document. The reviewer also reported a possible medium
+spawned-client startup race requiring independent reproduction because the
+managed environment has previously suppressed nested Node stdio, and a low
+reflection of a caller-supplied absolute path. The two documentation findings
+are independently sufficient to retain the rejected candidate.
+
+Independent root reproduction adjudicated the spawned-client report as a
+managed-sandbox false positive. The exact installed workflow reproduced the
+early close inside nested-process pipe suppression, then passed unchanged
+outside that sandbox with all six tools, an allowed write, scope denial,
+satisfied terminal state, full deterministic-fixture assurance, and a valid
+11-event transcript. No runtime change is justified by that finding. The two
+documentation findings remain release-blocking.
+
+The first fresh runtime review attempt was automatically refused before
+producing a result. It is recorded only as an orchestration failure and is
+replaced by a newly created reviewer; it does not count toward RQ2 and does
+not change the candidate verdict.
+
+The replacement runtime reviewer returned `REJECT`. It executed a high
+same-filesystem hardlink escape: `scopa_read_file` returned an outside file
+through an in-repository hardlink even though the governed write path denied
+that alias. Static review also found a medium revalidation/open race on
+pathname-based writes. All requested CLI exit, MCP session-size, transcript,
+oversized-path, recovery, backpressure, false-green, and launcher checks
+otherwise conformed.
+
+The narrow remediation rejects multi-link read targets before content is
+returned. Governed writes no longer reopen a validated pathname directly:
+the reference host receives the authorization, the boundary binds the
+authorized parent directory by device/inode and descriptor, writes and syncs
+a private single-link temporary file, and atomically renames it through that
+descriptor. A regression swaps the parent after final revalidation and proves
+that neither the moved authorized directory nor outside replacement receives
+the write.
+
+## Round 6 remediation
+
+Candidate paths are capped at 4096 UTF-8 bytes before evidence admission, and
+the manifest mode domain is closed to `0644` and `0755`. The shared contract
+corpus now has 41 cases, including candidate-path and mode boundary attacks.
+
+Bound parity evidence records the source commit plus the candidate, manifest,
+corpus, validator-set, and per-input hashes. The next exact-consistency
+receipt names and hashes every release receipt; dependency evidence binds the
+source commit, candidate, and lockfile instead of standing alone.
+
+Packed-document auditing now recognizes root-level globs and qualifies source
+checkout prescriptions in their own local command context. Together with the
+hardlink and descriptor-bound write changes, the accumulated gate passes all
+119 discovered tests. A newly packed candidate and three fresh reviewers are
+still required; no prior rejection is displaced.
 
 ## Fresh-review separation
 

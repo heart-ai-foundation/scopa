@@ -51,7 +51,20 @@ export function createEnforcedToolDispatcher({ boundary, tools }) {
         await boundary.revalidate(authorization, { decision: call.decision });
       }
     }
-    return tool.execute(authorizedArgs);
+    return tool.execute(authorizedArgs, {
+      authorizations: Object.freeze(
+        Object.fromEntries(
+          tool.effect === 'MUTATE'
+            ? tool.pathArguments.map((argument, index) => [
+              argument,
+              authorizations[index],
+            ])
+            : [],
+        ),
+      ),
+      boundary,
+      decision: call.decision,
+    });
   }
 
   return async function dispatch(call) {

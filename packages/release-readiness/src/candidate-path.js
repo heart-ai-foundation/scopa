@@ -1,4 +1,5 @@
 const CONTROL_CHARACTER = /[\u0000-\u001f\u007f]/u;
+export const CANDIDATE_MAX_PATH_BYTES = 4096;
 
 export function normalizeCandidatePath(value) {
   if (
@@ -8,7 +9,8 @@ export function normalizeCandidatePath(value) {
     value.endsWith('/') ||
     value.includes('\\') ||
     CONTROL_CHARACTER.test(value) ||
-    value.normalize('NFC') !== value
+    value.normalize('NFC') !== value ||
+    Buffer.byteLength(value, 'utf8') > CANDIDATE_MAX_PATH_BYTES
   ) {
     return null;
   }

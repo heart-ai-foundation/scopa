@@ -47,7 +47,7 @@ consumer package.
 | Monorepo-relative or private-path dependency | Explicit package allowlist and source-free install probe | S6 and S10 consumer probes | npm dependencies still rely on their registries/caches |
 | False policy readiness | Closed posture schema and constituent policy audit | Retained source-checkout policy-audit evidence | Policies are project commitments, not formal compliance certification |
 | Secret or raw-path disclosure | Private raw evidence, deterministic public redaction, path scans | S8-S10 publication receipts | Model/provider telemetry outside SCOPA follows provider controls |
-| Supply-chain vulnerability | Exact dependencies, lockfile, `npm audit`, hosted clean install | Accumulated release gate | Audit databases are incomplete and change over time |
+| Supply-chain vulnerability | Exact dependencies, lockfile, source-checkout `npm audit`, hosted clean install | Accumulated release gate | Audit databases are incomplete and change over time |
 
 ## Security controls
 

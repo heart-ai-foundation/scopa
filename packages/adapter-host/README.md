@@ -10,7 +10,7 @@ The bridge advertises six tools:
 | Tool | Effect | Route |
 | --- | --- | --- |
 | `scopa_orientation` | `OBSERVE` | Stop evaluator plus compact orientation |
-| `scopa_read_file` | `OBSERVE` | Repository-contained, regular-file read capped at 512 KiB |
+| `scopa_read_file` | `OBSERVE` | Repository-contained, single-link regular-file read capped at 512 KiB |
 | `scopa_write_file` | `MUTATE` | Trusted SCOPA dispatcher |
 | `scopa_check` | `OBSERVE` | Immutable real gate runner |
 | `scopa_assurance` | `OBSERVE` | Validated capability/bypass matrix |
@@ -20,6 +20,10 @@ No filesystem mutation, process, network, or plugin primitive exists in the
 adapter runtime. The only mutation handler calls
 `createReferenceAgentHost().invoke()`. The bridge is a tool-boundary
 enforcement host, not an operating-system sandbox.
+
+Governed writes require descriptor-directory binding through `/proc/self/fd`
+or `/dev/fd`. A host without either facility fails closed with scope denial
+instead of reopening an authorized path by name.
 
 ## Launch
 

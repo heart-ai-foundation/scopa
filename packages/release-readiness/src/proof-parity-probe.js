@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import {
   canonicalJsonPretty,
@@ -32,10 +33,115 @@ const TARGETS = Object.freeze({
 });
 
 function parseArgs(argv) {
-  if (argv.length !== 2 || argv[0] !== '--corpus') {
-    throw new TypeError('usage: --corpus fixtures/S11/CORPUS.json');
+  const options = {};
+  const allowed = new Set(['--corpus', '--manifest', '--candidate']);
+  for (let index = 0; index < argv.length; index += 2) {
+    const flag = argv[index];
+    const value = argv[index + 1];
+    if (!allowed.has(flag) || value === undefined || options[flag]) {
+      throw new TypeError(
+        'usage: --corpus CORPUS.json [--manifest MANIFEST.json --candidate CANDIDATE.tgz]',
+      );
+    }
+    options[flag] = value;
   }
-  return { corpus: argv[1] };
+  if (
+    options['--corpus'] === undefined ||
+    (
+      (options['--manifest'] === undefined) !==
+      (options['--candidate'] === undefined)
+    )
+  ) {
+    throw new TypeError(
+      'usage: --corpus CORPUS.json [--manifest MANIFEST.json --candidate CANDIDATE.tgz]',
+    );
+  }
+  return {
+    candidate: options['--candidate'] ?? null,
+    corpus: options['--corpus'],
+    manifest: options['--manifest'] ?? null,
+  };
+}
+
+function sha256(bytes) {
+  return createHash('sha256').update(bytes).digest('hex');
+}
+
+const VALIDATOR_INPUTS = Object.freeze([
+  {
+    path: 'packages/release-readiness/src/candidate-path.js',
+    url: new URL('./candidate-path.js', import.meta.url),
+  },
+  {
+    path: 'packages/release-readiness/src/constants.js',
+    url: new URL('./constants.js', import.meta.url),
+  },
+  {
+    path: 'packages/release-readiness/src/published-contracts.js',
+    url: new URL('./published-contracts.js', import.meta.url),
+  },
+  {
+    path: 'packages/release-readiness/src/proof-parity-probe.js',
+    url: new URL('./proof-parity-probe.js', import.meta.url),
+  },
+  {
+    path: 'packages/release-readiness/src/schema.js',
+    url: new URL('./schema.js', import.meta.url),
+  },
+  {
+    path: 'schemas/scopa.candidate-manifest.v1.schema.json',
+    url: new URL(
+      '../../../schemas/scopa.candidate-manifest.v1.schema.json',
+      import.meta.url,
+    ),
+  },
+  {
+    path: 'schemas/scopa.consumer-proof.v1.schema.json',
+    url: new URL(
+      '../../../schemas/scopa.consumer-proof.v1.schema.json',
+      import.meta.url,
+    ),
+  },
+  {
+    path: 'schemas/scopa.release-posture.v1.schema.json',
+    url: new URL(
+      '../../../schemas/scopa.release-posture.v1.schema.json',
+      import.meta.url,
+    ),
+  },
+]);
+
+async function createExactBinding({
+  candidatePath,
+  corpusBytes,
+  manifestPath,
+}) {
+  const [candidateBytes, manifestBytes, validatorInputs] = await Promise.all([
+    readFile(candidatePath),
+    readFile(manifestPath),
+    Promise.all(
+      VALIDATOR_INPUTS.map(async ({ path: inputPath, url }) => ({
+        path: inputPath,
+        sha256: sha256(await readFile(url)),
+      })),
+    ),
+  ]);
+  const manifest = JSON.parse(manifestBytes);
+  validateCandidateManifest(manifest);
+  const candidateSha256 = sha256(candidateBytes);
+  if (candidateSha256 !== manifest.package.sha256) {
+    throw new TypeError('candidate bytes do not match the binding manifest');
+  }
+  return {
+    sourceCommit: manifest.source.commit,
+    candidateSha256,
+    manifestSha256: sha256(manifestBytes),
+    corpusSha256: sha256(corpusBytes),
+    validatorInputs,
+    validatorSetSha256: sha256(
+      Buffer.from(JSON.stringify(validatorInputs), 'utf8'),
+    ),
+  };
 }
 
 function pointerParts(pointer) {
@@ -67,7 +173,14 @@ function resolveParent(document, pointer) {
 
 function applyMutation(document, mutation) {
   const { parent, key } = resolveParent(document, mutation.path);
-  if (!['add', 'remove', 'replace'].includes(mutation.operation)) {
+  if (
+    ![
+      'add',
+      'remove',
+      'replace',
+      'replace-repeat-string',
+    ].includes(mutation.operation)
+  ) {
     throw new TypeError(`unsupported mutation operation: ${mutation.operation}`);
   }
   if (mutation.operation !== 'add' && !Object.hasOwn(parent, key)) {
@@ -75,6 +188,19 @@ function applyMutation(document, mutation) {
   }
   if (mutation.operation === 'remove') {
     delete parent[key];
+    return;
+  }
+  if (mutation.operation === 'replace-repeat-string') {
+    if (
+      typeof mutation.value !== 'string' ||
+      mutation.value.length === 0 ||
+      !Number.isSafeInteger(mutation.count) ||
+      mutation.count < 1 ||
+      mutation.count > 65536
+    ) {
+      throw new TypeError('invalid repeated-string mutation');
+    }
+    parent[key] = mutation.value.repeat(mutation.count);
     return;
   }
   parent[key] = structuredClone(mutation.value);
@@ -92,7 +218,7 @@ function outcome(call) {
   }
 }
 
-export function runProofParityCorpus(corpus) {
+export function runProofParityCorpus(corpus, binding = null) {
   if (corpus?.schema !== 'scopa.proof-contract-corpus.v1') {
     throw new TypeError('unsupported proof-contract corpus schema');
   }
@@ -146,7 +272,7 @@ export function runProofParityCorpus(corpus) {
     };
   });
 
-  return {
+  const receipt = {
     schema: 'scopa.proof-contract-parity-receipt.v1',
     corpusSchema: corpus.schema,
     caseCount: cases.length,
@@ -157,12 +283,22 @@ export function runProofParityCorpus(corpus) {
     ok: cases.every(({ agreed, expectationMet }) => agreed && expectationMet),
     cases,
   };
+  if (binding !== null) receipt.binding = structuredClone(binding);
+  return receipt;
 }
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
-  const corpus = JSON.parse(await readFile(options.corpus, 'utf8'));
-  const receipt = runProofParityCorpus(corpus);
+  const corpusBytes = await readFile(options.corpus);
+  const corpus = JSON.parse(corpusBytes);
+  const binding = options.manifest === null
+    ? null
+    : await createExactBinding({
+      candidatePath: options.candidate,
+      corpusBytes,
+      manifestPath: options.manifest,
+    });
+  const receipt = runProofParityCorpus(corpus, binding);
   process.stdout.write(canonicalJsonPretty(receipt));
   if (!receipt.ok) process.exitCode = 1;
 }
