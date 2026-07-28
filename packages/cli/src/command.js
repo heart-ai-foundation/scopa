@@ -33,6 +33,26 @@ export class CliUsageError extends Error {
   }
 }
 
+export class CliVerificationError extends Error {
+  constructor(cause) {
+    super('evidence verification failed', { cause });
+    this.name = 'CliVerificationError';
+    this.code = 'SCOPA_EVIDENCE_VERIFICATION_FAILED';
+    this.details = Object.freeze({
+      category: 'invalid-evidence-or-trust-policy',
+    });
+  }
+}
+
+async function verificationBoundary(operation) {
+  try {
+    return await operation();
+  } catch (error) {
+    if (error instanceof CliVerificationError) throw error;
+    throw new CliVerificationError(error);
+  }
+}
+
 function optionSpec(command) {
   const common = {
     '--repo': { name: 'repo' },
@@ -180,19 +200,26 @@ async function verifyCommand(options) {
     trustedTimestampRootsPem,
   );
   if (options.packet) {
-    const packet = JSON.parse(
-      await readFile(path.resolve(options.repo, options.packet), 'utf8'),
+    const packetBytes = await readFile(
+      path.resolve(options.repo, options.packet),
+      'utf8',
     );
-    const report = await verifyEvidencePacket(packet, verificationOptions);
+    const report = await verificationBoundary(async () => {
+      const packet = JSON.parse(packetBytes);
+      return verifyEvidencePacket(packet, verificationOptions);
+    });
     return {
       type: 'native-packet',
       report,
     };
   }
-  const report = await verifyCaseExportBytes(
-    await readFile(path.resolve(options.repo, options.caseExport)),
-    { verificationOptions },
+  const caseExportBytes = await readFile(
+    path.resolve(options.repo, options.caseExport),
   );
+  const report = await verificationBoundary(() => verifyCaseExportBytes(
+    caseExportBytes,
+    { verificationOptions },
+  ));
   return {
     type: 'case-export',
     report: {
@@ -267,6 +294,7 @@ export function failureResult(command, error) {
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';
   const verification =
+    error instanceof CliVerificationError ||
     error?.code?.startsWith('SCOPA_DEPTH_') ||
     error?.code?.startsWith('SCOPA_INTEROP_') ||
     error?.name === 'DepthVerificationError' ||

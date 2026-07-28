@@ -5,6 +5,8 @@ Authority:
 `next-prompt-protocols/active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
 Initial candidate source:
 `e9b3c7003924df4db2be0298c3966bf1b95d2180`
+Round 2 candidate source:
+`9c64b6c25e217da18767c6aedda811b755bbbe63`
 
 ## Exact-candidate boundary
 
@@ -24,8 +26,18 @@ paths, credentials, or rotation material.
 The initial proof/evidence reviewer returned `REJECT` after finding that
 consumer-proof v1 admitted semantic adapter/claim drift and candidate paths
 admitted normalization aliases. The initial candidate is retained privately
-and cannot satisfy RQ2. The final source commit and candidate digest are
-assigned only after both findings are remediated and the repository is clean.
+and cannot satisfy RQ2.
+
+The remediation makes the v1 adapter schema, exact sorted six-tool inventory,
+full deterministic-fixture assurance, verified claims, and non-claims
+constants of the shared published contract. Candidate paths now pass one
+shared canonical POSIX-relative rule at pack and validation time; empty, dot,
+dot-dot, repeated-separator, trailing-separator, backslash, absolute, Unicode
+normalization drift, and normalized-alias states fail closed.
+
+The round 2 replacement candidate contains 153 entries and has SHA-256
+`0f47bd929a0ae7db2237c86efb2785640345a5eaec7d2782b49d681eb5c4d346`.
+Repeated official packing is byte-identical.
 
 ## Executable requalification
 
@@ -41,10 +53,35 @@ disposable directory. It exercises:
 - default launcher errors and explicit diagnostic opt-in; and
 - structural package privacy and credential-pattern scanning.
 
+The proof runner imports the installed packaged consumer fixture and exercises
+the installed adapter bridge and MCP message handler in-process. This avoids a
+runner-specific nested-child stdio suppression while preserving the exact
+protocol sequence and installed-byte boundary. The installed `scopa-mcp`
+binary's real newline-stdio path remains independently exercised by the
+accumulated gate, installed-surface probe, and fresh runtime reviewer.
+
 The S11 proof differential and collision corpora and the S12 installed-surface
 matrix are rerun or exactly bound to the same candidate. Public-proof
 reproduction must be byte-identical, redact only the two designated
 environment roots, and compute `semanticFieldsChanged: false`.
+
+## Round 2 runtime rejection
+
+The fresh artifact and evidence reviewers accepted round 2. The fresh runtime
+reviewer rejected it with one medium machine-interface finding: journal-root,
+signature, INFER-pin, timestamp-signer, and timestamp-authority tampering all
+failed closed, but returned generic runtime exit `1` instead of the documented
+verification exit `5`.
+
+The rejected bytes and three reports are retained. The narrow remediation
+places JSON/evidence verification and CASE recovery behind one typed CLI
+verification boundary while leaving input and trust-root file reads outside
+that boundary. Invalid evidence and trust policy therefore return stable code
+`SCOPA_EVIDENCE_VERIFICATION_FAILED` with exit `5`; unreadable files remain
+runtime/configuration exit `1`, and command usage remains exit `2`. Source and
+installed-tarball regressions cover the five reported mutation families and
+the exit `1`/`2` controls. All three final reviews must be rerun by new agents
+against newly packed bytes.
 
 ## Fresh-review separation
 

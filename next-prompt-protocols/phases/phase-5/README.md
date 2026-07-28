@@ -1,6 +1,6 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `1ad57a8`
+Current commit reference: `9c64b6c`
 Current active protocol: `active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
 
 ## Scope
@@ -24,6 +24,8 @@ Adversarial release hardening only: converge proof validation and publication, r
 - `.github/**`
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
+- `packages/cli/src/command.js`
+- `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`

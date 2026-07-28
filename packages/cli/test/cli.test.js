@@ -251,6 +251,115 @@ test('verify checks a retained signed packet with caller trust policy', async (c
   assert.equal(result.report.result.report.ok, true);
 });
 
+test('verify maps evidence and trust tampering to the stable verification exit', async (context) => {
+  const root = await repository(context);
+  const packet = JSON.parse(
+    await readFile(
+      path.join(ROOT, 'evidence/S4/2026-07-26-freetsa-packet.json'),
+      'utf8',
+    ),
+  );
+  await copyFile(
+    path.join(ROOT, 'fixtures/S4/freetsa-root.pem'),
+    path.join(root, 'freetsa-root.pem'),
+  );
+  const baseArguments = [
+    'verify',
+    '--packet',
+    'packet.json',
+    '--timestamp-roots',
+    'freetsa-root.pem',
+    '--require-timestamp',
+    '--timestamp-authority-id',
+    'freetsa.org-2026',
+    '--timestamp-signer-sha256',
+    '32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc',
+  ];
+  const mutateDigest = (digest) =>
+    `${digest[0] === '0' ? '1' : '0'}${digest.slice(1)}`;
+  const mutations = [
+    {
+      name: 'commitment root',
+      mutate(value) {
+        value.commitment.rootHash = mutateDigest(value.commitment.rootHash);
+      },
+    },
+    {
+      name: 'Ed25519 signature',
+      mutate(value) {
+        const signature = value.signature.signatureBase64;
+        value.signature.signatureBase64 =
+          `${signature[0] === 'A' ? 'B' : 'A'}${signature.slice(1)}`;
+      },
+    },
+    {
+      name: 'INFER prompt digest',
+      mutate(value) {
+        value.inferPins[0].prompt.digest = mutateDigest(
+          value.inferPins[0].prompt.digest,
+        );
+      },
+    },
+  ];
+  for (const mutation of mutations) {
+    const mutated = structuredClone(packet);
+    mutation.mutate(mutated);
+    await writeFile(
+      path.join(root, 'packet.json'),
+      `${JSON.stringify(mutated)}\n`,
+    );
+    const result = await sourceCli(root, baseArguments);
+    assert.equal(
+      result.status,
+      5,
+      `${mutation.name}: ${result.stdout || result.stderr}`,
+    );
+    assert.equal(result.report.ok, false);
+    assert.equal(
+      result.report.error.code,
+      'SCOPA_EVIDENCE_VERIFICATION_FAILED',
+    );
+    assert.deepEqual(result.report.error.details, {
+      category: 'invalid-evidence-or-trust-policy',
+    });
+  }
+
+  await writeFile(
+    path.join(root, 'packet.json'),
+    `${JSON.stringify(packet)}\n`,
+  );
+  for (const [flag, value] of [
+    ['--timestamp-authority-id', 'wrong.example'],
+    [
+      '--timestamp-signer-sha256',
+      '42e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc',
+    ],
+  ]) {
+    const argumentsWithWrongTrust = [...baseArguments];
+    argumentsWithWrongTrust[
+      argumentsWithWrongTrust.indexOf(flag) + 1
+    ] = value;
+    const result = await sourceCli(root, argumentsWithWrongTrust);
+    assert.equal(result.status, 5, result.stdout || result.stderr);
+    assert.equal(
+      result.report.error.code,
+      'SCOPA_EVIDENCE_VERIFICATION_FAILED',
+    );
+  }
+
+  const unreadable = await sourceCli(root, [
+    'verify',
+    '--packet',
+    'missing-packet.json',
+  ]);
+  assert.equal(unreadable.status, 1, unreadable.stdout || unreadable.stderr);
+  assert.equal(unreadable.report.ok, false);
+
+  const usage = await sourceCli(root, ['verify']);
+  assert.equal(usage.status, 2, usage.stdout || usage.stderr);
+  assert.equal(usage.report.error.code, 'SCOPA_CLI_USAGE');
+});
+
 test('packed artifact installs and runs without leaking private build surfaces', async (context) => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-pack-'));
   context.after(() => rm(temporary, { recursive: true, force: true }));
@@ -375,7 +484,7 @@ test('packed artifact installs and runs without leaking private build surfaces',
     path.join(ROOT, 'fixtures/S4/freetsa-root.pem'),
     path.join(consumer, 'freetsa-root.pem'),
   );
-  const verify = await invoke(binary, consumer, [
+  const verifyArguments = [
     'verify',
     '--packet',
     'packet.json',
@@ -386,7 +495,69 @@ test('packed artifact installs and runs without leaking private build surfaces',
     'freetsa.org-2026',
     '--timestamp-signer-sha256',
     '32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc',
-  ]);
+  ];
+  const verify = await invoke(binary, consumer, verifyArguments);
   assert.equal(verify.status, 0, verify.stdout || verify.stderr);
   assert.equal(verify.report.result.report.ok, true);
+
+  const installedPacket = JSON.parse(
+    await readFile(path.join(consumer, 'packet.json'), 'utf8'),
+  );
+  const installedMutations = [
+    (value) => {
+      value.commitment.rootHash =
+        `0${value.commitment.rootHash.slice(1)}`;
+    },
+    (value) => {
+      value.signature.signatureBase64 =
+        `A${value.signature.signatureBase64.slice(1)}`;
+    },
+    (value) => {
+      value.inferPins[0].prompt.digest =
+        `0${value.inferPins[0].prompt.digest.slice(1)}`;
+    },
+  ];
+  for (const mutate of installedMutations) {
+    const mutated = structuredClone(installedPacket);
+    mutate(mutated);
+    await writeFile(
+      path.join(consumer, 'packet.json'),
+      `${JSON.stringify(mutated)}\n`,
+    );
+    const rejected = await invoke(binary, consumer, verifyArguments);
+    assert.equal(rejected.status, 5, rejected.stdout || rejected.stderr);
+    assert.equal(
+      rejected.report.error.code,
+      'SCOPA_EVIDENCE_VERIFICATION_FAILED',
+    );
+  }
+  await writeFile(
+    path.join(consumer, 'packet.json'),
+    `${JSON.stringify(installedPacket)}\n`,
+  );
+  for (const [flag, value] of [
+    ['--timestamp-authority-id', 'wrong.example'],
+    [
+      '--timestamp-signer-sha256',
+      '42e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc',
+    ],
+  ]) {
+    const wrongPolicyArguments = [...verifyArguments];
+    wrongPolicyArguments[wrongPolicyArguments.indexOf(flag) + 1] = value;
+    const rejected = await invoke(binary, consumer, wrongPolicyArguments);
+    assert.equal(rejected.status, 5, rejected.stdout || rejected.stderr);
+    assert.equal(
+      rejected.report.error.code,
+      'SCOPA_EVIDENCE_VERIFICATION_FAILED',
+    );
+  }
+
+  const unreadable = await invoke(binary, consumer, [
+    'verify',
+    '--packet',
+    'missing-packet.json',
+  ]);
+  assert.equal(unreadable.status, 1, unreadable.stdout || unreadable.stderr);
+  const usage = await invoke(binary, consumer, ['verify']);
+  assert.equal(usage.status, 2, usage.stdout || usage.stderr);
 });

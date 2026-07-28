@@ -1,0 +1,507 @@
+{
+  "acceptedCount": 3,
+  "caseCount": 33,
+  "cases": [
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "accept",
+      "id": "posture-valid",
+      "published": {
+        "accepted": true,
+        "error": null
+      },
+      "runtime": {
+        "accepted": true,
+        "error": null
+      },
+      "target": "posture"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "accept",
+      "id": "candidate-valid",
+      "published": {
+        "accepted": true,
+        "error": null
+      },
+      "runtime": {
+        "accepted": true,
+        "error": null
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "accept",
+      "id": "consumer-valid",
+      "published": {
+        "accepted": true,
+        "error": null
+      },
+      "runtime": {
+        "accepted": true,
+        "error": null
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "adapter-schema-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/schema must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/schema must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "adapter-tool-inventory-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items; /adapter/toolNames/0 must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items; /adapter/toolNames/0 must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "adapter-assurance-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/assurance must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/assurance must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "verified-claim-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items; /claimBoundary/verified/0 must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items; /claimBoundary/verified/0 must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "non-claim-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items; /claimBoundary/nonClaims/0 must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items; /claimBoundary/nonClaims/0 must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "adapter-tool-names-empty",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "adapter-tool-names-duplicate",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items; /adapter/toolNames/0 must be equal to constant; /adapter/toolNames must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /adapter/toolNames must NOT have fewer than 6 items; /adapter/toolNames/0 must be equal to constant; /adapter/toolNames must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "verified-claims-empty",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "verified-claims-duplicate",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items; /claimBoundary/verified/0 must be equal to constant; /claimBoundary/verified/1 must be equal to constant; /claimBoundary/verified must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/verified must NOT have fewer than 6 items; /claimBoundary/verified/0 must be equal to constant; /claimBoundary/verified/1 must be equal to constant; /claimBoundary/verified must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "non-claims-empty",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "non-claims-duplicate",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items; /claimBoundary/nonClaims/0 must be equal to constant; /claimBoundary/nonClaims/1 must be equal to constant; /claimBoundary/nonClaims must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /claimBoundary/nonClaims must NOT have fewer than 5 items; /claimBoundary/nonClaims/0 must be equal to constant; /claimBoundary/nonClaims/1 must be equal to constant; /claimBoundary/nonClaims must NOT have duplicate items (items ## 0 and 1 are identical)"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "packed-bytes-zero",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /candidate/package/packedBytes must be >= 1"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /candidate/package/packedBytes must be >= 1"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "unpacked-bytes-negative",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/unpackedBytes must be >= 1"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/unpackedBytes must be >= 1"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "entry-count-zero",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/entryCount must equal the files array length; /package/entryCount must be >= 1"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/entryCount must equal the files array length; /package/entryCount must be >= 1"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "entry-count-mismatch",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/entryCount must equal the files array length"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/entryCount must equal the files array length"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-duplicate",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain unique normalized file paths"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain unique normalized file paths"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-unsorted",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must be sorted by path"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must be sorted by path"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-embedded-file-path-duplicate",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /files must contain unique normalized file paths"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /files must contain unique normalized file paths"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-escape",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-normalized-alias",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-dot-segment",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-repeated-separator",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files must be sorted by path; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "file-path-trailing-separator",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /files must contain only canonical POSIX-relative file paths; /files must contain unique normalized file paths; /files/0/path must match pattern \"^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[^\\\\]+$\""
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "unsafe-integer",
+      "published": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/packedBytes must be <= 9007199254740991"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.candidate-manifest.v1 contract violation: /package/packedBytes must be <= 9007199254740991"
+      },
+      "target": "candidate"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-unknown-field",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: / must NOT have additional properties"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: / must NOT have additional properties"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-missing-field",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: / must have required property 'verification'"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: / must have required property 'verification'"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "consumer-false-green",
+      "published": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /knownFailing/canStop must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.consumer-proof.v1 contract violation: /knownFailing/canStop must be equal to constant"
+      },
+      "target": "consumer"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "posture-publication-drift",
+      "published": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /publication/npm must be equal to constant"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /publication/npm must be equal to constant"
+      },
+      "target": "posture"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "posture-duplicate-consultation-boundary",
+      "published": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /freeToolBoundary/consultationBoundary must NOT have duplicate items (items ## 1 and 0 are identical)"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /freeToolBoundary/consultationBoundary must NOT have duplicate items (items ## 1 and 0 are identical)"
+      },
+      "target": "posture"
+    },
+    {
+      "agreed": true,
+      "expectationMet": true,
+      "expected": "reject",
+      "id": "posture-empty-consultation-boundary",
+      "published": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /freeToolBoundary/consultationBoundary must NOT have fewer than 1 items"
+      },
+      "runtime": {
+        "accepted": false,
+        "error": "scopa.release-posture.v1 contract violation: /freeToolBoundary/consultationBoundary must NOT have fewer than 1 items"
+      },
+      "target": "posture"
+    }
+  ],
+  "corpusSchema": "scopa.proof-contract-corpus.v1",
+  "expectationsMet": true,
+  "ok": true,
+  "rejectedCount": 30,
+  "schema": "scopa.proof-contract-parity-receipt.v1",
+  "validatorsAgree": true
+}

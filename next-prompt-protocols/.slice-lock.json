@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "1ad57a8",
+  "current_commit": "9c64b6c",
   "current_phase": "phase-5-adversarial-hardening",
   "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
   "active_class": "arc",
@@ -17,7 +17,7 @@
     "RQ2",
     "RQ3"
   ],
-  "active_protocol_sha256": "sha256:0d4ccf6b4fbdebf5f9194168766095b7379bc4009b0f7c5aafca810be0f973ed",
+  "active_protocol_sha256": "sha256:a2952f58e532e4c61971e99b1011c7f4f4beae6f09f5199b265083b69b3c1075",
   "active_objective": "Build and retain one exact private candidate from a clean commit, run the full\nsource-free hostile corpus against those bytes, and assign three fresh isolated\nreviewers to attack artifact/distribution, evidence/proof, and runtime/\ncontainment boundaries. Require each reviewer to issue a structured `ACCEPT`\nwith no critical, high, or medium finding before closeout.",
   "allowed_files": [
     "package.json",
@@ -27,6 +27,8 @@
     ".github/**",
     "packages/release-readiness/**",
     "packages/adapter-host/**",
+    "packages/cli/src/command.js",
+    "packages/cli/README.md",
     "packages/cli/test/cli.test.js",
     "fixtures/S10/consumer-client.mjs",
     "schemas/**",

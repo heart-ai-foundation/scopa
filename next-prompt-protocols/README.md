@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `1ad57a8`
+Current commit reference: `9c64b6c`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -176,6 +176,8 @@ These protocols are specific to:
 - `.github/**`
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
+- `packages/cli/src/command.js`
+- `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`

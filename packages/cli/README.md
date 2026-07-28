@@ -47,6 +47,11 @@ scopa verify \
 Use `--case-export` instead of `--packet` to recover and verify a native packet
 from a SCOPA CASE export.
 
+Evidence-content, signature, trust-policy, and CASE recovery failures return
+the stable `SCOPA_EVIDENCE_VERIFICATION_FAILED` envelope and exit `5`.
+Unreadable input or trust-root files remain runtime/configuration failures and
+return exit `1`; invalid command syntax returns exit `2`.
+
 ## Exit codes
 
 | Code | Meaning |

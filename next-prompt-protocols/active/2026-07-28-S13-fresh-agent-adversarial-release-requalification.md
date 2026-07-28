@@ -71,6 +71,8 @@ Macro Delta and creates no independent work.
 - `.github/**`
 - `packages/release-readiness/**`
 - `packages/adapter-host/**`
+- `packages/cli/src/command.js`
+- `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
