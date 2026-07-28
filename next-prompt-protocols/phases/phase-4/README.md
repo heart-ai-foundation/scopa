@@ -1,7 +1,7 @@
 # Phase 4 Developer Preview
 
-Current commit reference: `8be70bd`
-Current active protocol: `active/2026-07-27-S9-codex-headless-integration-and-parity.md`
+Current commit reference: `76a82a9`
+Current active protocol: `active/2026-07-27-S10-developer-preview-release-candidate.md`
 
 ## Scope
 
@@ -9,33 +9,41 @@ Developer-preview work: installable local distribution, a model-neutral agent br
 
 ## Active objective
 
-> Run a pinned Codex CLI non-interactively through the installed S7 bridge in a
-> fresh fixture repository. Reproduce S8's allowed-write, blocked-scope,
-> false-green-refusal, and cold-restart outcomes, then publish a machine-readable
-> Claude/Codex parity report and retain every provider-specific assurance gap.
+> After the principal records the release license, contribution model, working
+> release name, and publication posture, assemble a private v0.2
+> developer-preview candidate. Run its documented quickstart from the packed
+> artifact in a fresh repository, exercise one supported adapter, reproduce the
+> core enforcement proof, independently verify the evidence packet, and obtain
+> an outside consumer/reviewer verdict.
 
 ## Files in play
 
-- `packages/integrations/codex/**`
-- `fixtures/S9/**`
+- `packages/release-readiness/**`
+- `fixtures/S10/**`
+- `docs/**`
+- `schemas/**`
+- `SECURITY.md`
+- `CONTRIBUTING.md`
+- `GOVERNANCE.md`
+- `LICENSE`
 - `package.json`
 - `package-lock.json`
 - `README.md`
+- `.github/**`
 - `next-prompt-protocols/**`
-- `notes/S9/**`
-- `runs/S9/**`
-- `evidence/S9/**`
+- `notes/S10/**`
+- `runs/S10/**`
+- `evidence/S10/**`
 
 ## Non-goals
 
-- No dangerous sandbox or approval bypass, unbounded workspace, or claim that a Codex-native mutation route is SCOPA-mediated
-- No reliance on Codex prompt obedience for scope or completion enforcement
-- No mutation of the SCOPA source checkout by a live model
-- No provider-attested identity or immutable-model-snapshot claim
-- No full-assurance claim while native shell, patch, process, network, managed policy, plugin, hook, skill, session, or another route remains active and uncontrolled
-- No change to Claude adapter behavior, S0-S8 semantics, or the frozen effect taxonomy
-- No npm publication, public repository, public release, or production installation
-- No final trademark, package-name, license, or contribution-model claim
+- No npm publication, public repository, public release, visibility change, production installation, or customer deployment
+- No license text, contribution policy, release name, trademark claim, or publication date inferred without a principal decision
+- No claim that partial Claude or Codex assurance is full enforcement
+- No hiding of provider-specific uncontrolled capability routes
+- No source-checkout import, private evidence dependency, or institutional knowledge in the consumer quickstart
+- No removal of known-failing fixtures, public verifier capability, or independently useful free functionality
+- No change to S0-S9 runtime semantics or the frozen effect taxonomy
 - No queue entries outside the authorized Developer Preview Macro Delta
 
 ## Descriptor Rung Stop Rule
@@ -44,36 +52,34 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- `npm run test:s9`
-- `npm run probe:s9:live`
-- `npm run verify:s9:parity`
+- Principal decisions for license, contribution model, working release name,
+  and publication posture are explicitly recorded before candidate assembly.
+- `npm run test:s10`
+- `npm run probe:s10:consumer`
+- `npm run audit:s10:policy`
 - `npm test`
+- `npm audit`
 - `npm run protocol:check`
-- The launcher records an exact Codex CLI version and rejects unreviewed
-  version drift.
-- Headless launch uses `codex exec` with JSON events, an explicit repository,
-  bounded runtime/output, isolated MCP configuration, a reviewed sandbox, no
-  dangerous bypass, and a recorded settings/hooks/plugins/skills inventory.
-- The observed model-callable surface and every Codex-native shell, patch,
-  write, network, hook, plugin, skill, setting, MCP, subprocess, session, and
-  admin route are classified in the capability matrix.
-- A clean live session writes one allowed file through `scopa_write_file`,
-  calls the real stop gate, and returns a valid SCOPA transcript.
-- A fault session attempts an out-of-scope write, receives
-  `SCOPA_SCOPE_DENIED`, and does not create the target.
-- A failing gate remains `canStop: false`; model prose cannot convert it into
-  completed evidence.
-- A fresh second Codex/bridge process in the same fixture reorients from
-  persisted SCOPA state without relying on prior process memory.
-- Raw event normalization fails on unknown security events, missing tool
-  results, altered call ordering, or a claimed result inconsistent with the
-  SCOPA terminal state.
-- A machine-readable parity report compares the four Codex outcomes with the
-  committed S8 Claude public proof and exposes, rather than hides, any gap.
-- Known uncontrolled Codex routes force `partial` assurance.
-- A non-Codex outside reviewer reproduces deterministic gates, inspects live
-  and parity evidence, and issues an explicit accept/hold verdict.
-- S0-S8 release gates remain green.
+- The candidate is packed from the committed source state and binds its
+  version, entry inventory, byte sizes, SHA-1, and npm integrity digest.
+- A fresh source-free consumer installs the exact tarball without
+  monorepo-relative resolution or private registry knowledge.
+- The documented quickstart initializes SCOPA, reports status, runs a
+  governed supported-adapter workflow, observes a correction-bearing scope
+  denial, and obtains the real terminal gate state.
+- The same consumer independently verifies a retained evidence packet and a
+  known-failing fixture remains rejected.
+- Threat model, security reporting route, schemas, fixtures, versioning,
+  governance, contribution model, and licensing state are explicit and
+  machine-auditable where applicable.
+- Documentation clearly separates verified kernel behavior, adapter-specific
+  partial assurance, non-claims, and actions that remain unauthorized.
+- The consumer harness fails on source-checkout imports, private-home paths,
+  absent policy files, integrity drift, false-green claims, or hidden
+  uncontrolled adapter routes.
+- An unfamiliar outside reviewer reproduces the quickstart from the exact
+  artifact and issues an explicit accept/hold verdict.
+- The accumulated release gate passes in hosted CI.
 
 ## Handoff
 

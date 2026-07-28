@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "8be70bd",
+  "current_commit": "76a82a9",
   "current_phase": "phase-4-developer-preview",
   "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
-  "active_protocol": "active/2026-07-27-S9-codex-headless-integration-and-parity.md",
-  "active_objective": "Run Codex headlessly through the shared bridge, prove the same four governed outcomes as Claude, publish an explicit parity result, and retain every provider-specific gap as partial assurance.",
+  "active_protocol": "active/2026-07-27-S10-developer-preview-release-candidate.md",
+  "active_objective": "After the required principal release decisions are recorded, assemble and externally test a private v0.2 developer-preview candidate from the exact packed artifact in an unfamiliar source-free consumer repository.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-27-S9-codex-headless-integration-and-parity.md",
     "completed/2026-07-27-S8-claude-code-headless-integration.md",
     "completed/2026-07-27-S7-model-neutral-adapter-bridge.md",
     "completed/2026-07-27-S6-installable-developer-surface.md",
@@ -23,31 +24,37 @@
     "completed/2026-07-26-S1-sealed-core.md"
   ],
   "allowed_files": [
-    "packages/integrations/codex/**",
-    "fixtures/S9/**",
+    "packages/release-readiness/**",
+    "fixtures/S10/**",
+    "docs/**",
+    "schemas/**",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "GOVERNANCE.md",
+    "LICENSE",
     "package.json",
     "package-lock.json",
     "README.md",
+    ".github/**",
     "next-prompt-protocols/**",
-    "notes/S9/**",
-    "runs/S9/**",
-    "evidence/S9/**"
+    "notes/S10/**",
+    "runs/S10/**",
+    "evidence/S10/**"
   ],
   "non_goals": [
-    "No dangerous sandbox or approval bypass, unbounded workspace, or claim that a Codex-native mutation route is SCOPA-mediated",
-    "No reliance on Codex prompt obedience for scope or completion enforcement",
-    "No mutation of the SCOPA source checkout by a live model",
-    "No provider-attested identity or immutable-model-snapshot claim",
-    "No full-assurance claim while native shell, patch, process, network, managed policy, plugin, hook, skill, session, or another route remains active and uncontrolled",
-    "No change to Claude adapter behavior, S0-S8 semantics, or the frozen effect taxonomy",
-    "No npm publication, public repository, public release, or production installation",
-    "No final trademark, package-name, license, or contribution-model claim",
+    "No npm publication, public repository, public release, visibility change, production installation, or customer deployment",
+    "No license text, contribution policy, release name, trademark claim, or publication date inferred without a principal decision",
+    "No claim that partial Claude or Codex assurance is full enforcement",
+    "No hiding of provider-specific uncontrolled capability routes",
+    "No source-checkout import, private evidence dependency, or institutional knowledge in the consumer quickstart",
+    "No removal of known-failing fixtures, public verifier capability, or independently useful free functionality",
+    "No change to S0-S9 runtime semantics or the frozen effect taxonomy",
     "No queue entries outside the authorized Developer Preview Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s9",
-    "live_codex": "npm run probe:s9:live",
-    "parity": "npm run verify:s9:parity",
+    "fast_deterministic": "npm run test:s10",
+    "consumer_probe": "npm run probe:s10:consumer",
+    "policy_audit": "npm run audit:s10:policy",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"
   },
@@ -463,27 +470,27 @@
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
-        {
-          "id": "CX1",
-          "statement": "Headless Codex runs with an explicit, reproducible tool, sandbox, hook, and MCP surface.",
-          "status": "open",
-          "verifies_via": "Pinned CLI receipt and isolated non-interactive launch configuration",
+      {
+        "id": "CX1",
+        "statement": "Headless Codex runs with an explicit, reproducible tool, sandbox, hook, and MCP surface.",
+        "status": "satisfied",
+        "verifies_via": "S9 pinned Codex 0.145.0 receipt, isolated one-server MCP profile, deterministic tests, and installed-package live proof",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         },
-        {
-          "id": "CX2",
-          "statement": "Codex live fixtures prove blocked scope, refused false-green completion, and cold resume.",
-          "status": "open",
-          "verifies_via": "Headless clean and fault sessions with JSON event transcripts",
+      {
+        "id": "CX2",
+        "statement": "Codex live fixtures prove blocked scope, refused false-green completion, and cold resume.",
+        "status": "satisfied",
+        "verifies_via": "S9 clean, denied, false-green, and cold-restart public proof bound to the private raw transcript",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         },
-        {
-          "id": "CX3",
-          "statement": "Codex and Claude satisfy one behavior contract or report an explicit machine-readable parity gap.",
-          "status": "open",
-          "verifies_via": "Cross-agent outcome comparison and non-Codex outside review",
+      {
+        "id": "CX3",
+        "statement": "Codex and Claude satisfy one behavior contract or report an explicit machine-readable parity gap.",
+        "status": "satisfied",
+        "verifies_via": "S9 machine-readable parity report and Claude Sonnet outside-review ACCEPT verdict",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         }

@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `8be70bd`
+Current commit reference: `76a82a9`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `codex-adapter`
-Advances contracts: `CX1, CX2, CX3`
+Active protocol module: `release-readiness`
+Advances contracts: `RC1, RC2, RC3`
 
 ## Slice Class
 
@@ -47,9 +47,9 @@ Module progress:
 - distribution: 3/3 (100%)
 - adapter-host: 3/3 (100%)
 - claude-adapter: 3/3 (100%)
-- codex-adapter: 0/3 (0%)
+- codex-adapter: 3/3 (100%)
 - release-readiness: 0/3 (0%)
-Arc total: 38/44 (86%)
+Arc total: 41/44 (93%)
 
 ## Descriptor Rung Stop Rule
 
@@ -97,16 +97,17 @@ Read in this order:
 3. `macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `role-context.md`
 5. `phases/phase-4/README.md`
-6. `active/2026-07-27-S9-codex-headless-integration-and-parity.md`
-7. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-8. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-9. `completed/2026-07-27-S6-installable-developer-surface.md`
-10. `completed/2026-07-26-S5-interop-export.md`
-11. `completed/2026-07-26-S4-signing-and-anchoring.md`
-12. `completed/2026-07-26-S3-legibility.md`
-13. `completed/2026-07-26-S2-enforcement-loop.md`
-14. `completed/2026-07-26-S0-conformance-harness.md`
-15. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-27-S10-developer-preview-release-candidate.md`
+7. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+8. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+9. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+10. `completed/2026-07-27-S6-installable-developer-surface.md`
+11. `completed/2026-07-26-S5-interop-export.md`
+12. `completed/2026-07-26-S4-signing-and-anchoring.md`
+13. `completed/2026-07-26-S3-legibility.md`
+14. `completed/2026-07-26-S2-enforcement-loop.md`
+15. `completed/2026-07-26-S0-conformance-harness.md`
+16. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -140,10 +141,12 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Run a pinned Codex CLI non-interactively through the installed S7 bridge in a
-> fresh fixture repository. Reproduce S8's allowed-write, blocked-scope,
-> false-green-refusal, and cold-restart outcomes, then publish a machine-readable
-> Claude/Codex parity report and retain every provider-specific assurance gap.
+> After the principal records the release license, contribution model, working
+> release name, and publication posture, assemble a private v0.2
+> developer-preview candidate. Run its documented quickstart from the packed
+> artifact in a fresh repository, exercise one supported adapter, reproduce the
+> core enforcement proof, independently verify the evidence packet, and obtain
+> an outside consumer/reviewer verdict.
 
 ## Behavior rules
 
@@ -161,15 +164,22 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 These protocols are specific to:
 
-- `packages/integrations/codex/**`
-- `fixtures/S9/**`
+- `packages/release-readiness/**`
+- `fixtures/S10/**`
+- `docs/**`
+- `schemas/**`
+- `SECURITY.md`
+- `CONTRIBUTING.md`
+- `GOVERNANCE.md`
+- `LICENSE`
 - `package.json`
 - `package-lock.json`
 - `README.md`
+- `.github/**`
 - `next-prompt-protocols/**`
-- `notes/S9/**`
-- `runs/S9/**`
-- `evidence/S9/**`
+- `notes/S10/**`
+- `runs/S10/**`
+- `evidence/S10/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 
@@ -178,4 +188,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-4/README.md`
-- `active/2026-07-27-S9-codex-headless-integration-and-parity.md`
+- `active/2026-07-27-S10-developer-preview-release-candidate.md`
