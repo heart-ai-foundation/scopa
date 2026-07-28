@@ -37,12 +37,12 @@ or authorize publication.
 
 ## Task 4 — Prove the exact committed candidate
 
-- [ ] Commit all package-included candidate surfaces.
-- [ ] Run the exact source-free packed-artifact consumer probe from a clean
+- [x] Commit all package-included candidate surfaces.
+- [x] Run the exact source-free packed-artifact consumer probe from a clean
   commit.
-- [ ] Retain the raw transcript in the private evidence home and publish a
+- [x] Retain the raw transcript in the private evidence home and publish a
   path-redacted receipt in `evidence/S10/`.
-- [ ] Record candidate integrity, policy audit, known-failing refusal, and
+- [x] Record candidate integrity, policy audit, known-failing refusal, and
   independent packet verification.
 
 ## Task 5 — Independent outside-model review
