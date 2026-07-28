@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { createHash } from 'node:crypto';
-import { execFile } from 'node:child_process';
 import {
   access,
   copyFile,
@@ -14,7 +13,6 @@ import {
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { canonicalJsonPretty } from '../../enforcement/src/index.js';
 import { packCandidate } from './artifact.js';
@@ -25,11 +23,11 @@ import {
 } from './constants.js';
 import { auditReleasePolicies } from './policy.js';
 import { validateConsumerProof } from './schema.js';
+import { invokeCaptured } from './subprocess.js';
 
 const ROOT = path.resolve(
   fileURLToPath(new URL('../../..', import.meta.url)),
 );
-const execFileAsync = promisify(execFile);
 
 function parseArgs(argv) {
   if (argv.length !== 2 || argv[0] !== '--output') {
@@ -42,27 +40,10 @@ async function invoke(command, args, {
   cwd,
   expectedExitCodes = [0],
 } = {}) {
-  try {
-    const result = await execFileAsync(command, args, {
-      cwd,
-      encoding: 'utf8',
-      maxBuffer: 30 * 1024 * 1024,
-      env: { ...process.env, NODE_TEST_CONTEXT: undefined },
-    });
-    return {
-      exitCode: 0,
-      stdout: result.stdout,
-      stderr: result.stderr,
-    };
-  } catch (error) {
-    const exitCode = Number.isSafeInteger(error.code) ? error.code : null;
-    if (!expectedExitCodes.includes(exitCode)) throw error;
-    return {
-      exitCode,
-      stdout: error.stdout ?? '',
-      stderr: error.stderr ?? '',
-    };
-  }
+  return invokeCaptured(command, args, {
+    cwd,
+    expectedExitCodes,
+  });
 }
 
 function parseJson(stdout, name) {
