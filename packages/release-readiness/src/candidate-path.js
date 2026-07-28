@@ -1,3 +1,5 @@
+const CONTROL_CHARACTER = /[\u0000-\u001f\u007f]/u;
+
 export function normalizeCandidatePath(value) {
   if (
     typeof value !== 'string' ||
@@ -5,6 +7,7 @@ export function normalizeCandidatePath(value) {
     value.startsWith('/') ||
     value.endsWith('/') ||
     value.includes('\\') ||
+    CONTROL_CHARACTER.test(value) ||
     value.normalize('NFC') !== value
   ) {
     return null;

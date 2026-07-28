@@ -169,6 +169,49 @@ Post-remediation local result:
 A new clean candidate and three entirely new reviews are required before RQ2
 can close.
 
+## Round 3 exact candidate and reviews
+
+Round 3 bound source
+`e17bbc2acfb70cadad2511b1f1338ddc346fde74` to candidate SHA-256
+`740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0`
+and 153 entries. Official packing, source-free proof, public-proof
+regeneration, installed probe, 33-case parity, privacy, dependency, local, and
+hosted gates passed.
+
+Fresh isolated verdicts:
+
+- artifact/distribution: `ACCEPT`;
+- proof/evidence: `REJECT`, one medium canonical-path false green;
+- runtime/containment: `REJECT`, one medium transcript omission and one low
+  post-buffering size guard.
+
+The evidence reviewer reproduced U+0000, newline, tab, and DEL paths accepted
+by both candidate validators. The runtime reviewer reproduced parse and
+oversize wire errors absent from the immediately following transcript. Round
+3 cannot satisfy RQ2.
+
+## Round 3 canonical-path and MCP-framing remediation
+
+- shared runtime normalization and published schema reject C0/DEL controls;
+- parity corpus grows to 37 cases: 3 accepts and 34 rejects;
+- MCP stdio allocates a bounded frame buffer, discards excess input through
+  the next newline, and uses fatal UTF-8 decoding;
+- post-initialization parse and size failures are recorded as bounded
+  `protocol_error` events without hostile content;
+- direct installed stdio is exercised by an independent Python wire client;
+- packed root documentation points only to shipped consumer paths;
+- stale private installed-surface residue was replaced.
+
+Post-remediation gates:
+
+- accumulated discovered tests: 112/112;
+- focused S7, S10, and S11 gates: pass;
+- S8-S12 focused gates: 6/6, 8/8, 7/7, 9/9, 2/2;
+- dependency audit: zero vulnerabilities;
+- protocol and diff gates: pass.
+
+Another clean candidate and three entirely new exact-byte reviews are required.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

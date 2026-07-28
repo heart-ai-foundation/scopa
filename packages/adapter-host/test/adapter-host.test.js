@@ -1,9 +1,5 @@
 import assert from 'node:assert/strict';
 import {
-  execFile,
-  spawn,
-} from 'node:child_process';
-import {
   access,
   cp,
   mkdir,
@@ -14,15 +10,13 @@ import {
   rm,
   writeFile,
 } from 'node:fs/promises';
-import {
-  once,
-} from 'node:events';
 import os from 'node:os';
 import path from 'node:path';
-import test from 'node:test';
 import {
-  promisify,
-} from 'node:util';
+  Readable,
+  Writable,
+} from 'node:stream';
+import test from 'node:test';
 import {
   fileURLToPath,
 } from 'node:url';
@@ -40,10 +34,8 @@ import {
   readJson as readLauncherJson,
 } from '../src/cli.js';
 import {
-  FakeAgentClient,
-} from '../src/fake-agent-client.js';
-import {
   createMcpMessageHandler,
+  serveMcpStdio,
 } from '../src/mcp-stdio.js';
 import {
   validateCapabilityMatrix,
@@ -51,12 +43,14 @@ import {
 import {
   validateTranscript,
 } from '../src/transcript.js';
+import {
+  invokeCaptured,
+} from '../../release-readiness/src/subprocess.js';
 
 const ROOT = path.resolve(
   fileURLToPath(new URL('../../..', import.meta.url)),
 );
 const FIXTURE = path.join(ROOT, 'fixtures/S7');
-const execFileAsync = promisify(execFile);
 const DEFINITION = JSON.parse(
   await readFile(path.join(FIXTURE, 'scopa.slice-definition.json'), 'utf8'),
 );
@@ -145,14 +139,12 @@ async function invoke(command, cwd, args, {
   const childEnv = { ...env };
   delete childEnv.NODE_TEST_CONTEXT;
   try {
-    const result = await execFileAsync(command, args, {
+    const result = await invokeCaptured(command, args, {
       cwd,
-      encoding: 'utf8',
       env: childEnv,
-      maxBuffer: 10 * 1024 * 1024,
     });
     return {
-      status: 0,
+      status: result.exitCode,
       stdout: result.stdout,
       stderr: result.stderr,
     };
@@ -467,6 +459,79 @@ test('blocked gate is a terminal tool error and cannot be asserted green', async
   assert.deepEqual(transcript.terminal.failedGates, ['fixture-gate']);
 });
 
+test('stdio framing is byte-capped and records bounded transport errors', async (context) => {
+  const root = await repository(context);
+  const bridge = await createAdapterBridge({
+    repoRoot: root,
+    session: SESSION,
+    capabilityMatrix: MATRIX,
+  });
+  const initialize = request(1, 'initialize', {
+    protocolVersion: '2025-11-25',
+    capabilities: {},
+    clientInfo: {
+      name: 'scopa-fake-agent',
+      version: '0.1.0',
+    },
+  });
+  const initialized = request(
+    undefined,
+    'notifications/initialized',
+  );
+  const transcript = call(2, 'scopa_transcript');
+  const maxMessageBytes = 512;
+  const input = Readable.from([
+    Buffer.from([
+      JSON.stringify(initialize),
+      JSON.stringify(initialized),
+      '{malformed',
+      'x'.repeat(maxMessageBytes + 1),
+      JSON.stringify(transcript),
+      '',
+    ].join('\n')),
+  ]);
+  const chunks = [];
+  const output = new Writable({
+    write(chunk, _encoding, callback) {
+      chunks.push(Buffer.from(chunk));
+      callback();
+    },
+  });
+
+  await serveMcpStdio({
+    bridge,
+    input,
+    output,
+    maxMessageBytes,
+  });
+
+  const replies = Buffer.concat(chunks)
+    .toString('utf8')
+    .trimEnd()
+    .split('\n')
+    .map((line) => JSON.parse(line));
+  assert.equal(replies.length, 4);
+  assert.equal(replies[0].result.protocolVersion, '2025-11-25');
+  assert.equal(replies[1].error.code, -32700);
+  assert.equal(replies[2].error.code, -32600);
+  const snapshot = replies[3].result.structuredContent;
+  const protocolErrors = snapshot.events.filter(
+    ({ kind }) => kind === 'protocol_error',
+  );
+  assert.deepEqual(
+    protocolErrors.map(({ result }) => result.code),
+    [-32700, -32600],
+  );
+  assert.deepEqual(protocolErrors[0].result.details, null);
+  assert.deepEqual(protocolErrors[1].result.details, {
+    maxMessageBytes,
+  });
+  assert.equal(
+    JSON.stringify(snapshot).includes('x'.repeat(32)),
+    false,
+  );
+});
+
 test('transcript validator rejects missing, reordered, duplicate, and unknown fields', async (context) => {
   const { bridge, handle } = await directBridge(context);
   await handle(call(2, 'scopa_orientation'));
@@ -623,52 +688,26 @@ test('packed scopa-mcp binary interoperates over real newline JSON-RPC stdio', a
     true,
   );
 
-  const childEnv = { ...process.env };
-  delete childEnv.NODE_TEST_CONTEXT;
-  const child = spawn(binary, [
-    '--repo',
+  const wire = await invoke('python3', consumer, [
+    path.join(
+      ROOT,
+      'packages/adapter-host/test/stdio-client.py',
+    ),
+    binary,
     consumer,
-    '--session-file',
     path.join(consumer, 'session.json'),
-    '--matrix-file',
     path.join(consumer, 'capability-matrix.json'),
-  ], {
-    cwd: consumer,
-    env: childEnv,
-    stdio: ['pipe', 'pipe', 'pipe'],
-  });
-  context.after(() => {
-    if (child.exitCode === null) child.kill('SIGKILL');
-  });
-  let stderr = '';
-  child.stderr.setEncoding('utf8');
-  child.stderr.on('data', (chunk) => {
-    stderr += chunk;
-  });
-  const client = new FakeAgentClient({
-    input: child.stdin,
-    output: child.stdout,
-  });
-  const initialized = await client.initialize();
-  assert.equal(initialized.result.serverInfo.name, 'scopa-mcp');
-  const listed = await client.listTools();
-  assert.equal(listed.result.tools.length, 6);
-
-  const write = await client.callTool('scopa_write_file', {
-    path: 'workspace/installed.txt',
-    content: 'installed-bridge',
-  });
-  assert.equal(write.result.isError, false);
-  const denied = await client.callTool('scopa_write_file', {
-    path: '../installed-escape.txt',
-    content: 'blocked',
-  });
-  assert.equal(denied.result.isError, true);
-  const check = await client.callTool('scopa_check');
-  assert.equal(check.result.structuredContent.state.canStop, true);
-  const transcript = await client.callTool('scopa_transcript');
+  ]);
+  assert.equal(wire.status, 0, wire.stderr || wire.stdout);
+  const summary = JSON.parse(wire.stdout);
+  assert.equal(summary.serverName, 'scopa-mcp');
+  assert.equal(summary.toolCount, 6);
+  assert.equal(summary.writeError, false);
+  assert.equal(summary.deniedError, true);
+  assert.equal(summary.deniedCode, 'SCOPA_SCOPE_DENIED');
+  assert.equal(summary.canStop, true);
   assert.equal(
-    validateTranscript(transcript.result.structuredContent).terminal.canStop,
+    validateTranscript(summary.transcript).terminal.canStop,
     true,
   );
   assert.equal(
@@ -679,8 +718,4 @@ test('packed scopa-mcp binary interoperates over real newline JSON-RPC stdio', a
     () => access(path.join(temporary, 'installed-escape.txt')),
     { code: 'ENOENT' },
   );
-  client.close();
-  await once(child, 'exit');
-  assert.equal(child.exitCode, 0, stderr);
-  assert.equal(stderr, '');
 });

@@ -7,6 +7,8 @@ Initial candidate source:
 `e9b3c7003924df4db2be0298c3966bf1b95d2180`
 Round 2 candidate source:
 `9c64b6c25e217da18767c6aedda811b755bbbe63`
+Round 3 candidate source:
+`e17bbc2acfb70cadad2511b1f1338ddc346fde74`
 
 ## Exact-candidate boundary
 
@@ -82,6 +84,30 @@ runtime/configuration exit `1`, and command usage remains exit `2`. Source and
 installed-tarball regressions cover the five reported mutation families and
 the exit `1`/`2` controls. All three final reviews must be rerun by new agents
 against newly packed bytes.
+
+## Round 3 evidence and runtime rejection
+
+The round 3 artifact reviewer accepted the exact candidate. The evidence
+reviewer rejected it because runtime and published candidate validators
+accepted U+0000 and other control-bearing file paths despite claiming
+canonical POSIX-relative paths. The runtime reviewer separately rejected it
+because post-initialization parse and oversize transport errors failed closed
+on the wire but bypassed the forensic transcript. The 1 MiB guard also ran
+only after full-line buffering.
+
+The rejected bytes and reports are retained. Candidate paths now reject the
+entire C0/DEL control range in the shared normalizer and shipped schema; the
+installed parity corpus includes explicit NUL, LF, tab, and DEL cases. MCP
+stdio now uses a byte-capped streaming frame decoder, rejects invalid UTF-8,
+discards oversize bytes through the next frame boundary, and records bounded
+parse/size errors after initialization without retaining hostile frame
+content.
+
+The direct installed-stdio regression uses an independent Python wire client.
+This preserves real binary coverage while avoiding the managed runner's
+reproduced nested-Node pipe suppression. The packed README now points only to
+shipped consumer documentation, and the stale private installed receipt was
+replaced with the exact round 3 receipt before the next candidate.
 
 ## Fresh-review separation
 

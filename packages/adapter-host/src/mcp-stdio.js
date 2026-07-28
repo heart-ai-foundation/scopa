@@ -1,6 +1,6 @@
 import {
-  createInterface,
-} from 'node:readline';
+  TextDecoder,
+} from 'node:util';
 import {
   canonicalJson,
 } from '../../enforcement/src/index.js';
@@ -43,6 +43,22 @@ function errorResponse(id, code, message, data = null) {
     id,
     error,
   };
+}
+
+function transportProtocolError({
+  bridge,
+  code,
+  message,
+  details = null,
+}) {
+  bridge.recordProtocolError({
+    requestId: null,
+    method: '',
+    code,
+    message,
+    details,
+  });
+  return errorResponse(null, code, message);
 }
 
 function requestId(value) {
@@ -319,27 +335,103 @@ export async function serveMcpStdio({
   output = process.stdout,
   maxMessageBytes = MCP_MAX_MESSAGE_BYTES,
 }) {
+  if (
+    !Number.isSafeInteger(maxMessageBytes) ||
+    maxMessageBytes < 1 ||
+    maxMessageBytes > MCP_MAX_MESSAGE_BYTES
+  ) {
+    throw new RangeError(
+      `maxMessageBytes must be an integer from 1 to ${MCP_MAX_MESSAGE_BYTES}`,
+    );
+  }
   const handle = createMcpMessageHandler({ bridge });
-  const lines = createInterface({
-    input,
-    crlfDelay: Infinity,
-    terminal: false,
-  });
-  for await (const line of lines) {
+  const decoder = new TextDecoder('utf-8', { fatal: true });
+  for await (const frame of readMcpFrames(input, maxMessageBytes)) {
     let reply;
-    if (Buffer.byteLength(line, 'utf8') > maxMessageBytes) {
-      reply = errorResponse(null, -32600, 'message exceeds size limit');
+    if (frame.oversized) {
+      reply = transportProtocolError({
+        bridge,
+        code: -32600,
+        message: 'message exceeds size limit',
+        details: {
+          maxMessageBytes,
+        },
+      });
     } else {
       let message;
       try {
-        message = JSON.parse(line);
+        message = JSON.parse(decoder.decode(frame.bytes));
       } catch {
-        reply = errorResponse(null, -32700, 'Parse error');
+        reply = transportProtocolError({
+          bridge,
+          code: -32700,
+          message: 'Parse error',
+        });
       }
       if (message !== undefined) reply = await handle(message);
     }
     if (reply !== null) {
       output.write(`${canonicalJson(reply)}\n`);
     }
+  }
+}
+
+async function* readMcpFrames(input, maxMessageBytes) {
+  const lineBuffer = Buffer.allocUnsafe(maxMessageBytes);
+  let lineLength = 0;
+  let oversized = false;
+
+  function frame() {
+    if (oversized) {
+      return {
+        bytes: null,
+        oversized: true,
+      };
+    }
+    const contentLength =
+      lineLength > 0 && lineBuffer[lineLength - 1] === 0x0d
+        ? lineLength - 1
+        : lineLength;
+    return {
+      bytes: Buffer.from(lineBuffer.subarray(0, contentLength)),
+      oversized: false,
+    };
+  }
+
+  function reset() {
+    lineLength = 0;
+    oversized = false;
+  }
+
+  for await (const value of input) {
+    const chunk = Buffer.isBuffer(value) ? value : Buffer.from(value);
+    let offset = 0;
+    while (offset < chunk.length) {
+      const newline = chunk.indexOf(0x0a, offset);
+      const end = newline === -1 ? chunk.length : newline;
+      const segmentLength = end - offset;
+      if (!oversized) {
+        if (segmentLength > maxMessageBytes - lineLength) {
+          oversized = true;
+          lineLength = 0;
+        } else if (segmentLength > 0) {
+          chunk.copy(
+            lineBuffer,
+            lineLength,
+            offset,
+            end,
+          );
+          lineLength += segmentLength;
+        }
+      }
+      if (newline === -1) break;
+      yield frame();
+      reset();
+      offset = newline + 1;
+    }
+  }
+
+  if (oversized || lineLength > 0) {
+    yield frame();
   }
 }

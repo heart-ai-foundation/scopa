@@ -13,22 +13,22 @@ reference implementation.
 
 ## Status
 
-SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S9 are
+SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S12 are
 complete: conformance, sealed core, enforcement, legibility, signing and
 anchoring, CASE/UCO export, local distribution, the model-neutral MCP bridge,
 and separately evidenced Claude Code and Codex integrations with
-machine-readable behavior parity. S10 is validating source-free consumer
-adoption, policy readiness, independent verification, and claim boundaries.
-The package and repository remain private; publication requires a separate
-principal request.
+machine-readable behavior parity, source-free consumer qualification, and
+proof/distribution hardening. S13 is adversarially requalifying one exact
+private candidate. The package and repository remain private; publication
+requires a separate principal request.
 
 Start with:
 
-1. `next-prompt-protocols/.slice-lock.json`
-2. `next-prompt-protocols/manifest.json`
-3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
-4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-27-S10-developer-preview-release-candidate.md`
+1. `docs/QUICKSTART.md`
+2. `packages/cli/README.md`
+3. `packages/adapter-host/README.md`
+4. `docs/THREAT_MODEL.md`
+5. `docs/CLAIMS.md`
 
 ## Developer CLI
 

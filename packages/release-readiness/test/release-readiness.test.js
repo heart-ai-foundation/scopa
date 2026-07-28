@@ -202,6 +202,11 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
     'docs//README.md',
     'docs/README.md/',
     'docs\\README.md',
+    'bad\u0000name',
+    'bad\nname',
+    'bad\rname',
+    'bad\tname',
+    'bad\u007fname',
   ]) {
     const aliased = candidateManifest();
     aliased.files[0].path = nonCanonical;

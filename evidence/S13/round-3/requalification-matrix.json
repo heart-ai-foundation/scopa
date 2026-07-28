@@ -1,0 +1,102 @@
+{
+  "schema": "scopa.release-requalification-matrix.v1",
+  "sourceCommit": "e17bbc2acfb70cadad2511b1f1338ddc346fde74",
+  "candidateSha256": "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0",
+  "candidateEntryCount": 153,
+  "checks": [
+    {
+      "id": "exact-artifact-binding",
+      "status": "passed",
+      "evidence": "evidence/S13/exact-artifact-consistency.json"
+    },
+    {
+      "id": "source-free-consumer-proof",
+      "status": "passed",
+      "evidence": "evidence/S13/consumer-proof.public.json"
+    },
+    {
+      "id": "runtime-published-schema-parity",
+      "status": "passed",
+      "evidence": "evidence/S13/proof-contract-parity.json; 33/33 expected outcomes"
+    },
+    {
+      "id": "initial-medium-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "semantic adapter/claim drift and normalization aliases reject identically"
+    },
+    {
+      "id": "runtime-exit-contract-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "source and installed-package tests reproduce five tamper classes as exit 5, unreadable input as exit 1, and usage as exit 2"
+    },
+    {
+      "id": "redaction-collision-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/redaction-collision-regression.json"
+    },
+    {
+      "id": "installed-surface-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/installed-surface-regression.json"
+    },
+    {
+      "id": "governed-adapter",
+      "status": "passed",
+      "evidence": "public proof records exact six tools, allowed write, scope denial, satisfied terminal state, and full deterministic-fixture assurance"
+    },
+    {
+      "id": "known-failure",
+      "status": "passed",
+      "evidence": "public proof records exit 4, SCOPA_COMPLETION_BLOCKED, and canStop false"
+    },
+    {
+      "id": "signature-and-trust-verification",
+      "status": "passed",
+      "evidence": "public proof records native packet verification exit 0 and ok true; accumulated source and packed-install mutation tests pass"
+    },
+    {
+      "id": "package-privacy-launcher",
+      "status": "passed",
+      "evidence": "installed regression records 153 scanned files, zero findings, and closed launcher behavior"
+    },
+    {
+      "id": "dependency-audit",
+      "status": "passed",
+      "evidence": "evidence/S13/dependency-audit.json"
+    },
+    {
+      "id": "accumulated-local-gate",
+      "status": "passed",
+      "evidence": "111/111 discovered tests plus S8-S12 focused gates"
+    },
+    {
+      "id": "fresh-final-artifact-review",
+      "status": "running",
+      "evidence": "evidence/S13/artifact-review.final.md"
+    },
+    {
+      "id": "fresh-final-evidence-review",
+      "status": "running",
+      "evidence": "evidence/S13/evidence-review.final.md"
+    },
+    {
+      "id": "fresh-final-runtime-review",
+      "status": "running",
+      "evidence": "evidence/S13/runtime-review.final.md"
+    },
+    {
+      "id": "provider-credential-rotation",
+      "status": "pending-principal-confirmation",
+      "evidence": "boolean provider-side confirmation only; no values may be retained"
+    },
+    {
+      "id": "final-hosted-gate",
+      "status": "pending",
+      "evidence": "final S13 evidence commit run"
+    }
+  ],
+  "rq1Ready": true,
+  "rq2Ready": false,
+  "rq3Ready": false,
+  "publicationAuthorized": false
+}

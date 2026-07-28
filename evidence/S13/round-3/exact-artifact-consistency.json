@@ -1,0 +1,38 @@
+{
+  "candidate": {
+    "allBindingsMatch": true,
+    "bindings": [
+      "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0",
+      "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0",
+      "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0",
+      "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0",
+      "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0"
+    ],
+    "entryCount": 153,
+    "manifestSha256": "f211054ae6c5e82697724e17f40c2550d6045d8151339e8649132b2e899de040",
+    "repeatedPackingByteIdentical": true,
+    "sha256": "740cfc630cefde123b871dd2d7d1c1975a02c2f4edf8d3d0c8da82484ecaa5e0"
+  },
+  "ok": true,
+  "publication": {
+    "publicProofSha256": "ad6f362d57fedcee0fb7c2b1c909997e1437e625fceb366d9e71616a9b002432",
+    "rawProofSha256": "fccf4c2a87e018933bb548ce43a2c156d4865e15d83970cfe36f9c5d2be3ec2b",
+    "receiptSourceSha256": "fccf4c2a87e018933bb548ce43a2c156d4865e15d83970cfe36f9c5d2be3ec2b",
+    "redactions": [
+      {
+        "field": "/environment/sourceRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_SOURCE_ROOT]"
+      },
+      {
+        "field": "/environment/temporaryRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_CONSUMER_TEMP_ROOT]"
+      }
+    ],
+    "regeneratedByteIdentical": true,
+    "semanticFieldsChanged": false
+  },
+  "schema": "scopa.exact-artifact-consistency.v1",
+  "sourceCommit": "e17bbc2acfb70cadad2511b1f1338ddc346fde74"
+}

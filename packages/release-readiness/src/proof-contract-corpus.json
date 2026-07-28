@@ -475,6 +475,54 @@
       "expected": "reject"
     },
     {
+      "id": "file-path-nul-control",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "bad\u0000name"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-line-feed-control",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "bad\nname"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-tab-control",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "bad\tname"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "file-path-del-control",
+      "target": "candidate",
+      "mutations": [
+        {
+          "operation": "replace",
+          "path": "/files/0/path",
+          "value": "bad\u007fname"
+        }
+      ],
+      "expected": "reject"
+    },
+    {
       "id": "unsafe-integer",
       "target": "candidate",
       "mutations": [
