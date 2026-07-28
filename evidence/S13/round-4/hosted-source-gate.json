@@ -1,0 +1,22 @@
+{
+  "schema": "scopa.hosted-gate.v1",
+  "runId": 30365823746,
+  "jobId": 90296680338,
+  "sourceCommit": "1d4239cc5a30226bbf41e263fb217b84fb7ecf04",
+  "status": "completed",
+  "conclusion": "success",
+  "startedAt": "2026-07-28T13:55:51Z",
+  "completedAt": "2026-07-28T13:56:32Z",
+  "stepsPassed": 14,
+  "node20ActionRuntimeWarning": false,
+  "deprecationOrCompatibilityWarning": false,
+  "genericWarnings": [
+    {
+      "source": "git",
+      "classification": "initial-branch-name hint",
+      "actionRuntimeRelated": false
+    }
+  ],
+  "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30365823746",
+  "ok": true
+}

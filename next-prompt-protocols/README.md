@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `ccc2672`
+Current commit reference: `1d4239c`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -179,6 +179,7 @@ These protocols are specific to:
 - `packages/cli/src/command.js`
 - `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
+- `packages/interop/README.md`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
 - `fixtures/S13/**`

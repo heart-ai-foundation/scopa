@@ -74,6 +74,7 @@ Macro Delta and creates no independent work.
 - `packages/cli/src/command.js`
 - `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
+- `packages/interop/README.md`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
 - `fixtures/S13/**`

@@ -9,6 +9,8 @@ Round 2 candidate source:
 `9c64b6c25e217da18767c6aedda811b755bbbe63`
 Round 3 candidate source:
 `e17bbc2acfb70cadad2511b1f1338ddc346fde74`
+Round 4 candidate source:
+`1d4239cc5a30226bbf41e263fb217b84fb7ecf04`
 
 ## Exact-candidate boundary
 
@@ -109,6 +111,25 @@ This preserves real binary coverage while avoiding the managed runner's
 reproduced nested-Node pipe suppression. The packed README now points only to
 shipped consumer documentation, and the stale private installed receipt was
 replaced with the exact round 3 receipt before the next candidate.
+
+## Round 4 documentation rejection
+
+Round 4 bound source
+`1d4239cc5a30226bbf41e263fb217b84fb7ecf04` to candidate SHA-256
+`239ab6a4cfe6d6daf37f2e2fe0322782e1aca4cfdd8a0264641950aa03cba53e`.
+The fresh evidence and runtime reviewers accepted the exact bytes. The fresh
+artifact reviewer rejected them because packed documentation referenced two
+unshipped canon files and an unshipped Python requirements file. Although the
+runtime reviewer accepted, it also noted that the documented 1 MiB frame
+retention bound described accumulation plus a transient parse copy too
+broadly.
+
+The rejected bytes, receipts, requests, and reports remain retained. The
+narrow remediation makes the consumer artifact describe its shipped
+reviewable contract, gives a source-free pinned CASE installation command,
+and clarifies that the 1 MiB bound applies to frame-accumulation state. The
+official packer now scans every packed Markdown document and rejects local
+documentation references that are absent from the candidate inventory.
 
 ## Fresh-review separation
 

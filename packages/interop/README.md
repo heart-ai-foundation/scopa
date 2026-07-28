@@ -54,7 +54,7 @@ extra properties before operating on a fresh normalized JSON clone.
 Install the pinned independent consumer in a separate Python environment:
 
 ```sh
-python -m pip install -r packages/interop/requirements-case-validator.txt
+python -m pip install case-utils==0.17.0
 case_validate --built-version case-1.4.0 export.jsonld
 ```
 

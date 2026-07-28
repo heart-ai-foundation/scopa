@@ -285,8 +285,9 @@ above it through profiles.
 
 ## Canon
 
-- `spec/SCOPA_Kernel_Specification_v0_1.md`
-- `spec/SCOPA_Canon_Amendment_Note_v1_1.md`
+The protocol canon is maintained by Heart AI Foundation outside the consumer
+artifact. The installed runtime's reviewable contract is carried by
+`schemas/`, `docs/CLAIMS.md`, and `docs/THREAT_MODEL.md`.
 
 ## Build governance
 

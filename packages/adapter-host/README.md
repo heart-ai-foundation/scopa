@@ -60,9 +60,9 @@ evidence or shared without review.
 - Tool arguments are closed JSON schemas.
 - Unknown tools, unsupported methods, malformed calls, duplicate IDs, and
   messages over 1 MiB fail before tool execution.
-- The newline decoder caps retained frame bytes at 1 MiB before parsing or
-  complete-line buffering; excess bytes are discarded through the next frame
-  boundary.
+- The newline decoder caps its frame-accumulation state at 1 MiB before
+  parsing or complete-line buffering; excess bytes are discarded through the
+  next frame boundary.
 - Scope and completion failures are MCP tool errors with correction-bearing
   structured results.
 - `scopa_check` returns `isError: true` whenever `canStop` is false.

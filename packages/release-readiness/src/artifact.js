@@ -84,6 +84,80 @@ function assertPackedSurface(files) {
   }
 }
 
+const PACKED_DOCUMENT_REFERENCE =
+  /\b(?:docs|fixtures|packages|schemas|spec)\/[A-Za-z0-9@._/*-]+/g;
+
+export function findMissingPackedDocumentationReferences({
+  documents,
+  packedPaths,
+}) {
+  if (
+    !Array.isArray(documents) ||
+    !Array.isArray(packedPaths) ||
+    documents.some(
+      (entry) =>
+        typeof entry?.path !== 'string' ||
+        typeof entry?.text !== 'string',
+    ) ||
+    packedPaths.some((entry) => typeof entry !== 'string')
+  ) {
+    throw new TypeError(
+      'documentation reference audit requires documents and packed paths',
+    );
+  }
+  const packed = new Set(packedPaths);
+  const missing = [];
+  for (const document of documents) {
+    const localText = document.text.replace(
+      /https?:\/\/[^\s)]+/g,
+      '',
+    );
+    for (const match of localText.matchAll(PACKED_DOCUMENT_REFERENCE)) {
+      const reference = match[0].replace(/[.,;:]+$/g, '');
+      if (
+        reference.includes('*') ||
+        packed.has(reference) ||
+        packedPaths.some((filePath) =>
+          filePath.startsWith(`${reference.replace(/\/+$/g, '')}/`)
+        )
+      ) {
+        continue;
+      }
+      missing.push({
+        document: document.path,
+        reference,
+      });
+    }
+  }
+  return missing.sort((left, right) => {
+    const leftKey = `${left.document}\0${left.reference}`;
+    const rightKey = `${right.document}\0${right.reference}`;
+    return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+  });
+}
+
+async function assertPackedDocumentationReferences(root, files) {
+  const packedPaths = files.map(({ path: filePath }) => filePath);
+  const documents = await Promise.all(
+    packedPaths
+      .filter((filePath) => filePath.endsWith('.md'))
+      .map(async (filePath) => ({
+        path: filePath,
+        text: await readFile(path.join(root, ...filePath.split('/')), 'utf8'),
+      })),
+  );
+  const missing = findMissingPackedDocumentationReferences({
+    documents,
+    packedPaths,
+  });
+  if (missing.length !== 0) {
+    const [{ document, reference }] = missing;
+    throw new Error(
+      `packed documentation ${document} references absent ${reference}`,
+    );
+  }
+}
+
 export function createConsumerPackageJson(sourcePackage) {
   if (
     sourcePackage === null ||
@@ -121,6 +195,7 @@ async function createConsumerStage(root) {
   if (!Array.isArray(records) || records.length !== 1) {
     throw new Error('npm pack dry run must return exactly one record');
   }
+  await assertPackedDocumentationReferences(root, records[0].files);
   const stageRoot = await mkdtemp(
     path.join(os.tmpdir(), 'scopa-consumer-stage-'),
   );

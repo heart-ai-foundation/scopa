@@ -212,6 +212,45 @@ Post-remediation gates:
 
 Another clean candidate and three entirely new exact-byte reviews are required.
 
+## Round 4 exact candidate and reviews
+
+Round 4 bound source
+`1d4239cc5a30226bbf41e263fb217b84fb7ecf04` to candidate SHA-256
+`239ab6a4cfe6d6daf37f2e2fe0322782e1aca4cfdd8a0264641950aa03cba53e`,
+153 entries, 144339 packed bytes, and 560284 unpacked bytes. Two official
+repacks were byte-identical. The exact manifest, raw proof, public proof,
+installed probe, 37-case parity corpus, collision corpus, dependency audit,
+local gate, and hosted source gate passed.
+
+Fresh isolated verdicts:
+
+- artifact/distribution: `REJECT`, one medium packaged-documentation finding;
+- proof/evidence: `ACCEPT`, no critical/high/medium finding;
+- runtime/containment: `ACCEPT`, no critical/high/medium finding and one low
+  documentation-precision finding.
+
+The artifact reviewer found three local paths prescribed by packed
+documentation but absent from the package inventory. The runtime reviewer
+confirmed bounded framing but noted that a transient `Buffer.from` copy makes
+literal raw-frame retention broader than the 1 MiB accumulation bound. Round
+4 cannot satisfy RQ2.
+
+## Round 4 documentation remediation
+
+- the packed root README no longer sends consumers to unshipped canon files;
+- the interop README installs the pinned CASE validator directly from its
+  package coordinate;
+- the MCP README states the 1 MiB frame-accumulation bound precisely;
+- the official pack path audits every packed Markdown document against the
+  actual npm inventory and rejects absent local references;
+- a focused regression covers valid packed, external, and absent references.
+
+A dirty-tree diagnostic pack exercised the new audit over the complete
+153-file npm inventory and passed. The accumulated gate passed 113/113 tests,
+the dependency audit found zero vulnerabilities, and the protocol and diff
+checks passed. A new clean candidate and three entirely new exact-byte reviews
+are required.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

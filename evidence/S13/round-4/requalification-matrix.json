@@ -1,0 +1,102 @@
+{
+  "schema": "scopa.release-requalification-matrix.v1",
+  "sourceCommit": "1d4239cc5a30226bbf41e263fb217b84fb7ecf04",
+  "candidateSha256": "239ab6a4cfe6d6daf37f2e2fe0322782e1aca4cfdd8a0264641950aa03cba53e",
+  "candidateEntryCount": 153,
+  "checks": [
+    {
+      "id": "exact-artifact-binding",
+      "status": "passed",
+      "evidence": "evidence/S13/exact-artifact-consistency.json"
+    },
+    {
+      "id": "source-free-consumer-proof",
+      "status": "passed",
+      "evidence": "evidence/S13/consumer-proof.public.json"
+    },
+    {
+      "id": "runtime-published-schema-parity",
+      "status": "passed",
+      "evidence": "evidence/S13/proof-contract-parity.json; 37/37 expected outcomes"
+    },
+    {
+      "id": "initial-medium-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "semantic adapter/claim drift, normalization aliases, and C0/DEL paths reject identically"
+    },
+    {
+      "id": "runtime-exit-contract-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "five tamper classes return exit 5; unreadable input remains 1 and usage remains 2"
+    },
+    {
+      "id": "mcp-transport-evidence-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "bounded streaming decoder records parse/oversize protocol errors without hostile content; packed Python wire test passes"
+    },
+    {
+      "id": "redaction-collision-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/redaction-collision-regression.json"
+    },
+    {
+      "id": "installed-surface-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/installed-surface-regression.json"
+    },
+    {
+      "id": "governed-adapter",
+      "status": "passed",
+      "evidence": "exact six tools, contained write, scope denial, satisfied terminal state, and full deterministic-fixture assurance"
+    },
+    {
+      "id": "known-failure",
+      "status": "passed",
+      "evidence": "exit 4, SCOPA_COMPLETION_BLOCKED, and canStop false"
+    },
+    {
+      "id": "package-privacy-launcher",
+      "status": "passed",
+      "evidence": "153 files scanned, zero findings, closed launcher behavior, shipped documentation only"
+    },
+    {
+      "id": "dependency-audit",
+      "status": "passed",
+      "evidence": "evidence/S13/dependency-audit.json"
+    },
+    {
+      "id": "accumulated-local-gate",
+      "status": "passed",
+      "evidence": "112/112 discovered tests plus S8-S12 focused gates"
+    },
+    {
+      "id": "fresh-final-artifact-review",
+      "status": "running",
+      "evidence": "evidence/S13/artifact-review.final.md"
+    },
+    {
+      "id": "fresh-final-evidence-review",
+      "status": "running",
+      "evidence": "evidence/S13/evidence-review.final.md"
+    },
+    {
+      "id": "fresh-final-runtime-review",
+      "status": "running",
+      "evidence": "evidence/S13/runtime-review.final.md"
+    },
+    {
+      "id": "provider-credential-rotation",
+      "status": "pending-principal-confirmation",
+      "evidence": "boolean provider-side confirmation only; no values may be retained"
+    },
+    {
+      "id": "final-hosted-gate",
+      "status": "pending",
+      "evidence": "final S13 evidence commit run"
+    }
+  ],
+  "rq1Ready": true,
+  "rq2Ready": false,
+  "rq3Ready": false,
+  "publicationAuthorized": false
+}

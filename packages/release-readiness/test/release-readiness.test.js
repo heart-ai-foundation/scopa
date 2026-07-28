@@ -18,6 +18,7 @@ import {
   RELEASE_SCHEMAS,
   auditReleasePolicies,
   createPublicConsumerProof,
+  findMissingPackedDocumentationReferences,
   validateCandidateManifest,
   validateConsumerProof,
   validatePolicyAudit,
@@ -215,6 +216,45 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
       /contract violation/,
     );
   }
+});
+
+test('candidate documentation cannot reference absent packed files', () => {
+  const packedPaths = [
+    'README.md',
+    'docs/CLAIMS.md',
+    'packages/cli/README.md',
+  ];
+  assert.deepEqual(
+    findMissingPackedDocumentationReferences({
+      documents: [
+        {
+          path: 'README.md',
+          text:
+            'Read `docs/CLAIMS.md`, `packages/cli/README.md`, and ' +
+            'https://example.test/docs/external.md.',
+        },
+      ],
+      packedPaths,
+    }),
+    [],
+  );
+  assert.deepEqual(
+    findMissingPackedDocumentationReferences({
+      documents: [
+        {
+          path: 'README.md',
+          text: 'Read `spec/missing.md`.',
+        },
+      ],
+      packedPaths,
+    }),
+    [
+      {
+        document: 'README.md',
+        reference: 'spec/missing.md',
+      },
+    ],
+  );
 });
 
 test('policy audit cannot claim green over a failed constituent check', () => {
