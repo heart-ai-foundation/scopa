@@ -1,0 +1,25 @@
+{
+  "schema": "scopa.hosted-warning-audit.v1",
+  "repository": "heart-ai-foundation/scopa",
+  "workflow": "SCOPA release gate",
+  "runId": 30339873079,
+  "jobId": 90212807554,
+  "headSha": "04cb8052ff80251f9c189650b0e6e349b37fdcbb",
+  "status": "completed",
+  "conclusion": "success",
+  "durationSeconds": 42,
+  "searchedTerms": [
+    "Node.js 20",
+    "deprecated",
+    "compatibility",
+    "warning"
+  ],
+  "nodeActionRuntimeWarningPresent": false,
+  "otherWarnings": [
+    {
+      "kind": "git-initial-branch-name-hint",
+      "actionRuntimeRelated": false
+    }
+  ],
+  "runUrl": "https://github.com/heart-ai-foundation/scopa/actions/runs/30339873079"
+}

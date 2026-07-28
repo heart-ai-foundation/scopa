@@ -1,6 +1,6 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `f83b3c1`
+Current commit reference: `04cb805`
 Current active protocol: `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
 
 ## Scope

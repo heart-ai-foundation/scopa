@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "f83b3c1",
+  "current_commit": "04cb805",
   "current_phase": "phase-5-adversarial-hardening",
   "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
@@ -590,7 +590,7 @@
         {
           "id": "DH1",
           "statement": "Every shipped bin, export, and script either runs from an installed tarball or is absent from the consumer contract.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Tarball-only installed-command inventory and execution matrix",
           "discovered_on": "2026-07-27",
           "discovered_because": "Post-S10 adversarial finding PKG-01"
@@ -598,7 +598,7 @@
         {
           "id": "DH2",
           "statement": "Package bytes contain no contributor-specific path sentinel and default launcher failures expose no stack or absolute install path.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Package privacy scan and hostile structured-launcher error corpus",
           "discovered_on": "2026-07-27",
           "discovered_because": "Post-S10 adversarial findings PRIV-01 and ERR-01"
@@ -606,7 +606,7 @@
         {
           "id": "DH3",
           "statement": "Hosted CI uses supported action runtimes without action-runtime deprecation warnings.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Workflow version audit and successful warning-free hosted release gate",
           "discovered_on": "2026-07-27",
           "discovered_because": "S10 terminal hosted-run maintenance warning"

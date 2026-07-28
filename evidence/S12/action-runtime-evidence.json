@@ -1,0 +1,31 @@
+{
+  "schema": "scopa.action-runtime-evidence.v1",
+  "observedAt": "2026-07-28",
+  "source": "authoritative GitHub action repositories",
+  "actions": [
+    {
+      "repository": "actions/checkout",
+      "release": "v7.0.1",
+      "publishedAt": "2026-07-20T15:10:05Z",
+      "releaseUrl": "https://github.com/actions/checkout/releases/tag/v7.0.1",
+      "actionDefinition": "https://github.com/actions/checkout/blob/v7.0.1/action.yml",
+      "runtime": "node24"
+    },
+    {
+      "repository": "actions/setup-node",
+      "release": "v7.0.0",
+      "publishedAt": "2026-07-14T02:46:05Z",
+      "releaseUrl": "https://github.com/actions/setup-node/releases/tag/v7.0.0",
+      "actionDefinition": "https://github.com/actions/setup-node/blob/v7.0.0/action.yml",
+      "runtime": "node24"
+    },
+    {
+      "repository": "actions/setup-python",
+      "release": "v7.0.0",
+      "publishedAt": "2026-07-20T03:15:01Z",
+      "releaseUrl": "https://github.com/actions/setup-python/releases/tag/v7.0.0",
+      "actionDefinition": "https://github.com/actions/setup-python/blob/v7.0.0/action.yml",
+      "runtime": "node24"
+    }
+  ]
+}

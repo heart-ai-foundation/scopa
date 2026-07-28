@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "f83b3c1",
+  "current_commit": "04cb805",
   "current_phase": "phase-5-adversarial-hardening",
   "active_protocol": "active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
   "active_class": "arc",

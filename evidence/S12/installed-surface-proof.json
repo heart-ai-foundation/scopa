@@ -1,0 +1,971 @@
+{
+  "candidate": {
+    "deterministic": true,
+    "manifest": {
+      "files": [
+        {
+          "mode": 420,
+          "path": "CONTRIBUTING.md",
+          "size": 1296
+        },
+        {
+          "mode": 420,
+          "path": "GOVERNANCE.md",
+          "size": 1808
+        },
+        {
+          "mode": 420,
+          "path": "LICENSE",
+          "size": 11357
+        },
+        {
+          "mode": 420,
+          "path": "README.md",
+          "size": 12379
+        },
+        {
+          "mode": 420,
+          "path": "SECURITY.md",
+          "size": 1540
+        },
+        {
+          "mode": 420,
+          "path": "docs/CLAIMS.md",
+          "size": 1879
+        },
+        {
+          "mode": 420,
+          "path": "docs/QUICKSTART.md",
+          "size": 3026
+        },
+        {
+          "mode": 420,
+          "path": "docs/THREAT_MODEL.md",
+          "size": 5003
+        },
+        {
+          "mode": 420,
+          "path": "docs/VERSIONING.md",
+          "size": 882
+        },
+        {
+          "mode": 420,
+          "path": "docs/release-posture.json",
+          "size": 1020
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/2026-07-26-freetsa-packet.json",
+          "size": 17292
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/capability-matrix.json",
+          "size": 2484
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/clean.slice-definition.json",
+          "size": 692
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/consumer-client.mjs",
+          "size": 5005
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/failing.slice-definition.json",
+          "size": 484
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/freetsa-root.pem",
+          "size": 2833
+        },
+        {
+          "mode": 420,
+          "path": "fixtures/S10/session.json",
+          "size": 421
+        },
+        {
+          "mode": 420,
+          "path": "package.json",
+          "size": 1203
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/README.md",
+          "size": 3879
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/package.json",
+          "size": 211
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/assurance.js",
+          "size": 4639
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/bridge.js",
+          "size": 11742
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/cli.js",
+          "size": 3967
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/fake-agent-client.js",
+          "size": 1984
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/index.js",
+          "size": 195
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/mcp-stdio.js",
+          "size": 8482
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/schema.js",
+          "size": 2174
+        },
+        {
+          "mode": 420,
+          "path": "packages/adapter-host/src/transcript.js",
+          "size": 9966
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/README.md",
+          "size": 1749
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/package.json",
+          "size": 224
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/src/host-cli.js",
+          "size": 1472
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/src/index.js",
+          "size": 71
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/src/orientation.js",
+          "size": 954
+        },
+        {
+          "mode": 420,
+          "path": "packages/agent-surface/src/reference-host.js",
+          "size": 1174
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/README.md",
+          "size": 1615
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/package.json",
+          "size": 198
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/src/cli.js",
+          "size": 1314
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/src/command.js",
+          "size": 8021
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/src/index.js",
+          "size": 60
+        },
+        {
+          "mode": 420,
+          "path": "packages/cli/src/project.js",
+          "size": 9627
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/package.json",
+          "size": 269
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/canonical-json.js",
+          "size": 1976
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/probe.js",
+          "size": 2440
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/release-gate.js",
+          "size": 2707
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/replay-equivalence.js",
+          "size": 6094
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/run-node-tests.js",
+          "size": 330
+        },
+        {
+          "mode": 420,
+          "path": "packages/conformance/src/untrusted-data-containment.js",
+          "size": 5440
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/README.md",
+          "size": 2427
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/package.json",
+          "size": 156
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/acceptance-probe.js",
+          "size": 6834
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/index.js",
+          "size": 762
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/infer-link.js",
+          "size": 2443
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/infer-pin.js",
+          "size": 5300
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/key-class.js",
+          "size": 3181
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/packet.js",
+          "size": 4441
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/rfc3161.js",
+          "size": 10474
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/schema.js",
+          "size": 3003
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/signature.js",
+          "size": 5860
+        },
+        {
+          "mode": 420,
+          "path": "packages/depth/src/verify-packet-cli.js",
+          "size": 1911
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/package.json",
+          "size": 162
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/canonical-json.js",
+          "size": 1257
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/completion.js",
+          "size": 3166
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/gate-runner.js",
+          "size": 3055
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/index.js",
+          "size": 236
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/live-probe.js",
+          "size": 4214
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/lock.js",
+          "size": 6118
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/path-boundary.js",
+          "size": 5781
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/rotation.js",
+          "size": 2852
+        },
+        {
+          "mode": 420,
+          "path": "packages/enforcement/src/tool-dispatcher.js",
+          "size": 2309
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/README.md",
+          "size": 2257
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/package.json",
+          "size": 169
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/src/index.js",
+          "size": 88
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/src/live-probe.js",
+          "size": 9800
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/src/normalize.js",
+          "size": 11698
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/src/profile.js",
+          "size": 10030
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/claude/src/run.js",
+          "size": 6271
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/README.md",
+          "size": 2831
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/package.json",
+          "size": 168
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/index.js",
+          "size": 117
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/live-probe.js",
+          "size": 10157
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/normalize.js",
+          "size": 11334
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/parity.js",
+          "size": 5092
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/profile.js",
+          "size": 11531
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/publish-proof.js",
+          "size": 3430
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/run.js",
+          "size": 7169
+        },
+        {
+          "mode": 420,
+          "path": "packages/integrations/codex/src/verify-parity.js",
+          "size": 1469
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/README.md",
+          "size": 2674
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/package.json",
+          "size": 158
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/case-validator-cli.js",
+          "size": 2178
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/cli-options.js",
+          "size": 1922
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/export-cli.js",
+          "size": 1938
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/export.js",
+          "size": 9692
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/index.js",
+          "size": 456
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/mapping.js",
+          "size": 1610
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/round-trip.js",
+          "size": 3908
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/schema.js",
+          "size": 6923
+        },
+        {
+          "mode": 420,
+          "path": "packages/interop/src/verify-case-cli.js",
+          "size": 1620
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/package.json",
+          "size": 158
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/bytes.js",
+          "size": 1386
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/content-store.js",
+          "size": 1878
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/dcbor.js",
+          "size": 4901
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/effect-schema.js",
+          "size": 2907
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/file-store.js",
+          "size": 3498
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/hash.js",
+          "size": 371
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/index.js",
+          "size": 252
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/memory-store.js",
+          "size": 863
+        },
+        {
+          "mode": 420,
+          "path": "packages/journal/src/record.js",
+          "size": 8562
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/package.json",
+          "size": 162
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/act-suppression-probe.js",
+          "size": 1603
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/cross-runtime-probe.js",
+          "size": 1180
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/effects.js",
+          "size": 52
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/executor.js",
+          "size": 11243
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/idempotency.js",
+          "size": 6630
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/index.js",
+          "size": 133
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/integrity-probe.js",
+          "size": 1642
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/lockdown-probe.js",
+          "size": 1807
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/locked-workflow.js",
+          "size": 2943
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/synthetic-workflow.js",
+          "size": 3295
+        },
+        {
+          "mode": 420,
+          "path": "packages/kernel-core/src/vector.js",
+          "size": 1930
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/README.md",
+          "size": 2750
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/package.json",
+          "size": 161
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/agent-plan-probe.js",
+          "size": 703
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/agent-plan.js",
+          "size": 8417
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/analyze.js",
+          "size": 9222
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/capture-model-session.js",
+          "size": 3101
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/index.js",
+          "size": 210
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/live-observe-probe.js",
+          "size": 492
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/live-observe.js",
+          "size": 2923
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/model-session-receipt.js",
+          "size": 2998
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/observe-session.js",
+          "size": 3603
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/profile.js",
+          "size": 5726
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/verify-agent-plan-evidence.js",
+          "size": 490
+        },
+        {
+          "mode": 420,
+          "path": "packages/legibility/src/verify-model-session-receipt.js",
+          "size": 1044
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/README.md",
+          "size": 2341
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/package.json",
+          "size": 128
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/artifact.js",
+          "size": 6897
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/audit-policy.js",
+          "size": 571
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/constants.js",
+          "size": 1837
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/consumer-probe.js",
+          "size": 10020
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/index.js",
+          "size": 361
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/installed-surface-probe.js",
+          "size": 13738
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/package-privacy.js",
+          "size": 2236
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/policy.js",
+          "size": 7637
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/proof-contract-corpus.json",
+          "size": 10465
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/proof-parity-probe.js",
+          "size": 5087
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/publish-proof.js",
+          "size": 4540
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/published-contracts.js",
+          "size": 2799
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/schema.js",
+          "size": 2297
+        },
+        {
+          "mode": 420,
+          "path": "packages/release-readiness/src/subprocess.js",
+          "size": 2283
+        },
+        {
+          "mode": 420,
+          "path": "schemas/scopa.candidate-manifest.v1.schema.json",
+          "size": 2899
+        },
+        {
+          "mode": 420,
+          "path": "schemas/scopa.consumer-proof.v1.schema.json",
+          "size": 4425
+        },
+        {
+          "mode": 420,
+          "path": "schemas/scopa.release-posture.v1.schema.json",
+          "size": 3241
+        }
+      ],
+      "package": {
+        "entryCount": 152,
+        "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+        "integrity": "sha512-6CRjmAnfDiQ/Ku0JHBqIbRiTcDY25cM2FU7jBQfMoctV82tLwblWzUBaPLEtH717D468Zh3XbfRnhXRMTEAp/A==",
+        "name": "@heart-ai-foundation/scopa",
+        "packedBytes": 142233,
+        "sha256": "2bc09658a8a0cda1221a14daa42a9daffe3f947d0f200876171b978306055466",
+        "shasum": "438a67344fd3e93f5951d6e93293809a09aaed1e",
+        "unpackedBytes": 549248,
+        "version": "0.2.0-dev.1"
+      },
+      "schema": "scopa.candidate-manifest.v1",
+      "source": {
+        "commit": "04cb8052ff80251f9c189650b0e6e349b37fdcbb",
+        "dirty": false
+      }
+    },
+    "repeatSha256": "2bc09658a8a0cda1221a14daa42a9daffe3f947d0f200876171b978306055466"
+  },
+  "consumerPackage": {
+    "bin": {
+      "scopa": "./packages/cli/src/cli.js",
+      "scopa-mcp": "./packages/adapter-host/src/cli.js"
+    },
+    "dependencies": {
+      "@endo/lockdown": "1.0.19",
+      "@noble/hashes": "2.2.0",
+      "ajv": "8.20.0",
+      "cborg": "5.1.8"
+    },
+    "description": "Open enforcement runtime for bounded, verifiable autonomous coding work",
+    "engines": {
+      "node": ">=22"
+    },
+    "exports": {
+      "./claude": "./packages/integrations/claude/src/index.js",
+      "./codex": "./packages/integrations/codex/src/index.js",
+      "./release-readiness": "./packages/release-readiness/src/index.js"
+    },
+    "files": [
+      "README.md",
+      "LICENSE",
+      "SECURITY.md",
+      "CONTRIBUTING.md",
+      "GOVERNANCE.md",
+      "docs/**",
+      "schemas/**",
+      "fixtures/S10/**",
+      "packages/*/README.md",
+      "packages/*/package.json",
+      "packages/*/src/**",
+      "packages/integrations/*/README.md",
+      "packages/integrations/*/package.json",
+      "packages/integrations/*/src/**"
+    ],
+    "license": "Apache-2.0",
+    "name": "@heart-ai-foundation/scopa",
+    "private": true,
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/heart-ai-foundation/scopa.git"
+    },
+    "type": "module",
+    "version": "0.2.0-dev.1"
+  },
+  "launcher": {
+    "cases": [
+      {
+        "code": "SCOPA_LAUNCHER_ARGUMENT_INVALID",
+        "defaultPathFree": true,
+        "defaultStackFree": true,
+        "name": "invalid-option"
+      },
+      {
+        "code": "SCOPA_LAUNCHER_INPUT_UNAVAILABLE",
+        "defaultPathFree": true,
+        "defaultStackFree": true,
+        "name": "unavailable-input"
+      },
+      {
+        "code": "SCOPA_LAUNCHER_INPUT_INVALID",
+        "defaultPathFree": true,
+        "defaultStackFree": true,
+        "name": "malformed-session"
+      },
+      {
+        "code": "SCOPA_LAUNCHER_CONFIGURATION_INVALID",
+        "defaultPathFree": true,
+        "defaultStackFree": true,
+        "name": "invalid-session"
+      },
+      {
+        "code": "SCOPA_LAUNCHER_CONFIGURATION_INVALID",
+        "defaultPathFree": true,
+        "defaultStackFree": true,
+        "name": "invalid-capability-matrix"
+      }
+    ],
+    "diagnosticOptIn": {
+      "envelopeFirst": true,
+      "environment": "SCOPA_DEBUG_ERRORS",
+      "stackPresent": true
+    }
+  },
+  "matrix": {
+    "bins": [
+      {
+        "executable": true,
+        "name": "scopa",
+        "outcome": "initialized-and-satisfied"
+      },
+      {
+        "executable": true,
+        "name": "scopa-mcp",
+        "outcome": "closed-launcher-rejection"
+      }
+    ],
+    "exports": [
+      {
+        "exports": [
+          "CLAUDE_AGENT_INVENTORY",
+          "CLAUDE_FINAL_SCHEMA",
+          "CLAUDE_INPUT_SETTLE_MS",
+          "CLAUDE_MCP_SERVER_NAME",
+          "CLAUDE_MCP_TOOLS",
+          "CLAUDE_MCP_TOOL_PREFIX",
+          "CLAUDE_MODEL_OBSERVED",
+          "CLAUDE_MODEL_REQUEST",
+          "ClaudeStreamError",
+          "EXPECTED_CLAUDE_CODE_VERSION",
+          "buildClaudeInvocation",
+          "createClaudeCapabilityMatrix",
+          "createClaudeMcpConfig",
+          "createClaudeSession",
+          "normalizeClaudeStream",
+          "parseClaudeVersion",
+          "runClaudeSession",
+          "validateClaudeInvocation"
+        ],
+        "specifier": "@heart-ai-foundation/scopa/claude"
+      },
+      {
+        "exports": [
+          "CODEX_DISABLED_FEATURES",
+          "CODEX_FINAL_SCHEMA",
+          "CODEX_MCP_SERVER_NAME",
+          "CODEX_MCP_TOOLS",
+          "CODEX_MODEL_REQUEST",
+          "CodexStreamError",
+          "EXPECTED_CODEX_CLI_VERSION",
+          "assertAgentParity",
+          "buildCodexInvocation",
+          "buildCodexMcpInventoryInvocation",
+          "compareAgentProofs",
+          "createCodexCapabilityMatrix",
+          "createCodexMcpProfile",
+          "createCodexSession",
+          "normalizeCodexStream",
+          "parseCodexVersion",
+          "runCodexSession",
+          "validateCodexInvocation"
+        ],
+        "specifier": "@heart-ai-foundation/scopa/codex"
+      },
+      {
+        "exports": [
+          "FORBIDDEN_PACKED_PREFIXES",
+          "RELEASE_BINS",
+          "RELEASE_LICENSE",
+          "RELEASE_LICENSE_SHA256",
+          "RELEASE_PACKAGE_NAME",
+          "RELEASE_SCHEMAS",
+          "RELEASE_VERSION",
+          "REQUIRED_PACKED_PREFIXES",
+          "REQUIRED_POLICY_PATHS",
+          "auditReleasePolicies",
+          "consumerProofSemanticFieldsChanged",
+          "consumerProofSemanticProjection",
+          "createConsumerPackageJson",
+          "createPublicConsumerProof",
+          "packCandidate",
+          "probeInstalledSurface",
+          "publishedContractAccepts",
+          "publishedContractIds",
+          "runConsumerProbe",
+          "runProofParityCorpus",
+          "scanPackagePrivacy",
+          "scanPrivateText",
+          "validateCandidateManifest",
+          "validateConsumerProof",
+          "validatePolicyAudit",
+          "validatePublishedContract",
+          "validateReleasePosture"
+        ],
+        "specifier": "@heart-ai-foundation/scopa/release-readiness"
+      }
+    ],
+    "scripts": []
+  },
+  "privacy": {
+    "findings": [],
+    "scannedFiles": 152
+  },
+  "schema": "scopa.installed-surface-proof.v1"
+}

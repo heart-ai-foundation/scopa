@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f83b3c1`
+Current commit reference: `04cb805`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -50,9 +50,9 @@ Module progress:
 - codex-adapter: 3/3 (100%)
 - release-readiness: 3/3 (100%)
 - proof-integrity: 3/3 (100%)
-- distribution-hardening: 0/3 (0%)
+- distribution-hardening: 3/3 (100%)
 - release-requalification: 0/3 (0%)
-Arc total: 47/53 (89%)
+Arc total: 50/53 (94%)
 
 ## Descriptor Rung Stop Rule
 
