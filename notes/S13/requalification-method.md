@@ -11,6 +11,8 @@ Round 3 candidate source:
 `e17bbc2acfb70cadad2511b1f1338ddc346fde74`
 Round 4 candidate source:
 `1d4239cc5a30226bbf41e263fb217b84fb7ecf04`
+Round 5 candidate source:
+`18a50da693282760e1b912258fdaae1c5df049d4`
 
 ## Exact-candidate boundary
 
@@ -130,6 +132,42 @@ reviewable contract, gives a source-free pinned CASE installation command,
 and clarifies that the 1 MiB bound applies to frame-accumulation state. The
 official packer now scans every packed Markdown document and rejects local
 documentation references that are absent from the candidate inventory.
+
+The round 5 replacement candidate contains 153 entries and has SHA-256
+`5ca3a02054c14c88078485d36abe88a0ce8b084ae9b81d77af739d178e77c6b3`.
+Repeated official packing is byte-identical. Its candidate manifest, raw
+source-free proof, public proof, installed receipt, parity receipt, collision
+receipt, dependency audit, and hosted source gate agree on the exact clean
+source and candidate. Three new isolated reviewers receive these bytes; prior
+reviewers are not reused.
+
+## Round 5 documentation and session-bound rejection
+
+The fresh evidence reviewer accepted round 5. The artifact reviewer rejected
+it after proving that the documentation guard missed absent root files and
+absent glob patterns, misclassified non-HTTP external schemes, and allowed
+packed documentation to prescribe npm scripts stripped from the installed
+consumer. The runtime reviewer separately rejected it because request-ID and
+transcript collections had no per-session count or byte ceiling.
+
+The exact rejected bytes, proof material, receipts, requests, and reports are
+retained. The narrow remediation resolves globs against the actual inventory,
+recognizes conventional root documents, excludes URI schemes generically, and
+labels contributor npm commands as source-checkout-only. Runtime sessions now
+bound request-ID count and string-ID bytes, transcript event count, and
+canonical event bytes. Call/result capacity is reserved before tool execution;
+once exhausted, new calls fail before execution while wire errors remain
+bounded without further retention.
+
+A separate fresh pre-candidate adversary then found two gaps before new bytes
+were minted: additional packed contributor documents still named stripped npm
+scripts without qualification, and an approximately 600 KiB hostile path
+could make a denial event exceed reserved result capacity and leave an
+unfinished transcript call. All packed Markdown containing contributor npm
+commands now requires an explicit source-checkout qualification. Read/write
+paths are rejected above 4096 UTF-8 bytes before transcript admission or
+filesystem resolution and are not echoed; the exact large-path poisoning case
+retains a valid transcript.
 
 ## Fresh-review separation
 

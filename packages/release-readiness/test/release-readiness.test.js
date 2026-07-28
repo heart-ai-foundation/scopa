@@ -19,6 +19,7 @@ import {
   auditReleasePolicies,
   createPublicConsumerProof,
   findMissingPackedDocumentationReferences,
+  findUnqualifiedPackedNpmScriptDocuments,
   validateCandidateManifest,
   validateConsumerProof,
   validatePolicyAudit,
@@ -223,6 +224,7 @@ test('candidate documentation cannot reference absent packed files', () => {
     'README.md',
     'docs/CLAIMS.md',
     'packages/cli/README.md',
+    'packages/cli/src/cli.js',
   ];
   assert.deepEqual(
     findMissingPackedDocumentationReferences({
@@ -231,7 +233,10 @@ test('candidate documentation cannot reference absent packed files', () => {
           path: 'README.md',
           text:
             'Read `docs/CLAIMS.md`, `packages/cli/README.md`, and ' +
-            'https://example.test/docs/external.md.',
+            '`packages/*/src/**`; external references include ' +
+            'https://example.test/docs/external.md and ' +
+            'ssh://example.test/repository/docs/external.md plus ' +
+            'mailto:user@example.test/docs/external.md.',
         },
       ],
       packedPaths,
@@ -254,6 +259,55 @@ test('candidate documentation cannot reference absent packed files', () => {
         reference: 'spec/missing.md',
       },
     ],
+  );
+  assert.deepEqual(
+    findMissingPackedDocumentationReferences({
+      documents: [
+        {
+          path: 'README.md',
+          text:
+            'Read `CHANGELOG.md` and `spec/definitely-absent*.md`.',
+        },
+      ],
+      packedPaths,
+    }),
+    [
+      {
+        document: 'README.md',
+        reference: 'CHANGELOG.md',
+      },
+      {
+        document: 'README.md',
+        reference: 'spec/definitely-absent*.md',
+      },
+    ],
+  );
+});
+
+test('packed npm contributor commands require source-checkout qualification', () => {
+  assert.deepEqual(
+    findUnqualifiedPackedNpmScriptDocuments([
+      {
+        path: 'README.md',
+        text:
+          'From a source checkout, run `npm test` and ' +
+          '`npm run protocol:check`.',
+      },
+      {
+        path: 'docs/CLAIMS.md',
+        text: 'Installed consumers use the exported verifier.',
+      },
+    ]),
+    [],
+  );
+  assert.deepEqual(
+    findUnqualifiedPackedNpmScriptDocuments([
+      {
+        path: 'packages/example/README.md',
+        text: 'Run `npm run source-only`.',
+      },
+    ]),
+    ['packages/example/README.md'],
   );
 });
 

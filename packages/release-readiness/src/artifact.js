@@ -84,8 +84,45 @@ function assertPackedSurface(files) {
   }
 }
 
+const EXTERNAL_URI =
+  /\b[A-Za-z][A-Za-z0-9+.-]*:(?:\/\/)?[^\s)\]}>]+/g;
 const PACKED_DOCUMENT_REFERENCE =
-  /\b(?:docs|fixtures|packages|schemas|spec)\/[A-Za-z0-9@._/*-]+/g;
+  /\b(?:(?:docs|fixtures|packages|schemas|spec)\/[A-Za-z0-9@._/*?-]+|[A-Z][A-Z0-9_-]*\.[A-Za-z0-9._-]+|LICENSE|package\.json)(?=$|[\s`'"),.;:#\]}>])/g;
+const CONTRIBUTOR_NPM_COMMAND = /\bnpm\s+(?:audit\b|run\b|test\b)/i;
+const SOURCE_CHECKOUT_QUALIFICATION = /\bsource[- ]checkout\b/i;
+
+function globPattern(reference) {
+  let source = '^';
+  for (let index = 0; index < reference.length; index += 1) {
+    const character = reference[index];
+    if (character === '*') {
+      if (reference[index + 1] === '*') {
+        source += '.*';
+        index += 1;
+      } else {
+        source += '[^/]*';
+      }
+    } else if (character === '?') {
+      source += '[^/]';
+    } else {
+      source += character.replace(/[\\^$+.()|[\]{}]/g, '\\$&');
+    }
+  }
+  return new RegExp(`${source}(?:/.*)?$`, 'u');
+}
+
+function packedReferenceExists(reference, packedPaths, packed) {
+  const normalized = reference.replace(/\/+$/g, '');
+  if (
+    packed.has(normalized) ||
+    packedPaths.some((filePath) => filePath.startsWith(`${normalized}/`))
+  ) {
+    return true;
+  }
+  if (!normalized.includes('*') && !normalized.includes('?')) return false;
+  const pattern = globPattern(normalized);
+  return packedPaths.some((filePath) => pattern.test(filePath));
+}
 
 export function findMissingPackedDocumentationReferences({
   documents,
@@ -107,22 +144,15 @@ export function findMissingPackedDocumentationReferences({
   }
   const packed = new Set(packedPaths);
   const missing = [];
+  const seenMissing = new Set();
   for (const document of documents) {
-    const localText = document.text.replace(
-      /https?:\/\/[^\s)]+/g,
-      '',
-    );
+    const localText = document.text.replace(EXTERNAL_URI, '');
     for (const match of localText.matchAll(PACKED_DOCUMENT_REFERENCE)) {
       const reference = match[0].replace(/[.,;:]+$/g, '');
-      if (
-        reference.includes('*') ||
-        packed.has(reference) ||
-        packedPaths.some((filePath) =>
-          filePath.startsWith(`${reference.replace(/\/+$/g, '')}/`)
-        )
-      ) {
-        continue;
-      }
+      if (packedReferenceExists(reference, packedPaths, packed)) continue;
+      const key = `${document.path}\0${reference}`;
+      if (seenMissing.has(key)) continue;
+      seenMissing.add(key);
       missing.push({
         document: document.path,
         reference,
@@ -134,6 +164,27 @@ export function findMissingPackedDocumentationReferences({
     const rightKey = `${right.document}\0${right.reference}`;
     return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
   });
+}
+
+export function findUnqualifiedPackedNpmScriptDocuments(documents) {
+  if (
+    !Array.isArray(documents) ||
+    documents.some(
+      (entry) =>
+        typeof entry?.path !== 'string' ||
+        typeof entry?.text !== 'string',
+    )
+  ) {
+    throw new TypeError('npm documentation audit requires documents');
+  }
+  return documents
+    .filter(
+      ({ text }) =>
+        CONTRIBUTOR_NPM_COMMAND.test(text) &&
+        !SOURCE_CHECKOUT_QUALIFICATION.test(text),
+    )
+    .map(({ path: documentPath }) => documentPath)
+    .sort();
 }
 
 async function assertPackedDocumentationReferences(root, files) {
@@ -154,6 +205,12 @@ async function assertPackedDocumentationReferences(root, files) {
     const [{ document, reference }] = missing;
     throw new Error(
       `packed documentation ${document} references absent ${reference}`,
+    );
+  }
+  const unqualifiedNpm = findUnqualifiedPackedNpmScriptDocuments(documents);
+  if (unqualifiedNpm.length !== 0) {
+    throw new Error(
+      `packed documentation ${unqualifiedNpm[0]} prescribes contributor npm commands without source-checkout qualification`,
     );
   }
 }

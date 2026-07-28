@@ -67,6 +67,7 @@ Macro Delta and creates no independent work.
 - `package.json`
 - `package-lock.json`
 - `README.md`
+- `CONTRIBUTING.md`
 - `docs/**`
 - `.github/**`
 - `packages/release-readiness/**`
@@ -75,6 +76,8 @@ Macro Delta and creates no independent work.
 - `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
 - `packages/interop/README.md`
+- `packages/integrations/codex/README.md`
+- `packages/legibility/README.md`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
 - `fixtures/S13/**`

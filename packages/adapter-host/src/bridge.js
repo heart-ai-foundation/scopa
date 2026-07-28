@@ -38,15 +38,24 @@ export class AdapterRequestError extends Error {
   }
 }
 
+export const ADAPTER_MAX_PATH_BYTES = 4096;
+
+function boundedPath(pathValue) {
+  return Buffer.byteLength(pathValue) <= ADAPTER_MAX_PATH_BYTES
+    ? pathValue
+    : '[PATH_EXCEEDS_ADAPTER_LIMIT]';
+}
+
 class AdapterReadDeniedError extends Error {
   constructor(requestedPath, reason) {
-    super(`read denied: ${requestedPath}`);
+    const bounded = boundedPath(requestedPath);
+    super(`read denied: ${bounded}`);
     this.name = 'AdapterReadDeniedError';
     this.code = 'SCOPA_READ_DENIED';
     this.details = {
       schema: 'scopa.read-denial.v1',
       boundary: 'repository',
-      requestedPath,
+      requestedPath: bounded,
       allowedPath: '.',
       reason,
     };
@@ -116,6 +125,7 @@ const TOOL_DEFINITIONS = Object.freeze([
         path: Object.freeze({
           type: 'string',
           minLength: 1,
+          maxLength: ADAPTER_MAX_PATH_BYTES,
         }),
       }),
       required: Object.freeze(['path']),
@@ -136,6 +146,7 @@ const TOOL_DEFINITIONS = Object.freeze([
         path: Object.freeze({
           type: 'string',
           minLength: 1,
+          maxLength: ADAPTER_MAX_PATH_BYTES,
         }),
         content: Object.freeze({
           type: 'string',
@@ -197,10 +208,19 @@ function exactArguments(value, keys, label) {
 }
 
 function validateArguments(name, value) {
+  function adapterPath(pathValue) {
+    const value = nonEmptyString(pathValue, `${name}.path`);
+    if (Buffer.byteLength(value) > ADAPTER_MAX_PATH_BYTES) {
+      throw new AdapterRequestError(
+        `${name}.path exceeds ${ADAPTER_MAX_PATH_BYTES}-byte limit`,
+      );
+    }
+    return value;
+  }
   if (name === 'scopa_read_file') {
     const args = exactArguments(value, new Set(['path']), `${name} arguments`);
     return {
-      path: nonEmptyString(args.path, `${name}.path`),
+      path: adapterPath(args.path),
     };
   }
   if (name === 'scopa_write_file') {
@@ -213,7 +233,7 @@ function validateArguments(name, value) {
       throw new AdapterRequestError(`${name}.content must be a string`);
     }
     return {
-      path: nonEmptyString(args.path, `${name}.path`),
+      path: adapterPath(args.path),
       content: args.content,
     };
   }
@@ -390,17 +410,22 @@ export async function createAdapterBridge({
       if (name === 'scopa_transcript') {
         return mcpToolResult(transcript.snapshot());
       }
-      transcript.recordCall({
+      const callRecorded = transcript.recordCall({
         requestId,
         tool: name,
         effect: definition.effect,
         arguments: args,
       });
+      if (!callRecorded) {
+        throw new AdapterRequestError(
+          'adapter transcript capacity exhausted',
+          transcript.limits(),
+        );
+      }
       try {
         const result = await execute(name, args);
-        if (name === 'scopa_check') transcript.setTerminal(result.state);
         const blocked = name === 'scopa_check' && !result.state.canStop;
-        transcript.recordResult({
+        const resultRecorded = transcript.recordResult({
           requestId,
           tool: name,
           effect: definition.effect,
@@ -409,6 +434,12 @@ export async function createAdapterBridge({
             : 'allowed',
           result,
         });
+        if (!resultRecorded) {
+          throw new AdapterValidationError(
+            'adapter result exceeds transcript capacity',
+          );
+        }
+        if (name === 'scopa_check') transcript.setTerminal(result.state);
         return mcpToolResult(result, blocked);
       } catch (error) {
         const result = adapterError(error);
@@ -416,13 +447,18 @@ export async function createAdapterBridge({
           'SCOPA_READ_DENIED',
           'SCOPA_SCOPE_DENIED',
         ].includes(error?.code);
-        transcript.recordResult({
+        const errorRecorded = transcript.recordResult({
           requestId,
           tool: name,
           effect: definition.effect,
           outcome: denied ? 'denied' : 'error',
           result,
         });
+        if (!errorRecorded) {
+          throw new AdapterValidationError(
+            'adapter error exceeds transcript capacity',
+          );
+        }
         return mcpToolResult(result, true);
       }
     },

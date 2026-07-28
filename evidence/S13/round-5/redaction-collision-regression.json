@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "id": "exact-semantic-collision",
+      "passed": true
+    },
+    {
+      "id": "substring-semantic-collision",
+      "passed": true
+    },
+    {
+      "id": "reserved-placeholder",
+      "passed": true
+    },
+    {
+      "id": "overlapping-roots",
+      "passed": true
+    },
+    {
+      "id": "equal-roots",
+      "passed": true
+    }
+  ],
+  "designatedFields": [
+    "/environment/sourceRoot",
+    "/environment/temporaryRoot"
+  ],
+  "ok": true,
+  "schema": "scopa.redaction-collision-regression.v1",
+  "semanticPreservationComputed": true,
+  "sourceCommit": "18a50da693282760e1b912258fdaae1c5df049d4",
+  "sourceDigest": "3ad9aafcdd20c5e2f47423c5fb10cd8a0de316765bb7996392125811e3b90674"
+}

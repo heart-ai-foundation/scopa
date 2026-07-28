@@ -24,6 +24,7 @@ import {
   initializeProject,
 } from '../../cli/src/project.js';
 import {
+  ADAPTER_MAX_PATH_BYTES,
   createAdapterBridge,
 } from '../src/bridge.js';
 import {
@@ -35,12 +36,16 @@ import {
 } from '../src/cli.js';
 import {
   createMcpMessageHandler,
+  MCP_MAX_REQUEST_ID_BYTES,
+  MCP_MAX_REQUEST_IDS,
   serveMcpStdio,
 } from '../src/mcp-stdio.js';
 import {
   validateCapabilityMatrix,
 } from '../src/assurance.js';
 import {
+  createTranscriptRecorder,
+  TRANSCRIPT_MAX_EVENTS,
   validateTranscript,
 } from '../src/transcript.js';
 import {
@@ -530,6 +535,138 @@ test('stdio framing is byte-capped and records bounded transport errors', async 
     JSON.stringify(snapshot).includes('x'.repeat(32)),
     false,
   );
+});
+
+test('request ids and transcript retention are session-bounded', async (context) => {
+  const { bridge, handle } = await directBridge(context);
+  for (let id = 2; id <= MCP_MAX_REQUEST_IDS; id += 1) {
+    const reply = await handle(request(id, 'unsupported/method'));
+    assert.equal(reply.error.code, -32601);
+  }
+  const exhausted = await handle(
+    request(MCP_MAX_REQUEST_IDS + 1, 'ping'),
+  );
+  assert.equal(exhausted.error.code, -32000);
+  assert.deepEqual(exhausted.error.data, {
+    maxRequestIds: MCP_MAX_REQUEST_IDS,
+  });
+  const duplicate = await handle(request(2, 'ping'));
+  assert.equal(duplicate.error.code, -32600);
+  assert.match(duplicate.error.message, /duplicate request id/);
+
+  const oversizedId = await handle(
+    request('x'.repeat(MCP_MAX_REQUEST_ID_BYTES + 1), 'ping'),
+  );
+  assert.equal(oversizedId.id, null);
+  assert.equal(oversizedId.error.code, -32600);
+
+  const snapshot = bridge.transcript();
+  assert.equal(snapshot.events.length, TRANSCRIPT_MAX_EVENTS);
+  assert.equal(
+    snapshot.events.at(-1).sequence,
+    TRANSCRIPT_MAX_EVENTS - 1,
+  );
+
+  const recorder = createTranscriptRecorder({
+    descriptor: SESSION,
+    maxEvents: 16,
+    maxEventBytes: 2048,
+    resultReserveBytes: 256,
+  });
+  recorder.begin({
+    client: {
+      name: 'scopa-fake-agent',
+      version: '0.1.0',
+    },
+    protocolVersion: '2025-11-25',
+    requestId: 1,
+  });
+  let rejected = false;
+  for (let index = 0; index < 16; index += 1) {
+    const recorded = recorder.recordProtocolError({
+      requestId: index + 2,
+      method: 'unsupported/method',
+      result: {
+        code: -32601,
+        message: 'Method not found',
+        details: {
+          marker: 'x'.repeat(256),
+        },
+      },
+    });
+    if (!recorded) {
+      rejected = true;
+      break;
+    }
+  }
+  assert.equal(rejected, true);
+  assert.equal(recorder.usage().eventBytes <= 2048, true);
+  assert.equal(recorder.usage().reservedResultEvents, 0);
+  assert.equal(recorder.usage().reservedResultBytes, 0);
+  assert.deepEqual(
+    validateTranscript(recorder.snapshot()),
+    recorder.snapshot(),
+  );
+});
+
+test('oversize path errors cannot poison transcript pairing', async (context) => {
+  const { bridge, handle } = await directBridge(context);
+  const marker = 'hostile-path-marker';
+  const reply = await handle(call(2, 'scopa_read_file', {
+    path:
+      `../${marker}` +
+      'x'.repeat(600000),
+  }));
+  assert.equal(reply.error.code, -32602);
+  assert.match(reply.error.message, /path exceeds/);
+  assert.equal(JSON.stringify(reply).includes(marker), false);
+
+  const transcript = structured(await handle(call(3, 'scopa_transcript')));
+  assert.deepEqual(validateTranscript(transcript), bridge.transcript());
+  assert.equal(
+    transcript.events.some(
+      ({ kind, result }) =>
+        kind === 'protocol_error' &&
+        result.message.includes('path exceeds'),
+    ),
+    true,
+  );
+  assert.equal(JSON.stringify(transcript).includes(marker), false);
+});
+
+test('stdio replies honor output backpressure', async (context) => {
+  const root = await repository(context);
+  const bridge = await createAdapterBridge({
+    repoRoot: root,
+    session: SESSION,
+    capabilityMatrix: MATRIX,
+  });
+  const input = Readable.from([
+    Buffer.from(`${'{malformed\n'.repeat(100)}`),
+  ]);
+  let maxBufferedBytes = 0;
+  let replyCount = 0;
+  let output;
+  output = new Writable({
+    highWaterMark: 1,
+    write(_chunk, _encoding, callback) {
+      replyCount += 1;
+      maxBufferedBytes = Math.max(
+        maxBufferedBytes,
+        output.writableLength,
+      );
+      setTimeout(callback, 1);
+    },
+  });
+
+  await serveMcpStdio({
+    bridge,
+    input,
+    output,
+  });
+
+  assert.equal(replyCount, 100);
+  assert.equal(maxBufferedBytes < 512, true);
 });
 
 test('transcript validator rejects missing, reordered, duplicate, and unknown fields', async (context) => {

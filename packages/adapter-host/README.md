@@ -58,11 +58,23 @@ evidence or shared without review.
 - Initialization and `notifications/initialized` are ordered strictly.
 - Request IDs are unique for the connection.
 - Tool arguments are closed JSON schemas.
+- Read/write paths are capped at 4096 UTF-8 bytes before transcript admission
+  or filesystem resolution; rejected values are not echoed.
 - Unknown tools, unsupported methods, malformed calls, duplicate IDs, and
   messages over 1 MiB fail before tool execution.
 - The newline decoder caps its frame-accumulation state at 1 MiB before
   parsing or complete-line buffering; excess bytes are discarded through the
   next frame boundary.
+- A session accepts at most 2048 unique request IDs, and string IDs are at
+  most 256 UTF-8 bytes. Once exhausted, new IDs receive a stable server-limit
+  error and are not retained.
+- The transcript retains at most 1024 events and 4 MiB of canonical event
+  payload, including reserved result capacity. Calls that cannot reserve a
+  truthful call/result pair fail before tool execution; excess protocol errors
+  remain bounded on the wire and are not retained.
+- Stdio response writes honor stream backpressure before another frame is
+  processed, preventing a non-reading client from creating an unbounded output
+  queue.
 - Scope and completion failures are MCP tool errors with correction-bearing
   structured results.
 - `scopa_check` returns `isError: true` whenever `canStop` is false.

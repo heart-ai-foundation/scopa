@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `1d4239c`
+Current commit reference: `18a50da`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -172,6 +172,7 @@ These protocols are specific to:
 - `package.json`
 - `package-lock.json`
 - `README.md`
+- `CONTRIBUTING.md`
 - `docs/**`
 - `.github/**`
 - `packages/release-readiness/**`
@@ -180,6 +181,8 @@ These protocols are specific to:
 - `packages/cli/README.md`
 - `packages/cli/test/cli.test.js`
 - `packages/interop/README.md`
+- `packages/integrations/codex/README.md`
+- `packages/legibility/README.md`
 - `fixtures/S10/consumer-client.mjs`
 - `schemas/**`
 - `fixtures/S13/**`

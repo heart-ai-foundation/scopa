@@ -10,6 +10,9 @@ import {
 } from './schema.js';
 
 export const TRANSCRIPT_SCHEMA = 'scopa.adapter-transcript.v1';
+export const TRANSCRIPT_MAX_EVENTS = 1024;
+export const TRANSCRIPT_MAX_EVENT_BYTES = 4 * 1024 * 1024;
+export const TRANSCRIPT_RESULT_RESERVE_BYTES = 1024 * 1024;
 
 const TRANSCRIPT_KEYS = new Set([
   'events',
@@ -251,13 +254,55 @@ export function validateTranscript(value) {
   return deepFreeze(structuredClone(value));
 }
 
-export function createTranscriptRecorder({ descriptor }) {
+function boundedLimit(value, maximum, label) {
+  if (
+    !Number.isSafeInteger(value) ||
+    value < 1 ||
+    value > maximum
+  ) {
+    throw new RangeError(`${label} must be an integer from 1 to ${maximum}`);
+  }
+  return value;
+}
+
+function eventKey(requestId) {
+  return `${typeof requestId}:${requestId}`;
+}
+
+export function createTranscriptRecorder({
+  descriptor,
+  maxEvents = TRANSCRIPT_MAX_EVENTS,
+  maxEventBytes = TRANSCRIPT_MAX_EVENT_BYTES,
+  resultReserveBytes = TRANSCRIPT_RESULT_RESERVE_BYTES,
+}) {
+  const eventLimit = boundedLimit(
+    maxEvents,
+    TRANSCRIPT_MAX_EVENTS,
+    'maxEvents',
+  );
+  const byteLimit = boundedLimit(
+    maxEventBytes,
+    TRANSCRIPT_MAX_EVENT_BYTES,
+    'maxEventBytes',
+  );
+  const resultReserve = boundedLimit(
+    resultReserveBytes,
+    TRANSCRIPT_RESULT_RESERVE_BYTES,
+    'resultReserveBytes',
+  );
+  if (resultReserve >= byteLimit) {
+    throw new RangeError('resultReserveBytes must be less than maxEventBytes');
+  }
   let session = null;
   const events = [];
+  let eventBytes = 0;
+  let reservedResultEvents = 0;
+  let reservedResultBytes = 0;
+  const pendingResultReservations = new Map();
   let terminal = null;
 
-  function append(event) {
-    events.push({
+  function preparedEvent(event) {
+    const prepared = {
       sequence: events.length,
       requestId: null,
       method: '',
@@ -266,7 +311,41 @@ export function createTranscriptRecorder({ descriptor }) {
       arguments: null,
       result: null,
       ...event,
-    });
+    };
+    return {
+      bytes: Buffer.byteLength(canonicalJson(prepared)),
+      event: prepared,
+    };
+  }
+
+  function appendPrepared(
+    prepared,
+    reserveBytes = 0,
+    reserveEvents = 0,
+  ) {
+    if (
+      events.length + reservedResultEvents + 1 + reserveEvents > eventLimit ||
+      eventBytes +
+        reservedResultBytes +
+        prepared.bytes +
+        reserveBytes >
+        byteLimit
+    ) {
+      return false;
+    }
+    events.push(prepared.event);
+    eventBytes += prepared.bytes;
+    reservedResultEvents += reserveEvents;
+    reservedResultBytes += reserveBytes;
+    return true;
+  }
+
+  function append(event, reserveBytes = 0, reserveEvents = 0) {
+    return appendPrepared(
+      preparedEvent(event),
+      reserveBytes,
+      reserveEvents,
+    );
   }
 
   return Object.freeze({
@@ -287,7 +366,7 @@ export function createTranscriptRecorder({ descriptor }) {
           'protocolVersion',
         ),
       };
-      append({
+      if (!append({
         kind: 'initialize',
         requestId,
         method: 'initialize',
@@ -296,10 +375,17 @@ export function createTranscriptRecorder({ descriptor }) {
           client: { ...session.client },
           protocolVersion,
         },
-      });
+      })) {
+        session = null;
+        throw new AdapterValidationError(
+          'initialize event exceeds transcript capacity',
+        );
+      }
     },
     recordCall({ requestId, tool, effect, arguments: args }) {
-      append({
+      const key = eventKey(requestId);
+      if (pendingResultReservations.has(key)) return false;
+      const recorded = append({
         kind: 'tool_call',
         requestId,
         method: 'tools/call',
@@ -307,10 +393,15 @@ export function createTranscriptRecorder({ descriptor }) {
         effect,
         arguments: structuredClone(args),
         outcome: 'accepted',
-      });
+      }, resultReserve, 1);
+      if (recorded) pendingResultReservations.set(key, resultReserve);
+      return recorded;
     },
     recordResult({ requestId, tool, effect, outcome, result }) {
-      append({
+      const key = eventKey(requestId);
+      const reserved = pendingResultReservations.get(key);
+      if (reserved === undefined) return false;
+      const prepared = preparedEvent({
         kind: 'tool_result',
         requestId,
         method: 'tools/call',
@@ -319,10 +410,21 @@ export function createTranscriptRecorder({ descriptor }) {
         outcome,
         result: structuredClone(result),
       });
+      if (prepared.bytes > reserved) return false;
+      pendingResultReservations.delete(key);
+      reservedResultEvents -= 1;
+      reservedResultBytes -= reserved;
+      const recorded = appendPrepared(prepared);
+      if (!recorded) {
+        pendingResultReservations.set(key, reserved);
+        reservedResultEvents += 1;
+        reservedResultBytes += reserved;
+      }
+      return recorded;
     },
     recordProtocolError({ requestId = null, method = '', result }) {
       if (session === null) return;
-      append({
+      return append({
         kind: 'protocol_error',
         requestId,
         method,
@@ -347,6 +449,21 @@ export function createTranscriptRecorder({ descriptor }) {
         session: structuredClone(session),
         events: structuredClone(events),
         terminal: terminal === null ? null : structuredClone(terminal),
+      });
+    },
+    limits() {
+      return deepFreeze({
+        maxEvents: eventLimit,
+        maxEventBytes: byteLimit,
+        resultReserveBytes: resultReserve,
+      });
+    },
+    usage() {
+      return deepFreeze({
+        eventCount: events.length,
+        eventBytes,
+        reservedResultEvents,
+        reservedResultBytes,
       });
     },
   });

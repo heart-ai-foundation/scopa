@@ -29,7 +29,12 @@ or recognizable credential residue.
 The package does not publish anything. `package.json` remains private, and the
 S10 commands create only local tarballs and evidence receipts.
 
-## Commands
+## Source-checkout commands
+
+These contributor commands require a SCOPA source checkout and are
+intentionally absent from the source-free consumer package, which strips
+scripts and development dependencies. Installed consumers use the exported
+`./release-readiness` APIs and the `scopa` / `scopa-mcp` binaries instead.
 
 ```sh
 npm run test:s10

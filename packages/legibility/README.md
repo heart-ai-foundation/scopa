@@ -58,6 +58,9 @@ bound until a later signing layer; the map says so directly.
 
 ## Probes
 
+These contributor probes require a SCOPA source checkout and are intentionally
+absent from the source-free consumer package:
+
 ```sh
 npm run test:s3
 npm run probe:s3

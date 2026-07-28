@@ -2,6 +2,9 @@ import {
   TextDecoder,
 } from 'node:util';
 import {
+  once,
+} from 'node:events';
+import {
   canonicalJson,
 } from '../../enforcement/src/index.js';
 import {
@@ -20,6 +23,8 @@ export const MCP_SUPPORTED_VERSIONS = Object.freeze([
   '2024-11-05',
 ]);
 export const MCP_MAX_MESSAGE_BYTES = 1024 * 1024;
+export const MCP_MAX_REQUEST_IDS = 2048;
+export const MCP_MAX_REQUEST_ID_BYTES = 256;
 
 const JSON_RPC = '2.0';
 const SERVER_INFO = Object.freeze({
@@ -45,6 +50,12 @@ function errorResponse(id, code, message, data = null) {
   };
 }
 
+async function writeReply(output, reply) {
+  if (!output.write(`${canonicalJson(reply)}\n`)) {
+    await once(output, 'drain');
+  }
+}
+
 function transportProtocolError({
   bridge,
   code,
@@ -63,7 +74,10 @@ function transportProtocolError({
 
 function requestId(value) {
   return (
-    typeof value === 'string' ||
+    (
+      typeof value === 'string' &&
+      Buffer.byteLength(value) <= MCP_MAX_REQUEST_ID_BYTES
+    ) ||
     (typeof value === 'number' && Number.isSafeInteger(value))
   );
 }
@@ -136,7 +150,19 @@ function callParams(params) {
   };
 }
 
-export function createMcpMessageHandler({ bridge }) {
+export function createMcpMessageHandler({
+  bridge,
+  maxRequestIds = MCP_MAX_REQUEST_IDS,
+}) {
+  if (
+    !Number.isSafeInteger(maxRequestIds) ||
+    maxRequestIds < 1 ||
+    maxRequestIds > MCP_MAX_REQUEST_IDS
+  ) {
+    throw new RangeError(
+      `maxRequestIds must be an integer from 1 to ${MCP_MAX_REQUEST_IDS}`,
+    );
+  }
   let phase = 'new';
   const seenRequestIds = new Set();
 
@@ -184,6 +210,17 @@ export function createMcpMessageHandler({ bridge }) {
           method: message.method,
           code: -32600,
           message: 'duplicate request id',
+        });
+      }
+      if (seenRequestIds.size >= maxRequestIds) {
+        return protocolError({
+          id: message.id,
+          method: message.method,
+          code: -32000,
+          message: 'session request limit reached',
+          data: {
+            maxRequestIds,
+          },
         });
       }
       seenRequestIds.add(key);
@@ -334,6 +371,7 @@ export async function serveMcpStdio({
   input = process.stdin,
   output = process.stdout,
   maxMessageBytes = MCP_MAX_MESSAGE_BYTES,
+  maxRequestIds = MCP_MAX_REQUEST_IDS,
 }) {
   if (
     !Number.isSafeInteger(maxMessageBytes) ||
@@ -344,7 +382,10 @@ export async function serveMcpStdio({
       `maxMessageBytes must be an integer from 1 to ${MCP_MAX_MESSAGE_BYTES}`,
     );
   }
-  const handle = createMcpMessageHandler({ bridge });
+  const handle = createMcpMessageHandler({
+    bridge,
+    maxRequestIds,
+  });
   const decoder = new TextDecoder('utf-8', { fatal: true });
   for await (const frame of readMcpFrames(input, maxMessageBytes)) {
     let reply;
@@ -371,7 +412,7 @@ export async function serveMcpStdio({
       if (message !== undefined) reply = await handle(message);
     }
     if (reply !== null) {
-      output.write(`${canonicalJson(reply)}\n`);
+      await writeReply(output, reply);
     }
   }
 }

@@ -6,6 +6,10 @@ The project uses DCO sign-off and requires no CLA.
 
 ## Contribution workflow
 
+This workflow requires a SCOPA source checkout with contributor scripts and
+development dependencies installed. Those scripts are intentionally absent
+from the source-free consumer package.
+
 1. Start from an issue or bounded proposal that identifies the affected SCOPA
    boundary and claim.
 2. Keep protocol/runtime changes distinct and preserve the frozen effect

@@ -251,6 +251,82 @@ the dependency audit found zero vulnerabilities, and the protocol and diff
 checks passed. A new clean candidate and three entirely new exact-byte reviews
 are required.
 
+## Round 5 exact candidate
+
+Clean source:
+`18a50da693282760e1b912258fdaae1c5df049d4`
+
+Official private round 5 candidate:
+
+- filename: `heart-ai-foundation-scopa-0.2.0-dev.1.tgz`;
+- SHA-256:
+  `5ca3a02054c14c88078485d36abe88a0ce8b084ae9b81d77af739d178e77c6b3`;
+- npm SHA-1: `c42df3b93d71dea6c71e0a848d4338e5995cb468`;
+- npm integrity:
+  `sha512-H9MjK4RlMwiym6vzaa61fl57KNGetwe3QLMynmK8sK7u+MgPbLRE1LoS5YwMDa7NU2S6iarcYWZV0UILHRvb8g==`;
+- packed/unpacked bytes: 144960 / 562581;
+- entries: 153;
+- repeated official pack: byte-identical.
+
+Exact private/public proof hashes:
+
+- candidate manifest:
+  `c28be4ad1312282d70e25eb579379f46c83bb4a96a18701e5a80ee1c628977ca`;
+- raw proof:
+  `3ad9aafcdd20c5e2f47423c5fb10cd8a0de316765bb7996392125811e3b90674`;
+- public proof:
+  `85a9a89d8aa9303a3651939adc1866514894f74f1cbbd27f76b265d112a67c5a`.
+
+Source-free proof, installed-surface deterministic repack, 37/37 parity cases,
+five redaction-collision cases, exact binding, package privacy, and dependency
+audit pass. The hosted source run `30367246394`, job `90301551934`, passed all
+14 recorded steps with no action-runtime/deprecation warning; the only generic
+warning was Git's initial-branch-name hint.
+
+Three entirely new isolated reviewers are assigned the exact round 5 bytes.
+Their verdicts:
+
+- artifact/distribution: `REJECT`, two medium findings and one low;
+- proof/evidence: `ACCEPT`, no critical/high/medium/low finding;
+- runtime/containment: `REJECT`, one medium finding.
+
+The artifact reviewer proved missing-root and missing-glob false negatives in
+the new documentation guard, a non-HTTP external-URI false positive, and
+installed docs that prescribed contributor scripts absent from the consumer
+package. The runtime reviewer proved that `seenRequestIds` and transcript
+events grew for the lifetime of a hostile session even though each frame was
+bounded. Round 5 cannot satisfy RQ2.
+
+## Round 5 distribution and session-bound remediation
+
+- documentation globs resolve against the real packed inventory rather than
+  being skipped;
+- conventional root documents participate in the audit;
+- external URI schemes are excluded generically;
+- contributor npm commands are explicitly source-checkout-only and installed
+  consumers are directed to bins and exports;
+- a session retains at most 2048 unique request IDs with 256-byte string IDs;
+- transcript retention is capped at 1024 events and 4 MiB of canonical event
+  payload;
+- call/result capacity is reserved before tool execution, so exhaustion fails
+  closed without mutation or unbounded error retention;
+- stdio replies honor output backpressure before another frame is processed;
+- focused tests exercise missing roots/globs, external schemes, request-ID
+  exhaustion, transcript count exhaustion, transcript byte exhaustion, and a
+  slow response consumer.
+
+One fresh pre-candidate adversary found that other packed documents still
+named stripped contributor scripts and that a roughly 600 KiB denied path
+could exceed reserved result capacity, leaving an unfinished transcript call.
+The follow-up makes source-checkout qualification a pack-time property across
+all packed Markdown and rejects paths over 4096 UTF-8 bytes before transcript
+admission without echoing them. The exact large-path case now returns a bounded
+protocol error and leaves the transcript valid.
+
+Post-remediation gates pass: 117/117 accumulated tests, S8-S12 focused gates,
+zero dependency vulnerabilities, protocol synchronization, and diff checks.
+A new clean candidate and three new exact-byte reviewers are required.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

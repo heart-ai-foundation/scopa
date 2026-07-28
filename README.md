@@ -124,6 +124,8 @@ adapter, proves an allowed write and an escaping-write denial, obtains the real
 terminal state, verifies a retained signed packet with caller-supplied trust,
 and confirms that an exit-7 fixture remains blocked:
 
+From a SCOPA source checkout with development scripts installed:
+
 ```sh
 npm run audit:s10:policy
 npm run probe:s10:consumer -- --output /trusted/private-consumer-proof.json
@@ -252,7 +254,8 @@ The graph is checked by pinned `case-utils 0.17.0` against its bundled
 verify SCOPA cryptography or provenance. See `packages/interop/README.md` for
 both required verification paths.
 
-Run the gates:
+From a SCOPA source checkout with development scripts installed, run the
+contributor gates:
 
 ```sh
 npm test

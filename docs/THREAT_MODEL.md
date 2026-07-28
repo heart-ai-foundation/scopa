@@ -8,6 +8,10 @@ and GitHub-hosted release gate. It does not cover a production deployment,
 customer repository, package registry, provider infrastructure, or separately
 privileged local attacker.
 
+Named contributor audit commands and retained gate evidence refer to a SCOPA
+source checkout; those scripts are intentionally absent from the source-free
+consumer package.
+
 ## Assets
 
 - slice scope, gate definition, stop state, and continuity state;
@@ -41,7 +45,7 @@ privileged local attacker.
 | Stale or revoked timestamp signer | Caller-supplied root and signer-certificate pin; explicit offline verification report | S4/S10 native-packet verification | The offline path records `revocationStatus: "not-checked"` and does not fetch CRL/OCSP state |
 | Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | S10 candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
 | Monorepo-relative or private-path dependency | Explicit package allowlist and source-free install probe | S6 and S10 consumer probes | npm dependencies still rely on their registries/caches |
-| False policy readiness | Closed posture schema and constituent policy audit | `npm run audit:s10:policy` | Policies are project commitments, not formal compliance certification |
+| False policy readiness | Closed posture schema and constituent policy audit | Retained source-checkout policy-audit evidence | Policies are project commitments, not formal compliance certification |
 | Secret or raw-path disclosure | Private raw evidence, deterministic public redaction, path scans | S8-S10 publication receipts | Model/provider telemetry outside SCOPA follows provider controls |
 | Supply-chain vulnerability | Exact dependencies, lockfile, `npm audit`, hosted clean install | Accumulated release gate | Audit databases are incomplete and change over time |
 

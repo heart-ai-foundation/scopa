@@ -46,8 +46,10 @@ command execution, file changes, web activity, hidden MCP servers, unknown
 errors, missing results, wire/transcript disagreement, and a final status that
 conflicts with SCOPA's terminal state.
 
-`compareAgentProofs` and `npm run verify:s9:parity` compare the four shared
-Claude/Codex outcomes while retaining provider-specific capability gaps.
+The installed `compareAgentProofs` export compares the four shared
+Claude/Codex outcomes while retaining provider-specific capability gaps. From
+a SCOPA source checkout with contributor scripts installed,
+`npm run verify:s9:parity` runs the corresponding retained evidence command.
 
 ## Assurance boundary
 
