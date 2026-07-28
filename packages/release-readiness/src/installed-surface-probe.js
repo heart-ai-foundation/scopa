@@ -468,16 +468,11 @@ export async function probeInstalledSurface({
     return {
       schema: 'scopa.installed-surface-proof.v1',
       candidate: {
-        sha256: firstHash,
+        manifest: first.manifest,
+        repeatSha256: sha256(secondBytes),
         deterministic: true,
-        entryCount: first.manifest.files.length,
       },
-      consumerPackage: {
-        name: installedPackage.name,
-        version: installedPackage.version,
-        scripts: [],
-        contributorDependenciesPresent: false,
-      },
+      consumerPackage: installedPackage,
       matrix: {
         bins,
         exports,
