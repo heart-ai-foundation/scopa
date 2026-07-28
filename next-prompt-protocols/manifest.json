@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "11a79b3",
+  "current_commit": "1ad57a8",
   "current_phase": "phase-5-adversarial-hardening",
   "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",

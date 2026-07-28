@@ -172,8 +172,7 @@ export async function runConsumerProbe({
     const consumerClient = await import(pathToFileURL(
       path.join(fixtureRoot, 'consumer-client.mjs'),
     ));
-    const adapter = await consumerClient.runConsumerClient({
-      server: path.join(binRoot, 'scopa-mcp'),
+    const adapter = await consumerClient.runConsumerClientInProcess({
       repo: cleanRepo,
       session: path.join(fixtureRoot, 'session.json'),
       matrix: path.join(fixtureRoot, 'capability-matrix.json'),
