@@ -2,14 +2,10 @@ import {
   createHash,
 } from 'node:crypto';
 import {
-  spawn,
-} from 'node:child_process';
-import {
   chmod,
   copyFile,
   mkdir,
   mkdtemp,
-  open,
   readFile,
   rm,
   writeFile,
@@ -26,6 +22,9 @@ import {
 import {
   validateCandidateManifest,
 } from './schema.js';
+import {
+  invokeCaptured,
+} from './subprocess.js';
 
 const CONSUMER_PACKAGE_FIELDS = Object.freeze([
   'name',
@@ -43,62 +42,11 @@ const CONSUMER_PACKAGE_FIELDS = Object.freeze([
 ]);
 
 async function invoke(command, args, options = {}) {
-  const {
-    env: providedEnv = process.env,
-    ...execOptions
-  } = options;
-  const env = { ...providedEnv };
-  delete env.NODE_TEST_CONTEXT;
-  const captureRoot = await mkdtemp(
-    path.join(os.tmpdir(), 'scopa-process-capture-'),
-  );
-  const stdoutPath = path.join(captureRoot, 'stdout');
-  const stderrPath = path.join(captureRoot, 'stderr');
-  const stdoutHandle = await open(stdoutPath, 'w', 0o600);
-  const stderrHandle = await open(stderrPath, 'w', 0o600);
-  let outcome;
-  let spawnError = null;
-  try {
-    const child = spawn(command, args, {
-      env,
-      ...execOptions,
-      stdio: [
-        'ignore',
-        stdoutHandle.fd,
-        stderrHandle.fd,
-      ],
-    });
-    outcome = await new Promise((resolve, reject) => {
-      child.once('error', reject);
-      child.once('close', (code, signal) => resolve({ code, signal }));
-    });
-  } catch (error) {
-    spawnError = error;
-  } finally {
-    await Promise.all([
-      stdoutHandle.close(),
-      stderrHandle.close(),
-    ]);
-  }
-  try {
-    if (spawnError) throw spawnError;
-    const [stdout, stderr] = await Promise.all([
-      readFile(stdoutPath, 'utf8'),
-      readFile(stderrPath, 'utf8'),
-    ]);
-    if (outcome.code !== 0) {
-      const error = new Error(
-        `${command} exited with status ${outcome.code ?? outcome.signal}`,
-      );
-      error.code = outcome.code;
-      error.stdout = stdout;
-      error.stderr = stderr;
-      throw error;
-    }
-    return { stdout, stderr };
-  } finally {
-    await rm(captureRoot, { recursive: true, force: true });
-  }
+  const result = await invokeCaptured(command, args, options);
+  return {
+    stdout: result.stdout,
+    stderr: result.stderr,
+  };
 }
 
 function hash(bytes, algorithm, encoding = 'hex') {

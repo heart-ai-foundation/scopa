@@ -4,9 +4,6 @@ import {
   createHash,
 } from 'node:crypto';
 import {
-  execFile,
-} from 'node:child_process';
-import {
   access,
   constants,
   copyFile,
@@ -20,9 +17,6 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import {
-  promisify,
-} from 'node:util';
-import {
   fileURLToPath,
 } from 'node:url';
 import {
@@ -34,40 +28,23 @@ import {
 import {
   scanPackagePrivacy,
 } from './package-privacy.js';
+import {
+  invokeCaptured,
+} from './subprocess.js';
 
 const ROOT = path.resolve(
   fileURLToPath(new URL('../../..', import.meta.url)),
 );
-const execFileAsync = promisify(execFile);
-
 async function invoke(command, args, {
   cwd,
   expectedExitCodes = [0],
   env = process.env,
 } = {}) {
-  const childEnv = { ...env };
-  delete childEnv.NODE_TEST_CONTEXT;
-  try {
-    const result = await execFileAsync(command, args, {
-      cwd,
-      encoding: 'utf8',
-      env: childEnv,
-      maxBuffer: 30 * 1024 * 1024,
-    });
-    return {
-      exitCode: 0,
-      stdout: result.stdout,
-      stderr: result.stderr,
-    };
-  } catch (error) {
-    const exitCode = Number.isSafeInteger(error.code) ? error.code : null;
-    if (!expectedExitCodes.includes(exitCode)) throw error;
-    return {
-      exitCode,
-      stdout: error.stdout ?? '',
-      stderr: error.stderr ?? '',
-    };
-  }
+  return invokeCaptured(command, args, {
+    cwd,
+    env,
+    expectedExitCodes,
+  });
 }
 
 function sha256(bytes) {
