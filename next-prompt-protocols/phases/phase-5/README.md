@@ -1,7 +1,7 @@
 # Phase 5 Adversarial Hardening
 
-Current commit reference: `04cb805`
-Current active protocol: `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+Current commit reference: `9c2623f`
+Current active protocol: `active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
 
 ## Scope
 
@@ -9,13 +9,11 @@ Adversarial release hardening only: converge proof validation and publication, r
 
 ## Active objective
 
-> Create an explicit consumer package contract. Build the tarball through a
-> deterministic staging path whose package metadata exposes only runnable
-> consumer bins and exports, then exercise every retained entry from installed
-> bytes. Make launcher failures closed, structured, stack-free, and path-free by
-> default with an explicit diagnostic opt-in. Replace contributor-specific
-> privacy sentinels with generic structural checks and update hosted actions to
-> authoritative Node.js 24-compatible versions.
+> Build and retain one exact private candidate from a clean commit, run the full
+> source-free hostile corpus against those bytes, and assign three fresh isolated
+> reviewers to attack artifact/distribution, evidence/proof, and runtime/
+> containment boundaries. Require each reviewer to issue a structured `ACCEPT`
+> with no critical, high, or medium finding before closeout.
 
 ## Files in play
 
@@ -51,29 +49,28 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- `npm run test:s12`
-- `npm run probe:s12:installed`
-- `npm run test:s11`
+- Exact clean source commit and candidate SHA-256 are recorded consistently
+  across manifest, private proof, public proof, hostile corpus, and all three
+  reviews.
+- Repeated official packing is byte-deterministic.
+- Fresh tarball-only install passes both bins, all exports, zero-script
+  inventory, governed adapter, known failure, signature verification, and
+  package/privacy/error-surface checks.
+- Runtime and published proof contracts agree over the full S11 corpus.
+- Collision, placeholder, overlap, cardinality, numeric, closed-field,
+  signature/trust, scope-escape, malformed protocol, and false-green attacks
+  fail closed.
+- Private proof publication changes only designated roots and reports
+  `semanticFieldsChanged: false`.
+- Three fresh isolated reports bind exact bytes, return `ACCEPT`, and contain
+  no critical, high, or medium finding.
+- `npm audit --audit-level=low`
 - `npm test`
-- `npm audit`
 - `npm run protocol:check`
-- The official pack path is deterministic, source-clean, and produces a
-  consumer `package.json` with no contributor-only scripts.
-- Every retained bin and export resolves and executes or imports from a fresh
-  tarball-only installation.
-- Every retained consumer script, if any, executes from installed bytes; no
-  command references omitted tests, fixtures, build output, or source paths.
-- Invalid session, capability-matrix, launcher-option, and protocol inputs
-  fail with a closed versioned JSON envelope.
-- Default launcher errors contain no stack, source line, `file:` URL, absolute
-  build/install path, or uncontrolled input echo.
-- Diagnostic stack output is explicit opt-in and documented.
-- Package bytes contain no contributor-specific home/path sentinel,
-  recognizable credential value, private evidence root, or repository-only
-  control/evidence surface.
-- Supported action versions remove the Node.js action-runtime deprecation
-  annotation in hosted CI.
-- DH1, DH2, and DH3 are independently reviewable and satisfied.
+- Hosted CI passes without a Node action-runtime deprecation warning.
+- Provider-side credential rotation/old-value invalidation is confirmed
+  without retaining any credential value.
+- RQ1, RQ2, and RQ3 are independently reviewable and satisfied.
 
 ## Handoff
 

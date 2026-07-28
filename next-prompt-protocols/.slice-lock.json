@@ -1,24 +1,24 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "04cb805",
+  "current_commit": "9c2623f",
   "current_phase": "phase-5-adversarial-hardening",
-  "active_protocol": "active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
+  "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "distribution-hardening",
+  "active_module": "release-requalification",
   "crosses": [
-    "adapter-host",
-    "distribution",
+    "proof-integrity",
+    "distribution-hardening",
     "conformance"
   ],
   "advances_contracts": [
-    "DH1",
-    "DH2",
-    "DH3"
+    "RQ1",
+    "RQ2",
+    "RQ3"
   ],
-  "active_protocol_sha256": "sha256:7edf8ea9c4b08e1fce3a26a3572cf6105c7545e33fce0cda5af1758109e3daae",
-  "active_objective": "Create an explicit consumer package contract. Build the tarball through a\ndeterministic staging path whose package metadata exposes only runnable\nconsumer bins and exports, then exercise every retained entry from installed\nbytes. Make launcher failures closed, structured, stack-free, and path-free by\ndefault with an explicit diagnostic opt-in. Replace contributor-specific\nprivacy sentinels with generic structural checks and update hosted actions to\nauthoritative Node.js 24-compatible versions.",
+  "active_protocol_sha256": "sha256:9a5d9f27435a3e3ea922e8426279c86b20c676a80b1de1e26868aa8732619cd6",
+  "active_objective": "Build and retain one exact private candidate from a clean commit, run the full\nsource-free hostile corpus against those bytes, and assign three fresh isolated\nreviewers to attack artifact/distribution, evidence/proof, and runtime/\ncontainment boundaries. Require each reviewer to issue a structured `ACCEPT`\nwith no critical, high, or medium finding before closeout.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

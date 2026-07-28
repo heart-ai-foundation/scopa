@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `04cb805`
+Current commit reference: `9c2623f`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `distribution-hardening`
-Advances contracts: `DH1, DH2, DH3`
+Active protocol module: `release-requalification`
+Advances contracts: `RQ1, RQ2, RQ3`
 
 ## Slice Class
 
@@ -100,19 +100,20 @@ Read in this order:
 3. `macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md`
 4. `role-context.md`
 5. `phases/phase-5/README.md`
-6. `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-7. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-8. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-9. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-10. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-11. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-12. `completed/2026-07-27-S6-installable-developer-surface.md`
-13. `completed/2026-07-26-S5-interop-export.md`
-14. `completed/2026-07-26-S4-signing-and-anchoring.md`
-15. `completed/2026-07-26-S3-legibility.md`
-16. `completed/2026-07-26-S2-enforcement-loop.md`
-17. `completed/2026-07-26-S0-conformance-harness.md`
-18. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+7. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+8. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+9. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+10. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+11. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+12. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+13. `completed/2026-07-27-S6-installable-developer-surface.md`
+14. `completed/2026-07-26-S5-interop-export.md`
+15. `completed/2026-07-26-S4-signing-and-anchoring.md`
+16. `completed/2026-07-26-S3-legibility.md`
+17. `completed/2026-07-26-S2-enforcement-loop.md`
+18. `completed/2026-07-26-S0-conformance-harness.md`
+19. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -146,13 +147,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Create an explicit consumer package contract. Build the tarball through a
-> deterministic staging path whose package metadata exposes only runnable
-> consumer bins and exports, then exercise every retained entry from installed
-> bytes. Make launcher failures closed, structured, stack-free, and path-free by
-> default with an explicit diagnostic opt-in. Replace contributor-specific
-> privacy sentinels with generic structural checks and update hosted actions to
-> authoritative Node.js 24-compatible versions.
+> Build and retain one exact private candidate from a clean commit, run the full
+> source-free hostile corpus against those bytes, and assign three fresh isolated
+> reviewers to attack artifact/distribution, evidence/proof, and runtime/
+> containment boundaries. Require each reviewer to issue a structured `ACCEPT`
+> with no critical, high, or medium finding before closeout.
 
 ## Behavior rules
 
@@ -191,4 +190,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-5/README.md`
-- `active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+- `active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`

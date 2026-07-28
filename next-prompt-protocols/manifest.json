@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "04cb805",
+  "current_commit": "9c2623f",
   "current_phase": "phase-5-adversarial-hardening",
   "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
-  "active_protocol": "active/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
+  "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
   "active_objective": "Build a coherent tarball-only consumer surface, make default launcher failures structured and path-free, remove contributor-specific package residue, and clear hosted action-runtime warnings.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
     "completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
     "completed/2026-07-27-S10-developer-preview-release-candidate.md",
     "completed/2026-07-27-S9-codex-headless-integration-and-parity.md",
@@ -470,27 +471,27 @@
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
-      {
-        "id": "CX1",
-        "statement": "Headless Codex runs with an explicit, reproducible tool, sandbox, hook, and MCP surface.",
-        "status": "satisfied",
-        "verifies_via": "S9 pinned Codex 0.145.0 receipt, isolated one-server MCP profile, deterministic tests, and installed-package live proof",
+        {
+          "id": "CX1",
+          "statement": "Headless Codex runs with an explicit, reproducible tool, sandbox, hook, and MCP surface.",
+          "status": "satisfied",
+          "verifies_via": "S9 pinned Codex 0.145.0 receipt, isolated one-server MCP profile, deterministic tests, and installed-package live proof",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         },
-      {
-        "id": "CX2",
-        "statement": "Codex live fixtures prove blocked scope, refused false-green completion, and cold resume.",
-        "status": "satisfied",
-        "verifies_via": "S9 clean, denied, false-green, and cold-restart public proof bound to the private raw transcript",
+        {
+          "id": "CX2",
+          "statement": "Codex live fixtures prove blocked scope, refused false-green completion, and cold resume.",
+          "status": "satisfied",
+          "verifies_via": "S9 clean, denied, false-green, and cold-restart public proof bound to the private raw transcript",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         },
-      {
-        "id": "CX3",
-        "statement": "Codex and Claude satisfy one behavior contract or report an explicit machine-readable parity gap.",
-        "status": "satisfied",
-        "verifies_via": "S9 machine-readable parity report and Claude Sonnet outside-review ACCEPT verdict",
+        {
+          "id": "CX3",
+          "statement": "Codex and Claude satisfy one behavior contract or report an explicit machine-readable parity gap.",
+          "status": "satisfied",
+          "verifies_via": "S9 machine-readable parity report and Claude Sonnet outside-review ACCEPT verdict",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S9"
         }
