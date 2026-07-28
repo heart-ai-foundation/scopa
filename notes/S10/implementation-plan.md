@@ -26,13 +26,13 @@ or authorize publication.
 
 ## Task 3 — Build the consumer and policy surfaces
 
-- [ ] Add `SECURITY.md`, `CONTRIBUTING.md`, and `GOVERNANCE.md`.
-- [ ] Add quickstart, threat model, claim boundary, versioning, and
+- [x] Add `SECURITY.md`, `CONTRIBUTING.md`, and `GOVERNANCE.md`.
+- [x] Add quickstart, threat model, claim boundary, versioning, and
   machine-readable release posture under `docs/`.
-- [ ] Add published JSON Schemas under `schemas/`.
-- [ ] Add clean, failing, adapter-client, and independent-verification
+- [x] Add published JSON Schemas under `schemas/`.
+- [x] Add clean, failing, adapter-client, and independent-verification
   fixtures under `fixtures/S10/`.
-- [ ] Extend the package allowlist and root documentation for the private
+- [x] Extend the package allowlist and root documentation for the private
   candidate.
 
 ## Task 4 — Prove the exact committed candidate

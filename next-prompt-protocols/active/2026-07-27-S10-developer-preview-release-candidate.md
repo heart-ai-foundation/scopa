@@ -68,6 +68,7 @@ and creates no independent work.
 ## Files in play
 
 - `packages/release-readiness/**`
+- `packages/cli/test/cli.test.js`
 - `fixtures/S10/**`
 - `docs/**`
 - `schemas/**`

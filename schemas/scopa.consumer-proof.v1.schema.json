@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.consumer-proof.v1.schema.json",
+  "title": "SCOPA consumer proof v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "candidate",
+    "policyAudit",
+    "environment",
+    "install",
+    "adapter",
+    "verification",
+    "knownFailing",
+    "claimBoundary"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.consumer-proof.v1"
+    },
+    "candidate": {
+      "$ref": "./scopa.candidate-manifest.v1.schema.json"
+    },
+    "policyAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "sha256"
+      ],
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "npm",
+        "sourceRoot",
+        "temporaryRoot"
+      ],
+      "properties": {
+        "node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "npm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceRoot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "temporaryRoot": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "install": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitCode",
+        "sourceFree",
+        "monorepoRelativeReferences"
+      ],
+      "properties": {
+        "exitCode": {
+          "const": 0
+        },
+        "sourceFree": {
+          "const": true
+        },
+        "monorepoRelativeReferences": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "toolNames",
+        "allowedWrite",
+        "scopeDenied",
+        "terminal",
+        "assurance"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "toolNames": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allowedWrite": {
+          "const": true
+        },
+        "scopeDenied": {
+          "const": true
+        },
+        "terminal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "canStop"
+          ],
+          "properties": {
+            "status": {
+              "const": "satisfied"
+            },
+            "canStop": {
+              "const": true
+            }
+          }
+        },
+        "assurance": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitCode",
+        "nativePacket",
+        "ok"
+      ],
+      "properties": {
+        "exitCode": {
+          "const": 0
+        },
+        "nativePacket": {
+          "const": true
+        },
+        "ok": {
+          "const": true
+        }
+      }
+    },
+    "knownFailing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitCode",
+        "code",
+        "canStop"
+      ],
+      "properties": {
+        "exitCode": {
+          "const": 4
+        },
+        "code": {
+          "const": "SCOPA_COMPLETION_BLOCKED"
+        },
+        "canStop": {
+          "const": false
+        }
+      }
+    },
+    "claimBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified",
+        "nonClaims"
+      ],
+      "properties": {
+        "verified": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "nonClaims": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "76a82a9",
+  "current_commit": "ce768e9",
   "current_phase": "phase-4-developer-preview",
   "phase_scope": "Developer-preview work: installable local distribution, a model-neutral agent bridge, separately evidenced Claude Code and Codex integrations, and private release-candidate validation.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-developer-preview.md",
@@ -25,6 +25,7 @@
   ],
   "allowed_files": [
     "packages/release-readiness/**",
+    "packages/cli/test/cli.test.js",
     "fixtures/S10/**",
     "docs/**",
     "schemas/**",

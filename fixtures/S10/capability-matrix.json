@@ -1,0 +1,91 @@
+{
+  "schema": "scopa.capability-matrix.v1",
+  "subject": {
+    "adapter": "scopa-mcp@0.2.0-dev.1",
+    "client": "scopa-consumer-fixture@0.2.0-dev.1",
+    "transport": "mcp-stdio"
+  },
+  "capabilities": [
+    {
+      "id": "scopa.orientation",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "consumer scopa_orientation result"
+    },
+    {
+      "id": "scopa.read_file",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "consumer contained-read inventory"
+    },
+    {
+      "id": "scopa.write_file",
+      "category": "mutate",
+      "exposure": "advertised",
+      "mediation": "scopa-dispatcher",
+      "effect": "MUTATE",
+      "evidence": "consumer allowed and denied writes"
+    },
+    {
+      "id": "scopa.check",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "scopa-gate",
+      "effect": "OBSERVE",
+      "evidence": "consumer real terminal result"
+    },
+    {
+      "id": "scopa.assurance",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "consumer capability matrix result"
+    },
+    {
+      "id": "scopa.transcript",
+      "category": "observe",
+      "exposure": "advertised",
+      "mediation": "read-only",
+      "effect": "OBSERVE",
+      "evidence": "consumer closed transcript result"
+    },
+    {
+      "id": "native.filesystem-write",
+      "category": "mutate",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "consumer fixture is a fixed JSON-RPC stream client"
+    },
+    {
+      "id": "native.process-execution",
+      "category": "execute",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "consumer fixture exposes no process request primitive"
+    },
+    {
+      "id": "native.network",
+      "category": "network",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "consumer fixture exposes no network request primitive"
+    },
+    {
+      "id": "native.extensions",
+      "category": "extension",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "consumer fixture exposes no plugin or extension primitive"
+    }
+  ],
+  "assurance": "full"
+}

@@ -268,7 +268,6 @@ test('packed artifact installs and runs without leaking private build surfaces',
   for (const forbidden of [
     '.github/',
     'evidence/',
-    'fixtures/',
     'next-prompt-protocols/',
     'notes/',
     'runs/',
@@ -280,10 +279,30 @@ test('packed artifact installs and runs without leaking private build surfaces',
       `tarball leaked ${forbidden}`,
     );
   }
+  assert.deepEqual(
+    paths.filter((entry) => entry.startsWith('fixtures/')).sort(),
+    [
+      'fixtures/S10/2026-07-26-freetsa-packet.json',
+      'fixtures/S10/capability-matrix.json',
+      'fixtures/S10/clean.slice-definition.json',
+      'fixtures/S10/consumer-client.mjs',
+      'fixtures/S10/failing.slice-definition.json',
+      'fixtures/S10/freetsa-root.pem',
+      'fixtures/S10/session.json',
+    ],
+    'tarball must contain only the reviewed S10 public fixtures',
+  );
   assert.equal(
-    paths.some((entry) => /\.(?:log|pem|tmp)$/.test(entry)),
+    paths.some(
+      (entry) =>
+        /\.(?:log|tmp)$/.test(entry) ||
+        (
+          entry.endsWith('.pem') &&
+          entry !== 'fixtures/S10/freetsa-root.pem'
+        ),
+    ),
     false,
-    'tarball leaked a log, certificate, or temporary file',
+    'tarball leaked a log, unreviewed certificate, or temporary file',
   );
   assert.equal(paths.includes('packages/cli/src/cli.js'), true);
   assert.equal(paths.includes('packages/enforcement/src/lock.js'), true);

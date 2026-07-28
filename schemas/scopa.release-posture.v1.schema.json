@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.release-posture.v1.schema.json",
+  "title": "SCOPA release posture v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project",
+    "publisher",
+    "version",
+    "license",
+    "contributions",
+    "naming",
+    "publication",
+    "freeToolBoundary"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.release-posture.v1"
+    },
+    "project": {
+      "const": "SCOPA"
+    },
+    "publisher": {
+      "const": "Heart AI Foundation"
+    },
+    "version": {
+      "const": "0.2.0-dev.1"
+    },
+    "license": {
+      "const": "Apache-2.0"
+    },
+    "contributions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "requiresSignoff",
+        "claRequired"
+      ],
+      "properties": {
+        "model": {
+          "const": "DCO-1.1"
+        },
+        "requiresSignoff": {
+          "const": true
+        },
+        "claRequired": {
+          "const": false
+        }
+      }
+    },
+    "naming": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "bins",
+        "trademarkStatus"
+      ],
+      "properties": {
+        "package": {
+          "const": "@heart-ai-foundation/scopa"
+        },
+        "bins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scopa",
+            "scopa-mcp"
+          ],
+          "properties": {
+            "scopa": {
+              "const": "./packages/cli/src/cli.js"
+            },
+            "scopa-mcp": {
+              "const": "./packages/adapter-host/src/cli.js"
+            }
+          }
+        },
+        "trademarkStatus": {
+          "const": "working-name-no-registration-claim"
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repositoryVisibility",
+        "artifactChannel",
+        "npm",
+        "githubRelease",
+        "publicRelease",
+        "production",
+        "requiresSeparatePrincipalApproval"
+      ],
+      "properties": {
+        "repositoryVisibility": {
+          "const": "private"
+        },
+        "artifactChannel": {
+          "const": "local-tarball"
+        },
+        "npm": {
+          "const": false
+        },
+        "githubRelease": {
+          "const": false
+        },
+        "publicRelease": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "requiresSeparatePrincipalApproval": {
+          "const": true
+        }
+      }
+    },
+    "freeToolBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verificationPaidDependency",
+        "consultationBoundary"
+      ],
+      "properties": {
+        "verificationPaidDependency": {
+          "const": false
+        },
+        "consultationBoundary": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

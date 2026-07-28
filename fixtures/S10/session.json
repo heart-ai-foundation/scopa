@@ -1,0 +1,10 @@
+{
+  "schema": "scopa.adapter-session.v1",
+  "sessionId": "S10-unfamiliar-consumer",
+  "request": "Use only the six SCOPA tools: orient, write the exact allowed fixture content, observe an escaping write denial, check the real stop state, inspect assurance, and retain the transcript.",
+  "agent": {
+    "provider": "fixture",
+    "model": "deterministic-source-free-consumer",
+    "provenance": "launcher-declared"
+  }
+}

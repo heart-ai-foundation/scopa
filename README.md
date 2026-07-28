@@ -13,16 +13,14 @@ reference implementation.
 
 ## Status
 
-SCOPA is pre-release Foundation work. S0 Conformance Harness, S1 Sealed Core,
-S2 Enforcement Loop, S3 Legibility, S4 Signing and Anchoring, S5 Interop
-Export, and S6 Installable Developer Surface are complete. The authorized
-Developer Preview Macro Delta has also completed S7's model-neutral MCP bridge
-and S8's separately evidenced Claude Code integration. S9 is actively
-validating Codex headless integration and cross-agent parity. S5's
-deterministic CASE/UCO 1.4.0 JSON-LD artifact passes
-the independent CASE community validator and losslessly recovers the signed
-S4 packet. The package and repository remain private; publication requires a
-separate principal request.
+SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S9 are
+complete: conformance, sealed core, enforcement, legibility, signing and
+anchoring, CASE/UCO export, local distribution, the model-neutral MCP bridge,
+and separately evidenced Claude Code and Codex integrations with
+machine-readable behavior parity. S10 is validating source-free consumer
+adoption, policy readiness, independent verification, and claim boundaries.
+The package and repository remain private; publication requires a separate
+principal request.
 
 Start with:
 
@@ -30,7 +28,7 @@ Start with:
 2. `next-prompt-protocols/manifest.json`
 3. `next-prompt-protocols/macro-deltas/2026-07-27-scopa-developer-preview.md`
 4. `next-prompt-protocols/role-context.md`
-5. `next-prompt-protocols/active/2026-07-27-S9-codex-headless-integration-and-parity.md`
+5. `next-prompt-protocols/active/2026-07-27-S10-developer-preview-release-candidate.md`
 
 ## Developer CLI
 
@@ -40,7 +38,8 @@ registry package:
 
 ```sh
 npm pack
-npm install --ignore-scripts /path/to/heart-ai-foundation-scopa-0.0.0.tgz
+npm install --ignore-scripts \
+  /path/to/heart-ai-foundation-scopa-0.2.0-dev.1.tgz
 ```
 
 In a repository with a closed slice definition:
@@ -113,6 +112,26 @@ Assurance remains `partial`. Provider network, managed policy,
 skill/instruction discovery, CLI-owned metadata, and the native filesystem
 boundary remain outside SCOPA. See `packages/integrations/codex/README.md` for
 the API, exact controls, and non-claims.
+
+## Developer-preview release candidate
+
+S10 adds the approved Apache-2.0, DCO/no-CLA, private-tarball posture; security,
+governance, versioning, threat-model, and claim-boundary documents; published
+JSON Schemas; and a source-free consumer probe.
+
+The consumer installs the exact tarball, runs the six-tool model-neutral
+adapter, proves an allowed write and an escaping-write denial, obtains the real
+terminal state, verifies a retained signed packet with caller-supplied trust,
+and confirms that an exit-7 fixture remains blocked:
+
+```sh
+npm run audit:s10:policy
+npm run probe:s10:consumer -- --output /trusted/private-consumer-proof.json
+```
+
+See `docs/QUICKSTART.md`, `docs/THREAT_MODEL.md`, and `docs/CLAIMS.md`. These
+surfaces are candidate evidence, not npm publication, production
+authorization, formal certification, or full Claude/Codex assurance.
 
 ## Sealed core
 

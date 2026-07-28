@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "76a82a9",
+  "current_commit": "ce768e9",
   "current_phase": "phase-4-developer-preview",
   "active_protocol": "active/2026-07-27-S10-developer-preview-release-candidate.md",
   "active_class": "arc",
@@ -17,10 +17,11 @@
     "RC2",
     "RC3"
   ],
-  "active_protocol_sha256": "sha256:7a4e29682235aa6b10087fd9ac40500257fd531826dd2365e46dcdc41f537dc3",
+  "active_protocol_sha256": "sha256:7fa2acd004fdf835e9d56b9aa234fd580561dfca0470ec8a3c95a2bbaeda91a6",
   "active_objective": "After the principal records the release license, contribution model, working\nrelease name, and publication posture, assemble a private v0.2\ndeveloper-preview candidate. Run its documented quickstart from the packed\nartifact in a fresh repository, exercise one supported adapter, reproduce the\ncore enforcement proof, independently verify the evidence packet, and obtain\nan outside consumer/reviewer verdict.",
   "allowed_files": [
     "packages/release-readiness/**",
+    "packages/cli/test/cli.test.js",
     "fixtures/S10/**",
     "docs/**",
     "schemas/**",

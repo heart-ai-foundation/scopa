@@ -1,6 +1,6 @@
 # Phase 4 Developer Preview
 
-Current commit reference: `76a82a9`
+Current commit reference: `ce768e9`
 Current active protocol: `active/2026-07-27-S10-developer-preview-release-candidate.md`
 
 ## Scope
@@ -19,6 +19,7 @@ Developer-preview work: installable local distribution, a model-neutral agent br
 ## Files in play
 
 - `packages/release-readiness/**`
+- `packages/cli/test/cli.test.js`
 - `fixtures/S10/**`
 - `docs/**`
 - `schemas/**`

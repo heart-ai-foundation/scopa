@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `76a82a9`
+Current commit reference: `ce768e9`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -165,6 +165,7 @@ After the artifacts are written, update the protocol state from the repo tip:
 These protocols are specific to:
 
 - `packages/release-readiness/**`
+- `packages/cli/test/cli.test.js`
 - `fixtures/S10/**`
 - `docs/**`
 - `schemas/**`

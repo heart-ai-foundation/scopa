@@ -194,6 +194,81 @@ export async function auditReleasePolicies({ root }) {
     }
   }
 
+  const schemaChecks = [
+    [
+      'schemas/scopa.release-posture.v1.schema.json',
+      'scopa.release-posture.v1.schema.json',
+    ],
+    [
+      'schemas/scopa.candidate-manifest.v1.schema.json',
+      'scopa.candidate-manifest.v1.schema.json',
+    ],
+    [
+      'schemas/scopa.consumer-proof.v1.schema.json',
+      'scopa.consumer-proof.v1.schema.json',
+    ],
+  ];
+  for (const [relativePath, suffix] of schemaChecks) {
+    try {
+      const schema = JSON.parse(await read(relativePath));
+      add(
+        `json-schema:${suffix}`,
+        schema.$schema === 'https://json-schema.org/draft/2020-12/schema' &&
+          typeof schema.$id === 'string' &&
+          schema.$id.endsWith(suffix) &&
+          schema.type === 'object' &&
+          schema.additionalProperties === false,
+        `${relativePath} is a closed draft-2020-12 object schema`,
+      );
+    } catch (error) {
+      add(
+        `json-schema:${suffix}`,
+        false,
+        `${relativePath} error: ${error.message}`,
+      );
+    }
+  }
+
+  try {
+    const clean = JSON.parse(
+      await read('fixtures/S10/clean.slice-definition.json'),
+    );
+    const failing = JSON.parse(
+      await read('fixtures/S10/failing.slice-definition.json'),
+    );
+    add(
+      'fixture-pair',
+      clean.schema === 'scopa.slice-definition.v1' &&
+        failing.schema === 'scopa.slice-definition.v1' &&
+        clean.gates[0].command.join(' ').includes('consumer.txt') &&
+        failing.gates[0].command.at(-1) === 'process.exit(7)',
+      'S10 retains one satisfiable consumer fixture and one real exit-7 fixture',
+    );
+  } catch (error) {
+    add('fixture-pair', false, `S10 fixture error: ${error.message}`);
+  }
+
+  try {
+    const packet = await read(
+      'fixtures/S10/2026-07-26-freetsa-packet.json',
+    );
+    const rootCertificate = await read('fixtures/S10/freetsa-root.pem');
+    add(
+      'verification-fixture-integrity',
+      sha256(packet) ===
+        'f30c9fa735b0a9f76de71eeefa135f6fbf5967b62d36666aa16771cf0653bfcd' &&
+        sha256(rootCertificate) ===
+        '2151b61137ffa86bf664691ba67e7da0b19f98c758e3d228d5d8ebf27e044438',
+      'packaged signed packet and verifier-supplied root match accepted S4 bytes',
+    );
+  } catch (error) {
+    add(
+      'verification-fixture-integrity',
+      false,
+      `verification fixture error: ${error.message}`,
+    );
+  }
+
   return validatePolicyAudit({
     schema: RELEASE_SCHEMAS.policyAudit,
     ok: checks.every((check) => check.passed),

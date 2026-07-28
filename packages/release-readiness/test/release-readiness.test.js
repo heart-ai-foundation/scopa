@@ -14,6 +14,7 @@ import {
 } from 'node:url';
 import {
   RELEASE_SCHEMAS,
+  auditReleasePolicies,
   createPublicConsumerProof,
   validateCandidateManifest,
   validateConsumerProof,
@@ -240,4 +241,20 @@ test('public proof replaces private roots and binds the exact raw bytes', () => 
   assert.equal(publication.receipt.semanticFieldsChanged, false);
   assert.equal(publication.receipt.redactions.length, 2);
   assert.equal(publication.receipt.sourceSha256.length, 64);
+});
+
+test('repository release policies form one passing closed audit', async () => {
+  const report = await auditReleasePolicies({ root: ROOT });
+  assert.equal(
+    report.ok,
+    true,
+    report.checks
+      .filter((check) => !check.passed)
+      .map((check) => `${check.id}: ${check.evidence}`)
+      .join('\n'),
+  );
+  assert.equal(
+    new Set(report.checks.map((check) => check.id)).size,
+    report.checks.length,
+  );
 });

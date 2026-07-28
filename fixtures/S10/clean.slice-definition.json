@@ -1,0 +1,28 @@
+{
+  "schema": "scopa.slice-definition.v1",
+  "sliceId": "S10-source-free-consumer",
+  "allowedPaths": [
+    "workspace/**"
+  ],
+  "amendmentPath": ".scopa/amendment.json",
+  "gates": [
+    {
+      "id": "consumer-content",
+      "command": [
+        "node",
+        "-e",
+        "const fs=require('node:fs');process.exit(fs.existsSync('workspace/consumer.txt')&&fs.readFileSync('workspace/consumer.txt','utf8')==='SCOPA_CONSUMER_ALLOWED\\n'?0:7)"
+      ],
+      "cwd": ".",
+      "timeoutMs": 5000
+    }
+  ],
+  "nonGoals": [
+    "No writes outside workspace",
+    "No source-checkout imports",
+    "No false-green terminal claim"
+  ],
+  "stopCondition": {
+    "kind": "all-gates-pass"
+  }
+}
