@@ -95,6 +95,25 @@ managed policy, auto-memory discovery, and a small Claude session-title
 metadata write remain uncontrolled. See
 `packages/integrations/claude/README.md` for the API and non-claims.
 
+## Codex integration
+
+The installed package also exports `@heart-ai-foundation/scopa/codex`. Its
+reviewed profile pins Codex CLI 0.145.0 and `gpt-5.4`, resets the MCP map to
+one required SCOPA server, disables 28 native feature surfaces, ignores user
+config and exec rules, uses ephemeral JSONL execution with a read-only native
+sandbox, and schema-binds the final response.
+
+Codex requires explicit unattended preapproval for the destructive-annotated
+`scopa_write_file` tool. That narrow approval does not enable native mutation:
+the call still reaches the SCOPA dispatcher and its scope lock. The live S9
+proof passes allowed work, denied scope, false-green refusal, and cold restart,
+and the machine parity report passes all four outcomes against Claude.
+
+Assurance remains `partial`. Provider network, managed policy,
+skill/instruction discovery, CLI-owned metadata, and the native filesystem
+boundary remain outside SCOPA. See `packages/integrations/codex/README.md` for
+the API, exact controls, and non-claims.
+
 ## Sealed core
 
 S1 provides:
