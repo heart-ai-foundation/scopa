@@ -113,7 +113,10 @@ export async function packCandidate({
       size,
       mode,
     }))
-    .sort((left, right) => left.path.localeCompare(right.path));
+    .sort((left, right) => {
+      if (left.path === right.path) return 0;
+      return left.path < right.path ? -1 : 1;
+    });
   assertPackedSurface(files);
 
   const artifactPath = path.join(
