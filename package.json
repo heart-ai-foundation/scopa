@@ -1,7 +1,8 @@
 {
   "name": "@heart-ai-foundation/scopa",
-  "version": "0.0.0",
+  "version": "0.2.0-dev.1",
   "private": true,
+  "license": "Apache-2.0",
   "description": "Open enforcement runtime for bounded, verifiable autonomous coding work",
   "type": "module",
   "bin": {
