@@ -4,7 +4,7 @@ The root package exports `@heart-ai-foundation/scopa/claude`, a headless
 Claude Code launcher and strict stream normalizer for the shared `scopa-mcp`
 bridge.
 
-The reviewed profile pins Claude Code `2.1.170`, delays its streaming user
+The reviewed profile pins Claude Code `2.1.220`, delays its streaming user
 input until the explicit MCP server can initialize, and accepts only the six
 `mcp__scopa__*` tools. It disables ordinary setting sources, skills and slash
 commands, Chrome, IDE activation, and resumable session content; caps the run
@@ -19,15 +19,18 @@ have no execution route in this profile.
 ```js
 import {
   createClaudeCapabilityMatrix,
+  createClaudeLivePolicy,
   createClaudeSession,
   runClaudeSession,
 } from '@heart-ai-foundation/scopa/claude';
 
+const livePolicy = createClaudeLivePolicy();
 const result = await runClaudeSession({
   repoRoot,
   adapterCli,
   prompt,
   installedArtifact,
+  livePolicy,
   scenario: {
     id: 'example',
     version: '1',
@@ -66,11 +69,12 @@ has no enforcement authority.
 ## Assurance boundary
 
 The reviewed Claude profile is deliberately `partial`, not `full`. Provider
-network traffic, managed policy, auto-memory discovery, and Claude 2.1.170's
-observed session-title metadata write remain outside SCOPA. In particular,
-`--no-session-persistence` suppresses resumable conversation content but did
-not suppress a small `ai-title` JSONL record in the user project store during
-the live proof.
+network traffic, managed policy, auto-memory discovery, and Claude's bounded
+session-title metadata write remain outside SCOPA. In particular,
+`--no-session-persistence` suppresses resumable conversation content, but
+reviewed clients may still write a small `ai-title` JSONL record in the user
+project store. The S15 campaign classifies and removes only its exact
+run-specific project directories.
 
 Model identity remains launcher-declared and the observed model string is a
 CLI event, not provider-signed provenance. SCOPA is a tool-boundary runtime,

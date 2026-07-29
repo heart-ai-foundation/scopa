@@ -107,7 +107,7 @@ the privacy scanner. See `packages/live-run/README.md` for the boundary.
 ## Claude Code integration
 
 The installed package exports `@heart-ai-foundation/scopa/claude`. Its reviewed
-profile pins Claude Code 2.1.170, waits for the strict explicit MCP server
+profile pins Claude Code 2.1.220, waits for the strict explicit MCP server
 before sending streaming input, and exposes exactly the six
 `mcp__scopa__*` tools observed in Claude's initialization event. It caps each
 run at 12 turns, USD 0.20, 120 seconds, and 20 MiB of captured output.
@@ -118,6 +118,21 @@ Claude/bridge process. Assurance is deliberately `partial`: provider network,
 managed policy, auto-memory discovery, and a small Claude session-title
 metadata write remain uncontrolled. See
 `packages/integrations/claude/README.md` for the API and non-claims.
+
+The S15 production-like campaign is a separately authorized operation. It is
+never run by `npm test` or hosted CI, refuses an uncommitted candidate, and
+requires the committed policy plus a private evidence destination outside the
+repository:
+
+```sh
+npm run probe:s15:live -- \
+  --policy fixtures/S15/claude-live-policy.json \
+  --private-root /trusted/private/scopa/S15
+```
+
+The command makes six real Claude requests, each bounded by the policy. It
+must be run only by an authorized account holder who has reviewed the
+USD 1.20 campaign ceiling and private-evidence retention requirements.
 
 ## Codex integration
 

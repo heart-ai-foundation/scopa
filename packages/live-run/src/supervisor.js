@@ -197,12 +197,16 @@ export async function superviseProcess({
   );
 
   let child;
+  let spawnError = null;
   try {
     child = spawn(command, args, {
       cwd,
       env,
       detached: true,
       stdio: ['pipe', 'pipe', 'pipe'],
+    });
+    child.once('error', (error) => {
+      spawnError = error;
     });
   } catch {
     return spawnFailure(maxCaptureBytes);
@@ -279,11 +283,7 @@ export async function superviseProcess({
     terminate();
   }, timeoutMs);
 
-  let spawnError = false;
   const closePromise = new Promise((resolve) => {
-    child.once('error', () => {
-      spawnError = true;
-    });
     child.once('close', (exitCode, signal) => {
       resolve({
         exitCode,
@@ -357,7 +357,7 @@ export async function superviseProcess({
       cleanup,
     });
   }
-  if (spawnError) {
+  if (spawnError !== null) {
     return processResult({
       state: 'spawn-failed',
       reason: 'spawn-error',

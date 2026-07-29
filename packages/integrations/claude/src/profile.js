@@ -6,11 +6,14 @@ import {
   validateCapabilityMatrix,
 } from '../../../adapter-host/src/index.js';
 
-export const EXPECTED_CLAUDE_CODE_VERSION = '2.1.170';
+export const EXPECTED_CLAUDE_CODE_VERSION = '2.1.220';
 export const CLAUDE_MCP_SERVER_NAME = 'scopa';
 export const CLAUDE_MODEL_REQUEST = 'sonnet';
 export const CLAUDE_MODEL_OBSERVED = 'claude-sonnet-4-6';
 export const CLAUDE_INPUT_SETTLE_MS = 1_000;
+export const CLAUDE_MAX_TURNS = 12;
+export const CLAUDE_MAX_CAPTURE_BYTES = 20 * 1024 * 1024;
+export const CLAUDE_MAX_INPUT_BYTES = 1024 * 1024;
 export const CLAUDE_MCP_TOOL_PREFIX = 'mcp__scopa__';
 export const CLAUDE_MCP_TOOLS = Object.freeze([
   'mcp__scopa__scopa_orientation',
@@ -224,7 +227,7 @@ export function createClaudeCapabilityMatrix({
       uncontrolled(
         'claude.session-persistence',
         'mutate',
-        '--no-session-persistence suppresses resumable content, but Claude 2.1.170 still wrote an ai-title JSONL record under its user project store',
+        '--no-session-persistence suppresses resumable content, but the reviewed Claude client may still write bounded non-resumable metadata under its user project store',
       ),
       disabled(
         'claude.skills-and-slash-commands',
@@ -286,6 +289,7 @@ export function buildClaudeInvocation({
   prompt,
   model = CLAUDE_MODEL_REQUEST,
   maxBudgetUsd = '0.20',
+  maxTurns = CLAUDE_MAX_TURNS,
 }) {
   const args = [
     '-p',
@@ -295,6 +299,8 @@ export function buildClaudeInvocation({
     'stream-json',
     '--verbose',
     '--no-session-persistence',
+    '--prompt-suggestions',
+    'false',
     '--tools',
     `mcp__${CLAUDE_MCP_SERVER_NAME}`,
     '--setting-sources',
@@ -313,13 +319,15 @@ export function buildClaudeInvocation({
     '--max-budget-usd',
     String(maxBudgetUsd),
     '--max-turns',
-    '12',
+    String(maxTurns),
     '--model',
     model,
     '--effort',
     'low',
     '--system-prompt',
     SYSTEM_PROMPT,
+    '--json-schema',
+    JSON.stringify(CLAUDE_FINAL_SCHEMA),
   ];
   return Object.freeze({
     command: 'claude',
@@ -342,7 +350,15 @@ export function buildClaudeInvocation({
   });
 }
 
-export function validateClaudeInvocation(invocation) {
+export function validateClaudeInvocation(invocation, {
+  expectedMaxTurns = CLAUDE_MAX_TURNS,
+} = {}) {
+  if (
+    !Number.isSafeInteger(expectedMaxTurns) ||
+    expectedMaxTurns <= 0
+  ) {
+    throw new TypeError('expected Claude max turns must be positive');
+  }
   const joined = invocation.args.join('\0');
   for (const forbidden of [
     '--add-dir',
@@ -363,8 +379,10 @@ export function validateClaudeInvocation(invocation) {
     '--disable-slash-commands',
     '--no-chrome',
     '--no-session-persistence',
+    '--prompt-suggestions',
     '--strict-mcp-config',
     '--tools',
+    '--json-schema',
     '--max-turns',
   ]) {
     if (!invocation.args.includes(required)) {
@@ -373,12 +391,23 @@ export function validateClaudeInvocation(invocation) {
   }
   if (
     !joined.includes('--input-format\0stream-json') ||
-    !joined.includes('--max-turns\0' + '12') ||
+    !joined.includes(`--max-turns\0${expectedMaxTurns}`) ||
+    !joined.includes('--prompt-suggestions\0false') ||
     !joined.includes(`--tools\0mcp__${CLAUDE_MCP_SERVER_NAME}`) ||
     !joined.includes('--setting-sources\0\0') ||
     !joined.includes(`--allowedTools\0mcp__${CLAUDE_MCP_SERVER_NAME}`)
   ) {
     throw new Error('Claude input, tool, or setting surface is not closed');
+  }
+  const schemaIndex = invocation.args.indexOf('--json-schema');
+  let finalSchema;
+  try {
+    finalSchema = JSON.parse(invocation.args[schemaIndex + 1]);
+  } catch {
+    throw new Error('Claude structured-output schema is invalid');
+  }
+  if (JSON.stringify(finalSchema) !== JSON.stringify(CLAUDE_FINAL_SCHEMA)) {
+    throw new Error('Claude structured-output schema differs from profile');
   }
   let input;
   try {

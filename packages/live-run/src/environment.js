@@ -38,7 +38,14 @@ export function createControlledEnvironment({
   additions = {},
   removedNames,
   baseEnvironment = process.env,
+  inheritance = 'host-minus-denylist',
 }) {
+  if (![
+    'explicit-allowlist',
+    'host-minus-denylist',
+  ].includes(inheritance)) {
+    throw new TypeError('environment inheritance policy is invalid');
+  }
   environmentObject(additions, 'environment additions');
   environmentObject(baseEnvironment, 'base environment');
   const removed = uniqueSortedStrings(removedNames, 'removedNames');
@@ -60,7 +67,7 @@ export function createControlledEnvironment({
   const setNames = Object.keys(additions).sort();
   const descriptor = {
     schema: LIVE_ENVIRONMENT_POLICY_SCHEMA,
-    inheritance: 'host-minus-denylist',
+    inheritance,
     inheritedNameCount: inheritedNames.length,
     inheritedNamesSha256: jsonHash(inheritedNames),
     removedNames: removed,

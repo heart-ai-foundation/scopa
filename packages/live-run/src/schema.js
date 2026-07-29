@@ -15,6 +15,11 @@ export const LIVE_TERMINAL_STATES = Object.freeze([
   'inventory-drift',
   'normalization-failed',
   'cleanup-failed',
+  'provider-refused',
+  'rate-limited',
+  'budget-exhausted',
+  'turn-limit',
+  'provider-failed',
 ]);
 
 export const LIVE_TERMINAL_REASONS = Object.freeze([
@@ -29,6 +34,12 @@ export const LIVE_TERMINAL_REASONS = Object.freeze([
   'stream-normalization-error',
   'orphan-process-detected',
   'process-group-survived',
+  'authentication-boundary-mismatch',
+  'provider-request-refused',
+  'provider-rate-limited',
+  'provider-budget-exhausted',
+  'provider-turn-limit-exceeded',
+  'provider-execution-error',
 ]);
 
 const TERMINAL_KEYS = Object.freeze([

@@ -185,6 +185,7 @@ async function scenario({
   name,
   integration,
   installedArtifact,
+  livePolicy,
 }) {
   return integration.runClaudeSession({
     repoRoot,
@@ -195,6 +196,7 @@ async function scenario({
     }),
     capabilityMatrix: matrix,
     installedArtifact,
+    livePolicy,
     scenario: {
       id: name,
       version: 'S8.v1',
@@ -211,6 +213,7 @@ async function main() {
   try {
     const installed = await installPackedRuntime(temporary);
     const matrix = installed.integration.createClaudeCapabilityMatrix({});
+    const livePolicy = installed.integration.createClaudeLivePolicy({});
     const prompts = JSON.parse(
       await readFile(path.join(FIXTURE, 'prompts.json'), 'utf8'),
     );
@@ -229,6 +232,7 @@ async function main() {
       name: 'clean',
       integration: installed.integration,
       installedArtifact: installed.artifact,
+      livePolicy,
     });
     assertOrder(clean, [
       'scopa_orientation',
@@ -254,6 +258,7 @@ async function main() {
       name: 'denied',
       integration: installed.integration,
       installedArtifact: installed.artifact,
+      livePolicy,
     });
     assertOrder(denied, [
       'scopa_orientation',
@@ -283,6 +288,7 @@ async function main() {
       name: 'false-green',
       integration: installed.integration,
       installedArtifact: installed.artifact,
+      livePolicy,
     });
     assertOrder(falseGreen, [
       'scopa_orientation',
@@ -305,6 +311,7 @@ async function main() {
       name: 'cold-restart',
       integration: installed.integration,
       installedArtifact: installed.artifact,
+      livePolicy,
     });
     assertOrder(coldRestart, [
       'scopa_orientation',

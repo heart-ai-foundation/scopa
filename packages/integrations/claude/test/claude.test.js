@@ -52,6 +52,7 @@ function rawFixture() {
           status: 'connected',
         },
       ],
+      mcp_server_errors: [],
       model: CLAUDE_MODEL_OBSERVED,
       permissionMode: 'dontAsk',
       slash_commands: [],
@@ -164,7 +165,7 @@ function jsonLines(events) {
 
 test('Claude profile pins version, closes built-ins, and binds one MCP server', () => {
   assert.equal(
-    parseClaudeVersion('2.1.170 (Claude Code)\n'),
+    parseClaudeVersion(`${EXPECTED_CLAUDE_CODE_VERSION} (Claude Code)\n`),
     EXPECTED_CLAUDE_CODE_VERSION,
   );
   assert.throws(() => parseClaudeVersion('2.1.171'));
@@ -179,6 +180,8 @@ test('Claude profile pins version, closes built-ins, and binds one MCP server', 
   assert.equal(invocation.args.includes('--dangerously-skip-permissions'), false);
   assert.equal(invocation.args.includes('--strict-mcp-config'), true);
   assert.equal(invocation.args.includes('--no-session-persistence'), true);
+  assert.equal(invocation.args.includes('--prompt-suggestions'), true);
+  assert.equal(invocation.args.includes('--json-schema'), true);
   assert.equal(invocation.args.includes('--no-chrome'), true);
   assert.equal(
     invocation.args[invocation.args.indexOf('--max-turns') + 1],

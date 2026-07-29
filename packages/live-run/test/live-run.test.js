@@ -26,6 +26,9 @@ import {
   runClaudeSession,
 } from '../../integrations/claude/src/run.js';
 import {
+  createClaudeLivePolicy,
+} from '../../integrations/claude/src/live-policy.js';
+import {
   createClaudeCapabilityMatrix,
   createClaudeSession,
 } from '../../integrations/claude/src/profile.js';
@@ -55,6 +58,10 @@ const ROOT = path.resolve(
   fileURLToPath(new URL('../../..', import.meta.url)),
 );
 const FAULT_CLIENT = path.join(ROOT, 'fixtures/S14/fault-client.mjs');
+const CLAUDE_FAULT_CLIENT = path.join(
+  ROOT,
+  'fixtures/S15/claude-fault-client.mjs',
+);
 const ARTIFACT = Object.freeze({
   schema: 'scopa.installed-artifact-identity.v1',
   sourceCommit: 'a'.repeat(40),
@@ -108,6 +115,8 @@ async function withFaultEnvironment(provider, mode, operation) {
     'SCOPA_S14_FIXTURE_ROOT',
     'SCOPA_S14_MODE',
     'SCOPA_S14_PROVIDER',
+    'SCOPA_S15_FIXTURE_ROOT',
+    'SCOPA_S15_MODE',
   ];
   const previous = Object.fromEntries(
     names.map((name) => [
@@ -115,9 +124,14 @@ async function withFaultEnvironment(provider, mode, operation) {
       process.env[name],
     ]),
   );
-  process.env.SCOPA_S14_FIXTURE_ROOT = ROOT;
-  process.env.SCOPA_S14_MODE = mode;
-  process.env.SCOPA_S14_PROVIDER = provider;
+  if (provider === 'claude') {
+    process.env.SCOPA_S15_FIXTURE_ROOT = ROOT;
+    process.env.SCOPA_S15_MODE = mode;
+  } else {
+    process.env.SCOPA_S14_FIXTURE_ROOT = ROOT;
+    process.env.SCOPA_S14_MODE = mode;
+    process.env.SCOPA_S14_PROVIDER = provider;
+  }
   try {
     return await operation();
   } finally {
@@ -144,12 +158,13 @@ function claudeOptions(root) {
     capabilityMatrix: createClaudeCapabilityMatrix({}),
     prompt: 'deterministic fault session',
     installedArtifact: ARTIFACT,
+    livePolicy: createClaudeLivePolicy({ timeoutMs: 2_000 }),
     scenario: {
-      id: 'claude-fault',
+      id: 'fixture',
       version: 'S14.v1',
     },
     adapterCli: path.join(root, 'scopa-mcp.js'),
-    claudeCommand: FAULT_CLIENT,
+    claudeCommand: CLAUDE_FAULT_CLIENT,
     timeoutMs: 2_000,
     inputSettleMs: 0,
     terminateGraceMs: 30,
@@ -302,10 +317,22 @@ test('environment policy binds names and safe additions without values', () => {
   const serialized = canonicalJsonPretty(first.policy);
   assert.equal(serialized.includes('protected-one'), false);
   assert.equal(serialized.includes('one'), false);
+
+  const explicit = createControlledEnvironment({
+    baseEnvironment: {
+      PATH: '/usr/bin',
+    },
+    additions: {},
+    removedNames: [],
+    inheritance: 'explicit-allowlist',
+  });
+  assert.equal(explicit.policy.inheritance, 'explicit-allowlist');
+  assert.deepEqual(Object.keys(explicit.environment), ['PATH']);
 });
 
 test('Claude and Codex use shared custody for success and drift failures', async (context) => {
   await chmod(FAULT_CLIENT, 0o755);
+  await chmod(CLAUDE_FAULT_CLIENT, 0o755);
   const claudeRoot = await providerRoot('scopa-s14-claude-');
   const codexRoot = await providerRoot('scopa-s14-codex-');
   context.after(async () => {
@@ -327,7 +354,7 @@ test('Claude and Codex use shared custody for success and drift failures', async
   assert.equal(claude.terminal.state, 'succeeded');
   assert.equal(claude.terminal.canStop, true);
   assert.equal(claude.normalized.final.canStop, true);
-  assert.equal(claude.receipt.client.observedVersion, '2.1.170');
+  assert.equal(claude.receipt.client.observedVersion, '2.1.220');
 
   const claudeDrift = await withFaultEnvironment(
     'claude',

@@ -21,6 +21,19 @@ export class ClaudeStreamError extends Error {
   }
 }
 
+export class ClaudeTerminalError extends ClaudeStreamError {
+  constructor(message, {
+    state,
+    reason,
+    details = null,
+  }) {
+    super(message, details);
+    this.name = 'ClaudeTerminalError';
+    this.state = state;
+    this.reason = reason;
+  }
+}
+
 function plainObject(value) {
   return Boolean(
     value &&
@@ -166,6 +179,49 @@ function validateWireAgainstTranscript(calls, transcript) {
   }
 }
 
+function terminalFailure(terminalResult, rateLimitPressure) {
+  if (terminalResult.subtype === 'error_max_budget_usd') {
+    return {
+      state: 'budget-exhausted',
+      reason: 'provider-budget-exhausted',
+    };
+  }
+  if (terminalResult.subtype === 'error_max_turns') {
+    return {
+      state: 'turn-limit',
+      reason: 'provider-turn-limit-exceeded',
+    };
+  }
+  if (terminalResult.subtype === 'error_during_execution') {
+    if (
+      terminalResult.api_error_status === 429 ||
+      rateLimitPressure
+    ) {
+      return {
+        state: 'rate-limited',
+        reason: 'provider-rate-limited',
+      };
+    }
+    if (
+      [
+        400,
+        401,
+        403,
+      ].includes(terminalResult.api_error_status)
+    ) {
+      return {
+        state: 'provider-refused',
+        reason: 'provider-request-refused',
+      };
+    }
+    return {
+      state: 'provider-failed',
+      reason: 'provider-execution-error',
+    };
+  }
+  return null;
+}
+
 export function normalizeClaudeStream(stdout, {
   expectedAgents = CLAUDE_AGENT_INVENTORY,
   expectedVersion = EXPECTED_CLAUDE_CODE_VERSION,
@@ -178,6 +234,7 @@ export function normalizeClaudeStream(stdout, {
   const calls = [];
   const callsById = new Map();
   let rateLimitEvents = 0;
+  let rateLimitPressure = false;
   let thinkingTokenEvents = 0;
 
   for (const event of rawEvents) {
@@ -218,7 +275,14 @@ export function normalizeClaudeStream(stdout, {
         !Array.isArray(event.slash_commands) ||
         event.slash_commands.length !== 0 ||
         !Array.isArray(event.agents) ||
-        !sameSet(event.agents, expectedAgents)
+        !sameSet(event.agents, expectedAgents) ||
+        (
+          event.mcp_server_errors !== undefined &&
+          (
+            !Array.isArray(event.mcp_server_errors) ||
+            event.mcp_server_errors.length !== 0
+          )
+        )
       ) {
         throw new ClaudeStreamError(
           'Claude initialization surface differs from the pinned profile',
@@ -232,6 +296,7 @@ export function normalizeClaudeStream(stdout, {
             plugins: event.plugins,
             slashCommands: event.slash_commands,
             agents: event.agents,
+            mcpServerErrors: event.mcp_server_errors,
           },
         );
       }
@@ -245,6 +310,9 @@ export function normalizeClaudeStream(stdout, {
         plugins: [...event.plugins],
         slashCommands: [...event.slash_commands],
         agents: [...event.agents],
+        mcpServerErrors: event.mcp_server_errors === undefined
+          ? []
+          : structuredClone(event.mcp_server_errors),
         memoryPaths: plainObject(event.memory_paths)
           ? structuredClone(event.memory_paths)
           : {},
@@ -309,7 +377,16 @@ export function normalizeClaudeStream(stdout, {
     }
 
     if (event.type === 'rate_limit_event') {
+      if (
+        !plainObject(event.rate_limit_info) ||
+        typeof event.rate_limit_info.status !== 'string'
+      ) {
+        throw new ClaudeStreamError('malformed Claude rate-limit event');
+      }
       rateLimitEvents += 1;
+      if (event.rate_limit_info.status !== 'allowed') {
+        rateLimitPressure = true;
+      }
       continue;
     }
 
@@ -327,8 +404,25 @@ export function normalizeClaudeStream(stdout, {
   if (initialization === null || terminalResult === null) {
     throw new ClaudeStreamError('Claude stream lacks init or terminal result');
   }
+  if (terminalResult.subtype !== 'success') {
+    const failure = terminalFailure(terminalResult, rateLimitPressure);
+    if (failure === null || terminalResult.is_error !== true) {
+      throw new ClaudeStreamError('Claude terminal result is unsupported');
+    }
+    throw new ClaudeTerminalError('Claude provider run terminated', {
+      ...failure,
+      details: {
+        apiErrorStatus: Number.isSafeInteger(
+          terminalResult.api_error_status,
+        )
+          ? terminalResult.api_error_status
+          : null,
+        rateLimitEvents,
+        subtype: terminalResult.subtype,
+      },
+    });
+  }
   if (
-    terminalResult.subtype !== 'success' ||
     terminalResult.is_error !== false ||
     calls.some((call) => call.result === null)
   ) {
@@ -344,6 +438,16 @@ export function normalizeClaudeStream(stdout, {
   const transcript = validateTranscript(transcriptCall.result);
   validateWireAgainstTranscript(calls, transcript);
   const final = validateFinal(finalObject(terminalResult));
+  if (
+    !Number.isFinite(terminalResult.total_cost_usd) ||
+    terminalResult.total_cost_usd < 0 ||
+    !Number.isSafeInteger(terminalResult.num_turns) ||
+    terminalResult.num_turns < 0 ||
+    typeof terminalResult.terminal_reason !== 'string' ||
+    terminalResult.terminal_reason.length === 0
+  ) {
+    throw new ClaudeStreamError('Claude terminal accounting is invalid');
+  }
   if (
     transcript.terminal === null ||
     final.canStop !== transcript.terminal.canStop ||

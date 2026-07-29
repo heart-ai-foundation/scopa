@@ -1,0 +1,79 @@
+{
+  "schema": "scopa.claude-live-policy.v1",
+  "policyId": "S15-production-live-v1",
+  "authorization": {
+    "approvedOn": "2026-07-28",
+    "principalApproval": "conversation-explicit",
+    "scope": "S15-production-live-run-edge-campaign"
+  },
+  "account": {
+    "boundary": "current-authenticated-principal-controlled-claude-ai-subscription",
+    "authMethod": "claude.ai",
+    "apiProvider": "firstParty",
+    "subscriptionType": "max",
+    "identityHandling": "verified-private-not-retained"
+  },
+  "network": {
+    "allowedClass": "anthropic-first-party-via-claude-code",
+    "alternateProvidersDisabled": true,
+    "osEnforced": false
+  },
+  "model": {
+    "requestedAlias": "sonnet",
+    "snapshotStatus": "requested-alias-not-snapshot"
+  },
+  "tools": {
+    "allowed": [
+      "mcp__scopa__scopa_orientation",
+      "mcp__scopa__scopa_read_file",
+      "mcp__scopa__scopa_write_file",
+      "mcp__scopa__scopa_check",
+      "mcp__scopa__scopa_assurance",
+      "mcp__scopa__scopa_transcript"
+    ],
+    "strictMcpOnly": true,
+    "nativeMutationRoutesDisabled": true
+  },
+  "limits": {
+    "maxProviderInvocations": 6,
+    "maxTurnsPerRun": 12,
+    "timeoutMs": 120000,
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "maxBudgetUsdPerRun": "0.20",
+    "maxCampaignBudgetUsd": "1.20"
+  },
+  "repository": {
+    "classification": "disposable-synthetic",
+    "customerDataAllowed": false,
+    "externalSecretsAllowed": false
+  },
+  "evidence": {
+    "privateRetentionHours": 168,
+    "maxPrivateBytesPerRun": 26214400,
+    "privateMode": "0600",
+    "publicMode": "0644",
+    "repositoryRawEvidenceAllowed": false
+  },
+  "cleanup": {
+    "processGroupRequired": true,
+    "noSurvivorRequired": true,
+    "controlRootDeletionRequired": true,
+    "disposableRepositoryDeletionRequired": true
+  },
+  "stopConditions": [
+    "account-boundary-drift",
+    "budget-exhausted",
+    "capture-limit",
+    "cleanup-failure",
+    "client-version-drift",
+    "mcp-configuration-error",
+    "model-drift",
+    "privacy-event",
+    "provider-rate-pressure",
+    "provider-refusal",
+    "tool-inventory-drift",
+    "turn-limit"
+  ],
+  "policySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31"
+}

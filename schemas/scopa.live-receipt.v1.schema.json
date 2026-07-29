@@ -186,7 +186,10 @@
           "const": "scopa.live-environment-policy.v1"
         },
         "inheritance": {
-          "const": "host-minus-denylist"
+          "enum": [
+            "explicit-allowlist",
+            "host-minus-denylist"
+          ]
         },
         "inheritedNameCount": {
           "type": "integer",

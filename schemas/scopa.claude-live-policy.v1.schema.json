@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.claude-live-policy.v1.schema.json",
+  "title": "SCOPA Claude live execution policy v1",
+  "x-scopa-claude-live-policy-invariants": true,
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "account",
+    "authorization",
+    "cleanup",
+    "evidence",
+    "limits",
+    "model",
+    "network",
+    "policyId",
+    "policySha256",
+    "repository",
+    "schema",
+    "stopConditions",
+    "tools"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.claude-live-policy.v1"
+    },
+    "policyId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvedOn",
+        "principalApproval",
+        "scope"
+      ],
+      "properties": {
+        "approvedOn": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "principalApproval": {
+          "const": "conversation-explicit"
+        },
+        "scope": {
+          "const": "S15-production-live-run-edge-campaign"
+        }
+      }
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apiProvider",
+        "authMethod",
+        "boundary",
+        "identityHandling",
+        "subscriptionType"
+      ],
+      "properties": {
+        "boundary": {
+          "const": "current-authenticated-principal-controlled-claude-ai-subscription"
+        },
+        "authMethod": {
+          "type": "string",
+          "minLength": 1
+        },
+        "apiProvider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subscriptionType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identityHandling": {
+          "const": "verified-private-not-retained"
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedClass",
+        "alternateProvidersDisabled",
+        "osEnforced"
+      ],
+      "properties": {
+        "allowedClass": {
+          "const": "anthropic-first-party-via-claude-code"
+        },
+        "alternateProvidersDisabled": {
+          "const": true
+        },
+        "osEnforced": {
+          "const": false
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requestedAlias",
+        "snapshotStatus"
+      ],
+      "properties": {
+        "requestedAlias": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshotStatus": {
+          "const": "requested-alias-not-snapshot"
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "nativeMutationRoutesDisabled",
+        "strictMcpOnly"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "mcp__scopa__scopa_orientation",
+              "mcp__scopa__scopa_read_file",
+              "mcp__scopa__scopa_write_file",
+              "mcp__scopa__scopa_check",
+              "mcp__scopa__scopa_assurance",
+              "mcp__scopa__scopa_transcript"
+            ]
+          }
+        },
+        "strictMcpOnly": {
+          "const": true
+        },
+        "nativeMutationRoutesDisabled": {
+          "const": true
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxBudgetUsdPerRun",
+        "maxCampaignBudgetUsd",
+        "maxCaptureBytes",
+        "maxInputBytes",
+        "maxProviderInvocations",
+        "maxTurnsPerRun",
+        "timeoutMs"
+      ],
+      "properties": {
+        "maxProviderInvocations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "maxTurnsPerRun": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "timeoutMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 900000
+        },
+        "maxCaptureBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "maxInputBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "maxBudgetUsdPerRun": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d{1,4})?$"
+        },
+        "maxCampaignBudgetUsd": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d{1,4})?$"
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "customerDataAllowed",
+        "externalSecretsAllowed"
+      ],
+      "properties": {
+        "classification": {
+          "const": "disposable-synthetic"
+        },
+        "customerDataAllowed": {
+          "const": false
+        },
+        "externalSecretsAllowed": {
+          "const": false
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxPrivateBytesPerRun",
+        "privateMode",
+        "privateRetentionHours",
+        "publicMode",
+        "repositoryRawEvidenceAllowed"
+      ],
+      "properties": {
+        "privateRetentionHours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 720
+        },
+        "maxPrivateBytesPerRun": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "privateMode": {
+          "const": "0600"
+        },
+        "publicMode": {
+          "const": "0644"
+        },
+        "repositoryRawEvidenceAllowed": {
+          "const": false
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controlRootDeletionRequired",
+        "disposableRepositoryDeletionRequired",
+        "noSurvivorRequired",
+        "processGroupRequired"
+      ],
+      "properties": {
+        "processGroupRequired": {
+          "const": true
+        },
+        "noSurvivorRequired": {
+          "const": true
+        },
+        "controlRootDeletionRequired": {
+          "const": true
+        },
+        "disposableRepositoryDeletionRequired": {
+          "const": true
+        }
+      }
+    },
+    "stopConditions": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "account-boundary-drift",
+          "budget-exhausted",
+          "capture-limit",
+          "cleanup-failure",
+          "client-version-drift",
+          "mcp-configuration-error",
+          "model-drift",
+          "privacy-event",
+          "provider-rate-pressure",
+          "provider-refusal",
+          "tool-inventory-drift",
+          "turn-limit"
+        ]
+      }
+    }
+  }
+}

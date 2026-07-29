@@ -309,7 +309,10 @@ export function validateLiveReceipt(value) {
   );
   if (
     value.environmentPolicy.schema !== LIVE_ENVIRONMENT_POLICY_SCHEMA ||
-    value.environmentPolicy.inheritance !== 'host-minus-denylist'
+    ![
+      'explicit-allowlist',
+      'host-minus-denylist',
+    ].includes(value.environmentPolicy.inheritance)
   ) {
     throw new TypeError('live receipt environment policy is invalid');
   }

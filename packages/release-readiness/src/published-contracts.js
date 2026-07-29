@@ -1,11 +1,15 @@
 import { readFileSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';
 import {
+  jsonHash,
+} from '../../enforcement/src/index.js';
+import {
   normalizeCandidatePath,
 } from './candidate-path.js';
 
 const SCHEMA_FILES = [
   'scopa.candidate-manifest.v1.schema.json',
+  'scopa.claude-live-policy.v1.schema.json',
   'scopa.consumer-proof.v1.schema.json',
   'scopa.live-terminal.v1.schema.json',
   'scopa.live-receipt.v1.schema.json',
@@ -79,6 +83,60 @@ function candidateInvariants(enabled, value) {
   return errors.length === 0;
 }
 
+function claudeLivePolicyInvariants(enabled, value) {
+  if (!enabled) return true;
+
+  const errors = [];
+  const {
+    policySha256,
+    ...descriptor
+  } = value ?? {};
+
+  if (policySha256 !== jsonHash(descriptor)) {
+    errors.push({
+      instancePath: '/policySha256',
+      keyword: 'x-scopa-claude-live-policy-invariants',
+      message: 'must bind the complete policy descriptor',
+      params: { invariant: 'policy-digest-binds-descriptor' },
+    });
+  }
+
+  const perRun = Number(value?.limits?.maxBudgetUsdPerRun);
+  const campaign = Number(value?.limits?.maxCampaignBudgetUsd);
+  const invocations = value?.limits?.maxProviderInvocations;
+  if (
+    !Number.isFinite(perRun) ||
+    perRun <= 0 ||
+    !Number.isFinite(campaign) ||
+    campaign < perRun ||
+    !Number.isSafeInteger(invocations) ||
+    campaign > perRun * invocations + Number.EPSILON
+  ) {
+    errors.push({
+      instancePath: '/limits/maxCampaignBudgetUsd',
+      keyword: 'x-scopa-claude-live-policy-invariants',
+      message: 'must fit the per-run and invocation budget bounds',
+      params: { invariant: 'campaign-budget-fits-run-bounds' },
+    });
+  }
+
+  if (
+    value?.evidence?.maxPrivateBytesPerRun <
+    value?.limits?.maxCaptureBytes
+  ) {
+    errors.push({
+      instancePath: '/evidence/maxPrivateBytesPerRun',
+      keyword: 'x-scopa-claude-live-policy-invariants',
+      message: 'must be at least the provider capture bound',
+      params: { invariant: 'private-evidence-fits-capture' },
+    });
+  }
+
+  claudeLivePolicyInvariants.errors =
+    errors.length === 0 ? null : errors;
+  return errors.length === 0;
+}
+
 const ajv = new Ajv2020({
   allErrors: true,
   strict: true,
@@ -89,6 +147,13 @@ ajv.addKeyword({
   schemaType: 'boolean',
   errors: true,
   validate: candidateInvariants,
+});
+
+ajv.addKeyword({
+  keyword: 'x-scopa-claude-live-policy-invariants',
+  schemaType: 'boolean',
+  errors: true,
+  validate: claudeLivePolicyInvariants,
 });
 
 for (const schema of schemas) {

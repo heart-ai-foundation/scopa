@@ -1,0 +1,70 @@
+{
+  "schema": "scopa.claude-live-campaign-plan.v1",
+  "slice": "S15",
+  "policy": {
+    "filename": "fixtures/S15/claude-live-policy.json",
+    "sha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+    "providerInvocations": 6,
+    "maxBudgetUsdPerRun": "0.20",
+    "maxCampaignBudgetUsd": "1.20",
+    "maxTurnsPerRun": 12,
+    "timeoutMs": 120000,
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "privateRetentionHours": 168,
+    "maxPrivateBytesPerRun": 26214400
+  },
+  "liveScenarios": [
+    {
+      "id": "clean",
+      "expectedCanStop": true,
+      "purpose": "allowed write and passing completion"
+    },
+    {
+      "id": "denied",
+      "expectedCanStop": true,
+      "purpose": "scope denial followed by contained correction"
+    },
+    {
+      "id": "false-green",
+      "expectedCanStop": false,
+      "purpose": "failing gate remains authoritative"
+    },
+    {
+      "id": "cold-restart",
+      "expectedCanStop": true,
+      "purpose": "fresh-process continuity"
+    },
+    {
+      "id": "repeat-read-1",
+      "expectedCanStop": true,
+      "purpose": "first repeated fresh-process residue control"
+    },
+    {
+      "id": "repeat-read-2",
+      "expectedCanStop": true,
+      "purpose": "second repeated fresh-process residue control"
+    }
+  ],
+  "deterministicFaultClasses": [
+    "account-boundary-drift",
+    "budget-stop",
+    "capture-limit",
+    "cleanup-failure",
+    "client-version-drift",
+    "cost-overrun",
+    "early-eof",
+    "ignored-termination",
+    "malformed-event",
+    "mcp-configuration-drift",
+    "model-drift",
+    "provider-execution-failure",
+    "provider-rate-pressure",
+    "provider-refusal",
+    "tool-and-agent-inventory-drift",
+    "turn-limit",
+    "turn-overrun"
+  ],
+  "assurance": "partial",
+  "experimentWorkIncluded": false
+}

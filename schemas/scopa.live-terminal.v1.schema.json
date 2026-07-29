@@ -30,7 +30,12 @@
         "version-drift",
         "inventory-drift",
         "normalization-failed",
-        "cleanup-failed"
+        "cleanup-failed",
+        "provider-refused",
+        "rate-limited",
+        "budget-exhausted",
+        "turn-limit",
+        "provider-failed"
       ]
     },
     "ok": {
@@ -73,7 +78,13 @@
         "capability-inventory-mismatch",
         "stream-normalization-error",
         "orphan-process-detected",
-        "process-group-survived"
+        "process-group-survived",
+        "authentication-boundary-mismatch",
+        "provider-request-refused",
+        "provider-rate-limited",
+        "provider-budget-exhausted",
+        "provider-turn-limit-exceeded",
+        "provider-execution-error"
       ]
     },
     "output": {
