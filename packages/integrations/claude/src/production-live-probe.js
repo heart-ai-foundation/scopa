@@ -471,11 +471,57 @@ function providerAccounting(run) {
   }
 }
 
-export function evidenceCostUsd(value) {
-  if (!Number.isFinite(value) || value < 0) {
-    throw new TypeError('evidence cost must be a non-negative finite number');
+function decimalParts(value) {
+  const text = typeof value === 'number' ? String(value) : value;
+  if (
+    typeof text !== 'string' ||
+    !/^(?:0|[1-9][0-9]*)(?:\.[0-9]+)?$/.test(text)
+  ) {
+    throw new TypeError(
+      'evidence cost must be a non-negative plain decimal',
+    );
   }
-  return String(value);
+  const [integer, fraction = ''] = text.split('.');
+  return {
+    coefficient: BigInt(`${integer}${fraction}`),
+    scale: fraction.length,
+  };
+}
+
+function formatDecimal(coefficient, scale) {
+  let digits = coefficient.toString();
+  if (scale === 0) return digits;
+  digits = digits.padStart(scale + 1, '0');
+  const integer = digits.slice(0, -scale);
+  const fraction = digits.slice(-scale).replace(/0+$/u, '');
+  return fraction.length === 0 ? integer : `${integer}.${fraction}`;
+}
+
+function alignedDecimalCoefficients(left, right) {
+  const first = decimalParts(left);
+  const second = decimalParts(right);
+  const scale = Math.max(first.scale, second.scale);
+  return {
+    left: first.coefficient * (10n ** BigInt(scale - first.scale)),
+    right: second.coefficient * (10n ** BigInt(scale - second.scale)),
+    scale,
+  };
+}
+
+export function evidenceCostUsd(value) {
+  const parsed = decimalParts(value);
+  return formatDecimal(parsed.coefficient, parsed.scale);
+}
+
+export function addEvidenceCostUsd(left, right) {
+  const aligned = alignedDecimalCoefficients(left, right);
+  return formatDecimal(aligned.left + aligned.right, aligned.scale);
+}
+
+function compareEvidenceCostUsd(left, right) {
+  const aligned = alignedDecimalCoefficients(left, right);
+  if (aligned.left === aligned.right) return 0;
+  return aligned.left < aligned.right ? -1 : 1;
 }
 
 export function normalizedEvidenceProjection(normalized) {
@@ -876,8 +922,8 @@ async function runCampaign({
   ];
   let authIdentitySha256 = resumeDrift?.authIdentitySha256 ?? null;
   let totalCostUsd = runRecords.reduce(
-    (total, record) => total + Number(record.costUsd),
-    0,
+    (total, record) => addEvidenceCostUsd(total, record.costUsd),
+    '0',
   );
   let repositoryCleanupVerified = false;
   let providerMetadataCleanupVerified = false;
@@ -1050,10 +1096,15 @@ async function runCampaign({
         costUsd,
         turns,
       } = accounting;
-      totalCostUsd += costUsd;
+      totalCostUsd = addEvidenceCostUsd(
+        totalCostUsd,
+        evidenceCostUsd(costUsd),
+      );
       if (
-        totalCostUsd >
-        Number(policy.limits.maxCampaignBudgetUsd) + Number.EPSILON
+        compareEvidenceCostUsd(
+          totalCostUsd,
+          policy.limits.maxCampaignBudgetUsd,
+        ) > 0
       ) {
         throw new TypeError('Claude campaign exceeded its aggregate budget');
       }

@@ -22,13 +22,17 @@ requalification. The shared live-run custody layer now closes process,
 terminal, installed-identity, and private/public evidence behavior before
 provider traffic.
 
-Phase 6 is active for production-like live-run edge hardening. S15 now
-prepares the bounded Claude edge campaign; its real-provider gate requires a
-complete per-run account, network, model, tool, time, turn, usage/cost,
-evidence-retention, and cleanup policy. Codex, sustained recovery, and exact
-requalification follow in queue order. The separate SCOPA research experiment
-is outside this queue. The package and repository remain private; publication
-and production deployment require separate principal requests.
+Phase 6 is active for production-like live-run edge hardening. The bounded
+S15 Claude campaign exhausted its six-request ceiling and remains fail-closed,
+not accepted: four post-remediation requests produced qualifying per-run
+evidence, one request reproduced callable-tool profile drift, and one
+denied-path result was lost to an evidence-serialization runner fault before
+publication. The latter is conservatively reserved at the per-run maximum and
+is not represented as a pass. Codex, sustained recovery, and exact
+requalification remain queued behind S15 acceptance. The separate SCOPA
+research experiment is outside this queue. The package and repository remain
+private; publication and production deployment require separate principal
+requests.
 
 Start with:
 
@@ -131,9 +135,12 @@ npm run probe:s15:live -- \
   --private-root /trusted/private/scopa/S15
 ```
 
-The command makes six real Claude requests, each bounded by the policy. It
-must be run only by an authorized account holder who has reviewed the
-USD 1.20 campaign ceiling and private-evidence retention requirements.
+On a fresh evidence destination, the command makes six real Claude requests,
+each bounded by the policy. It must be run only by an authorized account
+holder who has reviewed the USD 1.20 campaign ceiling and private-evidence
+retention requirements. Existing intent, journal, scenario, or campaign
+evidence stops execution before replay. The retained S15 campaign is exhausted
+and cannot be retried under its original authority.
 
 ## Codex integration
 

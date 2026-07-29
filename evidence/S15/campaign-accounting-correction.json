@@ -1,0 +1,41 @@
+{
+  "accountingCorrectionOnly": true,
+  "budgetUsd": "1.20",
+  "correctedTotalCostUsd": "0.436838899999999986",
+  "correctionReason": "Aggregate arithmetic used binary floating-point addition after preserving each provider decimal as a string.",
+  "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+  "originalCampaign": {
+    "bytes": 5781,
+    "privateCampaignSha256": "a7ebc672dbabd118d495f239fd6605923942ddfb0e1e04149325e93c14aa4e0d",
+    "publicSha256": "f2e6f63ee319a32fc4fe1090f925871c793cb76ef4f1b171669de9ff8e3d29e6"
+  },
+  "originalTotalCostUsd": "0.43683890000000003",
+  "runs": [
+    {
+      "costUsd": "0.0557443",
+      "scenario": "clean-profile-drift"
+    },
+    {
+      "costUsd": "0.20",
+      "scenario": "denied-runner-fault"
+    },
+    {
+      "costUsd": "0.04955179999999999",
+      "scenario": "false-green"
+    },
+    {
+      "costUsd": "0.045394699999999996",
+      "scenario": "cold-restart"
+    },
+    {
+      "costUsd": "0.042996",
+      "scenario": "repeat-read-1"
+    },
+    {
+      "costUsd": "0.0431521",
+      "scenario": "repeat-read-2"
+    }
+  ],
+  "schema": "scopa.claude-live-campaign-accounting-correction.v1",
+  "withinBudget": true
+}

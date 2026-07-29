@@ -6,6 +6,7 @@ import {
   chmod,
   mkdir,
   mkdtemp,
+  readFile,
   rm,
   writeFile,
 } from 'node:fs/promises';
@@ -19,6 +20,9 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import {
   canonicalJsonPretty,
 } from '../../../enforcement/src/index.js';
+import {
+  scanPrivateText,
+} from '../../../release-readiness/src/package-privacy.js';
 import {
   validatePublishedContract,
 } from '../../../release-readiness/src/published-contracts.js';
@@ -38,6 +42,7 @@ import {
 } from '../src/run.js';
 import {
   S15_LIVE_SCENARIOS,
+  addEvidenceCostUsd,
   evidenceCostUsd,
   normalizedEvidenceProjection,
   parseProductionLiveArguments,
@@ -344,6 +349,84 @@ test('runner-fault resume is private-bound and reserves policy maxima', async (c
   );
   assert.equal(recovered.observedCanStop, null);
   assert.equal(recovered.qualification, 'inconclusive-lost-before-publication');
+});
+
+test('evidence USD arithmetic preserves provider decimals exactly', () => {
+  const costs = [
+    '0.0557443',
+    '0.20',
+    '0.04955179999999999',
+    '0.045394699999999996',
+    '0.042996',
+    '0.0431521',
+  ];
+  assert.equal(
+    costs.reduce(addEvidenceCostUsd, '0'),
+    '0.436838899999999986',
+  );
+  assert.equal(evidenceCostUsd('1.20'), '1.2');
+  assert.throws(
+    () => addEvidenceCostUsd('0.1', '1e-7'),
+    /plain decimal/,
+  );
+});
+
+test('campaign correction binds and exactly sums the retained public costs', async () => {
+  const campaignText = await readFile(
+    path.join(ROOT, 'evidence/S15/campaign.public.json'),
+    'utf8',
+  );
+  const correctionText = await readFile(
+    path.join(ROOT, 'evidence/S15/campaign-accounting-correction.json'),
+    'utf8',
+  );
+  const campaign = JSON.parse(campaignText);
+  const correction = JSON.parse(correctionText);
+  assert.equal(canonicalJsonPretty(correction), correctionText);
+  assert.equal(
+    correction.originalCampaign.publicSha256,
+    createHash('sha256').update(campaignText).digest('hex'),
+  );
+  assert.equal(
+    campaign.runs
+      .map((run) => run.costUsd)
+      .reduce(addEvidenceCostUsd, '0'),
+    correction.correctedTotalCostUsd,
+  );
+  assert.equal(correction.withinBudget, true);
+  assert.equal(campaign.postRemediationPolarityPassed, false);
+  assert.equal(campaign.invocationCount, 6);
+});
+
+test('retained S15 run derivatives are schema-valid and privacy-clean', async () => {
+  const expected = new Map([
+    ['false-green', false],
+    ['cold-restart', true],
+    ['repeat-read-1', true],
+    ['repeat-read-2', true],
+  ]);
+  for (const [scenario, canStop] of expected) {
+    const text = await readFile(
+      path.join(ROOT, `evidence/S15/${scenario}.public.json`),
+      'utf8',
+    );
+    const evidence = JSON.parse(text);
+    assert.deepEqual(
+      validatePublishedContract(
+        'scopa.live-evidence.public.v1',
+        evidence,
+      ),
+      evidence,
+    );
+    assert.equal(scanPrivateText(text).length, 0);
+    assert.equal(evidence.receipt.scenario.id, scenario);
+    assert.equal(evidence.terminal.state, 'succeeded');
+    assert.equal(evidence.terminal.canStop, canStop);
+    assert.equal(evidence.terminal.cleanup.groupGone, true);
+    assert.equal(evidence.terminal.cleanup.orphanDetected, false);
+    assert.equal(evidence.summary.modelCallableToolsScopaOnly, true);
+    assert.match(evidence.summary.costUsd, /^[0-9]+(?:\.[0-9]+)?$/u);
+  }
 });
 
 test('auth boundary verifies the account class without retaining identity', () => {

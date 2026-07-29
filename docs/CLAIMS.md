@@ -17,6 +17,11 @@
 - S14 live receipts bind exact installed identity and sanitized policy without
   raw environment values; public live evidence binds private bytes and exposes
   only designated redactions.
+- Four S15 requests against one exact installed Claude candidate preserved
+  false-green polarity, SCOPA-only callable tools, stable account binding,
+  finite evidence, process-group cleanup, and bounded non-resumable provider
+  metadata. Three restart/read observations used explicitly reconstructed
+  synthetic state after an earlier evidence loss.
 
 ## Adapter assurance
 
@@ -35,6 +40,8 @@ SCOPA does not:
   human identity, or hardware-backed key provenance without separate evidence;
 - turn CASE graph validation into cryptographic verification;
 - make Claude/Codex behavior parity a full-assurance claim;
+- claim S15 acceptance, a qualifying live denied-path result, or direct
+  denied-to-restart continuity from the exhausted six-request campaign;
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;

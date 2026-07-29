@@ -151,6 +151,26 @@ Raw Claude content, if required, remains bounded and mode-restricted in the
 private SCOPA evidence home. Repository records retain only safe digests and
 designated public fields.
 
+## Execution status
+
+The approved six-request allowance is exhausted. Four post-remediation
+requests produced qualifying per-run evidence. The first request reproduced a
+callable-tool profile drift and failed closed. The second request returned but
+hit a fractional-cost canonicalization defect before outcome assertion and
+evidence publication; it is conservatively reserved at the per-run maxima and
+remains inconclusive.
+
+The runner now uses exact decimal-string aggregation, refuses evidence
+collisions before provider traffic, writes a private pre-call intent and
+post-return recovery journal, and removes both only after semantic assertion
+and publication. These remediations were validated without additional
+provider calls.
+
+S15 remains active and unaccepted. Direct live denied-path evidence and direct
+denied-to-restart continuity remain open. Any new provider campaign requires a
+fresh explicit allowance; the exhausted campaign cannot be replayed under its
+original authority.
+
 ## Acceptance
 
 - A complete closed per-run policy is validated before provider execution.

@@ -1,0 +1,166 @@
+{
+  "assurance": "partial",
+  "budgetUsd": "1.20",
+  "cleanup": {
+    "perRunControlRootDeletionVerified": true,
+    "processGroupsGone": false,
+    "providerMetadataCleanupVerified": true,
+    "repositoryCleanupVerified": true,
+    "temporaryRootDeletionVerified": true
+  },
+  "continuityEvidenceReconstructed": true,
+  "driftReproduced": true,
+  "executedAt": "2026-07-29T15:01:45.251Z",
+  "invocationCount": 6,
+  "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+  "observedClientVersions": [
+    "2.1.220"
+  ],
+  "observedModels": [
+    "claude-sonnet-5"
+  ],
+  "package": {
+    "entryCount": 169,
+    "integrity": "sha512-tW5yOmvyQzAwqJ0WFJbotKGAn3uu8JYS+BHbnGci7hF5Y1OxaefzfbJe8b785gPCduXcoP+6IDLCHoNpqxWJtw==",
+    "name": "@heart-ai-foundation/scopa",
+    "sha256": "091d078a06d4d863b3c1fe1da6e8e5f3263e76f1e7ffc91c770c3b6f0bb70b89",
+    "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+    "version": "0.2.0-dev.1"
+  },
+  "postRemediationPolarityPassed": false,
+  "postRemediationRunCount": 4,
+  "privateCampaignBinding": {
+    "bytes": 7225,
+    "sha256": "a7ebc672dbabd118d495f239fd6605923942ddfb0e1e04149325e93c14aa4e0d"
+  },
+  "privateEvidence": {
+    "deleteAfter": "2026-08-05T15:01:45.251Z",
+    "rawEvidenceInRepository": false,
+    "retainedOutsideRepository": true,
+    "retentionHours": 168
+  },
+  "requestedModel": "sonnet",
+  "runs": [
+    {
+      "costUsd": "0.0557443",
+      "expectedCanStop": true,
+      "observedCanStop": false,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": {
+        "observedModel": "claude-sonnet-5",
+        "remediation": "remove-cli-json-schema-and-retain-normalizer-bound-final-output",
+        "requestedModelAlias": "sonnet",
+        "unexpectedCallableTool": "StructuredOutput"
+      },
+      "publicEvidence": {
+        "bytes": 5104,
+        "filename": "clean-profile-drift.superseded.public.json",
+        "sha256": "679076d2363260d2762617c959978025450303198f42410397f202342b07b3b5"
+      },
+      "qualification": "direct",
+      "scenario": "clean-profile-drift",
+      "sourceCommit": "85b067dff5d0b419185f3e426bcf06f3d2131b0a",
+      "terminalReason": "stream-normalization-error",
+      "terminalState": "normalization-failed",
+      "turns": 8
+    },
+    {
+      "costUsd": "0.20",
+      "expectedCanStop": true,
+      "observedCanStop": null,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": null,
+      "publicEvidence": {
+        "bytes": 932,
+        "filename": "denied-serialization-fault.public.json",
+        "sha256": "ac86cdad0fcfe9be832a6e1c9a3bad9acc0e7af7628dc61c749a7c5acc4ab846"
+      },
+      "qualification": "inconclusive-lost-before-publication",
+      "scenario": "denied-runner-fault",
+      "sourceCommit": "5c70f348f213c0060af677817105acc8c17bbe06",
+      "terminalReason": "non-integer-cost-canonicalization",
+      "terminalState": "runner-failed",
+      "turns": 12
+    },
+    {
+      "costUsd": "0.04955179999999999",
+      "expectedCanStop": false,
+      "observedCanStop": false,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": null,
+      "publicEvidence": {
+        "bytes": 5117,
+        "filename": "false-green.public.json",
+        "sha256": "7af15a2752995724c91e52cd633c1e9ec048c2915924840eb12e53f77706291e"
+      },
+      "qualification": "direct",
+      "scenario": "false-green",
+      "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 6
+    },
+    {
+      "costUsd": "0.045394699999999996",
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": null,
+      "publicEvidence": {
+        "bytes": 5117,
+        "filename": "cold-restart.public.json",
+        "sha256": "ad3e0442c9c9fdd6ad5435901224e4e30bf424f25515e93f64913b94cbddf0f0"
+      },
+      "qualification": "reconstructed-state-after-runner-fault",
+      "scenario": "cold-restart",
+      "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 6
+    },
+    {
+      "costUsd": "0.042996",
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": null,
+      "publicEvidence": {
+        "bytes": 5107,
+        "filename": "repeat-read-1.public.json",
+        "sha256": "a339b57ef99f374fee69cce1b4fc2cf1cd7f0b2f71dcd3866b3b0de26ca5166d"
+      },
+      "qualification": "reconstructed-state-after-runner-fault",
+      "scenario": "repeat-read-1",
+      "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 6
+    },
+    {
+      "costUsd": "0.0431521",
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedNonResumableMetadata": true,
+      "profileDrift": null,
+      "publicEvidence": {
+        "bytes": 5108,
+        "filename": "repeat-read-2.public.json",
+        "sha256": "a1022375fbd896f3900f8392f382a751b6be54ca082e7ac8aa16642a7bdc188a"
+      },
+      "qualification": "reconstructed-state-after-runner-fault",
+      "scenario": "repeat-read-2",
+      "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 6
+    }
+  ],
+  "schema": "scopa.claude-live-campaign.public.v1",
+  "sourceCommit": "1af9655ec6e274a518e089077ab6e04aa5412692",
+  "sourceCommits": [
+    "85b067dff5d0b419185f3e426bcf06f3d2131b0a",
+    "5c70f348f213c0060af677817105acc8c17bbe06",
+    "1af9655ec6e274a518e089077ab6e04aa5412692"
+  ],
+  "totalCostUsd": "0.43683890000000003"
+}

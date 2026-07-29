@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "5c70f34",
+  "current_commit": "1af9655",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-28-S15-claude-production-live-run-edge-campaign.md",
   "active_class": "arc",
@@ -17,7 +17,7 @@
     "CLH2",
     "CLH3"
   ],
-  "active_protocol_sha256": "sha256:9c6e01d9caf2f17451973c0029a725021b2a95344745df3cd0dedb28f0d511ed",
+  "active_protocol_sha256": "sha256:70190c976bbf13afc3a8291edaa5f21bfe4688048476b6ca41233fd02d8eccc4",
   "active_objective": "Build and execute a bounded Claude Code headless edge campaign against the\nexact installed SCOPA candidate. Freeze an explicit per-run account, network,\nmodel, tool, time, turn, token/cost, evidence-retention, and cleanup policy\nbefore any provider call. Prove every live scenario locally with deterministic\nfault controls first, then run only the approved live subset and remediate only\nreproduced provider-boundary defects.\n\nActivation of this protocol does not itself start provider traffic. The\nprovider gate remains closed until the complete run policy is materialized and\nvalidated.",
   "allowed_files": [
     "package.json",
