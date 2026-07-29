@@ -1,0 +1,91 @@
+{
+  "allNamedBindingsMatch": true,
+  "candidate": {
+    "entryCount": 153,
+    "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+    "manifestRegeneratedByteIdentical": true,
+    "manifestSha256": "8b503078366e0d1fb5c5f407fe60cf05df45feef4e623333d3ad8252710fb131",
+    "repeatedPackingByteIdentical": true,
+    "sha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692"
+  },
+  "ok": true,
+  "publication": {
+    "publicProofSha256": "0f16a0eeb42793d36db73a2bec1a7744addd81a5f048cc789aa8a97955201199",
+    "rawProofSha256": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61",
+    "redactions": [
+      {
+        "field": "/environment/sourceRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_SOURCE_ROOT]"
+      },
+      {
+        "field": "/environment/temporaryRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_CONSUMER_TEMP_ROOT]"
+      }
+    ],
+    "regeneratedByteIdentical": true,
+    "semanticFieldsChanged": false
+  },
+  "receipts": {
+    "candidateManifest": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "sha256": "8b503078366e0d1fb5c5f407fe60cf05df45feef4e623333d3ad8252710fb131"
+    },
+    "dependencyAudit": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "packageLockSha256": "3a4bf16aa2629bbfe8d2ccc07d90aaf30cd7d38fb2372a58ac736f15005530ec",
+      "sha256": "626111ea1566c58d6618ec1c5d0ac5710cb7f41ccc27feab674291433416fdf1"
+    },
+    "hostedSourceGate": {
+      "embeddedCandidateSha256": null,
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "jobId": 90336372272,
+      "match": true,
+      "runId": 30377371496,
+      "sha256": "7b7935b129b4e0ecf64f02b72b9f269703df3920049ac99c180c7638df477318"
+    },
+    "installedSurfaceRegression": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "repeatedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "sha256": "f050a8445acd23499139bc3c7a77fd2ce7beceb60c18e32e0e1b5fe7437f0a5f"
+    },
+    "proofContractParity": {
+      "corpusSha256": "29c28c03a75b17cd4b5ca4f921cb466f5994945d5a017fb0367f727f0a1266b2",
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "manifestSha256": "8b503078366e0d1fb5c5f407fe60cf05df45feef4e623333d3ad8252710fb131",
+      "match": true,
+      "sha256": "e819c08fa8508510d0ffcdaa90a30b4b18af3580a6b32d81cfc9a177ce3599ad",
+      "validatorSetSha256": "f5f0e0579b62ee530d2a67033f3e920ac8631e8b0f183fa48923ea7f6ab266ae"
+    },
+    "publicConsumerProof": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "rawProofSha256": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61",
+      "sha256": "0f16a0eeb42793d36db73a2bec1a7744addd81a5f048cc789aa8a97955201199"
+    },
+    "rawConsumerProof": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "sha256": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61"
+    },
+    "redactionCollisionRegression": {
+      "embeddedCandidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+      "embeddedSourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+      "match": true,
+      "rawProofSha256": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61",
+      "sha256": "26fe9a701b6cf753f34836c8e2a14417846af2ec254bc2cd1e6dc6497e8cfd34"
+    }
+  },
+  "schema": "scopa.exact-artifact-consistency.v1",
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c"
+}

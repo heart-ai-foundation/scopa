@@ -1,0 +1,34 @@
+{
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+  "cases": [
+    {
+      "id": "exact-semantic-collision",
+      "passed": true
+    },
+    {
+      "id": "substring-semantic-collision",
+      "passed": true
+    },
+    {
+      "id": "reserved-placeholder",
+      "passed": true
+    },
+    {
+      "id": "overlapping-roots",
+      "passed": true
+    },
+    {
+      "id": "equal-roots",
+      "passed": true
+    }
+  ],
+  "designatedFields": [
+    "/environment/sourceRoot",
+    "/environment/temporaryRoot"
+  ],
+  "ok": true,
+  "schema": "scopa.redaction-collision-regression.v1",
+  "semanticPreservationComputed": true,
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "sourceDigest": "467d5a7673e39725a6abd2c78c39ea177c76630364ad4d7c645a8609265e7a61"
+}

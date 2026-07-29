@@ -112,8 +112,8 @@
     },
     {
       "id": "final-hosted-evidence-gate",
-      "status": "pending",
-      "evidence": "final S13 evidence commit run"
+      "status": "passed",
+      "evidence": "evidence/S13/hosted-evidence-gate.json; run 30411897280, job 90449683604"
     }
   ],
   "rq1Ready": true,

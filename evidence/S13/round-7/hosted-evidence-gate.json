@@ -1,0 +1,35 @@
+{
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+  "evidenceCommit": "c512fec3c5317b24c416c16a996bea4892ba2b26",
+  "job": {
+    "conclusion": "success",
+    "id": 90449683604,
+    "name": "test-and-case-validate",
+    "recordedStepCount": 14,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30411897280/job/90449683604"
+  },
+  "ok": true,
+  "reviewBindings": {
+    "artifact": {
+      "sha256": "da6705f4ba2befbc77c978121e326bd3d1cb41a717446d52cb6579bd915047c4",
+      "verdict": "ACCEPT"
+    },
+    "evidence": {
+      "sha256": "c555953ebf247c8b3c82fa3002875ea86fef8421d42374589d1adf3a91177e16",
+      "verdict": "ACCEPT"
+    },
+    "runtime": {
+      "sha256": "64e186508d4857823298b67ac95c499b138acae58dd43e65486256ee2278d9b7",
+      "verdict": "ACCEPT"
+    }
+  },
+  "run": {
+    "conclusion": "success",
+    "id": 30411897280,
+    "status": "completed",
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30411897280",
+    "workflow": "SCOPA release gate"
+  },
+  "schema": "scopa.hosted-evidence-gate.v1",
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c"
+}

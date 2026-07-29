@@ -303,6 +303,13 @@ large-path poisoning, 501-response backpressure, hardlink containment,
 launcher privacy, and false-green refusal. It used only disposable offline
 state and exact hash-verified candidate bytes. RQ2 is now satisfied.
 
+The substantive review-evidence commit
+`c512fec3c5317b24c416c16a996bea4892ba2b26` passed hosted run
+`30411897280`, job `90449683604`. Its retained receipt binds all three
+accepted review reports to the exact source and candidate. The hosted RQ3
+constituent is satisfied; principal provider-side credential-rotation
+confirmation is the sole remaining queue blocker.
+
 ## Fresh-review separation
 
 Three newly created, isolated reviewers receive non-overlapping primary

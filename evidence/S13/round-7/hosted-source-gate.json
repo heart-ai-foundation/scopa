@@ -1,0 +1,25 @@
+{
+  "conclusion": "success",
+  "genericWarnings": [
+    {
+      "category": "git-initial-branch-name-hint",
+      "count": 1
+    }
+  ],
+  "job": {
+    "conclusion": "success",
+    "id": 90336372272,
+    "name": "test-and-case-validate",
+    "recordedStepCount": 14,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30377371496/job/90336372272"
+  },
+  "nodeActionRuntimeDeprecationWarning": false,
+  "run": {
+    "id": 30377371496,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30377371496",
+    "workflow": "SCOPA release gate"
+  },
+  "schema": "scopa.hosted-source-gate.v1",
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "status": "completed"
+}

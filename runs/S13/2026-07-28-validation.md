@@ -485,9 +485,15 @@ with Opus 4.8 fallback. It independently exercised all eight runtime surfaces
 against exact candidate bytes and returned `ACCEPT` with no critical, high,
 medium, or low finding. RQ2 is satisfied.
 
+The substantive evidence commit
+`c512fec3c5317b24c416c16a996bea4892ba2b26` passed hosted run
+`30411897280`, job `90449683604`. The retained hosted-evidence receipt hashes
+all three accepted reports and binds the exact source/candidate. The hosted
+RQ3 constituent is satisfied.
+
 ## Pending RQ3
 
-- final hosted evidence-commit gate: pending;
+- final hosted evidence-commit gate: passed;
 - provider-side confirmation that affected Slack, OpenRouter, and Valyu
   credentials were rotated and old values invalidated: pending principal
   confirmation.

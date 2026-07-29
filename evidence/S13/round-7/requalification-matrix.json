@@ -1,0 +1,123 @@
+{
+  "schema": "scopa.release-requalification-matrix.v1",
+  "round": 7,
+  "sourceCommit": "5a6b29832910db26497095289badb3e859bca48c",
+  "candidateSha256": "6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692",
+  "candidateEntryCount": 153,
+  "checks": [
+    {
+      "id": "exact-artifact-binding",
+      "status": "passed",
+      "evidence": "evidence/S13/exact-artifact-consistency.json"
+    },
+    {
+      "id": "source-free-consumer-proof",
+      "status": "passed",
+      "evidence": "evidence/S13/consumer-proof.public.json"
+    },
+    {
+      "id": "runtime-published-schema-parity",
+      "status": "passed",
+      "evidence": "evidence/S13/proof-contract-parity.json; 41/41 expected outcomes with exact input binding"
+    },
+    {
+      "id": "semantic-path-and-cli-remediations",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "semantic constants, 4096-byte canonical paths, closed mode domain, and stable verification exits"
+    },
+    {
+      "id": "mcp-transport-evidence-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "bounded framing, protocol errors, transcript count/byte ceilings, call/result reservation, and output backpressure"
+    },
+    {
+      "id": "large-path-poisoning-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "over-4096-byte path rejected without echo or filesystem access; transcript remains complete"
+    },
+    {
+      "id": "packed-documentation-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "root files and root globs, generic URI schemes, and prescription-local source-checkout qualification audited across every packed Markdown document"
+    },
+    {
+      "id": "evidence-chain-binding-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "every named receipt hashed; parity binds corpus and validators; dependency receipt binds lockfile"
+    },
+    {
+      "id": "hardlink-and-atomic-write-remediation",
+      "status": "passed-locally-awaiting-final-review",
+      "evidence": "multi-link reads denied; governed writes use identity-checked descriptor-directory atomic commit"
+    },
+    {
+      "id": "redaction-collision-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/redaction-collision-regression.json; 5/5 cases"
+    },
+    {
+      "id": "installed-surface-regression",
+      "status": "passed",
+      "evidence": "evidence/S13/installed-surface-regression.json"
+    },
+    {
+      "id": "governed-adapter",
+      "status": "passed",
+      "evidence": "exact six tools, contained write, scope denial, satisfied terminal state, and full deterministic-fixture assurance"
+    },
+    {
+      "id": "known-failure",
+      "status": "passed",
+      "evidence": "exit 4, SCOPA_COMPLETION_BLOCKED, and canStop false"
+    },
+    {
+      "id": "package-privacy-launcher",
+      "status": "passed",
+      "evidence": "153 files scanned, zero findings, closed launcher behavior, and self-contained packed documentation"
+    },
+    {
+      "id": "dependency-audit",
+      "status": "passed",
+      "evidence": "evidence/S13/dependency-audit.json; zero vulnerabilities"
+    },
+    {
+      "id": "accumulated-local-gate",
+      "status": "passed",
+      "evidence": "119/119 discovered tests plus S8-S12 focused gates"
+    },
+    {
+      "id": "hosted-source-gate",
+      "status": "passed",
+      "evidence": "evidence/S13/hosted-source-gate.json"
+    },
+    {
+      "id": "fresh-final-artifact-review",
+      "status": "accepted",
+      "evidence": "evidence/S13/artifact-review.final.md"
+    },
+    {
+      "id": "fresh-final-evidence-review",
+      "status": "accepted",
+      "evidence": "evidence/S13/evidence-review.final.md"
+    },
+    {
+      "id": "fresh-final-runtime-review",
+      "status": "accepted",
+      "evidence": "evidence/S13/runtime-review.final.md"
+    },
+    {
+      "id": "provider-credential-rotation",
+      "status": "pending-principal-confirmation",
+      "evidence": "boolean provider-side confirmation only; no values may be retained"
+    },
+    {
+      "id": "final-hosted-evidence-gate",
+      "status": "passed",
+      "evidence": "evidence/S13/hosted-evidence-gate.json; run 30411897280, job 90449683604"
+    }
+  ],
+  "rq1Ready": true,
+  "rq2Ready": true,
+  "rq3Ready": false,
+  "publicationAuthorized": false
+}
