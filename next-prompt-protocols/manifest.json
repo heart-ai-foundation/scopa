@@ -3,13 +3,13 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "3c6bf9b9",
-  "current_phase": "phase-5-adversarial-hardening",
-  "phase_scope": "The ratified Adversarial Release Hardening S11-S13 queue is complete.",
-  "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
-  "active_protocol": null,
-  "active_objective": "No active protocol. The ratified SCOPA Adversarial Release Hardening S11-S13 queue is complete; publication remains separately unauthorized.",
-  "active_class": null,
+  "current_commit": "3ac0173",
+  "current_phase": "phase-6-production-live-run-hardening",
+  "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
+  "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
+  "active_protocol": "active/2026-07-28-S14-shared-live-run-custody-and-supervision.md",
+  "active_objective": "Implement a shared live-run custody layer used by both installed integrations. It must supervise a process group through bounded success and failure states, return one closed terminal envelope, bind the installed candidate and runtime policy, store private evidence atomically with restrictive permissions, and derive deterministic public evidence through the existing collision-safe publication boundary.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
     "completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
@@ -27,23 +27,46 @@
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [],
+  "allowed_files": [
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "docs/**",
+    "schemas/**",
+    "packages/live-run/**",
+    "packages/integrations/claude/**",
+    "packages/integrations/codex/**",
+    "packages/adapter-host/**",
+    "packages/release-readiness/**",
+    "packages/conformance/**",
+    "fixtures/S14/**",
+    "next-prompt-protocols/**",
+    "notes/S14/**",
+    "runs/S14/**",
+    "evidence/S14/**"
+  ],
   "non_goals": [
     "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
-    "No new product feature, provider integration, command, export, schema, assurance level, effect category, trust policy, or verification primitive",
-    "No weakening or removal of consumer bins, exports, verifier capability, known-failing fixtures, hostile corpus cases, or independently useful free functionality",
-    "No rewrite of historical S10-S12 evidence",
-    "No credential value, credential screenshot, or rotation secret in any retained file",
-    "No false claim that reviewer agreement is provider attestation, production certification, or permission to publish",
-    "No hardening-queue closeout while credential rotation is unconfirmed",
-    "No queue entries outside the authorized Adversarial Release Hardening Macro Delta"
+    "No real Claude, Codex, OpenAI, Anthropic, or other provider call in S14",
+    "No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work",
+    "No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level",
+    "No operating-system sandbox or full-provider-assurance claim",
+    "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
+    "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
+    "No rewrite of historical S8-S13 evidence",
+    "No queue entries outside the authorized Production Live-Run Hardening Macro Delta"
   ],
   "verification": {
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
+    "fast_deterministic": "npm run test:s14",
+    "claude_regression": "npm run test:s8",
+    "codex_regression": "npm run test:s9",
+    "installed_probe": "npm run probe:s12:installed",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": null,
+  "closeout_evidence_path": "../",
   "modules": {
     "conformance": {
       "root": [
@@ -633,7 +656,219 @@
           "discovered_because": "Adversarial Release Hardening Macro Delta S13"
         }
       ]
+    },
+    "live-run-custody": {
+      "root": [
+        "packages/live-run",
+        "packages/integrations/claude",
+        "packages/integrations/codex",
+        "packages/adapter-host",
+        "packages/release-readiness",
+        "fixtures/S14",
+        "notes/S14",
+        "runs/S14",
+        "evidence/S14"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "LC1",
+          "statement": "Every live launcher result has one closed bounded terminal envelope for success, exit, signal, timeout, output limit, spawn failure, version drift, inventory drift, and normalization failure.",
+          "status": "open",
+          "verifies_via": "Deterministic process-double terminal polarity matrix",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S14"
+        },
+        {
+          "id": "LC2",
+          "statement": "Live process-group termination uses bounded grace and escalation and independently proves no child survives.",
+          "status": "open",
+          "verifies_via": "Ignoring-child timeout, output-limit, and orphan cleanup fault tests",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S14"
+        },
+        {
+          "id": "LC3",
+          "statement": "Each live receipt binds the exact installed artifact, client, profile, capability matrix, scenario, limits, and environment policy without retaining secret values.",
+          "status": "open",
+          "verifies_via": "Installed identity consistency and protected-value mutation corpus",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S14"
+        },
+        {
+          "id": "LC4",
+          "statement": "Raw live evidence is atomically mode-restricted and its public derivative is deterministic, collision-safe, private-root free, and bound to the raw digest.",
+          "status": "open",
+          "verifies_via": "Evidence destination hostility, collision corpus, privacy scan, and repeated publication",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S14"
+        }
+      ]
+    },
+    "claude-live-hardening": {
+      "root": [
+        "packages/integrations/claude",
+        "packages/live-run",
+        "fixtures/S15",
+        "notes/S15",
+        "runs/S15",
+        "evidence/S15"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "CLH1",
+          "statement": "Every live Claude session probes the exact client, requested model, and model-callable tool surface and fails closed on unknown drift.",
+          "status": "open",
+          "verifies_via": "Current-client capability probe and injected version, model, and tool drift",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S15"
+        },
+        {
+          "id": "CLH2",
+          "statement": "Real Claude runs preserve correct machine polarity across allowed, denied, false-green, restart, timeout, rate-pressure, refusal, truncation, and capture-limit outcomes.",
+          "status": "open",
+          "verifies_via": "Bounded real-provider campaign and deterministic Claude fault corpus",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S15"
+        },
+        {
+          "id": "CLH3",
+          "statement": "Repeated Claude sessions retain partial assurance and leave no resumable content, credential, private path, cross-run state, or orphan process.",
+          "status": "open",
+          "verifies_via": "Repeated-session state, process, filesystem, and evidence cleanup audit",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S15"
+        }
+      ]
+    },
+    "codex-live-hardening": {
+      "root": [
+        "packages/integrations/codex",
+        "packages/live-run",
+        "fixtures/S16",
+        "notes/S16",
+        "runs/S16",
+        "evidence/S16"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "CXH1",
+          "statement": "Every live Codex session probes the exact client, requested model, MCP inventory, and native surface and fails closed on unknown drift.",
+          "status": "open",
+          "verifies_via": "Current-client capability probe and injected version, model, MCP, schema, and native-route drift",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S16"
+        },
+        {
+          "id": "CXH2",
+          "statement": "Real Codex runs preserve correct machine polarity across allowed, denied, false-green, restart, timeout, refusal, truncation, usage limits, capture limits, and tool drift.",
+          "status": "open",
+          "verifies_via": "Bounded real-provider campaign and deterministic Codex fault corpus",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S16"
+        },
+        {
+          "id": "CXH3",
+          "statement": "Repeated Codex sessions retain partial assurance and leave no auth or session residue, credential, private path, cross-run state, or orphan process.",
+          "status": "open",
+          "verifies_via": "Repeated-session state, process, filesystem, and evidence cleanup audit",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S16"
+        }
+      ]
+    },
+    "operational-resilience": {
+      "root": [
+        "packages/live-run",
+        "packages/adapter-host",
+        "packages/enforcement",
+        "packages/journal",
+        "packages/integrations/claude",
+        "packages/integrations/codex",
+        "fixtures/S17",
+        "notes/S17",
+        "runs/S17",
+        "evidence/S17"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "OR1",
+          "statement": "Interruption after an admitted mutation resumes idempotently or stops for reconciliation without duplicating the action.",
+          "status": "open",
+          "verifies_via": "Crash-point and duplicate-resume matrix around mutation and evidence closure",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S17"
+        },
+        {
+          "id": "OR2",
+          "statement": "Concurrent calls, session ceilings, transcript ceilings, and output backpressure preserve event pairing and finite memory.",
+          "status": "open",
+          "verifies_via": "Concurrent traffic, limit exhaustion, slow-reader, and pairing fault tests",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S17"
+        },
+        {
+          "id": "OR3",
+          "statement": "Normal, failed, bounded, and interrupted live runs clean temporary files and processes and cannot reuse stale control state.",
+          "status": "open",
+          "verifies_via": "Repeated-run filesystem, process, descriptor, and stale-state cleanup audit",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S17"
+        },
+        {
+          "id": "OR4",
+          "statement": "Cross-client parity reports shared live outcomes and provider-specific differences without transferring assurance.",
+          "status": "open",
+          "verifies_via": "Expanded Claude and Codex edge-parity comparator",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S17"
+        }
+      ]
+    },
+    "production-live-requalification": {
+      "root": [
+        "packages/live-run",
+        "packages/integrations/claude",
+        "packages/integrations/codex",
+        "packages/release-readiness",
+        "schemas",
+        "docs",
+        "fixtures/S18",
+        "notes/S18",
+        "runs/S18",
+        "evidence/S18"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "PLQ1",
+          "statement": "One exact installed candidate passes the frozen production-like scenario matrix and sustained bounded soak.",
+          "status": "open",
+          "verifies_via": "Exact candidate identity, complete live matrix, bounded repeat runs, and soak receipt",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S18"
+        },
+        {
+          "id": "PLQ2",
+          "statement": "Fresh artifact, evidence, and runtime reviewers return ACCEPT with no critical, high, or medium finding and all low findings adjudicated.",
+          "status": "open",
+          "verifies_via": "Three fresh exact-byte independent review reports",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S18"
+        },
+        {
+          "id": "PLQ3",
+          "statement": "Dependency, privacy, credential, protocol, local, and hosted gates remain green and close only eligibility for a separate release decision.",
+          "status": "open",
+          "verifies_via": "Bound audit, privacy, protocol, local, hosted, and no-publication receipts",
+          "discovered_on": "2026-07-28",
+          "discovered_because": "Production Live-Run Hardening Macro Delta S18"
+        }
+      ]
     }
   },
-  "stop_condition": "No active protocol is currently assigned. Do not infer implementation or publication authority; require a new principal-approved Macro Delta or protocol."
+  "stop_condition": "Stop S14 on any protected-value retention, unbounded output or error, orphaned process, ambiguous terminal outcome, false-green state, sourceful runtime resolution, evidence overwrite, experiment-scope crossover, or publication attempt."
 }

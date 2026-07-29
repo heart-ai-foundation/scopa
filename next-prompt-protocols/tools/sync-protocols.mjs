@@ -621,7 +621,7 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-${activeObjective.split('\n').map((line) => `> ${line}`).join('\n')}
+${activeObjective.split('\n').map((line) => line.length > 0 ? `> ${line}` : '>').join('\n')}
 
 ## Behavior rules
 
@@ -674,7 +674,7 @@ ${manifest.phase_scope || `Phase ${phaseTitle.replace(/^Phase\s+/, '')} is the c
 
 ## Active objective
 
-${activeObjective.split('\n').map((line) => `> ${line}`).join('\n')}
+${activeObjective.split('\n').map((line) => line.length > 0 ? `> ${line}` : '>').join('\n')}
 
 ## Files in play
 

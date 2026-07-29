@@ -1,19 +1,52 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "3c6bf9b9",
-  "current_phase": "phase-5-adversarial-hardening",
-  "active_protocol": null,
-  "active_class": null,
+  "current_commit": "3ac0173",
+  "current_phase": "phase-6-production-live-run-hardening",
+  "active_protocol": "active/2026-07-28-S14-shared-live-run-custody-and-supervision.md",
+  "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "No active protocol. The ratified SCOPA Adversarial Release Hardening S11-S13 queue is complete; publication remains separately unauthorized.",
-  "allowed_files": [],
+  "active_module": "live-run-custody",
+  "crosses": [
+    "claude-adapter",
+    "codex-adapter",
+    "adapter-host",
+    "release-readiness",
+    "conformance"
+  ],
+  "advances_contracts": [
+    "LC1",
+    "LC2",
+    "LC3",
+    "LC4"
+  ],
+  "active_protocol_sha256": "sha256:6ae69d3a3a74228796dfafe9f293cfe0760768dec0584a3a2821e36d6bccd7d4",
+  "active_objective": "Implement a shared live-run custody layer used by both installed integrations.\nIt must supervise a process group through bounded success and failure states,\nreturn one closed terminal envelope, bind the installed candidate and runtime\npolicy, store private evidence atomically with restrictive permissions, and\nderive deterministic public evidence through the existing collision-safe\npublication boundary.\n\nUse deterministic process doubles to exercise the edge matrix. S14 makes no\nreal provider call.",
+  "allowed_files": [
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "docs/**",
+    "schemas/**",
+    "packages/live-run/**",
+    "packages/integrations/claude/**",
+    "packages/integrations/codex/**",
+    "packages/adapter-host/**",
+    "packages/release-readiness/**",
+    "packages/conformance/**",
+    "fixtures/S14/**",
+    "next-prompt-protocols/**",
+    "notes/S14/**",
+    "runs/S14/**",
+    "evidence/S14/**"
+  ],
   "verification": {
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
+    "fast_deterministic": "npm run test:s14",
+    "claude_regression": "npm run test:s8",
+    "codex_regression": "npm run test:s9",
+    "installed_probe": "npm run probe:s12:installed",
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "release_gate": "npm test"
   },
-  "stop_condition": "No active protocol is currently assigned. Do not infer implementation or publication authority; require a new principal-approved Macro Delta or protocol."
+  "stop_condition": "Stop S14 on any protected-value retention, unbounded output or error, orphaned process, ambiguous terminal outcome, false-green state, sourceful runtime resolution, evidence overwrite, experiment-scope crossover, or publication attempt."
 }
