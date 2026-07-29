@@ -383,7 +383,7 @@
       ],
       "properties": {
         "privateDestination": {
-          "const": "llm-memories/projects/scopa/evidence/S16"
+          "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16"
         },
         "privateRetentionHours": {
           "type": "integer",

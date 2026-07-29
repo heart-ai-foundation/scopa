@@ -293,7 +293,7 @@ test('all S16 deterministic edge classes preserve expected polarity and cleanup'
   );
 });
 
-test('package surface excludes S16 operator policy and raw campaign evidence', () => {
+test('package surface excludes operator policy, raw evidence, and private topology', async () => {
   assert.equal(
     ROOT_PACKAGE.files.includes('fixtures/S16/codex-live-policy.json'),
     false,
@@ -301,5 +301,27 @@ test('package surface excludes S16 operator policy and raw campaign evidence', (
   assert.equal(
     ROOT_PACKAGE.files.some((entry) => entry.startsWith('evidence/S16')),
     false,
+  );
+  const publicPolicyFiles = await Promise.all([
+    readFile(
+      path.join(ROOT, 'packages/integrations/codex/src/live-policy.js'),
+      'utf8',
+    ),
+    readFile(
+      path.join(ROOT, 'schemas/scopa.codex-live-policy.v1.schema.json'),
+      'utf8',
+    ),
+  ]);
+  assert.equal(
+    publicPolicyFiles.every(
+      (text) => scanPrivateText(text).length === 0,
+    ),
+    true,
+  );
+  assert.equal(
+    publicPolicyFiles.every(
+      (text) => text.includes('SCOPA_PRIVATE_EVIDENCE_ROOT/S16'),
+    ),
+    true,
   );
 });

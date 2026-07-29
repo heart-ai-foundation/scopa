@@ -399,7 +399,7 @@ export function validateCodexLivePolicy(value) {
   );
   exactString(
     value.evidence.privateDestination,
-    'llm-memories/projects/scopa/evidence/S16',
+    'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
     'private evidence destination',
   );
   boundedInteger(
@@ -548,7 +548,7 @@ export function createCodexLivePolicy({
       externalSecretsAllowed: false,
     },
     evidence: {
-      privateDestination: 'llm-memories/projects/scopa/evidence/S16',
+      privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
       privateRetentionHours: 168,
       maxPrivateBytesPerRun: 25 * 1024 * 1024,
       privateMode: '0600',

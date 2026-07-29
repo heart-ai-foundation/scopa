@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "855148a",
+  "current_commit": "8173ac3",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
   "active_class": "arc",
@@ -17,7 +17,7 @@
     "CXH2",
     "CXH3"
   ],
-  "active_protocol_sha256": "sha256:eb3b55ea153784571a5a14a2e87b618d962f2874d6b2bd7a86816a2ac02fd53e",
+  "active_protocol_sha256": "sha256:b23d3df4720d52a8c27251c36cd6d18faa50e2bcdae29c4d9b9ab8f9be67614f",
   "active_objective": "Build and execute an independently bounded Codex headless edge campaign against\none exact installed SCOPA candidate. Freeze a complete account, network,\nmodel, native-sandbox, MCP-tool, time, turn, usage/cost, evidence-retention,\nand cleanup policy before any provider call. Prove every edge class with\ndeterministic controls first, then execute only a separately approved live\nsubset and remediate only reproduced Codex boundary defects.\n\nActivation of S16 does not itself authorize or start provider traffic. The\nprovider gate remains closed until the complete policy, exact scenario count,\naggregate allowance, private evidence destination, and stop conditions are\nmaterialized and explicitly approved.",
   "allowed_files": [
     "package.json",

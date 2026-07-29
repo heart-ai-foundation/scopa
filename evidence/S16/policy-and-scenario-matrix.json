@@ -3,8 +3,8 @@
   "slice": "S16",
   "policy": {
     "filename": "fixtures/S16/codex-live-policy.json",
-    "fileSha256": "baf58ca2b6d09068927fc295fc26b12012c1b1a6b63ce80672202c9ef6f51279",
-    "descriptorSha256": "914ed3bd0b425428ed50ea542ee3642883a0bab1815b315d9e1b69cc40517712",
+    "fileSha256": "7df38a00eebb4a51fb135275ce5fc40ee5ed13cf7da2ef45ad958b2e90fe949e",
+    "descriptorSha256": "c0b27378715e238fb2af4559ae787b221169181473ce59e572e3018019fca82f",
     "providerGate": "closed-pending-explicit-approval",
     "providerInvocationsAuthorized": 0,
     "proposedProviderInvocations": 4,

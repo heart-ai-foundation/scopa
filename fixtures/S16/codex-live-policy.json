@@ -109,7 +109,7 @@
     "externalSecretsAllowed": false
   },
   "evidence": {
-    "privateDestination": "llm-memories/projects/scopa/evidence/S16",
+    "privateDestination": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16",
     "privateRetentionHours": 168,
     "maxPrivateBytesPerRun": 26214400,
     "privateMode": "0600",
@@ -149,5 +149,5 @@
     "timeout",
     "usage-limit"
   ],
-  "policySha256": "914ed3bd0b425428ed50ea542ee3642883a0bab1815b315d9e1b69cc40517712"
+  "policySha256": "c0b27378715e238fb2af4559ae787b221169181473ce59e572e3018019fca82f"
 }

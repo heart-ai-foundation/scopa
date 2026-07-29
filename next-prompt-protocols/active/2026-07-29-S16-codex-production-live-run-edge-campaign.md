@@ -41,14 +41,15 @@ cleanup, environment, and fourteen stop conditions. Its digest-bound
 authorization state is `closed-pending-explicit-approval`: approved provider
 invocations remain zero.
 
-The 21-scenario deterministic corpus passes without provider traffic across
-the four core outcomes, repetition, client/model/MCP/schema/native/tool drift,
-refusal, rate pressure, timeout with ignored termination, early EOF, malformed
-events, usage/capture limits, and orphan cleanup.
+The 21-scenario source corpus passes without provider traffic. Installed
+qualification then caught a shipped private-topology reference in the public
+policy contract. That candidate is invalidated. The contract now uses the
+public alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16`, whose private operator mapping
+is retained outside the package.
 
-The next checkpoint is installed-artifact qualification of this exact
-implementation, followed by explicit principal review of the proposed
-four-call policy. No production Codex command may run before that approval.
+The next checkpoint is clean installed-artifact requalification of this
+remediation, followed by explicit principal review of the proposed four-call
+policy. No production Codex command may run before that approval.
 
 ## Descriptor rung check
 

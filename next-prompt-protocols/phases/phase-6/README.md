@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `855148a`
+Current commit reference: `8173ac3`
 Current active protocol: `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
 
 ## Scope
