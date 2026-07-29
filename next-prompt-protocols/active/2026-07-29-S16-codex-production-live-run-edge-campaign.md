@@ -33,6 +33,23 @@ provider gate remains closed until the complete policy, exact scenario count,
 aggregate allowance, private evidence destination, and stop conditions are
 materialized and explicitly approved.
 
+## Current checkpoint
+
+The complete proposed policy is now materialized with four scenarios, per-run
+and aggregate token ceilings, a private evidence destination class, retention,
+cleanup, environment, and fourteen stop conditions. Its digest-bound
+authorization state is `closed-pending-explicit-approval`: approved provider
+invocations remain zero.
+
+The 21-scenario deterministic corpus passes without provider traffic across
+the four core outcomes, repetition, client/model/MCP/schema/native/tool drift,
+refusal, rate pressure, timeout with ignored termination, early EOF, malformed
+events, usage/capture limits, and orphan cleanup.
+
+The next checkpoint is installed-artifact qualification of this exact
+implementation, followed by explicit principal review of the proposed
+four-call policy. No production Codex command may run before that approval.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose

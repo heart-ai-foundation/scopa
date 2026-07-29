@@ -44,6 +44,8 @@ consumer package.
 | Hidden adapter mutation route | Explicit tool inventory and capability/bypass matrix | S8/S9 live proofs and parity report | Claude and Codex remain `partial` because native routes are not all SCOPA-controlled |
 | Unknown or reordered model events | Closed stream normalizers bound to SCOPA transcript | S8/S9 negative controls | Provider event formats can change and require a pinned adapter update |
 | Timeout, output pressure, client crash, or orphan descendant loses terminal state | Shared finite capture, closed terminal envelope, dedicated process group, bounded TERM/KILL escalation, and cleanup verification | S14 deterministic process fault matrix | A privileged local process can still interfere outside the measured process group |
+| Codex reported usage exceeds the approved per-run or aggregate allowance | Exact input/output/reasoning/total ceilings and a closed `usage-limit` terminal | S16 deterministic usage-overrun corpus | Provider usage telemetry is provider-reported and is not an independent billing attestation |
+| Host credentials or harness state leak into a Codex child | Explicit ten-name production environment allowlist and smaller synthetic fixture environment | S16 environment-contract and 21-scenario deterministic corpus | Allowed paths may reference provider-owned client stores that still require private residue audit |
 | Live receipt leaks credentials, roots, prompts, or provider output | Exact artifact/profile/policy digests, no raw environment map, atomic mode-0600 private evidence, designated public redaction, collision checks, and privacy scan | S14 protected-value mutation and destination-hostility corpus | Private raw evidence still requires operator-controlled retention and access policy |
 | A post-provider evidence fault loses a consumed request and tempts replay or false reconstruction | Pre-call collision refusal and private intent, post-return bounded journal, decimal-string accounting, exact raw/normalized accounting comparison, and conservative maximum reservation for uncertain requests | S15 deterministic resume/accounting controls, exhausted historical campaign, and fresh direct S15R2 denial-to-restart campaign | The historical lost request remains unknown and non-qualifying; S15 acceptance relies on the separately authorized direct remedial evidence, not reconstruction |
 | Journal or packet tampering | Deterministic encoding, hash chain, signatures, optional RFC 3161 anchor | S1/S4 mutation tests and fresh-process verification | Software keys do not prove hardware identity |
@@ -61,6 +63,9 @@ consumer package.
 - Live models run only in disposable fixture repositories.
 - Live launchers bind the exact installed artifact and return one bounded
   terminal envelope for both success and failure.
+- S16 Codex provider execution remains closed until its exact four-call policy,
+  aggregate token allowance, private destination, and stop conditions receive
+  separate explicit approval.
 - Provider raw output remains private; repository-facing derivatives bind its
   digest and expose only designated redactions.
 - Verification uses caller-supplied timestamp roots and signer pins.

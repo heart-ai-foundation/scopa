@@ -40,7 +40,7 @@ const PREFLIGHT_CAPTURE_BYTES = 256 * 1024;
 const MAX_CAPTURE_BYTES = 20 * 1024 * 1024;
 const DEFAULT_TERMINATE_GRACE_MS = 500;
 const DEFAULT_CLEANUP_WAIT_MS = 1_000;
-const REMOVED_ENVIRONMENT_NAMES = Object.freeze([
+export const CODEX_REMOVED_ENVIRONMENT_NAMES = Object.freeze([
   'ALL_PROXY',
   'CODEX_API_KEY',
   'HTTPS_PROXY',
@@ -52,6 +52,91 @@ const REMOVED_ENVIRONMENT_NAMES = Object.freeze([
   'OPENAI_PROJECT_ID',
   'OPENAI_PROXY_URL',
 ]);
+export const CODEX_ALLOWED_ENVIRONMENT_NAMES = Object.freeze([
+  'HOME',
+  'LANG',
+  'LC_ALL',
+  'PATH',
+  'SSL_CERT_DIR',
+  'SSL_CERT_FILE',
+  'XDG_CACHE_HOME',
+  'XDG_CONFIG_HOME',
+  'XDG_DATA_HOME',
+  'XDG_RUNTIME_DIR',
+]);
+
+export function createCodexAllowedEnvironment(
+  hostEnvironment = process.env,
+) {
+  if (
+    hostEnvironment === null ||
+    typeof hostEnvironment !== 'object' ||
+    Array.isArray(hostEnvironment) ||
+    Object.values(hostEnvironment).some(
+      (value) => typeof value !== 'string',
+    )
+  ) {
+    throw new TypeError('Codex host environment must map names to strings');
+  }
+  const allowed = Object.fromEntries(
+    CODEX_ALLOWED_ENVIRONMENT_NAMES
+      .filter((name) => Object.hasOwn(hostEnvironment, name))
+      .map((name) => [
+        name,
+        hostEnvironment[name],
+      ]),
+  );
+  if (
+    typeof allowed.HOME !== 'string' ||
+    typeof allowed.PATH !== 'string'
+  ) {
+    throw new TypeError('Codex allowed environment requires HOME and PATH');
+  }
+  return allowed;
+}
+
+export function codexUsageTotal(usage) {
+  return [
+    'input_tokens',
+    'cache_write_input_tokens',
+    'output_tokens',
+    'reasoning_output_tokens',
+  ].reduce((total, field) => total + usage[field], 0);
+}
+
+function usageLimitExceeded(usage, limits) {
+  return (
+    usage.input_tokens > limits.maxInputTokens ||
+    usage.output_tokens > limits.maxOutputTokens ||
+    usage.reasoning_output_tokens > limits.maxReasoningTokens ||
+    codexUsageTotal(usage) > limits.maxTotalTokens
+  );
+}
+
+function validateUsageLimits(value) {
+  if (value === null) return null;
+  if (
+    typeof value !== 'object' ||
+    Array.isArray(value) ||
+    Object.keys(value).sort().join('\0') !==
+      [
+        'maxInputTokens',
+        'maxOutputTokens',
+        'maxReasoningTokens',
+        'maxTotalTokens',
+      ].join('\0') ||
+    Object.values(value).some(
+      (limit) => !Number.isSafeInteger(limit) || limit <= 0,
+    ) ||
+    value.maxTotalTokens <
+      value.maxInputTokens +
+      value.maxOutputTokens +
+      value.maxReasoningTokens
+  ) {
+    throw new TypeError('Codex usage limits are invalid');
+  }
+  return value;
+}
 
 function result({
   terminal,
@@ -106,12 +191,16 @@ function receipt({
 async function installedVersion({
   command,
   cwd,
+  baseEnvironment,
+  environmentInheritance,
   terminateGraceMs,
   cleanupWaitMs,
 }) {
   const controlled = createControlledEnvironment({
     additions: {},
-    removedNames: REMOVED_ENVIRONMENT_NAMES,
+    removedNames: CODEX_REMOVED_ENVIRONMENT_NAMES,
+    baseEnvironment,
+    inheritance: environmentInheritance,
   });
   const invocation = {
     command,
@@ -178,6 +267,8 @@ async function inventory({
   command,
   profile,
   cwd,
+  baseEnvironment,
+  environmentInheritance,
   terminateGraceMs,
   cleanupWaitMs,
 }) {
@@ -191,7 +282,9 @@ async function inventory({
   };
   const controlled = createControlledEnvironment({
     additions: {},
-    removedNames: REMOVED_ENVIRONMENT_NAMES,
+    removedNames: CODEX_REMOVED_ENVIRONMENT_NAMES,
+    baseEnvironment,
+    inheritance: environmentInheritance,
   });
   const execution = await superviseProcess({
     ...invocation,
@@ -269,21 +362,34 @@ export async function runCodexSession({
   adapterCli,
   codexCommand = 'codex',
   timeoutMs = DEFAULT_TIMEOUT_MS,
+  maxCaptureBytes = MAX_CAPTURE_BYTES,
+  usageLimits = null,
+  baseEnvironment = createCodexAllowedEnvironment(),
+  environmentInheritance = 'explicit-allowlist',
   terminateGraceMs = DEFAULT_TERMINATE_GRACE_MS,
   cleanupWaitMs = DEFAULT_CLEANUP_WAIT_MS,
 }) {
   validateInstalledArtifactIdentity(installedArtifact);
   validateCapabilityMatrix(capabilityMatrix);
+  validateUsageLimits(usageLimits);
   const root = path.resolve(repoRoot);
   const limits = {
     timeoutMs,
-    maxCaptureBytes: MAX_CAPTURE_BYTES,
+    maxCaptureBytes,
     terminateGraceMs,
     cleanupWaitMs,
+    ...(usageLimits === null ? {} : {
+      maxInputTokens: usageLimits.maxInputTokens,
+      maxOutputTokens: usageLimits.maxOutputTokens,
+      maxReasoningTokens: usageLimits.maxReasoningTokens,
+      maxTotalTokens: usageLimits.maxTotalTokens,
+    }),
   };
   const versionProbe = await installedVersion({
     command: codexCommand,
     cwd: root,
+    baseEnvironment,
+    environmentInheritance,
     terminateGraceMs,
     cleanupWaitMs,
   });
@@ -333,6 +439,8 @@ export async function runCodexSession({
       command: codexCommand,
       profile,
       cwd: root,
+      baseEnvironment,
+      environmentInheritance,
       terminateGraceMs,
       cleanupWaitMs,
     });
@@ -375,7 +483,9 @@ export async function runCodexSession({
     });
     const controlled = createControlledEnvironment({
       additions: invocation.env,
-      removedNames: REMOVED_ENVIRONMENT_NAMES,
+      removedNames: CODEX_REMOVED_ENVIRONMENT_NAMES,
+      baseEnvironment,
+      inheritance: environmentInheritance,
     });
     const liveReceipt = receipt({
       installedArtifact,
@@ -414,7 +524,7 @@ export async function runCodexSession({
       env: controlled.environment,
       stdin: invocation.stdin,
       timeoutMs,
-      maxCaptureBytes: MAX_CAPTURE_BYTES,
+      maxCaptureBytes,
       terminateGraceMs,
       cleanupWaitMs,
     });
@@ -439,6 +549,25 @@ export async function runCodexSession({
         receipt: liveReceipt,
         execution,
         inventory: inventoryProbe.servers,
+      });
+    }
+    if (
+      usageLimits !== null &&
+      usageLimitExceeded(normalized.result.usage, usageLimits)
+    ) {
+      return result({
+        terminal: replaceTerminalState(execution.terminal, {
+          state: 'usage-limit',
+          reason: 'provider-usage-limit-exceeded',
+        }),
+        receipt: liveReceipt,
+        execution,
+        inventory: inventoryProbe.servers,
+        rawStream: execution.stdout
+          .split(/\r?\n/)
+          .filter((line) => line.length > 0)
+          .map((line) => JSON.parse(line)),
+        normalized,
       });
     }
     const terminal = bindNormalizedCompletion(

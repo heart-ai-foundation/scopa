@@ -10,6 +10,7 @@ import {
 const SCHEMA_FILES = [
   'scopa.candidate-manifest.v1.schema.json',
   'scopa.claude-live-policy.v1.schema.json',
+  'scopa.codex-live-policy.v1.schema.json',
   'scopa.consumer-proof.v1.schema.json',
   'scopa.live-terminal.v1.schema.json',
   'scopa.live-receipt.v1.schema.json',
@@ -137,6 +138,102 @@ function claudeLivePolicyInvariants(enabled, value) {
   return errors.length === 0;
 }
 
+function codexLivePolicyInvariants(enabled, value) {
+  if (!enabled) return true;
+
+  const errors = [];
+  const {
+    policySha256,
+    ...descriptor
+  } = value ?? {};
+  const add = (instancePath, message, invariant) => {
+    errors.push({
+      instancePath,
+      keyword: 'x-scopa-codex-live-policy-invariants',
+      message,
+      params: { invariant },
+    });
+  };
+
+  if (policySha256 !== jsonHash(descriptor)) {
+    add(
+      '/policySha256',
+      'must bind the complete policy descriptor',
+      'policy-digest-binds-descriptor',
+    );
+  }
+  const authorization = value?.authorization;
+  const closed = authorization?.providerGate ===
+    'closed-pending-explicit-approval';
+  const authorized = authorization?.providerGate === 'authorized';
+  if (
+    (
+      closed &&
+      (
+        authorization?.approvedOn !== null ||
+        authorization?.principalApproval !== 'not-granted' ||
+        authorization?.privateEvidenceDestinationApproval !== 'not-granted'
+      )
+    ) ||
+    (
+      authorized &&
+      (
+        typeof authorization?.approvedOn !== 'string' ||
+        authorization?.principalApproval !== 'conversation-explicit' ||
+        authorization?.privateEvidenceDestinationApproval !==
+          'conversation-explicit'
+      )
+    )
+  ) {
+    add(
+      '/authorization',
+      'must match the declared provider gate state',
+      'provider-gate-approval-consistency',
+    );
+  }
+  const limits = value?.limits ?? {};
+  const invocations = limits.maxProviderInvocations;
+  if (
+    limits.maxTotalTokensPerRun <
+      limits.maxInputTokensPerRun +
+      limits.maxOutputTokensPerRun +
+      limits.maxReasoningTokensPerRun ||
+    limits.maxCampaignInputTokens >
+      limits.maxInputTokensPerRun * invocations ||
+    limits.maxCampaignOutputTokens >
+      limits.maxOutputTokensPerRun * invocations ||
+    limits.maxCampaignTotalTokens >
+      limits.maxTotalTokensPerRun * invocations
+  ) {
+    add(
+      '/limits',
+      'must fit the per-run and invocation usage bounds',
+      'campaign-usage-fits-run-bounds',
+    );
+  }
+  if (
+    value?.evidence?.maxPrivateBytesPerRun <
+      limits.maxCaptureBytes
+  ) {
+    add(
+      '/evidence/maxPrivateBytesPerRun',
+      'must be at least the provider capture bound',
+      'private-evidence-fits-capture',
+    );
+  }
+  if (value?.scenarios?.ids?.length !== invocations) {
+    add(
+      '/scenarios/ids',
+      'must equal the maximum provider invocation count',
+      'scenario-count-equals-invocations',
+    );
+  }
+
+  codexLivePolicyInvariants.errors =
+    errors.length === 0 ? null : errors;
+  return errors.length === 0;
+}
+
 const ajv = new Ajv2020({
   allErrors: true,
   strict: true,
@@ -154,6 +251,13 @@ ajv.addKeyword({
   schemaType: 'boolean',
   errors: true,
   validate: claudeLivePolicyInvariants,
+});
+
+ajv.addKeyword({
+  keyword: 'x-scopa-codex-live-policy-invariants',
+  schemaType: 'boolean',
+  errors: true,
+  validate: codexLivePolicyInvariants,
 });
 
 for (const schema of schemas) {

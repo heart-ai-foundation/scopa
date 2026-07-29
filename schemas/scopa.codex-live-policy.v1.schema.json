@@ -1,0 +1,493 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.codex-live-policy.v1.schema.json",
+  "title": "SCOPA Codex live execution policy v1",
+  "x-scopa-codex-live-policy-invariants": true,
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "account",
+    "authorization",
+    "cleanup",
+    "environment",
+    "evidence",
+    "limits",
+    "model",
+    "nativeSurface",
+    "network",
+    "policyId",
+    "policySha256",
+    "repository",
+    "scenarios",
+    "schema",
+    "stopConditions",
+    "tools"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.codex-live-policy.v1"
+    },
+    "policyId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvedOn",
+        "principalApproval",
+        "privateEvidenceDestinationApproval",
+        "providerGate",
+        "scope"
+      ],
+      "properties": {
+        "providerGate": {
+          "enum": [
+            "authorized",
+            "closed-pending-explicit-approval"
+          ]
+        },
+        "approvedOn": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "principalApproval": {
+          "enum": [
+            "conversation-explicit",
+            "not-granted"
+          ]
+        },
+        "privateEvidenceDestinationApproval": {
+          "enum": [
+            "conversation-explicit",
+            "not-granted"
+          ]
+        },
+        "scope": {
+          "const": "S16-production-live-run-edge-campaign"
+        }
+      }
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authMethod",
+        "boundary",
+        "identityHandling",
+        "verification"
+      ],
+      "properties": {
+        "boundary": {
+          "const": "current-authenticated-principal-controlled-openai-codex-session"
+        },
+        "authMethod": {
+          "const": "codex-cli-session"
+        },
+        "identityHandling": {
+          "const": "verified-private-not-retained"
+        },
+        "verification": {
+          "const": "required-before-first-provider-call"
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedClass",
+        "alternateProvidersDisabled",
+        "osEnforced"
+      ],
+      "properties": {
+        "allowedClass": {
+          "const": "openai-first-party-via-codex-cli"
+        },
+        "alternateProvidersDisabled": {
+          "const": true
+        },
+        "osEnforced": {
+          "const": false
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provenance",
+        "requested",
+        "snapshotStatus"
+      ],
+      "properties": {
+        "requested": {
+          "const": "gpt-5.4"
+        },
+        "provenance": {
+          "const": "launcher-declared"
+        },
+        "snapshotStatus": {
+          "const": "requested-name-not-provider-signed-snapshot"
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "mcpServer",
+        "strictMcpOnly"
+      ],
+      "properties": {
+        "mcpServer": {
+          "const": "scopa"
+        },
+        "allowed": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "scopa_orientation",
+              "scopa_read_file",
+              "scopa_write_file",
+              "scopa_check",
+              "scopa_assurance",
+              "scopa_transcript"
+            ]
+          }
+        },
+        "strictMcpOnly": {
+          "const": true
+        }
+      }
+    },
+    "nativeSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvalPolicy",
+        "disabledFeatures",
+        "ephemeral",
+        "ignoreRules",
+        "ignoreUserConfig",
+        "sandbox",
+        "webSearch"
+      ],
+      "properties": {
+        "sandbox": {
+          "const": "read-only"
+        },
+        "approvalPolicy": {
+          "const": "never"
+        },
+        "ephemeral": {
+          "const": true
+        },
+        "ignoreUserConfig": {
+          "const": true
+        },
+        "ignoreRules": {
+          "const": true
+        },
+        "webSearch": {
+          "const": "disabled"
+        },
+        "disabledFeatures": {
+          "type": "array",
+          "minItems": 28,
+          "maxItems": 28,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "apps",
+              "auth_elicitation",
+              "browser_use",
+              "browser_use_external",
+              "browser_use_full_cdp_access",
+              "code_mode_host",
+              "computer_use",
+              "goals",
+              "guardian_approval",
+              "hooks",
+              "image_generation",
+              "in_app_browser",
+              "memories",
+              "multi_agent",
+              "multi_agent_v2",
+              "network_proxy",
+              "personality",
+              "plugins",
+              "remote_plugin",
+              "plugin_sharing",
+              "shell_snapshot",
+              "shell_tool",
+              "skill_mcp_dependency_install",
+              "skill_search",
+              "tool_call_mcp_elicitation",
+              "tool_suggest",
+              "unified_exec",
+              "workspace_dependencies"
+            ]
+          }
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedNames",
+        "inheritance"
+      ],
+      "properties": {
+        "inheritance": {
+          "const": "explicit-allowlist"
+        },
+        "allowedNames": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "HOME",
+              "LANG",
+              "LC_ALL",
+              "PATH",
+              "SSL_CERT_DIR",
+              "SSL_CERT_FILE",
+              "XDG_CACHE_HOME",
+              "XDG_CONFIG_HOME",
+              "XDG_DATA_HOME",
+              "XDG_RUNTIME_DIR"
+            ]
+          }
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxCampaignInputTokens",
+        "maxCampaignOutputTokens",
+        "maxCampaignTotalTokens",
+        "maxCaptureBytes",
+        "maxInputBytes",
+        "maxInputTokensPerRun",
+        "maxOutputTokensPerRun",
+        "maxProviderInvocations",
+        "maxReasoningTokensPerRun",
+        "maxTotalTokensPerRun",
+        "maxTurnsPerRun",
+        "timeoutMs"
+      ],
+      "properties": {
+        "maxProviderInvocations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "maxTurnsPerRun": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "timeoutMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 900000
+        },
+        "maxCaptureBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "maxInputBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "maxInputTokensPerRun": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxOutputTokensPerRun": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxReasoningTokensPerRun": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxTotalTokensPerRun": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxCampaignInputTokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxCampaignOutputTokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxCampaignTotalTokens": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "customerDataAllowed",
+        "externalSecretsAllowed"
+      ],
+      "properties": {
+        "classification": {
+          "const": "disposable-synthetic"
+        },
+        "customerDataAllowed": {
+          "const": false
+        },
+        "externalSecretsAllowed": {
+          "const": false
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxPrivateBytesPerRun",
+        "privateDestination",
+        "privateMode",
+        "privateRetentionHours",
+        "publicMode",
+        "repositoryRawEvidenceAllowed"
+      ],
+      "properties": {
+        "privateDestination": {
+          "const": "llm-memories/projects/scopa/evidence/S16"
+        },
+        "privateRetentionHours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 720
+        },
+        "maxPrivateBytesPerRun": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "privateMode": {
+          "const": "0600"
+        },
+        "publicMode": {
+          "const": "0644"
+        },
+        "repositoryRawEvidenceAllowed": {
+          "const": false
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clientStoreAuditRequired",
+        "controlRootDeletionRequired",
+        "disposableRepositoryDeletionRequired",
+        "noSurvivorRequired",
+        "processGroupRequired",
+        "providerResidueAuditRequired"
+      ],
+      "properties": {
+        "processGroupRequired": {
+          "const": true
+        },
+        "noSurvivorRequired": {
+          "const": true
+        },
+        "controlRootDeletionRequired": {
+          "const": true
+        },
+        "disposableRepositoryDeletionRequired": {
+          "const": true
+        },
+        "clientStoreAuditRequired": {
+          "const": true
+        },
+        "providerResidueAuditRequired": {
+          "const": true
+        }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ids",
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "const": "S16.v1"
+        },
+        "ids": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "clean",
+              "denied",
+              "false-green",
+              "cold-restart"
+            ]
+          }
+        }
+      }
+    },
+    "stopConditions": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "account-boundary-drift",
+          "capture-limit",
+          "cleanup-failure",
+          "client-version-drift",
+          "evidence-collision",
+          "mcp-inventory-drift",
+          "model-drift",
+          "native-surface-drift",
+          "privacy-event",
+          "provider-rate-pressure",
+          "provider-refusal",
+          "schema-drift",
+          "timeout",
+          "usage-limit"
+        ]
+      }
+    }
+  }
+}

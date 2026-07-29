@@ -1,0 +1,154 @@
+{
+  "schema": "scopa.codex-deterministic-edge-corpus.v1",
+  "version": "S16.v1",
+  "providerTrafficAllowed": false,
+  "scenarios": [
+    {
+      "id": "clean",
+      "mode": "success",
+      "baseScenario": "clean",
+      "expectedState": "succeeded",
+      "expectedCanStop": true
+    },
+    {
+      "id": "denied",
+      "mode": "success",
+      "baseScenario": "denied",
+      "expectedState": "succeeded",
+      "expectedCanStop": true
+    },
+    {
+      "id": "false-green",
+      "mode": "success",
+      "baseScenario": "falseGreen",
+      "expectedState": "succeeded",
+      "expectedCanStop": false
+    },
+    {
+      "id": "cold-restart",
+      "mode": "success",
+      "baseScenario": "coldRestart",
+      "expectedState": "succeeded",
+      "expectedCanStop": true
+    },
+    {
+      "id": "repeat-session",
+      "mode": "success",
+      "baseScenario": "coldRestart",
+      "expectedState": "succeeded",
+      "expectedCanStop": true
+    },
+    {
+      "id": "client-version-drift",
+      "mode": "version-drift",
+      "baseScenario": "clean",
+      "expectedState": "version-drift",
+      "expectedCanStop": false
+    },
+    {
+      "id": "mcp-inventory-drift",
+      "mode": "inventory-drift",
+      "baseScenario": "clean",
+      "expectedState": "inventory-drift",
+      "expectedCanStop": false
+    },
+    {
+      "id": "mcp-inventory-malformed",
+      "mode": "inventory-malformed",
+      "baseScenario": "clean",
+      "expectedState": "inventory-drift",
+      "expectedCanStop": false
+    },
+    {
+      "id": "model-drift",
+      "mode": "model-drift",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "client-schema-drift",
+      "mode": "client-schema-drift",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "native-surface-drift",
+      "mode": "native-drift",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "mcp-tool-drift",
+      "mode": "tool-drift",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "output-schema-drift",
+      "mode": "schema-drift",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "early-eof",
+      "mode": "early-eof",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "malformed-event",
+      "mode": "malformed",
+      "baseScenario": "clean",
+      "expectedState": "normalization-failed",
+      "expectedCanStop": false
+    },
+    {
+      "id": "provider-refusal",
+      "mode": "provider-refusal",
+      "baseScenario": "clean",
+      "expectedState": "exited",
+      "expectedCanStop": false
+    },
+    {
+      "id": "provider-rate-pressure",
+      "mode": "provider-rate-pressure",
+      "baseScenario": "clean",
+      "expectedState": "exited",
+      "expectedCanStop": false
+    },
+    {
+      "id": "timeout-ignored-termination",
+      "mode": "timeout",
+      "baseScenario": "clean",
+      "expectedState": "timed-out",
+      "expectedCanStop": false
+    },
+    {
+      "id": "capture-limit",
+      "mode": "capture-limit",
+      "baseScenario": "clean",
+      "expectedState": "output-limit",
+      "expectedCanStop": false
+    },
+    {
+      "id": "usage-limit",
+      "mode": "usage-limit",
+      "baseScenario": "clean",
+      "expectedState": "usage-limit",
+      "expectedCanStop": false
+    },
+    {
+      "id": "cleanup-orphan",
+      "mode": "cleanup-orphan",
+      "baseScenario": "clean",
+      "expectedState": "cleanup-failed",
+      "expectedCanStop": false
+    }
+  ]
+}

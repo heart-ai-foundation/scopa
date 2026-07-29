@@ -55,6 +55,11 @@ completion state. The supervisor owns a dedicated POSIX process group,
 performs bounded `SIGTERM`/`SIGKILL` cleanup, and retains at most 20 MiB of
 combined output.
 
+When usage ceilings are supplied, the runtime also fails closed with
+`usage-limit` if input, output, reasoning, or combined reported usage exceeds
+the bound. Cached input is retained as separate provider telemetry and is not
+double-counted when `input_tokens` already includes it.
+
 The receipt binds the exact artifact, requested model, profile, inventory,
 capability matrix, scenario, limits, and sanitized environment policy through
 safe values or digests. It contains no raw argument, prompt, environment,
@@ -85,3 +90,34 @@ a separate enforcement layer and is not represented as SCOPA mediation.
 CLI-owned metadata store is untouched. Model identity is launcher-declared,
 and the observed `codex-mcp-client@0.145.0` handshake is not provider-signed
 provenance.
+
+## S16 production-live hardening
+
+The installed integration exports `createCodexLivePolicy`,
+`validateCodexLivePolicy`, `assertCodexProviderAuthorized`,
+`codexPolicyUsageLimits`, and `createCodexAllowedEnvironment`. The policy
+binds the exact client/model/MCP/native surface, four proposed scenarios,
+per-run and aggregate usage bounds, evidence custody, cleanup requirements,
+and stop conditions.
+
+The committed S16 policy intentionally carries
+`providerGate: "closed-pending-explicit-approval"`. The authorization helper
+refuses it. Opening the gate requires a new digest with an explicit approval
+date, principal approval, and private-destination approval; that change must
+occur before any production Codex command is introduced or run.
+
+From a SCOPA source checkout with development scripts installed, the
+provider-free installed-artifact probe is:
+
+```sh
+npm run probe:s16:deterministic -- \
+  --output /trusted/public/s16-deterministic-result.json
+```
+
+In a source checkout it invokes only the dedicated deterministic S16 fault
+client, never `codex`. The 21-scenario corpus covers clean, denied,
+false-green, restart/repeat, version, MCP, model, client-schema, native-route,
+tool and output-schema drift, provider refusal/rate pressure, timeout with
+ignored termination, early EOF,
+malformed JSONL, usage/capture limits, and orphan cleanup. The fault process
+receives only an explicit synthetic environment allowlist.

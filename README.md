@@ -28,8 +28,10 @@ honest fail-closed historical record: four requests qualified, one reproduced
 callable-tool drift, and one lost its denied-path result before publication.
 A separately authorized two-request remedial campaign then directly proved
 scope denial and fresh-process continuity over the same disposable repository
-on one exact installed candidate. Codex live-edge hardening is now active;
-sustained recovery and exact requalification remain queued. The separate
+on one exact installed candidate. Codex live-edge hardening is now active.
+Its closed policy and 21-scenario deterministic fault corpus are implemented,
+while its provider gate remains closed pending an exact, separate approval.
+Sustained recovery and exact requalification remain queued. The separate
 SCOPA research experiment is outside this queue. The package and repository
 remain private; publication and production deployment require separate
 principal requests.
@@ -95,10 +97,10 @@ revisions, threat boundaries, and launcher requirements.
 
 Phase 6 adds one shared installed-runtime boundary beneath the Claude and
 Codex launchers. It returns closed outcomes for success, exit, signal,
-timeout, output limit, spawn failure, client/inventory drift, normalization
-failure, and incomplete cleanup. Capture is finite; each client runs in a
-dedicated POSIX process group with bounded `SIGTERM`/`SIGKILL` escalation and
-an explicit no-survivor check.
+timeout, output limit, usage limit, spawn failure, client/inventory drift,
+normalization failure, and incomplete cleanup. Capture is finite; each client
+runs in a dedicated POSIX process group with bounded `SIGTERM`/`SIGKILL`
+escalation and an explicit no-survivor check.
 
 Receipts bind the source commit, package SHA-256/integrity, client, requested
 model, profile, capability matrix, scenario, limits, and sanitized environment
@@ -168,6 +170,24 @@ Assurance remains `partial`. Provider network, managed policy,
 skill/instruction discovery, CLI-owned metadata, and the native filesystem
 boundary remain outside SCOPA. See `packages/integrations/codex/README.md` for
 the API, exact controls, and non-claims.
+
+S16 adds a published, digest-bound Codex policy with four proposed live
+scenarios, explicit token/capture/time ceilings, a ten-name environment
+allowlist, private evidence retention, cleanup duties, and fourteen immediate
+stop conditions. The committed policy is deliberately
+`closed-pending-explicit-approval`; neither activation nor deterministic
+qualification authorizes provider traffic. From a SCOPA source checkout with
+development scripts installed, the provider-free qualification command is:
+
+```sh
+npm run probe:s16:deterministic -- \
+  --output /trusted/public/s16-deterministic-result.json
+```
+
+The installed probe uses only the committed fault client. It covers the four
+core outcomes plus restart repetition, client/model/MCP/schema/native drift,
+refusal, rate pressure, ignored termination, early EOF, malformed events,
+usage/capture ceilings, and orphan cleanup.
 
 ## Developer-preview release candidate
 

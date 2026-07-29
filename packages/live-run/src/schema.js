@@ -19,6 +19,7 @@ export const LIVE_TERMINAL_STATES = Object.freeze([
   'rate-limited',
   'budget-exhausted',
   'turn-limit',
+  'usage-limit',
   'provider-failed',
 ]);
 
@@ -39,6 +40,7 @@ export const LIVE_TERMINAL_REASONS = Object.freeze([
   'provider-rate-limited',
   'provider-budget-exhausted',
   'provider-turn-limit-exceeded',
+  'provider-usage-limit-exceeded',
   'provider-execution-error',
 ]);
 

@@ -1,0 +1,88 @@
+{
+  "schema": "scopa.codex-live-campaign-plan.v1",
+  "slice": "S16",
+  "policy": {
+    "filename": "fixtures/S16/codex-live-policy.json",
+    "fileSha256": "baf58ca2b6d09068927fc295fc26b12012c1b1a6b63ce80672202c9ef6f51279",
+    "descriptorSha256": "914ed3bd0b425428ed50ea542ee3642883a0bab1815b315d9e1b69cc40517712",
+    "providerGate": "closed-pending-explicit-approval",
+    "providerInvocationsAuthorized": 0,
+    "proposedProviderInvocations": 4,
+    "maxTurnsPerRun": 1,
+    "timeoutMs": 180000,
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "maxInputTokensPerRun": 120000,
+    "maxOutputTokensPerRun": 4000,
+    "maxReasoningTokensPerRun": 2000,
+    "maxTotalTokensPerRun": 126000,
+    "maxCampaignInputTokens": 480000,
+    "maxCampaignOutputTokens": 16000,
+    "maxCampaignTotalTokens": 504000,
+    "privateRetentionHours": 168,
+    "maxPrivateBytesPerRun": 26214400
+  },
+  "prompts": {
+    "filename": "fixtures/S16/prompts.json",
+    "sha256": "19c6365f297ab86c8055b890576cde64cacef8295da3874fb202eb1bb094d3ca"
+  },
+  "deterministicCorpus": {
+    "filename": "fixtures/S16/deterministic-scenarios.json",
+    "sha256": "49d71d45a4e6bceec8cc664026f9187182c8e0556e65d6d208dacaa6e0edc7fb",
+    "scenarioCount": 21,
+    "providerTrafficAllowed": false,
+    "classes": [
+      "clean",
+      "denied",
+      "false-green",
+      "cold-restart",
+      "repeat-session",
+      "client-version-drift",
+      "mcp-inventory-drift",
+      "mcp-inventory-malformed",
+      "model-drift",
+      "client-schema-drift",
+      "native-surface-drift",
+      "mcp-tool-drift",
+      "output-schema-drift",
+      "early-eof",
+      "malformed-event",
+      "provider-refusal",
+      "provider-rate-pressure",
+      "timeout-ignored-termination",
+      "capture-limit",
+      "usage-limit",
+      "cleanup-orphan"
+    ]
+  },
+  "proposedLiveScenarios": [
+    {
+      "id": "clean",
+      "expectedCanStop": true,
+      "purpose": "contained allowed write and exact completion"
+    },
+    {
+      "id": "denied",
+      "expectedCanStop": true,
+      "purpose": "scope denial followed by contained correction"
+    },
+    {
+      "id": "false-green",
+      "expectedCanStop": false,
+      "purpose": "failing gate remains authoritative"
+    },
+    {
+      "id": "cold-restart",
+      "expectedCanStop": true,
+      "purpose": "fresh-process same-repository continuity"
+    }
+  ],
+  "environment": {
+    "inheritance": "explicit-allowlist",
+    "allowedNameCount": 10,
+    "credentialValuesRetained": false
+  },
+  "assurance": "partial",
+  "providerExecutionCompleted": false,
+  "experimentWorkIncluded": false
+}

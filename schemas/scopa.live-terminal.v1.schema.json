@@ -35,6 +35,7 @@
         "rate-limited",
         "budget-exhausted",
         "turn-limit",
+        "usage-limit",
         "provider-failed"
       ]
     },
@@ -84,6 +85,7 @@
         "provider-rate-limited",
         "provider-budget-exhausted",
         "provider-turn-limit-exceeded",
+        "provider-usage-limit-exceeded",
         "provider-execution-error"
       ]
     },
