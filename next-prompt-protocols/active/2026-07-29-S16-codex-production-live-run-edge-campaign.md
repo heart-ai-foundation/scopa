@@ -41,14 +41,20 @@ cleanup, environment, and fourteen stop conditions. Its digest-bound
 authorization state is `closed-pending-explicit-approval`: approved provider
 invocations remain zero.
 
-The 21-scenario source corpus passes without provider traffic. Installed
-qualification then caught a shipped private-topology reference in the public
-policy contract. That candidate is invalidated. The contract now uses the
-public alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16`, whose private operator mapping
-is retained outside the package.
+Installed qualification first caught a shipped private-topology reference in
+the public policy contract and invalidated that candidate. The remediated
+contract uses the public alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16`, whose
+concrete operator mapping is retained outside the package.
 
-The next checkpoint is clean installed-artifact requalification of this
-remediation, followed by explicit principal review of the proposed four-call
+Exact source `695672d3cf5fc4f985ae8e779830d13ce20fa3ca` now passes the
+generic installed-surface probe and all 21 deterministic scenarios. The
+173-entry package SHA-256 is
+`eeab466bad7c0651ec778b055826c0ae09f3a767e7cc6f21b6e0f33427e16318`;
+all shipped-file privacy findings are zero, every expected state and stop
+polarity was observed, every process group was gone, assurance remained
+`partial`, and provider invocations were exactly zero.
+
+The next checkpoint is explicit principal review of the proposed four-call
 policy. No production Codex command may run before that approval.
 
 ## Descriptor rung check

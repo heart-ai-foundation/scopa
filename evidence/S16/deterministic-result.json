@@ -1,0 +1,281 @@
+{
+  "corpus": {
+    "scenarioCount": 21,
+    "sha256": "49d71d45a4e6bceec8cc664026f9187182c8e0556e65d6d208dacaa6e0edc7fb"
+  },
+  "execution": {
+    "allExpectedStatesObserved": true,
+    "allProcessGroupsGone": true,
+    "assurance": "partial",
+    "deterministic": true,
+    "providerInvocations": 0
+  },
+  "package": {
+    "entryCount": 173,
+    "integrity": "sha512-A6e/faPifPakURcu1bGaMWOMkaCuRirYxMD6o8n2cEFMbqBon1MwU0IT7w3YtMAvp8GnhvbaqvVtnRAToZKnyg==",
+    "name": "@heart-ai-foundation/scopa",
+    "sha256": "eeab466bad7c0651ec778b055826c0ae09f3a767e7cc6f21b6e0f33427e16318",
+    "version": "0.2.0-dev.1"
+  },
+  "policy": {
+    "providerGate": "closed-pending-explicit-approval",
+    "sha256": "c0b27378715e238fb2af4559ae787b221169181473ce59e572e3018019fca82f"
+  },
+  "scenarios": [
+    {
+      "assurance": "partial",
+      "expectedCanStop": true,
+      "expectedState": "succeeded",
+      "id": "clean",
+      "mode": "success",
+      "observedCanStop": true,
+      "observedState": "succeeded",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "0aca6789a27bc142ebe45ab58203a2f17095d3ebda75cc75b3e8041197bd647b"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": true,
+      "expectedState": "succeeded",
+      "id": "denied",
+      "mode": "success",
+      "observedCanStop": true,
+      "observedState": "succeeded",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "f5c9e4135903dc837860b3303bcfb22094124b575b60fcf73e46d913b88334ff"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "succeeded",
+      "id": "false-green",
+      "mode": "success",
+      "observedCanStop": false,
+      "observedState": "succeeded",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "e3acdc757116e0cd000d797aa0875f36037b91dbd170d20a1ab9189b2e317bc5"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": true,
+      "expectedState": "succeeded",
+      "id": "cold-restart",
+      "mode": "success",
+      "observedCanStop": true,
+      "observedState": "succeeded",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "b3c281b00a25d211a8fcfb5a330fb10c2312b876a78966751d093a3e809f9daa"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": true,
+      "expectedState": "succeeded",
+      "id": "repeat-session",
+      "mode": "success",
+      "observedCanStop": true,
+      "observedState": "succeeded",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "442c52e996c4dd9d68cd58b1e5554041f972dd27ba0ca64ca9faa296dbd7b47e"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "version-drift",
+      "id": "client-version-drift",
+      "mode": "version-drift",
+      "observedCanStop": false,
+      "observedState": "version-drift",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "22b6fbdf4b6ede5752c77786b75c4fb38334799be66bd427014b539faa420c53"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "inventory-drift",
+      "id": "mcp-inventory-drift",
+      "mode": "inventory-drift",
+      "observedCanStop": false,
+      "observedState": "inventory-drift",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "3a0a1431a8632022ac69698b2a2cf5ed5b71d5dc27e7182e10ad9067ee7c4b94"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "inventory-drift",
+      "id": "mcp-inventory-malformed",
+      "mode": "inventory-malformed",
+      "observedCanStop": false,
+      "observedState": "inventory-drift",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "e2827caf61f68fec335b0584b5cb4b9238ad6b7e3d78bebba5ed5bc17b9d27b2"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "model-drift",
+      "mode": "model-drift",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "98af4d696cff9919c30766ca660805e9fc59999f33febb94349025cdd5d0c7f1"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "client-schema-drift",
+      "mode": "client-schema-drift",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "0b01b9c0bf14cfcd437e7a7a3f0b60912a5e3f02ef1fc75a200d642f527014c6"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "native-surface-drift",
+      "mode": "native-drift",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "3843b916a86f4ae37c92298b77e630c243ec662664f9048de7636b76346fee9d"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "mcp-tool-drift",
+      "mode": "tool-drift",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "0cfce5e791cfb995a6cb43b9076d53901ba4ff13e32bd4d2a1446d45e55ee35b"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "output-schema-drift",
+      "mode": "schema-drift",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "cd63893e319d9f4d19b97ac5835dc4b66b9e29ffe449030ef3aa9219c4da35bb"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "early-eof",
+      "mode": "early-eof",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "f0cd38d327d6de35567190eb3f16e3e0d5fe8e56dbbdd7313589872b776ac3bf"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "normalization-failed",
+      "id": "malformed-event",
+      "mode": "malformed",
+      "observedCanStop": false,
+      "observedState": "normalization-failed",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "1949de90242bc1fc83264e9a317911cf9e84d2447c120ed8997ac5f25e84d3b6"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "exited",
+      "id": "provider-refusal",
+      "mode": "provider-refusal",
+      "observedCanStop": false,
+      "observedState": "exited",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "7b71d58db6c7241cf2049905a0ec4fce82318eea205be4bb232fe658d381debc"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "exited",
+      "id": "provider-rate-pressure",
+      "mode": "provider-rate-pressure",
+      "observedCanStop": false,
+      "observedState": "exited",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "6aec5e21df2aba9d684fae1b37d89fa3db0b21cfa38b313157c56d338980ce4f"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "timed-out",
+      "id": "timeout-ignored-termination",
+      "mode": "timeout",
+      "observedCanStop": false,
+      "observedState": "timed-out",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "b15f5dbb6ad8018c3d8c92bc9035cb37571790d2e3bf46fce3638681d39ebe29"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "output-limit",
+      "id": "capture-limit",
+      "mode": "capture-limit",
+      "observedCanStop": false,
+      "observedState": "output-limit",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "fd23cd31998c31f0b01d94ae0ab9ad50467b7e29fc07962763ab800d689a4310"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "usage-limit",
+      "id": "usage-limit",
+      "mode": "usage-limit",
+      "observedCanStop": false,
+      "observedState": "usage-limit",
+      "orphanDetected": false,
+      "processGroupGone": true,
+      "receiptSha256": "dae536024b0de2409a7556b909b64f74a959bc305d433ee50dddb0cbd7753f40"
+    },
+    {
+      "assurance": "partial",
+      "expectedCanStop": false,
+      "expectedState": "cleanup-failed",
+      "id": "cleanup-orphan",
+      "mode": "cleanup-orphan",
+      "observedCanStop": false,
+      "observedState": "cleanup-failed",
+      "orphanDetected": true,
+      "processGroupGone": true,
+      "receiptSha256": "403dd08b6226885d779df6bbc33579781d81f355752436f46d6681002c883158"
+    }
+  ],
+  "schema": "scopa.codex-deterministic-edge-result.v1",
+  "slice": "S16",
+  "sourceCommit": "695672d3cf5fc4f985ae8e779830d13ce20fa3ca"
+}

@@ -46,8 +46,16 @@ The first installed qualification caught that the published policy contract
 named the operator's private evidence topology. That candidate is invalidated.
 The shipped contract now names only
 `SCOPA_PRIVATE_EVIDENCE_ROOT/S16`; the concrete operator mapping remains in
-the private SCOPA evidence home. A new installed result is required before
-principal policy review.
+the private SCOPA evidence home.
+
+Exact source `695672d3cf5fc4f985ae8e779830d13ce20fa3ca` then passed the
+generic installed-surface probe with zero findings across 173 shipped files
+and passed all 21 deterministic scenarios. Package SHA-256 is
+`eeab466bad7c0651ec778b055826c0ae09f3a767e7cc6f21b6e0f33427e16318`;
+the deterministic result SHA-256 is
+`1b6424bcee3dc6ef68e85d61debf7abf47f7afce0b9ff7f8fafc714b5ba7c439`.
+Every expected state and polarity was observed, every process group was gone,
+and provider invocations were exactly zero.
 
 ## Non-goals preserved
 
