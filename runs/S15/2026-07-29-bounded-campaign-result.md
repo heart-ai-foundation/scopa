@@ -69,3 +69,12 @@ bounded qualification campaign.
 - `npm audit --audit-level=low`: zero vulnerabilities;
 - `npm run protocol:check`: pass at 57/70 contracts with S15 still active;
 - `git diff --check`: pass.
+
+Post-campaign remediation/evidence source
+`2365eb163267a358a7beb8c5b53346a827c92ed6` also passed the clean
+source-free installed probe: 169 entries, repeat-byte-identical package,
+zero privacy findings, SHA-256
+`79290de379418928d488709fb31fc64aff159df7f1b768b554dd7e8bbe42aeca`,
+and npm integrity
+`sha512-942a5NVKJj2OawBVkdlrUiaxkfMOY7jsJb8KYQgvXtoZzl0SR5LTt8Q/CiboEY5Yt8f+2fnr4TNiOPlQ9jFgXg==`.
+No provider request was made during this qualification.
