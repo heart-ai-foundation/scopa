@@ -451,7 +451,7 @@ export async function runClaudeSession({
           'dontAsk',
           `max-turns-${maxTurns}`,
           'fixed-system-prompt',
-          'closed-structured-output',
+          'normalizer-bound-final-output',
           'prompt-suggestions-disabled',
         ],
         authBoundary: authProbe.boundary,

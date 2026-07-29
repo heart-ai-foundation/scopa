@@ -31,6 +31,9 @@ import {
   canonicalJsonPretty,
   jsonHash,
 } from '../../../enforcement/src/index.js';
+import {
+  packCandidate,
+} from '../../../release-readiness/src/artifact.js';
 
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(
@@ -88,7 +91,7 @@ export const S15_LIVE_SCENARIOS = Object.freeze([
   Object.freeze({
     id: 'cold-restart',
     promptKey: 'coldRestart',
-    repository: 'clean',
+    repository: 'denied',
     definition: null,
     expectedCanStop: true,
     expectedTools: Object.freeze([
@@ -102,7 +105,7 @@ export const S15_LIVE_SCENARIOS = Object.freeze([
   Object.freeze({
     id: 'repeat-read-1',
     promptKey: 'repeatRead1',
-    repository: 'clean',
+    repository: 'denied',
     definition: null,
     expectedCanStop: true,
     expectedTools: Object.freeze([
@@ -116,7 +119,7 @@ export const S15_LIVE_SCENARIOS = Object.freeze([
   Object.freeze({
     id: 'repeat-read-2',
     promptKey: 'repeatRead2',
-    repository: 'clean',
+    repository: 'denied',
     definition: null,
     expectedCanStop: true,
     expectedTools: Object.freeze([
@@ -144,13 +147,18 @@ function withinRoot(root, candidate) {
 
 export function parseProductionLiveArguments(argv) {
   if (
-    argv.length !== 4 ||
+    ![
+      4,
+      6,
+    ].includes(argv.length) ||
     argv[0] !== '--policy' ||
-    argv[2] !== '--private-root'
+    argv[2] !== '--private-root' ||
+    (argv.length === 6 && argv[4] !== '--resume-clean-drift')
   ) {
     throw new Error(
       'usage: production-live-probe.js --policy <json-file> ' +
-      '--private-root <directory>',
+      '--private-root <directory> ' +
+      '[--resume-clean-drift <private-evidence-file>]',
     );
   }
   const policyPath = path.resolve(argv[1]);
@@ -164,6 +172,8 @@ export function parseProductionLiveArguments(argv) {
     policyPath,
     privateRoot,
     publicRoot: PUBLIC_ROOT,
+    resumeCleanDrift:
+      argv.length === 6 ? path.resolve(argv[5]) : null,
   };
 }
 
@@ -195,18 +205,16 @@ async function assertCleanCandidate() {
 }
 
 async function installPackedRuntime(temporary, sourceCommit) {
-  const pack = await execFileAsync('npm', [
-    'pack',
-    '--json',
-    '--pack-destination',
-    temporary,
-  ], {
-    cwd: ROOT,
-    encoding: 'utf8',
+  const packed = await packCandidate({
+    sourceRoot: ROOT,
+    outputDirectory: temporary,
+    requireClean: true,
   });
-  const [manifest] = JSON.parse(pack.stdout);
-  const tarball = path.join(temporary, manifest.filename);
-  const packageSha256 = sha256(await readFile(tarball));
+  const manifest = packed.manifest;
+  if (manifest.source.commit !== sourceCommit) {
+    throw new TypeError('packed candidate commit changed during staging');
+  }
+  const tarball = packed.artifactPath;
   const consumer = path.join(temporary, 'installed-consumer');
   await mkdir(consumer);
   const packageFile = await open(
@@ -258,19 +266,19 @@ async function installPackedRuntime(temporary, sourceCommit) {
       schema: 'scopa.installed-artifact-identity.v1',
       sourceCommit,
       package: {
-        name: manifest.name,
-        version: manifest.version,
-        sha256: packageSha256,
-        integrity: manifest.integrity,
+        name: manifest.package.name,
+        version: manifest.package.version,
+        sha256: manifest.package.sha256,
+        integrity: manifest.package.integrity,
       },
     },
     package: {
-      name: manifest.name,
-      version: manifest.version,
+      name: manifest.package.name,
+      version: manifest.package.version,
       sourceCommit,
-      sha256: packageSha256,
-      integrity: manifest.integrity,
-      entryCount: manifest.entryCount,
+      sha256: manifest.package.sha256,
+      integrity: manifest.package.integrity,
+      entryCount: manifest.package.entryCount,
     },
   };
 }
@@ -414,6 +422,39 @@ function shortToolNames(run) {
   );
 }
 
+function providerAccounting(run) {
+  if (run.normalized !== null) {
+    return {
+      costUsd: run.normalized.result.costUsd,
+      turns: run.normalized.result.turns,
+    };
+  }
+  try {
+    const result = run.privateCapture.stdout
+      .split(/\r?\n/)
+      .filter((line) => line.length > 0)
+      .map((line) => JSON.parse(line))
+      .findLast((event) => event.type === 'result');
+    return {
+      costUsd:
+        Number.isFinite(result?.total_cost_usd) &&
+        result.total_cost_usd >= 0
+          ? result.total_cost_usd
+          : 0,
+      turns:
+        Number.isSafeInteger(result?.num_turns) &&
+        result.num_turns >= 0
+          ? result.num_turns
+          : null,
+    };
+  } catch {
+    return {
+      costUsd: 0,
+      turns: null,
+    };
+  }
+}
+
 function findTool(run, name) {
   const call = run.normalized.toolCalls.findLast(
     (entry) => entry.name === `mcp__scopa__${name}`,
@@ -464,6 +505,13 @@ async function assertScenarioOutcome({
     assert.equal(writes[0]?.result?.code, 'SCOPA_SCOPE_DENIED');
     assert.equal(writes[1]?.isError, false);
     assert.equal(run.normalized.final.denialObserved, true);
+    assert.equal(
+      await readFile(
+        path.join(repositoryRoot, 'workspace/claude.txt'),
+        'utf8',
+      ),
+      'CLAUDE_ALLOWED\n',
+    );
     await assert.rejects(
       () => access(path.join(campaignRoot, 'claude-escape.txt')),
       { code: 'ENOENT' },
@@ -503,6 +551,146 @@ async function removeAndVerify(target) {
   );
 }
 
+async function recoverCleanProfileDrift({
+  installed,
+  policy,
+  privateRoot,
+  privatePath,
+  publicRoot,
+}) {
+  const declaredPrivate = path.resolve(privatePath);
+  if (
+    !withinRoot(privateRoot, declaredPrivate) ||
+    path.basename(declaredPrivate) !==
+      'clean-profile-drift.superseded.private.json'
+  ) {
+    throw new TypeError('resume evidence is outside the approved private root');
+  }
+  if (await realpath(declaredPrivate) !== declaredPrivate) {
+    throw new TypeError('resume evidence aliases another path');
+  }
+  const privateText = await readFile(declaredPrivate, 'utf8');
+  const evidence = JSON.parse(privateText);
+  if (
+    evidence.schema !== 'scopa.live-evidence.v1' ||
+    canonicalJsonPretty(evidence) !== privateText
+  ) {
+    throw new TypeError('resume evidence is not canonical private evidence');
+  }
+  installed.liveRun.validateLiveReceipt(evidence.receipt);
+  installed.liveRun.validateTerminalEnvelope(evidence.terminal);
+  if (
+    evidence.receipt.scenario.id !== 'clean' ||
+    evidence.receipt.scenario.version !== 'S15.v1' ||
+    evidence.receipt.limits.livePolicySha256 !== policy.policySha256 ||
+    evidence.terminal.state !== 'normalization-failed' ||
+    evidence.terminal.reason !== 'stream-normalization-error' ||
+    evidence.terminal.cleanup.groupGone !== true ||
+    evidence.terminal.cleanup.orphanDetected !== false ||
+    sha256(evidence.private.stdout) !==
+      evidence.terminal.output.stdoutSha256
+  ) {
+    throw new TypeError('resume evidence is not the approved clean drift');
+  }
+  const events = evidence.private.stdout
+    .split(/\r?\n/)
+    .filter((line) => line.length > 0)
+    .map((line) => JSON.parse(line));
+  const initialization = events.find(
+    (event) => event.type === 'system' && event.subtype === 'init',
+  );
+  const result = events.findLast((event) => event.type === 'result');
+  const expectedTools = [
+    'StructuredOutput',
+    ...policy.tools.allowed,
+  ].sort();
+  if (
+    initialization?.model !== 'claude-sonnet-5' ||
+    JSON.stringify([...initialization.tools].sort()) !==
+      JSON.stringify(expectedTools) ||
+    result?.subtype !== 'success' ||
+    result?.is_error !== false ||
+    result?.structured_output?.scenario !== 'clean' ||
+    result?.structured_output?.status !== 'satisfied' ||
+    result?.structured_output?.canStop !== true ||
+    result?.structured_output?.denialObserved !== false ||
+    !Number.isFinite(result?.total_cost_usd) ||
+    result.total_cost_usd < 0 ||
+    result.total_cost_usd >
+      Number(policy.limits.maxBudgetUsdPerRun) + Number.EPSILON ||
+    !Number.isSafeInteger(result?.num_turns) ||
+    result.num_turns < 0 ||
+    result.num_turns > policy.limits.maxTurnsPerRun
+  ) {
+    throw new TypeError('clean drift provider accounting is invalid');
+  }
+  const privateBinding = JSON.parse(evidence.private.raw);
+  const authIdentitySha256 = privateBinding.authIdentitySha256;
+  if (
+    typeof authIdentitySha256 !== 'string' ||
+    !/^[0-9a-f]{64}$/.test(authIdentitySha256)
+  ) {
+    throw new TypeError('clean drift lacks its private identity binding');
+  }
+
+  const publicPath = path.join(
+    publicRoot,
+    'clean-profile-drift.superseded.public.json',
+  );
+  const publicText = await readFile(publicPath, 'utf8');
+  const publicEvidence = JSON.parse(publicText);
+  if (
+    publicEvidence.schema !== 'scopa.live-evidence.public.v1' ||
+    publicEvidence.publicationReceipt.sourceSha256 !== sha256(privateText) ||
+    publicText.includes(authIdentitySha256)
+  ) {
+    throw new TypeError('clean drift public/private binding is invalid');
+  }
+  const privateMetadata = await lstat(declaredPrivate);
+  if (
+    !privateMetadata.isFile() ||
+    privateMetadata.isSymbolicLink() ||
+    (privateMetadata.mode & 0o777) !== 0o600
+  ) {
+    throw new TypeError('clean drift private evidence mode is invalid');
+  }
+  return {
+    authIdentitySha256,
+    record: {
+      scenario: 'clean-profile-drift',
+      expectedCanStop: true,
+      observedCanStop: false,
+      terminalState: evidence.terminal.state,
+      terminalReason: evidence.terminal.reason,
+      processGroupGone: evidence.terminal.cleanup.groupGone,
+      observedClientVersion: evidence.receipt.client.observedVersion,
+      observedModel: initialization.model,
+      costUsd: result.total_cost_usd,
+      turns: result.num_turns,
+      publicEvidence: {
+        filename: path.basename(publicPath),
+        bytes: Buffer.byteLength(publicText, 'utf8'),
+        sha256: sha256(publicText),
+      },
+      privateEvidence: {
+        filename: path.basename(declaredPrivate),
+        bytes: Buffer.byteLength(privateText, 'utf8'),
+        sha256: sha256(privateText),
+        mode: 0o600,
+      },
+      residue: evidence.summary.providerResidue,
+      profileDrift: {
+        requestedModelAlias: policy.model.requestedAlias,
+        observedModel: initialization.model,
+        unexpectedCallableTool: 'StructuredOutput',
+        remediation:
+          'remove-cli-json-schema-and-retain-normalizer-bound-final-output',
+      },
+      sourceCommit: evidence.receipt.artifact.sourceCommit,
+    },
+  };
+}
+
 async function runCampaign({
   installed,
   policy,
@@ -510,22 +698,27 @@ async function runCampaign({
   temporary,
   privateRoot,
   publicRoot,
+  resumeDrift,
 }) {
   const matrix = installed.integration.createClaudeCapabilityMatrix({});
+  const scenarios = resumeDrift === null
+    ? S15_LIVE_SCENARIOS
+    : S15_LIVE_SCENARIOS.slice(1);
   assert.equal(
-    S15_LIVE_SCENARIOS.length,
+    scenarios.length + (resumeDrift === null ? 0 : 1),
     policy.limits.maxProviderInvocations,
   );
   const repositories = new Map();
   const providerStores = new Set();
-  const runRecords = [];
-  let authIdentitySha256 = null;
-  let totalCostUsd = 0;
+  const runRecords =
+    resumeDrift === null ? [] : [resumeDrift.record];
+  let authIdentitySha256 = resumeDrift?.authIdentitySha256 ?? null;
+  let totalCostUsd = resumeDrift?.record.costUsd ?? 0;
   let repositoryCleanupVerified = false;
   let providerMetadataCleanupVerified = false;
 
   try {
-    for (const scenario of S15_LIVE_SCENARIOS) {
+    for (const scenario of scenarios) {
       if (scenario.definition !== null) {
         const repositoryRoot = path.join(
           temporary,
@@ -587,7 +780,11 @@ async function runCampaign({
         throw new TypeError('authenticated Claude identity changed mid-campaign');
       }
 
-      const costUsd = run.normalized?.result?.costUsd ?? 0;
+      const accounting = providerAccounting(run);
+      const {
+        costUsd,
+        turns,
+      } = accounting;
       totalCostUsd += costUsd;
       if (
         totalCostUsd >
@@ -606,7 +803,7 @@ async function runCampaign({
         requestedModel: run.receipt.requestedModel,
         observedModel: run.normalized?.initialization?.model ?? null,
         costUsd,
-        turns: run.normalized?.result?.turns ?? null,
+        turns,
         modelCallableToolsScopaOnly:
           run.normalized?.initialization?.tools?.every(
             (tool) => tool.startsWith('mcp__scopa__'),
@@ -666,10 +863,11 @@ async function runCampaign({
         observedCanStop: run.terminal.canStop,
         terminalState: run.terminal.state,
         terminalReason: run.terminal.reason,
+        processGroupGone: run.terminal.cleanup.groupGone,
         observedClientVersion: run.receipt.client.observedVersion,
         observedModel: run.normalized?.initialization?.model ?? null,
         costUsd,
-        turns: run.normalized?.result?.turns ?? null,
+        turns,
         publicEvidence: {
           filename: path.basename(publicPath),
           bytes: evidenceWrite.publicBytes,
@@ -682,6 +880,7 @@ async function runCampaign({
           mode: evidenceWrite.privateMode,
         },
         residue,
+        sourceCommit: installed.artifact.sourceCommit,
       });
       await assertScenarioOutcome({
         run,
@@ -717,7 +916,7 @@ async function runCampaign({
       repositoryCleanupVerified,
       providerMetadataCleanupVerified,
       processGroupsGone: runRecords.every(
-        (record) => record.terminalState === 'succeeded',
+        (record) => record.processGroupGone === true,
       ),
       perRunControlRootDeletionVerified: true,
     },
@@ -729,6 +928,7 @@ async function main() {
     policyPath,
     privateRoot,
     publicRoot,
+    resumeCleanDrift,
   } = parseProductionLiveArguments(process.argv.slice(2));
   const expectedPolicyPath = await realpath(
     path.join(FIXTURE, 'claude-live-policy.json'),
@@ -757,6 +957,15 @@ async function main() {
     const prompts = JSON.parse(
       await readFile(path.join(FIXTURE, 'prompts.json'), 'utf8'),
     );
+    const resumeDrift = resumeCleanDrift === null
+      ? null
+      : await recoverCleanProfileDrift({
+        installed,
+        policy,
+        privateRoot: await realpath(privateRoot),
+        privatePath: resumeCleanDrift,
+        publicRoot: await realpath(publicRoot),
+      });
     campaign = await runCampaign({
       installed,
       policy,
@@ -764,6 +973,7 @@ async function main() {
       temporary,
       privateRoot,
       publicRoot,
+      resumeDrift,
     });
   } finally {
     await removeAndVerify(temporary);
@@ -778,6 +988,9 @@ async function main() {
     schema: 'scopa.claude-live-campaign.public.v1',
     executedAt,
     sourceCommit: campaign.package.sourceCommit,
+    sourceCommits: [...new Set(
+      campaign.runRecords.map((record) => record.sourceCommit),
+    )],
     package: campaign.package,
     livePolicySha256: campaign.policy.policySha256,
     requestedModel: campaign.policy.model.requestedAlias,
@@ -791,6 +1004,19 @@ async function main() {
     )],
     assurance: campaign.capabilityMatrix.assurance,
     invocationCount: campaign.runRecords.length,
+    postRemediationRunCount: campaign.runRecords.filter(
+      (record) => record.terminalState === 'succeeded',
+    ).length,
+    driftReproduced: campaign.runRecords.some(
+      (record) => record.scenario === 'clean-profile-drift',
+    ),
+    postRemediationPolarityPassed: campaign.runRecords
+      .filter((record) => record.scenario !== 'clean-profile-drift')
+      .every(
+        (record) =>
+          record.terminalState === 'succeeded' &&
+          record.expectedCanStop === record.observedCanStop,
+      ),
     totalCostUsd: campaign.totalCostUsd,
     budgetUsd: campaign.policy.limits.maxCampaignBudgetUsd,
     runs: campaign.runRecords.map((record) => ({
@@ -802,6 +1028,8 @@ async function main() {
       costUsd: record.costUsd,
       turns: record.turns,
       publicEvidence: record.publicEvidence,
+      sourceCommit: record.sourceCommit,
+      profileDrift: record.profileDrift ?? null,
       onlyBoundedNonResumableMetadata:
         record.residue.onlyBoundedNonResumableMetadata,
     })),

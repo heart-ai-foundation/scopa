@@ -12,7 +12,7 @@ import {
 } from 'node:url';
 
 const VERSION = '2.1.220';
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = 'claude-sonnet-5';
 const TOOLS = [
   'mcp__scopa__scopa_orientation',
   'mcp__scopa__scopa_read_file',
@@ -332,6 +332,8 @@ async function main() {
       events[0].model = 'claude-unreviewed-model';
     } else if (mode === 'tool-drift') {
       events[0].tools.push('Bash');
+    } else if (mode === 'structured-output-drift') {
+      events[0].tools.unshift('StructuredOutput');
     } else if (mode === 'agent-drift') {
       events[0].agents.push('unreviewed-agent');
     } else if (mode === 'mcp-config-error') {

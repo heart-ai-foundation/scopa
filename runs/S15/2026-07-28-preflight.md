@@ -11,8 +11,8 @@ No provider prompt was sent during this preflight.
   account identifiers were inspected only in private process output and are
   not retained here;
 - requested model policy: `sonnet` alias;
-- reviewed CLI controls: stream JSON input/output, structured output schema,
-  no session persistence, disabled prompt suggestions, explicit settings and
+- reviewed CLI controls: stream JSON input/output, no session persistence,
+  disabled prompt suggestions, explicit settings and
   MCP configuration, tool closure, turn limit, budget limit, and headless
   operation.
 

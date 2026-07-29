@@ -16,9 +16,9 @@
   },
   "liveScenarios": [
     {
-      "id": "clean",
-      "expectedCanStop": true,
-      "purpose": "allowed write and passing completion"
+      "id": "clean-profile-drift",
+      "expectedCanStop": false,
+      "purpose": "fail-closed model and callable-tool inventory drift"
     },
     {
       "id": "denied",
@@ -61,6 +61,7 @@
     "provider-execution-failure",
     "provider-rate-pressure",
     "provider-refusal",
+    "structured-output-tool-injection",
     "tool-and-agent-inventory-drift",
     "turn-limit",
     "turn-overrun"

@@ -1,0 +1,160 @@
+{
+  "private": {
+    "controlRoot": "[SCOPA_CONTROL_ROOT]",
+    "raw": "[SCOPA_RAW_STREAM_REDACTED]",
+    "repositoryRoot": "[SCOPA_REPOSITORY_ROOT]",
+    "stderr": "[SCOPA_STDERR_REDACTED]",
+    "stdout": "[SCOPA_STDOUT_REDACTED]"
+  },
+  "publicationReceipt": {
+    "redactions": [
+      {
+        "field": "/private/controlRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_CONTROL_ROOT]"
+      },
+      {
+        "field": "/private/raw",
+        "occurrences": 1,
+        "replacement": "[SCOPA_RAW_STREAM_REDACTED]"
+      },
+      {
+        "field": "/private/repositoryRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_REPOSITORY_ROOT]"
+      },
+      {
+        "field": "/private/stderr",
+        "occurrences": 1,
+        "replacement": "[SCOPA_STDERR_REDACTED]"
+      },
+      {
+        "field": "/private/stdout",
+        "occurrences": 1,
+        "replacement": "[SCOPA_STDOUT_REDACTED]"
+      }
+    ],
+    "schema": "scopa.live-evidence-publication-receipt.v1",
+    "semanticFieldsChanged": false,
+    "sourceSha256": "09ae7863f21c00464ead09c310207d9948bddd4563c1d12b7e5cfc3bdf7d5dd8"
+  },
+  "receipt": {
+    "artifact": {
+      "package": {
+        "integrity": "sha512-GANQ168AiJYOSiwwaseEsGDfyUHALp4oA3X21IHoH+oHd2tcoJC38MCsrbh6LWOG0Lwdr5dWw7QL53SMXUMCEA==",
+        "name": "@heart-ai-foundation/scopa",
+        "sha256": "897212bb158d0dc291adcd7bd81c35f7c729d825cb0d165961ffadff30bca7e2",
+        "version": "0.2.0-dev.1"
+      },
+      "schema": "scopa.installed-artifact-identity.v1",
+      "sourceCommit": "85b067dff5d0b419185f3e426bcf06f3d2131b0a"
+    },
+    "capabilityMatrix": {
+      "schema": "scopa.capability-matrix.v1",
+      "sha256": "260d4257098a4be5a1d9c71c2effec6c163b8b60aba2ed068c42c65d179f0793"
+    },
+    "client": {
+      "expectedVersion": "2.1.220",
+      "name": "claude-code",
+      "observedVersion": "2.1.220"
+    },
+    "environmentPolicy": {
+      "inheritance": "explicit-allowlist",
+      "inheritedNameCount": 6,
+      "inheritedNamesSha256": "46d8d09ed24a5071525f313b979ae7c21638143053bd56a2c9860486d113182f",
+      "policySha256": "621f80fedc323eddba5266b602aae4fcec6e7e01646ddd6b64fb607dd9aca020",
+      "removedNames": [
+        "ANTHROPIC_API_KEY",
+        "ANTHROPIC_AUTH_TOKEN",
+        "ANTHROPIC_BASE_URL",
+        "CLAUDE_CODE_USE_BEDROCK",
+        "CLAUDE_CODE_USE_FOUNDRY",
+        "CLAUDE_CODE_USE_VERTEX",
+        "CLAUDE_CONFIG_DIR",
+        "NODE_OPTIONS"
+      ],
+      "schema": "scopa.live-environment-policy.v1",
+      "setNames": [
+        "DISABLE_AUTOUPDATER"
+      ],
+      "setValuesSha256": "e3ca76a111a3cfb1835c0f2e6799cbd6888c37507cbdd3bf097ab26d95330978"
+    },
+    "invocation": {
+      "argumentCount": 36,
+      "argumentsSha256": "cdfdaa815a0db9c582f43c392cec2e586e7a942d4865fe4039527f3829768ad2",
+      "commandName": "claude",
+      "stdinSha256": "c55e3475085f9e3c5645614ddcbe52139d9bbf7c7e927b3f8231dd4fed6bada5"
+    },
+    "limits": {
+      "cleanupWaitMs": 1000,
+      "inputSettleMs": 1000,
+      "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+      "maxBudgetUsd": "0.20",
+      "maxCampaignBudgetUsd": "1.20",
+      "maxCaptureBytes": 20971520,
+      "maxPrivateEvidenceBytes": 26214400,
+      "maxProviderInvocations": 6,
+      "maxTurns": 12,
+      "terminateGraceMs": 500,
+      "timeoutMs": 120000
+    },
+    "profile": {
+      "name": "claude-code-headless-v1",
+      "sha256": "e4a3576c2304347548fdc2ddc473c773ca9a82ab9436b69796f5ba881d79ea5f"
+    },
+    "requestedModel": "sonnet",
+    "scenario": {
+      "id": "clean",
+      "version": "S15.v1"
+    },
+    "schema": "scopa.live-receipt.v1"
+  },
+  "schema": "scopa.live-evidence.public.v1",
+  "summary": {
+    "costUsd": 0,
+    "expectedCanStop": true,
+    "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+    "modelCallableToolsScopaOnly": false,
+    "observedCanStop": false,
+    "observedClientVersion": "2.1.220",
+    "observedModel": null,
+    "orphanDetected": false,
+    "processGroupGone": true,
+    "providerResidue": {
+      "changedFileCount": 0,
+      "files": [],
+      "onlyBoundedNonResumableMetadata": true,
+      "totalChangedBytes": 0
+    },
+    "requestedModel": "sonnet",
+    "scenario": "clean",
+    "scenarioVersion": "S15.v1",
+    "schema": "scopa.claude-live-run-summary.v1",
+    "turns": null
+  },
+  "terminal": {
+    "canStop": false,
+    "cleanup": {
+      "groupGone": true,
+      "killSent": false,
+      "method": "posix-process-group",
+      "orphanDetected": false,
+      "termSent": false
+    },
+    "exitCode": 0,
+    "ok": false,
+    "output": {
+      "capturedBytes": 52006,
+      "maxBytes": 20971520,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 52006,
+      "stdoutSha256": "d3da34949595e69cebfc74e659f1d03fd6205bbfcbd187eed6ccc263b9a0dd69",
+      "truncated": false
+    },
+    "reason": "stream-normalization-error",
+    "schema": "scopa.live-terminal.v1",
+    "signal": null,
+    "state": "normalization-failed"
+  }
+}

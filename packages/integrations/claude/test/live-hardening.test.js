@@ -217,6 +217,21 @@ test('production campaign is explicit, six-run, and private-root closed', () => 
     parsed.privateRoot,
     '/tmp/scopa-s15-private-evidence',
   );
+  assert.equal(parsed.resumeCleanDrift, null);
+  const resumed = parseProductionLiveArguments([
+    '--policy',
+    path.join(ROOT, 'fixtures/S15/claude-live-policy.json'),
+    '--private-root',
+    '/tmp/scopa-s15-private-evidence',
+    '--resume-clean-drift',
+    '/tmp/scopa-s15-private-evidence/' +
+      'clean-profile-drift.superseded.private.json',
+  ]);
+  assert.equal(
+    resumed.resumeCleanDrift,
+    '/tmp/scopa-s15-private-evidence/' +
+      'clean-profile-drift.superseded.private.json',
+  );
   assert.throws(
     () => parseProductionLiveArguments([
       '--policy',
@@ -324,6 +339,10 @@ test('capability drift and malformed streams fail closed', async (context) => {
     ],
     [
       'tool-drift',
+      'normalization-failed',
+    ],
+    [
+      'structured-output-drift',
       'normalization-failed',
     ],
     [

@@ -9,7 +9,7 @@ import {
 export const EXPECTED_CLAUDE_CODE_VERSION = '2.1.220';
 export const CLAUDE_MCP_SERVER_NAME = 'scopa';
 export const CLAUDE_MODEL_REQUEST = 'sonnet';
-export const CLAUDE_MODEL_OBSERVED = 'claude-sonnet-4-6';
+export const CLAUDE_MODEL_OBSERVED = 'claude-sonnet-5';
 export const CLAUDE_INPUT_SETTLE_MS = 1_000;
 export const CLAUDE_MAX_TURNS = 12;
 export const CLAUDE_MAX_CAPTURE_BYTES = 20 * 1024 * 1024;
@@ -326,8 +326,6 @@ export function buildClaudeInvocation({
     'low',
     '--system-prompt',
     SYSTEM_PROMPT,
-    '--json-schema',
-    JSON.stringify(CLAUDE_FINAL_SCHEMA),
   ];
   return Object.freeze({
     command: 'claude',
@@ -382,7 +380,6 @@ export function validateClaudeInvocation(invocation, {
     '--prompt-suggestions',
     '--strict-mcp-config',
     '--tools',
-    '--json-schema',
     '--max-turns',
   ]) {
     if (!invocation.args.includes(required)) {
@@ -398,16 +395,6 @@ export function validateClaudeInvocation(invocation, {
     !joined.includes(`--allowedTools\0mcp__${CLAUDE_MCP_SERVER_NAME}`)
   ) {
     throw new Error('Claude input, tool, or setting surface is not closed');
-  }
-  const schemaIndex = invocation.args.indexOf('--json-schema');
-  let finalSchema;
-  try {
-    finalSchema = JSON.parse(invocation.args[schemaIndex + 1]);
-  } catch {
-    throw new Error('Claude structured-output schema is invalid');
-  }
-  if (JSON.stringify(finalSchema) !== JSON.stringify(CLAUDE_FINAL_SCHEMA)) {
-    throw new Error('Claude structured-output schema differs from profile');
   }
   let input;
   try {

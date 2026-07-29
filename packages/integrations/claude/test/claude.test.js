@@ -181,7 +181,7 @@ test('Claude profile pins version, closes built-ins, and binds one MCP server', 
   assert.equal(invocation.args.includes('--strict-mcp-config'), true);
   assert.equal(invocation.args.includes('--no-session-persistence'), true);
   assert.equal(invocation.args.includes('--prompt-suggestions'), true);
-  assert.equal(invocation.args.includes('--json-schema'), true);
+  assert.equal(invocation.args.includes('--json-schema'), false);
   assert.equal(invocation.args.includes('--no-chrome'), true);
   assert.equal(
     invocation.args[invocation.args.indexOf('--max-turns') + 1],

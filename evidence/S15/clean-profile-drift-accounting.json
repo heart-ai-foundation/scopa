@@ -1,0 +1,34 @@
+{
+  "schema": "scopa.claude-live-drift-accounting.v1",
+  "scenario": "clean-profile-drift",
+  "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+  "sourceCommit": "85b067dff5d0b419185f3e426bcf06f3d2131b0a",
+  "publicEvidence": {
+    "filename": "clean-profile-drift.superseded.public.json",
+    "sha256": "679076d2363260d2762617c959978025450303198f42410397f202342b07b3b5",
+    "privateSourceSha256": "09ae7863f21c00464ead09c310207d9948bddd4563c1d12b7e5cfc3bdf7d5dd8"
+  },
+  "terminal": {
+    "state": "normalization-failed",
+    "reason": "stream-normalization-error",
+    "canStop": false,
+    "processGroupGone": true,
+    "orphanDetected": false
+  },
+  "providerAccountingRecoveredFromBoundedPrivateResult": {
+    "costUsd": 0.0557443,
+    "turns": 8
+  },
+  "drift": {
+    "requestedModelAlias": "sonnet",
+    "observedModel": "claude-sonnet-5",
+    "unexpectedCallableTool": "StructuredOutput"
+  },
+  "remediation": {
+    "cliStructuredOutputRemoved": true,
+    "normalizerBoundFinalOutputRetained": true,
+    "observedAliasResolutionUpdated": true,
+    "additionalProviderInvocationUsed": false
+  },
+  "supersessionReason": "The original public summary recorded zero cost and no observed model because normalization failed before accounting projection. This correction binds the original evidence and records only safe fields recovered from its bounded result and init events."
+}

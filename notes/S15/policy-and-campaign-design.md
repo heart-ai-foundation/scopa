@@ -47,6 +47,12 @@ The six real requests are:
 5. first repeated read in another fresh process; and
 6. second repeated read in another fresh process.
 
+The first execution reproduced a profile drift before the other requests.
+The final campaign accounting therefore treats that closed failure as
+invocation one and runs the remaining five scenarios after remediation. The
+denied scenario's contained corrective write seeds the cold-restart and
+repeat-read chain. This preserves the six-invocation and USD 1.20 hard caps.
+
 All use the exact packed-and-installed candidate from a clean source commit.
 Every receipt binds package identity, client version, requested model,
 capability matrix, scenario version, limits, environment policy, and hashed
@@ -60,6 +66,12 @@ refusal; rate pressure; execution failure; budget and turn stops; cost/turn
 overrun; malformed events; early EOF; timeout; capture exhaustion; and a
 TERM-ignoring descendant. All non-success outcomes are closed and cannot
 assert completion.
+
+The live drift added a deterministic `StructuredOutput` inventory control and
+provider accounting recovery for normalization failures. The CLI
+`--json-schema` flag was removed because Claude 2.1.220 exposed that helper as
+a seventh callable tool; strict final-output validation remains in the
+normalizer.
 
 The sandbox also reproduced a fast asynchronous spawn-denial race. The shared
 supervisor now registers its error listener immediately after spawn, so this
