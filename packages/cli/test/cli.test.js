@@ -398,8 +398,9 @@ test('packed artifact installs and runs without leaking private build surfaces',
       'fixtures/S10/failing.slice-definition.json',
       'fixtures/S10/freetsa-root.pem',
       'fixtures/S10/session.json',
+      'fixtures/S15/claude-live-policy.json',
     ],
-    'tarball must contain only the reviewed S10 public fixtures',
+    'tarball must contain only the reviewed public fixtures and policy',
   );
   assert.equal(
     paths.some(
