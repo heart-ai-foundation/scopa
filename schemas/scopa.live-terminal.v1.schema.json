@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.live-terminal.v1.schema.json",
+  "title": "SCOPA live terminal envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "canStop",
+    "cleanup",
+    "exitCode",
+    "ok",
+    "output",
+    "reason",
+    "schema",
+    "signal",
+    "state"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.live-terminal.v1"
+    },
+    "state": {
+      "enum": [
+        "succeeded",
+        "exited",
+        "signaled",
+        "timed-out",
+        "output-limit",
+        "spawn-failed",
+        "version-drift",
+        "inventory-drift",
+        "normalization-failed",
+        "cleanup-failed"
+      ]
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "canStop": {
+      "type": "boolean"
+    },
+    "exitCode": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "signal": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^SIG[A-Z0-9]+$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason": {
+      "enum": [
+        "completed",
+        "nonzero-exit",
+        "process-signal",
+        "deadline-exceeded",
+        "capture-limit-exceeded",
+        "spawn-error",
+        "client-version-mismatch",
+        "capability-inventory-mismatch",
+        "stream-normalization-error",
+        "orphan-process-detected",
+        "process-group-survived"
+      ]
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capturedBytes",
+        "maxBytes",
+        "stderrBytes",
+        "stderrSha256",
+        "stdoutBytes",
+        "stdoutSha256",
+        "truncated"
+      ],
+      "properties": {
+        "capturedBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "stderrBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stderrSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "stdoutBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stdoutSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "groupGone",
+        "killSent",
+        "method",
+        "orphanDetected",
+        "termSent"
+      ],
+      "properties": {
+        "method": {
+          "const": "posix-process-group"
+        },
+        "termSent": {
+          "type": "boolean"
+        },
+        "killSent": {
+          "type": "boolean"
+        },
+        "groupGone": {
+          "type": "boolean"
+        },
+        "orphanDetected": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

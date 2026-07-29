@@ -37,7 +37,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
@@ -50,6 +50,7 @@
     "test:s10": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/release-readiness.test.js",
     "test:s11": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/proof-integrity.test.js",
     "test:s12": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/distribution-hardening.test.js",
+    "test:s14": "node packages/conformance/src/run-node-tests.js packages/live-run/test/live-run.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",

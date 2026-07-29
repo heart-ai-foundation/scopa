@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.live-receipt.v1.schema.json",
+  "title": "SCOPA live receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact",
+    "capabilityMatrix",
+    "client",
+    "environmentPolicy",
+    "invocation",
+    "limits",
+    "profile",
+    "requestedModel",
+    "scenario",
+    "schema"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.live-receipt.v1"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "schema",
+        "sourceCommit"
+      ],
+      "properties": {
+        "schema": {
+          "const": "scopa.installed-artifact-identity.v1"
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "package": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "integrity",
+            "name",
+            "sha256",
+            "version"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "integrity": {
+              "type": "string",
+              "pattern": "^sha512-[A-Za-z0-9+/]+={0,2}$"
+            }
+          }
+        }
+      }
+    },
+    "client": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVersion",
+        "name",
+        "observedVersion"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "requestedModel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sha256"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "capabilityMatrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "sha256"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "environmentPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inheritance",
+        "inheritedNameCount",
+        "inheritedNamesSha256",
+        "policySha256",
+        "removedNames",
+        "schema",
+        "setNames",
+        "setValuesSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "scopa.live-environment-policy.v1"
+        },
+        "inheritance": {
+          "const": "host-minus-denylist"
+        },
+        "inheritedNameCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inheritedNamesSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "removedNames": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "setNames": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "setValuesSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "policySha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "argumentCount",
+        "argumentsSha256",
+        "commandName",
+        "stdinSha256"
+      ],
+      "properties": {
+        "commandName": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^/\\\\]+$"
+        },
+        "argumentCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "argumentsSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "stdinSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

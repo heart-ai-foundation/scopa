@@ -32,6 +32,8 @@ consumer package.
    registries.
 7. Claude/Codex launch configuration to provider, account, session, policy,
    network, plugin, skill, and native execution surfaces.
+8. Live client process groups and raw evidence to bounded terminal and public
+   evidence records.
 
 ## Threats and controls
 
@@ -41,6 +43,8 @@ consumer package.
 | Model asserts completion over failure | Real argv gate execution and machine stop state | Exit-7 fixtures and `SCOPA_COMPLETION_BLOCKED` | A malicious operator can replace the host outside the measured boundary |
 | Hidden adapter mutation route | Explicit tool inventory and capability/bypass matrix | S8/S9 live proofs and parity report | Claude and Codex remain `partial` because native routes are not all SCOPA-controlled |
 | Unknown or reordered model events | Closed stream normalizers bound to SCOPA transcript | S8/S9 negative controls | Provider event formats can change and require a pinned adapter update |
+| Timeout, output pressure, client crash, or orphan descendant loses terminal state | Shared finite capture, closed terminal envelope, dedicated process group, bounded TERM/KILL escalation, and cleanup verification | S14 deterministic process fault matrix | A privileged local process can still interfere outside the measured process group |
+| Live receipt leaks credentials, roots, prompts, or provider output | Exact artifact/profile/policy digests, no raw environment map, atomic mode-0600 private evidence, designated public redaction, collision checks, and privacy scan | S14 protected-value mutation and destination-hostility corpus | Private raw evidence still requires operator-controlled retention and access policy |
 | Journal or packet tampering | Deterministic encoding, hash chain, signatures, optional RFC 3161 anchor | S1/S4 mutation tests and fresh-process verification | Software keys do not prove hardware identity |
 | Stale or revoked timestamp signer | Caller-supplied root and signer-certificate pin; explicit offline verification report | S4/S10 native-packet verification | The offline path records `revocationStatus: "not-checked"` and does not fetch CRL/OCSP state |
 | Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | S10 candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
@@ -54,6 +58,10 @@ consumer package.
 - No lifecycle install scripts are required.
 - The candidate remains `"private": true` and is packed locally.
 - Live models run only in disposable fixture repositories.
+- Live launchers bind the exact installed artifact and return one bounded
+  terminal envelope for both success and failure.
+- Provider raw output remains private; repository-facing derivatives bind its
+  digest and expose only designated redactions.
 - Verification uses caller-supplied timestamp roots and signer pins.
 - Offline timestamp verification reports that certificate revocation is not
   checked; revocation-sensitive evaluators need a separate CRL/OCSP check.

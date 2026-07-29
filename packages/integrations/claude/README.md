@@ -27,6 +27,11 @@ const result = await runClaudeSession({
   repoRoot,
   adapterCli,
   prompt,
+  installedArtifact,
+  scenario: {
+    id: 'example',
+    version: '1',
+  },
   session: createClaudeSession({
     sessionId: 'example',
     request: prompt,
@@ -37,6 +42,21 @@ const result = await runClaudeSession({
 
 `adapterCli` must resolve to the installed `scopa-mcp` adapter CLI. The target
 repository must already contain initialized SCOPA control state.
+`installedArtifact` must be an exact
+`scopa.installed-artifact-identity.v1` value containing the source commit,
+package name/version, tarball SHA-256, and npm SHA-512 integrity.
+
+Every launcher outcome returns `result.terminal` rather than representing
+timeout, output exhaustion, abnormal exit, version drift, or normalization
+failure only as an exception. The shared live-run supervisor bounds combined
+capture at 20 MiB, owns a dedicated POSIX process group, attempts `SIGTERM`,
+escalates to `SIGKILL`, and verifies that the group is gone. A zero process
+exit still has `canStop: false` until the Claude normalizer binds the real
+SCOPA terminal state.
+
+The receipt stores digests of arguments, input, profile, capability matrix,
+and sanitized environment policy. It does not store prompt text, argument
+values, raw environment values, repository/control roots, or provider output.
 
 The normalizer fails closed on a changed CLI/model/tool inventory, unknown
 security event, unknown tool, incomplete result, wire/transcript mismatch, or

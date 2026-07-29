@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.live-evidence.public.v1.schema.json",
+  "title": "SCOPA public live evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "private",
+    "publicationReceipt",
+    "receipt",
+    "schema",
+    "summary",
+    "terminal"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.live-evidence.public.v1"
+    },
+    "receipt": {
+      "$ref": "./scopa.live-receipt.v1.schema.json"
+    },
+    "terminal": {
+      "$ref": "./scopa.live-terminal.v1.schema.json"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "private": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controlRoot",
+        "raw",
+        "repositoryRoot",
+        "stderr",
+        "stdout"
+      ],
+      "properties": {
+        "repositoryRoot": {
+          "const": "[SCOPA_REPOSITORY_ROOT]"
+        },
+        "controlRoot": {
+          "const": "[SCOPA_CONTROL_ROOT]"
+        },
+        "stdout": {
+          "const": "[SCOPA_STDOUT_REDACTED]"
+        },
+        "stderr": {
+          "const": "[SCOPA_STDERR_REDACTED]"
+        },
+        "raw": {
+          "const": "[SCOPA_RAW_STREAM_REDACTED]"
+        }
+      }
+    },
+    "publicationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "redactions",
+        "schema",
+        "semanticFieldsChanged",
+        "sourceSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "scopa.live-evidence-publication-receipt.v1"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "redactions": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "occurrences",
+              "replacement"
+            ],
+            "properties": {
+              "field": {
+                "enum": [
+                  "/private/controlRoot",
+                  "/private/raw",
+                  "/private/repositoryRoot",
+                  "/private/stderr",
+                  "/private/stdout"
+                ]
+              },
+              "replacement": {
+                "enum": [
+                  "[SCOPA_CONTROL_ROOT]",
+                  "[SCOPA_RAW_STREAM_REDACTED]",
+                  "[SCOPA_REPOSITORY_ROOT]",
+                  "[SCOPA_STDERR_REDACTED]",
+                  "[SCOPA_STDOUT_REDACTED]"
+                ]
+              },
+              "occurrences": {
+                "const": 1
+              }
+            }
+          }
+        },
+        "semanticFieldsChanged": {
+          "const": false
+        }
+      }
+    }
+  }
+}

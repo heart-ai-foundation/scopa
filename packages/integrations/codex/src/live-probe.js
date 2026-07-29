@@ -5,6 +5,9 @@ import {
   execFile,
 } from 'node:child_process';
 import {
+  createHash,
+} from 'node:crypto';
+import {
   access,
   mkdir,
   mkdtemp,
@@ -75,6 +78,18 @@ async function installPackedRuntime(temporary) {
     encoding: 'utf8',
   });
   const [manifest] = JSON.parse(pack.stdout);
+  const sourceCommit = (
+    await execFileAsync('git', [
+      'rev-parse',
+      'HEAD',
+    ], {
+      cwd: ROOT,
+      encoding: 'utf8',
+    })
+  ).stdout.trim();
+  const packageSha256 = createHash('sha256')
+    .update(await readFile(path.join(temporary, manifest.filename)))
+    .digest('hex');
   const consumer = path.join(temporary, 'runtime-consumer');
   await mkdir(consumer);
   await writeFile(
@@ -122,9 +137,21 @@ async function installPackedRuntime(temporary) {
   return {
     adapterCli: resolved,
     integration: await import(pathToFileURL(resolvedIntegration).href),
+    artifact: {
+      schema: 'scopa.installed-artifact-identity.v1',
+      sourceCommit,
+      package: {
+        name: manifest.name,
+        version: manifest.version,
+        sha256: packageSha256,
+        integrity: manifest.integrity,
+      },
+    },
     package: {
       filename: manifest.filename,
       integrity: manifest.integrity,
+      sha256: packageSha256,
+      sourceCommit,
       shasum: manifest.shasum,
       entryCount: manifest.entryCount,
       packedSize: manifest.size,
@@ -157,6 +184,7 @@ async function scenario({
   prompt,
   name,
   integration,
+  installedArtifact,
 }) {
   return integration.runCodexSession({
     repoRoot,
@@ -166,6 +194,11 @@ async function scenario({
       request: prompt,
     }),
     capabilityMatrix: matrix,
+    installedArtifact,
+    scenario: {
+      id: name,
+      version: 'S9.v1',
+    },
     prompt,
     model: 'gpt-5.4',
   });
@@ -214,6 +247,7 @@ async function main() {
       prompt: prompts.clean,
       name: 'clean',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(clean, [
       'scopa_orientation',
@@ -238,6 +272,7 @@ async function main() {
       prompt: prompts.denied,
       name: 'denied',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(denied, [
       'scopa_orientation',
@@ -266,6 +301,7 @@ async function main() {
       prompt: prompts.falseGreen,
       name: 'false-green',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(falseGreen, [
       'scopa_orientation',
@@ -287,6 +323,7 @@ async function main() {
       prompt: prompts.coldRestart,
       name: 'cold-restart',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(coldRestart, [
       'scopa_orientation',
@@ -319,7 +356,7 @@ async function main() {
         coldRestart,
       },
       summary: {
-        codexCliVersion: clean.receipt.codexCliVersion,
+        codexCliVersion: clean.receipt.client.observedVersion,
         requestedModel: clean.receipt.requestedModel,
         mcpClient: clean.normalized.initialization.mcpClient,
         assurance: matrix.assurance,
@@ -333,8 +370,8 @@ async function main() {
         ),
         exactSingleMcpInventory: runs.every(
           (run) =>
-            run.receipt.mcpInventory.servers.length === 1 &&
-            run.receipt.mcpInventory.servers[0].name === 'scopa',
+            run.inventory.length === 1 &&
+            run.inventory[0].name === 'scopa',
         ),
         nativeItemEventsRejectedByNormalizer: true,
         scopeDenied:

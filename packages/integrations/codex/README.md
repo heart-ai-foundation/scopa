@@ -28,6 +28,11 @@ const result = await runCodexSession({
   repoRoot,
   adapterCli,
   prompt,
+  installedArtifact,
+  scenario: {
+    id: 'example',
+    version: '1',
+  },
   session: createCodexSession({
     sessionId: 'example',
     request: prompt,
@@ -38,6 +43,22 @@ const result = await runCodexSession({
 
 `adapterCli` must resolve to the installed `scopa-mcp` adapter CLI. The target
 repository must already contain initialized SCOPA control state.
+`installedArtifact` must be an exact
+`scopa.installed-artifact-identity.v1` value containing the source commit,
+package name/version, tarball SHA-256, and npm SHA-512 integrity.
+
+Version, inventory, execution, and normalization all use the shared live-run
+custody contract. Every outcome returns `result.terminal`; timeout, output
+exhaustion, abnormal exit, signal, spawn failure, version drift, inventory
+drift, normalization failure, and incomplete cleanup cannot issue a
+completion state. The supervisor owns a dedicated POSIX process group,
+performs bounded `SIGTERM`/`SIGKILL` cleanup, and retains at most 20 MiB of
+combined output.
+
+The receipt binds the exact artifact, requested model, profile, inventory,
+capability matrix, scenario, limits, and sanitized environment policy through
+safe values or digests. It contains no raw argument, prompt, environment,
+repository/control path, or provider-output value.
 
 The normalizer accepts only the observed thread/turn lifecycle, one exact
 skill-budget warning when present, reasoning telemetry, the final schema-bound

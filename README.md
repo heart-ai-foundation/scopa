@@ -84,6 +84,23 @@ machine-readable matrix downgrades any active uncontrolled capability to
 partial assurance. See `packages/adapter-host/README.md` for schemas, protocol
 revisions, threat boundaries, and launcher requirements.
 
+## Live-run custody
+
+Phase 6 adds one shared installed-runtime boundary beneath the Claude and
+Codex launchers. It returns closed outcomes for success, exit, signal,
+timeout, output limit, spawn failure, client/inventory drift, normalization
+failure, and incomplete cleanup. Capture is finite; each client runs in a
+dedicated POSIX process group with bounded `SIGTERM`/`SIGKILL` escalation and
+an explicit no-survivor check.
+
+Receipts bind the source commit, package SHA-256/integrity, client, requested
+model, profile, capability matrix, scenario, limits, and sanitized environment
+policy. Prompt, argument, environment, private-root, and provider-output
+values are not retained in the receipt. Raw evidence can be committed
+atomically at mode `0600`; its deterministic public derivative redacts only
+designated fields, rejects collisions, binds the private digest, and passes
+the privacy scanner. See `packages/live-run/README.md` for the boundary.
+
 ## Claude Code integration
 
 The installed package exports `@heart-ai-foundation/scopa/claude`. Its reviewed

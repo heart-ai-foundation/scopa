@@ -7,6 +7,10 @@ import {
 const SCHEMA_FILES = [
   'scopa.candidate-manifest.v1.schema.json',
   'scopa.consumer-proof.v1.schema.json',
+  'scopa.live-terminal.v1.schema.json',
+  'scopa.live-receipt.v1.schema.json',
+  'scopa.live-evidence.v1.schema.json',
+  'scopa.live-evidence.public.v1.schema.json',
   'scopa.release-posture.v1.schema.json',
 ];
 

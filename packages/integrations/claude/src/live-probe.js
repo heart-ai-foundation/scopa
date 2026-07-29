@@ -5,6 +5,9 @@ import {
   execFile,
 } from 'node:child_process';
 import {
+  createHash,
+} from 'node:crypto';
+import {
   access,
   mkdir,
   mkdtemp,
@@ -75,6 +78,18 @@ async function installPackedRuntime(temporary) {
     encoding: 'utf8',
   });
   const [manifest] = JSON.parse(pack.stdout);
+  const sourceCommit = (
+    await execFileAsync('git', [
+      'rev-parse',
+      'HEAD',
+    ], {
+      cwd: ROOT,
+      encoding: 'utf8',
+    })
+  ).stdout.trim();
+  const packageSha256 = createHash('sha256')
+    .update(await readFile(path.join(temporary, manifest.filename)))
+    .digest('hex');
   const consumer = path.join(temporary, 'runtime-consumer');
   await mkdir(consumer);
   await writeFile(
@@ -122,9 +137,21 @@ async function installPackedRuntime(temporary) {
   return {
     adapterCli,
     integration: await import(pathToFileURL(resolvedIntegration).href),
+    artifact: {
+      schema: 'scopa.installed-artifact-identity.v1',
+      sourceCommit,
+      package: {
+        name: manifest.name,
+        version: manifest.version,
+        sha256: packageSha256,
+        integrity: manifest.integrity,
+      },
+    },
     package: {
       filename: manifest.filename,
       integrity: manifest.integrity,
+      sha256: packageSha256,
+      sourceCommit,
       shasum: manifest.shasum,
       entryCount: manifest.entryCount,
       installedClaudeIntegration: true,
@@ -157,6 +184,7 @@ async function scenario({
   prompt,
   name,
   integration,
+  installedArtifact,
 }) {
   return integration.runClaudeSession({
     repoRoot,
@@ -166,6 +194,11 @@ async function scenario({
       request: prompt,
     }),
     capabilityMatrix: matrix,
+    installedArtifact,
+    scenario: {
+      id: name,
+      version: 'S8.v1',
+    },
     prompt,
     model: 'sonnet',
     maxBudgetUsd: '0.20',
@@ -195,6 +228,7 @@ async function main() {
       prompt: prompts.clean,
       name: 'clean',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(clean, [
       'scopa_orientation',
@@ -219,6 +253,7 @@ async function main() {
       prompt: prompts.denied,
       name: 'denied',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(denied, [
       'scopa_orientation',
@@ -247,6 +282,7 @@ async function main() {
       prompt: prompts.falseGreen,
       name: 'false-green',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(falseGreen, [
       'scopa_orientation',
@@ -268,6 +304,7 @@ async function main() {
       prompt: prompts.coldRestart,
       name: 'cold-restart',
       integration: installed.integration,
+      installedArtifact: installed.artifact,
     });
     assertOrder(coldRestart, [
       'scopa_orientation',
@@ -294,7 +331,7 @@ async function main() {
         coldRestart,
       },
       summary: {
-        claudeCodeVersion: clean.receipt.claudeCodeVersion,
+        claudeCodeVersion: clean.receipt.client.observedVersion,
         requestedModel: clean.receipt.requestedModel,
         observedModel: clean.normalized.initialization.model,
         assurance: matrix.assurance,

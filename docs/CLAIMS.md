@@ -11,6 +11,12 @@
   policy.
 - The S8 Claude and S9 Codex fixtures share four behavior outcomes.
 - Package and proof receipts bind exact bytes and redact private paths.
+- Claude and Codex use one bounded process-group supervisor whose deterministic
+  S14 faults close success, exit, signal, timeout, output limit, spawn failure,
+  drift, normalization, and cleanup outcomes as machine-readable data.
+- S14 live receipts bind exact installed identity and sanitized policy without
+  raw environment values; public live evidence binds private bytes and exposes
+  only designated redactions.
 
 ## Adapter assurance
 

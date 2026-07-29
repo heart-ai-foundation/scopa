@@ -1,8 +1,4 @@
 import {
-  execFile,
-  spawn,
-} from 'node:child_process';
-import {
   mkdtemp,
   rm,
   writeFile,
@@ -10,11 +6,19 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import {
-  promisify,
-} from 'node:util';
-import {
   canonicalJsonPretty,
 } from '../../../enforcement/src/index.js';
+import {
+  validateCapabilityMatrix,
+} from '../../../adapter-host/src/index.js';
+import {
+  bindNormalizedCompletion,
+  createControlledEnvironment,
+  createLiveReceipt,
+  replaceTerminalState,
+  superviseProcess,
+  validateInstalledArtifactIdentity,
+} from '../../../live-run/src/index.js';
 import {
   normalizeClaudeStream,
 } from './normalize.js';
@@ -28,9 +32,12 @@ import {
   validateClaudeInvocation,
 } from './profile.js';
 
-const execFileAsync = promisify(execFile);
 const DEFAULT_TIMEOUT_MS = 120_000;
+const VERSION_TIMEOUT_MS = 10_000;
+const VERSION_CAPTURE_BYTES = 64 * 1024;
 const MAX_CAPTURE_BYTES = 20 * 1024 * 1024;
+const DEFAULT_TERMINATE_GRACE_MS = 500;
+const DEFAULT_CLEANUP_WAIT_MS = 1_000;
 const REMOVED_ENVIRONMENT_NAMES = Object.freeze([
   'ANTHROPIC_API_KEY',
   'ANTHROPIC_AUTH_TOKEN',
@@ -42,75 +49,122 @@ const REMOVED_ENVIRONMENT_NAMES = Object.freeze([
   'NODE_OPTIONS',
 ]);
 
-function controlledEnvironment(additions) {
-  const env = {
-    ...process.env,
-    ...additions,
-  };
-  for (const name of REMOVED_ENVIRONMENT_NAMES) {
-    delete env[name];
-  }
-  return env;
-}
-
-async function installedVersion(command) {
-  const result = await execFileAsync(command, ['--version'], {
-    encoding: 'utf8',
-    env: controlledEnvironment({}),
-  });
-  return parseClaudeVersion(result.stdout);
-}
-
-async function execute(invocation, {
-  cwd,
-  timeoutMs,
+function result({
+  terminal,
+  receipt,
+  execution,
+  normalized = null,
+  rawStream = [],
 }) {
-  const child = spawn(invocation.command, invocation.args, {
-    cwd,
-    env: controlledEnvironment(invocation.env),
-    stdio: ['pipe', 'pipe', 'pipe'],
-  });
-  child.stdin.on('error', () => {});
-  child.stdout.setEncoding('utf8');
-  child.stderr.setEncoding('utf8');
-  let stdout = '';
-  let stderr = '';
-  let exceeded = false;
-  const capture = (kind, chunk) => {
-    if (kind === 'stdout') stdout += chunk;
-    else stderr += chunk;
-    if (
-      Buffer.byteLength(stdout, 'utf8') +
-        Buffer.byteLength(stderr, 'utf8') >
-      MAX_CAPTURE_BYTES
-    ) {
-      exceeded = true;
-      child.kill('SIGTERM');
-    }
-  };
-  child.stdout.on('data', (chunk) => capture('stdout', chunk));
-  child.stderr.on('data', (chunk) => capture('stderr', chunk));
-  const inputTimer = setTimeout(() => {
-    if (!child.stdin.destroyed) child.stdin.end(invocation.stdin);
-  }, CLAUDE_INPUT_SETTLE_MS);
-  let timedOut = false;
-  const timeout = setTimeout(() => {
-    timedOut = true;
-    child.kill('SIGTERM');
-  }, timeoutMs);
-  const [exitCode, signal] = await new Promise((resolve, reject) => {
-    child.once('error', reject);
-    child.once('exit', (...values) => resolve(values));
-  });
-  clearTimeout(inputTimer);
-  clearTimeout(timeout);
-  if (timedOut) throw new Error(`Claude timed out after ${timeoutMs} ms`);
-  if (exceeded) throw new Error('Claude output exceeded capture limit');
   return {
-    exitCode,
-    signal,
-    stdout,
-    stderr,
+    schema: 'scopa.claude-session-result.v1',
+    terminal,
+    receipt,
+    rawStream,
+    normalized,
+    stderr: execution.stderr,
+    privateCapture: {
+      stdout: execution.stdout,
+      stderr: execution.stderr,
+    },
+  };
+}
+
+function receipt({
+  installedArtifact,
+  observedVersion,
+  model,
+  profile,
+  capabilityMatrix,
+  scenario,
+  limits,
+  environmentPolicy,
+  invocation,
+}) {
+  return createLiveReceipt({
+    artifact: installedArtifact,
+    clientName: 'claude-code',
+    expectedVersion: EXPECTED_CLAUDE_CODE_VERSION,
+    observedVersion,
+    requestedModel: model,
+    profileName: 'claude-code-headless-v1',
+    profile,
+    capabilityMatrix,
+    scenario,
+    limits,
+    environmentPolicy,
+    invocation,
+  });
+}
+
+async function installedVersion({
+  command,
+  cwd,
+  terminateGraceMs,
+  cleanupWaitMs,
+}) {
+  const controlled = createControlledEnvironment({
+    additions: {},
+    removedNames: REMOVED_ENVIRONMENT_NAMES,
+  });
+  const invocation = {
+    command,
+    args: ['--version'],
+    stdin: '',
+  };
+  const execution = await superviseProcess({
+    ...invocation,
+    cwd,
+    env: controlled.environment,
+    timeoutMs: VERSION_TIMEOUT_MS,
+    maxCaptureBytes: VERSION_CAPTURE_BYTES,
+    terminateGraceMs,
+    cleanupWaitMs,
+  });
+  if (execution.terminal.state !== 'succeeded') {
+    return {
+      execution,
+      invocation,
+      environmentPolicy: controlled.policy,
+      version: null,
+    };
+  }
+  let version;
+  try {
+    version = parseClaudeVersion(execution.stdout);
+  } catch {
+    return {
+      execution: {
+        ...execution,
+        terminal: replaceTerminalState(execution.terminal, {
+          state: 'version-drift',
+          reason: 'client-version-mismatch',
+        }),
+      },
+      invocation,
+      environmentPolicy: controlled.policy,
+      version: null,
+    };
+  }
+  if (version !== EXPECTED_CLAUDE_CODE_VERSION) {
+    return {
+      execution: {
+        ...execution,
+        terminal: replaceTerminalState(execution.terminal, {
+          state: 'version-drift',
+          reason: 'client-version-mismatch',
+        }),
+      },
+      invocation,
+      environmentPolicy: controlled.policy,
+      version,
+    };
+  }
+  return {
+    execution,
+    invocation,
+    environmentPolicy: controlled.policy,
+    version,
   };
 }
 
@@ -119,18 +173,58 @@ export async function runClaudeSession({
   session,
   capabilityMatrix,
   prompt,
+  installedArtifact,
+  scenario = {
+    id: session?.sessionId,
+    version: '1',
+  },
   model = CLAUDE_MODEL_REQUEST,
   maxBudgetUsd = '0.20',
   adapterCli,
   claudeCommand = 'claude',
   timeoutMs = DEFAULT_TIMEOUT_MS,
+  inputSettleMs = CLAUDE_INPUT_SETTLE_MS,
+  terminateGraceMs = DEFAULT_TERMINATE_GRACE_MS,
+  cleanupWaitMs = DEFAULT_CLEANUP_WAIT_MS,
 }) {
-  const version = await installedVersion(claudeCommand);
-  if (version !== EXPECTED_CLAUDE_CODE_VERSION) {
-    throw new Error(
-      `Claude Code version drift: expected ${EXPECTED_CLAUDE_CODE_VERSION}, received ${version}`,
-    );
+  validateInstalledArtifactIdentity(installedArtifact);
+  validateCapabilityMatrix(capabilityMatrix);
+  const root = path.resolve(repoRoot);
+  const limits = {
+    timeoutMs,
+    maxCaptureBytes: MAX_CAPTURE_BYTES,
+    inputSettleMs,
+    terminateGraceMs,
+    cleanupWaitMs,
+    maxTurns: 12,
+    maxBudgetUsd: String(maxBudgetUsd),
+  };
+  const versionProbe = await installedVersion({
+    command: claudeCommand,
+    cwd: root,
+    terminateGraceMs,
+    cleanupWaitMs,
+  });
+  if (versionProbe.execution.terminal.state !== 'succeeded') {
+    return result({
+      terminal: versionProbe.execution.terminal,
+      receipt: receipt({
+        installedArtifact,
+        observedVersion: versionProbe.version,
+        model,
+        profile: {
+          kind: 'claude-version-probe-v1',
+        },
+        capabilityMatrix,
+        scenario,
+        limits,
+        environmentPolicy: versionProbe.environmentPolicy,
+        invocation: versionProbe.invocation,
+      }),
+      execution: versionProbe.execution,
+    });
   }
+
   const controlRoot = await mkdtemp(
     path.join(os.tmpdir(), 'scopa-claude-control-'),
   );
@@ -145,7 +239,7 @@ export async function runClaudeSession({
       mode: 0o600,
     });
     const mcpConfig = createClaudeMcpConfig({
-      repoRoot,
+      repoRoot: root,
       sessionFile,
       matrixFile,
       adapterCli,
@@ -165,49 +259,16 @@ export async function runClaudeSession({
       env: built.env,
       stdin: built.stdin,
     });
-    const execution = await execute(invocation, {
-      cwd: path.resolve(repoRoot),
-      timeoutMs,
+    const controlled = createControlledEnvironment({
+      additions: invocation.env,
+      removedNames: REMOVED_ENVIRONMENT_NAMES,
     });
-    if (execution.exitCode !== 0) {
-      const error = new Error(
-        `Claude exited ${execution.exitCode ?? execution.signal}`,
-      );
-      error.details = execution;
-      throw error;
-    }
-    let normalized;
-    try {
-      normalized = normalizeClaudeStream(execution.stdout);
-    } catch (error) {
-      error.details = {
-        ...(error.details ?? {}),
-        stdout: execution.stdout,
-        stderr: execution.stderr,
-      };
-      throw error;
-    }
-    return {
-      schema: 'scopa.claude-session-result.v1',
-      receipt: {
-        claudeCodeVersion: version,
-        requestedModel: model,
-        maxBudgetUsd: String(maxBudgetUsd),
-        invocation: {
-          command: invocation.command,
-          args: [...invocation.args],
-        },
+    const liveReceipt = receipt({
+      installedArtifact,
+      observedVersion: versionProbe.version,
+      model,
+      profile: {
         mcpConfig,
-        limits: {
-          timeoutMs,
-          maxCaptureBytes: MAX_CAPTURE_BYTES,
-          inputSettleMs: CLAUDE_INPUT_SETTLE_MS,
-          maxTurns: 12,
-        },
-        environment: {
-          set: structuredClone(invocation.env),
-          removed: [...REMOVED_ENVIRONMENT_NAMES],
-        },
         flags: [
           'print',
           'stream-json',
@@ -225,14 +286,63 @@ export async function runClaudeSession({
           'fixed-system-prompt',
         ],
       },
+      capabilityMatrix,
+      scenario,
+      limits,
+      environmentPolicy: controlled.policy,
+      invocation,
+    });
+    const execution = await superviseProcess({
+      command: invocation.command,
+      args: invocation.args,
+      cwd: root,
+      env: controlled.environment,
+      stdin: invocation.stdin,
+      inputDelayMs: inputSettleMs,
+      timeoutMs,
+      maxCaptureBytes: MAX_CAPTURE_BYTES,
+      terminateGraceMs,
+      cleanupWaitMs,
+    });
+    if (execution.terminal.state !== 'succeeded') {
+      return result({
+        terminal: execution.terminal,
+        receipt: liveReceipt,
+        execution,
+      });
+    }
+
+    let normalized;
+    try {
+      normalized = normalizeClaudeStream(execution.stdout);
+    } catch {
+      return result({
+        terminal: replaceTerminalState(execution.terminal, {
+          state: 'normalization-failed',
+          reason: 'stream-normalization-error',
+        }),
+        receipt: liveReceipt,
+        execution,
+      });
+    }
+    const terminal = bindNormalizedCompletion(
+      execution.terminal,
+      normalized.final.canStop,
+    );
+    return result({
+      terminal,
+      receipt: liveReceipt,
+      execution,
       rawStream: execution.stdout
         .split(/\r?\n/)
         .filter((line) => line.length > 0)
         .map((line) => JSON.parse(line)),
       normalized,
-      stderr: execution.stderr,
-    };
+    });
   } finally {
-    await rm(controlRoot, { recursive: true, force: true });
+    await rm(controlRoot, {
+      recursive: true,
+      force: true,
+    });
   }
 }

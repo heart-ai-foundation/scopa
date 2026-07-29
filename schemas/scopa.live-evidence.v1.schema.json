@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai.foundation/scopa/schemas/scopa.live-evidence.v1.schema.json",
+  "title": "SCOPA private live evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "private",
+    "receipt",
+    "schema",
+    "summary",
+    "terminal"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.live-evidence.v1"
+    },
+    "receipt": {
+      "$ref": "./scopa.live-receipt.v1.schema.json"
+    },
+    "terminal": {
+      "$ref": "./scopa.live-terminal.v1.schema.json"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "private": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controlRoot",
+        "raw",
+        "repositoryRoot",
+        "stderr",
+        "stdout"
+      ],
+      "properties": {
+        "repositoryRoot": {
+          "type": "string"
+        },
+        "controlRoot": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "stderr": {
+          "type": "string"
+        },
+        "raw": true
+      }
+    }
+  }
+}
