@@ -120,7 +120,8 @@ metadata write remain uncontrolled. See
 `packages/integrations/claude/README.md` for the API and non-claims.
 
 The S15 production-like campaign is a separately authorized operation. It is
-never run by `npm test` or hosted CI and refuses an uncommitted candidate.
+never run by the default test suite or hosted CI and refuses an uncommitted
+candidate.
 From a SCOPA source checkout, an authorized operator supplies the committed
 policy and a private evidence destination outside the repository:
 
