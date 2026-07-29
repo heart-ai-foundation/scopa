@@ -23,6 +23,7 @@
     "docs/**",
     "schemas/**",
     "fixtures/S10/**",
+    "fixtures/S15/claude-live-policy.json",
     "packages/*/README.md",
     "packages/*/package.json",
     "packages/*/src/**",
