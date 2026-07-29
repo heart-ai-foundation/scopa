@@ -342,6 +342,10 @@ screenshots, old-token fragments, and rotation secrets are forbidden.
 Without that confirmation, RQ1 and RQ2 may be evidenced but the hardening
 queue remains open.
 
+On 2026-07-28 the principal answered `no`: the required provider-side rotation
+and invalidation is not complete. Only that boolean and the provider names
+were retained. RQ3 remains false and the queue remains open.
+
 ## Claim and release boundary
 
 Fresh-review agreement is evidence about this exact private candidate. It is

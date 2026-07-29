@@ -495,8 +495,8 @@ RQ3 constituent is satisfied.
 
 - final hosted evidence-commit gate: passed;
 - provider-side confirmation that affected Slack, OpenRouter, and Valyu
-  credentials were rotated and old values invalidated: pending principal
-  confirmation.
+  credentials were rotated and old values invalidated: principal confirmed
+  `no`; blocked until provider-side completion.
 
 Only a boolean confirmation may be retained. Until both items pass, RQ3 and
 the hardening queue remain open even if RQ1/RQ2 are green.

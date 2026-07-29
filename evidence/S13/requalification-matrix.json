@@ -107,8 +107,8 @@
     },
     {
       "id": "provider-credential-rotation",
-      "status": "pending-principal-confirmation",
-      "evidence": "boolean provider-side confirmation only; no values may be retained"
+      "status": "blocked-provider-rotation-incomplete",
+      "evidence": "evidence/S13/credential-rotation-status.json; boolean false, no secret material retained"
     },
     {
       "id": "final-hosted-evidence-gate",
