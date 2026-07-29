@@ -208,3 +208,35 @@ experiment remains out of scope and untouched.
 - `npm audit --audit-level=low`
 - `npm run protocol:check`
 - Hosted deterministic CI passes.
+
+## Closeout
+
+S15 closed on exact live candidate
+`6235d647badd8fa136ce77214ce9c38d2fd80b6b`.
+
+- The current client/profile probe binds Claude Code `2.1.220`, requested
+  `sonnet`, observed `claude-sonnet-5`, and exactly six callable SCOPA tools;
+  deterministic version/model/tool/agent/schema drift remains fail-closed.
+- The original campaign's qualifying false-green and repeated-session results
+  remain intact; its lost denied request remains explicitly inconclusive.
+- A fresh principal-approved two-request policy directly proved denied-path
+  polarity and fresh-process continuity over the same disposable repository.
+  Both records are direct, not reconstructed.
+- Exact remedial cost was USD `0.1004578` against USD `0.40`; no third request
+  was sent.
+- Both process groups disappeared without orphan. Disposable repositories,
+  control roots, run-specific provider stores, and the temporary root were
+  independently observed absent.
+- Private evidence is mode `0600`, stable-account-bound, and scheduled for
+  deletion after `2026-08-05T16:02:37.107Z`; all public evidence has zero
+  privacy findings.
+- The exact candidate passed the deterministic 127-test release gate, focused
+  S8/S14/S15 suites, zero-vulnerability audit, protocol check, deterministic
+  installed probe, and hosted run `30466704289`.
+
+`CLH1`, `CLH2`, and `CLH3` are satisfied. Claude remains `partial`; no
+experiment, Codex campaign, publication, deployment, visibility change,
+customer use, or provider-certification claim occurred.
+
+The next justified slice is S16, the independently policy-gated Codex
+production live-run edge campaign.

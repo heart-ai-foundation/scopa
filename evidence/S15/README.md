@@ -46,6 +46,8 @@ account identity digest, and have a scheduled deletion time of
 
 ## Acceptance gap
 
-S15 remains active. A future directly evidenced denied-path run and
-denied-to-restart chain require a new, separately approved provider allowance;
-the exhausted campaign must not be replayed or presented as accepted.
+This historical campaign remains incomplete and must not be replayed or
+presented as independently accepted. The gap was closed separately under a
+fresh two-request policy and fresh namespace in `evidence/S15R2/`. That direct
+remedial result, combined with this campaign's qualifying and deterministic
+evidence, closes S15 without altering or upgrading this record.

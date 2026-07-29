@@ -1,0 +1,89 @@
+{
+  "acceptance": {
+    "accepted": true,
+    "cleanupPassed": true,
+    "directColdRestartContinuityPassed": true,
+    "directDeniedPathPassed": true,
+    "freshClaudeAndBridgePerRun": true,
+    "sameRepositoryLineage": true
+  },
+  "assurance": "partial",
+  "budgetUsd": "0.40",
+  "cleanup": {
+    "perRunControlRootDeletionVerified": true,
+    "processGroupsGone": true,
+    "providerMetadataCleanupVerified": true,
+    "repositoryCleanupVerified": true,
+    "temporaryRootDeletionVerified": true
+  },
+  "continuityEvidenceReconstructed": false,
+  "executedAt": "2026-07-29T16:02:37.107Z",
+  "invocationCount": 2,
+  "livePolicySha256": "8c4816cf90735aa7513135f2dea07c13c6c3df6c974ce62ada4f33f4ba21e687",
+  "observedClientVersions": [
+    "2.1.220"
+  ],
+  "observedModels": [
+    "claude-sonnet-5"
+  ],
+  "package": {
+    "entryCount": 170,
+    "integrity": "sha512-fcdb5CGGbJYJnMIFtSij9DUV1TotN0w72jGtyBQ0KjkwZzX0DPQIi7NbU2FMJmjfQhx5gtmXK82rdSPwwanXfw==",
+    "name": "@heart-ai-foundation/scopa",
+    "sha256": "a3903d7fe50b384e8b1f05eba9a978d8d2c9fcd87142f8dcc149ba13197171e9",
+    "sourceCommit": "6235d647badd8fa136ce77214ce9c38d2fd80b6b",
+    "version": "0.2.0-dev.1"
+  },
+  "privateCampaignBinding": {
+    "bytes": 3071,
+    "sha256": "056dc12f9eccdc5a9cf7ed32fe93b0fd047898760d5f8e1a604c2e1fb7be49bb"
+  },
+  "privateEvidence": {
+    "deleteAfter": "2026-08-05T16:02:37.107Z",
+    "rawEvidenceInRepository": false,
+    "retainedOutsideRepository": true,
+    "retentionHours": 168
+  },
+  "requestedModel": "sonnet",
+  "runs": [
+    {
+      "costUsd": "0.0565726",
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedNonResumableMetadata": true,
+      "processGroupGone": true,
+      "publicEvidence": {
+        "bytes": 5098,
+        "filename": "denied.public.json",
+        "sha256": "03289bcd1f7d26c54847ce2f4021a050804f8b700065ae1036b98bc93b389a79"
+      },
+      "qualification": "direct",
+      "scenario": "denied",
+      "sourceCommit": "6235d647badd8fa136ce77214ce9c38d2fd80b6b",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 7
+    },
+    {
+      "costUsd": "0.0438852",
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedNonResumableMetadata": true,
+      "processGroupGone": true,
+      "publicEvidence": {
+        "bytes": 5110,
+        "filename": "cold-restart.public.json",
+        "sha256": "2cb6785d7f515266b80ab80e65aca274d00cc80776e2ba0deed7df951216e1c6"
+      },
+      "qualification": "direct",
+      "scenario": "cold-restart",
+      "sourceCommit": "6235d647badd8fa136ce77214ce9c38d2fd80b6b",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "turns": 6
+    }
+  ],
+  "schema": "scopa.claude-live-remedial-campaign.public.v1",
+  "sourceCommit": "6235d647badd8fa136ce77214ce9c38d2fd80b6b",
+  "totalCostUsd": "0.1004578"
+}

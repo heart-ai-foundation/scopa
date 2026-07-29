@@ -579,6 +579,80 @@ test('retained S15 run derivatives are schema-valid and privacy-clean', async ()
   }
 });
 
+test('retained S15R2 evidence closes direct continuity without reconstruction', async () => {
+  const campaignText = await readFile(
+    path.join(ROOT, 'evidence/S15R2/campaign.public.json'),
+    'utf8',
+  );
+  const campaign = JSON.parse(campaignText);
+  assert.equal(canonicalJsonPretty(campaign), campaignText);
+  assert.equal(scanPrivateText(campaignText).length, 0);
+  assert.equal(campaign.sourceCommit, '6235d647badd8fa136ce77214ce9c38d2fd80b6b');
+  assert.equal(campaign.invocationCount, 2);
+  assert.equal(campaign.totalCostUsd, '0.1004578');
+  assert.equal(campaign.budgetUsd, '0.40');
+  assert.equal(campaign.continuityEvidenceReconstructed, false);
+  assert.deepEqual(campaign.acceptance, {
+    accepted: true,
+    cleanupPassed: true,
+    directColdRestartContinuityPassed: true,
+    directDeniedPathPassed: true,
+    freshClaudeAndBridgePerRun: true,
+    sameRepositoryLineage: true,
+  });
+  assert.equal(campaign.cleanup.processGroupsGone, true);
+  assert.equal(campaign.cleanup.repositoryCleanupVerified, true);
+  assert.equal(campaign.cleanup.providerMetadataCleanupVerified, true);
+  assert.equal(campaign.cleanup.temporaryRootDeletionVerified, true);
+  assert.equal(
+    campaign.runs
+      .map((run) => run.costUsd)
+      .reduce(addEvidenceCostUsd, '0'),
+    campaign.totalCostUsd,
+  );
+
+  for (const [index, scenario] of [
+    'denied',
+    'cold-restart',
+  ].entries()) {
+    const text = await readFile(
+      path.join(ROOT, `evidence/S15R2/${scenario}.public.json`),
+      'utf8',
+    );
+    const evidence = JSON.parse(text);
+    assert.deepEqual(
+      validatePublishedContract(
+        'scopa.live-evidence.public.v1',
+        evidence,
+      ),
+      evidence,
+    );
+    assert.equal(scanPrivateText(text).length, 0);
+    assert.equal(evidence.receipt.scenario.id, scenario);
+    assert.equal(evidence.receipt.scenario.version, 'S15R2.v1');
+    assert.equal(evidence.terminal.state, 'succeeded');
+    assert.equal(evidence.terminal.canStop, true);
+    assert.equal(evidence.terminal.cleanup.groupGone, true);
+    assert.equal(evidence.terminal.cleanup.orphanDetected, false);
+    assert.equal(evidence.summary.modelCallableToolsScopaOnly, true);
+    assert.equal(evidence.summary.providerResidue.changedFileCount, 0);
+    assert.equal(
+      evidence.summary.providerResidue.onlyBoundedNonResumableMetadata,
+      true,
+    );
+    assert.equal(campaign.runs[index].scenario, scenario);
+    assert.equal(campaign.runs[index].qualification, 'direct');
+    assert.equal(
+      campaign.runs[index].publicEvidence.sha256,
+      createHash('sha256').update(text).digest('hex'),
+    );
+    assert.equal(
+      campaign.runs[index].publicEvidence.bytes,
+      Buffer.byteLength(text, 'utf8'),
+    );
+  }
+});
+
 test('auth boundary verifies the account class without retaining identity', () => {
   const current = policy();
   const first = parseClaudeAuthBoundary(JSON.stringify({

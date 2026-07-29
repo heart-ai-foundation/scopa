@@ -13,7 +13,7 @@ reference implementation.
 
 ## Status
 
-SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S14 are
+SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S15 are
 complete: conformance, sealed core, enforcement, legibility, signing and
 anchoring, CASE/UCO export, local distribution, the model-neutral MCP bridge,
 separately evidenced Claude Code and Codex integrations, source-free consumer
@@ -23,16 +23,16 @@ terminal, installed-identity, and private/public evidence behavior before
 provider traffic.
 
 Phase 6 is active for production-like live-run edge hardening. The bounded
-S15 Claude campaign exhausted its six-request ceiling and remains fail-closed,
-not accepted: four post-remediation requests produced qualifying per-run
-evidence, one request reproduced callable-tool profile drift, and one
-denied-path result was lost to an evidence-serialization runner fault before
-publication. The latter is conservatively reserved at the per-run maximum and
-is not represented as a pass. Codex, sustained recovery, and exact
-requalification remain queued behind S15 acceptance. The separate SCOPA
-research experiment is outside this queue. The package and repository remain
-private; publication and production deployment require separate principal
-requests.
+S15 Claude slice is accepted. Its original six-request campaign remains an
+honest fail-closed historical record: four requests qualified, one reproduced
+callable-tool drift, and one lost its denied-path result before publication.
+A separately authorized two-request remedial campaign then directly proved
+scope denial and fresh-process continuity over the same disposable repository
+on one exact installed candidate. Codex live-edge hardening is now active;
+sustained recovery and exact requalification remain queued. The separate
+SCOPA research experiment is outside this queue. The package and repository
+remain private; publication and production deployment require separate
+principal requests.
 
 Start with:
 
@@ -123,11 +123,11 @@ managed policy, auto-memory discovery, and a small Claude session-title
 metadata write remain uncontrolled. See
 `packages/integrations/claude/README.md` for the API and non-claims.
 
-The S15 production-like campaign is a separately authorized operation. It is
-never run by the default test suite or hosted CI and refuses an uncommitted
-candidate.
-From a SCOPA source checkout, an authorized operator supplies the committed
-policy and a private evidence destination outside the repository:
+S15 production-like campaigns are separately authorized operations. They are
+never run by the default test suite or hosted CI and refuse an uncommitted
+candidate. The original six-request command is retained only as historical
+operator documentation. From a SCOPA source checkout with development scripts
+installed, its command was:
 
 ```sh
 npm run probe:s15:live -- \
@@ -135,12 +135,20 @@ npm run probe:s15:live -- \
   --private-root /trusted/private/scopa/S15
 ```
 
-On a fresh evidence destination, the command makes six real Claude requests,
-each bounded by the policy. It must be run only by an authorized account
-holder who has reviewed the USD 1.20 campaign ceiling and private-evidence
-retention requirements. Existing intent, journal, scenario, or campaign
-evidence stops execution before replay. The retained S15 campaign is exhausted
-and cannot be retried under its original authority.
+That allowance is exhausted and cannot be retried. The accepted closeout came
+from a fresh, separately approved two-request policy and namespace. From a
+SCOPA source checkout with development scripts installed, its command was:
+
+```sh
+npm run probe:s15:remedial-live -- \
+  --policy <committed-s15r2-policy> \
+  --private-root /trusted/private/scopa/S15R2
+```
+
+It directly exercised denied scope followed by a cold read from the same
+disposable repository in a fresh Claude/bridge process. Existing intent,
+journal, scenario, or campaign evidence stops execution before replay. This
+remedial allowance is also exhausted; neither command authorizes new traffic.
 
 ## Codex integration
 

@@ -115,3 +115,22 @@ no raw provider content or account identifier.
 This campaign does not touch the separately running SCOPA-RV1 experiment,
 Codex S16, customer repositories, publication, deployment, certification, npm
 release, repository visibility, or full-assurance claims.
+
+## Fresh direct-continuity remediation
+
+On 2026-07-29 the principal approved a separate policy with digest
+`8c4816cf90735aa7513135f2dea07c13c6c3df6c974ce62ada4f33f4ba21e687`:
+exactly two requests, USD 0.20 per request and USD 0.40 total, in a fresh
+`S15R2` evidence namespace with no historical resume route.
+
+The first request directly exercised the denied escape and allowed correction.
+Only after that evidence passed did a new Claude and SCOPA bridge process read
+the exact produced file from the same disposable repository. The runner bound
+both records to one private repository-lineage digest, asserted the exact read
+content, and stopped without any third request.
+
+The direct campaign passed at USD `0.1004578`. Its mode-`0600` private evidence
+binds a stable authenticated-account digest and is scheduled for deletion
+after `2026-08-05T16:02:37.107Z`. The original six-request record remains
+historically incomplete; S15 acceptance combines its qualifying evidence and
+deterministic corpus with this separate direct remediation.

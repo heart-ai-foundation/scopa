@@ -22,6 +22,12 @@
   finite evidence, process-group cleanup, and bounded non-resumable provider
   metadata. Three restart/read observations used explicitly reconstructed
   synthetic state after an earlier evidence loss.
+- A separately authorized two-request S15 remedial campaign against exact
+  installed candidate `6235d647` directly preserved denied-path polarity and
+  then read the produced state in fresh Claude/bridge processes over the same
+  disposable repository lineage. Both runs exposed only the six SCOPA tools,
+  retained `partial` assurance, left no provider-store or process residue, and
+  cost USD `0.1004578` against a USD `0.40` ceiling.
 
 ## Adapter assurance
 
@@ -40,8 +46,9 @@ SCOPA does not:
   human identity, or hardware-backed key provenance without separate evidence;
 - turn CASE graph validation into cryptographic verification;
 - make Claude/Codex behavior parity a full-assurance claim;
-- claim S15 acceptance, a qualifying live denied-path result, or direct
-  denied-to-restart continuity from the exhausted six-request campaign;
+- treat the accepted S15 remedial result as provider certification, an
+  immutable model snapshot, or evidence beyond its exact candidate, policy,
+  client, account boundary, and two recorded scenarios;
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;
