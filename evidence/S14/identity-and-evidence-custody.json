@@ -1,0 +1,55 @@
+{
+  "schema": "scopa.s14-identity-evidence-custody.v1",
+  "sourceCommit": "074f5ccddc50680817c7ed18b8bda1914c6c4b56",
+  "installedCandidate": {
+    "name": "@heart-ai-foundation/scopa",
+    "version": "0.2.0-dev.1",
+    "sha256": "ce3fea3e306babf23e7b5e00a5163a35cea2530c1ba0590303659fd6dae20abb",
+    "integrity": "sha512-F9BJC2bsyzLtgxsG0QKfplD6qiT9GObDTGVJEHpXwGjSyA5aHWb+VnWtNKxzl0W1UcTLfsJ+sdnTiIv6rTXppw==",
+    "entryCount": 165,
+    "repeatPackByteIdentical": true,
+    "privacyFindings": 0
+  },
+  "receiptBindings": [
+    "source-commit",
+    "package-sha256",
+    "package-integrity",
+    "client-expected-and-observed-version",
+    "requested-model-alias",
+    "profile-digest",
+    "capability-matrix-digest",
+    "scenario-id-and-version",
+    "runtime-limits",
+    "environment-policy-digest",
+    "invocation-argument-and-stdin-digests"
+  ],
+  "receiptExclusionsProven": [
+    "credential-values",
+    "authorization-headers",
+    "raw-environment-map",
+    "raw-arguments",
+    "provider-content",
+    "private-roots"
+  ],
+  "privateEvidence": {
+    "atomicNoOverwrite": true,
+    "mode": "0600",
+    "canonicalRootBound": true,
+    "symlinkAndAliasControlsRejected": true
+  },
+  "publicEvidence": {
+    "deterministic": true,
+    "mode": "0644",
+    "bindsExactPrivateSha256": true,
+    "designatedFieldsOnly": true,
+    "reservedPlaceholderRejected": true,
+    "semanticCollisionRejected": true,
+    "privacyScanFindings": 0
+  },
+  "hostedGate": {
+    "runId": 30424813419,
+    "jobId": 90488854792,
+    "conclusion": "success"
+  },
+  "result": "passed"
+}

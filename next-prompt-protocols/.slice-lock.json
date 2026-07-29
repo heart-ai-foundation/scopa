@@ -1,27 +1,24 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "3ac0173",
+  "current_commit": "074f5cc",
   "current_phase": "phase-6-production-live-run-hardening",
-  "active_protocol": "active/2026-07-28-S14-shared-live-run-custody-and-supervision.md",
+  "active_protocol": "active/2026-07-28-S15-claude-production-live-run-edge-campaign.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "live-run-custody",
+  "active_module": "claude-live-hardening",
   "crosses": [
-    "claude-adapter",
-    "codex-adapter",
+    "live-run-custody",
     "adapter-host",
-    "release-readiness",
     "conformance"
   ],
   "advances_contracts": [
-    "LC1",
-    "LC2",
-    "LC3",
-    "LC4"
+    "CLH1",
+    "CLH2",
+    "CLH3"
   ],
-  "active_protocol_sha256": "sha256:6ae69d3a3a74228796dfafe9f293cfe0760768dec0584a3a2821e36d6bccd7d4",
-  "active_objective": "Implement a shared live-run custody layer used by both installed integrations.\nIt must supervise a process group through bounded success and failure states,\nreturn one closed terminal envelope, bind the installed candidate and runtime\npolicy, store private evidence atomically with restrictive permissions, and\nderive deterministic public evidence through the existing collision-safe\npublication boundary.\n\nUse deterministic process doubles to exercise the edge matrix. S14 makes no\nreal provider call.",
+  "active_protocol_sha256": "sha256:9c6e01d9caf2f17451973c0029a725021b2a95344745df3cd0dedb28f0d511ed",
+  "active_objective": "Build and execute a bounded Claude Code headless edge campaign against the\nexact installed SCOPA candidate. Freeze an explicit per-run account, network,\nmodel, tool, time, turn, token/cost, evidence-retention, and cleanup policy\nbefore any provider call. Prove every live scenario locally with deterministic\nfault controls first, then run only the approved live subset and remediate only\nreproduced provider-boundary defects.\n\nActivation of this protocol does not itself start provider traffic. The\nprovider gate remains closed until the complete run policy is materialized and\nvalidated.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -30,20 +27,19 @@
     "schemas/**",
     "packages/live-run/**",
     "packages/integrations/claude/**",
-    "packages/integrations/codex/**",
     "packages/adapter-host/**",
     "packages/release-readiness/**",
     "packages/conformance/**",
-    "fixtures/S14/**",
+    "fixtures/S15/**",
     "next-prompt-protocols/**",
-    "notes/S14/**",
-    "runs/S14/**",
-    "evidence/S14/**"
+    "notes/S15/**",
+    "runs/S15/**",
+    "evidence/S15/**"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s14",
+    "fast_deterministic": "npm run test:s15",
     "claude_regression": "npm run test:s8",
-    "codex_regression": "npm run test:s9",
+    "custody_regression": "npm run test:s14",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "npm test"

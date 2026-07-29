@@ -191,3 +191,29 @@ private SCOPA evidence home and is referenced only by safe digest.
 - `npm test`
 - `npm run protocol:check`
 - Hosted CI passes.
+
+## Closeout
+
+S14 closed on implementation candidate
+`074f5ccddc50680817c7ed18b8bda1914c6c4b56`.
+
+- Both Claude and Codex now use the shared live-run supervisor.
+- All ten terminal states have deterministic controls; failures cannot issue
+  `canStop: true`.
+- Timeout, output-limit, and successful-parent orphan controls terminate the
+  complete process group and independently observe descendant disappearance.
+- Receipts bind exact installed identity and runtime policy without protected
+  values.
+- Private/public evidence controls pass atomicity, mode, alias, overwrite,
+  collision, placeholder, deterministic-derivation, and privacy tests.
+- The clean 165-entry candidate is byte-deterministic at SHA-256
+  `ce3fea3e306babf23e7b5e00a5163a35cea2530c1ba0590303659fd6dae20abb`.
+- The accumulated local gate passed 127/127 tests and exact hosted run
+  `30424813419` passed.
+
+No real provider call, experiment work, publication, release, deployment,
+visibility change, customer use, or assurance escalation occurred.
+
+The next justified slice is S15. It exercises the now-bounded Claude boundary,
+but its real-provider gate remains closed until an explicit complete per-run
+account/network/model/tool/budget/evidence/cleanup policy is materialized.

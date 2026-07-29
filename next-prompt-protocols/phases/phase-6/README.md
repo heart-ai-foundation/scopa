@@ -1,7 +1,7 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `3ac0173`
-Current active protocol: `active/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+Current commit reference: `074f5cc`
+Current active protocol: `active/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
 
 ## Scope
 
@@ -9,15 +9,16 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Implement a shared live-run custody layer used by both installed integrations.
-> It must supervise a process group through bounded success and failure states,
-> return one closed terminal envelope, bind the installed candidate and runtime
-> policy, store private evidence atomically with restrictive permissions, and
-> derive deterministic public evidence through the existing collision-safe
-> publication boundary.
+> Build and execute a bounded Claude Code headless edge campaign against the
+> exact installed SCOPA candidate. Freeze an explicit per-run account, network,
+> model, tool, time, turn, token/cost, evidence-retention, and cleanup policy
+> before any provider call. Prove every live scenario locally with deterministic
+> fault controls first, then run only the approved live subset and remediate only
+> reproduced provider-boundary defects.
 >
-> Use deterministic process doubles to exercise the edge matrix. S14 makes no
-> real provider call.
+> Activation of this protocol does not itself start provider traffic. The
+> provider gate remains closed until the complete run policy is materialized and
+> validated.
 
 ## Files in play
 
@@ -28,26 +29,27 @@ Production-like live-run edge hardening only: establish shared process and evide
 - `schemas/**`
 - `packages/live-run/**`
 - `packages/integrations/claude/**`
-- `packages/integrations/codex/**`
 - `packages/adapter-host/**`
 - `packages/release-readiness/**`
 - `packages/conformance/**`
-- `fixtures/S14/**`
+- `fixtures/S15/**`
 - `next-prompt-protocols/**`
-- `notes/S14/**`
-- `runs/S14/**`
-- `evidence/S14/**`
+- `notes/S15/**`
+- `runs/S15/**`
+- `evidence/S15/**`
 
 ## Non-goals
 
 - No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim
-- No real Claude, Codex, OpenAI, Anthropic, or other provider call in S14
 - No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work
+- No Codex provider campaign before S16
+- No real Claude provider call before a complete per-run account, network, model, tool, time, turn, token or cost, evidence-retention, and cleanup policy is closed
+- No customer repository, customer data, production deployment, or uncontrolled mutation
 - No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level
 - No operating-system sandbox or full-provider-assurance claim
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
-- No rewrite of historical S8-S13 evidence
+- No rewrite of historical S8-S14 evidence
 - No queue entries outside the authorized Production Live-Run Hardening Macro Delta
 
 ## Descriptor Rung Stop Rule
@@ -56,30 +58,28 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Shared supervision is actually used by both Claude and Codex run paths.
-- Every declared terminal class has a deterministic positive or negative
-  control and a closed bounded envelope.
-- Timeout and output-limit tests terminate a descendant that ignores graceful
-  shutdown and independently prove no process survives.
-- Nonzero exit, signal, spawn failure, version drift, inventory drift,
-  malformed stream, and truncated stream cannot issue a success or completion
-  state.
-- Receipts bind source commit, installed package digest/integrity, client
-  version, requested model, profile, capability matrix, scenario, limits, and
-  environment-policy digest.
-- No receipt retains a credential value, authorization header, raw
-  environment map, uncontrolled provider content, or private root.
-- Private evidence writes are atomic, alias-safe, mode-restricted, and refuse
-  overwrite or collision.
-- Public evidence is deterministic, binds private bytes, changes only
-  designated fields, and passes the package privacy scanner.
-- `npm run test:s14`
+- A complete closed per-run policy is validated before provider execution.
+- The exact installed candidate, Claude client version, requested model alias,
+  profile, tool matrix, scenario version, limits, and environment policy bind
+  every run.
+- Deterministic controls cover the existing four scenarios plus
+  version/tool/model drift, refusal, rate event, timeout, ignored termination,
+  early EOF, malformed event, capture limit, and budget stop.
+- The approved real Claude subset preserves the same terminal polarity as its
+  deterministic controls.
+- Repeated sessions leave no resumable provider content, credential, private
+  path, cross-run control state, temporary residue, or orphan process.
+- Claude remains `partial`; favorable prose cannot assert completion.
+- Public evidence is deterministic, collision-safe, private-root free, and
+  binds bounded private evidence.
+- `npm run test:s15`
 - `npm run test:s8`
-- `npm run test:s9`
+- `npm run test:s14`
 - `npm run probe:s12:installed`
 - `npm test`
+- `npm audit --audit-level=low`
 - `npm run protocol:check`
-- Hosted CI passes.
+- Hosted deterministic CI passes.
 
 ## Handoff
 

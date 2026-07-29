@@ -1,0 +1,36 @@
+{
+  "schema": "scopa.s14-process-cleanup-receipt.v1",
+  "sourceCommit": "074f5ccddc50680817c7ed18b8bda1914c6c4b56",
+  "method": "posix-process-group",
+  "controls": [
+    {
+      "case": "timeout-ignoring-descendant",
+      "termSent": true,
+      "killSent": true,
+      "groupGone": true,
+      "descendantExistsAfterTerminal": false,
+      "status": "passed"
+    },
+    {
+      "case": "output-limit-ignoring-descendant",
+      "captureLimitBytes": 1024,
+      "outputTruncated": true,
+      "termSent": true,
+      "killSent": true,
+      "groupGone": true,
+      "descendantExistsAfterTerminal": false,
+      "status": "passed"
+    },
+    {
+      "case": "successful-parent-orphan",
+      "terminalState": "cleanup-failed",
+      "orphanDetected": true,
+      "groupGone": true,
+      "descendantExistsAfterTerminal": false,
+      "status": "passed"
+    }
+  ],
+  "boundedGraceAndEscalation": true,
+  "successRequiresCompleteCleanup": true,
+  "result": "passed"
+}

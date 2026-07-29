@@ -1,0 +1,81 @@
+{
+  "schema": "scopa.s14-terminal-fault-matrix.v1",
+  "sourceCommit": "074f5ccddc50680817c7ed18b8bda1914c6c4b56",
+  "fixture": "fixtures/S14/fault-client.mjs",
+  "terminalStates": [
+    {
+      "state": "succeeded",
+      "control": "direct success and normalized Claude/Codex success",
+      "expectedOk": true,
+      "completionBoundByNormalizer": true,
+      "status": "passed"
+    },
+    {
+      "state": "exited",
+      "control": "exit 7",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "signaled",
+      "control": "self SIGTERM",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "timed-out",
+      "control": "deadline with TERM-ignoring descendant",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "output-limit",
+      "control": "capture exhaustion with TERM-ignoring descendant",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "spawn-failed",
+      "control": "absent executable",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "version-drift",
+      "control": "Claude expected/observed client mismatch",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "inventory-drift",
+      "control": "Codex MCP inventory mismatch",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "normalization-failed",
+      "control": "Claude malformed event and Codex truncated stream",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    },
+    {
+      "state": "cleanup-failed",
+      "control": "successful parent leaves descendant",
+      "expectedOk": false,
+      "expectedCanStop": false,
+      "status": "passed"
+    }
+  ],
+  "closedSchemaUnknownFieldControl": "rejected",
+  "falseGreenControl": "rejected",
+  "realProviderCalled": false,
+  "result": "passed"
+}

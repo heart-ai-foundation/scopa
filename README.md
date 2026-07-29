@@ -13,19 +13,22 @@ reference implementation.
 
 ## Status
 
-SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S13 are
+SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S14 are
 complete: conformance, sealed core, enforcement, legibility, signing and
 anchoring, CASE/UCO export, local distribution, the model-neutral MCP bridge,
 separately evidenced Claude Code and Codex integrations, source-free consumer
 qualification, proof/distribution hardening, and exact-candidate adversarial
-requalification.
+requalification. The shared live-run custody layer now closes process,
+terminal, installed-identity, and private/public evidence behavior before
+provider traffic.
 
-Phase 6 is active for production-like live-run edge hardening. It begins with
-shared bounded process and evidence custody, then exercises Claude and Codex
-independently, stresses sustained recovery and cleanup, and requalifies one
-exact private candidate. The separate SCOPA research experiment is outside
-this queue. The package and repository remain private; publication and
-production deployment require separate principal requests.
+Phase 6 is active for production-like live-run edge hardening. S15 now
+prepares the bounded Claude edge campaign; its real-provider gate requires a
+complete per-run account, network, model, tool, time, turn, usage/cost,
+evidence-retention, and cleanup policy. Codex, sustained recovery, and exact
+requalification follow in queue order. The separate SCOPA research experiment
+is outside this queue. The package and repository remain private; publication
+and production deployment require separate principal requests.
 
 Start with:
 
