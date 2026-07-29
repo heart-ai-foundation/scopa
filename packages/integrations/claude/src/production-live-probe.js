@@ -150,15 +150,24 @@ export function parseProductionLiveArguments(argv) {
     ![
       4,
       6,
+      8,
     ].includes(argv.length) ||
     argv[0] !== '--policy' ||
     argv[2] !== '--private-root' ||
-    (argv.length === 6 && argv[4] !== '--resume-clean-drift')
+    (
+      argv.length >= 6 &&
+      argv[4] !== '--resume-clean-drift'
+    ) ||
+    (
+      argv.length === 8 &&
+      argv[6] !== '--resume-runner-fault'
+    )
   ) {
     throw new Error(
       'usage: production-live-probe.js --policy <json-file> ' +
       '--private-root <directory> ' +
-      '[--resume-clean-drift <private-evidence-file>]',
+      '[--resume-clean-drift <private-evidence-file> ' +
+      '--resume-runner-fault <private-incident-file>]',
     );
   }
   const policyPath = path.resolve(argv[1]);
@@ -173,7 +182,9 @@ export function parseProductionLiveArguments(argv) {
     privateRoot,
     publicRoot: PUBLIC_ROOT,
     resumeCleanDrift:
-      argv.length === 6 ? path.resolve(argv[5]) : null,
+      argv.length >= 6 ? path.resolve(argv[5]) : null,
+    resumeRunnerFault:
+      argv.length === 8 ? path.resolve(argv[7]) : null,
   };
 }
 
@@ -423,36 +434,65 @@ function shortToolNames(run) {
 }
 
 function providerAccounting(run) {
-  if (run.normalized !== null) {
-    return {
-      costUsd: run.normalized.result.costUsd,
-      turns: run.normalized.result.turns,
-    };
-  }
   try {
     const result = run.privateCapture.stdout
       .split(/\r?\n/)
       .filter((line) => line.length > 0)
       .map((line) => JSON.parse(line))
       .findLast((event) => event.type === 'result');
+    if (
+      !Number.isFinite(result?.total_cost_usd) ||
+      result.total_cost_usd < 0 ||
+      !Number.isSafeInteger(result?.num_turns) ||
+      result.num_turns < 0
+    ) {
+      throw new TypeError('Claude result lacks bounded provider accounting');
+    }
+    if (
+      run.normalized !== null &&
+      (
+        run.normalized.result.costUsd !== result.total_cost_usd ||
+        run.normalized.result.turns !== result.num_turns
+      )
+    ) {
+      throw new TypeError(
+        'normalized and raw Claude provider accounting differ',
+      );
+    }
     return {
-      costUsd:
-        Number.isFinite(result?.total_cost_usd) &&
-        result.total_cost_usd >= 0
-          ? result.total_cost_usd
-          : 0,
-      turns:
-        Number.isSafeInteger(result?.num_turns) &&
-        result.num_turns >= 0
-          ? result.num_turns
-          : null,
+      costUsd: result.total_cost_usd,
+      turns: result.num_turns,
     };
-  } catch {
-    return {
-      costUsd: 0,
-      turns: null,
-    };
+  } catch (error) {
+    if (error instanceof TypeError) throw error;
+    throw new TypeError(
+      `Claude provider accounting could not be parsed: ${error.message}`,
+    );
   }
+}
+
+export function evidenceCostUsd(value) {
+  if (!Number.isFinite(value) || value < 0) {
+    throw new TypeError('evidence cost must be a non-negative finite number');
+  }
+  return String(value);
+}
+
+export function normalizedEvidenceProjection(normalized) {
+  if (
+    normalized === null ||
+    typeof normalized !== 'object' ||
+    typeof normalized.result !== 'object'
+  ) {
+    throw new TypeError('normalized Claude evidence projection is invalid');
+  }
+  return {
+    ...structuredClone(normalized),
+    result: {
+      ...structuredClone(normalized.result),
+      costUsd: evidenceCostUsd(normalized.result.costUsd),
+    },
+  };
 }
 
 function findTool(run, name) {
@@ -549,6 +589,16 @@ async function removeAndVerify(target) {
     () => access(target),
     { code: 'ENOENT' },
   );
+}
+
+async function assertPathAbsent(target, label) {
+  try {
+    await access(target);
+  } catch (error) {
+    if (error?.code === 'ENOENT') return;
+    throw error;
+  }
+  throw new TypeError(`${label} already exists; refusing provider replay`);
 }
 
 async function recoverCleanProfileDrift({
@@ -665,7 +715,7 @@ async function recoverCleanProfileDrift({
       processGroupGone: evidence.terminal.cleanup.groupGone,
       observedClientVersion: evidence.receipt.client.observedVersion,
       observedModel: initialization.model,
-      costUsd: result.total_cost_usd,
+      costUsd: evidenceCostUsd(result.total_cost_usd),
       turns: result.num_turns,
       publicEvidence: {
         filename: path.basename(publicPath),
@@ -691,6 +741,111 @@ async function recoverCleanProfileDrift({
   };
 }
 
+export async function recoverRunnerFault({
+  policy,
+  privateRoot,
+  privatePath,
+  publicRoot,
+}) {
+  const declaredPrivate = path.resolve(privatePath);
+  if (
+    !withinRoot(privateRoot, declaredPrivate) ||
+    path.basename(declaredPrivate) !==
+      'denied-serialization-fault.private.json'
+  ) {
+    throw new TypeError(
+      'runner-fault evidence is outside the approved private root',
+    );
+  }
+  if (await realpath(declaredPrivate) !== declaredPrivate) {
+    throw new TypeError('runner-fault evidence aliases another path');
+  }
+  const privateText = await readFile(declaredPrivate, 'utf8');
+  const incident = JSON.parse(privateText);
+  if (
+    incident.schema !== 'scopa.claude-live-runner-fault.private.v1' ||
+    canonicalJsonPretty(incident) !== privateText ||
+    incident.scenario !== 'denied' ||
+    incident.livePolicySha256 !== policy.policySha256 ||
+    incident.providerInvocationConsumed !== true ||
+    incident.publishableScenarioEvidence !== false ||
+    incident.failure?.kind !==
+      'non-integer-canonical-json-rejection' ||
+    incident.failure?.path !== '$.result.costUsd' ||
+    incident.accounting?.kind !== 'policy-max-reservation' ||
+    incident.accounting?.costUsd !==
+      policy.limits.maxBudgetUsdPerRun ||
+    incident.accounting?.turns !== policy.limits.maxTurnsPerRun ||
+    incident.knownObservedClientVersion !== '2.1.220' ||
+    incident.knownObservedModel !== 'claude-sonnet-5' ||
+    incident.cleanup?.disposableRepositoryGone !== true ||
+    incident.cleanup?.providerMetadataGone !== true ||
+    incident.cleanup?.temporaryRootGone !== true
+  ) {
+    throw new TypeError('runner-fault evidence is not the approved incident');
+  }
+  const privateMetadata = await lstat(declaredPrivate);
+  if (
+    !privateMetadata.isFile() ||
+    privateMetadata.isSymbolicLink() ||
+    (privateMetadata.mode & 0o777) !== 0o600
+  ) {
+    throw new TypeError('runner-fault private evidence mode is invalid');
+  }
+  const publicPath = path.join(
+    publicRoot,
+    'denied-serialization-fault.public.json',
+  );
+  const publicText = await readFile(publicPath, 'utf8');
+  const publicIncident = JSON.parse(publicText);
+  if (
+    publicIncident.schema !==
+      'scopa.claude-live-runner-fault.public.v1' ||
+    publicIncident.privateIncidentBinding?.sha256 !== sha256(privateText) ||
+    publicIncident.privateIncidentBinding?.bytes !==
+      Buffer.byteLength(privateText, 'utf8') ||
+    publicIncident.scenario !== 'denied' ||
+    publicIncident.livePolicySha256 !== policy.policySha256 ||
+    publicIncident.sourceCommit !== incident.sourceCommit ||
+    publicIncident.providerInvocationConsumed !== true ||
+    publicIncident.publishableScenarioEvidence !== false
+  ) {
+    throw new TypeError('runner-fault public/private binding is invalid');
+  }
+  return {
+    scenario: 'denied-runner-fault',
+    expectedCanStop: true,
+    observedCanStop: null,
+    terminalState: 'runner-failed',
+    terminalReason: 'non-integer-cost-canonicalization',
+    processGroupGone: null,
+    observedClientVersion: incident.knownObservedClientVersion,
+    observedModel: incident.knownObservedModel,
+    costUsd: incident.accounting.costUsd,
+    turns: incident.accounting.turns,
+    publicEvidence: {
+      filename: path.basename(publicPath),
+      bytes: Buffer.byteLength(publicText, 'utf8'),
+      sha256: sha256(publicText),
+    },
+    privateEvidence: {
+      filename: path.basename(declaredPrivate),
+      bytes: Buffer.byteLength(privateText, 'utf8'),
+      sha256: sha256(privateText),
+      mode: 0o600,
+    },
+    residue: {
+      changedFileCount: 0,
+      totalChangedBytes: 0,
+      onlyBoundedNonResumableMetadata: true,
+      files: [],
+    },
+    profileDrift: null,
+    sourceCommit: incident.sourceCommit,
+    qualification: 'inconclusive-lost-before-publication',
+  };
+}
+
 async function runCampaign({
   installed,
   policy,
@@ -699,25 +854,66 @@ async function runCampaign({
   privateRoot,
   publicRoot,
   resumeDrift,
+  resumeFault,
 }) {
   const matrix = installed.integration.createClaudeCapabilityMatrix({});
-  const scenarios = resumeDrift === null
-    ? S15_LIVE_SCENARIOS
-    : S15_LIVE_SCENARIOS.slice(1);
+  const priorCount =
+    (resumeDrift === null ? 0 : 1) +
+    (resumeFault === null ? 0 : 1);
+  const scenarios = S15_LIVE_SCENARIOS.slice(priorCount);
   assert.equal(
-    scenarios.length + (resumeDrift === null ? 0 : 1),
+    scenarios.length + priorCount,
     policy.limits.maxProviderInvocations,
   );
+  if (resumeFault !== null && resumeDrift === null) {
+    throw new TypeError('runner-fault resume requires the clean drift record');
+  }
   const repositories = new Map();
   const providerStores = new Set();
-  const runRecords =
-    resumeDrift === null ? [] : [resumeDrift.record];
+  const runRecords = [
+    ...(resumeDrift === null ? [] : [resumeDrift.record]),
+    ...(resumeFault === null ? [] : [resumeFault]),
+  ];
   let authIdentitySha256 = resumeDrift?.authIdentitySha256 ?? null;
-  let totalCostUsd = resumeDrift?.record.costUsd ?? 0;
+  let totalCostUsd = runRecords.reduce(
+    (total, record) => total + Number(record.costUsd),
+    0,
+  );
   let repositoryCleanupVerified = false;
   let providerMetadataCleanupVerified = false;
 
   try {
+    await assertPathAbsent(
+      path.join(privateRoot, 'campaign.private.json'),
+      'private campaign evidence',
+    );
+    await assertPathAbsent(
+      path.join(publicRoot, 'campaign.public.json'),
+      'public campaign evidence',
+    );
+    if (resumeFault !== null) {
+      const repositoryRoot = path.join(
+        temporary,
+        'repository-denied',
+      );
+      await createRepository({
+        root: repositoryRoot,
+        definitionFile: 'clean.slice-definition.json',
+        initializeProject: installed.project.initializeProject,
+      });
+      const seed = await open(
+        path.join(repositoryRoot, 'workspace/claude.txt'),
+        'wx',
+        0o600,
+      );
+      try {
+        await seed.writeFile('CLAUDE_ALLOWED\n', 'utf8');
+        await seed.sync();
+      } finally {
+        await seed.close();
+      }
+      repositories.set('denied', repositoryRoot);
+    }
     for (const scenario of scenarios) {
       if (scenario.definition !== null) {
         const repositoryRoot = path.join(
@@ -738,6 +934,48 @@ async function runCampaign({
       const beforeStore = await snapshotProviderStore(storeRoot);
       const prompt = prompts[scenario.promptKey];
       assert.equal(typeof prompt, 'string');
+      const intentPath = path.join(
+        privateRoot,
+        `${scenario.id}.intent.private.json`,
+      );
+      const journalPath = path.join(
+        privateRoot,
+        `${scenario.id}.inflight.private.json`,
+      );
+      const privatePath = path.join(
+        privateRoot,
+        `${scenario.id}.private.json`,
+      );
+      const publicPath = path.join(
+        publicRoot,
+        `${scenario.id}.public.json`,
+      );
+      for (const [target, label] of [
+        [intentPath, `${scenario.id} private invocation intent`],
+        [journalPath, `${scenario.id} private recovery journal`],
+        [privatePath, `${scenario.id} private evidence`],
+        [publicPath, `${scenario.id} public evidence`],
+      ]) {
+        await assertPathAbsent(target, label);
+      }
+      await writeNoReplace(
+        intentPath,
+        {
+          schema: 'scopa.claude-live-run-intent.private.v1',
+          sourceCommit: installed.artifact.sourceCommit,
+          livePolicySha256: policy.policySha256,
+          scenario: {
+            id: scenario.id,
+            version: 'S15.v1',
+          },
+          providerInvocationMayBeConsumed: true,
+          accountingReservation: {
+            costUsd: policy.limits.maxBudgetUsdPerRun,
+            turns: policy.limits.maxTurnsPerRun,
+          },
+        },
+        0o600,
+      );
       const run = await installed.integration.runClaudeSession({
         repoRoot: repositoryRoot,
         adapterCli: installed.adapterCli,
@@ -757,6 +995,33 @@ async function runCampaign({
         maxBudgetUsd: policy.limits.maxBudgetUsdPerRun,
         timeoutMs: policy.limits.timeoutMs,
       });
+      const journal = {
+        schema: 'scopa.claude-live-run-journal.private.v1',
+        sourceCommit: installed.artifact.sourceCommit,
+        livePolicySha256: policy.policySha256,
+        scenario: {
+          id: scenario.id,
+          version: 'S15.v1',
+        },
+        receipt: run.receipt,
+        terminal: run.terminal,
+        private: {
+          stdout: run.privateCapture.stdout,
+          stderr: run.privateCapture.stderr,
+          authIdentitySha256:
+            run.privateCapture.authIdentitySha256,
+        },
+      };
+      const journalText = canonicalJsonPretty(journal);
+      if (
+        Buffer.byteLength(journalText, 'utf8') >
+        policy.evidence.maxPrivateBytesPerRun
+      ) {
+        throw new TypeError(
+          `${scenario.id} recovery journal exceeds its evidence bound`,
+        );
+      }
+      await writeNoReplace(journalPath, journal, 0o600);
       const afterStore = await snapshotProviderStore(storeRoot);
       const residue = providerStoreDelta(beforeStore, afterStore);
       if (!residue.onlyBoundedNonResumableMetadata) {
@@ -792,6 +1057,12 @@ async function runCampaign({
       ) {
         throw new TypeError('Claude campaign exceeded its aggregate budget');
       }
+      await assertScenarioOutcome({
+        run,
+        scenario,
+        repositoryRoot,
+        campaignRoot: temporary,
+      });
       const summary = {
         schema: 'scopa.claude-live-run-summary.v1',
         scenario: scenario.id,
@@ -802,7 +1073,7 @@ async function runCampaign({
         observedClientVersion: run.receipt.client.observedVersion,
         requestedModel: run.receipt.requestedModel,
         observedModel: run.normalized?.initialization?.model ?? null,
-        costUsd,
+        costUsd: evidenceCostUsd(costUsd),
         turns,
         modelCallableToolsScopaOnly:
           run.normalized?.initialization?.tools?.every(
@@ -828,7 +1099,9 @@ async function runCampaign({
         stderr: run.privateCapture.stderr,
         raw: canonicalJsonPretty({
           authIdentitySha256: currentIdentity,
-          normalizedSha256: jsonHash(run.normalized),
+          normalizedSha256: jsonHash(
+            normalizedEvidenceProjection(run.normalized),
+          ),
           rawStreamSha256: run.terminal.output.stdoutSha256,
         }),
       });
@@ -841,14 +1114,6 @@ async function runCampaign({
           `${scenario.id} private evidence exceeds its bound`,
         );
       }
-      const privatePath = path.join(
-        privateRoot,
-        `${scenario.id}.private.json`,
-      );
-      const publicPath = path.join(
-        publicRoot,
-        `${scenario.id}.public.json`,
-      );
       const evidenceWrite = await installed.liveRun.persistLiveEvidence({
         privateRoot,
         privatePath,
@@ -866,7 +1131,7 @@ async function runCampaign({
         processGroupGone: run.terminal.cleanup.groupGone,
         observedClientVersion: run.receipt.client.observedVersion,
         observedModel: run.normalized?.initialization?.model ?? null,
-        costUsd,
+        costUsd: evidenceCostUsd(costUsd),
         turns,
         publicEvidence: {
           filename: path.basename(publicPath),
@@ -881,13 +1146,13 @@ async function runCampaign({
         },
         residue,
         sourceCommit: installed.artifact.sourceCommit,
+        qualification:
+          resumeFault !== null && scenario.repository === 'denied'
+            ? 'reconstructed-state-after-runner-fault'
+            : 'direct',
       });
-      await assertScenarioOutcome({
-        run,
-        scenario,
-        repositoryRoot,
-        campaignRoot: temporary,
-      });
+      await removeAndVerify(journalPath);
+      await removeAndVerify(intentPath);
     }
   } finally {
     for (const repositoryRoot of repositories.values()) {
@@ -912,6 +1177,7 @@ async function runCampaign({
     totalCostUsd,
     authIdentitySha256,
     runRecords,
+    continuityEvidenceReconstructed: resumeFault !== null,
     cleanup: {
       repositoryCleanupVerified,
       providerMetadataCleanupVerified,
@@ -929,6 +1195,7 @@ async function main() {
     privateRoot,
     publicRoot,
     resumeCleanDrift,
+    resumeRunnerFault,
   } = parseProductionLiveArguments(process.argv.slice(2));
   const expectedPolicyPath = await realpath(
     path.join(FIXTURE, 'claude-live-policy.json'),
@@ -966,6 +1233,14 @@ async function main() {
         privatePath: resumeCleanDrift,
         publicRoot: await realpath(publicRoot),
       });
+    const resumeFault = resumeRunnerFault === null
+      ? null
+      : await recoverRunnerFault({
+        policy,
+        privateRoot: await realpath(privateRoot),
+        privatePath: resumeRunnerFault,
+        publicRoot: await realpath(publicRoot),
+      });
     campaign = await runCampaign({
       installed,
       policy,
@@ -974,6 +1249,7 @@ async function main() {
       privateRoot,
       publicRoot,
       resumeDrift,
+      resumeFault,
     });
   } finally {
     await removeAndVerify(temporary);
@@ -1017,7 +1293,9 @@ async function main() {
           record.terminalState === 'succeeded' &&
           record.expectedCanStop === record.observedCanStop,
       ),
-    totalCostUsd: campaign.totalCostUsd,
+    continuityEvidenceReconstructed:
+      campaign.continuityEvidenceReconstructed,
+    totalCostUsd: evidenceCostUsd(campaign.totalCostUsd),
     budgetUsd: campaign.policy.limits.maxCampaignBudgetUsd,
     runs: campaign.runRecords.map((record) => ({
       scenario: record.scenario,
@@ -1030,6 +1308,7 @@ async function main() {
       publicEvidence: record.publicEvidence,
       sourceCommit: record.sourceCommit,
       profileDrift: record.profileDrift ?? null,
+      qualification: record.qualification ?? 'direct',
       onlyBoundedNonResumableMetadata:
         record.residue.onlyBoundedNonResumableMetadata,
     })),
@@ -1075,7 +1354,7 @@ async function main() {
     sourceCommit,
     policySha256: campaign.policy.policySha256,
     invocationCount: campaign.runRecords.length,
-    totalCostUsd: campaign.totalCostUsd,
+    totalCostUsd: evidenceCostUsd(campaign.totalCostUsd),
     cleanup: publicCampaign.cleanup,
     publicCampaignSha256: publicWrite.sha256,
   })}`);

@@ -1,0 +1,29 @@
+{
+  "accounting": {
+    "costUsd": "0.20",
+    "kind": "policy-max-reservation",
+    "turns": 12
+  },
+  "cleanup": {
+    "disposableRepositoryGone": true,
+    "providerMetadataGone": true,
+    "temporaryRootGone": true
+  },
+  "failure": {
+    "kind": "non-integer-canonical-json-rejection",
+    "path": "$.result.costUsd",
+    "stage": "normalized-result-private-evidence-hash"
+  },
+  "livePolicySha256": "ba238484a4e96f10157ac9916d4b8938571ee62e13e6ac0fcff4b8c68f8c2e31",
+  "privateIncidentBinding": {
+    "bytes": 826,
+    "sha256": "02424672c7f13b940ac45bedc59373b8dba2c892c1ce0a7db8683196bdb38337"
+  },
+  "providerInvocationConsumed": true,
+  "publishableScenarioEvidence": false,
+  "qualification": "inconclusive-lost-before-publication",
+  "recordedAt": "2026-07-29T06:38:00-07:00",
+  "scenario": "denied",
+  "schema": "scopa.claude-live-runner-fault.public.v1",
+  "sourceCommit": "5c70f348f213c0060af677817105acc8c17bbe06"
+}

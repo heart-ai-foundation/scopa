@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict';
 import {
+  createHash,
+} from 'node:crypto';
+import {
   chmod,
   mkdir,
   mkdtemp,
   rm,
+  writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -34,7 +38,10 @@ import {
 } from '../src/run.js';
 import {
   S15_LIVE_SCENARIOS,
+  evidenceCostUsd,
+  normalizedEvidenceProjection,
   parseProductionLiveArguments,
+  recoverRunnerFault,
 } from '../src/production-live-probe.js';
 
 const ROOT = path.resolve(
@@ -218,6 +225,7 @@ test('production campaign is explicit, six-run, and private-root closed', () => 
     '/tmp/scopa-s15-private-evidence',
   );
   assert.equal(parsed.resumeCleanDrift, null);
+  assert.equal(parsed.resumeRunnerFault, null);
   const resumed = parseProductionLiveArguments([
     '--policy',
     path.join(ROOT, 'fixtures/S15/claude-live-policy.json'),
@@ -232,6 +240,24 @@ test('production campaign is explicit, six-run, and private-root closed', () => 
     '/tmp/scopa-s15-private-evidence/' +
       'clean-profile-drift.superseded.private.json',
   );
+  assert.equal(resumed.resumeRunnerFault, null);
+  const faultResumed = parseProductionLiveArguments([
+    '--policy',
+    path.join(ROOT, 'fixtures/S15/claude-live-policy.json'),
+    '--private-root',
+    '/tmp/scopa-s15-private-evidence',
+    '--resume-clean-drift',
+    '/tmp/scopa-s15-private-evidence/' +
+      'clean-profile-drift.superseded.private.json',
+    '--resume-runner-fault',
+    '/tmp/scopa-s15-private-evidence/' +
+      'denied-serialization-fault.private.json',
+  ]);
+  assert.equal(
+    faultResumed.resumeRunnerFault,
+    '/tmp/scopa-s15-private-evidence/' +
+      'denied-serialization-fault.private.json',
+  );
   assert.throws(
     () => parseProductionLiveArguments([
       '--policy',
@@ -241,6 +267,83 @@ test('production campaign is explicit, six-run, and private-root closed', () => 
     ]),
     /must be outside the repository/,
   );
+});
+
+test('runner-fault resume is private-bound and reserves policy maxima', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s15-resume-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  const privateRoot = path.join(root, 'private');
+  const publicRoot = path.join(root, 'public');
+  await mkdir(privateRoot);
+  await mkdir(publicRoot);
+  const livePolicy = policy();
+  const incident = {
+    schema: 'scopa.claude-live-runner-fault.private.v1',
+    sourceCommit: 'c'.repeat(40),
+    livePolicySha256: livePolicy.policySha256,
+    scenario: 'denied',
+    providerInvocationConsumed: true,
+    publishableScenarioEvidence: false,
+    knownObservedClientVersion: '2.1.220',
+    knownObservedModel: 'claude-sonnet-5',
+    accounting: {
+      kind: 'policy-max-reservation',
+      costUsd: livePolicy.limits.maxBudgetUsdPerRun,
+      turns: livePolicy.limits.maxTurnsPerRun,
+    },
+    failure: {
+      kind: 'non-integer-canonical-json-rejection',
+      path: '$.result.costUsd',
+      stage: 'normalized-result-private-evidence-hash',
+    },
+    cleanup: {
+      disposableRepositoryGone: true,
+      providerMetadataGone: true,
+      temporaryRootGone: true,
+    },
+  };
+  const privateText = canonicalJsonPretty(incident);
+  const privatePath = path.join(
+    privateRoot,
+    'denied-serialization-fault.private.json',
+  );
+  await writeFile(privatePath, privateText, {
+    mode: 0o600,
+  });
+  await writeFile(
+    path.join(publicRoot, 'denied-serialization-fault.public.json'),
+    canonicalJsonPretty({
+      schema: 'scopa.claude-live-runner-fault.public.v1',
+      sourceCommit: incident.sourceCommit,
+      livePolicySha256: livePolicy.policySha256,
+      scenario: 'denied',
+      providerInvocationConsumed: true,
+      publishableScenarioEvidence: false,
+      privateIncidentBinding: {
+        bytes: Buffer.byteLength(privateText, 'utf8'),
+        sha256: createHash('sha256')
+          .update(privateText)
+          .digest('hex'),
+      },
+    }),
+  );
+  const recovered = await recoverRunnerFault({
+    policy: livePolicy,
+    privateRoot,
+    privatePath,
+    publicRoot,
+  });
+  assert.equal(recovered.scenario, 'denied-runner-fault');
+  assert.equal(recovered.terminalState, 'runner-failed');
+  assert.equal(
+    recovered.costUsd,
+    livePolicy.limits.maxBudgetUsdPerRun,
+  );
+  assert.equal(recovered.observedCanStop, null);
+  assert.equal(recovered.qualification, 'inconclusive-lost-before-publication');
 });
 
 test('auth boundary verifies the account class without retaining identity', () => {
@@ -482,6 +585,10 @@ test('successful runs bind safe policy/auth receipts and repeated identity', asy
   );
   assert.equal(first.terminal.state, 'succeeded');
   assert.equal(first.terminal.canStop, true);
+  assert.equal(evidenceCostUsd(first.normalized.result.costUsd), '0.01');
+  const evidenceProjection = normalizedEvidenceProjection(first.normalized);
+  assert.equal(evidenceProjection.result.costUsd, '0.01');
+  assert.doesNotThrow(() => canonicalJsonPretty(evidenceProjection));
   assert.equal(first.receipt.client.observedVersion, EXPECTED_CLAUDE_CODE_VERSION);
   assert.equal(
     first.receipt.limits.livePolicySha256,

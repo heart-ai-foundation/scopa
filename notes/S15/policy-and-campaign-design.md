@@ -48,10 +48,20 @@ The six real requests are:
 6. second repeated read in another fresh process.
 
 The first execution reproduced a profile drift before the other requests.
-The final campaign accounting therefore treats that closed failure as
-invocation one and runs the remaining five scenarios after remediation. The
-denied scenario's contained corrective write seeds the cold-restart and
-repeat-read chain. This preserves the six-invocation and USD 1.20 hard caps.
+Campaign accounting therefore treats that closed failure as invocation one.
+The next request reached a normalized denied-path result but exposed a runner
+defect while private evidence was being assembled: canonical JSON correctly
+rejected the fractional numeric USD cost. Because the disposable state was
+already cleaned before the evidence write, that denied result cannot be
+published or used as passing evidence. It remains invocation two, is labeled
+inconclusive, and reserves the full USD 0.20 per-run maximum.
+
+Only the four unconsumed requests remain authorized. The runner reconstructs
+the synthetic allowed file before the cold/repeat chain and labels those
+records `reconstructed-state-after-runner-fault`; they are useful live
+hardening observations but do not substitute for direct denied-to-restart
+continuity. This preserves the six-invocation and USD 1.20 hard caps without
+silently replacing a lost request.
 
 All use the exact packed-and-installed candidate from a clean source commit.
 Every receipt binds package identity, client version, requested model,
@@ -72,6 +82,16 @@ provider accounting recovery for normalization failures. The CLI
 `--json-schema` flag was removed because Claude 2.1.220 exposed that helper as
 a seventh callable tool; strict final-output validation remains in the
 normalizer.
+
+The second request reproduced a decimal-evidence defect. USD costs are now
+encoded as canonical decimal strings in evidence while bounded arithmetic
+continues on validated finite numbers. Raw and normalized accounting must
+agree. Before each provider call, collision checks and a mode-`0600` intent
+record make any uncertain invocation non-replayable. Immediately after each
+provider return, the runner writes a size-bounded private recovery journal
+before residue, semantic, or publication processing. A successful publication
+removes both records; a crash leaves conservative invocation accounting and,
+after a provider return, the exact private stream for no-replay investigation.
 
 The sandbox also reproduced a fast asynchronous spawn-denial race. The shared
 supervisor now registers its error listener immediately after spawn, so this

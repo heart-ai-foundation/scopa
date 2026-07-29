@@ -45,11 +45,47 @@ the safe provider result fields.
   packager, rather than a source-package variant.
 
 The policy permits six provider invocations and USD 1.20 total. The failed
-drift request remains invocation one. The resumed runner therefore executes
-only the five remaining scenarios and includes USD 0.0557443 in aggregate
-budget accounting. It does not increase authority or spend.
+drift request remains invocation one. The resumed runner initially had five
+remaining slots and included USD 0.0557443 in aggregate budget accounting. It
+did not increase authority or spend.
 
-The denied scenario now writes the continuity fixture after observing the
-escape denial. Cold restart and both repeat reads use that repository, so the
-five remaining requests still cover contained mutation, scope denial,
-false-green refusal, fresh-process recovery, and repeat-session residue.
+The resumed design had the denied scenario write the continuity fixture after
+observing the escape denial, with cold restart and both repeat reads using
+that repository. The next section records why that intended direct chain did
+not become qualifying evidence.
+
+## Second request: evidence serialization fault
+
+Source commit:
+`5c70f348f213c0060af677817105acc8c17bbe06`
+
+The resumed command sent the denied-path request and Claude returned before
+the runner failed at the normalized-evidence hash. The canonical encoder
+reported `$.result.costUsd is not canonical JSON data`: provider costs are
+fractional numbers, while SCOPA canonical JSON admits only safe integers.
+
+The failure occurred before outcome assertions and before private/public
+scenario evidence was persisted. The disposable repository, temporary root,
+and run-specific provider metadata were nevertheless removed. With the raw
+result gone, this request is not reconstructed as a pass. It is recorded as
+`denied-runner-fault`, `runner-failed`, and
+`inconclusive-lost-before-publication`; accounting conservatively reserves
+USD 0.20 and 12 turns.
+
+The narrow remediation:
+
+- serializes evidence costs as canonical decimal strings;
+- requires raw and normalized cost/turn accounting to agree;
+- refuses all intent, journal, scenario, and campaign evidence collisions
+  before provider traffic;
+- writes a mode-`0600` intent before every provider call and a bounded
+  recovery journal immediately after every provider return;
+- removes those records only after semantic assertions and private/public
+  publication succeed; and
+- resumes with only the four genuinely unconsumed provider slots.
+
+Because the denied repository was destroyed, the remaining cold/repeat chain
+uses a deterministically reconstructed synthetic allowed file and is labeled
+accordingly. The final campaign cannot satisfy direct denied-path or
+denied-to-restart continuity acceptance without separate future authority for
+a new campaign.

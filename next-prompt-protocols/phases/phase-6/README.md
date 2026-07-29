@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `074f5cc`
+Current commit reference: `5c70f34`
 Current active protocol: `active/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
 
 ## Scope

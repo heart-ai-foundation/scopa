@@ -16,7 +16,7 @@
     "orphanDetected": false
   },
   "providerAccountingRecoveredFromBoundedPrivateResult": {
-    "costUsd": 0.0557443,
+    "costUsd": "0.0557443",
     "turns": 8
   },
   "drift": {
