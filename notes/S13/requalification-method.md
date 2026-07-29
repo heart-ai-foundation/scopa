@@ -307,8 +307,7 @@ The substantive review-evidence commit
 `c512fec3c5317b24c416c16a996bea4892ba2b26` passed hosted run
 `30411897280`, job `90449683604`. Its retained receipt binds all three
 accepted review reports to the exact source and candidate. The hosted RQ3
-constituent is satisfied; principal provider-side credential-rotation
-confirmation is the sole remaining queue blocker.
+constituent is satisfied.
 
 ## Fresh-review separation
 
@@ -342,9 +341,12 @@ screenshots, old-token fragments, and rotation secrets are forbidden.
 Without that confirmation, RQ1 and RQ2 may be evidenced but the hardening
 queue remains open.
 
-On 2026-07-28 the principal answered `no`: the required provider-side rotation
-and invalidation is not complete. Only that boolean and the provider names
-were retained. RQ3 remains false and the queue remains open.
+On 2026-07-28 the principal first answered `no`, so RQ3 and the queue remained
+open. Later that day the principal answered `yes`, confirming provider-side
+rotation and old-value invalidation for Slack, OpenRouter, and Valyu. The
+repository retains only those booleans, the date, and the provider names; it
+retains no credential value or rotation secret. RQ3 is satisfied and the
+hardening queue may close.
 
 ## Claim and release boundary
 

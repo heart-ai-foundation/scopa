@@ -60,7 +60,7 @@ Macro Delta and creates no independent work.
 | --- | --- | --- | --- | --- | --- |
 | S11 | Proof contract and redaction convergence | Align validators and make publication collision-safe | Runtime/schema corpus agrees and receipts cannot falsely claim semantic preservation | Differential mutation corpus, collision corpus, S10 regression, full gate | `completed` |
 | S12 | Installed surface, launcher, privacy, and CI hardening | Reconcile shipped commands and bound consumer errors/package residue | Every retained command runs from tarball-only bytes and hostile launcher errors stay structured | Installed-command matrix, package/privacy scan, hosted CI | `completed` |
-| S13 | Fresh-agent adversarial release requalification | Rebuild and independently requalify the corrected candidate | Three fresh reviewers reproduce corrected boundaries with no critical/high/medium finding | Exact artifact, source-free corpora, outside reviews, hosted gate | `active` |
+| S13 | Fresh-agent adversarial release requalification | Rebuild and independently requalify the corrected candidate | Three fresh reviewers reproduce corrected boundaries with no critical/high/medium finding | Exact artifact, source-free corpora, outside reviews, hosted gate | `completed` |
 
 ## Files in play
 
@@ -189,3 +189,19 @@ Private candidate tarball and raw proof live only in the SCOPA evidence home.
 - Provider-side credential rotation/old-value invalidation is confirmed
   without retaining any credential value.
 - RQ1, RQ2, and RQ3 are independently reviewable and satisfied.
+
+## Closeout
+
+Round 7 binds clean source commit
+`5a6b29832910db26497095289badb3e859bca48c` to candidate SHA-256
+`6a8d6db6c07db772a4cba32912995472e017ee4f4bee3290f44fe9baf04c4692`.
+All three fresh isolated reviewers returned `ACCEPT` with no critical, high,
+or medium finding; the full local and hosted gates passed; and the principal
+confirmed provider-side rotation and old-value invalidation for Slack,
+OpenRouter, and Valyu. Only a boolean confirmation and provider names are
+retained.
+
+RQ1, RQ2, and RQ3 are satisfied. S13 and the ratified Adversarial Release
+Hardening queue are complete. This closeout does not authorize npm
+publication, a GitHub Release, a repository visibility change, deployment,
+customer use, public announcement, certification, or trademark claim.

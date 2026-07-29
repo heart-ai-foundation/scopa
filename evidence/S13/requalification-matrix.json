@@ -22,32 +22,32 @@
     },
     {
       "id": "semantic-path-and-cli-remediations",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "semantic constants, 4096-byte canonical paths, closed mode domain, and stable verification exits"
     },
     {
       "id": "mcp-transport-evidence-remediation",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "bounded framing, protocol errors, transcript count/byte ceilings, call/result reservation, and output backpressure"
     },
     {
       "id": "large-path-poisoning-remediation",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "over-4096-byte path rejected without echo or filesystem access; transcript remains complete"
     },
     {
       "id": "packed-documentation-remediation",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "root files and root globs, generic URI schemes, and prescription-local source-checkout qualification audited across every packed Markdown document"
     },
     {
       "id": "evidence-chain-binding-remediation",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "every named receipt hashed; parity binds corpus and validators; dependency receipt binds lockfile"
     },
     {
       "id": "hardlink-and-atomic-write-remediation",
-      "status": "passed-locally-awaiting-final-review",
+      "status": "passed",
       "evidence": "multi-link reads denied; governed writes use identity-checked descriptor-directory atomic commit"
     },
     {
@@ -107,8 +107,8 @@
     },
     {
       "id": "provider-credential-rotation",
-      "status": "blocked-provider-rotation-incomplete",
-      "evidence": "evidence/S13/credential-rotation-status.json; boolean false, no secret material retained"
+      "status": "passed",
+      "evidence": "evidence/S13/credential-rotation-status.json; principal-confirmed boolean true, no secret material retained"
     },
     {
       "id": "final-hosted-evidence-gate",
@@ -118,6 +118,6 @@
   ],
   "rq1Ready": true,
   "rq2Ready": true,
-  "rq3Ready": false,
+  "rq3Ready": true,
   "publicationAuthorized": false
 }

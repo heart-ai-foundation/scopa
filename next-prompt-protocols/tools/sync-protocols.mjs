@@ -828,8 +828,14 @@ async function rotateSlice({ newActiveArg, commitArg, dryRun }) {
 async function regenerateDerivedFiles(manifest) {
   if (!manifest.active_protocol) {
     const nextReadme = generateNoActiveReadme(manifest);
+    const nextPhaseReadme = generateNoActivePhaseReadme(manifest);
     const nextLock = generateNoActiveLockfile(manifest);
+    const phaseReadmePath = path.join(ROOT, 'phases', phaseDirFromId(manifest.current_phase || 'phase-unset'), 'README.md');
+    if (!(await fileExists(phaseReadmePath))) {
+      throw new Error(`No-active protocol phase README does not exist: ${path.relative(ROOT, phaseReadmePath)}`);
+    }
     await writeFile(README_PATH, nextReadme);
+    await writeFile(phaseReadmePath, nextPhaseReadme);
     await writeFile(LOCK_PATH, stableJson(nextLock));
     return;
   }
@@ -871,15 +877,24 @@ async function main() {
 
   if (!manifest.active_protocol) {
     const nextReadme = generateNoActiveReadme(manifest);
+    const nextPhaseReadme = generateNoActivePhaseReadme(manifest);
     const nextLock = generateNoActiveLockfile(manifest);
+    const phaseReadmePath = path.join(ROOT, 'phases', phaseDirFromId(manifest.current_phase || 'phase-unset'), 'README.md');
+    if (!(await fileExists(phaseReadmePath))) {
+      throw new Error(`No-active protocol phase README does not exist: ${path.relative(ROOT, phaseReadmePath)}`);
+    }
     if (checkOnly) {
-      const [currentReadme, currentLock] = await Promise.all([
+      const [currentReadme, currentPhaseReadme, currentLock] = await Promise.all([
         readFile(README_PATH, 'utf8'),
+        readFile(phaseReadmePath, 'utf8'),
         readFile(LOCK_PATH, 'utf8'),
       ]);
       const mismatches = [];
       if (currentReadme !== nextReadme) {
         mismatches.push('README.md is out of sync with manifest.json');
+      }
+      if (currentPhaseReadme !== nextPhaseReadme) {
+        mismatches.push(`phases/${phaseDirFromId(manifest.current_phase || 'phase-unset')}/README.md is out of sync with manifest.json`);
       }
       if (currentLock !== stableJson(nextLock)) {
         mismatches.push('.slice-lock.json is out of sync with manifest.json');
@@ -891,8 +906,9 @@ async function main() {
       return;
     }
     await writeFile(README_PATH, nextReadme);
+    await writeFile(phaseReadmePath, nextPhaseReadme);
     await writeFile(LOCK_PATH, stableJson(nextLock));
-    console.log('[protocol:sync] no active protocol; regenerated no-active README and lockfile.');
+    console.log('[protocol:sync] no active protocol; regenerated no-active README, phase README, and lockfile.');
     return;
   }
 

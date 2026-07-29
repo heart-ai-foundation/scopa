@@ -1,54 +1,19 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "694119d7",
+  "current_commit": "3c6bf9b9",
   "current_phase": "phase-5-adversarial-hardening",
-  "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "release-requalification",
-  "crosses": [
-    "proof-integrity",
-    "distribution-hardening",
-    "conformance"
-  ],
-  "advances_contracts": [
-    "RQ1",
-    "RQ2",
-    "RQ3"
-  ],
-  "active_protocol_sha256": "sha256:c56f682506410cd67f213ca037a73d52cbc6d86c071596b11f4f6f71c7c99124",
-  "active_objective": "Build and retain one exact private candidate from a clean commit, run the full\nsource-free hostile corpus against those bytes, and assign three fresh isolated\nreviewers to attack artifact/distribution, evidence/proof, and runtime/\ncontainment boundaries. Require each reviewer to issue a structured `ACCEPT`\nwith no critical, high, or medium finding before closeout.",
-  "allowed_files": [
-    "package.json",
-    "package-lock.json",
-    "README.md",
-    "CONTRIBUTING.md",
-    "docs/**",
-    ".github/**",
-    "packages/release-readiness/**",
-    "packages/adapter-host/**",
-    "packages/cli/src/command.js",
-    "packages/cli/README.md",
-    "packages/cli/test/cli.test.js",
-    "packages/interop/README.md",
-    "packages/integrations/codex/README.md",
-    "packages/legibility/README.md",
-    "fixtures/S10/consumer-client.mjs",
-    "schemas/**",
-    "fixtures/S13/**",
-    "next-prompt-protocols/**",
-    "notes/S13/**",
-    "runs/S13/**",
-    "evidence/S13/**"
-  ],
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "No active protocol. The ratified SCOPA Adversarial Release Hardening S11-S13 queue is complete; publication remains separately unauthorized.",
+  "allowed_files": [],
   "verification": {
-    "fast_deterministic": "npm run test:s12",
-    "installed_probe": "npm run probe:s12:installed",
-    "proof_parity": "npm run probe:s11:parity",
-    "dependency_audit": "npm audit --audit-level=low",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
-  "stop_condition": "Stop S13 on any critical, high, or medium reviewer finding, proof or artifact mismatch, sourceful resolution, unsafe redaction, broken installed command, containment or signature bypass, false-green state, unconfirmed credential rotation, hosted-gate failure, or publication attempt."
+  "stop_condition": "No active protocol is currently assigned. Do not infer implementation or publication authority; require a new principal-approved Macro Delta or protocol."
 }

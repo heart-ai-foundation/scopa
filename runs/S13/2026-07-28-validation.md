@@ -491,12 +491,29 @@ The substantive evidence commit
 all three accepted reports and binds the exact source/candidate. The hosted
 RQ3 constituent is satisfied.
 
-## Pending RQ3
+## RQ3 closeout
 
 - final hosted evidence-commit gate: passed;
 - provider-side confirmation that affected Slack, OpenRouter, and Valyu
-  credentials were rotated and old values invalidated: principal confirmed
-  `no`; blocked until provider-side completion.
+  credentials were rotated and old values invalidated: principal initially
+  confirmed `no`, then confirmed `yes` after provider-side completion.
 
-Only a boolean confirmation may be retained. Until both items pass, RQ3 and
-the hardening queue remain open even if RQ1/RQ2 are green.
+Only the boolean chronology, date, and provider names are retained. No
+credential value, screenshot, fragment, or rotation secret is retained. RQ1,
+RQ2, and RQ3 are satisfied; publication remains separately unauthorized.
+
+## Final queue-close validation
+
+Working directory: `/home/dylan/scopa`
+
+- `npm test`: passed; 119/119 accumulated tests plus the S8-S12 focused gates.
+- `npm run protocol:sync`: passed in no-active mode.
+- `npm run protocol:check`: passed in no-active mode.
+- `git diff --check`: passed.
+- Credential evidence: boolean/provider names only; no secret material
+  retained.
+
+The no-active synchronizer now regenerates and checks the current phase README
+alongside the root protocol README and slice lock. The final derived state
+therefore cannot leave Phase 5 claiming that S13 is active after the manifest
+closes it.

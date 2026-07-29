@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "694119d7",
+  "current_commit": "3c6bf9b9",
   "current_phase": "phase-5-adversarial-hardening",
-  "phase_scope": "Adversarial release hardening only: converge proof validation and publication, reconcile the installed consumer/error/CI surface, then independently requalify one exact private candidate.",
+  "phase_scope": "The ratified Adversarial Release Hardening S11-S13 queue is complete.",
   "macro_delta": "macro-deltas/2026-07-27-scopa-adversarial-release-hardening.md",
-  "active_protocol": "active/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
-  "active_objective": "Build and retain one exact private candidate from a clean commit, run the full source-free hostile corpus against those bytes, and assign three fresh isolated reviewers to attack artifact/distribution, evidence/proof, and runtime/containment boundaries. Require each reviewer to issue a structured ACCEPT with no critical, high, or medium finding before closeout.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "No active protocol. The ratified SCOPA Adversarial Release Hardening S11-S13 queue is complete; publication remains separately unauthorized.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
     "completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md",
     "completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md",
     "completed/2026-07-27-S10-developer-preview-release-candidate.md",
@@ -26,29 +27,7 @@
     "completed/2026-07-26-S0-conformance-harness.md",
     "completed/2026-07-26-S1-sealed-core.md"
   ],
-  "allowed_files": [
-    "package.json",
-    "package-lock.json",
-    "README.md",
-    "CONTRIBUTING.md",
-    "docs/**",
-    ".github/**",
-    "packages/release-readiness/**",
-    "packages/adapter-host/**",
-    "packages/cli/src/command.js",
-    "packages/cli/README.md",
-    "packages/cli/test/cli.test.js",
-    "packages/interop/README.md",
-    "packages/integrations/codex/README.md",
-    "packages/legibility/README.md",
-    "fixtures/S10/consumer-client.mjs",
-    "schemas/**",
-    "fixtures/S13/**",
-    "next-prompt-protocols/**",
-    "notes/S13/**",
-    "runs/S13/**",
-    "evidence/S13/**"
-  ],
+  "allowed_files": [],
   "non_goals": [
     "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
     "No new product feature, provider integration, command, export, schema, assurance level, effect category, trust policy, or verification primitive",
@@ -60,16 +39,11 @@
     "No queue entries outside the authorized Adversarial Release Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s12",
-    "installed_probe": "npm run probe:s12:installed",
-    "proof_parity": "npm run probe:s11:parity",
-    "dependency_audit": "npm audit --audit-level=low",
-    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "release_gate": "npm test"
+    "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check"
   },
   "slice_queue": "slice-queue.md",
   "evidence_root": "..",
-  "closeout_evidence_path": "../",
+  "closeout_evidence_path": null,
   "modules": {
     "conformance": {
       "root": [
@@ -637,7 +611,7 @@
         {
           "id": "RQ1",
           "statement": "An exact clean candidate passes source-free install, governed adapter, known-failure, signature, schema, redaction, package, and error-surface corpora.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Exact private artifact and source-free adversarial consumer receipts",
           "discovered_on": "2026-07-27",
           "discovered_because": "Adversarial Release Hardening Macro Delta S13"
@@ -645,7 +619,7 @@
         {
           "id": "RQ2",
           "statement": "Three fresh isolated reviewers reproduce the candidate claims and return ACCEPT with no critical, high, or medium finding.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Three independent structured outside-review reports over exact candidate bytes",
           "discovered_on": "2026-07-27",
           "discovered_because": "Principal-requested adversarial requalification standard"
@@ -653,7 +627,7 @@
         {
           "id": "RQ3",
           "statement": "Dependency audit, credential-rotation confirmation, protocol check, and hosted gate pass before the hardening queue closes.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Audit receipt, provider-side rotation confirmation, local protocol receipt, and hosted CI result",
           "discovered_on": "2026-07-27",
           "discovered_because": "Adversarial Release Hardening Macro Delta S13"
@@ -661,5 +635,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S13 on any critical, high, or medium reviewer finding, proof or artifact mismatch, sourceful resolution, unsafe redaction, broken installed command, containment or signature bypass, false-green state, unconfirmed credential rotation, hosted-gate failure, or publication attempt."
+  "stop_condition": "No active protocol is currently assigned. Do not infer implementation or publication authority; require a new principal-approved Macro Delta or protocol."
 }
