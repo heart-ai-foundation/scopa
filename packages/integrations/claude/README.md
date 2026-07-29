@@ -79,3 +79,23 @@ run-specific project directories.
 Model identity remains launcher-declared and the observed model string is a
 CLI event, not provider-signed provenance. SCOPA is a tool-boundary runtime,
 not an operating-system sandbox.
+
+## S15 remedial campaign
+
+The production remedial runner is a repository-maintainer qualification tool,
+not a default package or CI action. In a source checkout, it accepts only the
+committed S15R2 policy, requires a clean committed candidate, and permits
+exactly two provider invocations with a USD 0.40 aggregate ceiling: direct
+scope denial followed by a fresh-process read from the same disposable
+repository.
+
+```sh
+npm run probe:s15:remedial-live -- \
+  --policy <committed-s15r2-policy> \
+  --private-root /path/outside/the/repository
+```
+
+The runner has no resume option. Any pre-existing invocation intent, recovery
+journal, private result, public result, or campaign result causes refusal
+before the corresponding provider request. A failure stops the campaign; a
+third request requires a new policy and new principal authority.

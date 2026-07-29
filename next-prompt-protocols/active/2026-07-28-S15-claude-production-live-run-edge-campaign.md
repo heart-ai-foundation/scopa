@@ -101,12 +101,16 @@ must not be a default `npm test` or hosted-CI dependency.
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `fixtures/S15/**`
+- `fixtures/S15R2/**`
 - `next-prompt-protocols/**`
 - `notes/S15/**`
 - `runs/S15/**`
 - `evidence/S15/**`
+- `evidence/S15R2/**`
 - private bounded Claude evidence under
   `llm-memories/projects/scopa/evidence/S15/**`
+- private bounded remedial evidence under
+  `llm-memories/projects/scopa/evidence/S15R2/**`
 
 ## Validation speed option
 
@@ -170,6 +174,15 @@ S15 remains active and unaccepted. Direct live denied-path evidence and direct
 denied-to-restart continuity remain open. Any new provider campaign requires a
 fresh explicit allowance; the exhausted campaign cannot be replayed under its
 original authority.
+
+On 2026-07-29 the principal explicitly approved one fresh remedial campaign:
+exactly two Claude requests, USD 0.20 maximum per request and USD 0.40 maximum
+for the campaign. The first request is the direct denied-path scenario; the
+second is a direct cold restart over the same disposable repository. The
+campaign uses a fresh `S15R2` public/private evidence namespace, permits no
+resume from the exhausted campaign, stops on either failure, and cannot make a
+third request without new principal authority. The separate SCOPA-RV1
+experiment remains out of scope and untouched.
 
 ## Acceptance
 

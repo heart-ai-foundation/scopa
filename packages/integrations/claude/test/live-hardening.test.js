@@ -42,12 +42,18 @@ import {
 } from '../src/run.js';
 import {
   S15_LIVE_SCENARIOS,
+  assertPathAbsent,
   addEvidenceCostUsd,
   evidenceCostUsd,
   normalizedEvidenceProjection,
   parseProductionLiveArguments,
   recoverRunnerFault,
 } from '../src/production-live-probe.js';
+import {
+  S15_REMEDIAL_SCENARIOS,
+  parseRemedialLiveArguments,
+  remedialAcceptance,
+} from '../src/production-remedial-live-probe.js';
 
 const ROOT = path.resolve(
   fileURLToPath(new URL('../../../..', import.meta.url)),
@@ -271,6 +277,150 @@ test('production campaign is explicit, six-run, and private-root closed', () => 
       path.join(ROOT, 'evidence/S15/private'),
     ]),
     /must be outside the repository/,
+  );
+});
+
+test('remedial campaign is fresh, two-call, and policy-closed', async () => {
+  assert.deepEqual(
+    S15_REMEDIAL_SCENARIOS.map((scenario) => ({
+      id: scenario.id,
+      repository: scenario.repository,
+      definition: scenario.definition,
+    })),
+    [
+      {
+        id: 'denied',
+        repository: 'direct-continuity',
+        definition: 'clean.slice-definition.json',
+      },
+      {
+        id: 'cold-restart',
+        repository: 'direct-continuity',
+        definition: null,
+      },
+    ],
+  );
+  const policyText = await readFile(
+    path.join(ROOT, 'fixtures/S15R2/claude-live-policy.json'),
+    'utf8',
+  );
+  const livePolicy = JSON.parse(policyText);
+  assert.equal(canonicalJsonPretty(livePolicy), policyText);
+  assert.equal(validateClaudeLivePolicy(livePolicy), livePolicy);
+  assert.equal(livePolicy.policyId, 'S15-production-live-remedial-v2');
+  assert.equal(livePolicy.authorization.approvedOn, '2026-07-29');
+  assert.equal(livePolicy.limits.maxProviderInvocations, 2);
+  assert.equal(livePolicy.limits.maxBudgetUsdPerRun, '0.20');
+  assert.equal(livePolicy.limits.maxCampaignBudgetUsd, '0.40');
+  const promptsText = await readFile(
+    path.join(ROOT, 'fixtures/S15R2/prompts.json'),
+    'utf8',
+  );
+  const matrixText = await readFile(
+    path.join(ROOT, 'evidence/S15R2/policy-and-scenario-matrix.json'),
+    'utf8',
+  );
+  const campaignPlan = JSON.parse(matrixText);
+  assert.equal(canonicalJsonPretty(campaignPlan), matrixText);
+  assert.equal(
+    campaignPlan.policy.sha256,
+    livePolicy.policySha256,
+  );
+  assert.equal(
+    campaignPlan.prompts.sha256,
+    createHash('sha256').update(promptsText).digest('hex'),
+  );
+  assert.equal(campaignPlan.replay.priorCampaignResumeAllowed, false);
+  assert.equal(campaignPlan.replay.thirdRequestAllowed, false);
+
+  const parsed = parseRemedialLiveArguments([
+    '--policy',
+    path.join(ROOT, 'fixtures/S15R2/claude-live-policy.json'),
+    '--private-root',
+    '/tmp/scopa-s15r2-private-evidence',
+  ]);
+  assert.equal(parsed.publicRoot, path.join(ROOT, 'evidence/S15R2'));
+  assert.equal(
+    parsed.privateRoot,
+    '/tmp/scopa-s15r2-private-evidence',
+  );
+  assert.throws(
+    () => parseRemedialLiveArguments([
+      '--policy',
+      path.join(ROOT, 'fixtures/S15R2/claude-live-policy.json'),
+      '--private-root',
+      '/tmp/scopa-s15r2-private-evidence',
+      '--resume-runner-fault',
+      '/tmp/old.private.json',
+    ]),
+    /usage/,
+  );
+  assert.throws(
+    () => parseRemedialLiveArguments([
+      '--policy',
+      path.join(ROOT, 'fixtures/S15R2/claude-live-policy.json'),
+      '--private-root',
+      path.join(ROOT, 'evidence/S15R2/private'),
+    ]),
+    /must be outside the repository/,
+  );
+});
+
+test('remedial acceptance requires direct same-repository continuity', () => {
+  const record = (scenario, lineage) => ({
+    scenario,
+    expectedCanStop: true,
+    observedCanStop: true,
+    terminalState: 'succeeded',
+    terminalReason: 'completed',
+    processGroupGone: true,
+    qualification: 'direct',
+    repositoryLineageSha256: lineage,
+    residue: {
+      onlyBoundedNonResumableMetadata: true,
+    },
+  });
+  const campaign = {
+    runRecords: [
+      record('denied', 'a'.repeat(64)),
+      record('cold-restart', 'a'.repeat(64)),
+    ],
+    continuityEvidenceReconstructed: false,
+    cleanup: {
+      repositoryCleanupVerified: true,
+      providerMetadataCleanupVerified: true,
+      processGroupsGone: true,
+      perRunControlRootDeletionVerified: true,
+    },
+  };
+  assert.equal(remedialAcceptance(campaign).accepted, true);
+
+  const reconstructed = structuredClone(campaign);
+  reconstructed.continuityEvidenceReconstructed = true;
+  assert.equal(remedialAcceptance(reconstructed).accepted, false);
+
+  const differentRepository = structuredClone(campaign);
+  differentRepository.runRecords[1].repositoryLineageSha256 =
+    'b'.repeat(64);
+  assert.equal(
+    remedialAcceptance(differentRepository).accepted,
+    false,
+  );
+});
+
+test('remedial invocation records refuse collision replay', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s15r2-fresh-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  const intent = path.join(root, 'denied.intent.private.json');
+  await writeFile(intent, '{}\n', {
+    mode: 0o600,
+  });
+  await assert.rejects(
+    () => assertPathAbsent(intent, 'denied private invocation intent'),
+    /already exists; refusing provider replay/,
   );
 });
 

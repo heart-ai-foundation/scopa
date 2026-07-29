@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `2365eb1`
+Current commit reference: `3957258`
 Current active protocol: `active/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
 
 ## Scope
@@ -33,10 +33,12 @@ Production-like live-run edge hardening only: establish shared process and evide
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `fixtures/S15/**`
+- `fixtures/S15R2/**`
 - `next-prompt-protocols/**`
 - `notes/S15/**`
 - `runs/S15/**`
 - `evidence/S15/**`
+- `evidence/S15R2/**`
 
 ## Non-goals
 

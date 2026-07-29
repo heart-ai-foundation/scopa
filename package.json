@@ -62,6 +62,7 @@
     "probe:s4": "node packages/depth/src/acceptance-probe.js",
     "probe:s8:live": "node packages/integrations/claude/src/live-probe.js",
     "probe:s15:live": "node packages/integrations/claude/src/production-live-probe.js",
+    "probe:s15:remedial-live": "node packages/integrations/claude/src/production-remedial-live-probe.js",
     "probe:s9:live": "node packages/integrations/codex/src/live-probe.js",
     "publish:s9:proof": "node packages/integrations/codex/src/publish-proof.js",
     "verify:s9:parity": "node packages/integrations/codex/src/verify-parity.js",

@@ -1,0 +1,79 @@
+{
+  "account": {
+    "apiProvider": "firstParty",
+    "authMethod": "claude.ai",
+    "boundary": "current-authenticated-principal-controlled-claude-ai-subscription",
+    "identityHandling": "verified-private-not-retained",
+    "subscriptionType": "max"
+  },
+  "authorization": {
+    "approvedOn": "2026-07-29",
+    "principalApproval": "conversation-explicit",
+    "scope": "S15-production-live-run-edge-campaign"
+  },
+  "cleanup": {
+    "controlRootDeletionRequired": true,
+    "disposableRepositoryDeletionRequired": true,
+    "noSurvivorRequired": true,
+    "processGroupRequired": true
+  },
+  "evidence": {
+    "maxPrivateBytesPerRun": 26214400,
+    "privateMode": "0600",
+    "privateRetentionHours": 168,
+    "publicMode": "0644",
+    "repositoryRawEvidenceAllowed": false
+  },
+  "limits": {
+    "maxBudgetUsdPerRun": "0.20",
+    "maxCampaignBudgetUsd": "0.40",
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "maxProviderInvocations": 2,
+    "maxTurnsPerRun": 12,
+    "timeoutMs": 120000
+  },
+  "model": {
+    "requestedAlias": "sonnet",
+    "snapshotStatus": "requested-alias-not-snapshot"
+  },
+  "network": {
+    "allowedClass": "anthropic-first-party-via-claude-code",
+    "alternateProvidersDisabled": true,
+    "osEnforced": false
+  },
+  "policyId": "S15-production-live-remedial-v2",
+  "policySha256": "8c4816cf90735aa7513135f2dea07c13c6c3df6c974ce62ada4f33f4ba21e687",
+  "repository": {
+    "classification": "disposable-synthetic",
+    "customerDataAllowed": false,
+    "externalSecretsAllowed": false
+  },
+  "schema": "scopa.claude-live-policy.v1",
+  "stopConditions": [
+    "account-boundary-drift",
+    "budget-exhausted",
+    "capture-limit",
+    "cleanup-failure",
+    "client-version-drift",
+    "mcp-configuration-error",
+    "model-drift",
+    "privacy-event",
+    "provider-rate-pressure",
+    "provider-refusal",
+    "tool-inventory-drift",
+    "turn-limit"
+  ],
+  "tools": {
+    "allowed": [
+      "mcp__scopa__scopa_orientation",
+      "mcp__scopa__scopa_read_file",
+      "mcp__scopa__scopa_write_file",
+      "mcp__scopa__scopa_check",
+      "mcp__scopa__scopa_assurance",
+      "mcp__scopa__scopa_transcript"
+    ],
+    "nativeMutationRoutesDisabled": true,
+    "strictMcpOnly": true
+  }
+}

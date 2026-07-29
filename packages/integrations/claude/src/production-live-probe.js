@@ -136,7 +136,7 @@ function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
 }
 
-function withinRoot(root, candidate) {
+export function withinRoot(root, candidate) {
   const relative = path.relative(root, candidate);
   return relative === '' || (
     relative !== '..' &&
@@ -188,7 +188,7 @@ export function parseProductionLiveArguments(argv) {
   };
 }
 
-async function assertCleanCandidate() {
+export async function assertCleanCandidate() {
   const status = (
     await execFileAsync('git', [
       'status',
@@ -215,7 +215,7 @@ async function assertCleanCandidate() {
   ).stdout.trim();
 }
 
-async function installPackedRuntime(temporary, sourceCommit) {
+export async function installPackedRuntime(temporary, sourceCommit) {
   const packed = await packCandidate({
     sourceRoot: ROOT,
     outputDirectory: temporary,
@@ -609,9 +609,22 @@ async function assertScenarioOutcome({
     assert.equal(check.result.state.canStop, false);
     assert.equal(run.normalized.final.status, 'blocked');
   }
+  if (scenario.id === 'cold-restart') {
+    assert.equal(
+      findTool(run, 'scopa_read_file').result.content,
+      'CLAUDE_ALLOWED\n',
+    );
+    assert.equal(
+      await readFile(
+        path.join(repositoryRoot, 'workspace/claude.txt'),
+        'utf8',
+      ),
+      'CLAUDE_ALLOWED\n',
+    );
+  }
 }
 
-async function writeNoReplace(filename, value, mode) {
+export async function writeNoReplace(filename, value, mode) {
   const text = canonicalJsonPretty(value);
   const handle = await open(filename, 'wx', mode);
   try {
@@ -626,7 +639,7 @@ async function writeNoReplace(filename, value, mode) {
   };
 }
 
-async function removeAndVerify(target) {
+export async function removeAndVerify(target) {
   await rm(target, {
     recursive: true,
     force: true,
@@ -637,7 +650,7 @@ async function removeAndVerify(target) {
   );
 }
 
-async function assertPathAbsent(target, label) {
+export async function assertPathAbsent(target, label) {
   try {
     await access(target);
   } catch (error) {
@@ -892,7 +905,7 @@ export async function recoverRunnerFault({
   };
 }
 
-async function runCampaign({
+export async function runCampaign({
   installed,
   policy,
   prompts,
@@ -901,12 +914,15 @@ async function runCampaign({
   publicRoot,
   resumeDrift,
   resumeFault,
+  configuredScenarios = S15_LIVE_SCENARIOS,
+  scenarioVersion = 'S15.v1',
+  sessionPrefix = 'S15',
 }) {
   const matrix = installed.integration.createClaudeCapabilityMatrix({});
   const priorCount =
     (resumeDrift === null ? 0 : 1) +
     (resumeFault === null ? 0 : 1);
-  const scenarios = S15_LIVE_SCENARIOS.slice(priorCount);
+  const scenarios = configuredScenarios.slice(priorCount);
   assert.equal(
     scenarios.length + priorCount,
     policy.limits.maxProviderInvocations,
@@ -1012,7 +1028,7 @@ async function runCampaign({
           livePolicySha256: policy.policySha256,
           scenario: {
             id: scenario.id,
-            version: 'S15.v1',
+            version: scenarioVersion,
           },
           providerInvocationMayBeConsumed: true,
           accountingReservation: {
@@ -1026,7 +1042,7 @@ async function runCampaign({
         repoRoot: repositoryRoot,
         adapterCli: installed.adapterCli,
         session: installed.integration.createClaudeSession({
-          sessionId: `S15-${scenario.id}`,
+          sessionId: `${sessionPrefix}-${scenario.id}`,
           request: prompt,
         }),
         capabilityMatrix: matrix,
@@ -1034,7 +1050,7 @@ async function runCampaign({
         livePolicy: policy,
         scenario: {
           id: scenario.id,
-          version: 'S15.v1',
+          version: scenarioVersion,
         },
         prompt,
         model: policy.model.requestedAlias,
@@ -1047,7 +1063,7 @@ async function runCampaign({
         livePolicySha256: policy.policySha256,
         scenario: {
           id: scenario.id,
-          version: 'S15.v1',
+          version: scenarioVersion,
         },
         receipt: run.receipt,
         terminal: run.terminal,
@@ -1117,7 +1133,7 @@ async function runCampaign({
       const summary = {
         schema: 'scopa.claude-live-run-summary.v1',
         scenario: scenario.id,
-        scenarioVersion: 'S15.v1',
+        scenarioVersion,
         livePolicySha256: policy.policySha256,
         expectedCanStop: scenario.expectedCanStop,
         observedCanStop: run.terminal.canStop,
@@ -1196,6 +1212,7 @@ async function runCampaign({
           mode: evidenceWrite.privateMode,
         },
         residue,
+        repositoryLineageSha256: jsonHash(repositoryRoot),
         sourceCommit: installed.artifact.sourceCommit,
         qualification:
           resumeFault !== null && scenario.repository === 'denied'

@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `2365eb1`
+Current commit reference: `3957258`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -192,10 +192,12 @@ These protocols are specific to:
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `fixtures/S15/**`
+- `fixtures/S15R2/**`
 - `next-prompt-protocols/**`
 - `notes/S15/**`
 - `runs/S15/**`
 - `evidence/S15/**`
+- `evidence/S15R2/**`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
 

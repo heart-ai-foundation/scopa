@@ -1,0 +1,44 @@
+{
+  "assurance": "partial",
+  "experimentWorkIncluded": false,
+  "liveScenarios": [
+    {
+      "definition": "clean.slice-definition.json",
+      "expectedCanStop": true,
+      "id": "denied",
+      "purpose": "direct scope denial followed by contained correction",
+      "repositoryLineage": "direct-continuity"
+    },
+    {
+      "definition": null,
+      "expectedCanStop": true,
+      "id": "cold-restart",
+      "purpose": "fresh Claude and bridge read the directly produced state",
+      "repositoryLineage": "direct-continuity"
+    }
+  ],
+  "policy": {
+    "filename": "fixtures/S15R2/claude-live-policy.json",
+    "maxBudgetUsdPerRun": "0.20",
+    "maxCampaignBudgetUsd": "0.40",
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "maxPrivateBytesPerRun": 26214400,
+    "maxTurnsPerRun": 12,
+    "privateRetentionHours": 168,
+    "providerInvocations": 2,
+    "sha256": "8c4816cf90735aa7513135f2dea07c13c6c3df6c974ce62ada4f33f4ba21e687",
+    "timeoutMs": 120000
+  },
+  "prompts": {
+    "filename": "fixtures/S15R2/prompts.json",
+    "sha256": "bb5cb397a74f02344694119b55565ee66772f709e30dac886ef9fb0a54f1d284"
+  },
+  "replay": {
+    "freshEvidenceNamespaceRequired": true,
+    "priorCampaignResumeAllowed": false,
+    "thirdRequestAllowed": false
+  },
+  "schema": "scopa.claude-live-remedial-campaign-plan.v1",
+  "slice": "S15R2"
+}
