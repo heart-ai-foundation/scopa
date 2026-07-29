@@ -282,6 +282,27 @@ The retained generic warning is Git's initial-branch-name hint; there is no
 Node action-runtime deprecation warning. Three newly created reviewers must
 still independently attack these exact bytes.
 
+The fresh Round 7 artifact and evidence reviewers returned `ACCEPT` with no
+critical, high, or medium finding. Artifact review retained one low
+caller-owned CLI reflection finding. Evidence review returned no finding and
+detected every attempted Round 6 receipt transplant.
+
+The artifact review again reproduced live-pipe early close only inside the
+managed nested-process sandbox. Root executed the exact current installed
+command outside that sandbox and received the six tools, allowed write, scope
+denial, satisfied/full state, and complete 11-event transcript. Because the
+launcher/transport/client bytes are unchanged from the retained Round 6
+adjudication, this remains an environmental false positive. Runtime review is
+still pending at this checkpoint, so RQ2 is not yet satisfied.
+
+The fresh outside-model runtime reviewer then returned `ACCEPT` with no
+finding. A 51-turn headless Claude session (Fable 5 with Opus 4.8 fallback)
+executed all eight requested runtime surfaces, including verification
+tampering, real stdio recovery, 2048-ID and transcript event/byte ceilings,
+large-path poisoning, 501-response backpressure, hardlink containment,
+launcher privacy, and false-green refusal. It used only disposable offline
+state and exact hash-verified candidate bytes. RQ2 is now satisfied.
+
 ## Fresh-review separation
 
 Three newly created, isolated reviewers receive non-overlapping primary

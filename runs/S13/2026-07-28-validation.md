@@ -470,6 +470,21 @@ and source-free consumer/installed-surface probes pass. Hosted source run
 `30377371496`, job `90336372272`, succeeds with no Node action-runtime
 deprecation warning. Three fresh exact-byte reviews are pending.
 
+The fresh artifact and proof/evidence reviewers returned `ACCEPT`. Neither
+reported a critical, high, or medium finding. Artifact review retained one low
+caller-owned CLI reflection finding; evidence review returned no finding and
+detected all attempted stale-receipt transplants.
+
+The artifact reviewer reproduced early live-pipe close only under the managed
+nested-process sandbox. Root reran its exact installed command outside that
+sandbox and received exit 0, protocol `2025-11-25`, six tools, allowed write,
+scope denial, satisfied terminal state, full deterministic assurance, and a
+complete 11-event transcript. This is the retained environment false positive.
+The third reviewer was a fresh 51-turn headless Claude session using Fable 5
+with Opus 4.8 fallback. It independently exercised all eight runtime surfaces
+against exact candidate bytes and returned `ACCEPT` with no critical, high,
+medium, or low finding. RQ2 is satisfied.
+
 ## Pending RQ3
 
 - final hosted evidence-commit gate: pending;

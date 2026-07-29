@@ -92,17 +92,17 @@
     },
     {
       "id": "fresh-final-artifact-review",
-      "status": "pending",
+      "status": "accepted",
       "evidence": "evidence/S13/artifact-review.final.md"
     },
     {
       "id": "fresh-final-evidence-review",
-      "status": "pending",
+      "status": "accepted",
       "evidence": "evidence/S13/evidence-review.final.md"
     },
     {
       "id": "fresh-final-runtime-review",
-      "status": "pending",
+      "status": "accepted",
       "evidence": "evidence/S13/runtime-review.final.md"
     },
     {
@@ -117,7 +117,7 @@
     }
   ],
   "rq1Ready": true,
-  "rq2Ready": false,
+  "rq2Ready": true,
   "rq3Ready": false,
   "publicationAuthorized": false
 }
