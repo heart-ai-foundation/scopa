@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `f7e5f13`
+Current commit reference: `a4d7ad8`
 Current active protocol: `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
 
 ## Scope
@@ -42,11 +42,13 @@ Production-like live-run edge hardening only: establish shared process and evide
 - `evidence/S16/**`
 - `evidence/S16R2/**`
 - `evidence/S16R3/**`
+- `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 ## Non-goals
 
 - No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim
 - No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work
+- No replay, reclassification, scoring, provider run, or candidate claim for the retained SCOPA-RC1 pilot implementation note
 - No Codex provider call before a complete per-run account, network, model, MCP/native surface, time, turn, usage or cost, evidence-retention, and cleanup policy is closed and separately approved
 - No reuse or inference of Claude account, behavior, tool, persistence, or assurance evidence as Codex evidence
 - No customer repository, customer data, production deployment, or uncontrolled mutation

@@ -14,8 +14,8 @@ import {
   mkdir,
   mkdtemp,
   open,
+  opendir,
   readFile,
-  readdir,
   realpath,
   rm,
   stat,
@@ -70,7 +70,7 @@ const CAMPAIGN_CONFIGS = Object.freeze([
 ]);
 const MAX_AUTH_BYTES = 1024 * 1024;
 const MAX_STORE_HASH_BYTES = 2 * 1024 * 1024;
-const MAX_STORE_ENTRIES = 64;
+export const CODEX_STORE_ENTRY_AUDIT_LIMIT = 4096;
 
 export const S16_PRODUCTION_SCENARIOS = Object.freeze([
   Object.freeze({
@@ -390,13 +390,32 @@ async function authBoundary(authPath) {
   });
 }
 
-export async function snapshotCodexStore(root) {
+export async function snapshotCodexStore(
+  root,
+  {
+    maxEntries = CODEX_STORE_ENTRY_AUDIT_LIMIT,
+  } = {},
+) {
+  if (
+    !Number.isSafeInteger(maxEntries) ||
+    maxEntries <= 0 ||
+    maxEntries > CODEX_STORE_ENTRY_AUDIT_LIMIT
+  ) {
+    throw new TypeError('Codex store entry audit limit is invalid');
+  }
   const resolvedRoot = await realpath(root);
   const records = [];
   async function walk(directory, prefix) {
-    const entries = await readdir(directory, {
-      withFileTypes: true,
-    });
+    const entries = [];
+    const handle = await opendir(directory);
+    for await (const entry of handle) {
+      entries.push(entry);
+      if (records.length + entries.length > maxEntries) {
+        throw new TypeError(
+          'Codex isolated store exceeds its entry audit bound',
+        );
+      }
+    }
     entries.sort((left, right) => left.name.localeCompare(right.name));
     for (const entry of entries) {
       const relative = prefix === ''
@@ -428,9 +447,7 @@ export async function snapshotCodexStore(root) {
       } else {
         throw new TypeError('Codex isolated store has a special file');
       }
-      if (
-        records.length > MAX_STORE_ENTRIES
-      ) {
+      if (records.length > maxEntries) {
         throw new TypeError(
           'Codex isolated store exceeds its entry audit bound',
         );

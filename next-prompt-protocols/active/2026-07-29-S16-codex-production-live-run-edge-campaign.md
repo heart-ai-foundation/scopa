@@ -111,6 +111,21 @@ false-green and cold-restart were not launched. The gate is closed, the
 campaign cannot replay, and the retained result is non-qualifying. S16 remains
 active and CXH1-CXH3 remain unsatisfied.
 
+The separate RC1 pilot implementation note at
+`evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md` is
+now retained as an S17 deterministic implementation input. It does not alter
+S16, authorize provider traffic, or admit RC1 experiment/scoring work into
+this protocol. Its future dual-channel journal and compact-response work
+advances the already ratified OR2 resource/transcript-ceiling contract.
+
+The reproduced S16 entry-audit defect is being remediated independently. The
+client-store snapshot now streams directory inventory under a 4,096-entry
+hard ceiling instead of assuming no current client can exceed 64 entries.
+Deterministic tests may lower but cannot raise the ceiling. Symlink, special
+file, oversized ambiguous baseline, and unexpected post-run residue rejection
+remain unchanged. This post-stop implementation does not reopen S16-v3 or
+authorize provider traffic.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose
@@ -197,6 +212,7 @@ invocation/evidence record already exists. A real run must never become part of
 - `evidence/S16/**`
 - `evidence/S16R2/**`
 - `evidence/S16R3/**`
+- `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 - private bounded Codex evidence under
   `llm-memories/projects/scopa/evidence/S16*/**`
 
@@ -215,6 +231,8 @@ invocation/evidence record already exists. A real run must never become part of
 - No SCOPA-RV1 experiment protocol, execution, fixture, allocation,
   ground-truth, scoring, statistical, preregistration, confirmatory, or
   publication work.
+- No replay, reclassification, scoring, or provider execution of the
+  SCOPA-RC1 pilot; its retained note is implementation input only.
 - No reuse or inference of Claude account, behavior, tool, persistence, or
   assurance evidence as Codex evidence.
 - No customer repository, customer data, production deployment, or

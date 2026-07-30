@@ -36,6 +36,7 @@ import {
   validateDeterministicCorpus,
 } from '../src/deterministic-edge-probe.js';
 import {
+  CODEX_STORE_ENTRY_AUDIT_LIMIT,
   assertCodexStoreBaselineAuditable,
   parseProductionLiveArguments,
   prepareCodexEnvironment,
@@ -455,7 +456,7 @@ test('oversized client-store residue is metadata-audited and rejected', async (c
   );
 });
 
-test('client-store audit rejects symlinks and entry-count exhaustion', async (context) => {
+test('client-store audit streams current inventories and rejects exhaustion', async (context) => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-hostile-store-'));
   context.after(() => rm(root, {
     recursive: true,
@@ -471,13 +472,23 @@ test('client-store audit rejects symlinks and entry-count exhaustion', async (co
   await rm(path.join(root, 'link'));
   await rm(path.join(root, 'target'));
   await Promise.all(
-    Array.from({ length: 65 }, (_, index) =>
-      writeFile(path.join(root, `entry-${String(index).padStart(2, '0')}`), '')
+    Array.from({ length: 256 }, (_, index) =>
+      writeFile(path.join(root, `entry-${String(index).padStart(3, '0')}`), '')
     ),
   );
+  assert.equal((await snapshotCodexStore(root)).length, 256);
   await assert.rejects(
-    () => snapshotCodexStore(root),
+    () => snapshotCodexStore(root, {
+      maxEntries: 64,
+    }),
     /entry audit bound/,
+  );
+  assert.equal(CODEX_STORE_ENTRY_AUDIT_LIMIT, 4096);
+  await assert.rejects(
+    () => snapshotCodexStore(root, {
+      maxEntries: CODEX_STORE_ENTRY_AUDIT_LIMIT + 1,
+    }),
+    /audit limit is invalid/,
   );
 });
 

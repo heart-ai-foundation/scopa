@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "f7e5f13",
+  "current_commit": "a4d7ad8",
   "current_phase": "phase-6-production-live-run-hardening",
   "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
@@ -48,11 +48,13 @@
     "runs/S16/**",
     "evidence/S16/**",
     "evidence/S16R2/**",
-    "evidence/S16R3/**"
+    "evidence/S16R3/**",
+    "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
     "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
     "No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work",
+    "No replay, reclassification, scoring, provider run, or candidate claim for the retained SCOPA-RC1 pilot implementation note",
     "No Codex provider call before a complete per-run account, network, model, MCP/native surface, time, turn, usage or cost, evidence-retention, and cleanup policy is closed and separately approved",
     "No reuse or inference of Claude account, behavior, tool, persistence, or assurance evidence as Codex evidence",
     "No customer repository, customer data, production deployment, or uncontrolled mutation",

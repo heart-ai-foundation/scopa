@@ -15,3 +15,21 @@ or authorize independent queue entries.
 S0-S15 remain completed under their governing Macro Deltas. Only S16 is
 active. The separately running SCOPA experiment and public release remain
 outside this queue.
+
+## Queued S17 implementation input
+
+`evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md` is a
+bound, non-scored engineering input to S17's existing transcript-ceiling and
+resource-growth work. Its retained SHA-256 is
+`dd6e4a5d8490297519ababc41886560385b7e13989ba3d1227d9731dac8f5dc4`.
+Its dual-channel evidence contract is queued for deterministic implementation
+only after the active S16 resource defect is closed. The note does not add a
+queue slot, change the ratified Macro Delta, authorize a provider call, replay
+the RC1 pilot, or place experiment protocol, fixture, allocation, scoring,
+statistical, or publication work in this queue.
+
+Before any later candidate posture, the S17 implementation must prove
+canonical full-journal/compact-response equivalence, digest and ordering
+tamper rejection, bounded check/transcript/assurance responses, no-overwrite
+and incomplete-journal failure, cleanup, host-only reconstruction, and the
+unchanged six-tool inventory.

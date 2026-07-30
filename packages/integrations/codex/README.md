@@ -162,3 +162,7 @@ temporary home, verifies login without printing identity, runs at most one
 fresh Codex process per approved scenario, audits client-store residue after
 each call, enforces per-run and aggregate token ceilings, publishes only
 privacy-clean derivatives, and removes the isolated home and repositories.
+Client-store traversal is streaming and fails closed above 4,096 entries.
+Files through 2 MiB are content-hashed; larger files are metadata-audited,
+ambiguous oversized baselines are rejected before provider traffic, and any
+unexpected post-run store change rejects qualification.
