@@ -150,12 +150,25 @@ export const S16_PRODUCTION_SCENARIOS = Object.freeze([
 ]);
 
 export function productionScenariosForPolicy(policy) {
+  const initializedRepositories = new Set();
   return policy.scenarios.ids.map((id) => {
     const scenario = S16_PRODUCTION_SCENARIOS.find(
       (candidate) => candidate.id === id,
     );
     if (scenario === undefined) {
       throw new TypeError(`unknown Codex production scenario ${id}`);
+    }
+    if (
+      policy.scenarios.version === 'S16.v5' &&
+      scenario.definition === null &&
+      !initializedRepositories.has(scenario.repository)
+    ) {
+      throw new TypeError(
+        `${scenario.id} requires an earlier defined repository lineage`,
+      );
+    }
+    if (scenario.definition !== null) {
+      initializedRepositories.add(scenario.repository);
     }
     return scenario;
   });
