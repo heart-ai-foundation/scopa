@@ -1,0 +1,53 @@
+{
+  "schema": "scopa.codex-live-campaign-plan.v1",
+  "slice": "S16.v2",
+  "policy": {
+    "filename": "fixtures/S16R2/codex-live-policy.json",
+    "fileSha256": "e509758bce8646f7a8790f0f888d61608c24b280d57b81f8d79fafc931607694",
+    "descriptorSha256": "c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95",
+    "providerGate": "authorized",
+    "providerInvocationsAuthorized": 4,
+    "maxTurnsPerRun": 1,
+    "timeoutMs": 180000,
+    "maxCaptureBytes": 20971520,
+    "maxInputTokensPerRun": 120000,
+    "maxOutputTokensPerRun": 4000,
+    "maxReasoningTokensPerRun": 2000,
+    "maxTotalTokensPerRun": 126000,
+    "maxCampaignInputTokens": 480000,
+    "maxCampaignOutputTokens": 16000,
+    "maxCampaignTotalTokens": 504000,
+    "privateRetentionHours": 168,
+    "maxPrivateBytesPerRun": 26214400
+  },
+  "prompts": {
+    "filename": "fixtures/S16/prompts.json",
+    "sha256": "19c6365f297ab86c8055b890576cde64cacef8295da3874fb202eb1bb094d3ca"
+  },
+  "deterministicCorpus": {
+    "filename": "fixtures/S16/deterministic-scenarios.json",
+    "sha256": "49d71d45a4e6bceec8cc664026f9187182c8e0556e65d6d208dacaa6e0edc7fb",
+    "scenarioCount": 21,
+    "providerTrafficAllowed": false
+  },
+  "liveScenarios": [
+    {
+      "id": "clean",
+      "expectedCanStop": true
+    },
+    {
+      "id": "denied",
+      "expectedCanStop": true
+    },
+    {
+      "id": "false-green",
+      "expectedCanStop": false
+    },
+    {
+      "id": "cold-restart",
+      "expectedCanStop": true
+    }
+  ],
+  "providerExecutionCompleted": false,
+  "assurance": "partial"
+}

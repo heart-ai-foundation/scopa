@@ -72,7 +72,10 @@
           ]
         },
         "scope": {
-          "const": "S16-production-live-run-edge-campaign"
+          "enum": [
+            "S16-production-live-run-edge-campaign",
+            "S16-v2-production-live-run-edge-campaign"
+          ]
         }
       }
     },
@@ -383,7 +386,10 @@
       ],
       "properties": {
         "privateDestination": {
-          "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16"
+          "enum": [
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16",
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2"
+          ]
         },
         "privateRetentionHours": {
           "type": "integer",
@@ -447,7 +453,10 @@
       ],
       "properties": {
         "version": {
-          "const": "S16.v1"
+          "enum": [
+            "S16.v1",
+            "S16.v2"
+          ]
         },
         "ids": {
           "type": "array",

@@ -45,7 +45,21 @@ const ROOT = path.resolve(
   fileURLToPath(new URL('../../../..', import.meta.url)),
 );
 const FIXTURE = path.join(ROOT, 'fixtures/S16');
-const PUBLIC_ROOT = path.join(ROOT, 'evidence/S16');
+const CAMPAIGN_CONFIGS = Object.freeze([
+  Object.freeze({
+    policyPath: path.join(FIXTURE, 'codex-live-policy.json'),
+    policyId: 'S16-production-live-v1',
+    publicRoot: path.join(ROOT, 'evidence/S16'),
+  }),
+  Object.freeze({
+    policyPath: path.join(
+      ROOT,
+      'fixtures/S16R2/codex-live-policy.json',
+    ),
+    policyId: 'S16-v2-production-live-v1',
+    publicRoot: path.join(ROOT, 'evidence/S16R2'),
+  }),
+]);
 const MAX_AUTH_BYTES = 1024 * 1024;
 const MAX_STORE_BYTES = 2 * 1024 * 1024;
 const MAX_STORE_ENTRIES = 64;
@@ -136,15 +150,26 @@ export function parseProductionLiveArguments(argv) {
     );
   }
   const privateRoot = path.resolve(argv[3]);
+  const policyPath = path.resolve(argv[1]);
+  const campaign = CAMPAIGN_CONFIGS.find(
+    (candidate) => candidate.policyPath === policyPath,
+  );
+  if (campaign === undefined) {
+    throw new TypeError(
+      'campaign policy must be a committed Codex production policy',
+    );
+  }
   if (withinRoot(ROOT, privateRoot)) {
     throw new TypeError(
       'private Codex evidence root must be outside the repository',
     );
   }
   return {
-    policyPath: path.resolve(argv[1]),
+    policyPath,
     privateRoot,
-    publicRoot: PUBLIC_ROOT,
+    publicRoot: campaign.publicRoot,
+    expectedPolicyId: campaign.policyId,
+    expectedPolicyPath: campaign.policyPath,
   };
 }
 
@@ -905,12 +930,14 @@ async function main() {
     policyPath,
     privateRoot,
     publicRoot,
+    expectedPolicyId,
+    expectedPolicyPath,
   } = parseProductionLiveArguments(process.argv.slice(2));
-  const expectedPolicyPath = await realpath(
-    path.join(FIXTURE, 'codex-live-policy.json'),
-  );
-  if (await realpath(policyPath) !== expectedPolicyPath) {
-    throw new TypeError('campaign policy must be the committed S16 policy');
+  if (
+    await realpath(policyPath) !==
+    await realpath(expectedPolicyPath)
+  ) {
+    throw new TypeError('campaign policy path changed during preflight');
   }
   const sourceCommit = await assertCleanCandidate();
   await mkdir(privateRoot, {
@@ -943,6 +970,9 @@ async function main() {
     const policy = installed.integration.assertCodexProviderAuthorized(
       JSON.parse(await readFile(policyPath, 'utf8')),
     );
+    if (policy.policyId !== expectedPolicyId) {
+      throw new TypeError('campaign policy id differs from its namespace');
+    }
     const auth = await prepareCodexEnvironment({
       installedIntegration: installed.integration,
       codexCommand: 'codex',

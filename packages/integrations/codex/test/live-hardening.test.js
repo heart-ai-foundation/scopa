@@ -52,6 +52,10 @@ const ROOT = path.resolve(
 );
 const FIXTURE = path.join(ROOT, 'fixtures/S16');
 const POLICY_PATH = path.join(FIXTURE, 'codex-live-policy.json');
+const V2_POLICY_PATH = path.join(
+  ROOT,
+  'fixtures/S16R2/codex-live-policy.json',
+);
 const CORPUS_PATH = path.join(FIXTURE, 'deterministic-scenarios.json');
 const ROOT_PACKAGE = JSON.parse(
   await readFile(path.join(ROOT, 'package.json'), 'utf8'),
@@ -149,6 +153,56 @@ test('fresh explicit approval differs from the closed stop posture', async () =>
   assert.notEqual(authorized.policySha256, fixture.policySha256);
 });
 
+test('S16-v2 policy binds the fresh approval and evidence namespace', async () => {
+  const text = await readFile(V2_POLICY_PATH, 'utf8');
+  const policy = JSON.parse(text);
+  assert.equal(text.endsWith('\n'), true);
+  assert.equal(validateCodexLivePolicy(policy), policy);
+  assert.deepEqual(
+    validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
+    policy,
+  );
+  assert.deepEqual(
+    policy,
+    createCodexLivePolicy({
+      campaignId: 'S16-v2-production-live-v1',
+      providerGate: CODEX_PROVIDER_GATE_OPEN,
+      approvedOn: '2026-07-29',
+      principalApproval: 'conversation-explicit',
+      privateEvidenceDestinationApproval: 'conversation-explicit',
+    }),
+  );
+  assert.equal(assertCodexProviderAuthorized(policy), policy);
+  assert.equal(
+    policy.authorization.scope,
+    'S16-v2-production-live-run-edge-campaign',
+  );
+  assert.equal(policy.scenarios.version, 'S16.v2');
+  assert.equal(
+    policy.evidence.privateDestination,
+    'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2',
+  );
+  assert.equal(
+    policy.policySha256,
+    'c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95',
+  );
+
+  const matrixPath = path.join(
+    ROOT,
+    'evidence/S16R2/policy-and-scenario-matrix.json',
+  );
+  const matrixText = await readFile(matrixPath, 'utf8');
+  const matrix = JSON.parse(matrixText);
+  assert.equal(
+    matrix.policy.fileSha256,
+    createHash('sha256').update(text).digest('hex'),
+  );
+  assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 4);
+  assert.equal(matrix.providerExecutionCompleted, false);
+  assert.deepEqual(scanPrivateText(matrixText), []);
+});
+
 test('Codex policy enforces per-run and aggregate token accounting', () => {
   const policy = createCodexLivePolicy();
   assert.deepEqual(codexPolicyUsageLimits(policy), {
@@ -208,7 +262,20 @@ test('deterministic corpus is complete and network-closed', async () => {
   );
   assert.deepEqual(parseDeterministicArguments([]), {
     output: null,
+    policyPath: POLICY_PATH,
   });
+  assert.deepEqual(
+    parseDeterministicArguments([
+      '--policy',
+      V2_POLICY_PATH,
+      '--output',
+      path.join(os.tmpdir(), 's16-v2-deterministic.json'),
+    ]),
+    {
+      output: path.join(os.tmpdir(), 's16-v2-deterministic.json'),
+      policyPath: V2_POLICY_PATH,
+    },
+  );
   assert.throws(
     () => parseDeterministicArguments(['--live']),
     /usage/,
@@ -264,6 +331,16 @@ test('production CLI requires an external private root and exact arguments', () 
     parsed.privateRoot,
     path.join(os.tmpdir(), 'scopa-s16-private-test'),
   );
+  assert.equal(parsed.publicRoot, path.join(ROOT, 'evidence/S16'));
+  assert.equal(parsed.expectedPolicyId, 'S16-production-live-v1');
+  const v2 = parseProductionLiveArguments([
+    '--policy',
+    V2_POLICY_PATH,
+    '--private-root',
+    path.join(os.tmpdir(), 'scopa-s16-v2-private-test'),
+  ]);
+  assert.equal(v2.publicRoot, path.join(ROOT, 'evidence/S16R2'));
+  assert.equal(v2.expectedPolicyId, 'S16-v2-production-live-v1');
   assert.throws(
     () => parseProductionLiveArguments([
       '--policy',

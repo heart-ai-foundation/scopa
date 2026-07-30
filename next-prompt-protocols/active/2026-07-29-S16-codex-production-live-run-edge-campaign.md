@@ -63,10 +63,17 @@ a generic normalization error.
 The narrow remediation pins `0.146.0`, marks whether provider launch actually
 started, counts only launched provider invocations, and reports the precise
 pre-provider or post-launch terminal. Deterministic regressions prove that
-client-version and MCP-inventory drift consume zero calls. The next checkpoint
-is clean exact-candidate qualification and a fresh explicit live allowance;
-the stopped attempt is not replayable. The committed gate is
+client-version and MCP-inventory drift consume zero calls. The stopped attempt
+is not replayable and its committed gate remains
 `closed-pending-explicit-approval`.
+
+The principal separately approved the fresh S16-v2 posture on 2026-07-29.
+Policy ID `S16-v2-production-live-v1`, scenario version `S16.v2`, digest
+`c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95`,
+and the fresh `S16R2` evidence namespace distinguish it from the stopped
+attempt. It permits exactly the same four one-turn `gpt-5.4` scenarios and
+resource ceilings and stops on the first failure. The next checkpoint is
+clean exact-candidate qualification and hosted CI before provider traffic.
 
 ## Descriptor rung check
 
@@ -146,12 +153,14 @@ invocation/evidence record already exists. A real run must never become part of
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `fixtures/S16/**`
+- `fixtures/S16R2/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
 - `evidence/S16/**`
+- `evidence/S16R2/**`
 - private bounded Codex evidence under
-  `llm-memories/projects/scopa/evidence/S16/**`
+  `llm-memories/projects/scopa/evidence/S16*/**`
 
 ## Validation speed option
 

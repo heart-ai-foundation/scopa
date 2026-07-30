@@ -16,6 +16,8 @@ import {
 export const CODEX_LIVE_POLICY_SCHEMA = 'scopa.codex-live-policy.v1';
 export const CODEX_LIVE_POLICY_SCOPE =
   'S16-production-live-run-edge-campaign';
+export const CODEX_LIVE_POLICY_V2_SCOPE =
+  'S16-v2-production-live-run-edge-campaign';
 export const CODEX_PROVIDER_GATE_CLOSED =
   'closed-pending-explicit-approval';
 export const CODEX_PROVIDER_GATE_OPEN = 'authorized';
@@ -60,6 +62,19 @@ const POLICY_KEYS = Object.freeze([
   'stopConditions',
   'tools',
 ]);
+
+const CAMPAIGN_PROFILES = Object.freeze({
+  'S16-production-live-v1': Object.freeze({
+    scope: CODEX_LIVE_POLICY_SCOPE,
+    scenarioVersion: 'S16.v1',
+    privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
+  }),
+  'S16-v2-production-live-v1': Object.freeze({
+    scope: CODEX_LIVE_POLICY_V2_SCOPE,
+    scenarioVersion: 'S16.v2',
+    privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2',
+  }),
+});
 
 function plainObject(value, label) {
   if (
@@ -127,6 +142,10 @@ export function validateCodexLivePolicy(value) {
   exactKeys(value, POLICY_KEYS, 'Codex live policy');
   exactString(value.schema, CODEX_LIVE_POLICY_SCHEMA, 'policy schema');
   nonempty(value.policyId, 'policy id');
+  const campaign = CAMPAIGN_PROFILES[value.policyId];
+  if (campaign === undefined) {
+    throw new TypeError('Codex live policy has an unknown campaign id');
+  }
 
   exactKeys(
     value.authorization,
@@ -141,7 +160,7 @@ export function validateCodexLivePolicy(value) {
   );
   exactString(
     value.authorization.scope,
-    CODEX_LIVE_POLICY_SCOPE,
+    campaign.scope,
     'authorization scope',
   );
   if (value.authorization.providerGate === CODEX_PROVIDER_GATE_CLOSED) {
@@ -399,7 +418,7 @@ export function validateCodexLivePolicy(value) {
   );
   exactString(
     value.evidence.privateDestination,
-    'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
+    campaign.privateDestination,
     'private evidence destination',
   );
   boundedInteger(
@@ -444,7 +463,11 @@ export function validateCodexLivePolicy(value) {
     ],
     'Codex scenario policy',
   );
-  exactString(value.scenarios.version, 'S16.v1', 'scenario version');
+  exactString(
+    value.scenarios.version,
+    campaign.scenarioVersion,
+    'scenario version',
+  );
   exactStringSet(
     value.scenarios.ids,
     CODEX_LIVE_SCENARIO_IDS,
@@ -478,20 +501,25 @@ export function validateCodexLivePolicy(value) {
 }
 
 export function createCodexLivePolicy({
+  campaignId = 'S16-production-live-v1',
   providerGate = CODEX_PROVIDER_GATE_CLOSED,
   approvedOn = null,
   principalApproval = 'not-granted',
   privateEvidenceDestinationApproval = 'not-granted',
 } = {}) {
+  const campaign = CAMPAIGN_PROFILES[campaignId];
+  if (campaign === undefined) {
+    throw new TypeError('Codex live policy has an unknown campaign id');
+  }
   const descriptor = {
     schema: CODEX_LIVE_POLICY_SCHEMA,
-    policyId: 'S16-production-live-v1',
+    policyId: campaignId,
     authorization: {
       providerGate,
       approvedOn,
       principalApproval,
       privateEvidenceDestinationApproval,
-      scope: CODEX_LIVE_POLICY_SCOPE,
+      scope: campaign.scope,
     },
     account: {
       boundary:
@@ -548,7 +576,7 @@ export function createCodexLivePolicy({
       externalSecretsAllowed: false,
     },
     evidence: {
-      privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
+      privateDestination: campaign.privateDestination,
       privateRetentionHours: 168,
       maxPrivateBytesPerRun: 25 * 1024 * 1024,
       privateMode: '0600',
@@ -564,7 +592,7 @@ export function createCodexLivePolicy({
       providerResidueAuditRequired: true,
     },
     scenarios: {
-      version: 'S16.v1',
+      version: campaign.scenarioVersion,
       ids: [...CODEX_LIVE_SCENARIO_IDS],
     },
     stopConditions: [...CODEX_LIVE_STOP_CONDITIONS],

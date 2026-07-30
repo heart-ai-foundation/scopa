@@ -45,6 +45,14 @@ const ROOT = path.resolve(
 );
 const FIXTURE = path.join(ROOT, 'fixtures/S16');
 const FAULT_CLIENT = path.join(FIXTURE, 'codex-fault-client.mjs');
+const DEFAULT_POLICY_PATH = path.join(
+  FIXTURE,
+  'codex-live-policy.json',
+);
+const ALLOWED_POLICY_PATHS = Object.freeze([
+  DEFAULT_POLICY_PATH,
+  path.join(ROOT, 'fixtures/S16R2/codex-live-policy.json'),
+]);
 
 function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
@@ -60,14 +68,35 @@ function withinRoot(root, candidate) {
 }
 
 export function parseDeterministicArguments(argv) {
-  if (argv.length === 0) return { output: null };
-  if (argv.length !== 2 || argv[0] !== '--output') {
-    throw new Error(
-      'usage: deterministic-edge-probe.js [--output <json-file>]',
+  let output = null;
+  let policyPath = DEFAULT_POLICY_PATH;
+  const seen = new Set();
+  for (let index = 0; index < argv.length; index += 2) {
+    const flag = argv[index];
+    const value = argv[index + 1];
+    if (
+      !['--output', '--policy'].includes(flag) ||
+      typeof value !== 'string' ||
+      value.length === 0 ||
+      seen.has(flag)
+    ) {
+      throw new Error(
+        'usage: deterministic-edge-probe.js ' +
+        '[--policy <json-file>] [--output <json-file>]',
+      );
+    }
+    seen.add(flag);
+    if (flag === '--output') output = path.resolve(value);
+    else policyPath = path.resolve(value);
+  }
+  if (!ALLOWED_POLICY_PATHS.includes(policyPath)) {
+    throw new TypeError(
+      'deterministic policy must be a committed Codex production policy',
     );
   }
   return {
-    output: path.resolve(argv[1]),
+    output,
+    policyPath,
   };
 }
 
@@ -320,10 +349,18 @@ export async function runDeterministicScenario({
   return result;
 }
 
-export async function deterministicCampaign() {
+export async function deterministicCampaign({
+  policyPath = DEFAULT_POLICY_PATH,
+} = {}) {
+  const resolvedPolicyPath = path.resolve(policyPath);
+  if (!ALLOWED_POLICY_PATHS.includes(resolvedPolicyPath)) {
+    throw new TypeError(
+      'deterministic policy must be a committed Codex production policy',
+    );
+  }
   const sourceCommit = await assertCleanCandidate();
   const policyText = await readFile(
-    path.join(FIXTURE, 'codex-live-policy.json'),
+    resolvedPolicyPath,
     'utf8',
   );
   const corpusText = await readFile(
@@ -365,7 +402,7 @@ export async function deterministicCampaign() {
     }
     const evidence = {
       schema: 'scopa.codex-deterministic-edge-result.v1',
-      slice: 'S16',
+      slice: policy.scenarios.version,
       sourceCommit,
       package: installed.package,
       policy: {
@@ -417,8 +454,11 @@ export async function deterministicCampaign() {
 }
 
 async function main() {
-  const { output } = parseDeterministicArguments(process.argv.slice(2));
-  const campaign = await deterministicCampaign();
+  const {
+    output,
+    policyPath,
+  } = parseDeterministicArguments(process.argv.slice(2));
+  const campaign = await deterministicCampaign({ policyPath });
   if (output !== null) {
     const handle = await open(output, 'wx', 0o644);
     await handle.writeFile(campaign.text);

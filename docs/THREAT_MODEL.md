@@ -64,9 +64,9 @@ consumer package.
 - Live launchers bind the exact installed artifact and return one bounded
   terminal envelope for both success and failure.
 - The first approved S16 Codex attempt stopped during its local version probe
-  before provider launch. Any fresh attempt remains closed until its exact
-  candidate, allowance, private destination, and stop conditions receive
-  separate explicit approval.
+  before provider launch. The separately approved S16-v2 campaign uses a
+  distinct policy/scenario version and `S16R2` evidence namespace; execution
+  still requires exact-candidate qualification and stops on the first failure.
 - Provider raw output remains private; repository-facing derivatives bind its
   digest and expose only designated redactions.
 - Verification uses caller-supplied timestamp roots and signer pins.

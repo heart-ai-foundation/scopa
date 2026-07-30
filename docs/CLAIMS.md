@@ -36,6 +36,10 @@
   until retained live evidence exists. Its first production attempt stopped
   locally on client-version drift before provider launch and consumed zero
   provider calls.
+- The fresh S16-v2 policy separately binds Codex CLI 0.146.0, four approved
+  one-turn scenarios, the prior token/time/capture ceilings, a distinct
+  `S16R2` evidence namespace, and stop-on-first-failure behavior. Live results
+  are not claimed until retained evidence exists.
 
 ## Adapter assurance
 

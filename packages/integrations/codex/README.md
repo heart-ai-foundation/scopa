@@ -112,6 +112,12 @@ the candidate still pinned `0.145.0`. The hardened result now distinguishes a
 reserved intent from a provider launch and preserves the exact pre-provider
 terminal state. That stopped attempt does not authorize a replay.
 
+The fresh S16-v2 posture is a separate authorization with policy ID
+`S16-v2-production-live-v1`, the second S16 scenario revision, policy digest
+`c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95`,
+and evidence alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2`. It retains the same
+four scenarios and resource ceilings and stops on the first failure.
+
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:
 
@@ -137,11 +143,11 @@ npm run probe:s16:live -- \
 ```
 
 It requires a clean committed candidate and an exact committed approved
-policy; the current S16 fixture is closed and will refuse provider execution.
+policy; the original S16 fixture is closed and will refuse provider execution.
 For an approved source-checkout campaign, substitute its exact fixture path for
-the policy placeholder. The runner copies the current Codex session credential
-into an isolated temporary home, verifies login without printing identity,
-runs at most one fresh Codex process per approved scenario, audits client-store
-residue after each call, enforces per-run and aggregate token ceilings,
-publishes only privacy-clean derivatives, and removes the isolated home and
-repositories.
+the policy placeholder. The runner routes each supported policy to a distinct
+public namespace, copies the current Codex session credential into an isolated
+temporary home, verifies login without printing identity, runs at most one
+fresh Codex process per approved scenario, audits client-store residue after
+each call, enforces per-run and aggregate token ceilings, publishes only
+privacy-clean derivatives, and removes the isolated home and repositories.

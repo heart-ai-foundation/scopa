@@ -196,6 +196,11 @@ production result. The runner now distinguishes provider launch from an intent
 reservation and preserves the precise terminal state. A fresh live attempt
 requires separate approval; the stopped allowance is not replayable.
 
+The separately approved S16-v2 posture uses Codex CLI 0.146.0, the second S16
+policy/scenario revision, the same four bounded `gpt-5.4` scenarios, and a
+fresh `S16R2` evidence namespace. It remains an opt-in production command and
+stops on the first failure.
+
 ## Developer-preview release candidate
 
 S10 adds the approved Apache-2.0, DCO/no-CLA, private-tarball posture; security,
