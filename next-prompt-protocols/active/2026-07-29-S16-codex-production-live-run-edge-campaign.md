@@ -155,6 +155,10 @@ receipt only after normal evidence persistence; stopped runs retain it beside
 their intent and recovery journal. This does not reopen any S16 allowance or
 authorize provider traffic.
 
+S16-v5 is prepared with a fresh `S16R5` namespace, a closed gate, and only
+the never-launched cold-restart scenario. It permits zero calls unless a later
+explicit approval binds this exact one-turn continuation.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose
@@ -236,6 +240,7 @@ invocation/evidence record already exists. A real run must never become part of
 - `fixtures/S16R2/**`
 - `fixtures/S16R3/**`
 - `fixtures/S16R4/**`
+- `fixtures/S16R5/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
@@ -243,6 +248,7 @@ invocation/evidence record already exists. A real run must never become part of
 - `evidence/S16R2/**`
 - `evidence/S16R3/**`
 - `evidence/S16R4/**`
+- `evidence/S16R5/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 - private bounded Codex evidence under
   `llm-memories/projects/scopa/evidence/S16*/**`

@@ -73,6 +73,10 @@ const V4_POLICY_PATH = path.join(
   ROOT,
   'fixtures/S16R4/codex-live-policy.json',
 );
+const V5_POLICY_PATH = path.join(
+  ROOT,
+  'fixtures/S16R5/codex-live-policy.json',
+);
 const CORPUS_PATH = path.join(FIXTURE, 'deterministic-scenarios.json');
 const ROOT_PACKAGE = JSON.parse(
   await readFile(path.join(ROOT, 'package.json'), 'utf8'),
@@ -489,6 +493,26 @@ test('S16-v4 closes the stopped two-scenario continuation', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
+test('S16-v5 reserves only cold-restart behind a closed gate', async () => {
+  const text = await readFile(V5_POLICY_PATH, 'utf8');
+  const policy = JSON.parse(text);
+  assert.deepEqual(
+    policy,
+    createCodexLivePolicy({ campaignId: 'S16-v5-production-live-v1' }),
+  );
+  assert.deepEqual(
+    validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
+    policy,
+  );
+  assert.throws(
+    () => assertCodexProviderAuthorized(policy),
+    /provider gate is closed/,
+  );
+  assert.deepEqual(policy.scenarios.ids, ['cold-restart']);
+  assert.equal(policy.limits.maxProviderInvocations, 1);
+  assert.equal(policy.policySha256, 'b24554363a35b461833e6dbe90e8ce18a816aeceff56adce2b1c0634c5dba921');
+});
+
 test('Codex policy enforces per-run and aggregate token accounting', () => {
   const policy = createCodexLivePolicy();
   assert.deepEqual(codexPolicyUsageLimits(policy), {
@@ -743,6 +767,14 @@ test('production CLI requires an external private root and exact arguments', () 
   ]);
   assert.equal(v4.publicRoot, path.join(ROOT, 'evidence/S16R4'));
   assert.equal(v4.expectedPolicyId, 'S16-v4-production-live-v1');
+  const v5 = parseProductionLiveArguments([
+    '--policy',
+    V5_POLICY_PATH,
+    '--private-root',
+    path.join(os.tmpdir(), 'scopa-s16-v5-private-test'),
+  ]);
+  assert.equal(v5.publicRoot, path.join(ROOT, 'evidence/S16R5'));
+  assert.equal(v5.expectedPolicyId, 'S16-v5-production-live-v1');
   assert.throws(
     () => parseProductionLiveArguments([
       '--policy',

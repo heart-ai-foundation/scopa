@@ -44,6 +44,7 @@
     "fixtures/S16R2/**",
     "fixtures/S16R3/**",
     "fixtures/S16R4/**",
+    "fixtures/S16R5/**",
     "next-prompt-protocols/**",
     "notes/S16/**",
     "runs/S16/**",
@@ -51,6 +52,7 @@
     "evidence/S16R2/**",
     "evidence/S16R3/**",
     "evidence/S16R4/**",
+    "evidence/S16R5/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
