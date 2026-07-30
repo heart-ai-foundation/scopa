@@ -1,0 +1,33 @@
+{
+  "schema": "scopa.codex-client-store-custody-remediation.v1",
+  "baseCommit": "9c55fe60a64577d8dad2b81b612971f251edb7bf",
+  "providerInvocations": 0,
+  "scope": "deterministic S16 client-store custody remediation",
+  "reproducedFailure": "unexpected-client-store-residue",
+  "receipt": {
+    "schema": "scopa.codex-live-store-audit.private.v1",
+    "persistence": "no-overwrite mode-0600 private receipt",
+    "retainedOnStop": true,
+    "removedAfterAcceptedEvidence": true,
+    "fields": [
+      "sourceCommit",
+      "livePolicySha256",
+      "scenario",
+      "beforeEntryCount",
+      "afterEntryCount",
+      "path-hashed delta metadata"
+    ]
+  },
+  "deterministicAssertions": {
+    "unexpectedResidueStops": true,
+    "rawStorePathExcluded": true,
+    "publicEvidenceAbsentOnStop": true,
+    "cleanPathRemovesTemporaryReceipt": true
+  },
+  "nonGoals": [
+    "no provider call",
+    "no S16-v4 replay",
+    "no policy reopening",
+    "no RC1 candidate or qualification"
+  ]
+}

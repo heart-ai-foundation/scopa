@@ -870,7 +870,112 @@ test('production campaign control enforces approval, accounting, evidence, and c
       ),
       { code: 'ENOENT' },
     );
+    await assert.rejects(
+      () => access(
+        path.join(privateRoot, `${scenario}.store-audit.private.json`),
+      ),
+      { code: 'ENOENT' },
+    );
   }
+});
+
+test('client-store residue retains a bounded private custody receipt before stopping', {
+  concurrency: false,
+}, async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-residue-test-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  const temporary = path.join(root, 'temporary');
+  const privateRoot = path.join(root, 'private');
+  const publicRoot = path.join(root, 'public');
+  const sourceHome = path.join(root, 'source-home');
+  await mkdir(temporary);
+  await mkdir(privateRoot, { mode: 0o700 });
+  await mkdir(publicRoot);
+  await mkdir(path.join(sourceHome, '.codex'), {
+    recursive: true,
+    mode: 0o700,
+  });
+  await writeFile(
+    path.join(sourceHome, '.codex/auth.json'),
+    '{"tokens":{"account_id":"S16-TEST-ACCOUNT"}}\n',
+    { mode: 0o600 },
+  );
+  const faultClient = path.join(FIXTURE, 'codex-fault-client.mjs');
+  const auth = await prepareCodexEnvironment({
+    installedIntegration: integration,
+    codexCommand: faultClient,
+    temporary,
+    sourceHome,
+  });
+  const policy = createCodexLivePolicy({
+    providerGate: CODEX_PROVIDER_GATE_OPEN,
+    approvedOn: '2026-07-29',
+    principalApproval: 'conversation-explicit',
+    privateEvidenceDestinationApproval: 'conversation-explicit',
+  });
+  const prompts = JSON.parse(await readFile(
+    path.join(FIXTURE, 'prompts.json'),
+    'utf8',
+  ));
+  await assert.rejects(
+    () => runCampaign({
+      installed: {
+        adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'),
+        integration,
+        liveRun,
+        project,
+        artifact: ARTIFACT,
+        package: {
+          ...ARTIFACT.package,
+          sourceCommit: ARTIFACT.sourceCommit,
+          entryCount: 173,
+        },
+      },
+      policy,
+      prompts,
+      temporary,
+      privateRoot,
+      publicRoot,
+      codexCommand: faultClient,
+      codexEnvironment: auth.environment,
+      codexHome: auth.isolatedHome,
+      authPath: auth.authPath,
+      authBoundarySha256: auth.authBoundarySha256,
+      scenarioEnvironment: () => ({
+        SCOPA_S16_BASE_SCENARIO: 'clean',
+        SCOPA_S16_FIXTURE_ROOT: ROOT,
+        SCOPA_S16_MODE: 'store-residue',
+      }),
+    }),
+    /clean left Codex client-store residue/,
+  );
+  const auditPath = path.join(
+    privateRoot,
+    'clean.store-audit.private.json',
+  );
+  const auditText = await readFile(auditPath, 'utf8');
+  const audit = JSON.parse(auditText);
+  assert.equal((await stat(auditPath)).mode & 0o777, 0o600);
+  assert.equal(audit.schema, 'scopa.codex-live-store-audit.private.v1');
+  assert.equal(audit.delta.onlyBoundedAuthRefresh, false);
+  assert.equal(audit.delta.added.length, 1);
+  assert.equal(audit.delta.added[0].kind, 'file');
+  assert.equal(audit.delta.added[0].bytes, 22);
+  assert.match(audit.delta.added[0].pathSha256, /^[a-f0-9]{64}$/);
+  assert.equal(auditText.includes('provider-session-state'), false);
+  await access(path.join(privateRoot, 'clean.intent.private.json'));
+  await access(path.join(privateRoot, 'clean.inflight.private.json'));
+  await assert.rejects(
+    () => access(path.join(privateRoot, 'clean.private.json')),
+    { code: 'ENOENT' },
+  );
+  await assert.rejects(
+    () => access(path.join(publicRoot, 'clean.public.json')),
+    { code: 'ENOENT' },
+  );
 });
 
 test('all S16 deterministic edge classes preserve expected polarity and cleanup', {

@@ -345,6 +345,16 @@ async function main() {
       );
     }
   }
+  if (mode === 'store-residue') {
+    const codexStore = path.join(process.env.HOME, '.codex');
+    await mkdir(codexStore, {
+      recursive: true,
+    });
+    await writeFile(
+      path.join(codexStore, 'provider-session-state.json'),
+      'deterministic residue\n',
+    );
+  }
   process.stdout.write(jsonLines(await successEvents(baseScenario, mode)));
 }
 

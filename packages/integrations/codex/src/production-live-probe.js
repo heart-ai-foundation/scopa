@@ -751,6 +751,10 @@ export async function runCampaign({
         privateRoot,
         `${scenario.id}.inflight.private.json`,
       );
+      const storeAuditPath = path.join(
+        privateRoot,
+        `${scenario.id}.store-audit.private.json`,
+      );
       const privatePath = path.join(
         privateRoot,
         `${scenario.id}.private.json`,
@@ -762,6 +766,7 @@ export async function runCampaign({
       for (const [target, label] of [
         [intentPath, `${scenario.id} invocation intent`],
         [journalPath, `${scenario.id} recovery journal`],
+        [storeAuditPath, `${scenario.id} client-store audit`],
         [privatePath, `${scenario.id} private evidence`],
         [publicPath, `${scenario.id} public evidence`],
       ]) {
@@ -848,6 +853,28 @@ export async function runCampaign({
       await writeNoReplace(journalPath, journal, 0o600);
       const afterStore = await snapshotCodexStore(codexHome);
       const residue = providerStoreDelta(beforeStore, afterStore);
+      const storeAudit = {
+        schema: 'scopa.codex-live-store-audit.private.v1',
+        sourceCommit: installed.artifact.sourceCommit,
+        livePolicySha256: policy.policySha256,
+        scenario: {
+          id: scenario.id,
+          version: policy.scenarios.version,
+        },
+        beforeEntryCount: beforeStore.length,
+        afterEntryCount: afterStore.length,
+        delta: residue,
+      };
+      const storeAuditText = canonicalJsonPretty(storeAudit);
+      if (
+        Buffer.byteLength(storeAuditText, 'utf8') >
+        policy.evidence.maxPrivateBytesPerRun
+      ) {
+        throw new TypeError(
+          `${scenario.id} client-store audit exceeds evidence policy`,
+        );
+      }
+      await writeNoReplace(storeAuditPath, storeAudit, 0o600);
       if (!residue.onlyBoundedAuthRefresh) {
         throw new TypeError(
           `${scenario.id} left Codex client-store residue`,
@@ -960,6 +987,7 @@ export async function runCampaign({
         qualification: 'direct',
       });
       await removeAndVerify(journalPath);
+      await removeAndVerify(storeAuditPath);
       await removeAndVerify(intentPath);
     }
   } finally {

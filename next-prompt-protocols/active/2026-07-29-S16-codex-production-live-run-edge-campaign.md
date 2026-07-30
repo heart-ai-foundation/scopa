@@ -147,6 +147,14 @@ retained under the approved bounds, and the gate is closed. The campaign is
 non-qualifying and cannot replay. S16 remains active and CXH1-CXH3 remain
 unsatisfied.
 
+The stop exposed one bounded forensic gap: the runner rejected the
+path-hashed client-store delta but did not retain it. A deterministic narrow
+remediation now persists a no-overwrite, mode-`0600` private store-audit
+receipt before enforcing the same rejection. Clean runs remove this temporary
+receipt only after normal evidence persistence; stopped runs retain it beside
+their intent and recovery journal. This does not reopen any S16 allowance or
+authorize provider traffic.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose
