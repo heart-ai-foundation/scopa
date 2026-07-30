@@ -35,29 +35,38 @@ materialized and explicitly approved.
 
 ## Current checkpoint
 
-The complete policy is materialized with four scenarios, per-run
-and aggregate token ceilings, a private evidence destination class, retention,
-cleanup, environment, and fourteen stop conditions. On 2026-07-29 the
-principal explicitly approved the exact four-call allowance, aggregate token
-ceiling, and private S16 destination. Its digest-bound authorization state is
-now `authorized`; provider execution has not yet completed.
+The complete policy is materialized with four scenarios, per-run and aggregate
+token ceilings, a private evidence destination class, retention, cleanup,
+environment, and fourteen stop conditions. On 2026-07-29 the principal
+explicitly approved the exact four-call allowance, aggregate token ceiling,
+and private S16 destination. Its digest-bound authorization state was
+`authorized`; provider execution has not completed.
 
 Installed qualification first caught a shipped private-topology reference in
 the public policy contract and invalidated that candidate. The remediated
 contract uses the public alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16`, whose
 concrete operator mapping is retained outside the package.
 
-Exact source `695672d3cf5fc4f985ae8e779830d13ce20fa3ca` now passes the
-generic installed-surface probe and all 21 deterministic scenarios. The
-173-entry package SHA-256 is
-`eeab466bad7c0651ec778b055826c0ae09f3a767e7cc6f21b6e0f33427e16318`;
-all shipped-file privacy findings are zero, every expected state and stop
-polarity was observed, every process group was gone, assurance remained
-`partial`, and provider invocations were exactly zero.
+Exact source `15da461ee3ca2b3fd8dd4d555a62cffb2d07e20a` passed the generic
+installed-surface probe, all 21 deterministic scenarios, and hosted release
+gate `30516378273`. Its 174-entry package SHA-256 is
+`ecc0a1212195246c14e8a488526b43627c162b6986dc20b86cf800fc17f5c6c4`.
 
-The next checkpoint is clean exact-candidate qualification of the committed
-production runner, followed by the four-call execution with immediate stop
-controls.
+The production command then stopped during its local client-version probe:
+the candidate required Codex CLI `0.145.0`, while the installed client was
+`0.146.0`. Structural custody evidence proves that the provider launcher did
+not start and zero calls were consumed. The stop also reproduced a
+campaign-level accounting/reporting defect: an invocation intent was counted
+before provider launch and the exact `version-drift` terminal was obscured by
+a generic normalization error.
+
+The narrow remediation pins `0.146.0`, marks whether provider launch actually
+started, counts only launched provider invocations, and reports the precise
+pre-provider or post-launch terminal. Deterministic regressions prove that
+client-version and MCP-inventory drift consume zero calls. The next checkpoint
+is clean exact-candidate qualification and a fresh explicit live allowance;
+the stopped attempt is not replayable. The committed gate is
+`closed-pending-explicit-approval`.
 
 ## Descriptor rung check
 

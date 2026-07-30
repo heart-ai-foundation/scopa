@@ -13,7 +13,7 @@ import {
   fileURLToPath,
 } from 'node:url';
 
-const VERSION = '0.145.0';
+const VERSION = '0.146.0';
 const MODEL = 'gpt-5.4';
 const DEFAULT_ROOT = path.resolve(
   fileURLToPath(new URL('../..', import.meta.url)),

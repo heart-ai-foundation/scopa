@@ -30,8 +30,8 @@ polarity, and process-group disappearance.
 
 ## Authorization boundary
 
-No provider request had been made at this checkpoint. The committed policy now
-states:
+No provider request had been made at this checkpoint. The policy later used
+for the stopped production preflight stated:
 
 - provider gate: `authorized`
 - approved provider invocations: `4`
@@ -40,7 +40,10 @@ states:
 
 The approved policy digest is
 `4086fca329656748ceff55bb54d8543aab7ae89bc357a47be459bd985e9468c3`.
-It cannot authorize any extension or replay beyond the exact four calls.
+It cannot authorize any extension or replay beyond the exact four calls. After
+the zero-provider preflight stop, the committed gate returned to
+`closed-pending-explicit-approval` with descriptor digest
+`c0b27378715e238fb2af4559ae787b221169181473ce59e572e3018019fca82f`.
 
 ## Installed privacy remediation
 

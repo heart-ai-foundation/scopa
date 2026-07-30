@@ -145,6 +145,7 @@ function result({
   inventory = null,
   normalized = null,
   rawStream = [],
+  providerInvocationStarted = false,
 }) {
   return {
     schema: 'scopa.codex-session-result.v1',
@@ -153,6 +154,7 @@ function result({
     inventory,
     rawStream,
     normalized,
+    providerInvocationStarted,
     stderr: execution.stderr,
     privateCapture: {
       stdout: execution.stdout,
@@ -534,6 +536,7 @@ export async function runCodexSession({
         receipt: liveReceipt,
         execution,
         inventory: inventoryProbe.servers,
+        providerInvocationStarted: true,
       });
     }
 
@@ -549,6 +552,7 @@ export async function runCodexSession({
         receipt: liveReceipt,
         execution,
         inventory: inventoryProbe.servers,
+        providerInvocationStarted: true,
       });
     }
     if (
@@ -568,6 +572,7 @@ export async function runCodexSession({
           .filter((line) => line.length > 0)
           .map((line) => JSON.parse(line)),
         normalized,
+        providerInvocationStarted: true,
       });
     }
     const terminal = bindNormalizedCompletion(
@@ -584,6 +589,7 @@ export async function runCodexSession({
         .filter((line) => line.length > 0)
         .map((line) => JSON.parse(line)),
       normalized,
+      providerInvocationStarted: true,
     });
   } finally {
     await rm(controlRoot, {

@@ -203,7 +203,7 @@ async function codexFixture() {
   const retained = await transcript();
   const client = {
     name: 'codex-mcp-client',
-    version: '0.145.0',
+    version: '0.146.0',
   };
   retained.session.id = 'S14-codex-fixture';
   retained.session.request = 'Normalize a deterministic S14 fixture.';
@@ -377,7 +377,7 @@ async function provider() {
       process.stdout.write(
         mode === 'version-drift'
           ? 'codex-cli 0.145.1\n'
-          : 'codex-cli 0.145.0\n',
+          : 'codex-cli 0.146.0\n',
       );
       return;
     }

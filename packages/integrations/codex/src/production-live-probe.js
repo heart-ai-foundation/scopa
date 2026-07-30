@@ -702,7 +702,9 @@ export async function runCampaign({
           total: policy.limits.maxTotalTokensPerRun,
         },
       }, 0o600);
-      providerInvocations += 1;
+      if (providerInvocations >= policy.limits.maxProviderInvocations) {
+        throw new TypeError('Codex provider invocation limit exhausted');
+      }
       const run = await installed.integration.runCodexSession({
         repoRoot: repositoryRoot,
         adapterCli: installed.adapterCli,
@@ -729,6 +731,9 @@ export async function runCampaign({
         },
         environmentInheritance: policy.environment.inheritance,
       });
+      if (run.providerInvocationStarted === true) {
+        providerInvocations += 1;
+      }
       const journal = {
         schema: 'scopa.codex-live-run-journal.private.v1',
         sourceCommit: installed.artifact.sourceCommit,
@@ -766,7 +771,13 @@ export async function runCampaign({
         throw new TypeError('authenticated Codex identity changed');
       }
       if (run.normalized === null) {
-        throw new TypeError(`${scenario.id} lacks normalized provider usage`);
+        const providerStage = run.providerInvocationStarted
+          ? 'after provider launch'
+          : 'before provider launch';
+        throw new TypeError(
+          `${scenario.id} stopped ${providerStage}: ` +
+          `${run.terminal.state}/${run.terminal.reason}`,
+        );
       }
       const usage = installed.integration.assertCodexUsageWithinPolicy(
         policy,

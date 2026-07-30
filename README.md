@@ -156,7 +156,7 @@ remedial allowance is also exhausted; neither command authorizes new traffic.
 ## Codex integration
 
 The installed package also exports `@heart-ai-foundation/scopa/codex`. Its
-reviewed profile pins Codex CLI 0.145.0 and `gpt-5.4`, resets the MCP map to
+reviewed profile pins Codex CLI 0.146.0 and `gpt-5.4`, resets the MCP map to
 one required SCOPA server, disables 28 native feature surfaces, ignores user
 config and exec rules, uses ephemeral JSONL execution with a read-only native
 sandbox, and schema-binds the final response.
@@ -175,10 +175,10 @@ the API, exact controls, and non-claims.
 S16 adds a published, digest-bound Codex policy with four approved live
 scenarios, explicit token/capture/time ceilings, a ten-name environment
 allowlist, private evidence retention, cleanup duties, and fourteen immediate
-stop conditions. The committed policy is `authorized` under the exact
-2026-07-29 conversation approval; it grants no calls beyond clean, denied,
-false-green, and cold-restart. From a SCOPA source checkout with development
-scripts installed, the provider-free qualification command is:
+stop conditions. The first attempt used the exact 2026-07-29 approval and
+stopped before provider launch; the committed gate is now
+`closed-pending-explicit-approval`. From a SCOPA source checkout with
+development scripts installed, the provider-free qualification command is:
 
 ```sh
 npm run probe:s16:deterministic -- \
@@ -189,6 +189,12 @@ The installed probe uses only the committed fault client. It covers the four
 core outcomes plus restart repetition, client/model/MCP/schema/native drift,
 refusal, rate pressure, ignored termination, early EOF, malformed events,
 usage/capture ceilings, and orphan cleanup.
+
+The first production attempt stopped locally on Codex client-version drift
+before provider launch, so it consumed zero provider calls and produced no
+production result. The runner now distinguishes provider launch from an intent
+reservation and preserves the precise terminal state. A fresh live attempt
+requires separate approval; the stopped allowance is not replayable.
 
 ## Developer-preview release candidate
 

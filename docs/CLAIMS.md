@@ -33,7 +33,9 @@
   traffic. Its published policy binds an explicitly approved four-call
   allowance, exact token ceilings, an environment allowlist, evidence
   retention, cleanup, and stop conditions. Provider execution is not claimed
-  until retained live evidence exists.
+  until retained live evidence exists. Its first production attempt stopped
+  locally on client-version drift before provider launch and consumed zero
+  provider calls.
 
 ## Adapter assurance
 
@@ -58,6 +60,8 @@ SCOPA does not:
 - treat S16 deterministic qualification or its approved policy as real Codex
   production evidence, account verification, or authority beyond its exact
   four calls;
+- treat the zero-call S16 version-drift stop as live provider evidence or
+  authority to replay the stopped campaign;
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;

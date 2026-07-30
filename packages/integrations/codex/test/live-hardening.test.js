@@ -73,7 +73,7 @@ async function repository() {
   return root;
 }
 
-test('Codex campaign policy binds the exact explicit approval', async () => {
+test('Codex campaign policy is closed after the stopped allowance', async () => {
   const text = await readFile(POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
   assert.equal(text.endsWith('\n'), true);
@@ -85,16 +85,16 @@ test('Codex campaign policy binds the exact explicit approval', async () => {
   );
   assert.equal(
     policy.authorization.providerGate,
-    CODEX_PROVIDER_GATE_OPEN,
+    CODEX_PROVIDER_GATE_CLOSED,
   );
-  assert.equal(policy.authorization.approvedOn, '2026-07-29');
+  assert.equal(policy.authorization.approvedOn, null);
   assert.equal(
     policy.authorization.principalApproval,
-    'conversation-explicit',
+    'not-granted',
   );
   assert.equal(
     policy.authorization.privateEvidenceDestinationApproval,
-    'conversation-explicit',
+    'not-granted',
   );
   assert.equal(policy.limits.maxProviderInvocations, 4);
   assert.deepEqual(policy.scenarios.ids, [
@@ -109,7 +109,10 @@ test('Codex campaign policy binds the exact explicit approval', async () => {
   assert.equal(policy.nativeSurface.approvalPolicy, 'never');
   assert.equal(policy.tools.allowed.length, 6);
   assert.equal(policy.network.osEnforced, false);
-  assert.equal(assertCodexProviderAuthorized(policy), policy);
+  assert.throws(
+    () => assertCodexProviderAuthorized(policy),
+    /provider gate is closed/,
+  );
 
   const mutated = structuredClone(policy);
   mutated.limits.maxInputTokensPerRun += 1;
@@ -118,7 +121,7 @@ test('Codex campaign policy binds the exact explicit approval', async () => {
     /aggregate usage bounds conflict|digest does not bind/,
   );
   const falseApproval = structuredClone(policy);
-  falseApproval.authorization.providerGate = CODEX_PROVIDER_GATE_CLOSED;
+  falseApproval.authorization.principalApproval = 'conversation-explicit';
   assert.throws(
     () => validateCodexLivePolicy(falseApproval),
     /closed Codex provider gate claims approval/,
@@ -133,7 +136,7 @@ test('Codex campaign policy binds the exact explicit approval', async () => {
   );
 });
 
-test('explicit approval fixture differs from the closed proposal', async () => {
+test('fresh explicit approval differs from the closed stop posture', async () => {
   const fixture = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
   const authorized = createCodexLivePolicy({
     providerGate: CODEX_PROVIDER_GATE_OPEN,
@@ -142,11 +145,8 @@ test('explicit approval fixture differs from the closed proposal', async () => {
     privateEvidenceDestinationApproval: 'conversation-explicit',
   });
   assert.equal(assertCodexProviderAuthorized(authorized), authorized);
-  assert.deepEqual(fixture, authorized);
-  assert.notEqual(
-    authorized.policySha256,
-    createCodexLivePolicy().policySha256,
-  );
+  assert.deepEqual(fixture, createCodexLivePolicy());
+  assert.notEqual(authorized.policySha256, fixture.policySha256);
 });
 
 test('Codex policy enforces per-run and aggregate token accounting', () => {
@@ -247,7 +247,7 @@ test('reviewer matrix binds the exact policy, prompts, and corpus', async () => 
     matrix.deterministicCorpus.sha256,
     await digest(matrix.deterministicCorpus.filename),
   );
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 4);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
   assert.equal(matrix.providerExecutionCompleted, false);
   assert.deepEqual(scanPrivateText(matrixText), []);
 });
@@ -308,9 +308,12 @@ test('production campaign control enforces approval, accounting, evidence, and c
     temporary,
     sourceHome,
   });
-  const policy = validateCodexLivePolicy(JSON.parse(
-    await readFile(POLICY_PATH, 'utf8'),
-  ));
+  const policy = createCodexLivePolicy({
+    providerGate: CODEX_PROVIDER_GATE_OPEN,
+    approvedOn: '2026-07-29',
+    principalApproval: 'conversation-explicit',
+    privateEvidenceDestinationApproval: 'conversation-explicit',
+  });
   const campaign = await runCampaign({
     installed: {
       adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'),
@@ -414,6 +417,24 @@ test('all S16 deterministic edge classes preserve expected polarity and cleanup'
   assert.equal(
     results.every((result) => result.terminal.cleanup.groupGone),
     true,
+  );
+  assert.equal(
+    results.find(
+      (_, index) => corpus.scenarios[index].id === 'clean',
+    ).providerInvocationStarted,
+    true,
+  );
+  assert.equal(
+    results.find(
+      (_, index) => corpus.scenarios[index].id === 'client-version-drift',
+    ).providerInvocationStarted,
+    false,
+  );
+  assert.equal(
+    results.find(
+      (_, index) => corpus.scenarios[index].id === 'mcp-inventory-drift',
+    ).providerInvocationStarted,
+    false,
   );
   assert.equal(
     results.find(

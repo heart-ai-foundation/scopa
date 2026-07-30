@@ -4,7 +4,7 @@ The root package exports `@heart-ai-foundation/scopa/codex`, a headless Codex
 launcher, JSONL normalizer, and Claude/Codex behavior-parity verifier for the
 shared `scopa-mcp` bridge.
 
-The reviewed profile pins Codex CLI `0.145.0` and model request `gpt-5.4`. It
+The reviewed profile pins Codex CLI `0.146.0` and model request `gpt-5.4`. It
 uses `codex exec` with strict configuration, ignored user config and exec
 rules, ephemeral session handling, a read-only native sandbox, disabled web
 search, a fixed output schema, and 28 explicit feature disables. The MCP map
@@ -88,8 +88,8 @@ a separate enforcement layer and is not represented as SCOPA mediation.
 
 `--ephemeral` suppresses rollout persistence; it does not promise that every
 CLI-owned metadata store is untouched. Model identity is launcher-declared,
-and the observed `codex-mcp-client@0.145.0` handshake is not provider-signed
-provenance.
+and the profile-declared `codex-mcp-client@0.146.0` identity is not
+provider-signed provenance.
 
 ## S16 production-live hardening
 
@@ -100,10 +100,17 @@ binds the exact client/model/MCP/native surface, four approved scenarios,
 per-run and aggregate usage bounds, evidence custody, cleanup requirements,
 and stop conditions.
 
-The committed S16 policy carries `providerGate: "authorized"` under the exact
-2026-07-29 conversation approval. The authorization helper accepts only its
-digest-bound approval date, principal approval, private-destination approval,
-four scenarios, and aggregate allowance. No extension or replay is implied.
+The S16 attempt used a `providerGate: "authorized"` policy under the exact
+2026-07-29 conversation approval. After the pre-provider stop, the committed
+policy returned to `closed-pending-explicit-approval`. The authorization helper
+accepts only an exact digest-bound approval date, principal approval,
+private-destination approval, four scenarios, and aggregate allowance.
+
+The first production attempt stopped during the local version probe before
+provider launch because the installed client had advanced to `0.146.0` while
+the candidate still pinned `0.145.0`. The hardened result now distinguishes a
+reserved intent from a provider launch and preserves the exact pre-provider
+terminal state. That stopped attempt does not authorize a replay.
 
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:
@@ -129,10 +136,12 @@ npm run probe:s16:live -- \
   --private-root /trusted/private/s16
 ```
 
-It requires a clean committed candidate and the exact committed approved
-policy; in the source checkout, substitute its S16 fixture path for the policy
-placeholder. It copies the current Codex session credential into an isolated
-temporary home, verifies login without printing identity, runs at most one
-fresh Codex process per approved scenario, audits client-store residue after
-each call, enforces per-run and aggregate token ceilings, publishes only
-privacy-clean derivatives, and removes the isolated home and repositories.
+It requires a clean committed candidate and an exact committed approved
+policy; the current S16 fixture is closed and will refuse provider execution.
+For an approved source-checkout campaign, substitute its exact fixture path for
+the policy placeholder. The runner copies the current Codex session credential
+into an isolated temporary home, verifies login without printing identity,
+runs at most one fresh Codex process per approved scenario, audits client-store
+residue after each call, enforces per-run and aggregate token ceilings,
+publishes only privacy-clean derivatives, and removes the isolated home and
+repositories.

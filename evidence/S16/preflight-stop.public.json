@@ -1,0 +1,53 @@
+{
+  "assurance": "partial",
+  "attemptedAt": "2026-07-30T05:25:04.352Z",
+  "candidate": {
+    "package": "@heart-ai-foundation/scopa@0.2.0-dev.1",
+    "packageSha256": "ecc0a1212195246c14e8a488526b43627c162b6986dc20b86cf800fc17f5c6c4",
+    "sourceCommit": "15da461ee3ca2b3fd8dd4d555a62cffb2d07e20a"
+  },
+  "client": {
+    "expectedVersion": "0.145.0",
+    "observedVersion": "0.146.0"
+  },
+  "deterministicQualification": {
+    "allExpectedStatesObserved": true,
+    "providerInvocations": 0,
+    "resultSha256": "6c71b7a74cc23335b066b98572b65d9e820dce6629f7f8f8a23a8d680fd39087"
+  },
+  "hostedQualification": {
+    "conclusion": "success",
+    "runId": 30516378273,
+    "sourceCommit": "15da461ee3ca2b3fd8dd4d555a62cffb2d07e20a"
+  },
+  "policySha256": "4086fca329656748ceff55bb54d8543aab7ae89bc357a47be459bd985e9468c3",
+  "privateEvidence": {
+    "deleteAfter": "2026-08-06T05:25:04.352Z",
+    "files": [
+      {
+        "filename": "clean.inflight.private.json",
+        "mode": "0600",
+        "sha256": "66b5f38f1abe01c5073e81bc272a31faa0a96f7154a109911022f1a88bb26160",
+        "sizeBytes": 3716
+      },
+      {
+        "filename": "clean.intent.private.json",
+        "mode": "0600",
+        "sha256": "48485f8c3284faf2149bcd685c24b9e99eaaa08b36588cc312331033331bac89",
+        "sizeBytes": 429
+      }
+    ],
+    "retentionHours": 168
+  },
+  "providerExecution": {
+    "invocationsConsumed": 0,
+    "launchStarted": false
+  },
+  "scenario": "clean",
+  "schema": "scopa.codex-live-preflight-stop.public.v1",
+  "terminal": {
+    "canStop": false,
+    "reason": "client-version-mismatch",
+    "state": "version-drift"
+  }
+}

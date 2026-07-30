@@ -195,7 +195,7 @@ function jsonLines(events) {
 
 test('Codex profile pins version, read-only execution, features, and one MCP server', () => {
   assert.equal(
-    parseCodexVersion('codex-cli 0.145.0\n'),
+    parseCodexVersion('codex-cli 0.146.0\n'),
     EXPECTED_CODEX_CLI_VERSION,
   );
   assert.throws(() => parseCodexVersion('codex 0.145.1'));
@@ -288,7 +288,7 @@ test('committed live proof binds narrow write approval to a successful SCOPA cal
 test('Codex matrix is deliberately partial and false full assurance is rejected', () => {
   const matrix = createCodexCapabilityMatrix({});
   assert.equal(matrix.assurance, 'partial');
-  assert.equal(matrix.subject.client, 'codex-mcp-client@0.145.0');
+  assert.equal(matrix.subject.client, 'codex-mcp-client@0.146.0');
   assert.equal(
     matrix.capabilities.find(
       (capability) => capability.id === 'native.filesystem-write',

@@ -6,7 +6,7 @@ import {
   validateCapabilityMatrix,
 } from '../../../adapter-host/src/index.js';
 
-export const EXPECTED_CODEX_CLI_VERSION = '0.145.0';
+export const EXPECTED_CODEX_CLI_VERSION = '0.146.0';
 export const CODEX_MCP_SERVER_NAME = 'scopa';
 export const CODEX_MODEL_REQUEST = 'gpt-5.4';
 export const CODEX_MCP_TOOLS = Object.freeze([
@@ -227,7 +227,7 @@ export function createCodexCapabilityMatrix({
       uncontrolled(
         'codex.skills-and-instructions',
         'extension',
-        'Codex 0.145.0 still discovers initial skill descriptions and instruction layers outside the MCP contract; skill search, script execution routes, and native process tools are disabled',
+        'Codex 0.146.0 still discovers initial skill descriptions and instruction layers outside the MCP contract; skill search, script execution routes, and native process tools are disabled',
       ),
       disabled(
         'codex.multi-agent',

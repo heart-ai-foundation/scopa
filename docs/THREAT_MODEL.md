@@ -63,8 +63,9 @@ consumer package.
 - Live models run only in disposable fixture repositories.
 - Live launchers bind the exact installed artifact and return one bounded
   terminal envelope for both success and failure.
-- S16 Codex provider execution remains closed until its exact four-call policy,
-  aggregate token allowance, private destination, and stop conditions receive
+- The first approved S16 Codex attempt stopped during its local version probe
+  before provider launch. Any fresh attempt remains closed until its exact
+  candidate, allowance, private destination, and stop conditions receive
   separate explicit approval.
 - Provider raw output remains private; repository-facing derivatives bind its
   digest and expose only designated redactions.
