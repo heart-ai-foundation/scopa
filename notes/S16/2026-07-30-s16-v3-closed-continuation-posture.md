@@ -1,11 +1,11 @@
-# S16-v3 closed continuation posture
+# S16-v3 approved continuation posture
 
 ## Decision
 
 S16-v2 is preserved as a stopped, non-replayable one-call campaign. Its three
 unlaunched calls are not carried forward as residual authorization.
 
-S16-v3 is a distinct proposed continuation with:
+S16-v3 is a distinct approved continuation with:
 
 - policy ID: `S16-v3-production-live-v1`
 - scenario version: `S16.v3`
@@ -22,11 +22,12 @@ S16-v3 is a distinct proposed continuation with:
   provider-boundary failure
 - replay: prohibited
 
-## Gate
+## Approval and gate
 
-The provider gate is `closed-pending-explicit-approval`. This posture and its
-private destination require explicit principal approval after exact-candidate
-qualification. Drafting and deterministic validation do not authorize a
-provider request.
+On 2026-07-30 the principal explicitly approved this exact posture and its
+fresh private destination. The descriptor-bound provider gate is `authorized`
+for at most the three enumerated one-turn calls. The queue must stop on the
+first failure, cannot replay a call or the predecessor campaign, and must be
+closed after this single execution attempt.
 
 The separate SCOPA experiment remains out of scope and untouched.

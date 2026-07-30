@@ -248,25 +248,32 @@ test('S16-v2 policy closes the consumed fresh allowance', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
-test('S16-v3 is a distinct closed three-scenario continuation', async () => {
+test('S16-v3 is a distinctly authorized three-scenario continuation', async () => {
   const text = await readFile(V3_POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
+  const expected = createCodexLivePolicy({
+    campaignId: 'S16-v3-production-live-v1',
+    providerGate: CODEX_PROVIDER_GATE_OPEN,
+    approvedOn: '2026-07-30',
+    principalApproval: 'conversation-explicit',
+    privateEvidenceDestinationApproval: 'conversation-explicit',
+  });
+  const closed = createCodexLivePolicy({
+    campaignId: 'S16-v3-production-live-v1',
+  });
   assert.equal(text.endsWith('\n'), true);
   assert.equal(validateCodexLivePolicy(policy), policy);
   assert.deepEqual(
     validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
     policy,
   );
-  assert.deepEqual(
-    policy,
-    createCodexLivePolicy({
-      campaignId: 'S16-v3-production-live-v1',
-    }),
-  );
+  assert.deepEqual(policy, expected);
+  assert.equal(assertCodexProviderAuthorized(policy), policy);
   assert.throws(
-    () => assertCodexProviderAuthorized(policy),
+    () => assertCodexProviderAuthorized(closed),
     /provider gate is closed/,
   );
+  assert.notEqual(closed.policySha256, policy.policySha256);
   assert.equal(
     policy.authorization.scope,
     'S16-v3-production-live-run-edge-continuation',
@@ -287,7 +294,7 @@ test('S16-v3 is a distinct closed three-scenario continuation', async () => {
   );
   assert.equal(
     policy.policySha256,
-    '898e96d064ca9789ffe095e32e4d8e0dc6bb1072c142257c0c609f186f448ccc',
+    'f87f3858bbae716383a86429e0ffe836e1115e38351164a20de6c20b101441e3',
   );
   assert.deepEqual(
     productionScenariosForPolicy(policy).map((scenario) => scenario.id),
@@ -320,7 +327,7 @@ test('S16-v3 is a distinct closed three-scenario continuation', async () => {
     createHash('sha256').update(text).digest('hex'),
   );
   assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 3);
   assert.equal(matrix.providerExecutionCompleted, false);
   assert.equal(matrix.replayOfPredecessor, false);
   assert.deepEqual(

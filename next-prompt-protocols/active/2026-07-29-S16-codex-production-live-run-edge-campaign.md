@@ -91,15 +91,17 @@ content-ambiguous file are rejected before provider traffic; symlinks,
 special files, entry exhaustion, and all unexpected post-run changes remain
 stop conditions.
 
-The proposed S16-v3 continuation is now materialized with policy ID
+The S16-v3 continuation is now materialized with policy ID
 `S16-v3-production-live-v1`, scenario version `S16.v3`, and a fresh `S16R3`
 evidence namespace. It contains only denied, false-green, and cold-restart,
 the three scenarios S16-v2 never launched. Its maximum is three one-turn
 calls, and its aggregate token ceilings are proportionally reduced to 360,000
-input, 12,000 output, and 378,000 total. Its gate is closed and grants zero
-provider calls. The next checkpoint is exact-candidate deterministic,
-installed, audit, and hosted qualification before a separate explicit
-approval decision. S16 remains active and CXH1-CXH3 remain unsatisfied.
+input, 12,000 output, and 378,000 total. On 2026-07-30 the principal explicitly
+approved this exact posture and fresh private destination as a single
+stop-first-failure attempt with no replay. The gate authorizes only the three
+enumerated calls. The next checkpoint is exact-candidate deterministic,
+installed, audit, and hosted qualification before provider traffic. S16
+remains active and CXH1-CXH3 remain unsatisfied.
 
 ## Descriptor rung check
 

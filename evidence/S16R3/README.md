@@ -1,13 +1,14 @@
 # S16-v3 continuation evidence
 
-This namespace is reserved for a fresh continuation posture after the
+This namespace records a fresh continuation posture after the
 non-qualifying S16-v2 client-store custody stop. It does not replay S16-v2.
 
-The closed plan contains only the three scenarios that S16-v2 did not launch:
+The approved plan contains only the three scenarios that S16-v2 did not launch:
 denied, false-green, and cold-restart. The maximum is three one-turn
 `gpt-5.4` invocations with proportionally reduced aggregate token ceilings.
-Execution requires a distinct explicit approval of this exact policy and the
+On 2026-07-30 the principal explicitly approved this exact policy and its
 private `S16R3` evidence destination.
 
-The gate is closed. No provider traffic, result, or qualification is claimed.
+The gate is authorized for one stop-first-failure execution attempt. No
+provider result or qualification is yet claimed, and replay is prohibited.
 The separate SCOPA experiment remains outside this namespace and untouched.

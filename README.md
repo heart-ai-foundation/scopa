@@ -202,11 +202,12 @@ fresh `S16R2` evidence namespace. It stopped after one clean provider call
 when the isolated Codex client store exceeded the custody audit bound. Three
 calls were not launched; the result is non-qualifying and non-replayable.
 
-The proposed S16-v3 continuation is separately closed under policy
+The S16-v3 continuation was separately approved on 2026-07-30 under policy
 `S16-v3-production-live-v1`. It uses a fresh `S16R3` evidence namespace and
 contains only denied, false-green, and cold-restart, with a maximum of three
-one-turn calls and proportionally reduced aggregate token ceilings. Drafting
-and deterministic qualification do not authorize provider traffic.
+one-turn calls and proportionally reduced aggregate token ceilings. It is a
+single stop-first-failure attempt with no replay; no live result is yet
+claimed.
 
 ## Developer-preview release candidate
 
