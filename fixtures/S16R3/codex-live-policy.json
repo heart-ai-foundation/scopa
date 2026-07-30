@@ -1,0 +1,152 @@
+{
+  "schema": "scopa.codex-live-policy.v1",
+  "policyId": "S16-v3-production-live-v1",
+  "authorization": {
+    "providerGate": "closed-pending-explicit-approval",
+    "approvedOn": null,
+    "principalApproval": "not-granted",
+    "privateEvidenceDestinationApproval": "not-granted",
+    "scope": "S16-v3-production-live-run-edge-continuation"
+  },
+  "account": {
+    "boundary": "current-authenticated-principal-controlled-openai-codex-session",
+    "authMethod": "codex-cli-session",
+    "identityHandling": "verified-private-not-retained",
+    "verification": "required-before-first-provider-call"
+  },
+  "network": {
+    "allowedClass": "openai-first-party-via-codex-cli",
+    "alternateProvidersDisabled": true,
+    "osEnforced": false
+  },
+  "model": {
+    "requested": "gpt-5.4",
+    "provenance": "launcher-declared",
+    "snapshotStatus": "requested-name-not-provider-signed-snapshot"
+  },
+  "tools": {
+    "mcpServer": "scopa",
+    "allowed": [
+      "scopa_orientation",
+      "scopa_read_file",
+      "scopa_write_file",
+      "scopa_check",
+      "scopa_assurance",
+      "scopa_transcript"
+    ],
+    "strictMcpOnly": true
+  },
+  "nativeSurface": {
+    "sandbox": "read-only",
+    "approvalPolicy": "never",
+    "ephemeral": true,
+    "ignoreUserConfig": true,
+    "ignoreRules": true,
+    "webSearch": "disabled",
+    "disabledFeatures": [
+      "apps",
+      "auth_elicitation",
+      "browser_use",
+      "browser_use_external",
+      "browser_use_full_cdp_access",
+      "code_mode_host",
+      "computer_use",
+      "goals",
+      "guardian_approval",
+      "hooks",
+      "image_generation",
+      "in_app_browser",
+      "memories",
+      "multi_agent",
+      "multi_agent_v2",
+      "network_proxy",
+      "personality",
+      "plugins",
+      "remote_plugin",
+      "plugin_sharing",
+      "shell_snapshot",
+      "shell_tool",
+      "skill_mcp_dependency_install",
+      "skill_search",
+      "tool_call_mcp_elicitation",
+      "tool_suggest",
+      "unified_exec",
+      "workspace_dependencies"
+    ]
+  },
+  "environment": {
+    "inheritance": "explicit-allowlist",
+    "allowedNames": [
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "SSL_CERT_DIR",
+      "SSL_CERT_FILE",
+      "XDG_CACHE_HOME",
+      "XDG_CONFIG_HOME",
+      "XDG_DATA_HOME",
+      "XDG_RUNTIME_DIR"
+    ]
+  },
+  "limits": {
+    "maxProviderInvocations": 3,
+    "maxTurnsPerRun": 1,
+    "timeoutMs": 180000,
+    "maxCaptureBytes": 20971520,
+    "maxInputBytes": 1048576,
+    "maxInputTokensPerRun": 120000,
+    "maxOutputTokensPerRun": 4000,
+    "maxReasoningTokensPerRun": 2000,
+    "maxTotalTokensPerRun": 126000,
+    "maxCampaignInputTokens": 360000,
+    "maxCampaignOutputTokens": 12000,
+    "maxCampaignTotalTokens": 378000
+  },
+  "repository": {
+    "classification": "disposable-synthetic",
+    "customerDataAllowed": false,
+    "externalSecretsAllowed": false
+  },
+  "evidence": {
+    "privateDestination": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3",
+    "privateRetentionHours": 168,
+    "maxPrivateBytesPerRun": 26214400,
+    "privateMode": "0600",
+    "publicMode": "0644",
+    "repositoryRawEvidenceAllowed": false
+  },
+  "cleanup": {
+    "processGroupRequired": true,
+    "noSurvivorRequired": true,
+    "controlRootDeletionRequired": true,
+    "disposableRepositoryDeletionRequired": true,
+    "clientStoreAuditRequired": true,
+    "providerResidueAuditRequired": true
+  },
+  "scenarios": {
+    "version": "S16.v3",
+    "ids": [
+      "denied",
+      "false-green",
+      "cold-restart"
+    ]
+  },
+  "stopConditions": [
+    "account-boundary-drift",
+    "capture-limit",
+    "cleanup-failure",
+    "client-version-drift",
+    "evidence-collision",
+    "mcp-inventory-drift",
+    "model-drift",
+    "native-surface-drift",
+    "privacy-event",
+    "provider-rate-pressure",
+    "provider-refusal",
+    "schema-drift",
+    "timeout",
+    "usage-limit"
+  ],
+  "policySha256": "898e96d064ca9789ffe095e32e4d8e0dc6bb1072c142257c0c609f186f448ccc"
+}

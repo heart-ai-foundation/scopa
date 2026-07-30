@@ -5,6 +5,150 @@
   "x-scopa-codex-live-policy-invariants": true,
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "policyId": {
+            "const": "S16-production-live-v1"
+          }
+        },
+        "required": [
+          "policyId"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "S16-production-live-run-edge-campaign"
+              }
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "privateDestination": {
+                "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16"
+              }
+            }
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "const": "S16.v1"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "policyId": {
+            "const": "S16-v2-production-live-v1"
+          }
+        },
+        "required": [
+          "policyId"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "S16-v2-production-live-run-edge-campaign"
+              }
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "privateDestination": {
+                "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2"
+              }
+            }
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "const": "S16.v2"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "policyId": {
+            "const": "S16-v3-production-live-v1"
+          }
+        },
+        "required": [
+          "policyId"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "S16-v3-production-live-run-edge-continuation"
+              }
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "privateDestination": {
+                "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3"
+              }
+            }
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "const": "S16.v3"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "enum": [
+                    "denied",
+                    "false-green",
+                    "cold-restart"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "required": [
     "account",
     "authorization",
@@ -28,8 +172,11 @@
       "const": "scopa.codex-live-policy.v1"
     },
     "policyId": {
-      "type": "string",
-      "minLength": 1
+      "enum": [
+        "S16-production-live-v1",
+        "S16-v2-production-live-v1",
+        "S16-v3-production-live-v1"
+      ]
     },
     "policySha256": {
       "type": "string",
@@ -74,7 +221,8 @@
         "scope": {
           "enum": [
             "S16-production-live-run-edge-campaign",
-            "S16-v2-production-live-run-edge-campaign"
+            "S16-v2-production-live-run-edge-campaign",
+            "S16-v3-production-live-run-edge-continuation"
           ]
         }
       }
@@ -388,7 +536,8 @@
         "privateDestination": {
           "enum": [
             "SCOPA_PRIVATE_EVIDENCE_ROOT/S16",
-            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2"
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2",
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3"
           ]
         },
         "privateRetentionHours": {
@@ -455,12 +604,13 @@
         "version": {
           "enum": [
             "S16.v1",
-            "S16.v2"
+            "S16.v2",
+            "S16.v3"
           ]
         },
         "ids": {
           "type": "array",
-          "minItems": 4,
+          "minItems": 3,
           "maxItems": 4,
           "uniqueItems": true,
           "items": {

@@ -86,9 +86,20 @@ and cannot be replayed.
 
 The narrow hardening changes future store inspection to metadata-audit
 oversized files without reading their content. Unexpected provider-store
-residue still fails closed. The next checkpoint is review of this reproduced
-custody finding and a separately ratified continuation; S16 remains active and
-CXH1-CXH3 remain unsatisfied.
+residue still fails closed. Baseline stores containing an oversized,
+content-ambiguous file are rejected before provider traffic; symlinks,
+special files, entry exhaustion, and all unexpected post-run changes remain
+stop conditions.
+
+The proposed S16-v3 continuation is now materialized with policy ID
+`S16-v3-production-live-v1`, scenario version `S16.v3`, and a fresh `S16R3`
+evidence namespace. It contains only denied, false-green, and cold-restart,
+the three scenarios S16-v2 never launched. Its maximum is three one-turn
+calls, and its aggregate token ceilings are proportionally reduced to 360,000
+input, 12,000 output, and 378,000 total. Its gate is closed and grants zero
+provider calls. The next checkpoint is exact-candidate deterministic,
+installed, audit, and hosted qualification before a separate explicit
+approval decision. S16 remains active and CXH1-CXH3 remain unsatisfied.
 
 ## Descriptor rung check
 
@@ -169,11 +180,13 @@ invocation/evidence record already exists. A real run must never become part of
 - `packages/conformance/**`
 - `fixtures/S16/**`
 - `fixtures/S16R2/**`
+- `fixtures/S16R3/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
 - `evidence/S16/**`
 - `evidence/S16R2/**`
+- `evidence/S16R3/**`
 - private bounded Codex evidence under
   `llm-memories/projects/scopa/evidence/S16*/**`
 

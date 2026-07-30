@@ -52,6 +52,7 @@ const DEFAULT_POLICY_PATH = path.join(
 const ALLOWED_POLICY_PATHS = Object.freeze([
   DEFAULT_POLICY_PATH,
   path.join(ROOT, 'fixtures/S16R2/codex-live-policy.json'),
+  path.join(ROOT, 'fixtures/S16R3/codex-live-policy.json'),
 ]);
 
 function sha256(value) {
@@ -260,31 +261,6 @@ async function installPackedRuntime(temporary, sourceCommit) {
   };
 }
 
-async function withScenarioEnvironment(scenario, operation) {
-  const names = [
-    'SCOPA_S16_BASE_SCENARIO',
-    'SCOPA_S16_FIXTURE_ROOT',
-    'SCOPA_S16_MODE',
-  ];
-  const previous = Object.fromEntries(
-    names.map((name) => [
-      name,
-      process.env[name],
-    ]),
-  );
-  process.env.SCOPA_S16_BASE_SCENARIO = scenario.baseScenario;
-  process.env.SCOPA_S16_FIXTURE_ROOT = ROOT;
-  process.env.SCOPA_S16_MODE = scenario.mode;
-  try {
-    return await operation();
-  } finally {
-    for (const name of names) {
-      if (previous[name] === undefined) delete process.env[name];
-      else process.env[name] = previous[name];
-    }
-  }
-}
-
 export async function runDeterministicScenario({
   scenario,
   repositoryRoot,
@@ -296,39 +272,36 @@ export async function runDeterministicScenario({
   const timeoutMs = scenario.mode === 'timeout' ? 150 : 2_000;
   const maxCaptureBytes =
     scenario.mode === 'capture-limit' ? 1_024 : 2 * 1024 * 1024;
-  const result = await withScenarioEnvironment(
-    scenario,
-    () => integration.runCodexSession({
-      repoRoot: repositoryRoot,
-      session: integration.createCodexSession({
-        sessionId: `S16-${scenario.id}`,
-        request: 'Execute one deterministic S16 fault scenario.',
-      }),
-      capabilityMatrix: integration.createCodexCapabilityMatrix({}),
-      prompt: 'Execute one deterministic S16 fault scenario.',
-      installedArtifact: artifact,
-      scenario: {
-        id: scenario.id,
-        version: 'S16.v1',
-      },
-      adapterCli,
-      codexCommand: FAULT_CLIENT,
-      timeoutMs,
-      maxCaptureBytes,
-      usageLimits: codexPolicyUsageLimits(policy),
-      baseEnvironment: {
-        LANG: 'C.UTF-8',
-        LC_ALL: 'C.UTF-8',
-        PATH: process.env.PATH ?? '/usr/bin',
-        SCOPA_S16_BASE_SCENARIO: scenario.baseScenario,
-        SCOPA_S16_FIXTURE_ROOT: ROOT,
-        SCOPA_S16_MODE: scenario.mode,
-      },
-      environmentInheritance: 'explicit-allowlist',
-      terminateGraceMs: 30,
-      cleanupWaitMs: 1_000,
+  const result = await integration.runCodexSession({
+    repoRoot: repositoryRoot,
+    session: integration.createCodexSession({
+      sessionId: `S16-${scenario.id}`,
+      request: 'Execute one deterministic S16 fault scenario.',
     }),
-  );
+    capabilityMatrix: integration.createCodexCapabilityMatrix({}),
+    prompt: 'Execute one deterministic S16 fault scenario.',
+    installedArtifact: artifact,
+    scenario: {
+      id: scenario.id,
+      version: 'S16.v1',
+    },
+    adapterCli,
+    codexCommand: FAULT_CLIENT,
+    timeoutMs,
+    maxCaptureBytes,
+    usageLimits: codexPolicyUsageLimits(policy),
+    baseEnvironment: {
+      LANG: 'C.UTF-8',
+      LC_ALL: 'C.UTF-8',
+      PATH: process.env.PATH ?? '/usr/bin',
+      SCOPA_S16_BASE_SCENARIO: scenario.baseScenario,
+      SCOPA_S16_FIXTURE_ROOT: ROOT,
+      SCOPA_S16_MODE: scenario.mode,
+    },
+    environmentInheritance: 'explicit-allowlist',
+    terminateGraceMs: 30,
+    cleanupWaitMs: 1_000,
+  });
   assert.equal(
     result.terminal.state,
     scenario.expectedState,

@@ -9,6 +9,7 @@ import {
   readFile,
   rm,
   stat,
+  symlink,
   writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
@@ -17,6 +18,9 @@ import test from 'node:test';
 import {
   fileURLToPath,
 } from 'node:url';
+import {
+  jsonHash,
+} from '../../../enforcement/src/index.js';
 import {
   scanPrivateText,
 } from '../../../release-readiness/src/package-privacy.js';
@@ -32,10 +36,13 @@ import {
   validateDeterministicCorpus,
 } from '../src/deterministic-edge-probe.js';
 import {
+  assertCodexStoreBaselineAuditable,
   parseProductionLiveArguments,
   prepareCodexEnvironment,
+  productionScenariosForPolicy,
   providerStoreDelta,
   runCampaign,
+  snapshotCodexStore,
 } from '../src/production-live-probe.js';
 import {
   CODEX_LIVE_POLICY_SCHEMA,
@@ -56,6 +63,10 @@ const POLICY_PATH = path.join(FIXTURE, 'codex-live-policy.json');
 const V2_POLICY_PATH = path.join(
   ROOT,
   'fixtures/S16R2/codex-live-policy.json',
+);
+const V3_POLICY_PATH = path.join(
+  ROOT,
+  'fixtures/S16R3/codex-live-policy.json',
 );
 const CORPUS_PATH = path.join(FIXTURE, 'deterministic-scenarios.json');
 const ROOT_PACKAGE = JSON.parse(
@@ -237,6 +248,88 @@ test('S16-v2 policy closes the consumed fresh allowance', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
+test('S16-v3 is a distinct closed three-scenario continuation', async () => {
+  const text = await readFile(V3_POLICY_PATH, 'utf8');
+  const policy = JSON.parse(text);
+  assert.equal(text.endsWith('\n'), true);
+  assert.equal(validateCodexLivePolicy(policy), policy);
+  assert.deepEqual(
+    validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
+    policy,
+  );
+  assert.deepEqual(
+    policy,
+    createCodexLivePolicy({
+      campaignId: 'S16-v3-production-live-v1',
+    }),
+  );
+  assert.throws(
+    () => assertCodexProviderAuthorized(policy),
+    /provider gate is closed/,
+  );
+  assert.equal(
+    policy.authorization.scope,
+    'S16-v3-production-live-run-edge-continuation',
+  );
+  assert.equal(policy.scenarios.version, 'S16.v3');
+  assert.deepEqual(policy.scenarios.ids, [
+    'denied',
+    'false-green',
+    'cold-restart',
+  ]);
+  assert.equal(policy.limits.maxProviderInvocations, 3);
+  assert.equal(policy.limits.maxCampaignInputTokens, 360_000);
+  assert.equal(policy.limits.maxCampaignOutputTokens, 12_000);
+  assert.equal(policy.limits.maxCampaignTotalTokens, 378_000);
+  assert.equal(
+    policy.evidence.privateDestination,
+    'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3',
+  );
+  assert.equal(
+    policy.policySha256,
+    '898e96d064ca9789ffe095e32e4d8e0dc6bb1072c142257c0c609f186f448ccc',
+  );
+  assert.deepEqual(
+    productionScenariosForPolicy(policy).map((scenario) => scenario.id),
+    policy.scenarios.ids,
+  );
+  const crossed = structuredClone(policy);
+  crossed.scenarios.ids[0] = 'clean';
+  const {
+    policySha256: ignoredPolicySha256,
+    ...crossedDescriptor
+  } = crossed;
+  crossed.policySha256 = jsonHash(crossedDescriptor);
+  assert.equal(typeof ignoredPolicySha256, 'string');
+  assert.throws(
+    () => validateCodexLivePolicy(crossed),
+    /live scenario ids/,
+  );
+  assert.throws(
+    () => validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, crossed),
+    TypeError,
+  );
+
+  const matrixText = await readFile(
+    path.join(ROOT, 'evidence/S16R3/policy-and-scenario-matrix.json'),
+    'utf8',
+  );
+  const matrix = JSON.parse(matrixText);
+  assert.equal(
+    matrix.policy.fileSha256,
+    createHash('sha256').update(text).digest('hex'),
+  );
+  assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
+  assert.equal(matrix.providerExecutionCompleted, false);
+  assert.equal(matrix.replayOfPredecessor, false);
+  assert.deepEqual(
+    matrix.liveScenarios.map((scenario) => scenario.id),
+    policy.scenarios.ids,
+  );
+  assert.deepEqual(scanPrivateText(matrixText), []);
+});
+
 test('Codex policy enforces per-run and aggregate token accounting', () => {
   const policy = createCodexLivePolicy();
   assert.deepEqual(codexPolicyUsageLimits(policy), {
@@ -283,7 +376,24 @@ test('Codex production environment is an explicit non-secret allowlist', () => {
   );
 });
 
-test('oversized client-store residue is metadata-audited and rejected', () => {
+test('oversized client-store residue is metadata-audited and rejected', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-store-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  await mkdir(path.join(root, '.codex'));
+  await writeFile(
+    path.join(root, '.codex/provider-state.sqlite'),
+    Buffer.alloc(3 * 1024 * 1024, 7),
+  );
+  const snapshot = await snapshotCodexStore(root);
+  const oversized = snapshot.find(
+    (entry) => entry.path === '.codex/provider-state.sqlite',
+  );
+  assert.equal(oversized.bytes, 3 * 1024 * 1024);
+  assert.equal(oversized.sha256, null);
+
   const auth = {
     path: '.codex/auth.json',
     kind: 'file',
@@ -295,10 +405,7 @@ test('oversized client-store residue is metadata-audited and rejected', () => {
     [
       auth,
       {
-        path: '.codex/provider-state.sqlite',
-        kind: 'file',
-        bytes: 3 * 1024 * 1024,
-        sha256: null,
+        ...oversized,
       },
     ],
   );
@@ -307,6 +414,36 @@ test('oversized client-store residue is metadata-audited and rejected', () => {
   assert.equal(residue.added[0].bytes, 3 * 1024 * 1024);
   assert.equal('path' in residue.added[0], false);
   assert.match(residue.added[0].pathSha256, /^[0-9a-f]{64}$/);
+  assert.throws(
+    () => assertCodexStoreBaselineAuditable(snapshot),
+    /baseline contains an oversized file/,
+  );
+});
+
+test('client-store audit rejects symlinks and entry-count exhaustion', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-hostile-store-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  await writeFile(path.join(root, 'target'), 'bounded\n');
+  await symlink('target', path.join(root, 'link'));
+  await assert.rejects(
+    () => snapshotCodexStore(root),
+    /contains a symlink/,
+  );
+
+  await rm(path.join(root, 'link'));
+  await rm(path.join(root, 'target'));
+  await Promise.all(
+    Array.from({ length: 65 }, (_, index) =>
+      writeFile(path.join(root, `entry-${String(index).padStart(2, '0')}`), '')
+    ),
+  );
+  await assert.rejects(
+    () => snapshotCodexStore(root),
+    /entry audit bound/,
+  );
 });
 
 test('deterministic corpus is complete and network-closed', async () => {
@@ -334,6 +471,16 @@ test('deterministic corpus is complete and network-closed', async () => {
     {
       output: path.join(os.tmpdir(), 's16-v2-deterministic.json'),
       policyPath: V2_POLICY_PATH,
+    },
+  );
+  assert.deepEqual(
+    parseDeterministicArguments([
+      '--policy',
+      V3_POLICY_PATH,
+    ]),
+    {
+      output: null,
+      policyPath: V3_POLICY_PATH,
     },
   );
   assert.throws(
@@ -401,6 +548,14 @@ test('production CLI requires an external private root and exact arguments', () 
   ]);
   assert.equal(v2.publicRoot, path.join(ROOT, 'evidence/S16R2'));
   assert.equal(v2.expectedPolicyId, 'S16-v2-production-live-v1');
+  const v3 = parseProductionLiveArguments([
+    '--policy',
+    V3_POLICY_PATH,
+    '--private-root',
+    path.join(os.tmpdir(), 'scopa-s16-v3-private-test'),
+  ]);
+  assert.equal(v3.publicRoot, path.join(ROOT, 'evidence/S16R3'));
+  assert.equal(v3.expectedPolicyId, 'S16-v3-production-live-v1');
   assert.throws(
     () => parseProductionLiveArguments([
       '--policy',
@@ -416,7 +571,9 @@ test('production CLI requires an external private root and exact arguments', () 
   );
 });
 
-test('production campaign control enforces approval, accounting, evidence, and cleanup', async (context) => {
+test('production campaign control enforces approval, accounting, evidence, and cleanup', {
+  concurrency: false,
+}, async (context) => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-live-test-'));
   context.after(() => rm(root, {
     recursive: true,
@@ -529,7 +686,9 @@ test('production campaign control enforces approval, accounting, evidence, and c
   }
 });
 
-test('all S16 deterministic edge classes preserve expected polarity and cleanup', async (context) => {
+test('all S16 deterministic edge classes preserve expected polarity and cleanup', {
+  concurrency: false,
+}, async (context) => {
   const root = await repository();
   context.after(() => rm(root, {
     recursive: true,

@@ -18,11 +18,18 @@ export const CODEX_LIVE_POLICY_SCOPE =
   'S16-production-live-run-edge-campaign';
 export const CODEX_LIVE_POLICY_V2_SCOPE =
   'S16-v2-production-live-run-edge-campaign';
+export const CODEX_LIVE_POLICY_V3_SCOPE =
+  'S16-v3-production-live-run-edge-continuation';
 export const CODEX_PROVIDER_GATE_CLOSED =
   'closed-pending-explicit-approval';
 export const CODEX_PROVIDER_GATE_OPEN = 'authorized';
 export const CODEX_LIVE_SCENARIO_IDS = Object.freeze([
   'clean',
+  'denied',
+  'false-green',
+  'cold-restart',
+]);
+export const CODEX_LIVE_CONTINUATION_SCENARIO_IDS = Object.freeze([
   'denied',
   'false-green',
   'cold-restart',
@@ -68,11 +75,19 @@ const CAMPAIGN_PROFILES = Object.freeze({
     scope: CODEX_LIVE_POLICY_SCOPE,
     scenarioVersion: 'S16.v1',
     privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16',
+    scenarioIds: CODEX_LIVE_SCENARIO_IDS,
   }),
   'S16-v2-production-live-v1': Object.freeze({
     scope: CODEX_LIVE_POLICY_V2_SCOPE,
     scenarioVersion: 'S16.v2',
     privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2',
+    scenarioIds: CODEX_LIVE_SCENARIO_IDS,
+  }),
+  'S16-v3-production-live-v1': Object.freeze({
+    scope: CODEX_LIVE_POLICY_V3_SCOPE,
+    scenarioVersion: 'S16.v3',
+    privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3',
+    scenarioIds: CODEX_LIVE_CONTINUATION_SCENARIO_IDS,
   }),
 });
 
@@ -470,7 +485,7 @@ export function validateCodexLivePolicy(value) {
   );
   exactStringSet(
     value.scenarios.ids,
-    CODEX_LIVE_SCENARIO_IDS,
+    campaign.scenarioIds,
     'live scenario ids',
   );
   if (
@@ -511,6 +526,7 @@ export function createCodexLivePolicy({
   if (campaign === undefined) {
     throw new TypeError('Codex live policy has an unknown campaign id');
   }
+  const invocationCount = campaign.scenarioIds.length;
   const descriptor = {
     schema: CODEX_LIVE_POLICY_SCHEMA,
     policyId: campaignId,
@@ -557,7 +573,7 @@ export function createCodexLivePolicy({
       allowedNames: [...CODEX_ALLOWED_ENVIRONMENT_NAMES],
     },
     limits: {
-      maxProviderInvocations: 4,
+      maxProviderInvocations: invocationCount,
       maxTurnsPerRun: 1,
       timeoutMs: 180_000,
       maxCaptureBytes: 20 * 1024 * 1024,
@@ -566,9 +582,9 @@ export function createCodexLivePolicy({
       maxOutputTokensPerRun: 4_000,
       maxReasoningTokensPerRun: 2_000,
       maxTotalTokensPerRun: 126_000,
-      maxCampaignInputTokens: 480_000,
-      maxCampaignOutputTokens: 16_000,
-      maxCampaignTotalTokens: 504_000,
+      maxCampaignInputTokens: 120_000 * invocationCount,
+      maxCampaignOutputTokens: 4_000 * invocationCount,
+      maxCampaignTotalTokens: 126_000 * invocationCount,
     },
     repository: {
       classification: 'disposable-synthetic',
@@ -593,7 +609,7 @@ export function createCodexLivePolicy({
     },
     scenarios: {
       version: campaign.scenarioVersion,
-      ids: [...CODEX_LIVE_SCENARIO_IDS],
+      ids: [...campaign.scenarioIds],
     },
     stopConditions: [...CODEX_LIVE_STOP_CONDITIONS],
   };

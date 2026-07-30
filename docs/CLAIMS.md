@@ -42,6 +42,10 @@
   after one correct clean provider outcome when the isolated client store
   exceeded the audit bound; three calls were not launched and no campaign
   qualification is claimed.
+- The proposed S16-v3 continuation is a distinct closed policy for only the
+  three never-launched scenarios. It has no provider authority and no live
+  result until the exact policy and fresh `S16R3` destination are explicitly
+  approved.
 
 ## Adapter assurance
 

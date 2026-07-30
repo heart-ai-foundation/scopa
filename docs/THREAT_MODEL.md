@@ -68,6 +68,10 @@ consumer package.
   distinct policy/scenario version and `S16R2` evidence namespace and stopped
   after one call when client-store custody exceeded its audit bound. Its gate
   is closed and the three unlaunched calls cannot be inferred or replayed.
+- A proposed S16-v3 continuation uses a distinct policy ID, scenario version,
+  three-call aggregate allowance, and `S16R3` evidence namespace. Its gate is
+  closed so deterministic qualification cannot silently become provider
+  authority.
 - Provider raw output remains private; repository-facing derivatives bind its
   digest and expose only designated redactions.
 - Verification uses caller-supplied timestamp roots and signer pins.

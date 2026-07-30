@@ -59,6 +59,14 @@ const CAMPAIGN_CONFIGS = Object.freeze([
     policyId: 'S16-v2-production-live-v1',
     publicRoot: path.join(ROOT, 'evidence/S16R2'),
   }),
+  Object.freeze({
+    policyPath: path.join(
+      ROOT,
+      'fixtures/S16R3/codex-live-policy.json',
+    ),
+    policyId: 'S16-v3-production-live-v1',
+    publicRoot: path.join(ROOT, 'evidence/S16R3'),
+  }),
 ]);
 const MAX_AUTH_BYTES = 1024 * 1024;
 const MAX_STORE_HASH_BYTES = 2 * 1024 * 1024;
@@ -124,6 +132,18 @@ export const S16_PRODUCTION_SCENARIOS = Object.freeze([
     ]),
   }),
 ]);
+
+export function productionScenariosForPolicy(policy) {
+  return policy.scenarios.ids.map((id) => {
+    const scenario = S16_PRODUCTION_SCENARIOS.find(
+      (candidate) => candidate.id === id,
+    );
+    if (scenario === undefined) {
+      throw new TypeError(`unknown Codex production scenario ${id}`);
+    }
+    return scenario;
+  });
+}
 
 function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
@@ -370,7 +390,7 @@ async function authBoundary(authPath) {
   });
 }
 
-async function snapshotTree(root) {
+export async function snapshotCodexStore(root) {
   const resolvedRoot = await realpath(root);
   const records = [];
   async function walk(directory, prefix) {
@@ -456,6 +476,18 @@ export function providerStoreDelta(before, after) {
   };
 }
 
+export function assertCodexStoreBaselineAuditable(snapshot) {
+  const ambiguous = snapshot.filter(
+    (entry) => entry.kind === 'file' && entry.sha256 === null,
+  );
+  if (ambiguous.length > 0) {
+    throw new TypeError(
+      'Codex isolated store baseline contains an oversized file',
+    );
+  }
+  return snapshot;
+}
+
 export async function prepareCodexEnvironment({
   installedIntegration,
   codexCommand,
@@ -530,13 +562,16 @@ export async function prepareCodexEnvironment({
   if (statusText.length === 0) {
     throw new TypeError('Codex login status returned no bounded evidence');
   }
+  const baselineStore = assertCodexStoreBaselineAuditable(
+    await snapshotCodexStore(isolatedHome),
+  );
   return {
     environment,
     isolatedHome,
     authPath: isolatedAuth,
     authBoundarySha256: await authBoundary(isolatedAuth),
     statusSha256: sha256(statusText),
-    baselineStore: await snapshotTree(isolatedHome),
+    baselineStore,
   };
 }
 
@@ -707,7 +742,7 @@ export async function runCampaign({
       ]) {
         await assertPathAbsent(target, label);
       }
-      const beforeStore = await snapshotTree(codexHome);
+      const beforeStore = await snapshotCodexStore(codexHome);
       const beforeIdentity = await authBoundary(authPath);
       if (beforeIdentity !== authBoundarySha256) {
         throw new TypeError('authenticated Codex identity changed');
@@ -786,7 +821,7 @@ export async function runCampaign({
         );
       }
       await writeNoReplace(journalPath, journal, 0o600);
-      const afterStore = await snapshotTree(codexHome);
+      const afterStore = await snapshotCodexStore(codexHome);
       const residue = providerStoreDelta(beforeStore, afterStore);
       if (!residue.onlyBoundedAuthRefresh) {
         throw new TypeError(
@@ -994,10 +1029,11 @@ async function main() {
       codexHome: auth.isolatedHome,
       authPath: auth.authPath,
       authBoundarySha256: auth.authBoundarySha256,
+      scenarios: productionScenariosForPolicy(policy),
     });
     const finalStore = providerStoreDelta(
       auth.baselineStore,
-      await snapshotTree(auth.isolatedHome),
+      await snapshotCodexStore(auth.isolatedHome),
     );
     if (!finalStore.onlyBoundedAuthRefresh) {
       throw new TypeError('Codex campaign left client-store residue');

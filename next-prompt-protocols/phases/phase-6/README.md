@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `4e3be55`
+Current commit reference: `3df05aa`
 Current active protocol: `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
 
 ## Scope
@@ -34,10 +34,14 @@ Production-like live-run edge hardening only: establish shared process and evide
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `fixtures/S16/**`
+- `fixtures/S16R2/**`
+- `fixtures/S16R3/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
 - `evidence/S16/**`
+- `evidence/S16R2/**`
+- `evidence/S16R3/**`
 
 ## Non-goals
 

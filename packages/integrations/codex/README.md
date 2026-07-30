@@ -121,6 +121,14 @@ execution stopped after one correct clean result because the isolated client
 store exceeded the custody audit bound. Three calls were not launched, the
 result is non-qualifying, and the v2 gate is closed against replay.
 
+The closed S16-v3 continuation uses policy ID
+`S16-v3-production-live-v1`, the third S16 scenario revision, and evidence
+alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3`. It contains only denied,
+false-green, and cold-restart, permits at most three one-turn calls if
+separately approved, and reduces aggregate ceilings to 360,000 input, 12,000
+output, and 378,000 total tokens. Its current gate authorizes zero provider
+calls.
+
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:
 
