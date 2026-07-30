@@ -29,8 +29,9 @@ callable-tool drift, and one lost its denied-path result before publication.
 A separately authorized two-request remedial campaign then directly proved
 scope denial and fresh-process continuity over the same disposable repository
 on one exact installed candidate. Codex live-edge hardening is now active.
-Its closed policy and 21-scenario deterministic fault corpus are implemented,
-while its provider gate remains closed pending an exact, separate approval.
+Its 21-scenario deterministic fault corpus is qualified, and its exact
+four-call production policy was explicitly approved on 2026-07-29. Provider
+execution has not yet completed.
 Sustained recovery and exact requalification remain queued. The separate
 SCOPA research experiment is outside this queue. The package and repository
 remain private; publication and production deployment require separate
@@ -171,13 +172,13 @@ skill/instruction discovery, CLI-owned metadata, and the native filesystem
 boundary remain outside SCOPA. See `packages/integrations/codex/README.md` for
 the API, exact controls, and non-claims.
 
-S16 adds a published, digest-bound Codex policy with four proposed live
+S16 adds a published, digest-bound Codex policy with four approved live
 scenarios, explicit token/capture/time ceilings, a ten-name environment
 allowlist, private evidence retention, cleanup duties, and fourteen immediate
-stop conditions. The committed policy is deliberately
-`closed-pending-explicit-approval`; neither activation nor deterministic
-qualification authorizes provider traffic. From a SCOPA source checkout with
-development scripts installed, the provider-free qualification command is:
+stop conditions. The committed policy is `authorized` under the exact
+2026-07-29 conversation approval; it grants no calls beyond clean, denied,
+false-green, and cold-restart. From a SCOPA source checkout with development
+scripts installed, the provider-free qualification command is:
 
 ```sh
 npm run probe:s16:deterministic -- \

@@ -35,11 +35,12 @@ materialized and explicitly approved.
 
 ## Current checkpoint
 
-The complete proposed policy is now materialized with four scenarios, per-run
+The complete policy is materialized with four scenarios, per-run
 and aggregate token ceilings, a private evidence destination class, retention,
-cleanup, environment, and fourteen stop conditions. Its digest-bound
-authorization state is `closed-pending-explicit-approval`: approved provider
-invocations remain zero.
+cleanup, environment, and fourteen stop conditions. On 2026-07-29 the
+principal explicitly approved the exact four-call allowance, aggregate token
+ceiling, and private S16 destination. Its digest-bound authorization state is
+now `authorized`; provider execution has not yet completed.
 
 Installed qualification first caught a shipped private-topology reference in
 the public policy contract and invalidated that candidate. The remediated
@@ -54,8 +55,9 @@ all shipped-file privacy findings are zero, every expected state and stop
 polarity was observed, every process group was gone, assurance remained
 `partial`, and provider invocations were exactly zero.
 
-The next checkpoint is explicit principal review of the proposed four-call
-policy. No production Codex command may run before that approval.
+The next checkpoint is clean exact-candidate qualification of the committed
+production runner, followed by the four-call execution with immediate stop
+controls.
 
 ## Descriptor rung check
 

@@ -30,9 +30,10 @@
   cost USD `0.1004578` against a USD `0.40` ceiling.
 - The S16 deterministic Codex corpus closes 21 core, drift, refusal, timeout,
   truncation, usage/capture, repeat, and cleanup outcomes without provider
-  traffic. Its published policy binds a proposed four-call allowance, explicit
-  token ceilings, an environment allowlist, evidence retention, cleanup, and
-  stop conditions while remaining authorization-closed.
+  traffic. Its published policy binds an explicitly approved four-call
+  allowance, exact token ceilings, an environment allowlist, evidence
+  retention, cleanup, and stop conditions. Provider execution is not claimed
+  until retained live evidence exists.
 
 ## Adapter assurance
 
@@ -54,9 +55,9 @@ SCOPA does not:
 - treat the accepted S15 remedial result as provider certification, an
   immutable model snapshot, or evidence beyond its exact candidate, policy,
   client, account boundary, and two recorded scenarios;
-- treat S16 deterministic qualification or its proposed policy as real Codex
-  production evidence, provider authorization, account verification, or
-  approval of any provider call;
+- treat S16 deterministic qualification or its approved policy as real Codex
+  production evidence, account verification, or authority beyond its exact
+  four calls;
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;

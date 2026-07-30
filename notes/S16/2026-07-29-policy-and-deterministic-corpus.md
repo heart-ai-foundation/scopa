@@ -6,7 +6,7 @@ S16 now has an executable Codex policy contract and a provider-free
 21-scenario fault corpus. The policy is published as
 `scopa.codex-live-policy.v1`, digest-binds every account, network, model, tool,
 native, environment, limit, evidence, cleanup, and scenario field, and
-remains closed pending a separate explicit approval.
+is now bound to the exact explicit approval granted on 2026-07-29.
 
 ## Runtime changes
 
@@ -30,15 +30,17 @@ polarity, and process-group disappearance.
 
 ## Authorization boundary
 
-No provider request was made. The committed policy states:
+No provider request had been made at this checkpoint. The committed policy now
+states:
 
-- provider gate: `closed-pending-explicit-approval`
-- approved provider invocations: `0`
-- proposed live scenarios: `4`
-- private destination approval: `not-granted`
+- provider gate: `authorized`
+- approved provider invocations: `4`
+- approved live scenarios: `4`
+- private destination approval: `conversation-explicit`
 
-Opening the gate requires a new policy digest and explicit approval of the
-four calls, aggregate token allowance, and private S16 evidence destination.
+The approved policy digest is
+`4086fca329656748ceff55bb54d8543aab7ae89bc357a47be459bd985e9468c3`.
+It cannot authorize any extension or replay beyond the exact four calls.
 
 ## Installed privacy remediation
 

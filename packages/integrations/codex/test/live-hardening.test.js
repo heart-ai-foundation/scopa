@@ -3,10 +3,13 @@ import {
   createHash,
 } from 'node:crypto';
 import {
+  access,
   mkdir,
   mkdtemp,
   readFile,
   rm,
+  stat,
+  writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -20,12 +23,19 @@ import {
 import {
   validatePublishedContract,
 } from '../../../release-readiness/src/published-contracts.js';
+import * as liveRun from '../../../live-run/src/index.js';
+import * as project from '../../../cli/src/project.js';
 import * as integration from '../src/index.js';
 import {
   parseDeterministicArguments,
   runDeterministicScenario,
   validateDeterministicCorpus,
 } from '../src/deterministic-edge-probe.js';
+import {
+  parseProductionLiveArguments,
+  prepareCodexEnvironment,
+  runCampaign,
+} from '../src/production-live-probe.js';
 import {
   CODEX_LIVE_POLICY_SCHEMA,
   CODEX_PROVIDER_GATE_CLOSED,
@@ -63,7 +73,7 @@ async function repository() {
   return root;
 }
 
-test('Codex campaign policy is digest-bound and provider-closed', async () => {
+test('Codex campaign policy binds the exact explicit approval', async () => {
   const text = await readFile(POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
   assert.equal(text.endsWith('\n'), true);
@@ -75,9 +85,17 @@ test('Codex campaign policy is digest-bound and provider-closed', async () => {
   );
   assert.equal(
     policy.authorization.providerGate,
-    CODEX_PROVIDER_GATE_CLOSED,
+    CODEX_PROVIDER_GATE_OPEN,
   );
-  assert.equal(policy.authorization.approvedOn, null);
+  assert.equal(policy.authorization.approvedOn, '2026-07-29');
+  assert.equal(
+    policy.authorization.principalApproval,
+    'conversation-explicit',
+  );
+  assert.equal(
+    policy.authorization.privateEvidenceDestinationApproval,
+    'conversation-explicit',
+  );
   assert.equal(policy.limits.maxProviderInvocations, 4);
   assert.deepEqual(policy.scenarios.ids, [
     'clean',
@@ -91,10 +109,7 @@ test('Codex campaign policy is digest-bound and provider-closed', async () => {
   assert.equal(policy.nativeSurface.approvalPolicy, 'never');
   assert.equal(policy.tools.allowed.length, 6);
   assert.equal(policy.network.osEnforced, false);
-  assert.throws(
-    () => assertCodexProviderAuthorized(policy),
-    /provider gate is closed/,
-  );
+  assert.equal(assertCodexProviderAuthorized(policy), policy);
 
   const mutated = structuredClone(policy);
   mutated.limits.maxInputTokensPerRun += 1;
@@ -103,10 +118,10 @@ test('Codex campaign policy is digest-bound and provider-closed', async () => {
     /aggregate usage bounds conflict|digest does not bind/,
   );
   const falseApproval = structuredClone(policy);
-  falseApproval.authorization.providerGate = CODEX_PROVIDER_GATE_OPEN;
+  falseApproval.authorization.providerGate = CODEX_PROVIDER_GATE_CLOSED;
   assert.throws(
     () => validateCodexLivePolicy(falseApproval),
-    /lacks approval/,
+    /closed Codex provider gate claims approval/,
   );
   const unknown = {
     ...policy,
@@ -118,7 +133,8 @@ test('Codex campaign policy is digest-bound and provider-closed', async () => {
   );
 });
 
-test('explicit approval is representable but is not present in the fixture', () => {
+test('explicit approval fixture differs from the closed proposal', async () => {
+  const fixture = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
   const authorized = createCodexLivePolicy({
     providerGate: CODEX_PROVIDER_GATE_OPEN,
     approvedOn: '2026-07-29',
@@ -126,6 +142,7 @@ test('explicit approval is representable but is not present in the fixture', () 
     privateEvidenceDestinationApproval: 'conversation-explicit',
   });
   assert.equal(assertCodexProviderAuthorized(authorized), authorized);
+  assert.deepEqual(fixture, authorized);
   assert.notEqual(
     authorized.policySha256,
     createCodexLivePolicy().policySha256,
@@ -218,7 +235,9 @@ test('reviewer matrix binds the exact policy, prompts, and corpus', async () => 
   );
   assert.equal(
     matrix.policy.descriptorSha256,
-    createCodexLivePolicy().policySha256,
+    validateCodexLivePolicy(JSON.parse(
+      await readFile(POLICY_PATH, 'utf8'),
+    )).policySha256,
   );
   assert.equal(
     matrix.prompts.sha256,
@@ -228,9 +247,146 @@ test('reviewer matrix binds the exact policy, prompts, and corpus', async () => 
     matrix.deterministicCorpus.sha256,
     await digest(matrix.deterministicCorpus.filename),
   );
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 4);
   assert.equal(matrix.providerExecutionCompleted, false);
   assert.deepEqual(scanPrivateText(matrixText), []);
+});
+
+test('production CLI requires an external private root and exact arguments', () => {
+  const parsed = parseProductionLiveArguments([
+    '--policy',
+    POLICY_PATH,
+    '--private-root',
+    path.join(os.tmpdir(), 'scopa-s16-private-test'),
+  ]);
+  assert.equal(parsed.policyPath, POLICY_PATH);
+  assert.equal(
+    parsed.privateRoot,
+    path.join(os.tmpdir(), 'scopa-s16-private-test'),
+  );
+  assert.throws(
+    () => parseProductionLiveArguments([
+      '--policy',
+      POLICY_PATH,
+      '--private-root',
+      path.join(ROOT, 'evidence/S16/private'),
+    ]),
+    /must be outside the repository/,
+  );
+  assert.throws(
+    () => parseProductionLiveArguments([]),
+    /usage:/,
+  );
+});
+
+test('production campaign control enforces approval, accounting, evidence, and cleanup', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-live-test-'));
+  context.after(() => rm(root, {
+    recursive: true,
+    force: true,
+  }));
+  const temporary = path.join(root, 'temporary');
+  const privateRoot = path.join(root, 'private');
+  const publicRoot = path.join(root, 'public');
+  const sourceHome = path.join(root, 'source-home');
+  await mkdir(temporary);
+  await mkdir(privateRoot, { mode: 0o700 });
+  await mkdir(publicRoot);
+  await mkdir(path.join(sourceHome, '.codex'), {
+    recursive: true,
+    mode: 0o700,
+  });
+  await writeFile(
+    path.join(sourceHome, '.codex/auth.json'),
+    '{"tokens":{"account_id":"S16-TEST-ACCOUNT"}}\n',
+    { mode: 0o600 },
+  );
+  const faultClient = path.join(FIXTURE, 'codex-fault-client.mjs');
+  const auth = await prepareCodexEnvironment({
+    installedIntegration: integration,
+    codexCommand: faultClient,
+    temporary,
+    sourceHome,
+  });
+  const policy = validateCodexLivePolicy(JSON.parse(
+    await readFile(POLICY_PATH, 'utf8'),
+  ));
+  const campaign = await runCampaign({
+    installed: {
+      adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'),
+      integration,
+      liveRun,
+      project,
+      artifact: ARTIFACT,
+      package: {
+        ...ARTIFACT.package,
+        sourceCommit: ARTIFACT.sourceCommit,
+        entryCount: 173,
+      },
+    },
+    policy,
+    prompts: JSON.parse(await readFile(
+      path.join(FIXTURE, 'prompts.json'),
+      'utf8',
+    )),
+    temporary,
+    privateRoot,
+    publicRoot,
+    codexCommand: faultClient,
+    codexEnvironment: auth.environment,
+    codexHome: auth.isolatedHome,
+    authPath: auth.authPath,
+    authBoundarySha256: auth.authBoundarySha256,
+    scenarioEnvironment: (scenario) => ({
+      SCOPA_S16_BASE_SCENARIO: {
+        clean: 'clean',
+        denied: 'denied',
+        'false-green': 'falseGreen',
+        'cold-restart': 'coldRestart',
+      }[scenario.id],
+      SCOPA_S16_FIXTURE_ROOT: ROOT,
+      SCOPA_S16_MODE: 'success',
+      SCOPA_S16_MUTATE_REPOSITORY: '1',
+    }),
+  });
+  assert.equal(campaign.providerInvocations, 4);
+  assert.equal(campaign.records.length, 4);
+  assert.equal(
+    campaign.records.every(
+      (record) =>
+        record.expectedCanStop === record.observedCanStop &&
+        record.processGroupGone &&
+        record.residue.onlyBoundedAuthRefresh,
+    ),
+    true,
+  );
+  assert.equal(campaign.aggregateUsage.input_tokens, 400);
+  assert.equal(campaign.aggregateUsage.output_tokens, 80);
+  assert.equal(campaign.aggregateUsage.reasoning_output_tokens, 20);
+  assert.equal(campaign.aggregateUsage.total_tokens, 500);
+  assert.equal(campaign.cleanup.repositoryCleanupVerified, true);
+  for (const scenario of policy.scenarios.ids) {
+    await access(path.join(privateRoot, `${scenario}.private.json`));
+    await access(path.join(publicRoot, `${scenario}.public.json`));
+    assert.equal(
+      (await stat(
+        path.join(privateRoot, `${scenario}.private.json`),
+      )).mode & 0o777,
+      0o600,
+    );
+    await assert.rejects(
+      () => access(
+        path.join(privateRoot, `${scenario}.intent.private.json`),
+      ),
+      { code: 'ENOENT' },
+    );
+    await assert.rejects(
+      () => access(
+        path.join(privateRoot, `${scenario}.inflight.private.json`),
+      ),
+      { code: 'ENOENT' },
+    );
+  }
 });
 
 test('all S16 deterministic edge classes preserve expected polarity and cleanup', async (context) => {

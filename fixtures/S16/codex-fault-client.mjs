@@ -4,7 +4,9 @@ import {
   spawn,
 } from 'node:child_process';
 import {
+  mkdir,
   readFile,
+  writeFile,
 } from 'node:fs/promises';
 import path from 'node:path';
 import {
@@ -257,6 +259,14 @@ async function main() {
     return;
   }
   if (
+    args.length === 2 &&
+    args[0] === 'login' &&
+    args[1] === 'status'
+  ) {
+    process.stdout.write('Logged in\n');
+    return;
+  }
+  if (
     args[0] === 'mcp' &&
     args[1] === 'list' &&
     args[2] === '--json'
@@ -315,6 +325,25 @@ async function main() {
       })}\n`,
     );
     return;
+  }
+  if (
+    process.env.SCOPA_S16_MUTATE_REPOSITORY === '1' &&
+    mode === 'success'
+  ) {
+    await mkdir(path.join(process.cwd(), 'workspace'), {
+      recursive: true,
+    });
+    if (baseScenario === 'clean') {
+      await writeFile(
+        path.join(process.cwd(), 'workspace/codex.txt'),
+        'CODEX_ALLOWED\n',
+      );
+    } else if (baseScenario === 'denied') {
+      await writeFile(
+        path.join(process.cwd(), 'workspace/denial-observed.txt'),
+        'DENIED\n',
+      );
+    }
   }
   process.stdout.write(jsonLines(await successEvents(baseScenario, mode)));
 }

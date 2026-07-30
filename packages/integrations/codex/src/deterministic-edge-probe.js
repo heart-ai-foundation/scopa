@@ -35,7 +35,6 @@ import {
   scanPrivateText,
 } from '../../../release-readiness/src/package-privacy.js';
 import {
-  CODEX_PROVIDER_GATE_CLOSED,
   codexPolicyUsageLimits,
   validateCodexLivePolicy,
 } from './live-policy.js';
@@ -333,13 +332,6 @@ export async function deterministicCampaign() {
   );
   const policy = validateCodexLivePolicy(JSON.parse(policyText));
   const corpus = validateDeterministicCorpus(JSON.parse(corpusText));
-  if (
-    policy.authorization.providerGate !== CODEX_PROVIDER_GATE_CLOSED
-  ) {
-    throw new TypeError(
-      'deterministic probe requires the Codex provider gate to remain closed',
-    );
-  }
   const temporary = await mkdtemp(
     path.join(os.tmpdir(), 'scopa-s16-deterministic-'),
   );

@@ -96,15 +96,14 @@ provenance.
 The installed integration exports `createCodexLivePolicy`,
 `validateCodexLivePolicy`, `assertCodexProviderAuthorized`,
 `codexPolicyUsageLimits`, and `createCodexAllowedEnvironment`. The policy
-binds the exact client/model/MCP/native surface, four proposed scenarios,
+binds the exact client/model/MCP/native surface, four approved scenarios,
 per-run and aggregate usage bounds, evidence custody, cleanup requirements,
 and stop conditions.
 
-The committed S16 policy intentionally carries
-`providerGate: "closed-pending-explicit-approval"`. The authorization helper
-refuses it. Opening the gate requires a new digest with an explicit approval
-date, principal approval, and private-destination approval; that change must
-occur before any production Codex command is introduced or run.
+The committed S16 policy carries `providerGate: "authorized"` under the exact
+2026-07-29 conversation approval. The authorization helper accepts only its
+digest-bound approval date, principal approval, private-destination approval,
+four scenarios, and aggregate allowance. No extension or replay is implied.
 
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:
@@ -121,3 +120,19 @@ tool and output-schema drift, provider refusal/rate pressure, timeout with
 ignored termination, early EOF,
 malformed JSONL, usage/capture limits, and orphan cleanup. The fault process
 receives only an explicit synthetic environment allowlist.
+
+The separately opt-in production command is:
+
+```sh
+npm run probe:s16:live -- \
+  --policy "$COMMITTED_APPROVED_S16_POLICY_FILE" \
+  --private-root /trusted/private/s16
+```
+
+It requires a clean committed candidate and the exact committed approved
+policy; in the source checkout, substitute its S16 fixture path for the policy
+placeholder. It copies the current Codex session credential into an isolated
+temporary home, verifies login without printing identity, runs at most one
+fresh Codex process per approved scenario, audits client-store residue after
+each call, enforces per-run and aggregate token ceilings, publishes only
+privacy-clean derivatives, and removes the isolated home and repositories.

@@ -2,10 +2,10 @@
   "schema": "scopa.codex-live-policy.v1",
   "policyId": "S16-production-live-v1",
   "authorization": {
-    "providerGate": "closed-pending-explicit-approval",
-    "approvedOn": null,
-    "principalApproval": "not-granted",
-    "privateEvidenceDestinationApproval": "not-granted",
+    "providerGate": "authorized",
+    "approvedOn": "2026-07-29",
+    "principalApproval": "conversation-explicit",
+    "privateEvidenceDestinationApproval": "conversation-explicit",
     "scope": "S16-production-live-run-edge-campaign"
   },
   "account": {
@@ -149,5 +149,5 @@
     "timeout",
     "usage-limit"
   ],
-  "policySha256": "c0b27378715e238fb2af4559ae787b221169181473ce59e572e3018019fca82f"
+  "policySha256": "4086fca329656748ceff55bb54d8543aab7ae89bc357a47be459bd985e9468c3"
 }
