@@ -83,6 +83,11 @@ const CAMPAIGN_CONFIGS = Object.freeze([
     policyId: 'S16-v5-production-live-v1',
     publicRoot: path.join(ROOT, 'evidence/S16R5'),
   }),
+  Object.freeze({
+    policyPath: path.join(ROOT, 'fixtures/S16R6/codex-live-policy.json'),
+    policyId: 'S16-v6-production-live-v1',
+    publicRoot: path.join(ROOT, 'evidence/S16R6'),
+  }),
 ]);
 const MAX_AUTH_BYTES = 1024 * 1024;
 const MAX_STORE_HASH_BYTES = 2 * 1024 * 1024;
@@ -159,7 +164,7 @@ export function productionScenariosForPolicy(policy) {
       throw new TypeError(`unknown Codex production scenario ${id}`);
     }
     if (
-      policy.scenarios.version === 'S16.v5' &&
+      /^S16\.v[5-9]$/.test(policy.scenarios.version) &&
       scenario.definition === null &&
       !initializedRepositories.has(scenario.repository)
     ) {
