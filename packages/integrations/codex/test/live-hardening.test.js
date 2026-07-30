@@ -493,24 +493,27 @@ test('S16-v4 closes the stopped two-scenario continuation', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
-test('S16-v5 reserves only cold-restart behind a closed gate', async () => {
+test('S16-v5 authorizes only the cold-restart continuation', async () => {
   const text = await readFile(V5_POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
   assert.deepEqual(
     policy,
-    createCodexLivePolicy({ campaignId: 'S16-v5-production-live-v1' }),
+    createCodexLivePolicy({
+      campaignId: 'S16-v5-production-live-v1',
+      providerGate: CODEX_PROVIDER_GATE_OPEN,
+      approvedOn: '2026-07-30',
+      principalApproval: 'conversation-explicit',
+      privateEvidenceDestinationApproval: 'conversation-explicit',
+    }),
   );
   assert.deepEqual(
     validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
     policy,
   );
-  assert.throws(
-    () => assertCodexProviderAuthorized(policy),
-    /provider gate is closed/,
-  );
+  assert.equal(assertCodexProviderAuthorized(policy), policy);
   assert.deepEqual(policy.scenarios.ids, ['cold-restart']);
   assert.equal(policy.limits.maxProviderInvocations, 1);
-  assert.equal(policy.policySha256, 'b24554363a35b461833e6dbe90e8ce18a816aeceff56adce2b1c0634c5dba921');
+  assert.equal(policy.policySha256, 'cf22e5a0875ba101f1197fce06231c1a50f67046432a628248bb684059c57198');
 });
 
 test('Codex policy enforces per-run and aggregate token accounting', () => {

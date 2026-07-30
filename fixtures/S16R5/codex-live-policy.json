@@ -1,7 +1,7 @@
 {
   "schema": "scopa.codex-live-policy.v1",
   "policyId": "S16-v5-production-live-v1",
-  "authorization": {"providerGate":"closed-pending-explicit-approval","approvedOn":null,"principalApproval":"not-granted","privateEvidenceDestinationApproval":"not-granted","scope":"S16-v5-production-live-run-edge-continuation"},
+  "authorization": {"providerGate":"authorized","approvedOn":"2026-07-30","principalApproval":"conversation-explicit","privateEvidenceDestinationApproval":"conversation-explicit","scope":"S16-v5-production-live-run-edge-continuation"},
   "account": {"boundary":"current-authenticated-principal-controlled-openai-codex-session","authMethod":"codex-cli-session","identityHandling":"verified-private-not-retained","verification":"required-before-first-provider-call"},
   "network": {"allowedClass":"openai-first-party-via-codex-cli","alternateProvidersDisabled":true,"osEnforced":false},
   "model": {"requested":"gpt-5.4","provenance":"launcher-declared","snapshotStatus":"requested-name-not-provider-signed-snapshot"},
@@ -14,5 +14,5 @@
   "cleanup": {"processGroupRequired":true,"noSurvivorRequired":true,"controlRootDeletionRequired":true,"disposableRepositoryDeletionRequired":true,"clientStoreAuditRequired":true,"providerResidueAuditRequired":true},
   "scenarios": {"version":"S16.v5","ids":["cold-restart"]},
   "stopConditions": ["account-boundary-drift","capture-limit","cleanup-failure","client-version-drift","evidence-collision","mcp-inventory-drift","model-drift","native-surface-drift","privacy-event","provider-rate-pressure","provider-refusal","schema-drift","timeout","usage-limit"],
-  "policySha256": "b24554363a35b461833e6dbe90e8ce18a816aeceff56adce2b1c0634c5dba921"
+  "policySha256": "cf22e5a0875ba101f1197fce06231c1a50f67046432a628248bb684059c57198"
 }
