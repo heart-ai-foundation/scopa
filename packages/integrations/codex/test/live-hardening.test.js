@@ -248,10 +248,10 @@ test('S16-v2 policy closes the consumed fresh allowance', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
-test('S16-v3 is a distinctly authorized three-scenario continuation', async () => {
+test('S16-v3 closes the stopped three-scenario continuation', async () => {
   const text = await readFile(V3_POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
-  const expected = createCodexLivePolicy({
+  const authorized = createCodexLivePolicy({
     campaignId: 'S16-v3-production-live-v1',
     providerGate: CODEX_PROVIDER_GATE_OPEN,
     approvedOn: '2026-07-30',
@@ -267,13 +267,13 @@ test('S16-v3 is a distinctly authorized three-scenario continuation', async () =
     validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
     policy,
   );
-  assert.deepEqual(policy, expected);
-  assert.equal(assertCodexProviderAuthorized(policy), policy);
+  assert.deepEqual(policy, closed);
+  assert.equal(assertCodexProviderAuthorized(authorized), authorized);
   assert.throws(
-    () => assertCodexProviderAuthorized(closed),
+    () => assertCodexProviderAuthorized(policy),
     /provider gate is closed/,
   );
-  assert.notEqual(closed.policySha256, policy.policySha256);
+  assert.notEqual(authorized.policySha256, policy.policySha256);
   assert.equal(
     policy.authorization.scope,
     'S16-v3-production-live-run-edge-continuation',
@@ -294,7 +294,7 @@ test('S16-v3 is a distinctly authorized three-scenario continuation', async () =
   );
   assert.equal(
     policy.policySha256,
-    'f87f3858bbae716383a86429e0ffe836e1115e38351164a20de6c20b101441e3',
+    '898e96d064ca9789ffe095e32e4d8e0dc6bb1072c142257c0c609f186f448ccc',
   );
   assert.deepEqual(
     productionScenariosForPolicy(policy).map((scenario) => scenario.id),
@@ -327,14 +327,42 @@ test('S16-v3 is a distinctly authorized three-scenario continuation', async () =
     createHash('sha256').update(text).digest('hex'),
   );
   assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 3);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
   assert.equal(matrix.providerExecutionCompleted, false);
+  assert.equal(
+    matrix.attempt.authorizedPolicySha256,
+    authorized.policySha256,
+  );
+  assert.equal(matrix.attempt.providerInvocationsConsumed, 1);
+  assert.equal(matrix.attempt.providerInvocationsUnlaunched, 2);
+  assert.equal(matrix.attempt.accepted, false);
+  assert.equal(matrix.attempt.replayAllowed, false);
   assert.equal(matrix.replayOfPredecessor, false);
   assert.deepEqual(
     matrix.liveScenarios.map((scenario) => scenario.id),
     policy.scenarios.ids,
   );
   assert.deepEqual(scanPrivateText(matrixText), []);
+
+  const stopText = await readFile(
+    path.join(ROOT, 'evidence/S16R3/campaign-stop.public.json'),
+    'utf8',
+  );
+  const stop = JSON.parse(stopText);
+  assert.equal(stop.policy.authorizedSha256, authorized.policySha256);
+  assert.equal(stop.providerExecution.consumedInvocations, 1);
+  assert.equal(stop.providerExecution.unlaunchedInvocations, 2);
+  assert.equal(stop.providerExecution.replayAllowed, false);
+  assert.equal(stop.qualification.accepted, false);
+  assert.equal(
+    stop.qualification.reason,
+    'client-store-entry-audit-bound-exceeded',
+  );
+  assert.equal(stop.scenario.id, 'denied');
+  assert.equal(stop.scenario.terminalState, 'succeeded');
+  assert.equal(stop.scenario.canStop, true);
+  assert.equal(stop.scenario.processGroupGone, true);
+  assert.deepEqual(scanPrivateText(stopText), []);
 });
 
 test('Codex policy enforces per-run and aggregate token accounting', () => {

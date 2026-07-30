@@ -22,12 +22,19 @@ S16-v3 is a distinct approved continuation with:
   provider-boundary failure
 - replay: prohibited
 
-## Approval and gate
+## Approval, execution, and stop
 
 On 2026-07-30 the principal explicitly approved this exact posture and its
-fresh private destination. The descriptor-bound provider gate is `authorized`
-for at most the three enumerated one-turn calls. The queue must stop on the
-first failure, cannot replay a call or the predecessor campaign, and must be
-closed after this single execution attempt.
+fresh private destination. Exact candidate
+`f7e5f13777f3998dff65f3c004c658488a9afa0b` passed local installed,
+deterministic, policy, dependency, and release gates plus hosted run
+`30522116030`.
+
+The denied scenario consumed one provider call and completed with expected
+stop polarity, bounded usage, and process cleanup. Campaign qualification then
+stopped because the isolated Codex client store exceeded the 64-entry audit
+bound. False-green and cold-restart were not launched. The gate has returned to
+`closed-pending-explicit-approval`; this campaign is non-qualifying and cannot
+be replayed.
 
 The separate SCOPA experiment remains out of scope and untouched.

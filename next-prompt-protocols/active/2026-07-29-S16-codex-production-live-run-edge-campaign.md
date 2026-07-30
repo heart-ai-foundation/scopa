@@ -99,9 +99,17 @@ calls, and its aggregate token ceilings are proportionally reduced to 360,000
 input, 12,000 output, and 378,000 total. On 2026-07-30 the principal explicitly
 approved this exact posture and fresh private destination as a single
 stop-first-failure attempt with no replay. The gate authorizes only the three
-enumerated calls. The next checkpoint is exact-candidate deterministic,
-installed, audit, and hosted qualification before provider traffic. S16
-remains active and CXH1-CXH3 remain unsatisfied.
+enumerated calls.
+
+Exact candidate `f7e5f13777f3998dff65f3c004c658488a9afa0b`, package SHA-256
+`17445c35ed6b1993664c91f902622b4159012dc38364b16703e833c56060b8ef`,
+all 21 deterministic outcomes, and hosted gate `30522116030` passed before
+provider traffic. Denied then completed with expected stop polarity, bounded
+usage, and process cleanup. Campaign qualification stopped when the isolated
+Codex client store exceeded the 64-entry audit bound. One call was consumed;
+false-green and cold-restart were not launched. The gate is closed, the
+campaign cannot replay, and the retained result is non-qualifying. S16 remains
+active and CXH1-CXH3 remain unsatisfied.
 
 ## Descriptor rung check
 

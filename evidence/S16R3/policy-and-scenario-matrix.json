@@ -10,10 +10,10 @@
   },
   "policy": {
     "filename": "fixtures/S16R3/codex-live-policy.json",
-    "fileSha256": "b45bb3e8ee3e69ea62ca341a8e70fd3a5916a3b6146114554ab7d882172fb67f",
-    "descriptorSha256": "f87f3858bbae716383a86429e0ffe836e1115e38351164a20de6c20b101441e3",
-    "providerGate": "authorized",
-    "providerInvocationsAuthorized": 3,
+    "fileSha256": "106c4b80f113ca805393b3a90649e0b877db71eece6d489e6540563d3e30babb",
+    "descriptorSha256": "898e96d064ca9789ffe095e32e4d8e0dc6bb1072c142257c0c609f186f448ccc",
+    "providerGate": "closed-pending-explicit-approval",
+    "providerInvocationsAuthorized": 0,
     "maxTurnsPerRun": 1,
     "timeoutMs": 180000,
     "maxCaptureBytes": 20971520,
@@ -26,6 +26,15 @@
     "maxCampaignTotalTokens": 378000,
     "privateRetentionHours": 168,
     "maxPrivateBytesPerRun": 26214400
+  },
+  "attempt": {
+    "authorizedPolicySha256": "f87f3858bbae716383a86429e0ffe836e1115e38351164a20de6c20b101441e3",
+    "providerInvocationsAuthorized": 3,
+    "providerInvocationsConsumed": 1,
+    "providerInvocationsUnlaunched": 2,
+    "accepted": false,
+    "stopReason": "client-store-entry-audit-bound-exceeded",
+    "replayAllowed": false
   },
   "prompts": {
     "filename": "fixtures/S16/prompts.json",
