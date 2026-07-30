@@ -26,6 +26,8 @@ export const CODEX_LIVE_POLICY_V5_SCOPE =
   'S16-v5-production-live-run-edge-continuation';
 export const CODEX_LIVE_POLICY_V6_SCOPE =
   'S16-v6-production-live-run-edge-continuation';
+export const CODEX_LIVE_POLICY_V7_SCOPE =
+  'S16-v7-production-live-run-hardened-qualification';
 export const CODEX_PROVIDER_GATE_CLOSED =
   'closed-pending-explicit-approval';
 export const CODEX_PROVIDER_GATE_OPEN = 'authorized';
@@ -118,6 +120,12 @@ const CAMPAIGN_PROFILES = Object.freeze({
     scope: CODEX_LIVE_POLICY_V6_SCOPE,
     scenarioVersion: 'S16.v6',
     privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R6',
+    scenarioIds: Object.freeze(['clean', 'cold-restart']),
+  }),
+  'S16-v7-production-live-v1': Object.freeze({
+    scope: CODEX_LIVE_POLICY_V7_SCOPE,
+    scenarioVersion: 'S16.v7',
+    privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R7',
     scenarioIds: Object.freeze(['clean', 'cold-restart']),
   }),
 });

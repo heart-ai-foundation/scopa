@@ -159,6 +159,20 @@ S16-v5 is prepared with a fresh `S16R5` namespace, a closed gate, and only
 the never-launched cold-restart scenario. It permits zero calls unless a later
 explicit approval binds this exact one-turn continuation.
 
+S16-v6 then attempted a paired clean/cold-restart continuation. Clean
+consumed one call but stopped on observed Codex client-store state; cold-restart
+was not launched and the gate is closed. The subsequent custody hardening now
+uses a fresh disposable runtime home per scenario, separately verifies the
+immutable authentication boundary, retains only bounded private runtime audit
+metadata, and verifies teardown on both normal and stop paths.
+
+S16-v7 is prepared as a fresh, closed-by-default hardened qualification with
+only `clean` followed by `cold-restart`, a new `S16R7` private namespace, and
+the same two-call resource ceilings. Its policy digest is
+`a8c6a0e7502d1618bcae72ef04079d5d3ab7e7ea47e2591339bddf464cfaa24d`.
+Preparation itself grants zero provider calls; a later authorization must bind
+this exact digest and fresh private destination.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose

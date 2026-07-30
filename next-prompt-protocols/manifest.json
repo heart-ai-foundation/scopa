@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "df0f3f3",
+  "current_commit": "7a6c358",
   "current_phase": "phase-6-production-live-run-hardening",
   "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
@@ -45,6 +45,8 @@
     "fixtures/S16R3/**",
     "fixtures/S16R4/**",
     "fixtures/S16R5/**",
+    "fixtures/S16R6/**",
+    "fixtures/S16R7/**",
     "next-prompt-protocols/**",
     "notes/S16/**",
     "runs/S16/**",
@@ -53,6 +55,8 @@
     "evidence/S16R3/**",
     "evidence/S16R4/**",
     "evidence/S16R5/**",
+    "evidence/S16R6/**",
+    "evidence/S16R7/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [

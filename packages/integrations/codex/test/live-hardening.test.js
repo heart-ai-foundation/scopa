@@ -77,6 +77,10 @@ const V5_POLICY_PATH = path.join(
   ROOT,
   'fixtures/S16R5/codex-live-policy.json',
 );
+const V7_POLICY_PATH = path.join(
+  ROOT,
+  'fixtures/S16R7/codex-live-policy.json',
+);
 const CORPUS_PATH = path.join(FIXTURE, 'deterministic-scenarios.json');
 const ROOT_PACKAGE = JSON.parse(
   await readFile(path.join(ROOT, 'package.json'), 'utf8'),
@@ -514,6 +518,38 @@ test('S16-v5 rejects a standalone cold-restart before provider intent', async ()
   assert.throws(
     () => productionScenariosForPolicy(policy),
     /cold-restart requires an earlier defined repository lineage/,
+  );
+});
+
+test('S16-v7 is a closed fresh-runtime clean-to-cold-restart posture', async () => {
+  const text = await readFile(V7_POLICY_PATH, 'utf8');
+  const policy = JSON.parse(text);
+  assert.equal(text.endsWith('\n'), true);
+  assert.deepEqual(validateCodexLivePolicy(policy), policy);
+  assert.deepEqual(
+    validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
+    policy,
+  );
+  assert.deepEqual(policy, createCodexLivePolicy({
+    campaignId: 'S16-v7-production-live-v1',
+  }));
+  assert.equal(policy.authorization.providerGate, CODEX_PROVIDER_GATE_CLOSED);
+  assert.equal(
+    policy.authorization.scope,
+    'S16-v7-production-live-run-hardened-qualification',
+  );
+  assert.equal(
+    policy.evidence.privateDestination,
+    'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R7',
+  );
+  assert.deepEqual(policy.scenarios.ids, ['clean', 'cold-restart']);
+  assert.equal(
+    policy.policySha256,
+    'a8c6a0e7502d1618bcae72ef04079d5d3ab7e7ea47e2591339bddf464cfaa24d',
+  );
+  assert.throws(
+    () => assertCodexProviderAuthorized(policy),
+    /provider gate is closed/,
   );
 });
 
