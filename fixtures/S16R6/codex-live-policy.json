@@ -6,10 +6,10 @@
     "verification": "required-before-first-provider-call"
   },
   "authorization": {
-    "approvedOn": "2026-07-30",
-    "principalApproval": "conversation-explicit",
-    "privateEvidenceDestinationApproval": "conversation-explicit",
-    "providerGate": "authorized",
+    "approvedOn": null,
+    "principalApproval": "not-granted",
+    "privateEvidenceDestinationApproval": "not-granted",
+    "providerGate": "closed-pending-explicit-approval",
     "scope": "S16-v6-production-live-run-edge-continuation"
   },
   "cleanup": {
@@ -106,7 +106,7 @@
     "osEnforced": false
   },
   "policyId": "S16-v6-production-live-v1",
-  "policySha256": "7dd3a8dac1bbb3d6d46d704d6cbba857fcb95ff341c1f981a5a9f5195df5986e",
+  "policySha256": "87e3a1e37a8b6373ccffb22b83a8dcb4ef54d906193b5b7570dfecec21dff241",
   "repository": {
     "classification": "disposable-synthetic",
     "customerDataAllowed": false,

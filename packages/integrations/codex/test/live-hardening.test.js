@@ -856,6 +856,7 @@ test('production campaign control enforces approval, accounting, evidence, and c
     codexEnvironment: auth.environment,
     codexHome: auth.isolatedHome,
     authPath: auth.authPath,
+    authBytes: auth.authBytes,
     authBoundarySha256: auth.authBoundarySha256,
     scenarioEnvironment: (scenario) => ({
       SCOPA_S16_BASE_SCENARIO: {
@@ -876,7 +877,7 @@ test('production campaign control enforces approval, accounting, evidence, and c
       (record) =>
         record.expectedCanStop === record.observedCanStop &&
         record.processGroupGone &&
-        record.residue.onlyBoundedAuthRefresh,
+        record.runtimeStateDeletionVerified,
     ),
     true,
   );
@@ -885,6 +886,7 @@ test('production campaign control enforces approval, accounting, evidence, and c
   assert.equal(campaign.aggregateUsage.reasoning_output_tokens, 20);
   assert.equal(campaign.aggregateUsage.total_tokens, 500);
   assert.equal(campaign.cleanup.repositoryCleanupVerified, true);
+  assert.equal(campaign.cleanup.runtimeStateDeletionVerified, true);
   for (const scenario of policy.scenarios.ids) {
     await access(path.join(privateRoot, `${scenario}.private.json`));
     await access(path.join(publicRoot, `${scenario}.public.json`));
@@ -907,15 +909,13 @@ test('production campaign control enforces approval, accounting, evidence, and c
       { code: 'ENOENT' },
     );
     await assert.rejects(
-      () => access(
-        path.join(privateRoot, `${scenario}.store-audit.private.json`),
-      ),
+      () => access(path.join(privateRoot, `${scenario}.store-audit.private.json`)),
       { code: 'ENOENT' },
     );
   }
 });
 
-test('client-store residue retains a bounded private custody receipt before stopping', {
+test('disposable Codex runtime state is bounded, private, and deleted between runs', {
   concurrency: false,
 }, async (context) => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'scopa-s16-residue-test-'));
@@ -956,60 +956,50 @@ test('client-store residue retains a bounded private custody receipt before stop
     path.join(FIXTURE, 'prompts.json'),
     'utf8',
   ));
+  const campaign = await runCampaign({
+    installed: {
+      adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'), integration, liveRun, project, artifact: ARTIFACT,
+      package: { ...ARTIFACT.package, sourceCommit: ARTIFACT.sourceCommit, entryCount: 173 },
+    }, policy, prompts, temporary, privateRoot, publicRoot, codexCommand: faultClient,
+    codexEnvironment: auth.environment, codexHome: auth.isolatedHome,
+    authPath: auth.authPath, authBytes: auth.authBytes,
+    authBoundarySha256: auth.authBoundarySha256,
+    scenarioEnvironment: (scenario) => ({
+      SCOPA_S16_BASE_SCENARIO: {
+        clean: 'clean', denied: 'denied', 'false-green': 'falseGreen',
+        'cold-restart': 'coldRestart',
+      }[scenario.id],
+      SCOPA_S16_FIXTURE_ROOT: ROOT,
+      SCOPA_S16_MODE: 'store-residue',
+      SCOPA_S16_MUTATE_REPOSITORY: '1',
+    }),
+  });
+  assert.equal(campaign.records[0].residue.added.length, 1);
+  assert.equal(campaign.records[0].runtimeStateDeletionVerified, true);
+  await assert.rejects(() => access(path.join(temporary, 'codex-runtime-clean')), { code: 'ENOENT' });
+  await mkdir(path.join(root, 'drift-private'), { mode: 0o700 });
+  await mkdir(path.join(root, 'drift-public'));
   await assert.rejects(
     () => runCampaign({
       installed: {
-        adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'),
-        integration,
-        liveRun,
-        project,
-        artifact: ARTIFACT,
-        package: {
-          ...ARTIFACT.package,
-          sourceCommit: ARTIFACT.sourceCommit,
-          entryCount: 173,
-        },
-      },
-      policy,
-      prompts,
-      temporary,
-      privateRoot,
-      publicRoot,
+        adapterCli: path.join(ROOT, 'packages/adapter-host/src/cli.js'), integration, liveRun, project, artifact: ARTIFACT,
+        package: { ...ARTIFACT.package, sourceCommit: ARTIFACT.sourceCommit, entryCount: 173 },
+      }, policy, prompts, temporary,
+      privateRoot: path.join(root, 'drift-private'),
+      publicRoot: path.join(root, 'drift-public'),
       codexCommand: faultClient,
-      codexEnvironment: auth.environment,
-      codexHome: auth.isolatedHome,
-      authPath: auth.authPath,
+      codexEnvironment: auth.environment, codexHome: auth.isolatedHome,
+      authPath: auth.authPath, authBytes: auth.authBytes,
       authBoundarySha256: auth.authBoundarySha256,
       scenarioEnvironment: () => ({
-        SCOPA_S16_BASE_SCENARIO: 'clean',
-        SCOPA_S16_FIXTURE_ROOT: ROOT,
-        SCOPA_S16_MODE: 'store-residue',
+        SCOPA_S16_BASE_SCENARIO: 'clean', SCOPA_S16_FIXTURE_ROOT: ROOT,
+        SCOPA_S16_MODE: 'auth-drift',
       }),
     }),
-    /clean left Codex client-store residue/,
-  );
-  const auditPath = path.join(
-    privateRoot,
-    'clean.store-audit.private.json',
-  );
-  const auditText = await readFile(auditPath, 'utf8');
-  const audit = JSON.parse(auditText);
-  assert.equal((await stat(auditPath)).mode & 0o777, 0o600);
-  assert.equal(audit.schema, 'scopa.codex-live-store-audit.private.v1');
-  assert.equal(audit.delta.onlyBoundedAuthRefresh, false);
-  assert.equal(audit.delta.added.length, 1);
-  assert.equal(audit.delta.added[0].kind, 'file');
-  assert.equal(audit.delta.added[0].bytes, 22);
-  assert.match(audit.delta.added[0].pathSha256, /^[a-f0-9]{64}$/);
-  assert.equal(auditText.includes('provider-session-state'), false);
-  await access(path.join(privateRoot, 'clean.intent.private.json'));
-  await access(path.join(privateRoot, 'clean.inflight.private.json'));
-  await assert.rejects(
-    () => access(path.join(privateRoot, 'clean.private.json')),
-    { code: 'ENOENT' },
+    /authenticated Codex identity changed/,
   );
   await assert.rejects(
-    () => access(path.join(publicRoot, 'clean.public.json')),
+    () => access(path.join(temporary, 'codex-runtime-clean')),
     { code: 'ENOENT' },
   );
 });

@@ -620,9 +620,68 @@ export async function prepareCodexEnvironment({
     environment,
     isolatedHome,
     authPath: isolatedAuth,
+    authBytes,
     authBoundarySha256: await authBoundary(isolatedAuth),
     statusSha256: sha256(statusText),
     baselineStore,
+  };
+}
+
+export async function createCodexRuntimeEnvironment({
+  installedIntegration,
+  codexCommand,
+  temporary,
+  scenarioId,
+  authBytes,
+  authBoundarySha256,
+}) {
+  if (!/^[a-z0-9-]+$/.test(scenarioId)) {
+    throw new TypeError('Codex runtime scenario id is invalid');
+  }
+  const isolatedHome = path.join(temporary, `codex-runtime-${scenarioId}`);
+  await mkdir(isolatedHome, { mode: 0o700 });
+  const isolatedCodexRoot = path.join(isolatedHome, '.codex');
+  await mkdir(isolatedCodexRoot, { mode: 0o700 });
+  for (const directory of ['.cache', '.config', '.local/share', '.runtime']) {
+    await mkdir(path.join(isolatedHome, directory), {
+      recursive: true,
+      mode: 0o700,
+    });
+  }
+  const authPath = path.join(isolatedCodexRoot, 'auth.json');
+  const authHandle = await open(authPath, 'wx', 0o600);
+  try {
+    await authHandle.writeFile(authBytes);
+    await authHandle.sync();
+  } finally {
+    await authHandle.close();
+  }
+  const environment = installedIntegration.createCodexAllowedEnvironment();
+  Object.assign(environment, {
+    HOME: isolatedHome,
+    XDG_CACHE_HOME: path.join(isolatedHome, '.cache'),
+    XDG_CONFIG_HOME: path.join(isolatedHome, '.config'),
+    XDG_DATA_HOME: path.join(isolatedHome, '.local/share'),
+    XDG_RUNTIME_DIR: path.join(isolatedHome, '.runtime'),
+  });
+  const statusResult = await execFileAsync(codexCommand, ['login', 'status'], {
+    cwd: temporary,
+    encoding: 'utf8',
+    env: environment,
+    timeout: 10_000,
+    maxBuffer: 64 * 1024,
+  });
+  if (`${statusResult.stdout}${statusResult.stderr}`.length === 0) {
+    throw new TypeError('Codex login status returned no bounded evidence');
+  }
+  if (await authBoundary(authPath) !== authBoundarySha256) {
+    throw new TypeError('authenticated Codex identity changed during preflight');
+  }
+  return {
+    environment,
+    isolatedHome,
+    authPath,
+    baselineStore: await snapshotCodexStore(isolatedHome),
   };
 }
 
@@ -735,6 +794,7 @@ export async function runCampaign({
   codexEnvironment,
   codexHome,
   authPath,
+  authBytes = null,
   authBoundarySha256,
   scenarios = S16_PRODUCTION_SCENARIOS,
   scenarioEnvironment = () => ({}),
@@ -751,8 +811,24 @@ export async function runCampaign({
   let aggregateUsage = zeroUsage();
   let providerInvocations = 0;
   let repositoryCleanupVerified = false;
+  let runtimeStateDeletionVerified = true;
+  const runtimeHomes = new Set();
   try {
     for (const scenario of scenarios) {
+      const runtime = authBytes === null
+        ? null
+        : await createCodexRuntimeEnvironment({
+          installedIntegration: installed.integration,
+          codexCommand,
+          temporary,
+          scenarioId: scenario.id,
+          authBytes,
+          authBoundarySha256,
+        });
+      const activeCodexHome = runtime?.isolatedHome ?? codexHome;
+      const activeCodexEnvironment = runtime?.environment ?? codexEnvironment;
+      const activeAuthPath = runtime?.authPath ?? authPath;
+      if (runtime !== null) runtimeHomes.add(runtime.isolatedHome);
       if (scenario.definition !== null) {
         const repositoryRoot = path.join(
           temporary,
@@ -798,8 +874,8 @@ export async function runCampaign({
       ]) {
         await assertPathAbsent(target, label);
       }
-      const beforeStore = await snapshotCodexStore(codexHome);
-      const beforeIdentity = await authBoundary(authPath);
+      const beforeStore = await snapshotCodexStore(activeCodexHome);
+      const beforeIdentity = await authBoundary(activeAuthPath);
       if (beforeIdentity !== authBoundarySha256) {
         throw new TypeError('authenticated Codex identity changed');
       }
@@ -843,7 +919,7 @@ export async function runCampaign({
         usageLimits:
           installed.integration.codexPolicyUsageLimits(policy),
         baseEnvironment: {
-          ...codexEnvironment,
+          ...activeCodexEnvironment,
           ...scenarioEnvironment(scenario),
         },
         environmentInheritance: policy.environment.inheritance,
@@ -877,10 +953,10 @@ export async function runCampaign({
         );
       }
       await writeNoReplace(journalPath, journal, 0o600);
-      const afterStore = await snapshotCodexStore(codexHome);
+      const afterStore = await snapshotCodexStore(activeCodexHome);
       const residue = providerStoreDelta(beforeStore, afterStore);
       const storeAudit = {
-        schema: 'scopa.codex-live-store-audit.private.v1',
+        schema: 'scopa.codex-live-runtime-audit.private.v2',
         sourceCommit: installed.artifact.sourceCommit,
         livePolicySha256: policy.policySha256,
         scenario: {
@@ -890,6 +966,11 @@ export async function runCampaign({
         beforeEntryCount: beforeStore.length,
         afterEntryCount: afterStore.length,
         delta: residue,
+        custody: {
+          authBoundaryUnchanged: true,
+          runtimeStateDisposable: true,
+          runtimeStateFreshForScenario: authBytes !== null,
+        },
       };
       const storeAuditText = canonicalJsonPretty(storeAudit);
       if (
@@ -901,12 +982,7 @@ export async function runCampaign({
         );
       }
       await writeNoReplace(storeAuditPath, storeAudit, 0o600);
-      if (!residue.onlyBoundedAuthRefresh) {
-        throw new TypeError(
-          `${scenario.id} left Codex client-store residue`,
-        );
-      }
-      if (await authBoundary(authPath) !== authBoundarySha256) {
+      if (await authBoundary(activeAuthPath) !== authBoundarySha256) {
         throw new TypeError('authenticated Codex identity changed');
       }
       if (run.normalized === null) {
@@ -954,6 +1030,11 @@ export async function runCampaign({
         processGroupGone: run.terminal.cleanup.groupGone,
         orphanDetected: run.terminal.cleanup.orphanDetected,
         providerResidue: residue,
+        runtimeState: {
+          beforeEntryCount: beforeStore.length,
+          afterEntryCount: afterStore.length,
+          freshForScenario: authBytes !== null,
+        },
       };
       const evidence = installed.liveRun.createPrivateLiveEvidence({
         receipt: run.receipt,
@@ -986,6 +1067,10 @@ export async function runCampaign({
         evidence,
         protectedValues: [authBoundarySha256],
       });
+      if (runtime !== null) {
+        await removeAndVerify(runtime.isolatedHome);
+        runtimeHomes.delete(runtime.isolatedHome);
+      }
       records.push({
         scenario: scenario.id,
         expectedCanStop: scenario.expectedCanStop,
@@ -1008,6 +1093,7 @@ export async function runCampaign({
           mode: write.privateMode,
         },
         residue,
+        runtimeStateDeletionVerified: runtime !== null,
         repositoryLineageSha256: jsonHash(repositoryRoot),
         sourceCommit: installed.artifact.sourceCommit,
         qualification: 'direct',
@@ -1017,6 +1103,9 @@ export async function runCampaign({
       await removeAndVerify(intentPath);
     }
   } finally {
+    for (const runtimeHome of runtimeHomes) {
+      await removeAndVerify(runtimeHome);
+    }
     for (const repositoryRoot of repositories.values()) {
       await removeAndVerify(repositoryRoot);
     }
@@ -1032,6 +1121,7 @@ export async function runCampaign({
     records,
     cleanup: {
       repositoryCleanupVerified,
+      runtimeStateDeletionVerified,
       processGroupsGone: records.every(
         (record) => record.processGroupGone === true,
       ),
@@ -1107,16 +1197,10 @@ async function main() {
       codexEnvironment: auth.environment,
       codexHome: auth.isolatedHome,
       authPath: auth.authPath,
+      authBytes: auth.authBytes,
       authBoundarySha256: auth.authBoundarySha256,
       scenarios: productionScenariosForPolicy(policy),
     });
-    const finalStore = providerStoreDelta(
-      auth.baselineStore,
-      await snapshotCodexStore(auth.isolatedHome),
-    );
-    if (!finalStore.onlyBoundedAuthRefresh) {
-      throw new TypeError('Codex campaign left client-store residue');
-    }
   } finally {
     await removeAndVerify(temporary);
   }

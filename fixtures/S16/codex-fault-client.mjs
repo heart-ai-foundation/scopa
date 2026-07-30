@@ -328,7 +328,7 @@ async function main() {
   }
   if (
     process.env.SCOPA_S16_MUTATE_REPOSITORY === '1' &&
-    mode === 'success'
+    (mode === 'success' || mode === 'store-residue')
   ) {
     await mkdir(path.join(process.cwd(), 'workspace'), {
       recursive: true,
@@ -353,6 +353,12 @@ async function main() {
     await writeFile(
       path.join(codexStore, 'provider-session-state.json'),
       'deterministic residue\n',
+    );
+  }
+  if (mode === 'auth-drift') {
+    await writeFile(
+      path.join(process.env.HOME, '.codex/auth.json'),
+      '{"tokens":{"account_id":"UNTRUSTED"}}\n',
     );
   }
   process.stdout.write(jsonLines(await successEvents(baseScenario, mode)));
