@@ -11,10 +11,10 @@
   },
   "policy": {
     "filename": "fixtures/S16R4/codex-live-policy.json",
-    "fileSha256": "609d32af255a00255be1def87bf6b20bd6461fa9f4516949bec6bca3ddb09410",
-    "descriptorSha256": "1bb060dfb4f1c056243844fb6c970d3dc4d80c8c1cca89973f8f9331bf029017",
-    "providerGate": "authorized",
-    "providerInvocationsAuthorized": 2,
+    "fileSha256": "cad90b8b1aff5ff620f5213b8461b1a12e3d8e766d50504f2e22f4dc3bf21073",
+    "descriptorSha256": "d55501f9212e1c8b2f0f68e3e649ecdaf80de4fbcb0fbc30a7316f95d3ac657c",
+    "providerGate": "closed-pending-explicit-approval",
+    "providerInvocationsAuthorized": 0,
     "maxTurnsPerRun": 1,
     "timeoutMs": 180000,
     "maxCaptureBytes": 20971520,
@@ -27,6 +27,15 @@
     "maxCampaignTotalTokens": 252000,
     "privateRetentionHours": 168,
     "maxPrivateBytesPerRun": 26214400
+  },
+  "attempt": {
+    "authorizedPolicySha256": "1bb060dfb4f1c056243844fb6c970d3dc4d80c8c1cca89973f8f9331bf029017",
+    "providerInvocationsAuthorized": 2,
+    "providerInvocationsConsumed": 1,
+    "providerInvocationsUnlaunched": 1,
+    "accepted": false,
+    "stopReason": "unexpected-client-store-residue",
+    "replayAllowed": false
   },
   "prompts": {
     "filename": "fixtures/S16/prompts.json",

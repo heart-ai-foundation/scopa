@@ -126,15 +126,26 @@ file, oversized ambiguous baseline, and unexpected post-run residue rejection
 remain unchanged. This post-stop implementation does not reopen S16-v3 or
 authorize provider traffic.
 
-The proposed S16-v4 continuation is now materialized with policy ID
+The S16-v4 continuation was materialized with policy ID
 `S16-v4-production-live-v1`, scenario version `S16.v4`, and a fresh `S16R4`
 evidence namespace. It contains only false-green and cold-restart, the two
 scenarios S16-v3 never launched. The maximum is two one-turn calls with
 aggregate ceilings reduced to 240,000 input, 8,000 output, and 252,000 total
 tokens. On 2026-07-30 the principal explicitly approved this exact posture and
 fresh private destination as one stop-first-failure attempt with no replay.
-The gate authorizes only the two enumerated calls. Exact-candidate local,
-installed, audit, and hosted qualification must pass before provider traffic.
+Exact candidate `07d170fc64c74b359e52630499b00a21f91f491c`, package SHA-256
+`209c1ff85692d7ccaccd1f9ce4772e7dcf887931302b5b2077e95fed71497a8d`,
+all 21 deterministic outcomes, and hosted gate `30543747338` passed before
+provider traffic.
+
+False-green consumed the first call and correctly returned blocked polarity
+with `canStop: false`, bounded usage, SCOPA-only MCP calls, and complete
+process cleanup. Campaign qualification then stopped because Codex left
+unexpected state in its isolated client store. Cold-restart was not launched.
+The isolated home was deleted, the private intent and recovery journal were
+retained under the approved bounds, and the gate is closed. The campaign is
+non-qualifying and cannot replay. S16 remains active and CXH1-CXH3 remain
+unsatisfied.
 
 ## Descriptor rung check
 

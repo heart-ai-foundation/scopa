@@ -128,13 +128,15 @@ false-green, and cold-restart. Denied completed correctly, but qualification
 stopped at the former 64-entry client-store audit bound. One call was consumed,
 two were not launched, and replay is prohibited.
 
-The approved S16-v4 continuation uses policy ID
+The separately approved S16-v4 continuation used policy ID
 `S16-v4-production-live-v1`, the fourth S16 scenario revision, and evidence
 alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16R4`. It contains only false-green and
 cold-restart, permits at most two one-turn calls if separately approved, and
 reduces aggregate ceilings to 240,000 input, 8,000 output, and 252,000 total
-tokens. Its gate authorizes one stop-first-failure attempt containing only
-those two calls; no live result is yet claimed.
+tokens. False-green correctly remained blocked with bounded usage and clean
+process termination, but campaign qualification stopped on unexpected
+isolated client-store residue. One call was consumed; cold-restart was not
+launched. The gate is closed and replay is prohibited.
 
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:

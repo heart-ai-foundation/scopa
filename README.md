@@ -210,12 +210,13 @@ completed with correct stop polarity, but campaign qualification failed when
 the isolated client store exceeded its 64-entry audit bound. One call was
 consumed; two were unlaunched. The gate is closed and replay is prohibited.
 
-The S16-v4 continuation was explicitly approved on 2026-07-30. It uses a fresh
-`S16R4` evidence namespace and
-contains only the two still-unlaunched scenarios, false-green and cold-restart.
-Its maximum is two one-turn calls with aggregate ceilings of 240,000 input,
-8,000 output, and 252,000 counted total tokens. It is one stop-first-failure
-attempt with no replay; no live result is yet claimed.
+The S16-v4 continuation was explicitly approved on 2026-07-30. It used a fresh
+`S16R4` evidence namespace and contained only false-green and cold-restart.
+False-green correctly refused completion, stayed within its usage ceiling, and
+left no process survivor. Campaign qualification then stopped because Codex
+left unexpected state in its isolated client store. One call was consumed and
+cold-restart was not launched. The gate is closed, the result is
+non-qualifying, and replay is prohibited.
 
 ## Developer-preview release candidate
 

@@ -1,0 +1,95 @@
+{
+  "assurance": "partial",
+  "attemptedAt": "2026-07-30T12:44:59.173Z",
+  "candidate": {
+    "package": "@heart-ai-foundation/scopa@0.2.0-dev.1",
+    "packageIntegrity": "sha512-6FlsAWKsfEH0DaqgpX+GRuqwLK0R8eI24fa5efuQBM4HQ5FM9uoZLhzKS4ybVEYi7bQq+R1z8iMSBP+TSDDhGw==",
+    "packageSha256": "209c1ff85692d7ccaccd1f9ce4772e7dcf887931302b5b2077e95fed71497a8d",
+    "sourceCommit": "07d170fc64c74b359e52630499b00a21f91f491c"
+  },
+  "client": {
+    "expectedVersion": "0.146.0",
+    "observedVersion": "0.146.0"
+  },
+  "clientStoreAudit": {
+    "auditBoundBytes": 2097152,
+    "auditBoundEntries": 4096,
+    "boundExceeded": false,
+    "clientStoreRetained": false,
+    "failureKind": "unexpected-residue",
+    "isolatedHomeDeletionVerified": true
+  },
+  "deterministicQualification": {
+    "allExpectedStatesObserved": true,
+    "allProcessGroupsGone": true,
+    "providerInvocations": 0,
+    "resultSha256": "e66b68f7f5ad1232955adeb6d1156197ebd2ace21d5248b319821c8b0f36a7db"
+  },
+  "hostedQualification": {
+    "conclusion": "success",
+    "runId": 30543747338,
+    "sourceCommit": "07d170fc64c74b359e52630499b00a21f91f491c"
+  },
+  "policy": {
+    "authorizedSha256": "1bb060dfb4f1c056243844fb6c970d3dc4d80c8c1cca89973f8f9331bf029017",
+    "policyId": "S16-v4-production-live-v1",
+    "scenarioVersion": "S16.v4"
+  },
+  "privateEvidence": {
+    "deleteAfter": "2026-08-06T12:45:30.049Z",
+    "files": [
+      {
+        "filename": "false-green.inflight.private.json",
+        "mode": "0600",
+        "sha256": "52670e8bc0d49b7fbc75be65560f6447f7cbb647b7ad84830a31b0bd8a2185c1",
+        "sizeBytes": 44325
+      },
+      {
+        "filename": "false-green.intent.private.json",
+        "mode": "0600",
+        "sha256": "7a370cea1f6ae4027661159fb44f8ba07df90c0c1701b153afcf20c9c3bf4ba9",
+        "sizeBytes": 435
+      }
+    ],
+    "retentionHours": 168
+  },
+  "providerExecution": {
+    "authorizedInvocations": 2,
+    "consumedInvocations": 1,
+    "replayAllowed": false,
+    "unlaunchedInvocations": 1
+  },
+  "qualification": {
+    "accepted": false,
+    "reason": "unexpected-client-store-residue",
+    "stoppedAfterScenario": "false-green"
+  },
+  "scenario": {
+    "canStop": false,
+    "id": "false-green",
+    "observedModel": "gpt-5.4",
+    "processGroupGone": true,
+    "requestedModel": "gpt-5.4",
+    "terminalReason": "completed",
+    "terminalState": "succeeded",
+    "toolOrder": [
+      "scopa_orientation",
+      "scopa_read_file",
+      "scopa_read_file",
+      "scopa_assurance",
+      "scopa_write_file",
+      "scopa_write_file",
+      "scopa_check",
+      "scopa_transcript"
+    ],
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 48128,
+      "input_tokens": 74662,
+      "output_tokens": 867,
+      "reasoning_output_tokens": 541,
+      "total_tokens": 76070
+    }
+  },
+  "schema": "scopa.codex-live-campaign-stop.public.v1"
+}

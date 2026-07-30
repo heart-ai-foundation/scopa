@@ -1,4 +1,4 @@
-# S16-v4 approved continuation posture
+# S16-v4 closed continuation posture
 
 ## Decision
 
@@ -24,12 +24,22 @@ cold-restart, the two scenarios S16-v3 never launched:
   provider-boundary failure
 - replay: prohibited
 
-## Approval and gate
+## Approval, result, and gate
 
 On 2026-07-30 the principal explicitly approved this exact posture and fresh
-private destination. The digest-bound gate is `authorized` for at most the two
-enumerated one-turn calls in one stop-first-failure attempt. It cannot replay
-S16-v3 or any S16-v4 call and must be closed after this execution attempt.
+private destination. The digest-bound authorization permitted at most the two
+enumerated one-turn calls in one stop-first-failure attempt.
+
+False-green consumed the first call. The provider result had the expected
+blocked polarity, used only SCOPA MCP tools, remained within resource bounds,
+and left no process survivor. The campaign then failed its post-run custody
+check because Codex left unexpected state in its isolated client store.
+Cold-restart was not launched. The isolated home was deleted and the bounded
+private intent and recovery journal were retained.
+
+The gate is now `closed-pending-explicit-approval`, the campaign is
+non-qualifying, and replay of either the consumed call or the stopped campaign
+is prohibited.
 
 The separate RC1 experiment and queued S17 implementation input remain out of
 scope and untouched.
