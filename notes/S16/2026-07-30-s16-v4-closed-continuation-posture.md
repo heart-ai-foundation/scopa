@@ -1,4 +1,4 @@
-# S16-v4 closed continuation posture
+# S16-v4 approved continuation posture
 
 ## Decision
 
@@ -6,7 +6,7 @@ S16-v3 remains an immutable, non-qualifying, non-replayable one-call campaign.
 Its denied scenario completed with correct polarity before client-store entry
 auditing stopped campaign qualification. That consumed call is not repeated.
 
-S16-v4 is a distinct proposed continuation containing only false-green and
+S16-v4 is a distinct approved continuation containing only false-green and
 cold-restart, the two scenarios S16-v3 never launched:
 
 - policy ID: `S16-v4-production-live-v1`
@@ -24,12 +24,12 @@ cold-restart, the two scenarios S16-v3 never launched:
   provider-boundary failure
 - replay: prohibited
 
-## Gate
+## Approval and gate
 
-The provider gate is `closed-pending-explicit-approval`. The policy and fresh
-private destination require a distinct explicit principal approval only after
-the exact candidate passes deterministic, installed, audit, and hosted
-qualification. No provider request is authorized by this document.
+On 2026-07-30 the principal explicitly approved this exact posture and fresh
+private destination. The digest-bound gate is `authorized` for at most the two
+enumerated one-turn calls in one stop-first-failure attempt. It cannot replay
+S16-v3 or any S16-v4 call and must be closed after this execution attempt.
 
 The separate RC1 experiment and queued S17 implementation input remain out of
 scope and untouched.

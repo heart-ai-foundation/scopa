@@ -131,9 +131,10 @@ The proposed S16-v4 continuation is now materialized with policy ID
 evidence namespace. It contains only false-green and cold-restart, the two
 scenarios S16-v3 never launched. The maximum is two one-turn calls with
 aggregate ceilings reduced to 240,000 input, 8,000 output, and 252,000 total
-tokens. Its gate is closed and grants zero calls. Exact-candidate local,
-installed, audit, and hosted qualification must pass before a separate
-approval decision.
+tokens. On 2026-07-30 the principal explicitly approved this exact posture and
+fresh private destination as one stop-first-failure attempt with no replay.
+The gate authorizes only the two enumerated calls. Exact-candidate local,
+installed, audit, and hosted qualification must pass before provider traffic.
 
 ## Descriptor rung check
 

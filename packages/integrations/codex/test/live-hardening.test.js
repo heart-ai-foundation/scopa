@@ -370,25 +370,32 @@ test('S16-v3 closes the stopped three-scenario continuation', async () => {
   assert.deepEqual(scanPrivateText(stopText), []);
 });
 
-test('S16-v4 is a distinct closed two-scenario continuation', async () => {
+test('S16-v4 is a distinctly authorized two-scenario continuation', async () => {
   const text = await readFile(V4_POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
+  const expected = createCodexLivePolicy({
+    campaignId: 'S16-v4-production-live-v1',
+    providerGate: CODEX_PROVIDER_GATE_OPEN,
+    approvedOn: '2026-07-30',
+    principalApproval: 'conversation-explicit',
+    privateEvidenceDestinationApproval: 'conversation-explicit',
+  });
+  const closed = createCodexLivePolicy({
+    campaignId: 'S16-v4-production-live-v1',
+  });
   assert.equal(text.endsWith('\n'), true);
   assert.equal(validateCodexLivePolicy(policy), policy);
   assert.deepEqual(
     validatePublishedContract(CODEX_LIVE_POLICY_SCHEMA, policy),
     policy,
   );
-  assert.deepEqual(
-    policy,
-    createCodexLivePolicy({
-      campaignId: 'S16-v4-production-live-v1',
-    }),
-  );
+  assert.deepEqual(policy, expected);
+  assert.equal(assertCodexProviderAuthorized(policy), policy);
   assert.throws(
-    () => assertCodexProviderAuthorized(policy),
+    () => assertCodexProviderAuthorized(closed),
     /provider gate is closed/,
   );
+  assert.notEqual(closed.policySha256, policy.policySha256);
   assert.equal(
     policy.authorization.scope,
     'S16-v4-production-live-run-edge-continuation',
@@ -408,7 +415,7 @@ test('S16-v4 is a distinct closed two-scenario continuation', async () => {
   );
   assert.equal(
     policy.policySha256,
-    'd55501f9212e1c8b2f0f68e3e649ecdaf80de4fbcb0fbc30a7316f95d3ac657c',
+    '1bb060dfb4f1c056243844fb6c970d3dc4d80c8c1cca89973f8f9331bf029017',
   );
   assert.deepEqual(
     productionScenariosForPolicy(policy).map((scenario) => scenario.id),
@@ -441,7 +448,7 @@ test('S16-v4 is a distinct closed two-scenario continuation', async () => {
     createHash('sha256').update(text).digest('hex'),
   );
   assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 2);
   assert.equal(matrix.providerExecutionCompleted, false);
   assert.equal(matrix.predecessor.providerInvocationsConsumed, 1);
   assert.equal(matrix.predecessor.providerInvocationsUnlaunched, 2);

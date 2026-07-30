@@ -210,11 +210,12 @@ completed with correct stop polarity, but campaign qualification failed when
 the isolated client store exceeded its 64-entry audit bound. One call was
 consumed; two were unlaunched. The gate is closed and replay is prohibited.
 
-The proposed S16-v4 continuation uses a fresh `S16R4` evidence namespace and
+The S16-v4 continuation was explicitly approved on 2026-07-30. It uses a fresh
+`S16R4` evidence namespace and
 contains only the two still-unlaunched scenarios, false-green and cold-restart.
 Its maximum is two one-turn calls with aggregate ceilings of 240,000 input,
-8,000 output, and 252,000 counted total tokens. Its gate is closed and
-authorizes zero provider calls.
+8,000 output, and 252,000 counted total tokens. It is one stop-first-failure
+attempt with no replay; no live result is yet claimed.
 
 ## Developer-preview release candidate
 

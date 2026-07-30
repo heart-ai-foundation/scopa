@@ -9,7 +9,9 @@ The closed plan permits at most two one-turn `gpt-5.4` invocations with
 retains the existing 180-second timeout, 20 MiB capture ceiling, 25 MiB
 private-evidence ceiling, mode `0600`, and 168-hour retention.
 
-The provider gate is closed and authorizes zero calls. Drafting, testing,
-installed qualification, hosted CI, or the prior principal direction to
-continue S16 does not authorize provider traffic. The separate RC1 experiment
-and its queued S17 implementation input remain outside this namespace.
+On 2026-07-30 the principal explicitly approved this exact policy and its
+fresh private destination. The provider gate authorizes one stop-first-failure
+execution attempt containing at most the two enumerated one-turn calls. No
+provider result is yet claimed and replay is prohibited. The separate RC1
+experiment and its queued S17 implementation input remain outside this
+namespace.
