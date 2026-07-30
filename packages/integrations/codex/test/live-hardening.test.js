@@ -34,6 +34,7 @@ import {
 import {
   parseProductionLiveArguments,
   prepareCodexEnvironment,
+  providerStoreDelta,
   runCampaign,
 } from '../src/production-live-probe.js';
 import {
@@ -153,9 +154,16 @@ test('fresh explicit approval differs from the closed stop posture', async () =>
   assert.notEqual(authorized.policySha256, fixture.policySha256);
 });
 
-test('S16-v2 policy binds the fresh approval and evidence namespace', async () => {
+test('S16-v2 policy closes the consumed fresh allowance', async () => {
   const text = await readFile(V2_POLICY_PATH, 'utf8');
   const policy = JSON.parse(text);
+  const authorized = createCodexLivePolicy({
+    campaignId: 'S16-v2-production-live-v1',
+    providerGate: CODEX_PROVIDER_GATE_OPEN,
+    approvedOn: '2026-07-29',
+    principalApproval: 'conversation-explicit',
+    privateEvidenceDestinationApproval: 'conversation-explicit',
+  });
   assert.equal(text.endsWith('\n'), true);
   assert.equal(validateCodexLivePolicy(policy), policy);
   assert.deepEqual(
@@ -166,13 +174,13 @@ test('S16-v2 policy binds the fresh approval and evidence namespace', async () =
     policy,
     createCodexLivePolicy({
       campaignId: 'S16-v2-production-live-v1',
-      providerGate: CODEX_PROVIDER_GATE_OPEN,
-      approvedOn: '2026-07-29',
-      principalApproval: 'conversation-explicit',
-      privateEvidenceDestinationApproval: 'conversation-explicit',
     }),
   );
-  assert.equal(assertCodexProviderAuthorized(policy), policy);
+  assert.equal(assertCodexProviderAuthorized(authorized), authorized);
+  assert.throws(
+    () => assertCodexProviderAuthorized(policy),
+    /provider gate is closed/,
+  );
   assert.equal(
     policy.authorization.scope,
     'S16-v2-production-live-run-edge-campaign',
@@ -183,8 +191,12 @@ test('S16-v2 policy binds the fresh approval and evidence namespace', async () =
     'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2',
   );
   assert.equal(
-    policy.policySha256,
+    authorized.policySha256,
     'c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95',
+  );
+  assert.equal(
+    policy.policySha256,
+    '979712321d12492d4cf8701c04fd2096ed1252e597f14f361211e3452f11bf82',
   );
 
   const matrixPath = path.join(
@@ -198,9 +210,31 @@ test('S16-v2 policy binds the fresh approval and evidence namespace', async () =
     createHash('sha256').update(text).digest('hex'),
   );
   assert.equal(matrix.policy.descriptorSha256, policy.policySha256);
-  assert.equal(matrix.policy.providerInvocationsAuthorized, 4);
+  assert.equal(matrix.policy.providerInvocationsAuthorized, 0);
   assert.equal(matrix.providerExecutionCompleted, false);
+  assert.equal(
+    matrix.attempt.authorizedPolicySha256,
+    authorized.policySha256,
+  );
+  assert.equal(matrix.attempt.providerInvocationsConsumed, 1);
+  assert.equal(matrix.attempt.providerInvocationsUnlaunched, 3);
+  assert.equal(matrix.attempt.accepted, false);
+  assert.equal(matrix.attempt.replayAllowed, false);
   assert.deepEqual(scanPrivateText(matrixText), []);
+
+  const stopText = await readFile(
+    path.join(ROOT, 'evidence/S16R2/campaign-stop.public.json'),
+    'utf8',
+  );
+  const stop = JSON.parse(stopText);
+  assert.equal(stop.policy.authorizedSha256, authorized.policySha256);
+  assert.equal(stop.providerExecution.consumedInvocations, 1);
+  assert.equal(stop.providerExecution.unlaunchedInvocations, 3);
+  assert.equal(stop.providerExecution.replayAllowed, false);
+  assert.equal(stop.qualification.accepted, false);
+  assert.equal(stop.scenario.terminalState, 'succeeded');
+  assert.equal(stop.scenario.canStop, true);
+  assert.deepEqual(scanPrivateText(stopText), []);
 });
 
 test('Codex policy enforces per-run and aggregate token accounting', () => {
@@ -247,6 +281,32 @@ test('Codex production environment is an explicit non-secret allowlist', () => {
     }),
     /requires HOME and PATH/,
   );
+});
+
+test('oversized client-store residue is metadata-audited and rejected', () => {
+  const auth = {
+    path: '.codex/auth.json',
+    kind: 'file',
+    bytes: 128,
+    sha256: 'a'.repeat(64),
+  };
+  const residue = providerStoreDelta(
+    [auth],
+    [
+      auth,
+      {
+        path: '.codex/provider-state.sqlite',
+        kind: 'file',
+        bytes: 3 * 1024 * 1024,
+        sha256: null,
+      },
+    ],
+  );
+  assert.equal(residue.onlyBoundedAuthRefresh, false);
+  assert.equal(residue.added.length, 1);
+  assert.equal(residue.added[0].bytes, 3 * 1024 * 1024);
+  assert.equal('path' in residue.added[0], false);
+  assert.match(residue.added[0].pathSha256, /^[0-9a-f]{64}$/);
 });
 
 test('deterministic corpus is complete and network-closed', async () => {

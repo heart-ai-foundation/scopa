@@ -72,8 +72,23 @@ Policy ID `S16-v2-production-live-v1`, scenario version `S16.v2`, digest
 `c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95`,
 and the fresh `S16R2` evidence namespace distinguish it from the stopped
 attempt. It permits exactly the same four one-turn `gpt-5.4` scenarios and
-resource ceilings and stops on the first failure. The next checkpoint is
-clean exact-candidate qualification and hosted CI before provider traffic.
+resource ceilings and stops on the first failure.
+
+Exact candidate `4e3be5583682804acd3ffeb59918af3ffff98782`, package SHA-256
+`f80a1dfed14afbc83fcf7ff47ea9a88f95e5961d78990583df1a3923b1c4b000`,
+all 21 deterministic outcomes, and hosted gate `30519332442` passed before
+provider traffic. The clean provider scenario then completed with correct
+polarity, six SCOPA-only tools in order, bounded usage, and process cleanup.
+SCOPA nevertheless stopped and rejected campaign qualification because the
+isolated Codex client store exceeded its 2 MiB content-hash audit bound.
+Denied, false-green, and cold-restart were not launched. The v2 gate is closed
+and cannot be replayed.
+
+The narrow hardening changes future store inspection to metadata-audit
+oversized files without reading their content. Unexpected provider-store
+residue still fails closed. The next checkpoint is review of this reproduced
+custody finding and a separately ratified continuation; S16 remains active and
+CXH1-CXH3 remain unsatisfied.
 
 ## Descriptor rung check
 

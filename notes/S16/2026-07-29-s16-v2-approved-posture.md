@@ -28,3 +28,11 @@ is a distinct authorization, not a replay.
 - replay: prohibited
 
 The separate SCOPA experiment remains out of scope and untouched.
+
+## Execution status
+
+The campaign later stopped after the first provider call when the isolated
+Codex client store exceeded its 2 MiB content-hash audit bound. The clean
+scenario itself returned the expected polarity through only the six SCOPA
+tools, but the campaign is non-qualifying. Three calls were not launched and
+no replay is authorized.

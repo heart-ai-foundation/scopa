@@ -116,7 +116,10 @@ The fresh S16-v2 posture is a separate authorization with policy ID
 `S16-v2-production-live-v1`, the second S16 scenario revision, policy digest
 `c159b0f24c78e3625fa385eb8f9c13c5375d7d130ca19deeae1ea555eb313d95`,
 and evidence alias `SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2`. It retains the same
-four scenarios and resource ceilings and stops on the first failure.
+four scenarios and resource ceilings and stops on the first failure. Its
+execution stopped after one correct clean result because the isolated client
+store exceeded the custody audit bound. Three calls were not launched, the
+result is non-qualifying, and the v2 gate is closed against replay.
 
 From a SCOPA source checkout with development scripts installed, the
 provider-free installed-artifact probe is:

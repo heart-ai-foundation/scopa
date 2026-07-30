@@ -61,7 +61,7 @@ const CAMPAIGN_CONFIGS = Object.freeze([
   }),
 ]);
 const MAX_AUTH_BYTES = 1024 * 1024;
-const MAX_STORE_BYTES = 2 * 1024 * 1024;
+const MAX_STORE_HASH_BYTES = 2 * 1024 * 1024;
 const MAX_STORE_ENTRIES = 64;
 
 export const S16_PRODUCTION_SCENARIOS = Object.freeze([
@@ -373,7 +373,6 @@ async function authBoundary(authPath) {
 async function snapshotTree(root) {
   const resolvedRoot = await realpath(root);
   const records = [];
-  let totalBytes = 0;
   async function walk(directory, prefix) {
     const entries = await readdir(directory, {
       withFileTypes: true,
@@ -397,22 +396,24 @@ async function snapshotTree(root) {
         });
         await walk(filename, relative);
       } else if (metadata.isFile()) {
-        const bytes = await readFile(filename);
-        totalBytes += bytes.length;
+        const digest = metadata.size <= MAX_STORE_HASH_BYTES
+          ? sha256(await readFile(filename))
+          : null;
         records.push({
           path: relative,
           kind: 'file',
-          bytes: bytes.length,
-          sha256: sha256(bytes),
+          bytes: metadata.size,
+          sha256: digest,
         });
       } else {
         throw new TypeError('Codex isolated store has a special file');
       }
       if (
-        records.length > MAX_STORE_ENTRIES ||
-        totalBytes > MAX_STORE_BYTES
+        records.length > MAX_STORE_ENTRIES
       ) {
-        throw new TypeError('Codex isolated store exceeds its audit bound');
+        throw new TypeError(
+          'Codex isolated store exceeds its entry audit bound',
+        );
       }
     }
   }

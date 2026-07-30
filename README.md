@@ -198,8 +198,9 @@ requires separate approval; the stopped allowance is not replayable.
 
 The separately approved S16-v2 posture uses Codex CLI 0.146.0, the second S16
 policy/scenario revision, the same four bounded `gpt-5.4` scenarios, and a
-fresh `S16R2` evidence namespace. It remains an opt-in production command and
-stops on the first failure.
+fresh `S16R2` evidence namespace. It stopped after one clean provider call
+when the isolated Codex client store exceeded the custody audit bound. Three
+calls were not launched; the result is non-qualifying and non-replayable.
 
 ## Developer-preview release candidate
 

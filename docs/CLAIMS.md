@@ -38,8 +38,10 @@
   provider calls.
 - The fresh S16-v2 policy separately binds Codex CLI 0.146.0, four approved
   one-turn scenarios, the prior token/time/capture ceilings, a distinct
-  `S16R2` evidence namespace, and stop-on-first-failure behavior. Live results
-  are not claimed until retained evidence exists.
+  `S16R2` evidence namespace, and stop-on-first-failure behavior. It stopped
+  after one correct clean provider outcome when the isolated client store
+  exceeded the audit bound; three calls were not launched and no campaign
+  qualification is claimed.
 
 ## Adapter assurance
 
@@ -66,6 +68,8 @@ SCOPA does not:
   four calls;
 - treat the zero-call S16 version-drift stop as live provider evidence or
   authority to replay the stopped campaign;
+- treat the one-call S16-v2 clean outcome as campaign acceptance, evidence for
+  the three unlaunched scenarios, or authority to replay;
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;
