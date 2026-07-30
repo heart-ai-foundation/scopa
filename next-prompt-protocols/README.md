@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `a4d7ad8`
+Current commit reference: `e1d0ee2`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -196,12 +196,14 @@ These protocols are specific to:
 - `fixtures/S16/**`
 - `fixtures/S16R2/**`
 - `fixtures/S16R3/**`
+- `fixtures/S16R4/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
 - `evidence/S16/**`
 - `evidence/S16R2/**`
 - `evidence/S16R3/**`
+- `evidence/S16R4/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.

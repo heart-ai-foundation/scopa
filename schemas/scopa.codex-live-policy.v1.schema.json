@@ -147,6 +147,57 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "policyId": {
+            "const": "S16-v4-production-live-v1"
+          }
+        },
+        "required": [
+          "policyId"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "const": "S16-v4-production-live-run-edge-continuation"
+              }
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "privateDestination": {
+                "const": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R4"
+              }
+            }
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "const": "S16.v4"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "enum": [
+                    "false-green",
+                    "cold-restart"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "required": [
@@ -175,7 +226,8 @@
       "enum": [
         "S16-production-live-v1",
         "S16-v2-production-live-v1",
-        "S16-v3-production-live-v1"
+        "S16-v3-production-live-v1",
+        "S16-v4-production-live-v1"
       ]
     },
     "policySha256": {
@@ -222,7 +274,8 @@
           "enum": [
             "S16-production-live-run-edge-campaign",
             "S16-v2-production-live-run-edge-campaign",
-            "S16-v3-production-live-run-edge-continuation"
+            "S16-v3-production-live-run-edge-continuation",
+            "S16-v4-production-live-run-edge-continuation"
           ]
         }
       }
@@ -537,7 +590,8 @@
           "enum": [
             "SCOPA_PRIVATE_EVIDENCE_ROOT/S16",
             "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R2",
-            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3"
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3",
+            "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R4"
           ]
         },
         "privateRetentionHours": {
@@ -605,12 +659,13 @@
           "enum": [
             "S16.v1",
             "S16.v2",
-            "S16.v3"
+            "S16.v3",
+            "S16.v4"
           ]
         },
         "ids": {
           "type": "array",
-          "minItems": 3,
+          "minItems": 2,
           "maxItems": 4,
           "uniqueItems": true,
           "items": {

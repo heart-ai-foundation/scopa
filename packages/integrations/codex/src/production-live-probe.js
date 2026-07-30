@@ -67,6 +67,14 @@ const CAMPAIGN_CONFIGS = Object.freeze([
     policyId: 'S16-v3-production-live-v1',
     publicRoot: path.join(ROOT, 'evidence/S16R3'),
   }),
+  Object.freeze({
+    policyPath: path.join(
+      ROOT,
+      'fixtures/S16R4/codex-live-policy.json',
+    ),
+    policyId: 'S16-v4-production-live-v1',
+    publicRoot: path.join(ROOT, 'evidence/S16R4'),
+  }),
 ]);
 const MAX_AUTH_BYTES = 1024 * 1024;
 const MAX_STORE_HASH_BYTES = 2 * 1024 * 1024;

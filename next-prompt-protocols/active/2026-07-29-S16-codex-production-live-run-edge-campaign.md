@@ -126,6 +126,15 @@ file, oversized ambiguous baseline, and unexpected post-run residue rejection
 remain unchanged. This post-stop implementation does not reopen S16-v3 or
 authorize provider traffic.
 
+The proposed S16-v4 continuation is now materialized with policy ID
+`S16-v4-production-live-v1`, scenario version `S16.v4`, and a fresh `S16R4`
+evidence namespace. It contains only false-green and cold-restart, the two
+scenarios S16-v3 never launched. The maximum is two one-turn calls with
+aggregate ceilings reduced to 240,000 input, 8,000 output, and 252,000 total
+tokens. Its gate is closed and grants zero calls. Exact-candidate local,
+installed, audit, and hosted qualification must pass before a separate
+approval decision.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose
@@ -206,12 +215,14 @@ invocation/evidence record already exists. A real run must never become part of
 - `fixtures/S16/**`
 - `fixtures/S16R2/**`
 - `fixtures/S16R3/**`
+- `fixtures/S16R4/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
 - `evidence/S16/**`
 - `evidence/S16R2/**`
 - `evidence/S16R3/**`
+- `evidence/S16R4/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 - private bounded Codex evidence under
   `llm-memories/projects/scopa/evidence/S16*/**`

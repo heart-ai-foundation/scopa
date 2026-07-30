@@ -20,6 +20,8 @@ export const CODEX_LIVE_POLICY_V2_SCOPE =
   'S16-v2-production-live-run-edge-campaign';
 export const CODEX_LIVE_POLICY_V3_SCOPE =
   'S16-v3-production-live-run-edge-continuation';
+export const CODEX_LIVE_POLICY_V4_SCOPE =
+  'S16-v4-production-live-run-edge-continuation';
 export const CODEX_PROVIDER_GATE_CLOSED =
   'closed-pending-explicit-approval';
 export const CODEX_PROVIDER_GATE_OPEN = 'authorized';
@@ -31,6 +33,10 @@ export const CODEX_LIVE_SCENARIO_IDS = Object.freeze([
 ]);
 export const CODEX_LIVE_CONTINUATION_SCENARIO_IDS = Object.freeze([
   'denied',
+  'false-green',
+  'cold-restart',
+]);
+export const CODEX_LIVE_FINAL_CONTINUATION_SCENARIO_IDS = Object.freeze([
   'false-green',
   'cold-restart',
 ]);
@@ -88,6 +94,12 @@ const CAMPAIGN_PROFILES = Object.freeze({
     scenarioVersion: 'S16.v3',
     privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R3',
     scenarioIds: CODEX_LIVE_CONTINUATION_SCENARIO_IDS,
+  }),
+  'S16-v4-production-live-v1': Object.freeze({
+    scope: CODEX_LIVE_POLICY_V4_SCOPE,
+    scenarioVersion: 'S16.v4',
+    privateDestination: 'SCOPA_PRIVATE_EVIDENCE_ROOT/S16R4',
+    scenarioIds: CODEX_LIVE_FINAL_CONTINUATION_SCENARIO_IDS,
   }),
 });
 

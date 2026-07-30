@@ -53,6 +53,7 @@ const ALLOWED_POLICY_PATHS = Object.freeze([
   DEFAULT_POLICY_PATH,
   path.join(ROOT, 'fixtures/S16R2/codex-live-policy.json'),
   path.join(ROOT, 'fixtures/S16R3/codex-live-policy.json'),
+  path.join(ROOT, 'fixtures/S16R4/codex-live-policy.json'),
 ]);
 
 function sha256(value) {
