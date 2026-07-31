@@ -1,0 +1,68 @@
+{
+  "acceptedRunCount": 3,
+  "approvalSha256": "c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da",
+  "authorizedMatrixSha256": "94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee",
+  "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+  "cleanup": {
+    "controllerTemporaryRootAbsent": true,
+    "disposableRepositoriesDeleted": true,
+    "disposableRuntimeHomesDeleted": true,
+    "orphanDetected": false,
+    "processGroupsGone": true
+  },
+  "closedMatrixSha256": "64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f",
+  "codexUsage": {
+    "campaignTotalTokens": 114494,
+    "inputTokens": 112761,
+    "outputTokens": 1068,
+    "reasoningOutputTokens": 665
+  },
+  "completedProviderCalls": [
+    "claude/clean",
+    "claude/cold-restart",
+    "codex/clean",
+    "codex/cold-restart"
+  ],
+  "privateEvidenceBindings": {
+    "claudeColdRestartSha256": "a97b9ff826821d6b0e3309953f6cfd1ee126af8ef4cddbc0377f54c6e68db19c",
+    "claudeCleanSha256": "28bc31e95a4f482ac90f33d3733e43572ad6b382d1bc8baf4e78e111b1c9b772",
+    "codexColdRestartInflightSha256": "36e648c2cec0af22cc7e51f6160df3831d31baafceb90211a157a9f2e33b7f04",
+    "codexColdRestartIntentSha256": "a2058cec032ec32f304f6035be1e660120b4094b10162682bc85c1a229f5ab97",
+    "codexColdRestartStoreAuditSha256": "49a6a9a575184bd4bf733f7cf2beae0162470ffc9a199f422f39da53aa652639",
+    "codexCleanSha256": "08f74eafca41f5cdbaa5189db3dbb76f88cb3694c5e2fc68f4ad59eccb929ccf"
+  },
+  "providerCallsAuthorized": 4,
+  "providerCallsConsumed": 4,
+  "publicEvidenceBindings": {
+    "claudeColdRestartSha256": "04c8f6873c3e45b711e5f992926ce6d9fb4707da058e28e742a5bf14ae5ec48b",
+    "claudeCleanSha256": "857f515c08b3982918d56fd34fd642b77946ec3ba28b5b94777a306cebb3329a",
+    "codexCleanSha256": "f0e3ada30e27aa4a056358ebd970566d58b4c8a89806b7267199c87d891ae6d2"
+  },
+  "rejectedRun": {
+    "actualToolSequence": [
+      "scopa_orientation",
+      "scopa_read_file",
+      "scopa_check",
+      "scopa_assurance",
+      "scopa_check",
+      "scopa_transcript"
+    ],
+    "clientVersion": "0.146.0",
+    "expectedToolSequence": [
+      "scopa_orientation",
+      "scopa_read_file",
+      "scopa_check",
+      "scopa_assurance",
+      "scopa_transcript"
+    ],
+    "model": "gpt-5.4",
+    "provider": "codex",
+    "reason": "unexpected-repeated-read-only-check",
+    "scenario": "cold-restart",
+    "terminalCanStop": true,
+    "terminalState": "succeeded"
+  },
+  "result": "stopped-evidence-validation-failed",
+  "schema": "scopa.s18-live-campaign-stop.public.v2",
+  "totalClaudeCostUsd": "0.09679750000000001"
+}

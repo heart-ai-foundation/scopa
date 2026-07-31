@@ -1,0 +1,17 @@
+{
+  "approvals": [
+    {
+      "approvalSha256": "c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da",
+      "closedReason": "four-call-allowance-consumed-evidence-validation-failed",
+      "providerCallsConsumed": 4,
+      "version": 2
+    },
+    {
+      "approvalSha256": "f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325",
+      "closedReason": "candidate-client-version-binding-mismatch",
+      "providerCallsConsumed": 0,
+      "version": 1
+    }
+  ],
+  "schema": "scopa.s18-consumed-approvals.v1"
+}

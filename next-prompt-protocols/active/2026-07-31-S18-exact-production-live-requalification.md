@@ -103,6 +103,16 @@ and expires after 2026-08-01. Execution remains at zero consumed calls pending
 a clean hosted preflight commit and will use a fresh external custody-root
 resolution so the stopped v1 evidence remains immutable.
 
+The v2 execution consumed all four authorized calls. Claude clean and
+cold-restart passed; Codex clean passed. Codex cold-restart returned a
+satisfied terminal but repeated `scopa_check`, exceeding the frozen tool
+sequence, so evidence validation stopped the campaign. Cost, usage, custody,
+privacy, and cleanup bounds passed. No replay is authorized. S18.2 remains
+active pending a fresh hardening posture for repeated idempotent OBSERVE calls.
+Both stopped approval digests are now listed in the committed consumed-approval
+registry, and the live controller rejects them before client launch regardless
+of the supplied external custody-root resolution.
+
 ## Files in play
 
 - `package.json`

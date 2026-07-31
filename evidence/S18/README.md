@@ -59,3 +59,12 @@ and reconstructs authorized matrix digest
 `94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee`.
 It expires after 2026-08-01. Execution must use a fresh external resolution of
 `SCOPA_PRIVATE_EVIDENCE_ROOT` so the stopped v1 evidence remains immutable.
+
+The v2 campaign consumed all four calls and stopped during evidence validation.
+Claude clean/cold-restart and Codex clean passed. Codex cold-restart reached a
+satisfied terminal but repeated the read-only `scopa_check`, violating the
+frozen exact tool sequence. `live-v2/campaign-stop.public.json` binds the three
+accepted public derivatives and the rejected fourth run's private evidence.
+Cleanup and resource ceilings passed. The v2 approval is closed against replay.
+`consumed-approvals.json` makes both stopped approval digests runtime-rejected
+even if a different external custody root is supplied.

@@ -1,0 +1,17 @@
+S18.2 v2 production-live execution
+
+PASS Claude clean: succeeded, expected polarity, cleanup complete
+PASS Claude cold-restart: succeeded, expected polarity, cleanup complete
+PASS Codex clean: succeeded, expected polarity, cleanup complete
+STOP Codex cold-restart: repeated scopa_check exceeded frozen tool sequence
+PASS Codex cold-restart provider terminal succeeded and canStop true
+PASS all four authorized provider calls consumed
+PASS Claude cost 0.09679750000000001 <= 0.40 USD
+PASS Codex usage 114494 <= 252000 total tokens
+PASS process groups gone; no orphan detected
+PASS disposable repositories, runtime homes, and controller temporary root deleted
+PASS three public derivatives privacy-clean
+PASS fourth run retained private-bound and rejected
+PASS no replay authorized
+
+S18.2 remains active. The v2 allowance is closed.

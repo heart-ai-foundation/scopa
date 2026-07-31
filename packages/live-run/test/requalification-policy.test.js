@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import {
   readFile,
 } from 'node:fs/promises';
@@ -23,6 +24,7 @@ import {
 } from '../src/requalification-policy.js';
 import {
   assertCandidateClientBindings,
+  assertS18ApprovalUnconsumed,
   parseS18LiveArguments,
 } from '../src/s18-production-live-cli.js';
 
@@ -254,4 +256,47 @@ test('v1 approval cannot transplant onto the corrected v2 matrix', async () => {
     () => authorizeS18LiveMatrix(v2, v1Approval),
     /differs from the frozen S18 value/,
   );
+});
+
+test('v2 stopped campaign binds three accepted derivatives and closes replay', async () => {
+  const root = path.join(ROOT, 'evidence/S18/live-v2');
+  const text = await readFile(path.join(root, 'campaign-stop.public.json'), 'utf8');
+  const stop = JSON.parse(text);
+  assert.equal(stop.providerCallsAuthorized, 4);
+  assert.equal(stop.providerCallsConsumed, 4);
+  assert.equal(stop.acceptedRunCount, 3);
+  assert.equal(stop.result, 'stopped-evidence-validation-failed');
+  assert.equal(stop.rejectedRun.reason, 'unexpected-repeated-read-only-check');
+  assert.equal(stop.rejectedRun.actualToolSequence.filter(
+    (tool) => tool === 'scopa_check').length, 2);
+  assert.equal(stop.cleanup.controllerTemporaryRootAbsent, true);
+  assert.equal(stop.cleanup.disposableRepositoriesDeleted, true);
+  assert.equal(stop.cleanup.disposableRuntimeHomesDeleted, true);
+  assert.equal(stop.cleanup.processGroupsGone, true);
+  assert.equal(stop.cleanup.orphanDetected, false);
+  for (const [filename, field] of [
+    ['claude-clean.public.json', 'claudeCleanSha256'],
+    ['claude-cold-restart.public.json', 'claudeColdRestartSha256'],
+    ['codex-clean.public.json', 'codexCleanSha256'],
+  ]) {
+    const bytes = await readFile(path.join(root, filename));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'),
+      stop.publicEvidenceBindings[field]);
+  }
+  assert.deepEqual(scanPrivateText(text), []);
+});
+
+test('consumed approval registry blocks replay before another custody root', async () => {
+  const approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
+  const registryText = await readFile(
+    path.join(ROOT, 'evidence/S18/consumed-approvals.json'), 'utf8');
+  const registry = JSON.parse(registryText);
+  assert.throws(
+    () => assertS18ApprovalUnconsumed(approval, registry),
+    /closed and cannot be replayed/,
+  );
+  assert.equal(assertS18ApprovalUnconsumed({
+    approvalSha256: '0'.repeat(64),
+  }, registry).approvalSha256, '0'.repeat(64));
+  assert.deepEqual(scanPrivateText(registryText), []);
 });

@@ -163,6 +163,19 @@ export function assertCandidateClientBindings(matrix, installed) {
   return matrix;
 }
 
+export function assertS18ApprovalUnconsumed(approval, registry) {
+  if (registry === null) return approval;
+  if (registry?.schema !== 'scopa.s18-consumed-approvals.v1' ||
+      !Array.isArray(registry.approvals)) {
+    throw new TypeError('S18 consumed-approval registry is malformed');
+  }
+  if (registry.approvals.some((entry) =>
+    entry?.approvalSha256 === approval.approvalSha256)) {
+    throw new TypeError('S18 approval is closed and cannot be replayed');
+  }
+  return approval;
+}
+
 function assertPassingCampaign(provider, records, cleanup) {
   if (records.length !== 2 || records.some((record) =>
     record.terminalState !== 'succeeded' ||
@@ -190,6 +203,15 @@ async function main() {
   if (matrix.matrixSha256 !== approval.closedMatrixSha256) {
     throw new TypeError('S18 approval does not bind the supplied matrix');
   }
+  let consumedRegistry = null;
+  try {
+    consumedRegistry = JSON.parse(await readFile(
+      path.join(ROOT, 'evidence/S18/consumed-approvals.json'), 'utf8',
+    ));
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+  assertS18ApprovalUnconsumed(approval, consumedRegistry);
   const claudeCommand = process.env.SCOPA_S18_CLAUDE_COMMAND ?? 'claude';
   const codexCommand = process.env.SCOPA_S18_CODEX_COMMAND ?? 'codex';
   const [claudeVersion, codexVersion] = await Promise.all([
