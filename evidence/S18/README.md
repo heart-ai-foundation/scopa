@@ -23,15 +23,18 @@ sustained soak/audits, and three fresh exact-byte reviews remain in S18.2-S18.4.
 `closed-production-live-matrix.json` binds the S18.1 candidate to exactly four
 planned provider calls: Claude `clean` then `cold-restart`, followed by Codex
 `clean` then `cold-restart`. Its digest is
-`3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
+`64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f`.
+Version 2 binds the candidate-exported Claude 2.1.220 and Codex 0.146.0
+requirements.
 The committed form authorizes zero calls and cannot be used for provider
 intent. A separate, at-most-one-day approval must bind that digest, all four
 calls, the Claude USD ceiling, the Codex token ceiling, and both private
 evidence destinations before an authorized matrix can exist.
 
-## Approved execution window
+## Historical v1 stopped approval
 
-The principal approved the exact closed matrix digest on 2026-07-31.
+`closed-production-live-matrix.v1.json` preserves the initially approved
+matrix digest `3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
 `production-live-approval.json` binds the four-call allowance and expires after
 2026-08-01. Its approval digest is
 `f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325`;
@@ -44,3 +47,4 @@ Claude 2.1.170 and Codex 0.145.0, while the exact candidate bytes require
 2.1.220 and 0.146.0. `execution-stop.public.json` binds the private version
 probe journal and records zero provider calls consumed. Codex was not opened.
 This approval is closed and must not be replayed.
+It cannot authorize or transplant onto the corrected v2 matrix.

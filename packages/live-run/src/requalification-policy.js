@@ -3,10 +3,16 @@ import {
   jsonHash,
 } from '../../enforcement/src/index.js';
 
-export const S18_LIVE_MATRIX_SCHEMA =
+export const S18_LIVE_MATRIX_SCHEMA_V1 =
   'scopa.s18-production-live-matrix.v1';
-export const S18_LIVE_APPROVAL_SCHEMA =
+export const S18_LIVE_MATRIX_SCHEMA_V2 =
+  'scopa.s18-production-live-matrix.v2';
+export const S18_LIVE_APPROVAL_SCHEMA_V1 =
   'scopa.s18-production-live-approval.v1';
+export const S18_LIVE_APPROVAL_SCHEMA_V2 =
+  'scopa.s18-production-live-approval.v2';
+export const S18_LIVE_MATRIX_SCHEMA = S18_LIVE_MATRIX_SCHEMA_V2;
+export const S18_LIVE_APPROVAL_SCHEMA = S18_LIVE_APPROVAL_SCHEMA_V2;
 export const S18_PROVIDER_GATE_CLOSED =
   'closed-pending-explicit-approval';
 export const S18_PROVIDER_GATE_OPEN = 'authorized';
@@ -137,13 +143,21 @@ function providerDescriptor({
   };
 }
 
-function descriptor() {
+function descriptor(versionNumber = 2) {
+  if (![1, 2].includes(versionNumber)) {
+    throw new TypeError('S18 matrix version is unsupported');
+  }
+  const correctedClients = versionNumber === 2;
   return {
-    schema: S18_LIVE_MATRIX_SCHEMA,
+    schema: correctedClients
+      ? S18_LIVE_MATRIX_SCHEMA_V2
+      : S18_LIVE_MATRIX_SCHEMA_V1,
     version: {
-      number: 1,
+      number: versionNumber,
       date: '2026-07-31',
-      changelog: 'Initial exact-candidate closed production-live posture.',
+      changelog: correctedClients
+        ? 'Bind client versions to the frozen candidate exported profile.'
+        : 'Initial exact-candidate closed production-live posture.',
     },
     goal: {
       sourceCommit: SOURCE_COMMIT,
@@ -189,7 +203,9 @@ function descriptor() {
     providers: {
       claude: providerDescriptor({
         id: 'claude',
-        client: 'claude-code@2.1.170',
+        client: correctedClients
+          ? 'claude-code@2.1.220'
+          : 'claude-code@2.1.170',
         requestedModel: 'sonnet',
         accountBoundary:
           'current-authenticated-principal-controlled-claude-ai-subscription',
@@ -213,7 +229,9 @@ function descriptor() {
       }),
       codex: providerDescriptor({
         id: 'codex',
-        client: 'codex-mcp-client@0.145.0',
+        client: correctedClients
+          ? 'codex-mcp-client@0.146.0'
+          : 'codex-mcp-client@0.145.0',
         requestedModel: 'gpt-5.4',
         accountBoundary:
           'current-authenticated-principal-controlled-openai-codex-session',
@@ -266,8 +284,8 @@ function descriptor() {
   };
 }
 
-export function createClosedS18LiveMatrix() {
-  const body = descriptor();
+export function createClosedS18LiveMatrix({ version = 2 } = {}) {
+  const body = descriptor(version);
   return validateS18LiveMatrix({
     ...body,
     matrixSha256: jsonHash(body),
@@ -282,7 +300,8 @@ function validateProvider(value, expected, gate) {
 }
 
 export function validateS18LiveMatrix(value) {
-  const expected = descriptor();
+  const version = value?.version?.number;
+  const expected = descriptor(version);
   exactKeys(value, [...Object.keys(expected), 'matrixSha256'], 'S18 matrix');
   digest(value.matrixSha256, 'S18 matrix digest');
   const gate = value.authorization?.providerGate;
@@ -318,7 +337,7 @@ export function validateS18LiveMatrix(value) {
         'conversation-explicit' ||
       !/^[0-9a-f]{64}$/.test(value.authorization.closedMatrixSha256 ?? '') ||
       value.authorization.closedMatrixSha256 !==
-        createClosedS18LiveMatrix().matrixSha256 ||
+        createClosedS18LiveMatrix({ version }).matrixSha256 ||
       !/^[0-9a-f]{64}$/.test(value.authorization.approvalSha256 ?? '') ||
       value.constraints.providerTrafficAllowed !== true ||
       value.constraints.totalProviderCallsAuthorized !== 4
@@ -354,7 +373,9 @@ export function createS18LiveApproval(closedMatrix, { approvedOn, expiresOn }) {
     throw new TypeError('S18 approval validity must not exceed one day');
   }
   const body = {
-    schema: S18_LIVE_APPROVAL_SCHEMA,
+    schema: closed.version.number === 2
+      ? S18_LIVE_APPROVAL_SCHEMA_V2
+      : S18_LIVE_APPROVAL_SCHEMA_V1,
     decision: 'approve-exact-s18-production-live-matrix',
     approvedOn,
     expiresOn,
@@ -417,7 +438,9 @@ export function assertS18ProviderAuthorized(matrix, approval, {
       'S18 provider gate is closed; exact principal approval is required',
     );
   }
-  const closed = createClosedS18LiveMatrix();
+  const closed = createClosedS18LiveMatrix({
+    version: current.version.number,
+  });
   const expected = authorizeS18LiveMatrix(closed, approval);
   exact(current, expected, 'authorized S18 matrix');
   canonicalDate(executionDate, 'execution date');

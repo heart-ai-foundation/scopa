@@ -55,7 +55,7 @@
     "action": "defer-with-zero-provider-intent",
     "authority": "explicit-principal-approval-required"
   },
-  "matrixSha256": "3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9",
+  "matrixSha256": "64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f",
   "onFailure": {
     "afterProviderIntent": "stop-campaign-close-evidence-and-forbid-replay",
     "beforeProviderIntent": "defer-with-zero-calls-consumed",
@@ -73,7 +73,7 @@
       "alternateProvidersDisabled": true,
       "assurance": "partial",
       "assuranceTransferable": false,
-      "client": "claude-code@2.1.170",
+      "client": "claude-code@2.1.220",
       "id": "claude",
       "identityHandling": "verified-private-not-retained",
       "limits": {
@@ -120,7 +120,7 @@
       "alternateProvidersDisabled": true,
       "assurance": "partial",
       "assuranceTransferable": false,
-      "client": "codex-mcp-client@0.145.0",
+      "client": "codex-mcp-client@0.146.0",
       "id": "codex",
       "identityHandling": "verified-private-not-retained",
       "limits": {
@@ -173,7 +173,7 @@
     "raw-provider-evidence-targets-repository-or-public-destination",
     "cleanup-residue-survivor-or-false-green-detected"
   ],
-  "schema": "scopa.s18-production-live-matrix.v1",
+  "schema": "scopa.s18-production-live-matrix.v2",
   "stopConditions": [
     "account-boundary-drift",
     "budget-or-usage-limit",
@@ -192,8 +192,9 @@
     "timeout"
   ],
   "version": {
-    "changelog": "Initial exact-candidate closed production-live posture.",
+    "changelog": "Bind client versions to the frozen candidate exported profile.",
     "date": "2026-07-31",
-    "number": 1
+    "number": 2
   }
 }
+

@@ -1,0 +1,13 @@
+S18.2 corrected closed production-live v2
+
+PASS v1 matrix retained byte-for-byte
+PASS v1 matrix SHA-256 3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9
+PASS v1 stopped approval remains historically verifiable
+PASS v2 matrix binds candidate-required Claude 2.1.220
+PASS v2 matrix binds candidate-required Codex 0.146.0
+PASS v2 matrix SHA-256 64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f
+PASS v1 approval transplant onto v2 rejected
+PASS v2 calls planned 4, authorized 0
+PASS provider traffic closed
+
+No provider traffic was attempted.

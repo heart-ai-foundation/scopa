@@ -58,15 +58,14 @@ fresh exact-byte reviews.
 
 ## Current S18.2 posture
 
-The closed exact-candidate matrix is materialized at
-`evidence/S18/closed-production-live-matrix.json`, digest
+The initial closed exact-candidate matrix is retained at
+`evidence/S18/closed-production-live-matrix.v1.json`, digest
 `3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
 It plans exactly four calls—Claude clean/cold-restart, then Codex
 clean/cold-restart—but authorizes zero. Provider intent requires a separate
 explicit approval binding this digest, both private evidence destinations,
 the exact call counts, the Claude USD ceilings, the Codex token ceilings, and
-an execution window no longer than one day. S18.2 remains active pending that
-approval and any resulting bounded live execution.
+an execution window no longer than one day.
 
 The principal approved that exact digest on 2026-07-31. The canonical
 approval digest is
@@ -86,6 +85,15 @@ ran; it closed with version drift and complete process cleanup. Codex was not
 opened and provider-call consumption is zero. The approval is closed against
 replay. S18.2 remains active pending a corrected closed matrix and fresh
 explicit approval.
+
+The corrected closed v2 matrix is now materialized at
+`evidence/S18/closed-production-live-matrix.json`, digest
+`64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f`.
+It binds the frozen candidate's exported Claude 2.1.220 and Codex 0.146.0
+requirements, plans the same four ordered calls, and authorizes zero. The v1
+matrix remains archived as `closed-production-live-matrix.v1.json`; its stopped
+approval cannot transplant onto v2. S18.2 remains active pending separate
+explicit approval of the exact v2 digest.
 
 ## Files in play
 

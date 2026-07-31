@@ -33,6 +33,10 @@ const MATRIX_PATH = path.join(
   ROOT,
   'evidence/S18/closed-production-live-matrix.json',
 );
+const V1_MATRIX_PATH = path.join(
+  ROOT,
+  'evidence/S18/closed-production-live-matrix.v1.json',
+);
 const APPROVAL_PATH = path.join(
   ROOT,
   'evidence/S18/production-live-approval.json',
@@ -138,7 +142,7 @@ test('approval transition binds exact digest, budgets, destinations, calls, and 
 });
 
 test('committed principal approval opens only the exact approved matrix', async () => {
-  const closed = JSON.parse(await readFile(MATRIX_PATH, 'utf8'));
+  const closed = JSON.parse(await readFile(V1_MATRIX_PATH, 'utf8'));
   const approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
   const expected = createS18LiveApproval(closed, {
     approvedOn: '2026-07-31',
@@ -217,12 +221,23 @@ test('S18 live CLI requires exact arguments and an external private root', () =>
 
 test('S18 preflight rejects matrix versions that disagree with candidate bytes', () => {
   const matrix = createClosedS18LiveMatrix();
+  const v1 = createClosedS18LiveMatrix({ version: 1 });
   const installed = {
     claudeIntegration: { EXPECTED_CLAUDE_CODE_VERSION: '2.1.220' },
     codexIntegration: { EXPECTED_CODEX_CLI_VERSION: '0.146.0' },
   };
+  assert.equal(assertCandidateClientBindings(matrix, installed), matrix);
   assert.throws(
-    () => assertCandidateClientBindings(matrix, installed),
+    () => assertCandidateClientBindings(v1, installed),
     /differ from candidate bytes/,
+  );
+});
+
+test('v1 approval cannot transplant onto the corrected v2 matrix', async () => {
+  const v1Approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
+  const v2 = createClosedS18LiveMatrix();
+  assert.throws(
+    () => authorizeS18LiveMatrix(v2, v1Approval),
+    /differs from the frozen S18 value/,
   );
 });
