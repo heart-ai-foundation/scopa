@@ -1,0 +1,21 @@
+S19 publishable dependency-closure enforcement
+
+PASS exact Macro Delta approval bound
+PASS consumer production closure generated: 12 nodes
+PASS closure SHA-256 2eb2403489e7cc932c2482736d6f930469cb0cba9384ec555519e34dd25c1add
+PASS candidate packed npm-shrinkwrap.json
+PASS installed package retained npm-shrinkwrap.json
+PASS source-free install used npm 10.9.7, Node 22.22.2
+PASS install was offline, ignore-scripts, no-audit, no-fund
+FAIL expected fast-uri 3.1.4; installed fast-uri 3.1.5
+STOP packed shrinkwrap was not enforced for installed dependency
+SKIP npm 11 after first supported-version stop
+PASS failed implementation removed from worktree
+PASS provider calls 0
+PASS external network requests 0
+PASS publication actions 0
+PASS stop receipt 277e6a2eb4a0ca5953a23c59eeb5d49c9f1005804d6fd0207aff462127e03295
+PASS protocol sync/check
+PASS retained-main release gate 172/172 and conformance probes
+
+DCI1-DCI3 open. PLQ1-PLQ3 open. New principal decision required.

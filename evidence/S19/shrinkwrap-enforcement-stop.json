@@ -1,0 +1,46 @@
+{
+  "schema": "scopa.s19-shrinkwrap-enforcement-stop.v1",
+  "slice": "S19",
+  "macroDeltaSha256": "858fb37d17a18767c79c513b13f669bc3458bf64cedb49b1f0957a23f5a3b394",
+  "macroDeltaApprovalSha256": "34aa0a3b456e29331e4b3b940a94644d8aa71f0198bbcaeaa546d6d6b74f0be9",
+  "baselineCommit": "50730fb4b90d33ac179ff9a5ae2fc984b4b4a159",
+  "attempt": {
+    "candidateSha256": "f20c31dc08141bbb10195b8d4b4d3475cc801e7e0c4c34022d2615e6ca21ceea",
+    "candidateEntryCount": 189,
+    "closureSha256": "2eb2403489e7cc932c2482736d6f930469cb0cba9384ec555519e34dd25c1add",
+    "shrinkwrapPacked": true,
+    "shrinkwrapRetainedAfterInstall": true,
+    "expectedDependency": {
+      "name": "fast-uri",
+      "version": "3.1.4"
+    },
+    "installedDependency": {
+      "name": "fast-uri",
+      "version": "3.1.5"
+    },
+    "npmVersion": "10.9.7",
+    "nodeVersion": "22.22.2",
+    "installMode": "offline-ignore-scripts"
+  },
+  "result": "stopped-packed-shrinkwrap-not-enforced-for-installed-dependency",
+  "supportedVersions": {
+    "npm10": "failed-exact-closure",
+    "npm11": "not-run-after-first-supported-version-stop"
+  },
+  "implementationDisposition": "failed-approach-removed-from-worktree",
+  "traffic": {
+    "providerCalls": 0,
+    "externalNetworkRequests": 0,
+    "publicationActions": 0
+  },
+  "contracts": {
+    "DCI1": "open",
+    "DCI2": "open",
+    "DCI3": "open",
+    "PLQ1": "open",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "requiredNextDecision": "approve-or-reject-a-fresh-bundled-production-dependency-posture",
+  "receiptSha256": "277e6a2eb4a0ca5953a23c59eeb5d49c9f1005804d6fd0207aff462127e03295"
+}

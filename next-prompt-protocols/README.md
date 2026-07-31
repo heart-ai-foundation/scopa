@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f3ab975`
+Current commit reference: `50730fb`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -159,12 +159,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Generate a deterministic consumer-specific `npm-shrinkwrap.json`, include it
-> in every candidate tarball, derive one canonical production closure from it,
-> and independently compare fresh installed graphs with that closure. Prove
-> supported npm versions preserve the exact graph while missing, mutated,
-> transplanted, extra, stale, dev-contaminated, or semver-drifted states fail
-> closed.
+> STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed
+> `fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,
+> switch to bundling, implement another closure mechanism, build a candidate, or
+> resume later queue slots without a fresh principal decision.
 
 ## Behavior rules
 

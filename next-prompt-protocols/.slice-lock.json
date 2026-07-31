@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "f3ab975",
+  "current_commit": "50730fb",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "active_protocol": "active/2026-07-31-S19-publishable-dependency-closure-enforcement.md",
   "active_class": "arc",
@@ -17,8 +17,8 @@
     "DCI2",
     "DCI3"
   ],
-  "active_protocol_sha256": "sha256:6f913a0bcdac01e38b820595594f7ccee788a35b2fdf463c38e8ab5f6bb9f4cd",
-  "active_objective": "Generate a deterministic consumer-specific `npm-shrinkwrap.json`, include it\nin every candidate tarball, derive one canonical production closure from it,\nand independently compare fresh installed graphs with that closure. Prove\nsupported npm versions preserve the exact graph while missing, mutated,\ntransplanted, extra, stale, dev-contaminated, or semver-drifted states fail\nclosed.",
+  "active_protocol_sha256": "sha256:1b86d2b6fbc910b1055d6281de366ee9d10d0fc3a785f4b93e8deb5b00ee98e4",
+  "active_objective": "STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed\n`fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,\nswitch to bundling, implement another closure mechanism, build a candidate, or\nresume later queue slots without a fresh principal decision.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

@@ -1,6 +1,6 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `f3ab975`
+Current commit reference: `50730fb`
 Current active protocol: `active/2026-07-31-S19-publishable-dependency-closure-enforcement.md`
 
 ## Scope
@@ -9,12 +9,10 @@ Bind the complete resolved production dependency closure into SCOPA candidate id
 
 ## Active objective
 
-> Generate a deterministic consumer-specific `npm-shrinkwrap.json`, include it
-> in every candidate tarball, derive one canonical production closure from it,
-> and independently compare fresh installed graphs with that closure. Prove
-> supported npm versions preserve the exact graph while missing, mutated,
-> transplanted, extra, stale, dev-contaminated, or semver-drifted states fail
-> closed.
+> STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed
+> `fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,
+> switch to bundling, implement another closure mechanism, build a candidate, or
+> resume later queue slots without a fresh principal decision.
 
 ## Files in play
 

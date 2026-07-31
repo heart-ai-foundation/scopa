@@ -22,12 +22,10 @@ Approval receipt
 
 ## Next objective
 
-Generate a deterministic consumer-specific `npm-shrinkwrap.json`, include it
-in every candidate tarball, derive one canonical production closure from it,
-and independently compare fresh installed graphs with that closure. Prove
-supported npm versions preserve the exact graph while missing, mutated,
-transplanted, extra, stale, dev-contaminated, or semver-drifted states fail
-closed.
+STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed
+`fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,
+switch to bundling, implement another closure mechanism, build a candidate, or
+resume later queue slots without a fresh principal decision.
 
 ## Descriptor rung check
 
@@ -58,7 +56,7 @@ dependency closure, and installed tree as distinct verified digests.
 
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
-| S19 | Publishable dependency-closure enforcement | Generate, pack, enforce, and independently verify the complete production graph | Compatible transitive drift cannot change installed identity | npm 10/11 source-free installs and hostile closure corpus | `active` |
+| S19 | Publishable dependency-closure enforcement | Generate, pack, enforce, and independently verify the complete production graph | Compatible transitive drift cannot change installed identity | npm 10/11 source-free installs and hostile closure corpus | `stopped — npm 10 ignored nested shrinkwrap` |
 | S20 | Dependency-closed exact candidate freeze | Bind new package, closure, tree, policies, clients, and deterministic matrix | Two packs and fresh installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | `queued` |
 | S21 | Fresh candidate production-live matrix | Obtain new candidate-bound Claude/Codex evidence | No assurance or approval transfer | separately approved exact calls only | `queued and provider-closed` |
 | S22 | Sustained dependency-closure soak | Repeat installs and runtime polarity without graph/tree/resource drift | No registry/cache moment can masquerade as stability | bounded cycles, graph/tree ledger, audit/privacy/cleanup | `queued` |
@@ -113,6 +111,20 @@ S19 commits:
 - `runs/S19/` — focused, installed, accumulated, protocol, and privacy logs;
 - `evidence/S19/` — approval, canonical closure, drift/mutation matrix, and
   source-free install equivalence receipt.
+
+## Stop result
+
+The first source-free npm 10.9.7 install packed and retained the consumer
+shrinkwrap but resolved `fast-uri@3.1.5` instead of the closure's `3.1.4`.
+Attempted candidate SHA-256 was
+`f20c31dc08141bbb10195b8d4b4d3475cc801e7e0c4c34022d2615e6ca21ceea`;
+closure SHA-256 was
+`2eb2403489e7cc932c2482736d6f930469cb0cba9384ec555519e34dd25c1add`.
+The failed implementation was removed. Stop receipt
+`evidence/S19/shrinkwrap-enforcement-stop.json` has digest
+`277e6a2eb4a0ca5953a23c59eeb5d49c9f1005804d6fd0207aff462127e03295`.
+All six Phase 7 contracts remain open. Provider and external network traffic
+were zero.
 
 ## Acceptance
 
