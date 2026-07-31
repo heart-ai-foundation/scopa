@@ -1,0 +1,80 @@
+{
+  "schema": "scopa.s18-exact-byte-review-plan.v1",
+  "slice": "S18.4",
+  "candidate": {
+    "sha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+    "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c",
+    "qualificationFile": "evidence/S18/exact-candidate-qualification.json",
+    "qualificationFileSha256": "b65ec0ee515f845a60d652ef85fcf8b996cfa94720c490ae763f8e4041dc4cad",
+    "qualificationReceiptSha256": "b1dff3b65d9dcd89b41d9b3e3c8080cce055f0082a96d5ae7013688921330f99",
+    "soakFile": "evidence/S18/exact-candidate-soak.json",
+    "soakFileSha256": "f62e4422c0c0f6ef984d81350387018a7dd1b895570d70b29192b78a9b7fd110",
+    "soakReceiptSha256": "867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8",
+    "liveRecoveryFile": "evidence/S18/live-v3/campaign-recovery.public.json",
+    "liveRecoveryFileSha256": "16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77"
+  },
+  "roles": [
+    {
+      "id": "artifact-distribution",
+      "output": "evidence/S18/reviews/artifact-review.md",
+      "requiredChecks": [
+        "candidate-hash-inventory-mode-and-special-entry-safety",
+        "source-free-ignore-scripts-install",
+        "metadata-documentation-export-bin-and-lifecycle-surface",
+        "package-privacy-credential-and-dependency-boundaries"
+      ]
+    },
+    {
+      "id": "evidence-custody",
+      "output": "evidence/S18/reviews/evidence-review.md",
+      "requiredChecks": [
+        "qualification-soak-live-and-stop-receipt-schema-and-hash-binding",
+        "matrix-approval-consumption-and-replay-closure",
+        "cross-receipt-candidate-policy-client-and-call-consistency",
+        "privacy-clean-publication-and-false-green-refusal"
+      ]
+    },
+    {
+      "id": "installed-runtime-containment",
+      "output": "evidence/S18/reviews/runtime-review.md",
+      "requiredChecks": [
+        "source-free-cli-and-mcp-execution",
+        "allowed-denied-and-false-green-polarity",
+        "cold-restart-idempotency-and-control-state",
+        "hostile-input-resource-process-and-residue-bounds"
+      ]
+    }
+  ],
+  "independence": {
+    "freshReviewerPerRole": true,
+    "roleSeparationRequired": true,
+    "repositoryReadOnly": true,
+    "disposableRootsOnly": true,
+    "providerTrafficAllowed": false,
+    "networkAllowed": false,
+    "publicationAllowed": false
+  },
+  "acceptance": {
+    "requiredVerdict": "ACCEPT",
+    "requiredAccepts": 3,
+    "maximumCriticalFindings": 0,
+    "maximumHighFindings": 0,
+    "maximumMediumFindings": 0,
+    "allLowFindingsAdjudicated": true,
+    "sameExactCandidateRequired": true,
+    "limitationsMustBeStated": true
+  },
+  "onFailure": {
+    "action": "stop-s18.4-reject-closeout-and-retain-bounded-diagnostics",
+    "providerReplayAllowed": false
+  },
+  "closeout": {
+    "requiresConsistencyReceipt": true,
+    "requiresProtocolCheck": true,
+    "requiresAccumulatedLocalGate": true,
+    "requiresHostedGate": true,
+    "authorizesRelease": false,
+    "authorizesPublication": false
+  },
+  "planSha256": "4b2f142d7b2f5cb87f2998d78fa08466fe0f54d5d10fab231c09616e091bdb8e"
+}

@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "0d795e4",
+  "current_commit": "b595f18",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
@@ -19,8 +19,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:21b9e3695dc2133deec77323d7ace4565bf6e7335aac7cec2a7ee8b1517dd9ba",
-  "active_objective": "Obtain fresh independent artifact, evidence, and runtime reviews of the same\nfrozen candidate bytes and completed qualification evidence. Require three\nACCEPT verdicts with no unresolved critical, high, or medium finding,\nadjudicate every low, bind cross-report consistency, and close only eligibility\nfor a separate release decision.",
+  "active_protocol_sha256": "sha256:87d2b7b6542550042d21a6b3254e0a2da797836a77e7d87f0df1cd17a740905d",
+  "active_objective": "STOP S18. The fresh artifact reviewer rejected the frozen candidate because\nits installed identity does not bind the resolved transitive dependency\nclosure. Retain the rejected candidate and report. Do not continue reviews,\nremediate, refreeze, replay provider calls, or claim closeout without a fresh\nprincipal-approved macro delta.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

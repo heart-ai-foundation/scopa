@@ -129,3 +129,19 @@ limit. All 12 cycle roots and the audit root were removed; provider traffic was
 zero. Receipt SHA-256:
 `867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8`.
 S18.3 is complete and PLQ1 is satisfied. S18.4 fresh exact-byte review is next.
+
+## S18.4 stopped exact-byte review
+
+The frozen review plan has digest
+`4b2f142d7b2f5cb87f2998d78fa08466fe0f54d5d10fab231c09616e091bdb8e`.
+The fresh artifact/distribution reviewer returned `REJECT` with one medium
+finding: the candidate does not bind or enforce its resolved transitive
+dependency closure, so future installs of the same tarball can select different
+SES enforcement or AJV validation bytes.
+
+The S18 program stop condition fired. Evidence review was interrupted and
+runtime review was not launched. Provider, network, and publication traffic
+remained zero. `reviews/review-stop.json` binds the rejected report with receipt
+SHA-256 `acc774b104dfa4cc590b310f9961d16664855af5181794108dc752fb17479eaf`.
+PLQ2 and PLQ3 remain open; S18 is not closeout-eligible. Fresh authority is
+required before dependency-closure remediation and complete requalification.

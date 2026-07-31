@@ -16,11 +16,11 @@ or historical provider runs.
 
 ## Next objective
 
-Obtain fresh independent artifact, evidence, and runtime reviews of the same
-frozen candidate bytes and completed qualification evidence. Require three
-ACCEPT verdicts with no unresolved critical, high, or medium finding,
-adjudicate every low, bind cross-report consistency, and close only eligibility
-for a separate release decision.
+STOP S18. The fresh artifact reviewer rejected the frozen candidate because
+its installed identity does not bind the resolved transitive dependency
+closure. Retain the rejected candidate and report. Do not continue reviews,
+remediate, refreeze, replay provider calls, or claim closeout without a fresh
+principal-approved macro delta.
 
 ## Descriptor rung check
 
@@ -54,7 +54,7 @@ fresh exact-byte reviews.
 | S18.1 | Exact candidate freeze | Bind one clean commit, package, installed exports, policies, and deterministic matrix | No source/package/policy drift and all deterministic hostile controls retain polarity | Clean pack/install, manifest, installed probe, S17 and accumulated gates | `completed` |
 | S18.2 | Closed production-live matrix | Materialize exact Claude/Codex calls, budgets, private evidence custody, and stop conditions | No provider intent without separate explicit approval; every approved outcome remains bounded | Policy-digest and authorization tests, then only the approved live subset | `completed` |
 | S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `completed` |
-| S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `active` |
+| S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `stopped — artifact REJECT` |
 
 ## Current S18.2 posture
 
@@ -163,6 +163,23 @@ all cycle and audit roots were deleted. Receipt
 `867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8`.
 PLQ1 is satisfied. S18.4 fresh exact-byte artifact, evidence, and runtime
 reviews is now active.
+
+S18.4 froze a provider- and network-closed three-role review plan with digest
+`4b2f142d7b2f5cb87f2998d78fa08466fe0f54d5d10fab231c09616e091bdb8e`.
+The fresh artifact/distribution reviewer bound the exact candidate and returned
+`REJECT` with one medium finding: the tarball pins direct dependencies but
+does not carry or enforce the source lockfile, while transitive dependencies
+retain semver ranges. The same candidate SHA-256 can therefore resolve
+different SES enforcement or AJV validation bytes during a future install.
+
+The program-level S18 stop condition fired immediately. Evidence review was
+interrupted and runtime review was not launched. Provider calls, network
+requests, and publication actions remained zero. Stop receipt
+`evidence/S18/reviews/review-stop.json` has digest
+`acc774b104dfa4cc590b310f9961d16664855af5181794108dc752fb17479eaf`.
+PLQ2 and PLQ3 remain open. The rejected candidate and any historical provider
+approvals cannot carry forward. Remediation, a new clean candidate, and three
+new reviews require fresh principal-approved macro-delta authority.
 
 ## Files in play
 

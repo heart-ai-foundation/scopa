@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `0d795e4`
+Current commit reference: `b595f18`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -157,11 +157,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Obtain fresh independent artifact, evidence, and runtime reviews of the same
-> frozen candidate bytes and completed qualification evidence. Require three
-> ACCEPT verdicts with no unresolved critical, high, or medium finding,
-> adjudicate every low, bind cross-report consistency, and close only eligibility
-> for a separate release decision.
+> STOP S18. The fresh artifact reviewer rejected the frozen candidate because
+> its installed identity does not bind the resolved transitive dependency
+> closure. Retain the rejected candidate and report. Do not continue reviews,
+> remediate, refreeze, replay provider calls, or claim closeout without a fresh
+> principal-approved macro delta.
 
 ## Behavior rules
 

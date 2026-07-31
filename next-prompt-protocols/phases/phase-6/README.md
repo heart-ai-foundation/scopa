@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `0d795e4`
+Current commit reference: `b595f18`
 Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope
@@ -9,11 +9,11 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Obtain fresh independent artifact, evidence, and runtime reviews of the same
-> frozen candidate bytes and completed qualification evidence. Require three
-> ACCEPT verdicts with no unresolved critical, high, or medium finding,
-> adjudicate every low, bind cross-report consistency, and close only eligibility
-> for a separate release decision.
+> STOP S18. The fresh artifact reviewer rejected the frozen candidate because
+> its installed identity does not bind the resolved transitive dependency
+> closure. Retain the rejected candidate and report. Do not continue reviews,
+> remediate, refreeze, replay provider calls, or claim closeout without a fresh
+> principal-approved macro delta.
 
 ## Files in play
 

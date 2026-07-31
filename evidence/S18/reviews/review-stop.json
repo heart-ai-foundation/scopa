@@ -1,0 +1,41 @@
+{
+  "schema": "scopa.s18-exact-byte-review-stop.v1",
+  "slice": "S18.4",
+  "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+  "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c",
+  "planSha256": "4b2f142d7b2f5cb87f2998d78fa08466fe0f54d5d10fab231c09616e091bdb8e",
+  "planFileSha256": "4198d87fe709d049b969ca71084a9ebadb1bdaa35a7513c79892044f79b51924",
+  "stoppedOnRole": "artifact-distribution",
+  "report": {
+    "path": "evidence/S18/reviews/artifact-review.rejected.md",
+    "fileSha256": "ed11c9b6818db66b6b166643a40697a389b033ef5107af0dd498567e36c27504",
+    "verdict": "REJECT",
+    "findings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    }
+  },
+  "reason": "installed-identity-does-not-bind-resolved-transitive-dependency-closure",
+  "reviewDisposition": {
+    "artifact": "completed-reject",
+    "evidence": "interrupted-on-program-stop",
+    "runtime": "not-launched-on-program-stop"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "networkRequests": 0,
+    "publicationActions": 0
+  },
+  "closeoutEligible": false,
+  "plq2Satisfied": false,
+  "plq3Satisfied": false,
+  "requiredNextAuthority": "fresh-principal-approved-macro-delta-for-dependency-closure-hardening-and-full-exact-candidate-requalification",
+  "carryForwardAllowed": {
+    "candidate": false,
+    "reviewVerdicts": false,
+    "providerApprovals": false
+  },
+  "receiptSha256": "acc774b104dfa4cc590b310f9961d16664855af5181794108dc752fb17479eaf"
+}

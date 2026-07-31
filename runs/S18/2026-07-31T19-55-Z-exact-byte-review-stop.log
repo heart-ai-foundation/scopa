@@ -1,0 +1,17 @@
+S18.4 exact-byte independent review
+
+PASS review plan frozen: 4b2f142d7b2f5cb87f2998d78fa08466fe0f54d5d10fab231c09616e091bdb8e
+PASS artifact reviewer bound candidate: e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498
+REJECT artifact/distribution: 0 critical, 0 high, 1 medium, 0 low
+STOP installed identity does not bind resolved transitive dependency closure
+STOP evidence review interrupted on program stop
+STOP runtime review not launched on program stop
+PASS provider calls 0
+PASS network requests 0
+PASS publication actions 0
+PASS reviewer temporary material removed
+PASS stop receipt: acc774b104dfa4cc590b310f9961d16664855af5181794108dc752fb17479eaf
+PASS protocol sync/check
+PASS accumulated release gate 172/172 and conformance probes
+
+PLQ2 open. PLQ3 open. S18 closeout not eligible.
