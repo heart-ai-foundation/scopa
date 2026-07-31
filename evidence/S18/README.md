@@ -35,7 +35,7 @@ evidence destinations before an authorized matrix can exist.
 
 `closed-production-live-matrix.v1.json` preserves the initially approved
 matrix digest `3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
-`production-live-approval.json` binds the four-call allowance and expires after
+`production-live-approval.v1.json` binds the historical four-call allowance and expires after
 2026-08-01. Its approval digest is
 `f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325`;
 the derived authorized matrix digest is
@@ -48,3 +48,14 @@ Claude 2.1.170 and Codex 0.145.0, while the exact candidate bytes require
 probe journal and records zero provider calls consumed. Codex was not opened.
 This approval is closed and must not be replayed.
 It cannot authorize or transplant onto the corrected v2 matrix.
+
+## Approved v2 execution window
+
+The principal approved corrected v2 digest
+`64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f`.
+`production-live-approval.json` has digest
+`c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da`
+and reconstructs authorized matrix digest
+`94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee`.
+It expires after 2026-08-01. Execution must use a fresh external resolution of
+`SCOPA_PRIVATE_EVIDENCE_ROOT` so the stopped v1 evidence remains immutable.

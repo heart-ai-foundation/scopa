@@ -1,12 +1,12 @@
 {
-  "approvalSha256": "f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325",
+  "approvalSha256": "c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da",
   "approvedOn": "2026-07-31",
   "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
   "claudeBudget": {
     "campaignUsd": "0.40",
     "perRunUsd": "0.20"
   },
-  "closedMatrixSha256": "3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9",
+  "closedMatrixSha256": "64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f",
   "codexUsage": {
     "campaignTotalTokens": 252000,
     "perRunTotalTokens": 126000
@@ -19,6 +19,6 @@
     "codex": 2,
     "total": 4
   },
-  "schema": "scopa.s18-production-live-approval.v1",
+  "schema": "scopa.s18-production-live-approval.v2",
   "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c"
 }

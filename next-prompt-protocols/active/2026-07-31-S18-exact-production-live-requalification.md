@@ -95,6 +95,14 @@ matrix remains archived as `closed-production-live-matrix.v1.json`; its stopped
 approval cannot transplant onto v2. S18.2 remains active pending separate
 explicit approval of the exact v2 digest.
 
+The principal approved that exact v2 digest on 2026-07-31. Approval digest
+`c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da`
+reconstructs authorized matrix digest
+`94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee`
+and expires after 2026-08-01. Execution remains at zero consumed calls pending
+a clean hosted preflight commit and will use a fresh external custody-root
+resolution so the stopped v1 evidence remains immutable.
+
 ## Files in play
 
 - `package.json`

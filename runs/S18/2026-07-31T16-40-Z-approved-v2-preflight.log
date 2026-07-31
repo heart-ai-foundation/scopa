@@ -1,0 +1,12 @@
+S18.2 approved v2 live preflight
+
+PASS closed v2 matrix SHA-256 64a60c06d886460c52838e431df284cdffc8661eb8df2ed3cf50b662fbbfa98f
+PASS v2 approval SHA-256 c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da
+PASS authorized v2 matrix SHA-256 94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee
+PASS candidate-required Claude 2.1.220 bound
+PASS candidate-required Codex 0.146.0 bound
+PASS v1 approval archived and non-transplantable
+PASS fresh external custody resolution required
+PASS provider calls consumed 0 of 4
+
+Provider traffic was not attempted during authorization materialization.

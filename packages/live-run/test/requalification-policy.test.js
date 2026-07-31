@@ -41,6 +41,10 @@ const APPROVAL_PATH = path.join(
   ROOT,
   'evidence/S18/production-live-approval.json',
 );
+const V1_APPROVAL_PATH = path.join(
+  ROOT,
+  'evidence/S18/production-live-approval.v1.json',
+);
 
 function rehash(matrix) {
   const copy = structuredClone(matrix);
@@ -142,7 +146,7 @@ test('approval transition binds exact digest, budgets, destinations, calls, and 
 });
 
 test('committed principal approval opens only the exact approved matrix', async () => {
-  const closed = JSON.parse(await readFile(V1_MATRIX_PATH, 'utf8'));
+  const closed = JSON.parse(await readFile(MATRIX_PATH, 'utf8'));
   const approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
   const expected = createS18LiveApproval(closed, {
     approvedOn: '2026-07-31',
@@ -151,10 +155,20 @@ test('committed principal approval opens only the exact approved matrix', async 
   assert.deepEqual(approval, expected);
   const authorized = authorizeS18LiveMatrix(closed, approval);
   assert.equal(authorized.matrixSha256,
-    '65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317');
+    '94be00df2eeee1838946f53fcf20137741c942daa18d8f59631be18caef364ee');
   assert.equal(assertS18ProviderAuthorized(authorized, approval, {
     executionDate: '2026-07-31',
   }), authorized);
+});
+
+test('stopped v1 approval remains historically verifiable', async () => {
+  const closed = JSON.parse(await readFile(V1_MATRIX_PATH, 'utf8'));
+  const approval = JSON.parse(await readFile(V1_APPROVAL_PATH, 'utf8'));
+  assert.deepEqual(approval, createS18LiveApproval(closed, {
+    approvedOn: '2026-07-31', expiresOn: '2026-08-01',
+  }));
+  assert.equal(authorizeS18LiveMatrix(closed, approval).matrixSha256,
+    '65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317');
 });
 
 test('recomputed digest cannot authorize candidate, policy, call, or custody drift', () => {
@@ -234,7 +248,7 @@ test('S18 preflight rejects matrix versions that disagree with candidate bytes',
 });
 
 test('v1 approval cannot transplant onto the corrected v2 matrix', async () => {
-  const v1Approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
+  const v1Approval = JSON.parse(await readFile(V1_APPROVAL_PATH, 'utf8'));
   const v2 = createClosedS18LiveMatrix();
   assert.throws(
     () => authorizeS18LiveMatrix(v2, v1Approval),
