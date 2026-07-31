@@ -256,9 +256,14 @@ export async function qualifyExactCandidate({
   );
   const matrixResults = [];
   for (const entry of matrix.cases) {
-    const result = await invokeCaptured(entry.command[0], entry.command.slice(1), {
-      cwd: root,
-    });
+    let result;
+    try {
+      result = await invokeCaptured(entry.command[0], entry.command.slice(1), {
+        cwd: root,
+      });
+    } catch (error) {
+      throw new Error(`S18 matrix case ${entry.id} failed: ${error.message}`);
+    }
     matrixResults.push({
       id: entry.id,
       command: entry.command,
