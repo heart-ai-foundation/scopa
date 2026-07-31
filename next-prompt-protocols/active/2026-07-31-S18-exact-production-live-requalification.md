@@ -68,6 +68,17 @@ the exact call counts, the Claude USD ceilings, the Codex token ceilings, and
 an execution window no longer than one day. S18.2 remains active pending that
 approval and any resulting bounded live execution.
 
+The principal approved that exact digest on 2026-07-31. The canonical
+approval digest is
+`f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325`
+and the derived authorized matrix digest is
+`65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317`.
+It expires after 2026-08-01. Preflight detected default-client version drift
+without provider intent, then staged the exact approved Claude 2.1.170 and
+Codex 0.145.0 clients outside the repository. Call consumption remains zero;
+the next action is the bounded Claude-first execution from a clean controller
+commit.
+
 ## Files in play
 
 - `package.json`

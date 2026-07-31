@@ -1,0 +1,14 @@
+S18.2 approved production-live preflight
+
+PASS closed matrix SHA-256 3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9
+PASS approval SHA-256 f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325
+PASS authorized matrix SHA-256 65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317
+PASS approval window 2026-07-31 through 2026-08-01
+PASS exact candidate SHA-256 e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498
+PASS exact Claude client 2.1.170 staged outside repository
+PASS exact Codex client 0.145.0 staged outside repository
+PASS system client drift detected before provider intent
+PASS system clients left unchanged
+PASS provider calls consumed 0 of 4
+
+Provider traffic was not attempted during preflight.

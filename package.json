@@ -79,6 +79,7 @@
     "probe:s11:parity": "node packages/release-readiness/src/proof-parity-probe.js --corpus packages/release-readiness/src/proof-contract-corpus.json",
     "probe:s12:installed": "node packages/release-readiness/src/installed-surface-probe.js",
     "probe:s18:candidate": "node packages/release-readiness/src/exact-candidate-cli.js",
+    "probe:s18:live": "node packages/live-run/src/s18-production-live-cli.js",
     "export:case:s5": "node packages/interop/src/export-cli.js",
     "verify:case:s5": "node packages/interop/src/verify-case-cli.js",
     "verify:case:s5:artifact": "node packages/interop/src/verify-case-cli.js --export evidence/S5/scopa-case-export.jsonld --timestamp-roots fixtures/S4/freetsa-root.pem --require-timestamp --timestamp-authority-id freetsa.org-2026 --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",

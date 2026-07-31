@@ -28,3 +28,13 @@ The committed form authorizes zero calls and cannot be used for provider
 intent. A separate, at-most-one-day approval must bind that digest, all four
 calls, the Claude USD ceiling, the Codex token ceiling, and both private
 evidence destinations before an authorized matrix can exist.
+
+## Approved execution window
+
+The principal approved the exact closed matrix digest on 2026-07-31.
+`production-live-approval.json` binds the four-call allowance and expires after
+2026-08-01. Its approval digest is
+`f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325`;
+the derived authorized matrix digest is
+`65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317`.
+Materializing this approval does not itself consume a provider call.

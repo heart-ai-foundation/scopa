@@ -917,6 +917,7 @@ export async function runCampaign({
   configuredScenarios = S15_LIVE_SCENARIOS,
   scenarioVersion = 'S15.v1',
   sessionPrefix = 'S15',
+  claudeCommand = 'claude',
 }) {
   const matrix = installed.integration.createClaudeCapabilityMatrix({});
   const priorCount =
@@ -1039,6 +1040,7 @@ export async function runCampaign({
         0o600,
       );
       const run = await installed.integration.runClaudeSession({
+        claudeCommand,
         repoRoot: repositoryRoot,
         adapterCli: installed.adapterCli,
         session: installed.integration.createClaudeSession({

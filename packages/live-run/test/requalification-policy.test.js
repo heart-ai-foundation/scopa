@@ -21,6 +21,9 @@ import {
   createS18LiveApproval,
   validateS18LiveMatrix,
 } from '../src/requalification-policy.js';
+import {
+  parseS18LiveArguments,
+} from '../src/s18-production-live-cli.js';
 
 const ROOT = path.resolve(
   fileURLToPath(new URL('../../..', import.meta.url)),
@@ -28,6 +31,10 @@ const ROOT = path.resolve(
 const MATRIX_PATH = path.join(
   ROOT,
   'evidence/S18/closed-production-live-matrix.json',
+);
+const APPROVAL_PATH = path.join(
+  ROOT,
+  'evidence/S18/production-live-approval.json',
 );
 
 function rehash(matrix) {
@@ -129,6 +136,22 @@ test('approval transition binds exact digest, budgets, destinations, calls, and 
   );
 });
 
+test('committed principal approval opens only the exact approved matrix', async () => {
+  const closed = JSON.parse(await readFile(MATRIX_PATH, 'utf8'));
+  const approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
+  const expected = createS18LiveApproval(closed, {
+    approvedOn: '2026-07-31',
+    expiresOn: '2026-08-01',
+  });
+  assert.deepEqual(approval, expected);
+  const authorized = authorizeS18LiveMatrix(closed, approval);
+  assert.equal(authorized.matrixSha256,
+    '65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317');
+  assert.equal(assertS18ProviderAuthorized(authorized, approval, {
+    executionDate: '2026-07-31',
+  }), authorized);
+});
+
 test('recomputed digest cannot authorize candidate, policy, call, or custody drift', () => {
   const closed = createClosedS18LiveMatrix();
   for (const mutate of [
@@ -175,4 +198,18 @@ test('approval transplant and recomputed approval digest remain rejected', () =>
       /differs from the frozen S18 value/,
     );
   }
+});
+
+test('S18 live CLI requires exact arguments and an external private root', () => {
+  const parsed = parseS18LiveArguments([
+    '--matrix', 'matrix.json', '--approval', 'approval.json',
+    '--candidate', 'candidate.tgz', '--private-root', '/tmp/scopa-s18-private',
+  ]);
+  assert.equal(parsed.privateRoot, '/tmp/scopa-s18-private');
+  assert.throws(() => parseS18LiveArguments([
+    '--matrix', 'matrix.json', '--approval', 'approval.json',
+    '--candidate', 'candidate.tgz', '--private-root',
+    path.join(ROOT, 'private'),
+  ]), /outside the repository/);
+  assert.throws(() => parseS18LiveArguments([]), /usage/);
 });
