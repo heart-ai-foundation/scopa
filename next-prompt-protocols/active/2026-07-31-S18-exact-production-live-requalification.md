@@ -16,10 +16,10 @@ or historical provider runs.
 
 ## Next objective
 
-Harden the repeated OBSERVE edge while preserving the rejected v2 result, then
-hold the exact two-call Codex clean-to-cold-restart continuation closed until
-its policy, token ceilings, private destination, call count, retained-evidence
-bindings, and stop conditions are separately and explicitly approved.
+Preflight the exact approved S18-v3 Codex continuation, then execute only clean
+followed by cold-restart under the frozen semantic OBSERVE policy, token
+ceilings, retained-evidence bindings, fresh private custody, and stop
+conditions. Stop without replay on any drift or failure.
 
 ## Descriptor rung check
 
@@ -123,6 +123,16 @@ transcript. Every mutation, read, assurance, or transcript repeat; reorder;
 error; second extra call; or result drift remains a hard stop. This is not a
 post-hoc acceptance or replay of v2. Provider intent remains closed pending
 fresh exact approval of the v3 digest and private S18V3 custody destination.
+
+The principal approved the exact v3 digest on 2026-07-31 for only Codex clean
+then cold-restart. Approval digest
+`9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f`
+reconstructs authorized matrix digest
+`620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00`
+and expires after 2026-08-01. The v3 controller binds the frozen candidate,
+retained Claude evidence, exact Codex client/model, unconsumed approval,
+external no-replace custody, token ceilings, and semantic sequence policy.
+Provider calls consumed remain zero pending clean local and hosted preflight.
 
 ## Files in play
 

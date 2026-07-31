@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.s18-production-live-continuation-approval.v3",
+  "decision": "approve-exact-s18-v3-codex-continuation",
+  "approvedOn": "2026-07-31",
+  "expiresOn": "2026-08-01",
+  "closedMatrixSha256": "3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4",
+  "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c",
+  "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+  "privateEvidenceDestinationApproval": "conversation-explicit",
+  "providerCalls": {
+    "codex": 2,
+    "total": 2
+  },
+  "codexUsage": {
+    "perRunTotalTokens": 126000,
+    "campaignTotalTokens": 252000
+  },
+  "retainedV2CampaignStopSha256": "22f73ea041b73a4166339b9d345684c285843331e08204005db24cb6497f699c",
+  "sequencePolicySha256": "d187a81a4635d65f6a53d902f5d6ba176a8c205251c043db02800b88f17148f8",
+  "approvalSha256": "9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f"
+}

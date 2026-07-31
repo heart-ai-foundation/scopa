@@ -251,3 +251,26 @@ export function authorizeS18ObserveHardeningMatrix(closedMatrix, approval) {
   authorized.matrixSha256 = jsonHash(authorized);
   return validateS18ObserveHardeningMatrix(authorized);
 }
+
+export function assertS18ObserveHardeningAuthorized(
+  matrix,
+  approval,
+  { executionDate },
+) {
+  const current = validateS18ObserveHardeningMatrix(matrix);
+  if (current.authorization.providerGate !== OPEN) {
+    throw new TypeError(
+      'S18-v3 provider gate is closed; exact principal approval is required',
+    );
+  }
+  const expected = authorizeS18ObserveHardeningMatrix(
+    createClosedS18ObserveHardeningMatrix(),
+    approval,
+  );
+  exact(current, expected, 'authorized S18-v3 matrix');
+  date(executionDate, 'execution date');
+  if (executionDate < approval.approvedOn || executionDate > approval.expiresOn) {
+    throw new TypeError('S18-v3 approval is not valid on the execution date');
+  }
+  return current;
+}

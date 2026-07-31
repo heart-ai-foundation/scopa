@@ -8,10 +8,15 @@ import {
 } from '../../enforcement/src/index.js';
 import {
   authorizeS18ObserveHardeningMatrix,
+  assertS18ObserveHardeningAuthorized,
   createClosedS18ObserveHardeningMatrix,
   createS18ObserveHardeningApproval,
   validateS18ObserveHardeningMatrix,
 } from '../src/observe-hardening-policy.js';
+import {
+  assertS18V3RetainedEvidence,
+  parseS18ObserveHardeningArguments,
+} from '../src/s18-observe-hardening-cli.js';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 
@@ -42,6 +47,22 @@ test('committed S18-v3 matrix is the exact generated closed posture', async () =
   const committed = JSON.parse(await readFile(path.join(
     ROOT, 'evidence/S18/closed-observe-hardening-v3.json'), 'utf8'));
   assert.deepEqual(committed, createClosedS18ObserveHardeningMatrix());
+});
+
+test('committed S18-v3 approval opens only the exact approved matrix', async () => {
+  const closed = createClosedS18ObserveHardeningMatrix();
+  const approval = JSON.parse(await readFile(path.join(
+    ROOT, 'evidence/S18/observe-hardening-approval-v3.json'), 'utf8'));
+  assert.deepEqual(approval, createS18ObserveHardeningApproval(closed, {
+    approvedOn: '2026-07-31', expiresOn: '2026-08-01',
+  }));
+  const authorized = authorizeS18ObserveHardeningMatrix(closed, approval);
+  assert.equal(authorized.matrixSha256,
+    '620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00');
+  assert.equal(assertS18ObserveHardeningAuthorized(
+    authorized, approval, { executionDate: '2026-07-31' }), authorized);
+  assert.throws(() => assertS18ObserveHardeningAuthorized(
+    authorized, approval, { executionDate: '2026-08-02' }), /not valid/);
 });
 
 test('fresh approval binds matrix, retained evidence, policy, calls, and expiry', () => {
@@ -98,4 +119,20 @@ test('approval transplant and self-rehashed approval remain rejected', () => {
     hostile.approvalSha256 = jsonHash(body);
     assert.throws(() => authorizeS18ObserveHardeningMatrix(closed, hostile));
   }
+});
+
+test('v3 controller binds retained evidence and requires an external root', async () => {
+  assert.equal((await assertS18V3RetainedEvidence(ROOT))[
+    'campaign-stop.public.json'],
+  '22f73ea041b73a4166339b9d345684c285843331e08204005db24cb6497f699c');
+  const parsed = parseS18ObserveHardeningArguments([
+    '--matrix', 'matrix.json', '--approval', 'approval.json',
+    '--candidate', 'candidate.tgz', '--private-root', '/tmp/scopa-s18-v3',
+  ]);
+  assert.equal(parsed.privateRoot, '/tmp/scopa-s18-v3');
+  assert.throws(() => parseS18ObserveHardeningArguments([
+    '--matrix', 'matrix.json', '--approval', 'approval.json',
+    '--candidate', 'candidate.tgz', '--private-root',
+    path.join(ROOT, 'private'),
+  ]), /outside the repository/);
 });

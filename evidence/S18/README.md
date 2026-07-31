@@ -84,3 +84,11 @@ assurance, or transcript calls; reordered calls; check errors; more than one
 extra call; and any semantic result drift remain rejection conditions. This
 does not reclassify or replay the rejected v2 run. A fresh, exact, separately
 approved v3 digest is required before either Codex call may begin.
+
+The principal approved that exact v3 digest on 2026-07-31 for only Codex clean
+then cold-restart. `observe-hardening-approval-v3.json` has digest
+`9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f`
+and reconstructs authorized matrix digest
+`620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00`.
+It expires after 2026-08-01. Provider consumption remains zero pending a clean
+hosted preflight of the approval-bound v3 controller.

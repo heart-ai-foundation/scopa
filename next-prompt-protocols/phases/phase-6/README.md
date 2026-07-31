@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `0d5c912`
+Current commit reference: `a667074`
 Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope
@@ -9,10 +9,10 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Harden the repeated OBSERVE edge while preserving the rejected v2 result, then
-> hold the exact two-call Codex clean-to-cold-restart continuation closed until
-> its policy, token ceilings, private destination, call count, retained-evidence
-> bindings, and stop conditions are separately and explicitly approved.
+> Preflight the exact approved S18-v3 Codex continuation, then execute only clean
+> followed by cold-restart under the frozen semantic OBSERVE policy, token
+> ceilings, retained-evidence bindings, fresh private custody, and stop
+> conditions. Stop without replay on any drift or failure.
 
 ## Files in play
 

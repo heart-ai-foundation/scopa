@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `0d5c912`
+Current commit reference: `a667074`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -157,10 +157,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Harden the repeated OBSERVE edge while preserving the rejected v2 result, then
-> hold the exact two-call Codex clean-to-cold-restart continuation closed until
-> its policy, token ceilings, private destination, call count, retained-evidence
-> bindings, and stop conditions are separately and explicitly approved.
+> Preflight the exact approved S18-v3 Codex continuation, then execute only clean
+> followed by cold-restart under the frozen semantic OBSERVE policy, token
+> ceilings, retained-evidence bindings, fresh private custody, and stop
+> conditions. Stop without replay on any drift or failure.
 
 ## Behavior rules
 

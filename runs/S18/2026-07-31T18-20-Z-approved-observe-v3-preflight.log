@@ -1,0 +1,14 @@
+S18.2 approved OBSERVE hardening v3 preflight
+
+PASS closed matrix SHA-256 3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4
+PASS approval SHA-256 9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f
+PASS authorized matrix SHA-256 620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00
+PASS exactly two Codex calls bound: clean then cold-restart
+PASS retained v2 Claude and campaign-stop hashes bound
+PASS unconsumed approval check precedes client launch
+PASS exact candidate/client and external no-replace custody checks implemented
+PASS semantic OBSERVE policy passed into both run validations
+PASS deterministic S18 tests
+PASS provider calls consumed 0 of 2
+
+Provider traffic was not attempted during approval materialization.

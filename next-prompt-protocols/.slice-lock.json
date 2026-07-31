@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "0d5c912",
+  "current_commit": "a667074",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
@@ -19,8 +19,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:078fb3302443dfec627eac803445276ec85f0680118fad978a25fbfb069dbb06",
-  "active_objective": "Harden the repeated OBSERVE edge while preserving the rejected v2 result, then\nhold the exact two-call Codex clean-to-cold-restart continuation closed until\nits policy, token ceilings, private destination, call count, retained-evidence\nbindings, and stop conditions are separately and explicitly approved.",
+  "active_protocol_sha256": "sha256:10897625a65be4262ff4aa40db34f9309b8b404b51d51c3d44c4121c71af0709",
+  "active_objective": "Preflight the exact approved S18-v3 Codex continuation, then execute only clean\nfollowed by cold-restart under the frozen semantic OBSERVE policy, token\nceilings, retained-evidence bindings, fresh private custody, and stop\nconditions. Stop without replay on any drift or failure.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
