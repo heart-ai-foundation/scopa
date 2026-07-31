@@ -1,16 +1,11 @@
-#!/usr/bin/env node
-
 import { createHash } from 'node:crypto';
 import {
-  mkdir,
   readFile,
-  writeFile,
 } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   canonicalJson,
-  canonicalJsonPretty,
 } from '../../enforcement/src/index.js';
 import { packCandidate } from './artifact.js';
 import { probeInstalledSurface } from './installed-surface-probe.js';
@@ -315,48 +310,4 @@ export async function qualifyExactCandidate({
       sources,
     ),
   };
-}
-
-function parseArguments(argv) {
-  const selected = { artifactDirectory: null, output: null, matrixPath: DEFAULT_MATRIX };
-  for (let index = 0; index < argv.length; index += 2) {
-    const flag = argv[index];
-    const value = argv[index + 1];
-    if (!value || !['--artifact-dir', '--matrix', '--output'].includes(flag)) {
-      throw new TypeError(
-        'usage: --artifact-dir <private-directory> --output <receipt.json> [--matrix <matrix.json>]',
-      );
-    }
-    if (flag === '--artifact-dir') selected.artifactDirectory = path.resolve(value);
-    if (flag === '--matrix') selected.matrixPath = path.resolve(value);
-    if (flag === '--output') selected.output = path.resolve(value);
-  }
-  if (!selected.artifactDirectory || !selected.output) {
-    throw new TypeError('artifact directory and output are required');
-  }
-  return selected;
-}
-
-const modulePath = fileURLToPath(import.meta.url);
-if (process.argv[1] && path.resolve(process.argv[1]) === modulePath) {
-  Promise.resolve(parseArguments(process.argv.slice(2)))
-    .then(async (selected) => {
-      const result = await qualifyExactCandidate(selected);
-      await mkdir(path.dirname(selected.output), { recursive: true });
-      await writeFile(selected.output, canonicalJsonPretty(result.receipt), {
-        flag: 'wx',
-        mode: 0o600,
-      });
-      process.stdout.write(`${JSON.stringify({
-        ok: true,
-        schema: result.receipt.schema,
-        sourceCommit: result.receipt.source.commit,
-        packageSha256: result.receipt.candidate.packageSha256,
-        receiptSha256: result.receipt.receiptSha256,
-      })}\n`);
-    })
-    .catch((error) => {
-      process.stderr.write(`${error.message}\n`);
-      process.exitCode = 1;
-    });
 }
