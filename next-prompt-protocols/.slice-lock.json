@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "24479fe",
+  "current_commit": "43fbb96",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
@@ -19,7 +19,7 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:ef362d2a50a2968cc995643e2e8491ca5957989bc40f0d0a822acb2c0592e1ef",
+  "active_protocol_sha256": "sha256:747a0f85b3decf4087fe2c9ffaa0ad53b8a01399a9640ee36d2dc8322b76740d",
   "active_objective": "Freeze one clean committed candidate and deterministically prove its package,\nruntime, policy, matrix, evidence, privacy, dependency, protocol, and soak\nboundaries. Provider-backed execution remains closed until exact Claude and\nCodex policies, budgets, private destinations, call counts, and stop conditions\nare separately materialized and explicitly approved.",
   "allowed_files": [
     "package.json",

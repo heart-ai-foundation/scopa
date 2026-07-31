@@ -1,0 +1,33 @@
+S18.1 exact candidate freeze
+
+source commit
+PASS 43fbb969f32c711d1a68b05ad73fb33717c90d8c clean
+
+hostile receipt tests
+PASS 5/5 closed matrix, source binding, false-green, privacy, and environment cases
+
+accumulated deterministic matrix
+PASS accumulated release gate: 143/143 plus S8-S17 focused suites
+PASS release policy audit: 37/37
+PASS published contract parity: 41/41 expected outcomes
+PASS protocol projection: 67/70 arc contracts
+
+installed exact candidate
+PASS repeated package bytes identical
+PASS 179 installed files, 3 exports, 2 binaries
+PASS zero installed privacy findings
+PASS exact private tarball SHA-256 e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498
+PASS receipt SHA-256 b1dff3b65d9dcd89b41d9b3e3c8080cce055f0082a96d5ae7013688921330f99
+
+execution boundaries
+PASS credential-bearing environment names removed from matrix subprocesses
+PASS provider traffic unauthorized and not attempted
+PASS publication unauthorized and not attempted
+PASS experiment scope unused
+
+managed environment adjudication
+The deeply nested CLI form could not spawn the release-gate test child in the
+managed sandbox and returned no TAP failure. The importable committed API ran
+the identical frozen matrix with one fewer orchestration layer and produced
+the accepted exact receipt. CLI and library are now separate; failures expose
+only a bounded source-path-redacted summary.
