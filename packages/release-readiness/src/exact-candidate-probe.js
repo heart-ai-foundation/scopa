@@ -37,6 +37,21 @@ function exactKeys(value, keys) {
     Object.keys(value).sort().join('\0') === [...keys].sort().join('\0');
 }
 
+function matrixFailureSummary(error, root) {
+  const output = `${error.stdout ?? ''}\n${error.stderr ?? ''}`;
+  const marker = output.lastIndexOf('\nnot ok ');
+  const next = marker === -1
+    ? -1
+    : output.indexOf('\n# Subtest:', marker + 1);
+  const selected = marker === -1
+    ? output.slice(-4096)
+    : output.slice(marker + 1, next === -1 ? undefined : next);
+  return selected
+    .slice(0, 4096)
+    .replaceAll(root, '[SCOPA_SOURCE_ROOT]')
+    .trim();
+}
+
 export function createQualificationEnvironment(provided = process.env) {
   const environment = {};
   for (const [name, value] of Object.entries(provided)) {
@@ -276,7 +291,11 @@ export async function qualifyExactCandidate({
         env: createQualificationEnvironment(),
       });
     } catch (error) {
-      throw new Error(`S18 matrix case ${entry.id} failed: ${error.message}`);
+      const summary = matrixFailureSummary(error, root);
+      throw new Error(
+        `S18 matrix case ${entry.id} failed: ${error.message}` +
+        (summary ? `\n${summary}` : ''),
+      );
     }
     matrixResults.push({
       id: entry.id,

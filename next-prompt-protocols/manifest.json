@@ -3,7 +3,7 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "2743930",
+  "current_commit": "24479fe",
   "current_phase": "phase-6-production-live-run-hardening",
   "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
