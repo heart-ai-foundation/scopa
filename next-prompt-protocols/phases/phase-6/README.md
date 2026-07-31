@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `43fbb96`
+Current commit reference: `af9e821`
 Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope

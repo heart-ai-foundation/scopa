@@ -56,6 +56,18 @@ fresh exact-byte reviews.
 | S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `queued` |
 | S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `queued` |
 
+## Current S18.2 posture
+
+The closed exact-candidate matrix is materialized at
+`evidence/S18/closed-production-live-matrix.json`, digest
+`3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
+It plans exactly four calls—Claude clean/cold-restart, then Codex
+clean/cold-restart—but authorizes zero. Provider intent requires a separate
+explicit approval binding this digest, both private evidence destinations,
+the exact call counts, the Claude USD ceilings, the Codex token ceilings, and
+an execution window no longer than one day. S18.2 remains active pending that
+approval and any resulting bounded live execution.
+
 ## Files in play
 
 - `package.json`

@@ -17,3 +17,14 @@ four provider-closed matrix cases passed. Claude and Codex remain independently
 
 S18.1 does not satisfy PLQ1 by itself. The closed production-live matrix,
 sustained soak/audits, and three fresh exact-byte reviews remain in S18.2-S18.4.
+
+## S18.2 closed posture
+
+`closed-production-live-matrix.json` binds the S18.1 candidate to exactly four
+planned provider calls: Claude `clean` then `cold-restart`, followed by Codex
+`clean` then `cold-restart`. Its digest is
+`3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9`.
+The committed form authorizes zero calls and cannot be used for provider
+intent. A separate, at-most-one-day approval must bind that digest, all four
+calls, the Claude USD ceiling, the Codex token ceiling, and both private
+evidence destinations before an authorized matrix can exist.

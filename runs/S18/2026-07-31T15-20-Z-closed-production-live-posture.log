@@ -1,0 +1,28 @@
+S18.2 closed production-live posture
+
+matrix
+PASS exact S18.1 source, candidate, and qualification receipt bound
+PASS Claude clean then cold-restart planned: 2 calls, 0 authorized
+PASS Codex clean then cold-restart planned: 2 calls, 0 authorized
+PASS total calls planned 4, authorized 0
+PASS provider traffic false, publication false, experiment false
+PASS matrix SHA-256 3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9
+
+limits
+PASS Claude max USD 0.20/run and 0.40/campaign
+PASS Codex max total tokens 126000/run and 252000/campaign
+PASS private destinations symbolic, outside-repository resolution required
+PASS 0700 root, 0600 private files, no-replace writes, 168-hour retention
+
+authorization
+PASS separate exact approval required
+PASS approval validity capped at one day
+PASS missing, drifted, transplanted, recomputed, or expired approval rejected
+PASS closed matrix rejects provider intent
+
+validation
+PASS S18 focused tests 5/5
+PASS accumulated release gate 148/148 plus S8-S17 focused suites
+PASS committed matrix privacy scan 0 findings
+
+No provider traffic was authorized or attempted.
