@@ -22,6 +22,7 @@ import {
   validateS18LiveMatrix,
 } from '../src/requalification-policy.js';
 import {
+  assertCandidateClientBindings,
   parseS18LiveArguments,
 } from '../src/s18-production-live-cli.js';
 
@@ -212,4 +213,16 @@ test('S18 live CLI requires exact arguments and an external private root', () =>
     path.join(ROOT, 'private'),
   ]), /outside the repository/);
   assert.throws(() => parseS18LiveArguments([]), /usage/);
+});
+
+test('S18 preflight rejects matrix versions that disagree with candidate bytes', () => {
+  const matrix = createClosedS18LiveMatrix();
+  const installed = {
+    claudeIntegration: { EXPECTED_CLAUDE_CODE_VERSION: '2.1.220' },
+    codexIntegration: { EXPECTED_CODEX_CLI_VERSION: '0.146.0' },
+  };
+  assert.throws(
+    () => assertCandidateClientBindings(matrix, installed),
+    /differ from candidate bytes/,
+  );
 });

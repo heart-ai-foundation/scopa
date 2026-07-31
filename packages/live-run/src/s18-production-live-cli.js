@@ -32,8 +32,6 @@ const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const EXPECTED_CANDIDATE =
   'e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498';
-const EXPECTED_CLAUDE_VERSION = '2.1.170 (Claude Code)';
-const EXPECTED_CODEX_VERSION = 'codex-cli 0.145.0';
 
 function withinRoot(root, candidate) {
   const relative = path.relative(root, candidate);
@@ -153,6 +151,18 @@ function providerInstalled(common, integration) {
   return { ...common, integration };
 }
 
+export function assertCandidateClientBindings(matrix, installed) {
+  const candidateClaude =
+    `claude-code@${installed.claudeIntegration.EXPECTED_CLAUDE_CODE_VERSION}`;
+  const candidateCodex =
+    `codex-mcp-client@${installed.codexIntegration.EXPECTED_CODEX_CLI_VERSION}`;
+  if (matrix.providers.claude.client !== candidateClaude ||
+      matrix.providers.codex.client !== candidateCodex) {
+    throw new TypeError('S18 matrix client versions differ from candidate bytes');
+  }
+  return matrix;
+}
+
 function assertPassingCampaign(provider, records, cleanup) {
   if (records.length !== 2 || records.some((record) =>
     record.terminalState !== 'succeeded' ||
@@ -186,25 +196,18 @@ async function main() {
     execFileAsync(claudeCommand, ['--version'], { encoding: 'utf8' }),
     execFileAsync(codexCommand, ['--version'], { encoding: 'utf8' }),
   ]);
-  if (claudeVersion.stdout.trim() !== EXPECTED_CLAUDE_VERSION ||
-      codexVersion.stdout.trim() !== EXPECTED_CODEX_VERSION) {
+  const approvedClaudeVersion =
+    `${matrix.providers.claude.client.slice('claude-code@'.length)} (Claude Code)`;
+  const approvedCodexVersion =
+    `codex-cli ${matrix.providers.codex.client.slice('codex-mcp-client@'.length)}`;
+  if (claudeVersion.stdout.trim() !== approvedClaudeVersion ||
+      codexVersion.stdout.trim() !== approvedCodexVersion) {
     throw new TypeError('S18 approved client version drifted');
-  }
-  await assertAbsent(path.join(args.privateRoot, 'S18'), 'S18 private campaign');
-  await mkdir(args.privateRoot, { recursive: true, mode: 0o700 });
-  const rootMetadata = await stat(args.privateRoot);
-  if (!rootMetadata.isDirectory() || (rootMetadata.mode & 0o077) !== 0) {
-    throw new TypeError('S18 private evidence root must have mode 0700');
   }
   const privateCampaignRoot = path.join(args.privateRoot, 'S18');
   const claudeRoot = path.join(privateCampaignRoot, 'claude');
   const codexRoot = path.join(privateCampaignRoot, 'codex');
   const stagingRoot = path.join(privateCampaignRoot, 'public-staging');
-  for (const directory of [privateCampaignRoot, claudeRoot, codexRoot,
-    stagingRoot, path.join(stagingRoot, 'claude'), path.join(stagingRoot, 'codex')]) {
-    await mkdir(directory, { mode: 0o700 });
-  }
-
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-s18-live-'));
   let claude;
   let codex;
@@ -212,6 +215,18 @@ async function main() {
     const common = await installExactS18Candidate({
       candidatePath: args.candidatePath, temporary, qualification,
     });
+    assertCandidateClientBindings(matrix, common);
+    await assertAbsent(privateCampaignRoot, 'S18 private campaign');
+    await mkdir(args.privateRoot, { recursive: true, mode: 0o700 });
+    const rootMetadata = await stat(args.privateRoot);
+    if (!rootMetadata.isDirectory() || (rootMetadata.mode & 0o077) !== 0) {
+      throw new TypeError('S18 private evidence root must have mode 0700');
+    }
+    for (const directory of [privateCampaignRoot, claudeRoot, codexRoot,
+      stagingRoot, path.join(stagingRoot, 'claude'),
+      path.join(stagingRoot, 'codex')]) {
+      await mkdir(directory, { mode: 0o700 });
+    }
     const claudePolicy = common.claudeIntegration.validateClaudeLivePolicy(
       JSON.parse(await readFile(
         path.join(ROOT, 'fixtures/S15R2/claude-live-policy.json'), 'utf8',

@@ -38,3 +38,9 @@ The principal approved the exact closed matrix digest on 2026-07-31.
 the derived authorized matrix digest is
 `65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317`.
 Materializing this approval does not itself consume a provider call.
+
+The resulting execution stopped before provider intent. The matrix named
+Claude 2.1.170 and Codex 0.145.0, while the exact candidate bytes require
+2.1.220 and 0.146.0. `execution-stop.public.json` binds the private version
+probe journal and records zero provider calls consumed. Codex was not opened.
+This approval is closed and must not be replayed.

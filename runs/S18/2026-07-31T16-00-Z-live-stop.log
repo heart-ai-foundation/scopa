@@ -1,0 +1,16 @@
+S18.2 approved live execution stop
+
+PASS approval and authorized matrix validated
+PASS frozen candidate tarball SHA-256 validated
+PASS Claude-first provider order preserved
+STOP candidate runtime expected Claude 2.1.220; matrix approved 2.1.170
+STOP candidate runtime expected Codex 0.146.0; matrix approved 0.145.0
+PASS Claude terminal version-drift / client-version-mismatch
+PASS Claude process group gone; no orphan detected
+PASS Claude auth probe not reached
+PASS Claude model/provider invocation not reached
+PASS Codex not opened
+PASS provider calls consumed 0
+PASS approval closed against replay
+
+S18.2 remains active pending a corrected closed matrix and fresh approval.

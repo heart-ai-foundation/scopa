@@ -79,6 +79,14 @@ Codex 0.145.0 clients outside the repository. Call consumption remains zero;
 the next action is the bounded Claude-first execution from a clean controller
 commit.
 
+That execution stopped before provider intent because the exact candidate
+exports required client versions Claude 2.1.220 and Codex 0.146.0, contradicting
+the approved matrix's 2.1.170 and 0.145.0. Only the local Claude version probe
+ran; it closed with version drift and complete process cleanup. Codex was not
+opened and provider-call consumption is zero. The approval is closed against
+replay. S18.2 remains active pending a corrected closed matrix and fresh
+explicit approval.
+
 ## Files in play
 
 - `package.json`

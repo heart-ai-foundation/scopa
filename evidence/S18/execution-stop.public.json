@@ -1,0 +1,29 @@
+{
+  "approvalSha256": "f9f1aedb3853878b95b1aceacc9fe57c4070475e4a70c5415b8a36a3dccf0325",
+  "authorizedMatrixSha256": "65c04e950f630fa229776df3307af078cc1cd4eaa5844f8b89707e5ceff89317",
+  "candidateRequiredClients": {
+    "claude": "claude-code@2.1.220",
+    "codex": "codex-mcp-client@0.146.0"
+  },
+  "cleanup": {
+    "claudeVersionProbeProcessGroupGone": true,
+    "orphanDetected": false
+  },
+  "closedMatrixSha256": "3df4d5eb353c124c2d425c8e98ea6eb52e0d4e07fc6529c470770804a0a317d9",
+  "codexOpened": false,
+  "matrixApprovedClients": {
+    "claude": "claude-code@2.1.170",
+    "codex": "codex-mcp-client@0.145.0"
+  },
+  "privateEvidenceBinding": {
+    "inflightBytes": 3587,
+    "inflightSha256": "129333ad8aa7d3482fd554fec50d25bd247344b10b33780f19bdde5f12ab4d1e",
+    "intentBytes": 390,
+    "intentSha256": "8be9136ac2cfb31f76e9b94c3fd6ae1b63fd1449b09baddab41d02807024fda1"
+  },
+  "providerCallsConsumed": 0,
+  "providerApiOrModelIntentReached": false,
+  "result": "stopped-before-provider-intent",
+  "schema": "scopa.s18-live-campaign-stop.public.v1",
+  "stopCondition": "candidate-client-version-binding-mismatch"
+}
