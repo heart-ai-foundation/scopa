@@ -1,0 +1,29 @@
+{
+  "schema": "scopa.s17-crash-resume-idempotency-proof.v1",
+  "slice": "S17.2",
+  "providerTrafficAllowed": false,
+  "checkpoints": [
+    "reservation-durable",
+    "fulfillment-returned",
+    "receipt-durable",
+    "journal-durable"
+  ],
+  "preReceiptDisposition": {
+    "code": "SCOPA_ACT_PENDING",
+    "disposition": "reconciliation-required",
+    "shellReexecutionAllowed": false
+  },
+  "postReceiptDisposition": {
+    "sealedRecordRecovery": true,
+    "journalResume": true,
+    "shellReexecutionAllowed": false
+  },
+  "deterministicAssertions": {
+    "allCheckpointsInjected": true,
+    "freshRuntimeObjectsOnResume": true,
+    "duplicateResumeAttempted": true,
+    "maximumMutationCount": 1,
+    "descriptorConflictFailsClosed": true,
+    "accumulatedReleaseGatePassed": true
+  }
+}

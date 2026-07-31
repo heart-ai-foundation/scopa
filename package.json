@@ -54,7 +54,7 @@
     "test:s14": "node packages/conformance/src/run-node-tests.js packages/live-run/test/live-run.test.js",
     "test:s15": "node packages/conformance/src/run-node-tests.js packages/integrations/claude/test/live-hardening.test.js",
     "test:s16": "node packages/conformance/src/run-node-tests.js packages/integrations/codex/test/live-hardening.test.js",
-    "test:s17": "node packages/conformance/src/run-node-tests.js packages/adapter-host/test/operational-resilience.test.js",
+    "test:s17": "node packages/conformance/src/run-node-tests.js packages/adapter-host/test/operational-resilience.test.js packages/kernel-core/test/operational-resilience.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",

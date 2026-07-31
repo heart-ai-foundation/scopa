@@ -1,0 +1,20 @@
+S17.2 deterministic validation
+
+npm run test:s17
+PASS: adapter evidence-channel and four-checkpoint crash/resume matrices
+
+node --test packages/kernel-core/test/persistent-idempotency.test.js
+PASS: 6 persistent ledger and restart tests
+
+npm run test:s1
+NOTE: parallel aggregate wrapper intermittently returned a file-level failure
+for persistent-idempotency.test.js; the isolated file passed. The serialized
+S1 regression and accumulated release gate below are the closing guards.
+
+node --test --test-concurrency=1 packages/kernel-core/test/*.test.js packages/journal/test/*.test.js
+PASS: serialized kernel-core and journal regression
+
+npm test
+PASS: accumulated release gate, including S17
+
+No provider traffic was permitted or attempted.

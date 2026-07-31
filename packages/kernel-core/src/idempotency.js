@@ -26,11 +26,13 @@ export class IdempotencyConflictError extends Error {
 }
 
 export class PendingActError extends Error {
-  constructor(key) {
+  constructor(key, descriptorHash = null) {
     super(`ACT effect has an unresolved pending reservation: ${key}`);
     this.name = 'PendingActError';
     this.code = 'SCOPA_ACT_PENDING';
     this.key = key;
+    this.descriptorHash = descriptorHash;
+    this.disposition = 'reconciliation-required';
   }
 }
 
@@ -53,7 +55,7 @@ export class MemoryIdempotencyLedger {
       throw new IdempotencyConflictError(key);
     }
     if (existing.state === 'pending') {
-      throw new PendingActError(key);
+      throw new PendingActError(key, descriptorHash);
     }
     return {
       state: 'completed',
@@ -177,7 +179,9 @@ export class PersistentIdempotencyLedger {
     if (existing.key !== key || existing.descriptorHash !== descriptorHash) {
       throw new IdempotencyConflictError(key);
     }
-    if (existing.state === 'pending') throw new PendingActError(key);
+    if (existing.state === 'pending') {
+      throw new PendingActError(key, descriptorHash);
+    }
     return {
       state: 'completed',
       value: clone(existing.fulfillment),

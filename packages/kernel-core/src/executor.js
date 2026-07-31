@@ -137,6 +137,25 @@ function normalizeFulfillment(fulfillment) {
   };
 }
 
+export const ACT_CHECKPOINTS = Object.freeze([
+  'reservation-durable',
+  'fulfillment-returned',
+  'receipt-durable',
+  'journal-durable',
+]);
+
+async function notifyActCheckpoint(onActCheckpoint, checkpoint, context) {
+  if (onActCheckpoint === undefined) return;
+  await onActCheckpoint(Object.freeze({
+    checkpoint,
+    descriptorHash: context.descriptorHash,
+    idempotencyKey: context.effect.idempotencyKey,
+    runId: context.runId,
+    scope: context.scope,
+    seq: context.seq,
+  }));
+}
+
 export async function executeLiveWorkflow({
   workflow,
   shell,
@@ -145,6 +164,7 @@ export async function executeLiveWorkflow({
   runId,
   scriptHash,
   scope = 'root',
+  onActCheckpoint,
 }) {
   validateRunOptions({ runId, scriptHash, scope });
   if (!shell || typeof shell.fulfill !== 'function') {
@@ -152,6 +172,9 @@ export async function executeLiveWorkflow({
   }
   if (!store || typeof store.append !== 'function') {
     throw new WorkflowExecutionError('live execution requires an append-only store');
+  }
+  if (onActCheckpoint !== undefined && typeof onActCheckpoint !== 'function') {
+    throw new WorkflowExecutionError('onActCheckpoint must be a function');
   }
 
   const iterator = startWorkflow(workflow);
@@ -269,7 +292,24 @@ export async function executeLiveWorkflow({
           stats.suppressedActs += 1;
         }
       } else {
+        const checkpointContext = {
+          descriptorHash,
+          effect,
+          runId,
+          scope,
+          seq,
+        };
+        await notifyActCheckpoint(
+          onActCheckpoint,
+          'reservation-durable',
+          checkpointContext,
+        );
         fulfillment = normalizeFulfillment(await shell.fulfill(clone(effect)));
+        await notifyActCheckpoint(
+          onActCheckpoint,
+          'fulfillment-returned',
+          checkpointContext,
+        );
         const sealed = sealRecord({
           runId,
           scriptHash,
@@ -289,7 +329,17 @@ export async function executeLiveWorkflow({
           fulfillment,
           sealed.bytes,
         );
+        await notifyActCheckpoint(
+          onActCheckpoint,
+          'receipt-durable',
+          checkpointContext,
+        );
         await store.append(sealed.bytes);
+        await notifyActCheckpoint(
+          onActCheckpoint,
+          'journal-durable',
+          checkpointContext,
+        );
         recordBytes.push(sealed.bytes);
         previousHash = sealed.hash;
         stats.fulfilled += 1;
