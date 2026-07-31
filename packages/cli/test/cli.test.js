@@ -400,6 +400,7 @@ test('packed artifact installs and runs without leaking private build surfaces',
       'fixtures/S10/session.json',
       'fixtures/S15/claude-live-policy.json',
       'fixtures/S18/deterministic-candidate-matrix.json',
+      'fixtures/S18/exact-candidate-soak-plan.json',
     ],
     'tarball must contain only the reviewed public fixtures and policy',
   );

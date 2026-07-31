@@ -16,10 +16,11 @@ or historical provider runs.
 
 ## Next objective
 
-Exercise the exact frozen candidate under sustained provider-closed soak and
-audit its dependency, credential, privacy, filesystem, process, residue, and
-stability boundaries. Preserve the completed live evidence and stop on any
-candidate drift, growth, survivor, stale state, privacy event, or false green.
+Obtain fresh independent artifact, evidence, and runtime reviews of the same
+frozen candidate bytes and completed qualification evidence. Require three
+ACCEPT verdicts with no unresolved critical, high, or medium finding,
+adjudicate every low, bind cross-report consistency, and close only eligibility
+for a separate release decision.
 
 ## Descriptor rung check
 
@@ -52,8 +53,8 @@ fresh exact-byte reviews.
 | --- | --- | --- | --- | --- | --- |
 | S18.1 | Exact candidate freeze | Bind one clean commit, package, installed exports, policies, and deterministic matrix | No source/package/policy drift and all deterministic hostile controls retain polarity | Clean pack/install, manifest, installed probe, S17 and accumulated gates | `completed` |
 | S18.2 | Closed production-live matrix | Materialize exact Claude/Codex calls, budgets, private evidence custody, and stop conditions | No provider intent without separate explicit approval; every approved outcome remains bounded | Policy-digest and authorization tests, then only the approved live subset | `completed` |
-| S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `active` |
-| S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `queued` |
+| S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `completed` |
+| S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `active` |
 
 ## Current S18.2 posture
 
@@ -149,6 +150,19 @@ only the accepted derivatives. Recovery receipt
 `16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77`.
 S18.2 is complete without replay. S18.3 sustained candidate soak and audits is
 now active.
+
+S18.3 completed a provider-closed 12-cycle soak of the exact frozen tarball.
+Each cycle used a fresh ignore-scripts install and disposable repository,
+accepted one scoped ACT write, rejected one escape, cold-reloaded status and
+check, reached `canStop: true`, and removed its root. The installed tree,
+dependency graph, lock, and control state stayed stable. The current npm
+production audit and installed package privacy/credential scan found zero
+issues. Descriptor growth was zero; peak RSS growth remained below its bound;
+all cycle and audit roots were deleted. Receipt
+`evidence/S18/exact-candidate-soak.json` has SHA-256
+`867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8`.
+PLQ1 is satisfied. S18.4 fresh exact-byte artifact, evidence, and runtime
+reviews is now active.
 
 ## Files in play
 

@@ -1,0 +1,54 @@
+{
+  "schema": "scopa.s18-exact-candidate-soak-plan.v1",
+  "slice": "S18.3",
+  "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+  "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c",
+  "cycles": 12,
+  "providerTrafficAllowed": false,
+  "registryTrafficAllowed": true,
+  "repositoryClass": "fresh-disposable-synthetic-per-cycle",
+  "operations": [
+    "fresh-ignore-scripts-install",
+    "installed-file-tree-and-dependency-closure",
+    "project-init",
+    "allowed-act-write",
+    "denied-repository-escape",
+    "status-and-completion-check",
+    "fresh-process-cold-reload",
+    "cycle-root-removal"
+  ],
+  "audits": [
+    "current-npm-production-advisories",
+    "installed-package-privacy-and-credential-patterns",
+    "dependency-graph-stability",
+    "filesystem-inventory-stability",
+    "descriptor-and-controller-rss-growth",
+    "process-repository-and-temporary-root-cleanup",
+    "stale-control-state-and-false-green-refusal"
+  ],
+  "limits": {
+    "maxCycles": 12,
+    "maxRssGrowthBytes": 67108864,
+    "maxDescriptorGrowth": 4,
+    "maxProviderInvocations": 0,
+    "maxRegistryAudits": 1
+  },
+  "rejectIf": [
+    "candidate-source-qualification-or-installed-tree-drift",
+    "dependency-missing-invalid-extraneous-or-cycle-drift",
+    "current-production-advisory-found-or-audit-unavailable",
+    "credential-private-topology-or-forbidden-value-found",
+    "allowed-write-denied-or-escape-write-accepted",
+    "status-check-lock-or-stop-polarity-drift",
+    "descriptor-rss-filesystem-or-process-growth-exceeds-bound",
+    "temporary-root-repository-state-or-child-process-survives"
+  ],
+  "onFailure": {
+    "action": "stop-soak-reject-s18.3-and-retain-bounded-diagnostics",
+    "providerReplayAllowed": false
+  },
+  "ifAmbiguous": {
+    "action": "fail-closed-without-provider-traffic"
+  },
+  "planSha256": "c6399812f6a4c554d7371cfaddfe810a618832d1e99f9e61e44ea803910596bc"
+}

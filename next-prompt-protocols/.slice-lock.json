@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "7cfbc94",
+  "current_commit": "0d795e4",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
@@ -19,8 +19,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:e09fab08e40afccd4b1a8a4dd290a3d603a000d21bfc85372a23c746effa9a76",
-  "active_objective": "Exercise the exact frozen candidate under sustained provider-closed soak and\naudit its dependency, credential, privacy, filesystem, process, residue, and\nstability boundaries. Preserve the completed live evidence and stop on any\ncandidate drift, growth, survivor, stale state, privacy event, or false green.",
+  "active_protocol_sha256": "sha256:21b9e3695dc2133deec77323d7ace4565bf6e7335aac7cec2a7ee8b1517dd9ba",
+  "active_objective": "Obtain fresh independent artifact, evidence, and runtime reviews of the same\nfrozen candidate bytes and completed qualification evidence. Require three\nACCEPT verdicts with no unresolved critical, high, or medium finding,\nadjudicate every low, bind cross-report consistency, and close only eligibility\nfor a separate release decision.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

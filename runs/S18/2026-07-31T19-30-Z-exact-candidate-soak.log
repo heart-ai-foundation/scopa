@@ -1,0 +1,23 @@
+S18.3 exact-candidate sustained soak and audits
+
+PASS frozen plan SHA-256 c6399812f6a4c554d7371cfaddfe810a618832d1e99f9e61e44ea803910596bc
+PASS exact candidate SHA-256 e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498
+PASS 12 of 12 fresh ignore-scripts installs
+PASS installed tree stable: 215 entries, 2 declared bin mode promotions
+PASS dependency graph stable: 14 nodes
+PASS 12 allowed ACT writes and 12 denied repository escapes
+PASS 12 status/check cold reloads reached canStop true
+PASS control state and lock stable; no stale state observed
+PASS installed privacy/credential findings 0
+PASS current npm production vulnerabilities 0
+PASS descriptor growth 0 <= 4
+PASS peak RSS growth 8343552 <= 67108864 bytes
+PASS every cycle root and audit root removed
+PASS provider traffic consumed 0
+PASS receipt SHA-256 867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8
+PASS focused S18 tests 4/4
+PASS accumulated release gate 172/172 and conformance probes
+PASS protocol sync/check
+PASS public evidence privacy scan 0 findings
+
+PLQ1 satisfied. S18.3 complete; S18.4 active.

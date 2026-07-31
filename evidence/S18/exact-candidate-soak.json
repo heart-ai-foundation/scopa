@@ -1,0 +1,54 @@
+{
+  "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+  "cleanup": {
+    "auditRootRemoved": true,
+    "escapeFileObserved": false,
+    "everyCycleRootRemoved": true,
+    "providerProcessLaunched": false,
+    "staleControlStateObserved": false
+  },
+  "cycles": {
+    "allAllowedActsPassed": true,
+    "allCanStop": true,
+    "allCandidateDigestsIdentical": true,
+    "allControlStatesIdentical": true,
+    "allDeniedEscapesObserved": true,
+    "allDependencyGraphsIdentical": true,
+    "allInstalledTreesIdentical": true,
+    "completed": 12,
+    "freshInstallPerCycle": true,
+    "maximumDurationMs": 10581,
+    "planned": 12,
+    "totalDurationMs": 45450
+  },
+  "dependencies": {
+    "graphSha256": "814737ae775f21742667343da6887e4c2e92f7b3552161825cfd6dfc9f829c85",
+    "graphStableAcrossCycles": true,
+    "nodeCount": 14,
+    "productionVulnerabilities": 0,
+    "registryAuditPerformed": true
+  },
+  "installedSurface": {
+    "declaredBinModePromotions": 2,
+    "entryCount": 215,
+    "privacyFindings": 0,
+    "treeSha256": "0e6cb8891aefbd7c38acc825ba05f991e27a9fea9659d54ff724ae22efde32a2"
+  },
+  "planSha256": "c6399812f6a4c554d7371cfaddfe810a618832d1e99f9e61e44ea803910596bc",
+  "providerTrafficConsumed": 0,
+  "receiptSha256": "867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8",
+  "resources": {
+    "descriptorBaseline": 22,
+    "descriptorFinal": 22,
+    "descriptorGrowthLimit": 4,
+    "descriptorGrowthMaximum": 0,
+    "rssBaselineBytes": 91566080,
+    "rssFinalBytes": 84983808,
+    "rssGrowthLimitBytes": 67108864,
+    "rssGrowthMaximumBytes": 8343552
+  },
+  "result": "pass",
+  "schema": "scopa.s18-exact-candidate-soak-receipt.v1",
+  "slice": "S18.3",
+  "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c"
+}

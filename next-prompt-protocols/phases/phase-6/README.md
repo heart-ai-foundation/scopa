@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `7cfbc94`
+Current commit reference: `0d795e4`
 Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope
@@ -9,10 +9,11 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Exercise the exact frozen candidate under sustained provider-closed soak and
-> audit its dependency, credential, privacy, filesystem, process, residue, and
-> stability boundaries. Preserve the completed live evidence and stop on any
-> candidate drift, growth, survivor, stale state, privacy event, or false green.
+> Obtain fresh independent artifact, evidence, and runtime reviews of the same
+> frozen candidate bytes and completed qualification evidence. Require three
+> ACCEPT verdicts with no unresolved critical, high, or medium finding,
+> adjudicate every low, bind cross-report consistency, and close only eligibility
+> for a separate release decision.
 
 ## Files in play
 

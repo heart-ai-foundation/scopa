@@ -111,3 +111,21 @@ hash, confirmed cleanup, and copied only privacy-clean derivatives. Its receipt
 is `live-v3/campaign-recovery.public.json`, SHA-256
 `16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77`.
 S18.2 is complete; the exact-candidate qualification advances to S18.3.
+
+## S18.3 sustained exact-candidate soak and audits
+
+`exact-candidate-soak.json` binds a 12-cycle provider-closed soak to the frozen
+candidate and plan digest
+`c6399812f6a4c554d7371cfaddfe810a618832d1e99f9e61e44ea803910596bc`.
+Every cycle used a fresh ignore-scripts install and disposable synthetic
+repository, accepted one in-scope ACT write, rejected one repository escape,
+reloaded through fresh CLI processes, reached `canStop: true`, and deleted its
+root. Installed tree, dependency graph, lock, and control state remained stable.
+
+The current npm production audit reported zero vulnerabilities. The installed
+package privacy/credential scan reported zero findings. Descriptor growth was
+zero and peak controller RSS growth was 8343552 bytes against a 67108864-byte
+limit. All 12 cycle roots and the audit root were removed; provider traffic was
+zero. Receipt SHA-256:
+`867b34db1556e8bbd89ac04b7cd5490027409bcedfc15e9ac1f327b35fab17c8`.
+S18.3 is complete and PLQ1 is satisfied. S18.4 fresh exact-byte review is next.

@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `7cfbc94`
+Current commit reference: `0d795e4`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -56,8 +56,8 @@ Module progress:
 - claude-live-hardening: 3/3 (100%)
 - codex-live-hardening: 3/3 (100%)
 - operational-resilience: 4/4 (100%)
-- production-live-requalification: 0/3 (0%)
-Arc total: 67/70 (96%)
+- production-live-requalification: 1/3 (33%)
+Arc total: 68/70 (97%)
 
 ## Descriptor Rung Stop Rule
 
@@ -157,10 +157,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Exercise the exact frozen candidate under sustained provider-closed soak and
-> audit its dependency, credential, privacy, filesystem, process, residue, and
-> stability boundaries. Preserve the completed live evidence and stop on any
-> candidate drift, growth, survivor, stale state, privacy event, or false green.
+> Obtain fresh independent artifact, evidence, and runtime reviews of the same
+> frozen candidate bytes and completed qualification evidence. Require three
+> ACCEPT verdicts with no unresolved critical, high, or medium finding,
+> adjudicate every low, bind cross-report consistency, and close only eligibility
+> for a separate release decision.
 
 ## Behavior rules
 

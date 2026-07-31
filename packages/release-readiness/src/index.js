@@ -2,6 +2,7 @@ export * from './artifact.js';
 export * from './constants.js';
 export * from './consumer-probe.js';
 export * from './exact-candidate-probe.js';
+export * from './exact-candidate-soak.js';
 export * from './installed-surface-probe.js';
 export * from './package-privacy.js';
 export * from './policy.js';
