@@ -1,0 +1,96 @@
+{
+  "aggregateUsage": {
+    "input_tokens": 102978,
+    "output_tokens": 778,
+    "reasoning_output_tokens": 398,
+    "total_tokens": 104154
+  },
+  "allDirect": true,
+  "allExpectedPolaritiesObserved": true,
+  "assurance": "partial",
+  "cleanup": {
+    "isolatedCodexHomeDeletionVerified": true,
+    "perRunControlRootDeletionVerified": true,
+    "processGroupsGone": true,
+    "repositoryCleanupVerified": true,
+    "runtimeStateDeletionVerified": true,
+    "temporaryRootDeletionVerified": true
+  },
+  "executedAt": "2026-07-31T04:20:52.387Z",
+  "invocationCount": 2,
+  "livePolicySha256": "3c70999175562235238e5409634c1dd2ef7e8e79e28588e2539cb63111e9d91c",
+  "observedClientVersions": [
+    "0.146.0"
+  ],
+  "observedModels": [
+    "gpt-5.4"
+  ],
+  "package": {
+    "entryCount": 174,
+    "integrity": "sha512-Ifho5NnIn/hVTRcLitELAFL2jWRhzaQyL47hRXBBJwPdzVfJT68uyY74lX0m3VICvlGAO98uju+jTnP57rd2Tg==",
+    "name": "@heart-ai-foundation/scopa",
+    "sha256": "867f0a1d51094a1dc83ea93624b3a4ae32a6cf34c1f73c95f940550fba89f8a9",
+    "sourceCommit": "126abb2e84f28847a9079c066d00255e32690e3a",
+    "version": "0.2.0-dev.1"
+  },
+  "privateCampaignBinding": {
+    "bytes": 34159,
+    "sha256": "996162ae24d5a9039b68d6e378cf5c4ab9157a912d951a8f2ddad14d95848546"
+  },
+  "privateEvidence": {
+    "deleteAfter": "2026-08-07T04:20:52.387Z",
+    "destinationAlias": "SCOPA_PRIVATE_EVIDENCE_ROOT/S16R7",
+    "rawEvidenceInRepository": false,
+    "retainedOutsideRepository": true,
+    "retentionHours": 168
+  },
+  "requestedModel": "gpt-5.4",
+  "runs": [
+    {
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedAuthRefresh": false,
+      "publicEvidence": {
+        "bytes": 19567,
+        "filename": "clean.public.json",
+        "sha256": "04032eaf4923bf905bb9e5d1dd4bc977ba64359339d23730c8f069c5bc4f7087"
+      },
+      "qualification": "direct",
+      "scenario": "clean",
+      "sourceCommit": "126abb2e84f28847a9079c066d00255e32690e3a",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 36864,
+        "input_tokens": 54363,
+        "output_tokens": 339,
+        "reasoning_output_tokens": 136
+      }
+    },
+    {
+      "expectedCanStop": true,
+      "observedCanStop": true,
+      "onlyBoundedAuthRefresh": false,
+      "publicEvidence": {
+        "bytes": 19909,
+        "filename": "cold-restart.public.json",
+        "sha256": "b32f166586029d184a44db715584d790e0126f5400ec9b0cc1c712b225306d4a"
+      },
+      "qualification": "direct",
+      "scenario": "cold-restart",
+      "sourceCommit": "126abb2e84f28847a9079c066d00255e32690e3a",
+      "terminalReason": "completed",
+      "terminalState": "succeeded",
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 37376,
+        "input_tokens": 48615,
+        "output_tokens": 439,
+        "reasoning_output_tokens": 262
+      }
+    }
+  ],
+  "schema": "scopa.codex-live-campaign.public.v1",
+  "sourceCommit": "126abb2e84f28847a9079c066d00255e32690e3a"
+}

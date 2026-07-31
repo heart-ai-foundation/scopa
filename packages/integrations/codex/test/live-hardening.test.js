@@ -532,12 +532,15 @@ test('S16-v7 is a closed fresh-runtime clean-to-cold-restart posture', async () 
   );
   assert.deepEqual(policy, createCodexLivePolicy({
     campaignId: 'S16-v7-production-live-v1',
+  }));
+  const authorized = createCodexLivePolicy({
+    campaignId: 'S16-v7-production-live-v1',
     providerGate: CODEX_PROVIDER_GATE_OPEN,
     approvedOn: '2026-07-30',
     principalApproval: 'conversation-explicit',
     privateEvidenceDestinationApproval: 'conversation-explicit',
-  }));
-  assert.equal(policy.authorization.providerGate, CODEX_PROVIDER_GATE_OPEN);
+  });
+  assert.equal(policy.authorization.providerGate, CODEX_PROVIDER_GATE_CLOSED);
   assert.equal(
     policy.authorization.scope,
     'S16-v7-production-live-run-hardened-qualification',
@@ -549,9 +552,13 @@ test('S16-v7 is a closed fresh-runtime clean-to-cold-restart posture', async () 
   assert.deepEqual(policy.scenarios.ids, ['clean', 'cold-restart']);
   assert.equal(
     policy.policySha256,
+    'a8c6a0e7502d1618bcae72ef04079d5d3ab7e7ea47e2591339bddf464cfaa24d',
+  );
+  assert.equal(
+    authorized.policySha256,
     '3c70999175562235238e5409634c1dd2ef7e8e79e28588e2539cb63111e9d91c',
   );
-  assert.equal(assertCodexProviderAuthorized(policy), policy);
+  assert.throws(() => assertCodexProviderAuthorized(policy), /provider gate is closed/);
 });
 
 test('Codex policy enforces per-run and aggregate token accounting', () => {
