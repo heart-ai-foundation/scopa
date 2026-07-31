@@ -1,7 +1,7 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `7a6c358`
-Current active protocol: `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+Current commit reference: `ac7d386`
+Current active protocol: `active/2026-07-31-S17-sustained-operational-resilience.md`
 
 ## Scope
 
@@ -9,17 +9,12 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Build and execute an independently bounded Codex headless edge campaign against
-> one exact installed SCOPA candidate. Freeze a complete account, network,
-> model, native-sandbox, MCP-tool, time, turn, usage/cost, evidence-retention,
-> and cleanup policy before any provider call. Prove every edge class with
-> deterministic controls first, then execute only a separately approved live
-> subset and remediate only reproduced Codex boundary defects.
->
-> Activation of S16 does not itself authorize or start provider traffic. The
-> provider gate remains closed until the complete policy, exact scenario count,
-> aggregate allowance, private evidence destination, and stop conditions are
-> materialized and explicitly approved.
+> Build a deterministic operational-resilience harness that first proves
+> canonical full-journal/compact-response equivalence and bounded transcript
+> responses, then exercises crash/resume idempotency, concurrency and
+> backpressure, repeated cleanup, and cross-client parity. Provider spot checks
+> remain closed unless deterministic polarity is complete and a later exact
+> policy is separately approved.
 
 ## Files in play
 
@@ -50,6 +45,13 @@ Production-like live-run edge hardening only: establish shared process and evide
 - `evidence/S16R5/**`
 - `evidence/S16R6/**`
 - `evidence/S16R7/**`
+- `packages/journal/**`
+- `packages/enforcement/**`
+- `packages/integrations/claude/**`
+- `fixtures/S17/**`
+- `notes/S17/**`
+- `runs/S17/**`
+- `evidence/S17/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 ## Non-goals
@@ -57,7 +59,7 @@ Production-like live-run edge hardening only: establish shared process and evide
 - No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim
 - No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work
 - No replay, reclassification, scoring, provider run, or candidate claim for the retained SCOPA-RC1 pilot implementation note
-- No Codex provider call before a complete per-run account, network, model, MCP/native surface, time, turn, usage or cost, evidence-retention, and cleanup policy is closed and separately approved
+- No provider spot check before deterministic S17 polarity is proven and a fresh exact account, network, model, tool, resource, evidence-retention, and cleanup policy is separately approved
 - No reuse or inference of Claude account, behavior, tool, persistence, or assurance evidence as Codex evidence
 - No customer repository, customer data, production deployment, or uncontrolled mutation
 - No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level
@@ -73,29 +75,23 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- A complete closed per-run and aggregate policy is validated before provider
-  execution.
-- The exact installed candidate, Codex client version, requested model,
-  launcher profile, MCP/native capability matrix, scenario version, limits,
-  sandbox/approval posture, and environment policy bind every run.
-- Deterministic controls cover the existing four scenarios plus client,
-  model, MCP, schema, and native drift; refusal; timeout; ignored termination;
-  early EOF; malformed event; usage/capture limit; and cleanup failure.
-- The separately approved real Codex subset preserves the same terminal
-  polarity as its deterministic controls.
-- Repeated sessions leave no resumable provider content, credential, private
-  path, cross-run control state, temporary residue, client-store residue, or
-  orphan process.
-- Codex remains `partial`; favorable prose cannot assert completion.
-- Public evidence is deterministic, collision-safe, private-root free, and
-  binds bounded private evidence.
-- `npm run test:s16`
-- `npm run test:s9`
+- Canonical full-journal and compact-response views have a verified one-to-one
+  semantic binding; digest, order, truncation, and incomplete-state tampering
+  fail closed.
+- Session, transcript, assurance, and output ceilings remain finite under
+  concurrency and slow-reader pressure.
+- Every admitted-mutation crash point resumes idempotently or stops for
+  reconciliation without duplicate action.
+- Normal, failed, bounded, and interrupted runs leave no stale control state,
+  temporary file, descriptor, or process survivor.
+- Cross-client parity reports shared outcomes and provider-specific
+  differences without assurance transfer.
+- `npm run test:s17`
 - `npm run test:s14`
-- `npm run probe:s12:installed`
-- `npm test`
-- `npm audit --audit-level=low`
+- `npm run test:s15`
+- `npm run test:s16`
 - `npm run protocol:check`
+- `npm test`
 - Hosted deterministic CI passes.
 
 ## Handoff

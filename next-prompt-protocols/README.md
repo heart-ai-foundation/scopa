@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `7a6c358`
+Current commit reference: `ac7d386`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `codex-live-hardening`
-Advances contracts: `CXH1, CXH2, CXH3`
+Active protocol module: `operational-resilience`
+Advances contracts: `OR1, OR2, OR3, OR4`
 
 ## Slice Class
 
@@ -54,10 +54,10 @@ Module progress:
 - release-requalification: 3/3 (100%)
 - live-run-custody: 4/4 (100%)
 - claude-live-hardening: 3/3 (100%)
-- codex-live-hardening: 0/3 (0%)
+- codex-live-hardening: 3/3 (100%)
 - operational-resilience: 0/4 (0%)
 - production-live-requalification: 0/3 (0%)
-Arc total: 60/70 (86%)
+Arc total: 63/70 (90%)
 
 ## Descriptor Rung Stop Rule
 
@@ -105,23 +105,24 @@ Read in this order:
 3. `macro-deltas/2026-07-28-scopa-production-live-run-hardening.md`
 4. `role-context.md`
 5. `phases/phase-6/README.md`
-6. `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-7. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-8. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-9. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-10. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-11. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-12. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-13. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-14. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-15. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-16. `completed/2026-07-27-S6-installable-developer-surface.md`
-17. `completed/2026-07-26-S5-interop-export.md`
-18. `completed/2026-07-26-S4-signing-and-anchoring.md`
-19. `completed/2026-07-26-S3-legibility.md`
-20. `completed/2026-07-26-S2-enforcement-loop.md`
-21. `completed/2026-07-26-S0-conformance-harness.md`
-22. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-31-S17-sustained-operational-resilience.md`
+7. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+8. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+9. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+10. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+11. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+12. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+13. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+14. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+15. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+16. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+17. `completed/2026-07-27-S6-installable-developer-surface.md`
+18. `completed/2026-07-26-S5-interop-export.md`
+19. `completed/2026-07-26-S4-signing-and-anchoring.md`
+20. `completed/2026-07-26-S3-legibility.md`
+21. `completed/2026-07-26-S2-enforcement-loop.md`
+22. `completed/2026-07-26-S0-conformance-harness.md`
+23. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -155,17 +156,12 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Build and execute an independently bounded Codex headless edge campaign against
-> one exact installed SCOPA candidate. Freeze a complete account, network,
-> model, native-sandbox, MCP-tool, time, turn, usage/cost, evidence-retention,
-> and cleanup policy before any provider call. Prove every edge class with
-> deterministic controls first, then execute only a separately approved live
-> subset and remediate only reproduced Codex boundary defects.
->
-> Activation of S16 does not itself authorize or start provider traffic. The
-> provider gate remains closed until the complete policy, exact scenario count,
-> aggregate allowance, private evidence destination, and stop conditions are
-> materialized and explicitly approved.
+> Build a deterministic operational-resilience harness that first proves
+> canonical full-journal/compact-response equivalence and bounded transcript
+> responses, then exercises crash/resume idempotency, concurrency and
+> backpressure, repeated cleanup, and cross-client parity. Provider spot checks
+> remain closed unless deterministic polarity is complete and a later exact
+> policy is separately approved.
 
 ## Behavior rules
 
@@ -210,6 +206,13 @@ These protocols are specific to:
 - `evidence/S16R5/**`
 - `evidence/S16R6/**`
 - `evidence/S16R7/**`
+- `packages/journal/**`
+- `packages/enforcement/**`
+- `packages/integrations/claude/**`
+- `fixtures/S17/**`
+- `notes/S17/**`
+- `runs/S17/**`
+- `evidence/S17/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
@@ -219,4 +222,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-6/README.md`
-- `active/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+- `active/2026-07-31-S17-sustained-operational-resilience.md`

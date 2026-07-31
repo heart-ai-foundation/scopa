@@ -1,24 +1,29 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "7a6c358",
+  "current_commit": "ac7d386",
   "current_phase": "phase-6-production-live-run-hardening",
-  "active_protocol": "active/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
+  "active_protocol": "active/2026-07-31-S17-sustained-operational-resilience.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "codex-live-hardening",
+  "active_module": "operational-resilience",
   "crosses": [
     "live-run-custody",
     "adapter-host",
+    "enforcement",
+    "journal",
+    "claude-live-hardening",
+    "codex-live-hardening",
     "conformance"
   ],
   "advances_contracts": [
-    "CXH1",
-    "CXH2",
-    "CXH3"
+    "OR1",
+    "OR2",
+    "OR3",
+    "OR4"
   ],
-  "active_protocol_sha256": "sha256:5f1ab4b95a07902e806988c7eb12a6e6ede31ca302e0756580c81e87cf7c5e98",
-  "active_objective": "Build and execute an independently bounded Codex headless edge campaign against\none exact installed SCOPA candidate. Freeze a complete account, network,\nmodel, native-sandbox, MCP-tool, time, turn, usage/cost, evidence-retention,\nand cleanup policy before any provider call. Prove every edge class with\ndeterministic controls first, then execute only a separately approved live\nsubset and remediate only reproduced Codex boundary defects.\n\nActivation of S16 does not itself authorize or start provider traffic. The\nprovider gate remains closed until the complete policy, exact scenario count,\naggregate allowance, private evidence destination, and stop conditions are\nmaterialized and explicitly approved.",
+  "active_protocol_sha256": "sha256:9f4bf4fab6f7ca1bdba39f5e878f1fd288a51393358828ddb5bbfc8d551a18b5",
+  "active_objective": "Build a deterministic operational-resilience harness that first proves\ncanonical full-journal/compact-response equivalence and bounded transcript\nresponses, then exercises crash/resume idempotency, concurrency and\nbackpressure, repeated cleanup, and cross-client parity. Provider spot checks\nremain closed unless deterministic polarity is complete and a later exact\npolicy is separately approved.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -47,11 +52,18 @@
     "evidence/S16R5/**",
     "evidence/S16R6/**",
     "evidence/S16R7/**",
+    "packages/journal/**",
+    "packages/enforcement/**",
+    "packages/integrations/claude/**",
+    "fixtures/S17/**",
+    "notes/S17/**",
+    "runs/S17/**",
+    "evidence/S17/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s16",
-    "codex_regression": "npm run test:s9",
+    "fast_deterministic": "npm run test:s17",
+    "codex_regression": "npm run test:s16",
     "custody_regression": "npm run test:s14",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",

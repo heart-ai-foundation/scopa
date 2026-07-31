@@ -173,6 +173,22 @@ the same two-call resource ceilings. Its policy digest is
 Preparation itself grants zero provider calls; a later authorization must bind
 this exact digest and fresh private destination.
 
+The principal subsequently authorized policy digest
+`3c70999175562235238e5409634c1dd2ef7e8e79e28588e2539cb63111e9d91c`.
+Exact source `126abb2e84f28847a9079c066d00255e32690e3a` passed hosted gate
+`30603822826` before execution. Clean and cold-restart then both completed
+with expected `canStop: true`, the exact six-tool SCOPA MCP inventory,
+observed Codex CLI `0.146.0`, observed model `gpt-5.4`, bounded usage, direct
+qualification, and verified process, repository, per-scenario runtime-state,
+and temporary-root cleanup. Aggregate usage was 102,978 input, 778 output,
+398 reasoning, and 104,154 total tokens.
+
+Public evidence is committed under `evidence/S16R7/`; bounded private evidence
+is retained outside the repository through 2026-08-07. The provider gate is
+closed, the two calls are consumed, replay is prohibited, and hosted closeout
+gate `30603969038` passed on commit `ac7d386`. CXH1-CXH3 are satisfied and
+S16 is complete.
+
 ## Descriptor rung check
 
 Executable unlock: an enumerated, current-client Codex reliability claim whose
@@ -211,8 +227,8 @@ This queue remains the ratified Production Live-Run Hardening queue.
 | --- | --- | --- | --- | --- | --- |
 | S14 | Shared live-run custody and supervision | Bound process, terminal, identity, and evidence behavior | Deterministic terminal classes are cleanup-proven and privacy-safe | Fault/cleanup/identity/evidence corpus and hosted CI | `completed` |
 | S15 | Claude production live-run edge campaign | Exercise real and deterministic Claude edge paths | Live/fault polarity, cleanup, partial assurance, and non-retention agree | Core plus drift/refusal/rate/timeout/truncation/capture/budget/repeat | `completed` |
-| S16 | Codex production live-run edge campaign | Exercise Codex through the same bounded outcome contract | Live/fault polarity, cleanup, partial assurance, and non-retention agree | Core plus drift/refusal/timeout/truncation/usage/capture/repeat | `active` |
-| S17 | Sustained recovery, concurrency, and cleanup hardening | Stress operational sequences | No duplicate action, stale state, lost pairing, unbounded growth, or residue | Crash/resume, concurrency, ceilings, soak, cleanup, parity | `queued` |
+| S16 | Codex production live-run edge campaign | Exercise Codex through the same bounded outcome contract | Live/fault polarity, cleanup, partial assurance, and non-retention agree | Core plus drift/refusal/timeout/truncation/usage/capture/repeat | `completed` |
+| S17 | Sustained recovery, concurrency, and cleanup hardening | Stress operational sequences | No duplicate action, stale state, lost pairing, unbounded growth, or residue | Crash/resume, concurrency, ceilings, soak, cleanup, parity | `active` |
 | S18 | Exact production-live requalification | Requalify one exact candidate | Exact matrix and three fresh reviews pass | Clean candidate, live matrix, soak, audit, reviews, hosted CI | `queued` |
 
 ## Provider execution gate
@@ -255,6 +271,8 @@ invocation/evidence record already exists. A real run must never become part of
 - `fixtures/S16R3/**`
 - `fixtures/S16R4/**`
 - `fixtures/S16R5/**`
+- `fixtures/S16R6/**`
+- `fixtures/S16R7/**`
 - `next-prompt-protocols/**`
 - `notes/S16/**`
 - `runs/S16/**`
@@ -263,6 +281,8 @@ invocation/evidence record already exists. A real run must never become part of
 - `evidence/S16R3/**`
 - `evidence/S16R4/**`
 - `evidence/S16R5/**`
+- `evidence/S16R6/**`
+- `evidence/S16R7/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 - private bounded Codex evidence under
   `llm-memories/projects/scopa/evidence/S16*/**`

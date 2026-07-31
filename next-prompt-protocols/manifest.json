@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "7a6c358",
+  "current_commit": "ac7d386",
   "current_phase": "phase-6-production-live-run-hardening",
   "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
-  "active_protocol": "active/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
-  "active_objective": "Build and execute an independently bounded Codex headless edge campaign against one exact installed SCOPA candidate. Freeze a complete account, network, model, native-sandbox, MCP-tool, time, turn, usage/cost, evidence-retention, and cleanup policy before any provider call; prove deterministic controls first, then run only a separately approved live subset and remediate only reproduced Codex boundary defects.",
+  "active_protocol": "active/2026-07-31-S17-sustained-operational-resilience.md",
+  "active_objective": "Build a deterministic operational-resilience harness that proves canonical full-journal/compact-response equivalence, crash/resume idempotency, bounded concurrency and backpressure, repeated cleanup, and honest cross-client parity before S18 qualification.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
     "completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md",
     "completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md",
     "completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md",
@@ -57,13 +58,20 @@
     "evidence/S16R5/**",
     "evidence/S16R6/**",
     "evidence/S16R7/**",
+    "packages/journal/**",
+    "packages/enforcement/**",
+    "packages/integrations/claude/**",
+    "fixtures/S17/**",
+    "notes/S17/**",
+    "runs/S17/**",
+    "evidence/S17/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
     "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
     "No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work",
     "No replay, reclassification, scoring, provider run, or candidate claim for the retained SCOPA-RC1 pilot implementation note",
-    "No Codex provider call before a complete per-run account, network, model, MCP/native surface, time, turn, usage or cost, evidence-retention, and cleanup policy is closed and separately approved",
+    "No provider spot check before deterministic S17 polarity is proven and a fresh exact account, network, model, tool, resource, evidence-retention, and cleanup policy is separately approved",
     "No reuse or inference of Claude account, behavior, tool, persistence, or assurance evidence as Codex evidence",
     "No customer repository, customer data, production deployment, or uncontrolled mutation",
     "No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level",
@@ -74,8 +82,8 @@
     "No queue entries outside the authorized Production Live-Run Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s16",
-    "codex_regression": "npm run test:s9",
+    "fast_deterministic": "npm run test:s17",
+    "codex_regression": "npm run test:s16",
     "custody_regression": "npm run test:s14",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
@@ -775,24 +783,24 @@
         {
           "id": "CXH1",
           "statement": "Every live Codex session probes the exact client, requested model, MCP inventory, and native surface and fails closed on unknown drift.",
-          "status": "open",
-          "verifies_via": "Current-client capability probe and injected version, model, MCP, schema, and native-route drift",
+          "status": "satisfied",
+          "verifies_via": "S16 current-client capability probe, 21-scenario deterministic fault corpus, and direct S16R7 client/model/MCP/native-surface bindings",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S16"
         },
         {
           "id": "CXH2",
           "statement": "Real Codex runs preserve correct machine polarity across allowed, denied, false-green, restart, timeout, refusal, truncation, usage limits, capture limits, and tool drift.",
-          "status": "open",
-          "verifies_via": "Bounded real-provider campaign and deterministic Codex fault corpus",
+          "status": "satisfied",
+          "verifies_via": "Direct S16-v2 clean, S16-v3 denied, S16-v4 false-green, and S16R7 clean/cold-restart evidence plus deterministic refusal, timeout, truncation, usage, capture, schema, and tool-drift controls",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S16"
         },
         {
           "id": "CXH3",
           "statement": "Repeated Codex sessions retain partial assurance and leave no auth or session residue, credential, private path, cross-run state, or orphan process.",
-          "status": "open",
-          "verifies_via": "Repeated-session state, process, filesystem, and evidence cleanup audit",
+          "status": "satisfied",
+          "verifies_via": "S16R7 fresh per-scenario Codex runtime homes, immutable auth-boundary checks, bounded private state audit, and verified process/repository/runtime/temporary-root teardown",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S16"
         }
