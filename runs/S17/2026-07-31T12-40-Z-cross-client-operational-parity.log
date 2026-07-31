@@ -1,0 +1,24 @@
+S17.4 deterministic validation
+
+npm run verify:s9:parity
+PASS: legacy v1 parity remains compatible
+
+npm run verify:s17:parity
+PASS: source-bound operational v2 parity with independent assurance
+
+npm run test:s17
+PASS: full S17 resource, recovery, concurrency, cleanup, and parity matrix
+
+npm run test:s8
+PASS: Claude integration regression
+
+npm run test:s9
+PASS: Codex integration and legacy parity regression
+
+npm test
+PASS: accumulated release gate, including complete S17
+
+npm run protocol:check
+PASS: generated protocol projections match the manifest
+
+No provider traffic was permitted or attempted.

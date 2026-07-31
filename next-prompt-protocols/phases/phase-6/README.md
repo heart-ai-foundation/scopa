@@ -1,7 +1,7 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `7661a0a`
-Current active protocol: `active/2026-07-31-S17-sustained-operational-resilience.md`
+Current commit reference: `ee6aa4d`
+Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope
 
@@ -9,12 +9,11 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Build a deterministic operational-resilience harness that first proves
-> canonical full-journal/compact-response equivalence and bounded transcript
-> responses, then exercises crash/resume idempotency, concurrency and
-> backpressure, repeated cleanup, and cross-client parity. Provider spot checks
-> remain closed unless deterministic polarity is complete and a later exact
-> policy is separately approved.
+> Freeze one clean committed candidate and deterministically prove its package,
+> runtime, policy, matrix, evidence, privacy, dependency, protocol, and soak
+> boundaries. Provider-backed execution remains closed until exact Claude and
+> Codex policies, budgets, private destinations, call counts, and stop conditions
+> are separately materialized and explicitly approved.
 
 ## Files in play
 
@@ -75,24 +74,12 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Canonical full-journal and compact-response views have a verified one-to-one
-  semantic binding; digest, order, truncation, and incomplete-state tampering
-  fail closed.
-- Session, transcript, assurance, and output ceilings remain finite under
-  concurrency and slow-reader pressure.
-- Every admitted-mutation crash point resumes idempotently or stops for
-  reconciliation without duplicate action.
-- Normal, failed, bounded, and interrupted runs leave no stale control state,
-  temporary file, descriptor, or process survivor.
-- Cross-client parity reports shared outcomes and provider-specific
-  differences without assurance transfer.
-- `npm run test:s17`
-- `npm run test:s14`
-- `npm run test:s15`
-- `npm run test:s16`
-- `npm run protocol:check`
-- `npm test`
-- Hosted deterministic CI passes.
+- One exact installed candidate passes the frozen production-like matrix and
+  sustained bounded soak.
+- Three fresh exact-byte reviews return ACCEPT with no unresolved
+  critical/high/medium finding and every low finding adjudicated.
+- Dependency, privacy, credential, protocol, local, and hosted gates pass.
+- Closeout establishes eligibility only for a separate release decision.
 
 ## Handoff
 

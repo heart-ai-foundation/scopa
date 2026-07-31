@@ -1,0 +1,31 @@
+{
+  "schema": "scopa.s17-operational-resilience-closeout.v1",
+  "slice": "S17",
+  "providerTrafficAllowed": false,
+  "contracts": {
+    "OR1": "satisfied",
+    "OR2": "satisfied",
+    "OR3": "satisfied",
+    "OR4": "satisfied"
+  },
+  "queueSlots": {
+    "S17.1": "completed",
+    "S17.2": "completed",
+    "S17.3": "completed",
+    "S17.4": "completed"
+  },
+  "evidence": [
+    "evidence/S17/resource-bound-evidence-channels.json",
+    "evidence/S17/crash-resume-idempotency.json",
+    "evidence/S17/concurrency-sustained-cleanup.json",
+    "evidence/S17/cross-client-operational-parity.json"
+  ],
+  "assurance": {
+    "claude": "partial",
+    "codex": "partial",
+    "transferable": false
+  },
+  "experimentUsed": false,
+  "publicReleaseAuthorized": false,
+  "s18ProviderTrafficAuthorized": false
+}

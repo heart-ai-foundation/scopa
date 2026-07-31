@@ -76,6 +76,10 @@ The installed `compareAgentProofs` export compares the four shared
 Claude/Codex outcomes while retaining provider-specific capability gaps. From
 a SCOPA source checkout with contributor scripts installed,
 `npm run verify:s9:parity` runs the corresponding retained evidence command.
+The opt-in `operational-v2` format, exposed by `npm run verify:s17:parity`,
+adds closed source digests, explicit provider differences, and independently
+bound capability-matrix subjects. It never transfers assurance between
+clients; attaching a Claude matrix to Codex, or the reverse, is a parity gap.
 
 ## Assurance boundary
 

@@ -1,29 +1,26 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "7661a0a",
+  "current_commit": "ee6aa4d",
   "current_phase": "phase-6-production-live-run-hardening",
-  "active_protocol": "active/2026-07-31-S17-sustained-operational-resilience.md",
+  "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "operational-resilience",
+  "active_module": "production-live-requalification",
   "crosses": [
-    "live-run-custody",
-    "adapter-host",
-    "enforcement",
-    "journal",
+    "operational-resilience",
     "claude-live-hardening",
     "codex-live-hardening",
+    "release-readiness",
     "conformance"
   ],
   "advances_contracts": [
-    "OR1",
-    "OR2",
-    "OR3",
-    "OR4"
+    "PLQ1",
+    "PLQ2",
+    "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:cd355f0c8642408eade61ce9ae24d51511893a167906bd53d30160c09c0a19bf",
-  "active_objective": "Build a deterministic operational-resilience harness that first proves\ncanonical full-journal/compact-response equivalence and bounded transcript\nresponses, then exercises crash/resume idempotency, concurrency and\nbackpressure, repeated cleanup, and cross-client parity. Provider spot checks\nremain closed unless deterministic polarity is complete and a later exact\npolicy is separately approved.",
+  "active_protocol_sha256": "sha256:ef362d2a50a2968cc995643e2e8491ca5957989bc40f0d0a822acb2c0592e1ef",
+  "active_objective": "Freeze one clean committed candidate and deterministically prove its package,\nruntime, policy, matrix, evidence, privacy, dependency, protocol, and soak\nboundaries. Provider-backed execution remains closed until exact Claude and\nCodex policies, budgets, private destinations, call counts, and stop conditions\nare separately materialized and explicitly approved.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "7661a0a",
+  "current_commit": "ee6aa4d",
   "current_phase": "phase-6-production-live-run-hardening",
   "phase_scope": "Production-like live-run edge hardening only: establish shared process and evidence custody, exercise Claude and Codex independently, stress sustained recovery and cleanup, then requalify one exact private candidate.",
   "macro_delta": "macro-deltas/2026-07-28-scopa-production-live-run-hardening.md",
-  "active_protocol": "active/2026-07-31-S17-sustained-operational-resilience.md",
-  "active_objective": "Build a deterministic operational-resilience harness that proves canonical full-journal/compact-response equivalence, crash/resume idempotency, bounded concurrency and backpressure, repeated cleanup, and honest cross-client parity before S18 qualification.",
+  "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
+  "active_objective": "Freeze and deterministically qualify one exact installed candidate before any separately approved bounded production-live requalification or fresh review.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S17-sustained-operational-resilience.md",
     "completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
     "completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md",
     "completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md",
@@ -824,7 +825,7 @@
         {
           "id": "OR1",
           "statement": "Interruption after an admitted mutation resumes idempotently or stops for reconciliation without duplicating the action.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Crash-point and duplicate-resume matrix around mutation and evidence closure",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S17"
@@ -832,7 +833,7 @@
         {
           "id": "OR2",
           "statement": "Concurrent calls, session ceilings, transcript ceilings, and output backpressure preserve event pairing and finite memory.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Concurrent traffic, limit exhaustion, slow-reader, and pairing fault tests",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S17"
@@ -840,7 +841,7 @@
         {
           "id": "OR3",
           "statement": "Normal, failed, bounded, and interrupted live runs clean temporary files and processes and cannot reuse stale control state.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Repeated-run filesystem, process, descriptor, and stale-state cleanup audit",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S17"
@@ -848,7 +849,7 @@
         {
           "id": "OR4",
           "statement": "Cross-client parity reports shared live outcomes and provider-specific differences without transferring assurance.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Expanded Claude and Codex edge-parity comparator",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S17"
