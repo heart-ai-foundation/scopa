@@ -23,6 +23,8 @@ const DEFAULT_MATRIX = path.join(
   'fixtures/S18/deterministic-candidate-matrix.json',
 );
 const DIGEST = /^[0-9a-f]{64}$/;
+const CREDENTIAL_ENVIRONMENT_NAME =
+  /(?:TOKEN|KEY|SECRET|WEBHOOK|PASSWORD|AUTH)/i;
 
 function sha256(value) {
   const bytes = Buffer.isBuffer(value) || typeof value === 'string'
@@ -38,6 +40,22 @@ function plainObject(value) {
 function exactKeys(value, keys) {
   return plainObject(value) &&
     Object.keys(value).sort().join('\0') === [...keys].sort().join('\0');
+}
+
+export function createQualificationEnvironment(provided = process.env) {
+  const environment = {};
+  for (const [name, value] of Object.entries(provided)) {
+    if (
+      name === 'INIT_CWD' ||
+      name === 'NODE' ||
+      name.startsWith('npm_') ||
+      CREDENTIAL_ENVIRONMENT_NAME.test(name)
+    ) {
+      continue;
+    }
+    environment[name] = value;
+  }
+  return environment;
 }
 
 function assertRelativePath(value) {
@@ -260,6 +278,7 @@ export async function qualifyExactCandidate({
     try {
       result = await invokeCaptured(entry.command[0], entry.command.slice(1), {
         cwd: root,
+        env: createQualificationEnvironment(),
       });
     } catch (error) {
       throw new Error(`S18 matrix case ${entry.id} failed: ${error.message}`);

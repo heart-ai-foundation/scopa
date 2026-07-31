@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   assertExactCandidateQualification,
   buildExactCandidateQualification,
+  createQualificationEnvironment,
   validateExactCandidateMatrix,
 } from '../src/exact-candidate-probe.js';
 
@@ -147,4 +148,21 @@ test('false green, dirty source, privacy finding, and assurance drift fail close
   const receipt = buildExactCandidateQualification(sources());
   receipt.assurance.claude = 'full';
   assert.throws(() => assertExactCandidateQualification(receipt));
+});
+
+test('qualification matrix receives no credentials or npm lifecycle state', () => {
+  assert.deepEqual(createQualificationEnvironment({
+    PATH: '/bin',
+    HOME: '/private-home',
+    INIT_CWD: '/source',
+    NODE: '/bin/node',
+    npm_config_cache: '/cache',
+    API_TOKEN: 'secret',
+    SIGNING_KEY: 'secret',
+    SERVICE_AUTH_HEADER: 'secret',
+    HEART_SLACK_WEBHOOK: 'secret',
+  }), {
+    PATH: '/bin',
+    HOME: '/private-home',
+  });
 });
