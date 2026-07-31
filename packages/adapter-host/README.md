@@ -72,6 +72,9 @@ evidence or shared without review.
 - A session accepts at most 2048 unique request IDs, and string IDs are at
   most 256 UTF-8 bytes. Once exhausted, new IDs receive a stable server-limit
   error and are not retained.
+- Callers outside the sequential stdio loop may hold at most three tool calls
+  in flight. Excess calls receive JSON-RPC `-32000` before bridge execution;
+  capacity is reclaimed after every result or error.
 - The transcript retains at most 1024 events and 4 MiB of canonical event
   payload, including reserved result capacity. Calls that cannot reserve a
   truthful call/result pair fail before tool execution; excess protocol errors

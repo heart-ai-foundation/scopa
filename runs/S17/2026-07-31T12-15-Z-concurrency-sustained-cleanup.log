@@ -1,0 +1,19 @@
+S17.3 deterministic validation
+
+npm run test:s17
+PASS: resource-bound evidence, crash/resume, concurrency, slow-reader soak,
+and repeated process-custody tests
+
+npm run test:s7
+PASS: 13 adapter-host tests
+
+npm run test:s14
+PASS: 8 live-run custody tests
+
+npm test
+PASS: accumulated release gate, including S17
+
+npm run protocol:check
+PASS: generated protocol projections match the manifest
+
+No provider traffic was permitted or attempted.

@@ -1,0 +1,33 @@
+{
+  "schema": "scopa.s17-concurrency-sustained-cleanup-proof.v1",
+  "slice": "S17.3",
+  "providerTrafficAllowed": false,
+  "concurrency": {
+    "maxInFlightToolCalls": 3,
+    "overloadJsonRpcCode": -32000,
+    "capacityReclaimedAfterCompletion": true,
+    "requestResultPairingPreserved": true
+  },
+  "slowReaderSoak": {
+    "sessions": 12,
+    "pingsPerSession": 24,
+    "outputHighWaterMarkBytes": 1,
+    "maximumBufferedBytesLessThan": 512,
+    "staleRequestIdsObserved": false,
+    "repositoryInventoryChanged": false,
+    "descriptorGrowthMaximum": 2
+  },
+  "processCustodySoak": {
+    "cleanCycles": 8,
+    "orphanCycles": 2,
+    "allProcessGroupsGone": true,
+    "descriptorGrowthMaximum": 2,
+    "s14DescendantPidRegressionPassed": true
+  },
+  "deterministicAssertions": {
+    "focusedS17Passed": true,
+    "adapterRegressionPassed": true,
+    "liveCustodyRegressionPassed": true,
+    "accumulatedReleaseGatePassed": true
+  }
+}

@@ -25,6 +25,7 @@ export const MCP_SUPPORTED_VERSIONS = Object.freeze([
 export const MCP_MAX_MESSAGE_BYTES = 1024 * 1024;
 export const MCP_MAX_REQUEST_IDS = 2048;
 export const MCP_MAX_REQUEST_ID_BYTES = 256;
+export const MCP_MAX_IN_FLIGHT = 3;
 
 const JSON_RPC = '2.0';
 const SERVER_INFO = Object.freeze({
@@ -153,6 +154,7 @@ function callParams(params) {
 export function createMcpMessageHandler({
   bridge,
   maxRequestIds = MCP_MAX_REQUEST_IDS,
+  maxInFlight = MCP_MAX_IN_FLIGHT,
 }) {
   if (
     !Number.isSafeInteger(maxRequestIds) ||
@@ -163,8 +165,18 @@ export function createMcpMessageHandler({
       `maxRequestIds must be an integer from 1 to ${MCP_MAX_REQUEST_IDS}`,
     );
   }
+  if (
+    !Number.isSafeInteger(maxInFlight) ||
+    maxInFlight < 1 ||
+    maxInFlight > MCP_MAX_IN_FLIGHT
+  ) {
+    throw new RangeError(
+      `maxInFlight must be an integer from 1 to ${MCP_MAX_IN_FLIGHT}`,
+    );
+  }
   let phase = 'new';
   const seenRequestIds = new Set();
+  const inFlightToolCalls = new Set();
 
   function idKey(id) {
     return `${typeof id}:${id}`;
@@ -329,13 +341,28 @@ export function createMcpMessageHandler({
       }
       if (message.method === 'tools/call') {
         const call = callParams(message.params);
-        return response(
-          message.id,
-          await bridge.invoke({
-            requestId: message.id,
-            ...call,
-          }),
-        );
+        const key = idKey(message.id);
+        if (inFlightToolCalls.size >= maxInFlight) {
+          return protocolError({
+            id: message.id,
+            method: message.method,
+            code: -32000,
+            message: 'concurrent tool call limit reached',
+            data: { maxInFlight },
+          });
+        }
+        inFlightToolCalls.add(key);
+        try {
+          return response(
+            message.id,
+            await bridge.invoke({
+              requestId: message.id,
+              ...call,
+            }),
+          );
+        } finally {
+          inFlightToolCalls.delete(key);
+        }
       }
       return protocolError({
         id: message.id,
@@ -372,6 +399,7 @@ export async function serveMcpStdio({
   output = process.stdout,
   maxMessageBytes = MCP_MAX_MESSAGE_BYTES,
   maxRequestIds = MCP_MAX_REQUEST_IDS,
+  maxInFlight = MCP_MAX_IN_FLIGHT,
 }) {
   if (
     !Number.isSafeInteger(maxMessageBytes) ||
@@ -385,6 +413,7 @@ export async function serveMcpStdio({
   const handle = createMcpMessageHandler({
     bridge,
     maxRequestIds,
+    maxInFlight,
   });
   const decoder = new TextDecoder('utf-8', { fatal: true });
   for await (const frame of readMcpFrames(input, maxMessageBytes)) {
