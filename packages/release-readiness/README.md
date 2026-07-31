@@ -29,6 +29,13 @@ or recognizable credential residue.
 The package does not publish anything. `package.json` remains private, and the
 S10 commands create only local tarballs and evidence receipts.
 
+S18 adds a provider-closed exact-candidate probe. It runs the frozen local
+matrix, packs and installs the clean candidate repeatedly, binds policy and
+protocol inputs by digest, and emits a path-free qualification receipt. The
+tarball destination must be private and explicit. A passing receipt preserves
+independent `partial` Claude and Codex assurance and authorizes neither
+provider traffic nor publication.
+
 ## Source-checkout commands
 
 These contributor commands require a SCOPA source checkout and are
@@ -47,6 +54,9 @@ npm run test:s11
 npm run probe:s11:parity
 npm run test:s12
 npm run probe:s12:installed
+npm run probe:s18:candidate -- \
+  --artifact-dir /trusted/private-candidate \
+  --output /trusted/exact-candidate-receipt.json
 ```
 
 ## Claim boundary
