@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `b595f18`
+Current commit reference: `f3ab975`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `production-live-requalification`
-Advances contracts: `PLQ1, PLQ2, PLQ3`
+Active protocol module: `dependency-closure-identity`
+Advances contracts: `DCI1, DCI2, DCI3`
 
 ## Slice Class
 
@@ -56,8 +56,9 @@ Module progress:
 - claude-live-hardening: 3/3 (100%)
 - codex-live-hardening: 3/3 (100%)
 - operational-resilience: 4/4 (100%)
-- production-live-requalification: 1/3 (33%)
-Arc total: 68/70 (97%)
+- dependency-closure-identity: 0/3 (0%)
+- production-live-requalification: 0/3 (0%)
+Arc total: 67/73 (92%)
 
 ## Descriptor Rung Stop Rule
 
@@ -102,28 +103,29 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-07-28-scopa-production-live-run-hardening.md`
+3. `macro-deltas/2026-07-31-scopa-dependency-closure-identity-hardening.md`
 4. `role-context.md`
-5. `phases/phase-6/README.md`
-6. `active/2026-07-31-S18-exact-production-live-requalification.md`
-7. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-8. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-9. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-10. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-11. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-12. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-13. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-14. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-15. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-16. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-17. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-18. `completed/2026-07-27-S6-installable-developer-surface.md`
-19. `completed/2026-07-26-S5-interop-export.md`
-20. `completed/2026-07-26-S4-signing-and-anchoring.md`
-21. `completed/2026-07-26-S3-legibility.md`
-22. `completed/2026-07-26-S2-enforcement-loop.md`
-23. `completed/2026-07-26-S0-conformance-harness.md`
-24. `completed/2026-07-26-S1-sealed-core.md`
+5. `phases/phase-7/README.md`
+6. `active/2026-07-31-S19-publishable-dependency-closure-enforcement.md`
+7. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+8. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+9. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+10. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+11. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+12. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+13. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+14. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+15. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+16. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+17. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+18. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+19. `completed/2026-07-27-S6-installable-developer-surface.md`
+20. `completed/2026-07-26-S5-interop-export.md`
+21. `completed/2026-07-26-S4-signing-and-anchoring.md`
+22. `completed/2026-07-26-S3-legibility.md`
+23. `completed/2026-07-26-S2-enforcement-loop.md`
+24. `completed/2026-07-26-S0-conformance-harness.md`
+25. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -149,19 +151,20 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 - run `node tools/sync-protocols.mjs --commit $(git rev-parse --short=8 HEAD)`,
 - run `node tools/sync-protocols.mjs --check`,
-- do not hand off until `README.md`, `phases/phase-6/README.md`, `manifest.json`, and `.slice-lock.json` are in sync.
+- do not hand off until `README.md`, `phases/phase-7/README.md`, `manifest.json`, and `.slice-lock.json` are in sync.
 
 ## Current phase
 
-- `Phase 6 Production Live Run Hardening`
+- `Phase 7 Dependency Closed Release Requalification`
 
 ## Current active objective
 
-> STOP S18. The fresh artifact reviewer rejected the frozen candidate because
-> its installed identity does not bind the resolved transitive dependency
-> closure. Retain the rejected candidate and report. Do not continue reviews,
-> remediate, refreeze, replay provider calls, or claim closeout without a fresh
-> principal-approved macro delta.
+> Generate a deterministic consumer-specific `npm-shrinkwrap.json`, include it
+> in every candidate tarball, derive one canonical production closure from it,
+> and independently compare fresh installed graphs with that closure. Prove
+> supported npm versions preserve the exact graph while missing, mutated,
+> transplanted, extra, stale, dev-contaminated, or semver-drifted states fail
+> closed.
 
 ## Behavior rules
 
@@ -181,38 +184,18 @@ These protocols are specific to:
 
 - `package.json`
 - `package-lock.json`
+- `npm-shrinkwrap.json`
 - `README.md`
 - `docs/**`
 - `schemas/**`
-- `packages/live-run/**`
-- `packages/integrations/codex/**`
-- `packages/adapter-host/**`
 - `packages/release-readiness/**`
 - `packages/conformance/**`
-- `fixtures/S16/**`
-- `fixtures/S16R2/**`
-- `fixtures/S16R3/**`
-- `fixtures/S16R4/**`
-- `fixtures/S16R5/**`
-- `fixtures/S16R6/**`
-- `fixtures/S16R7/**`
+- `packages/cli/**`
+- `fixtures/S19/**`
 - `next-prompt-protocols/**`
-- `notes/S16/**`
-- `runs/S16/**`
-- `evidence/S16/**`
-- `evidence/S16R2/**`
-- `evidence/S16R3/**`
-- `evidence/S16R4/**`
-- `evidence/S16R5/**`
-- `evidence/S16R6/**`
-- `evidence/S16R7/**`
-- `packages/journal/**`
-- `packages/enforcement/**`
-- `packages/integrations/claude/**`
-- `fixtures/S17/**`
-- `notes/S17/**`
-- `runs/S17/**`
-- `evidence/S17/**`
+- `notes/S19/**`
+- `runs/S19/**`
+- `evidence/S19/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
@@ -221,5 +204,5 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 
 Start with:
 
-- `phases/phase-6/README.md`
-- `active/2026-07-31-S18-exact-production-live-requalification.md`
+- `phases/phase-7/README.md`
+- `active/2026-07-31-S19-publishable-dependency-closure-enforcement.md`

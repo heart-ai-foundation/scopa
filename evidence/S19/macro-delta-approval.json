@@ -1,0 +1,31 @@
+{
+  "schema": "scopa.macro-delta-approval.v1",
+  "project": "SCOPA",
+  "approvedOn": "2026-07-31",
+  "principal": "repository-principal",
+  "statement": "I approve the digest for the bounded S19-S23 posture.",
+  "macroDelta": {
+    "path": "next-prompt-protocols/macro-deltas/2026-07-31-scopa-dependency-closure-identity-hardening.md",
+    "sha256": "858fb37d17a18767c79c513b13f669bc3458bf64cedb49b1f0957a23f5a3b394",
+    "proposalCommit": "f3ab97504a6a5a24456660cfc6e8e5822f1cff74"
+  },
+  "authorizedSlices": [
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23"
+  ],
+  "activeSlice": "S19",
+  "providerPolicy": {
+    "s19Calls": 0,
+    "s20Calls": 0,
+    "s21CallsWithoutSeparateExactApproval": 0,
+    "s22Calls": 0,
+    "s23Calls": 0
+  },
+  "publicationAuthorized": false,
+  "releaseAuthorized": false,
+  "status": "ratified",
+  "approvalSha256": "34aa0a3b456e29331e4b3b940a94644d8aa71f0198bbcaeaa546d6d6b74f0be9"
+}
