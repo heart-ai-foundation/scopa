@@ -9,8 +9,12 @@ import {
 } from '../../agent-surface/src/index.js';
 import {
   canonicalJson,
+  canonicalJsonPretty,
   evaluateStopCondition,
 } from '../../enforcement/src/index.js';
+import {
+  writeEvidenceNoReplace,
+} from '../../journal/src/index.js';
 import {
   loadProject,
 } from '../../cli/src/project.js';
@@ -27,6 +31,12 @@ import {
 import {
   createTranscriptRecorder,
 } from './transcript.js';
+import {
+  compactAssuranceResult,
+  compactCheckResult,
+  createCompactTranscript,
+  createHostJournal,
+} from './evidence.js';
 
 export class AdapterRequestError extends Error {
   constructor(message, details = null) {
@@ -324,8 +334,26 @@ export async function createAdapterBridge({
   repoRoot,
   session,
   capabilityMatrix,
+  evidenceJournalPath = null,
 }) {
   const project = await loadProject(repoRoot);
+  const resolvedEvidenceJournal = evidenceJournalPath === null
+    ? null
+    : path.resolve(evidenceJournalPath);
+  if (resolvedEvidenceJournal !== null) {
+    const relativeJournal = path.relative(
+      project.repoRoot,
+      resolvedEvidenceJournal,
+    );
+    if (
+      relativeJournal === '' ||
+      (!relativeJournal.startsWith(`..${path.sep}`) && relativeJournal !== '..')
+    ) {
+      throw new AdapterValidationError(
+        'host evidence journal must be outside the repository',
+      );
+    }
+  }
   const descriptor = validateSessionDescriptor(session);
   const matrix = validateCapabilityMatrix(capabilityMatrix);
   const advertisedCapabilityIds = new Set(
@@ -414,7 +442,14 @@ export async function createAdapterBridge({
       }
       const args = validateArguments(name, value);
       if (name === 'scopa_transcript') {
-        return mcpToolResult(transcript.snapshot());
+        const snapshot = transcript.snapshot();
+        if (resolvedEvidenceJournal === null) return mcpToolResult(snapshot);
+        const journal = createHostJournal(snapshot);
+        await writeEvidenceNoReplace(
+          resolvedEvidenceJournal,
+          canonicalJsonPretty(journal),
+        );
+        return mcpToolResult(createCompactTranscript(journal));
       }
       const callRecorded = transcript.recordCall({
         requestId,
@@ -446,7 +481,14 @@ export async function createAdapterBridge({
           );
         }
         if (name === 'scopa_check') transcript.setTerminal(result.state);
-        return mcpToolResult(result, blocked);
+        const agentResult = resolvedEvidenceJournal === null
+          ? result
+          : name === 'scopa_check'
+            ? compactCheckResult(result)
+            : name === 'scopa_assurance'
+              ? compactAssuranceResult(result)
+              : result;
+        return mcpToolResult(agentResult, blocked);
       } catch (error) {
         const result = adapterError(error);
         const denied = [

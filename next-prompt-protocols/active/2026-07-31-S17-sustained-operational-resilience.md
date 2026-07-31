@@ -57,8 +57,8 @@ stale-state reuse, and incomplete cleanup before S18 candidate qualification.
 
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
-| S17.1 | Resource-bound evidence channels | Separate canonical full journals from compact MCP responses without changing meaning | Digest/order tampering fails; compact responses stay bounded and reconstruct to the same canonical evidence | Journal equivalence, ceiling, no-overwrite, incomplete-journal, and privacy tests | `active` |
-| S17.2 | Crash/resume idempotency | Stop or resume after every admitted-mutation boundary without duplicate action | Each crash point yields one mutation or explicit reconciliation | Crash-point and duplicate-resume matrix | `queued` |
+| S17.1 | Resource-bound evidence channels | Separate canonical full journals from compact MCP responses without changing meaning | Digest/order tampering fails; compact responses stay bounded and reconstruct to the same canonical evidence | Journal equivalence, ceiling, no-overwrite, incomplete-journal, and privacy tests | `completed` |
+| S17.2 | Crash/resume idempotency | Stop or resume after every admitted-mutation boundary without duplicate action | Each crash point yields one mutation or explicit reconciliation | Crash-point and duplicate-resume matrix | `active` |
 | S17.3 | Concurrency and sustained cleanup | Preserve pairing and finite memory under concurrent calls, slow readers, and repeated runs | No pairing loss, unbounded growth, stale state, descriptor leak, or survivor | Concurrency, backpressure, soak, filesystem/process ledger | `queued` |
 | S17.4 | Cross-client parity | Report shared outcomes and provider-specific differences without assurance transfer | Claude/Codex divergences are explicit and machine-readable | Expanded parity comparator and regression suite | `queued` |
 

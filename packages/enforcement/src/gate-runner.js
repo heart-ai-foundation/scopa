@@ -10,6 +10,15 @@ function appendLimited(current, chunk) {
   return `${current}${chunk}`.slice(0, OUTPUT_LIMIT);
 }
 
+function outputMetadata(stdout, stderr, stdoutBytes, stderrBytes) {
+  return {
+    stdoutBytes,
+    stderrBytes,
+    stdoutTruncated: stdoutBytes > Buffer.byteLength(stdout, 'utf8'),
+    stderrTruncated: stderrBytes > Buffer.byteLength(stderr, 'utf8'),
+  };
+}
+
 export async function runGate(gate, repoRoot) {
   const startedAt = Date.now();
   const root = await realpath(repoRoot);
@@ -27,6 +36,8 @@ export async function runGate(gate, repoRoot) {
       durationMs: Date.now() - startedAt,
       stdout: '',
       stderr: `gate cwd unavailable: ${error.message}`,
+      ...outputMetadata('', `gate cwd unavailable: ${error.message}`, 0,
+        Buffer.byteLength(`gate cwd unavailable: ${error.message}`, 'utf8')),
     };
   }
   const relative = path.relative(root, cwd);
@@ -41,6 +52,8 @@ export async function runGate(gate, repoRoot) {
       durationMs: Date.now() - startedAt,
       stdout: '',
       stderr: 'gate cwd resolves outside repository',
+      ...outputMetadata('', 'gate cwd resolves outside repository', 0,
+        Buffer.byteLength('gate cwd resolves outside repository', 'utf8')),
     };
   }
   return new Promise((resolve) => {
@@ -58,14 +71,18 @@ export async function runGate(gate, repoRoot) {
     let stderr = '';
     let timedOut = false;
     let spawnFailed = false;
+    let stdoutBytes = 0;
+    let stderrBytes = 0;
     const timer = setTimeout(() => {
       timedOut = true;
       child.kill('SIGKILL');
     }, gate.timeoutMs);
     child.stdout.on('data', (chunk) => {
+      stdoutBytes += Buffer.byteLength(chunk);
       stdout = appendLimited(stdout, chunk);
     });
     child.stderr.on('data', (chunk) => {
+      stderrBytes += Buffer.byteLength(chunk);
       stderr = appendLimited(stderr, chunk);
     });
     child.on('error', (error) => {
@@ -81,6 +98,12 @@ export async function runGate(gate, repoRoot) {
         durationMs: Date.now() - startedAt,
         stdout,
         stderr: appendLimited(stderr, error.message),
+        ...outputMetadata(
+          stdout,
+          appendLimited(stderr, error.message),
+          stdoutBytes,
+          stderrBytes + Buffer.byteLength(error.message, 'utf8'),
+        ),
       });
     });
     child.on('close', (code) => {
@@ -96,6 +119,7 @@ export async function runGate(gate, repoRoot) {
         durationMs: Date.now() - startedAt,
         stdout,
         stderr,
+        ...outputMetadata(stdout, stderr, stdoutBytes, stderrBytes),
       });
     });
   });

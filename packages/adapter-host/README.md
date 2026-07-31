@@ -91,6 +91,14 @@ retaining hostile frame content. The transcript inspection call is
 intentionally excluded from the snapshot it returns. S7 transcripts are
 validated records, not signatures or provider attestations.
 
+When the launcher receives `--evidence-journal <outside-repository-path>`, it
+uses the S17 dual-channel evidence contract. The host writes one canonical,
+mode-`0600`, no-replace full journal before returning `scopa_transcript`.
+Agent-facing `scopa_check`, `scopa_assurance`, and `scopa_transcript` results
+are compact digest-bound views capped at 16 KiB; failed gates may include at
+most 2 KiB of combined output preview. Missing, overwritten, reordered, or
+digest-conflicting journal evidence fails closed.
+
 ## Standards and dependency decision
 
 The transport follows the official MCP

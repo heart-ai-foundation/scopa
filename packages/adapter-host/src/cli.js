@@ -45,6 +45,7 @@ export function parseArguments(argv) {
     ['--matrix-file', 'matrixFile'],
     ['--repo', 'repo'],
     ['--session-file', 'sessionFile'],
+    ['--evidence-journal', 'evidenceJournal'],
   ]);
   for (let index = 0; index < argv.length; index += 1) {
     const flag = argv[index];
@@ -62,8 +63,8 @@ export function parseArguments(argv) {
     options[name] = value;
     index += 1;
   }
-  for (const [flag, name] of allowed) {
-    if (name !== 'repo' && options[name] === undefined) {
+  for (const name of ['matrixFile', 'sessionFile']) {
+    if (options[name] === undefined) {
       throw new LauncherError('SCOPA_LAUNCHER_ARGUMENT_INVALID');
     }
   }
@@ -71,6 +72,9 @@ export function parseArguments(argv) {
     repo: path.resolve(options.repo ?? process.cwd()),
     sessionFile: path.resolve(options.sessionFile),
     matrixFile: path.resolve(options.matrixFile),
+    evidenceJournal: options.evidenceJournal === undefined
+      ? null
+      : path.resolve(options.evidenceJournal),
   };
 }
 
@@ -111,6 +115,7 @@ export async function main(argv = process.argv.slice(2)) {
       repoRoot: options.repo,
       session: await readJson(options.sessionFile),
       capabilityMatrix: await readJson(options.matrixFile),
+      evidenceJournalPath: options.evidenceJournal,
     });
   } catch (error) {
     if (error instanceof LauncherError) throw error;

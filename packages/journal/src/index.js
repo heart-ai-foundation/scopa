@@ -2,6 +2,7 @@ export * from './bytes.js';
 export * from './content-store.js';
 export * from './dcbor.js';
 export * from './effect-schema.js';
+export * from './evidence-store.js';
 export * from './file-store.js';
 export * from './hash.js';
 export * from './memory-store.js';

@@ -19,7 +19,11 @@ const GATE_KEYS = new Set([
   'passed',
   'schema',
   'stderr',
+  'stderrBytes',
+  'stderrTruncated',
   'stdout',
+  'stdoutBytes',
+  'stdoutTruncated',
   'timedOut',
 ]);
 
@@ -84,6 +88,10 @@ export function validateStopState(state, expectedLockHash) {
       !Number.isSafeInteger(gate.durationMs) ||
       typeof gate.stdout !== 'string' ||
       typeof gate.stderr !== 'string' ||
+      !Number.isSafeInteger(gate.stdoutBytes) ||
+      !Number.isSafeInteger(gate.stderrBytes) ||
+      typeof gate.stdoutTruncated !== 'boolean' ||
+      typeof gate.stderrTruncated !== 'boolean' ||
       !(gate.exitCode === null || Number.isSafeInteger(gate.exitCode))
     ) {
       throw new Error('invalid gate result in stop state');

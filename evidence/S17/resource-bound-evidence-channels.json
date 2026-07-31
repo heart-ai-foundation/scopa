@@ -1,0 +1,31 @@
+{
+  "schema": "scopa.s17-resource-bound-evidence-proof.v1",
+  "slice": "S17.1",
+  "providerTrafficAllowed": false,
+  "hostJournal": {
+    "schema": "scopa.adapter-host-journal.v1",
+    "canonical": true,
+    "mode": "0600",
+    "noReplace": true,
+    "outsideRepositoryRequired": true,
+    "completeTranscriptRetained": true
+  },
+  "agentEvidence": {
+    "maxSerializedBytesPerResponse": 16384,
+    "maxFailedGatePreviewBytes": 2048,
+    "checkRawOutputReturned": false,
+    "transcriptRequestReturned": false,
+    "transcriptArgumentsReturned": false,
+    "transcriptResultsReturned": false,
+    "digestAddressedHostReferences": true
+  },
+  "deterministicAssertions": {
+    "fullCompactEquivalence": true,
+    "digestTamperRejected": true,
+    "noOverwriteEnforced": true,
+    "incompleteJournalRejected": true,
+    "failedPreviewBounded": true,
+    "sixToolInventoryUnchanged": true,
+    "accumulatedReleaseGatePassed": true
+  }
+}

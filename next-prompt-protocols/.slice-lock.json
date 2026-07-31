@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ac7d386",
+  "current_commit": "6297c85",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S17-sustained-operational-resilience.md",
   "active_class": "arc",
@@ -22,7 +22,7 @@
     "OR3",
     "OR4"
   ],
-  "active_protocol_sha256": "sha256:9f4bf4fab6f7ca1bdba39f5e878f1fd288a51393358828ddb5bbfc8d551a18b5",
+  "active_protocol_sha256": "sha256:9bbebfb50cda3a6b95b74b321971480185b9c68a8467d33e366f1ab645977df5",
   "active_objective": "Build a deterministic operational-resilience harness that first proves\ncanonical full-journal/compact-response equivalence and bounded transcript\nresponses, then exercises crash/resume idempotency, concurrency and\nbackpressure, repeated cleanup, and cross-client parity. Provider spot checks\nremain closed unless deterministic polarity is complete and a later exact\npolicy is separately approved.",
   "allowed_files": [
     "package.json",

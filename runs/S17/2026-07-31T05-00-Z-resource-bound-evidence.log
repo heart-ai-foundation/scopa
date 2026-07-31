@@ -1,0 +1,15 @@
+S17.1 deterministic validation
+
+npm run test:s17
+PASS: 2 resource-bound evidence tests
+
+npm run test:s7
+PASS: 13 adapter-host tests
+
+npm run test:s2
+PASS: 15 enforcement tests
+
+npm test
+PASS: accumulated release gate, including S17
+
+No provider traffic was permitted or attempted.

@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `ac7d386`
+Current commit reference: `6297c85`
 Current active protocol: `active/2026-07-31-S17-sustained-operational-resilience.md`
 
 ## Scope
