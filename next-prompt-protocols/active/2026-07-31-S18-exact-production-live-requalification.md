@@ -16,10 +16,10 @@ or historical provider runs.
 
 ## Next objective
 
-Preflight the exact approved S18-v3 Codex continuation, then execute only clean
-followed by cold-restart under the frozen semantic OBSERVE policy, token
-ceilings, retained-evidence bindings, fresh private custody, and stop
-conditions. Stop without replay on any drift or failure.
+Exercise the exact frozen candidate under sustained provider-closed soak and
+audit its dependency, credential, privacy, filesystem, process, residue, and
+stability boundaries. Preserve the completed live evidence and stop on any
+candidate drift, growth, survivor, stale state, privacy event, or false green.
 
 ## Descriptor rung check
 
@@ -51,8 +51,8 @@ fresh exact-byte reviews.
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
 | S18.1 | Exact candidate freeze | Bind one clean commit, package, installed exports, policies, and deterministic matrix | No source/package/policy drift and all deterministic hostile controls retain polarity | Clean pack/install, manifest, installed probe, S17 and accumulated gates | `completed` |
-| S18.2 | Closed production-live matrix | Materialize exact Claude/Codex calls, budgets, private evidence custody, and stop conditions | No provider intent without separate explicit approval; every approved outcome remains bounded | Policy-digest and authorization tests, then only the approved live subset | `active` |
-| S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `queued` |
+| S18.2 | Closed production-live matrix | Materialize exact Claude/Codex calls, budgets, private evidence custody, and stop conditions | No provider intent without separate explicit approval; every approved outcome remains bounded | Policy-digest and authorization tests, then only the approved live subset | `completed` |
+| S18.3 | Sustained candidate soak and audits | Exercise the exact installed candidate repeatedly and audit dependency, credential, privacy, residue, and stability boundaries | No growth, survivor, stale state, privacy event, dependency drift, or false green | Bounded soak, filesystem/process ledgers, audit and privacy receipts | `active` |
 | S18.4 | Fresh exact-byte reviews and closeout | Obtain artifact, evidence, and runtime verdicts on the same candidate bytes | Three ACCEPT verdicts; no critical/high/medium finding; lows adjudicated | Independent reviews, consistency receipt, protocol check, hosted CI | `queued` |
 
 ## Current S18.2 posture
@@ -133,6 +133,22 @@ and expires after 2026-08-01. The v3 controller binds the frozen candidate,
 retained Claude evidence, exact Codex client/model, unconsumed approval,
 external no-replace custody, token ceilings, and semantic sequence policy.
 Provider calls consumed remain zero pending clean local and hosted preflight.
+
+The exact controller commit passed hosted preflight, then v3 consumed exactly
+two Codex calls. Clean and cold-restart both used the canonical sequence with
+zero extra OBSERVE calls, returned `canStop: true`, stayed within 103405 of
+252000 aggregate tokens, and completed all per-run and controller cleanup.
+After campaign validation, public copying stopped because serialized bytes
+were passed to a JSON-only writer. The approval was closed against replay.
+
+A provider-free recovery bound the immutable private campaign and both staged
+public hashes, independently re-normalized both raw streams, reapplied the
+frozen semantic sequence policy, reconfirmed cleanup and privacy, and published
+only the accepted derivatives. Recovery receipt
+`evidence/S18/live-v3/campaign-recovery.public.json` has SHA-256
+`16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77`.
+S18.2 is complete without replay. S18.3 sustained candidate soak and audits is
+now active.
 
 ## Files in play
 

@@ -92,3 +92,22 @@ and reconstructs authorized matrix digest
 `620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00`.
 It expires after 2026-08-01. Provider consumption remains zero pending a clean
 hosted preflight of the approval-bound v3 controller.
+
+## Accepted v3 execution and provider-free publication recovery
+
+The v3 allowance consumed exactly two Codex calls. Clean and cold-restart both
+used the canonical tool sequence with zero extra OBSERVE calls, returned
+`canStop: true`, stayed on Codex 0.146.0 and `gpt-5.4`, and completed process,
+runtime-home, repository, and controller-root cleanup. Aggregate usage was
+103405 of 252000 tokens.
+
+After both runs and campaign validation passed, publication stopped because
+the controller passed already-serialized bytes to a canonical-JSON-only
+writer. No provider outcome or evidence validation was affected. The approval
+was immediately added to `consumed-approvals.json`, forbidding replay. A
+provider-free recovery independently re-normalized the private raw streams,
+reapplied the frozen semantic policy, verified every private and staged public
+hash, confirmed cleanup, and copied only privacy-clean derivatives. Its receipt
+is `live-v3/campaign-recovery.public.json`, SHA-256
+`16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77`.
+S18.2 is complete; the exact-candidate qualification advances to S18.3.

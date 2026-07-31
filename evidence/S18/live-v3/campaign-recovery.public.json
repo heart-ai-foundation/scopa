@@ -1,0 +1,104 @@
+{
+  "aggregateUsage": {
+    "input_tokens": 102429,
+    "output_tokens": 681,
+    "reasoning_output_tokens": 295,
+    "total_tokens": 103405
+  },
+  "cleanup": {
+    "controllerTemporaryRootAbsent": true,
+    "disposableRepositoriesDeleted": true,
+    "disposableRuntimeHomesDeleted": true,
+    "perRunOrphansAbsent": true,
+    "perRunProcessGroupsGone": true
+  },
+  "execution": {
+    "approvalSha256": "9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f",
+    "authorizedMatrixSha256": "620c7111a120c6301577a434cb1371a979ab6bb4f8781edf1c7ad0857b0a2d00",
+    "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+    "closedMatrixSha256": "3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4",
+    "executedAt": "2026-07-31T18:03:16.701Z",
+    "sequencePolicy": {
+      "maxExtraCalls": 1,
+      "repeatableTools": [
+        {
+          "effect": "OBSERVE",
+          "maxExtraCalls": 1,
+          "requireEquivalentResult": true,
+          "tool": "scopa_check"
+        }
+      ],
+      "schema": "scopa.s18-observe-sequence-policy.v1"
+    },
+    "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c"
+  },
+  "privateEvidence": {
+    "campaignSha256": "a3730bfb8a1c525f1ab94bce8136358776eacf7627f0b0b55121c6d939578c89",
+    "destinationAlias": "SCOPA_PRIVATE_EVIDENCE_ROOT/S18V3",
+    "retainedOutsideRepository": true,
+    "retentionHours": 168
+  },
+  "providerCallsAuthorized": 2,
+  "providerCallsConsumed": 2,
+  "publicationFailure": {
+    "evidenceValidationAffected": false,
+    "fixedWithoutProviderReplay": true,
+    "providerExecutionAffected": false,
+    "reason": "buffer-passed-to-canonical-json-writer",
+    "stage": "copy-accepted-public-derivative"
+  },
+  "replayAllowed": false,
+  "result": "accepted-after-publication-only-recovery",
+  "runs": [
+    {
+      "canStop": true,
+      "extraObserveCalls": 0,
+      "privateEvidenceSha256": "5a72a5bab2963147042ca6b7c214cfd005ad9214555e7740e51ee97ad6b2ab72",
+      "processGroupGone": true,
+      "publicEvidenceSha256": "a5b9843f29dafb03efdfff260dd5e00692a629ce084c9632b31b84b1bf3e03e3",
+      "runtimeStateDeletionVerified": true,
+      "scenario": "clean",
+      "terminalState": "succeeded",
+      "toolSequence": [
+        "scopa_orientation",
+        "scopa_read_file",
+        "scopa_write_file",
+        "scopa_check",
+        "scopa_assurance",
+        "scopa_transcript"
+      ],
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 36864,
+        "input_tokens": 54393,
+        "output_tokens": 320,
+        "reasoning_output_tokens": 115
+      }
+    },
+    {
+      "canStop": true,
+      "extraObserveCalls": 0,
+      "privateEvidenceSha256": "1491db6980d049a7c76973bd9a089442d53aa210be48302ee7236bdc17159aaf",
+      "processGroupGone": true,
+      "publicEvidenceSha256": "d432abbd2b3082b8dc4b41aa662bd787b264eeb1172acdeb5da3e7f6b580d262",
+      "runtimeStateDeletionVerified": true,
+      "scenario": "cold-restart",
+      "terminalState": "succeeded",
+      "toolSequence": [
+        "scopa_orientation",
+        "scopa_read_file",
+        "scopa_check",
+        "scopa_assurance",
+        "scopa_transcript"
+      ],
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 40448,
+        "input_tokens": 48036,
+        "output_tokens": 361,
+        "reasoning_output_tokens": 180
+      }
+    }
+  ],
+  "schema": "scopa.s18-observe-hardening-recovery.public.v3"
+}

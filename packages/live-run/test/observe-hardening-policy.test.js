@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
@@ -6,6 +7,9 @@ import { fileURLToPath } from 'node:url';
 import {
   jsonHash,
 } from '../../enforcement/src/index.js';
+import {
+  scanPrivateText,
+} from '../../release-readiness/src/package-privacy.js';
 import {
   authorizeS18ObserveHardeningMatrix,
   assertS18ObserveHardeningAuthorized,
@@ -135,4 +139,33 @@ test('v3 controller binds retained evidence and requires an external root', asyn
     '--candidate', 'candidate.tgz', '--private-root',
     path.join(ROOT, 'private'),
   ]), /outside the repository/);
+});
+
+test('recovered v3 evidence binds two accepted calls and closes replay', async () => {
+  const live = path.join(ROOT, 'evidence/S18/live-v3');
+  const text = await readFile(path.join(
+    live, 'campaign-recovery.public.json'), 'utf8');
+  const recovery = JSON.parse(text);
+  assert.equal(recovery.result, 'accepted-after-publication-only-recovery');
+  assert.equal(recovery.providerCallsAuthorized, 2);
+  assert.equal(recovery.providerCallsConsumed, 2);
+  assert.equal(recovery.replayAllowed, false);
+  assert.equal(recovery.aggregateUsage.total_tokens, 103405);
+  assert.deepEqual(recovery.runs.map(({ scenario }) => scenario),
+    ['clean', 'cold-restart']);
+  assert.deepEqual(recovery.runs.map(({ extraObserveCalls }) =>
+    extraObserveCalls), [0, 0]);
+  assert.equal(recovery.cleanup.controllerTemporaryRootAbsent, true);
+  for (const run of recovery.runs) {
+    const bytes = await readFile(path.join(live, `${run.scenario}.public.json`));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'),
+      run.publicEvidenceSha256);
+  }
+  const registry = JSON.parse(await readFile(path.join(
+    ROOT, 'evidence/S18/consumed-approvals.json'), 'utf8'));
+  assert.ok(registry.approvals.some((entry) =>
+    entry.approvalSha256 ===
+      '9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f' &&
+    entry.providerCallsConsumed === 2));
+  assert.deepEqual(scanPrivateText(text), []);
 });

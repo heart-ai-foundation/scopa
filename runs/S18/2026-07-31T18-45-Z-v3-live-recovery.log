@@ -1,0 +1,17 @@
+S18.2 v3 production-live execution and recovery
+
+PASS Codex clean: succeeded, canStop true, canonical sequence, zero extras
+PASS Codex cold-restart: succeeded, canStop true, canonical sequence, zero extras
+PASS exact candidate, Codex 0.146.0, requested/observed gpt-5.4
+PASS aggregate usage 103405 <= 252000 total tokens
+PASS both process groups gone; no orphan detected
+PASS fresh runtime homes and disposable repositories deleted
+STOP initial public copy: Buffer rejected by canonical JSON writer
+PASS provider calls consumed 2 of 2; approval closed against replay
+PASS private campaign SHA-256 a3730bfb8a1c525f1ab94bce8136358776eacf7627f0b0b55121c6d939578c89
+PASS provider-free raw-stream re-normalization and sequence revalidation
+PASS exact staged/private evidence hashes and public privacy scan
+PASS controller temporary root absent
+PASS recovery receipt SHA-256 16f6ce9577828aae3a56879aedc63e8675df40595ea298b3ce09e49e1c4f4d77
+
+No provider replay occurred. S18.2 complete; S18.3 active.

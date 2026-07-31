@@ -1,6 +1,12 @@
 {
   "approvals": [
     {
+      "approvalSha256": "9f66842e03e3405a00388f0127ced5f72ebcb63ab35d32e38937fbfb9751df9f",
+      "closedReason": "two-call-allowance-consumed-publication-recovery-required",
+      "providerCallsConsumed": 2,
+      "version": 3
+    },
+    {
       "approvalSha256": "c9f67699cb1706bc70e3a6220da7b64fd207356c040cb2980f8adb7f96b242da",
       "closedReason": "four-call-allowance-consumed-evidence-validation-failed",
       "providerCallsConsumed": 4,

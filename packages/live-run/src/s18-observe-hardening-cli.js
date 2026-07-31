@@ -258,7 +258,9 @@ async function main() {
     if (sha256(bytes) !== record.publicEvidence.sha256) {
       throw new TypeError(`S18-v3 staged evidence drifted: ${filename}`);
     }
-    await writeNoReplace(path.join(publicRoot, filename), bytes, 0o644);
+    await writeNoReplace(
+      path.join(publicRoot, filename), bytes.toString('utf8'), 0o644,
+    );
   }
   const result = await writeNoReplace(
     path.join(publicRoot, 'campaign.public.json'), publicText, 0o644,

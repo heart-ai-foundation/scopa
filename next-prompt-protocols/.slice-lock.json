@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "a667074",
+  "current_commit": "7cfbc94",
   "current_phase": "phase-6-production-live-run-hardening",
   "active_protocol": "active/2026-07-31-S18-exact-production-live-requalification.md",
   "active_class": "arc",
@@ -19,8 +19,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:10897625a65be4262ff4aa40db34f9309b8b404b51d51c3d44c4121c71af0709",
-  "active_objective": "Preflight the exact approved S18-v3 Codex continuation, then execute only clean\nfollowed by cold-restart under the frozen semantic OBSERVE policy, token\nceilings, retained-evidence bindings, fresh private custody, and stop\nconditions. Stop without replay on any drift or failure.",
+  "active_protocol_sha256": "sha256:e09fab08e40afccd4b1a8a4dd290a3d603a000d21bfc85372a23c746effa9a76",
+  "active_objective": "Exercise the exact frozen candidate under sustained provider-closed soak and\naudit its dependency, credential, privacy, filesystem, process, residue, and\nstability boundaries. Preserve the completed live evidence and stop on any\ncandidate drift, growth, survivor, stale state, privacy event, or false green.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

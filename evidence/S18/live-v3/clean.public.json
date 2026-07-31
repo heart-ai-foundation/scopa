@@ -1,0 +1,609 @@
+{
+  "private": {
+    "controlRoot": "[SCOPA_CONTROL_ROOT]",
+    "raw": "[SCOPA_RAW_STREAM_REDACTED]",
+    "repositoryRoot": "[SCOPA_REPOSITORY_ROOT]",
+    "stderr": "[SCOPA_STDERR_REDACTED]",
+    "stdout": "[SCOPA_STDOUT_REDACTED]"
+  },
+  "publicationReceipt": {
+    "redactions": [
+      {
+        "field": "/private/controlRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_CONTROL_ROOT]"
+      },
+      {
+        "field": "/private/raw",
+        "occurrences": 1,
+        "replacement": "[SCOPA_RAW_STREAM_REDACTED]"
+      },
+      {
+        "field": "/private/repositoryRoot",
+        "occurrences": 1,
+        "replacement": "[SCOPA_REPOSITORY_ROOT]"
+      },
+      {
+        "field": "/private/stderr",
+        "occurrences": 1,
+        "replacement": "[SCOPA_STDERR_REDACTED]"
+      },
+      {
+        "field": "/private/stdout",
+        "occurrences": 1,
+        "replacement": "[SCOPA_STDOUT_REDACTED]"
+      }
+    ],
+    "schema": "scopa.live-evidence-publication-receipt.v1",
+    "semanticFieldsChanged": false,
+    "sourceSha256": "5a72a5bab2963147042ca6b7c214cfd005ad9214555e7740e51ee97ad6b2ab72"
+  },
+  "receipt": {
+    "artifact": {
+      "package": {
+        "integrity": "sha512-dr/nONIJCjEqCrBQat261hPc9dRCNpVNymD4Cb1cKZ9cZibCtzYftMVcreHfm6/ZHovAE2x9R2N4R0ixSXJVoQ==",
+        "name": "@heart-ai-foundation/scopa",
+        "sha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+        "version": "0.2.0-dev.1"
+      },
+      "schema": "scopa.installed-artifact-identity.v1",
+      "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c"
+    },
+    "capabilityMatrix": {
+      "schema": "scopa.capability-matrix.v1",
+      "sha256": "275284cef7b663da8444e58af3e84a918f4660c17e8e3775abb0d5423f6c4291"
+    },
+    "client": {
+      "expectedVersion": "0.146.0",
+      "name": "codex-cli",
+      "observedVersion": "0.146.0"
+    },
+    "environmentPolicy": {
+      "inheritance": "explicit-allowlist",
+      "inheritedNameCount": 7,
+      "inheritedNamesSha256": "131c42f1004cd1fa885fd0dbb40fb54ff5cbc58897741273f9e466c8282f5c27",
+      "policySha256": "9f3865ab0f3c6499282cfff3aa6ccc31c0c5b42d421c6038fdec86963618089e",
+      "removedNames": [
+        "ALL_PROXY",
+        "CODEX_API_KEY",
+        "HTTPS_PROXY",
+        "HTTP_PROXY",
+        "NODE_OPTIONS",
+        "OPENAI_API_KEY",
+        "OPENAI_BASE_URL",
+        "OPENAI_ORG_ID",
+        "OPENAI_PROJECT_ID",
+        "OPENAI_PROXY_URL"
+      ],
+      "schema": "scopa.live-environment-policy.v1",
+      "setNames": [],
+      "setValuesSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "invocation": {
+      "argumentCount": 105,
+      "argumentsSha256": "2432d8e53e0da706083cf1924aec056984d08985ef690552f10c10fb710bb097",
+      "commandName": "codex",
+      "stdinSha256": "503141795a534922ba3ca1fbf816419ac95e3361295207fef60f8ae49ad0f65d"
+    },
+    "limits": {
+      "cleanupWaitMs": 1000,
+      "maxCaptureBytes": 20971520,
+      "maxInputTokens": 120000,
+      "maxOutputTokens": 4000,
+      "maxReasoningTokens": 2000,
+      "maxTotalTokens": 126000,
+      "terminateGraceMs": 500,
+      "timeoutMs": 180000
+    },
+    "profile": {
+      "name": "codex-headless-v1",
+      "sha256": "83fc610a26a265bab49757c8e90815647fdb152016767a195fdcc472eb3c5f8f"
+    },
+    "requestedModel": "gpt-5.4",
+    "scenario": {
+      "id": "clean",
+      "version": "S16.v7"
+    },
+    "schema": "scopa.live-receipt.v1"
+  },
+  "schema": "scopa.live-evidence.public.v1",
+  "summary": {
+    "exactSingleMcpInventory": true,
+    "expectedCanStop": true,
+    "livePolicySha256": "e8b67196a1aed9d9160555f95ddedd2fd6497ef07f6b7fa43b239300f7dde8fb",
+    "observedCanStop": true,
+    "observedClientVersion": "0.146.0",
+    "observedModel": "gpt-5.4",
+    "onlyScopaMcpTools": true,
+    "orphanDetected": false,
+    "processGroupGone": true,
+    "providerResidue": {
+      "added": [
+        {
+          "bytes": 32768,
+          "kind": "file",
+          "pathSha256": "fdcd4ed40ebeecf373d9102eaae9e01b65f6c646f358f75f33412281ee4c20dd"
+        },
+        {
+          "bytes": 36,
+          "kind": "file",
+          "pathSha256": "89a96d2531219d4100a30da94924d5ce3df68f6a97f06b9eb0309c6eeb81a18a"
+        },
+        {
+          "bytes": 49152,
+          "kind": "file",
+          "pathSha256": "d9fb74137e0e81b78d587343477fa40be0c64ea52905699e8b547419811c56ca"
+        },
+        {
+          "bytes": 40960,
+          "kind": "file",
+          "pathSha256": "8a85d2d7314859abf6ab2b06b34efd1deecc085b6c0d1e6c08817964ce0f862b"
+        },
+        {
+          "bytes": 314042,
+          "kind": "file",
+          "pathSha256": "1f0e4ad521222428df0b24c84ff89ec748ac2afe487e3795c5566e920010c79b"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "1368a909622cbe0c1aaa16596c7ffeb0ebcec6ae1d7d78d5095e5b86edcf54ba"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "fb4ff5d707618270185f4f44df8a068215b94bfff07b070c99540aee84a5cc46"
+        },
+        {
+          "bytes": 17,
+          "kind": "file",
+          "pathSha256": "12e31853f231d550961381b065feb524b33ffca2c26e51a842557ed4513b63c9"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "645e4a13ddcda40d5449610113ff441ef7ddd10b389e2ab433272f8b599fc77d"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "46e3a99db711ed05a01ce0d88e2fbdf8532bf92c46672ed254579587e55bd4c5"
+        },
+        {
+          "bytes": 275,
+          "kind": "file",
+          "pathSha256": "270712d8a5379f2357b57437df5f4db446b4a7fe95b03d1047767ae6ddfcb40d"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "6c85e97ce3b676e0072883a2a1f6961915e15d8208e95321726a040c806e1c91"
+        },
+        {
+          "bytes": 2889,
+          "kind": "file",
+          "pathSha256": "3bb04f6fd6f2f03cba05ed295e3fd78c9f05d41004e4c09ce546c27ef12fed09"
+        },
+        {
+          "bytes": 1711,
+          "kind": "file",
+          "pathSha256": "171c080560be76b55ddb533ff6cc1c2fcd15d3ba563e6f853e8e429d101e771f"
+        },
+        {
+          "bytes": 10776,
+          "kind": "file",
+          "pathSha256": "a82cee2920fcb73e6dd8538787858b54a6303b8a2dbe00fc5b5d52f9354e2fcb"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "1bae8883e3665af0b0fe4eaca87f8450beebcaf7644035a30ca35bce008fc2f7"
+        },
+        {
+          "bytes": 10188,
+          "kind": "file",
+          "pathSha256": "76eae613eec57be5c7913276bc073bbd4bb4781e5a0f389c2c2582199d1d1bf0"
+        },
+        {
+          "bytes": 1779,
+          "kind": "file",
+          "pathSha256": "af6d2de96cb048f02cba0c8a88ff072112e4f3ece32c1146df177f85fb4a9647"
+        },
+        {
+          "bytes": 6079,
+          "kind": "file",
+          "pathSha256": "be3883f269d07dd7d58cb78b5af5dd028a785ebc34f96364b0d5911875fa329d"
+        },
+        {
+          "bytes": 9896,
+          "kind": "file",
+          "pathSha256": "21709c897a7748c13d76dfa1cb98e74e5a0317b6360fd4b8679a868dc7a8c6e4"
+        },
+        {
+          "bytes": 19239,
+          "kind": "file",
+          "pathSha256": "9b8d98903319f6733b67bf37f7f7245dfcd87c9b4dde62c7e9a149c1f49996b7"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "4780885ecad17e98e867a45b5b886399ed629a1a1c68b6ff968dc4bbbd0ce05e"
+        },
+        {
+          "bytes": 34271,
+          "kind": "file",
+          "pathSha256": "5900eeac6241c05d7840ea8322d82afca04d42e3eba7308a9778e5e0e4d86d5e"
+        },
+        {
+          "bytes": 13836,
+          "kind": "file",
+          "pathSha256": "21d981294882a4d6dea0dd1980d156cb25d6d11dcd7e15a2a6e0a40bad2ecd5d"
+        },
+        {
+          "bytes": 24003,
+          "kind": "file",
+          "pathSha256": "797eae1d8d6624c14d898f219478803efc51151ff88b37f6cdcc3cd14eed86cc"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "78adb8dc046b0fbd0ad4148b80822da1a0c6d2f9817624630276650599291436"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "cfddbeafe95094801b0c041a81e882a0855801eb40f3790efabea64daffba649"
+        },
+        {
+          "bytes": 598,
+          "kind": "file",
+          "pathSha256": "b7c6ba16b18f0ad630f3219bd97b879cdadede01b6cffd1c7e570ffa92d3cc8e"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "495980db70b111d3820457dc9f9223d479b63ca752d75fcd97d85ebc493445f6"
+        },
+        {
+          "bytes": 1091,
+          "kind": "file",
+          "pathSha256": "8d48182a66269f9ea0ea7b278c6c77b47cd88bf69be861a1072a9b0ac0def05c"
+        },
+        {
+          "bytes": 1429,
+          "kind": "file",
+          "pathSha256": "5d125f77dd9a6ca6bc1730ee1cfef77dc4abddc110233793013aefbe161954ab"
+        },
+        {
+          "bytes": 10776,
+          "kind": "file",
+          "pathSha256": "076d7b0726a1484912f87a1cff1bdbfe98863465c54cc7b5026f7b98a79905c2"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "10660535b4960a73a6e6090fa04bd1a98491984b2167925053bf8b77cdc8be2f"
+        },
+        {
+          "bytes": 2365,
+          "kind": "file",
+          "pathSha256": "b7697687bb6c0787b4dbdc0d141fcdd80b907b8f21d48e18a6a59de0cf5ea059"
+        },
+        {
+          "bytes": 17483,
+          "kind": "file",
+          "pathSha256": "aa7fb282f7b57185d003fd78ea2bfc2e626951b19d69119025cd5d93db02e6c9"
+        },
+        {
+          "bytes": 1050,
+          "kind": "file",
+          "pathSha256": "140cb55d61f3306db3d255c746debf480e16a687ba91a7405543a321f3c35bce"
+        },
+        {
+          "bytes": 23398,
+          "kind": "file",
+          "pathSha256": "6e95a4602aeda769423bfffcaa39b44a6b804a97cb005df339d36f5e946fd5e4"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "d5f602ddd380002ffc11eda88bf32298c7e5a2ce122f88226d6198ee9da7d47c"
+        },
+        {
+          "bytes": 16085,
+          "kind": "file",
+          "pathSha256": "05f236e9c5316ff03274303ec6749e8218ac4adf6d80774ba3abf710e254080b"
+        },
+        {
+          "bytes": 1038,
+          "kind": "file",
+          "pathSha256": "2629a931d6149f67ac713ae95f3932b6bd1c0ec1f0dbaa83844cd23dafde34d2"
+        },
+        {
+          "bytes": 3937,
+          "kind": "file",
+          "pathSha256": "f9308e5164c178627e11631fbcd54aa739e0271f8e386f7f762092e9c3e176b6"
+        },
+        {
+          "bytes": 22806,
+          "kind": "file",
+          "pathSha256": "d574f12a4398a941647572dd5e939980da012e2b62b9f2018bc5d2d26c38db15"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "e49a22df608654a16e61aea0137b2869985bd3a05ab0c9a1475a5f80c6c8ea93"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "4fe66ad2cb4cd211456210ee94f8b8326441e017c131e120624b6c0a08c8bd84"
+        },
+        {
+          "bytes": 339,
+          "kind": "file",
+          "pathSha256": "feddd0691c2e8e45f60701e48cf0da9bfcb7ad21ba007b842ae9a7b0997dedee"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "05639d5c498549008ca6ed8ec298c539dacb6da7c8bc39e3d061886203fe5d24"
+        },
+        {
+          "bytes": 1319,
+          "kind": "file",
+          "pathSha256": "d6e2a2f7dd0cfa294370b1e86be026747622ff1593b949173cab56f58f0b4d10"
+        },
+        {
+          "bytes": 1563,
+          "kind": "file",
+          "pathSha256": "02ec3c13aac444af98ffc45a7057c7cc0293111a912f4a234bc7047171b46187"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "a9eedcbaaff55c6b83ec2bd76100ab780ccff46e3bc882f74620da92a278ee4c"
+        },
+        {
+          "bytes": 5874,
+          "kind": "file",
+          "pathSha256": "5c86e1e4f22021013016caa2cac992d29bcc51f962dec30f937480be4e25e5f0"
+        },
+        {
+          "bytes": 9179,
+          "kind": "file",
+          "pathSha256": "c88279ba4015e77afccf7a4b6ea30dacbb2084d6f5da99af845c5e909d9f3e25"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "f72e2db138400240a064108a5af7848101477a3c46dd688f53965b009bba2ebf"
+        },
+        {
+          "bytes": 11185,
+          "kind": "file",
+          "pathSha256": "502b9c306490548c6e38e1d2d972c9138e3f4010d0a7a1c35f3f7dc70c73f9e7"
+        },
+        {
+          "bytes": 1497,
+          "kind": "file",
+          "pathSha256": "559e494b7b10d385227830a22e864bc15d8205e930d26d7670593f6c85a068af"
+        },
+        {
+          "bytes": 2686,
+          "kind": "file",
+          "pathSha256": "478d5c9ba1ef210617caa7122f0f52f94fbe3499f2f43832a45636a02dca8a22"
+        },
+        {
+          "bytes": 21180,
+          "kind": "file",
+          "pathSha256": "d4502e5a3cc43a11eac5f5a8dd7c4fa08953a405377f1f5273668d59e8f0680f"
+        },
+        {
+          "bytes": 11040,
+          "kind": "file",
+          "pathSha256": "f4d87bacc3408083bf2bd08117ac3554fd39e8e55e69bffaa242355c0deb8223"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "5aed49ec10339936fa21451bbc16210ee5001ae1640ac54b7f1cc31c8060c906"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "d2135f628fca806cc8b40554f491a0a8833ba6ecadf0671b7676122825aafe28"
+        },
+        {
+          "bytes": 252,
+          "kind": "file",
+          "pathSha256": "5cd684c118366e67b1f792464150f446385fc5fb3784064b57acc114e360f7bd"
+        },
+        {
+          "bytes": 2661,
+          "kind": "file",
+          "pathSha256": "3409a6532c21da8e73b5ca70410726af634e33ee8b58a51f3c3a63b5124bc0f7"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "a7c37ec771653857ab52e26f1c5a69807ed4f161635d17191a11766fc39a3007"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "83aae9e998f28fa3842c64e23420ac440a4fceb6c2f6b1278a8e0fd728b074c0"
+        },
+        {
+          "bytes": 183,
+          "kind": "file",
+          "pathSha256": "e5e076b848c1a6aeb64ff5269697c37c0ab29bba23c361700ee32ca6c53474c2"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "9ce64b9515e8d51cb76c1b26f90b25c6179d55100d0acdad08d17e204b4e9361"
+        },
+        {
+          "bytes": 1319,
+          "kind": "file",
+          "pathSha256": "2711f9ef590829a9c021b23709a42018e2bdd77e36b9aec01332699a243d2ec9"
+        },
+        {
+          "bytes": 1563,
+          "kind": "file",
+          "pathSha256": "662b7b681e744df5c2043a291d4d89046dac59edf7fd668413509f1398bf8e14"
+        },
+        {
+          "bytes": 11358,
+          "kind": "file",
+          "pathSha256": "69b209f97e30c2616f38a685a3def20103b89432724f9dce6bde1a17b2b8f652"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "4eaf9b86616e2f285e1a1f223cb0c754cddc1a996cd6e2f42c688d150b2fa658"
+        },
+        {
+          "bytes": 2356,
+          "kind": "file",
+          "pathSha256": "61cd87f6321a6c2a1bf37fcfa9c909d2c593f7e4f2b8ebb1dbb5e491101f2563"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "45fb81879bdefb0dafa20b9a90de12d1f3439f49bdd94b0c8ae536ef17fc93ba"
+        },
+        {
+          "bytes": 6619,
+          "kind": "file",
+          "pathSha256": "f9df67f084687c2124a6d765d5ada01877f447969bb2fb8bf69161f3c07703d4"
+        },
+        {
+          "bytes": 14602,
+          "kind": "file",
+          "pathSha256": "5bf77900fb7a0be7f4eb084ee7490aec2ef060e5752b22e82f823d3026d6755a"
+        },
+        {
+          "bytes": 3293,
+          "kind": "file",
+          "pathSha256": "147f5d846f64479dc13575f84ba4c978141bfebb9d43ebdc98a5a2cea14d57de"
+        },
+        {
+          "bytes": 22047,
+          "kind": "file",
+          "pathSha256": "2b351065d1500d00dbb0ded4d70a963685720168c436c36fb83159f1478eeecf"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "1059c37afefe4171e5e1916bba9400ef5f52c092cbf8a3d12898c9378466aa0c"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "ef1445b3108e26533c95691b38b32156b61c4c1ab9b42bb05dd31895f0663ae9"
+        },
+        {
+          "bytes": 221,
+          "kind": "file",
+          "pathSha256": "a958532abada9584a4c343c9648d3dec9c99bc451a76c86de8e362552cdd135b"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "a4b64a3a9747e31a8197b8715cd79bfd24b32143266d4090d1966d86a6942553"
+        },
+        {
+          "bytes": 923,
+          "kind": "file",
+          "pathSha256": "320f92f557619e75007b7886301021eb9380c913d57033c9f7d4a665f8667af4"
+        },
+        {
+          "bytes": 1086,
+          "kind": "file",
+          "pathSha256": "2467334bb7c609aad664feb78072b5882119a9bb4832589267a753bf1654c042"
+        },
+        {
+          "bytes": 11358,
+          "kind": "file",
+          "pathSha256": "2fd3f34c903cf809933a367d98326072a4208ed37615da7211162af4dba8dfb0"
+        },
+        {
+          "bytes": 0,
+          "kind": "directory",
+          "pathSha256": "ddb26936308352e65bd85759dc974a1d1f8d3cc6da0bab60cb91577c3f136074"
+        },
+        {
+          "bytes": 659,
+          "kind": "file",
+          "pathSha256": "75c5ecc9f5f5df018ebd8afcae37c11a6a2e5e492bcf89d1b1a4cd0d3e71e34b"
+        },
+        {
+          "bytes": 10096,
+          "kind": "file",
+          "pathSha256": "f959da9f054d04f84b45f6914525260c21ee0d1f8cba8ce1cb1ac08d443fd8b9"
+        },
+        {
+          "bytes": 2967,
+          "kind": "file",
+          "pathSha256": "e52cc1404ba9f3fd6e8e5d44db23dbb2c575fe48b50ba36953bfda9112088eca"
+        },
+        {
+          "bytes": 3367,
+          "kind": "file",
+          "pathSha256": "f08ae3ff0b2b3c455b5402731f75f27cbe859568d71a6d8a8db37b33216defc7"
+        },
+        {
+          "bytes": 180224,
+          "kind": "file",
+          "pathSha256": "8163ddcb2534e157fe42c77f1861e11a7c8f41804b41a9295a5d683c1ead3087"
+        }
+      ],
+      "changed": [],
+      "onlyBoundedAuthRefresh": false,
+      "removed": []
+    },
+    "requestedModel": "gpt-5.4",
+    "runtimeState": {
+      "afterEntryCount": 95,
+      "beforeEntryCount": 7,
+      "freshForScenario": true
+    },
+    "scenario": "clean",
+    "scenarioVersion": "S16.v7",
+    "schema": "scopa.codex-live-run-summary.v1",
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 36864,
+      "input_tokens": 54393,
+      "output_tokens": 320,
+      "reasoning_output_tokens": 115
+    }
+  },
+  "terminal": {
+    "canStop": true,
+    "cleanup": {
+      "groupGone": true,
+      "killSent": false,
+      "method": "posix-process-group",
+      "orphanDetected": false,
+      "termSent": false
+    },
+    "exitCode": 0,
+    "ok": true,
+    "output": {
+      "capturedBytes": 28255,
+      "maxBytes": 20971520,
+      "stderrBytes": 214,
+      "stderrSha256": "15f64a622b37abcb819a95ceb21a224603f643ca364e88eeee9cf840d62cde4c",
+      "stdoutBytes": 28041,
+      "stdoutSha256": "7e502d2fea37793e9ddfd6e016814dd315c78aee492c536f7784dc6bd5ea9298",
+      "truncated": false
+    },
+    "reason": "completed",
+    "schema": "scopa.live-terminal.v1",
+    "signal": null,
+    "state": "succeeded"
+  }
+}
