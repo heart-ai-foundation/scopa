@@ -1,5 +1,11 @@
 # Macro Deltas
 
+- `2026-07-31-scopa-dependency-closure-identity-hardening.md` — proposed,
+  digest-gated S19-S23 queue for publishable dependency-closure enforcement,
+  a new exact candidate, fresh live requalification, soak, and reviews.
+- `2026-07-28-scopa-production-live-run-hardening.md` — authorized S14-S18
+  production custody, Claude/Codex edge hardening, resilience, and exact
+  candidate requalification; S18 stopped on a fresh medium finding.
 - `2026-07-27-scopa-adversarial-release-hardening.md` — authorized S11-S13
   queue for proof-contract convergence, installed-surface hardening, and
   fresh-agent candidate requalification.
