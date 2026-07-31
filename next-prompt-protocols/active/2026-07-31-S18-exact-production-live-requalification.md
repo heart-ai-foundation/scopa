@@ -16,11 +16,10 @@ or historical provider runs.
 
 ## Next objective
 
-Freeze one clean committed candidate and deterministically prove its package,
-runtime, policy, matrix, evidence, privacy, dependency, protocol, and soak
-boundaries. Provider-backed execution remains closed until exact Claude and
-Codex policies, budgets, private destinations, call counts, and stop conditions
-are separately materialized and explicitly approved.
+Harden the repeated OBSERVE edge while preserving the rejected v2 result, then
+hold the exact two-call Codex clean-to-cold-restart continuation closed until
+its policy, token ceilings, private destination, call count, retained-evidence
+bindings, and stop conditions are separately and explicitly approved.
 
 ## Descriptor rung check
 
@@ -112,6 +111,18 @@ active pending a fresh hardening posture for repeated idempotent OBSERVE calls.
 Both stopped approval digests are now listed in the committed consumed-approval
 registry, and the live controller rejects them before client launch regardless
 of the supplied external custody-root resolution.
+
+The closed v3 continuation is materialized at
+`evidence/S18/closed-observe-hardening-v3.json`, digest
+`3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4`.
+It retains the two accepted, byte-bound Claude derivatives and plans only two
+fresh Codex calls: clean then cold-restart. It authorizes zero calls. Its
+frozen semantic sequence policy permits at most one extra successful,
+semantically equivalent `scopa_check` between the canonical check and the
+transcript. Every mutation, read, assurance, or transcript repeat; reorder;
+error; second extra call; or result drift remains a hard stop. This is not a
+post-hoc acceptance or replay of v2. Provider intent remains closed pending
+fresh exact approval of the v3 digest and private S18V3 custody destination.
 
 ## Files in play
 

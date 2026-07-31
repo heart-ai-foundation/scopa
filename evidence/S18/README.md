@@ -68,3 +68,19 @@ accepted public derivatives and the rejected fourth run's private evidence.
 Cleanup and resource ceilings passed. The v2 approval is closed against replay.
 `consumed-approvals.json` makes both stopped approval digests runtime-rejected
 even if a different external custody root is supplied.
+
+## Closed v3 OBSERVE hardening continuation
+
+`closed-observe-hardening-v3.json` retains only the byte-bound accepted Claude
+clean and cold-restart derivatives from v2 and plans exactly two fresh Codex
+calls: clean, then cold-restart. Its digest is
+`3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4`.
+The committed posture authorizes zero provider calls.
+
+The v3 semantic sequence contract permits at most one additional successful
+`scopa_check` after the canonical check and before the transcript, and only
+when its stop-state projection is identical. Repeated mutation, read,
+assurance, or transcript calls; reordered calls; check errors; more than one
+extra call; and any semantic result drift remain rejection conditions. This
+does not reclassify or replay the rejected v2 run. A fresh, exact, separately
+approved v3 digest is required before either Codex call may begin.

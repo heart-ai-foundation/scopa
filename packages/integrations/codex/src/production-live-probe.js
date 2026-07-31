@@ -39,6 +39,9 @@ import {
 import {
   scanPrivateText,
 } from '../../../release-readiness/src/package-privacy.js';
+import {
+  validateBoundedObserveSequence,
+} from '../../../live-run/src/observe-sequence.js';
 
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(
@@ -707,6 +710,7 @@ async function assertScenarioOutcome({
   scenario,
   repositoryRoot,
   campaignRoot,
+  sequencePolicy,
 }) {
   assert.equal(run.terminal.state, 'succeeded', scenario.id);
   assert.equal(run.terminal.cleanup.groupGone, true, scenario.id);
@@ -718,11 +722,15 @@ async function assertScenarioOutcome({
     scenario.expectedCanStop,
     scenario.id,
   );
-  assert.deepEqual(
-    shortToolNames(run),
-    scenario.expectedTools,
-    scenario.id,
-  );
+  if (sequencePolicy === null) {
+    assert.deepEqual(shortToolNames(run), scenario.expectedTools, scenario.id);
+  } else {
+    validateBoundedObserveSequence({
+      calls: run.normalized.toolCalls,
+      expectedTools: scenario.expectedTools,
+      policy: sequencePolicy,
+    });
+  }
   if (scenario.id === 'clean') {
     assert.equal(
       await readFile(
@@ -803,6 +811,7 @@ export async function runCampaign({
   authBoundarySha256,
   scenarios = S16_PRODUCTION_SCENARIOS,
   scenarioEnvironment = () => ({}),
+  sequencePolicy = null,
 }) {
   installed.integration.assertCodexProviderAuthorized(policy);
   assert.equal(scenarios.length, policy.limits.maxProviderInvocations);
@@ -1014,6 +1023,7 @@ export async function runCampaign({
         scenario,
         repositoryRoot,
         campaignRoot: temporary,
+        sequencePolicy,
       });
       const summary = {
         schema: 'scopa.codex-live-run-summary.v1',

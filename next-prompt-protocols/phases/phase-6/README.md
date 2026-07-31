@@ -1,6 +1,6 @@
 # Phase 6 Production Live Run Hardening
 
-Current commit reference: `92c7de2`
+Current commit reference: `0d5c912`
 Current active protocol: `active/2026-07-31-S18-exact-production-live-requalification.md`
 
 ## Scope
@@ -9,11 +9,10 @@ Production-like live-run edge hardening only: establish shared process and evide
 
 ## Active objective
 
-> Freeze one clean committed candidate and deterministically prove its package,
-> runtime, policy, matrix, evidence, privacy, dependency, protocol, and soak
-> boundaries. Provider-backed execution remains closed until exact Claude and
-> Codex policies, budgets, private destinations, call counts, and stop conditions
-> are separately materialized and explicitly approved.
+> Harden the repeated OBSERVE edge while preserving the rejected v2 result, then
+> hold the exact two-call Codex clean-to-cold-restart continuation closed until
+> its policy, token ceilings, private destination, call count, retained-evidence
+> bindings, and stop conditions are separately and explicitly approved.
 
 ## Files in play
 

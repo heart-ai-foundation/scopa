@@ -1,0 +1,127 @@
+{
+  "schema": "scopa.s18-production-live-continuation.v3",
+  "version": {
+    "number": 3,
+    "date": "2026-07-31",
+    "changelog": "Retain accepted Claude evidence and authorize only a fresh Codex clean-to-cold-restart continuation under a bounded repeatable OBSERVE contract."
+  },
+  "goal": {
+    "sourceCommit": "43fbb969f32c711d1a68b05ad73fb33717c90d8c",
+    "candidateSha256": "e0d4bb772cc4ebee53b7d9ea1dd19161411724e417286612b4b00dcbab1d9498",
+    "sequence": "fresh-codex-clean-then-cold-restart",
+    "successCriteria": [
+      "retained-v2-claude-evidence-remains-byte-identical",
+      "fresh-codex-clean-and-cold-restart-pass-on-exact-candidate",
+      "at-most-one-equivalent-repeated-scopa-check-per-run",
+      "bounded-private-evidence-and-complete-cleanup"
+    ]
+  },
+  "retainedEvidence": {
+    "assuranceTransferAllowed": false,
+    "v2CampaignStopSha256": "22f73ea041b73a4166339b9d345684c285843331e08204005db24cb6497f699c",
+    "claudeCleanPublicSha256": "857f515c08b3982918d56fd34fd642b77946ec3ba28b5b94777a306cebb3329a",
+    "claudeColdRestartPublicSha256": "04c8f6873c3e45b711e5f992926ce6d9fb4707da058e28e742a5bf14ae5ec48b",
+    "retainedProviderCalls": 2,
+    "retainedOutcomes": [
+      "claude-clean",
+      "claude-cold-restart"
+    ]
+  },
+  "authorization": {
+    "providerGate": "closed-pending-explicit-approval",
+    "approvedOn": null,
+    "expiresOn": null,
+    "principalApproval": "not-granted",
+    "privateEvidenceDestinationApproval": "not-granted",
+    "closedMatrixSha256": null,
+    "approvalSha256": null
+  },
+  "constraints": {
+    "providerTrafficAllowed": false,
+    "provider": "codex",
+    "client": "codex-mcp-client@0.146.0",
+    "requestedModel": "gpt-5.4",
+    "strictScopaMcpOnly": true,
+    "nativeMutationRoutesDisabled": true,
+    "totalProviderCallsPlanned": 2,
+    "totalProviderCallsAuthorized": 0,
+    "candidateDriftAllowed": false,
+    "experimentUseAllowed": false,
+    "customerDataAllowed": false,
+    "rawEvidenceInRepositoryAllowed": false,
+    "publicationAllowed": false
+  },
+  "scenarios": [
+    {
+      "id": "clean",
+      "ordinal": 1,
+      "expectedOutcome": "allowedWork",
+      "predecessorRequired": false,
+      "freshRuntimeRequired": true
+    },
+    {
+      "id": "cold-restart",
+      "ordinal": 2,
+      "expectedOutcome": "coldRestartRecovered",
+      "predecessorRequired": true,
+      "freshRuntimeRequired": true
+    }
+  ],
+  "sequencePolicy": {
+    "schema": "scopa.s18-observe-sequence-policy.v1",
+    "maxExtraCalls": 1,
+    "repeatableTools": [
+      {
+        "tool": "scopa_check",
+        "effect": "OBSERVE",
+        "maxExtraCalls": 1,
+        "requireEquivalentResult": true
+      }
+    ]
+  },
+  "limits": {
+    "maxProviderInvocations": 2,
+    "maxTurnsPerRun": 1,
+    "timeoutMsPerRun": 180000,
+    "maxInputBytesPerRun": 1048576,
+    "maxCaptureBytesPerRun": 20971520,
+    "maxPrivateEvidenceBytesPerRun": 26214400,
+    "maxInputTokensPerRun": 120000,
+    "maxOutputTokensPerRun": 4000,
+    "maxReasoningTokensPerRun": 2000,
+    "maxTotalTokensPerRun": 126000,
+    "maxCampaignTotalTokens": 252000
+  },
+  "evidence": {
+    "privateDestination": "SCOPA_PRIVATE_EVIDENCE_ROOT/S18V3/codex",
+    "rootMustResolveOutsideRepository": true,
+    "rootMode": "0700",
+    "privateFileMode": "0600",
+    "publicDerivativeMode": "0644",
+    "privateRetentionHours": 168,
+    "noReplaceWritesRequired": true,
+    "pathFreePublicDerivativesRequired": true
+  },
+  "rejectIf": [
+    "candidate-client-model-or-retained-evidence-digest-mismatch",
+    "approval-absent-expired-consumed-or-digest-mismatched",
+    "sequence-policy-drift-or-more-than-one-extra-call",
+    "extra-call-is-not-a-successful-semantically-equivalent-scopa-check",
+    "mutation-read-assurance-or-transcript-call-is-repeated-or-reordered",
+    "private-destination-unapproved-inside-repository-or-unsafe-mode",
+    "call-token-time-capture-retention-or-evidence-bound-exceeded",
+    "predecessor-continuity-cleanup-residue-privacy-event-or-false-green"
+  ],
+  "onFailure": {
+    "beforeProviderIntent": "defer-with-zero-calls-consumed",
+    "afterProviderIntent": "stop-campaign-close-evidence-and-forbid-replay",
+    "sequenceViolation": "reject-run-and-stop-campaign-without-reclassification",
+    "cleanupFailure": "reject-qualification-and-require-reconciliation",
+    "privacyEvent": "stop-retain-no-public-derivative-and-escalate"
+  },
+  "ifAmbiguous": {
+    "action": "defer-with-zero-provider-intent",
+    "authority": "fresh-exact-principal-approval-required"
+  },
+  "matrixSha256": "3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4"
+}

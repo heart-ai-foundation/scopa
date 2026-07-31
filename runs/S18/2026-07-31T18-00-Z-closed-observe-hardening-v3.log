@@ -1,0 +1,16 @@
+S18.2 closed OBSERVE hardening v3
+
+PASS retained v2 Claude clean digest bound
+PASS retained v2 Claude cold-restart digest bound
+PASS rejected v2 Codex run remains rejected and non-replayable
+PASS canonical sequence accepts zero extra calls
+PASS one equivalent repeated scopa_check accepted
+PASS mutation/read/assurance/transcript repeats rejected
+PASS reorder, excessive repeat, error, malformed state, and result drift rejected
+PASS policy widening rejected
+PASS S18 deterministic suite
+PASS S16 live-hardening regression suite
+PASS closed v3 matrix SHA-256 3b40b83dfa80c0f4e25e9c2a6dd7fff995caf1c32c842fd54436f1eb48a5e5c4
+PASS provider calls authorized 0 of 2
+
+Provider traffic was not attempted. Fresh exact approval is required.
