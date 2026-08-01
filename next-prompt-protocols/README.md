@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `d564401`
+Current commit reference: `de398ff`
 
 Active protocol: `none`
 Active protocol class: `arc`

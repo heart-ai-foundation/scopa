@@ -44,6 +44,7 @@ jobs:
           SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run test:s19
 
       - name: Qualify the four-part bundled candidate identity
+        if: ${{ hashFiles('next-prompt-protocols/active/2026-07-31-S20-bundled-exact-candidate-freeze.md') != '' }}
         run: |
           SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run probe:s20:candidate -- --artifact-dir /tmp/scopa-s20-candidate --output /tmp/scopa-s20-qualification.json
 

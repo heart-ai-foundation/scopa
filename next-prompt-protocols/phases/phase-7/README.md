@@ -1,6 +1,6 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `d564401`
+Current commit reference: `de398ff`
 Current active protocol: `none`
 
 ## Active Objective
