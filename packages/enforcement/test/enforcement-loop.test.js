@@ -17,6 +17,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import {
   CompletionDeniedError,
   PathBoundary,
@@ -26,6 +27,7 @@ import {
   createSliceLock,
   evaluateStopCondition,
   loadRotationState,
+  runGate,
   saveRotationState,
   verifySliceLock,
 } from '../src/index.js';
@@ -36,6 +38,25 @@ import {
 } from '../../agent-surface/src/index.js';
 
 const execFileAsync = promisify(execFile);
+const S24_PROCESS_TREE_FIXTURE = fileURLToPath(
+  new URL('../../../fixtures/S24/gate-process-tree-fixture.mjs', import.meta.url),
+);
+
+function processExists(pid) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    if (error.code === 'ESRCH') return false;
+    throw error;
+  }
+}
+
+function descendantPid(result) {
+  const match = /^descendant=(\d+)$/m.exec(result.stdout);
+  assert.notEqual(match, null, `missing descendant pid in: ${result.stdout}`);
+  return Number.parseInt(match[1], 10);
+}
 
 function definition({
   command = [process.execPath, '-e', 'process.exit(0)'],
@@ -424,6 +445,43 @@ test('gate runner rejects escaped cwd and enforces timeout', async (context) => 
   });
   assert.equal(timed.canStop, false);
   assert.equal(timed.gates[0].timedOut, true);
+});
+
+test('gate runner terminates and verifies adversarial descendant process groups', async (context) => {
+  const root = await fixture(context);
+  const descendantPids = [];
+  context.after(() => {
+    for (const pid of descendantPids) {
+      if (processExists(pid)) process.kill(pid, 'SIGKILL');
+    }
+  });
+
+  const execute = async (mode, timeoutMs) => {
+    const result = await runGate({
+      id: `process-tree-${mode}`,
+      command: [process.execPath, S24_PROCESS_TREE_FIXTURE, mode],
+      cwd: '.',
+      timeoutMs,
+    }, root);
+    const pid = descendantPid(result);
+    descendantPids.push(pid);
+    assert.equal(processExists(pid), false, `${mode} descendant survived`);
+    assert.equal(result.passed, false);
+    assert.ok(result.durationMs < timeoutMs + 2_500, `${mode} cleanup was unbounded`);
+    return result;
+  };
+
+  const timedOut = await execute('timeout', 1_000);
+  assert.equal(timedOut.timedOut, true);
+
+  const outputLimited = await execute('output', 5_000);
+  assert.equal(outputLimited.timedOut, false);
+  assert.equal(outputLimited.stdoutTruncated, true);
+  assert.match(outputLimited.stderr, /output limit exceeded/);
+
+  const orphaned = await execute('orphan', 5_000);
+  assert.equal(orphaned.timedOut, false);
+  assert.match(orphaned.stderr, /left a descendant process/);
 });
 
 test('orientation is compact and rotation state survives cold reload', async (context) => {

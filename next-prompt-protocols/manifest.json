@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "e1ec7a3c",
-  "current_phase": "phase-7-dependency-closed-release-requalification",
-  "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
-  "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
-  "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
-  "active_objective": "STOP S23-v2 after the runtime reviewer found that timed-out gates can leave descendant processes alive; obtain fresh principal authority before runtime remediation or review replay.",
+  "current_commit": "4de55e2a",
+  "current_phase": "phase-8-process-tree-cleanup-hardening",
+  "phase_scope": "Close the reproduced gate descendant-survivor defect, then build and provider-off qualify entirely new candidate bytes without assurance transfer.",
+  "macro_delta": "macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md",
+  "active_protocol": "active/2026-08-01-S24-gate-process-tree-custody.md",
+  "active_objective": "Run every verification gate under complete process-tree custody and prove bounded timeout, output-limit, orphan, escalation, and survivor cleanup behavior.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
     "completed/2026-07-31-S22-sustained-bundled-closure-soak.md",
     "completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
     "completed/2026-07-31-S20-bundled-exact-candidate-freeze.md",
@@ -46,10 +47,13 @@
     "docs/**",
     "schemas/**",
     "packages/release-readiness/**",
+    "packages/enforcement/**",
     "packages/conformance/**",
     "packages/cli/**",
     "fixtures/S20/**",
     "fixtures/S23/**",
+    "fixtures/S24/**",
+    "fixtures/S25/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -57,6 +61,8 @@
     "evidence/S21/**",
     "evidence/S22/**",
     "evidence/S23/**",
+    "evidence/S24/**",
+    "evidence/S25/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
@@ -73,10 +79,10 @@
     "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
     "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
     "No rewrite of historical evidence",
-    "No queue entries outside the exact approved Bundled Production-Closure Hardening Macro Delta"
+    "No queue entries outside the exact approved Process-Tree Cleanup Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s19 && npm run probe:s18:candidate",
+    "fast_deterministic": "npm run test:s2",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
@@ -946,7 +952,45 @@
           "discovered_because": "Production Live-Run Hardening Macro Delta S18"
         }
       ]
+    },
+    "gate-process-custody": {
+      "root": [
+        "packages/enforcement",
+        "packages/conformance",
+        "packages/release-readiness",
+        "fixtures/S24",
+        "evidence/S24",
+        "fixtures/S25",
+        "evidence/S25"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "PTC1",
+          "statement": "Timeout and output pressure terminate the complete gate process group with bounded escalation.",
+          "status": "open",
+          "verifies_via": "Signal-ignoring descendant timeout and output-limit adversarial tests",
+          "discovered_on": "2026-08-01",
+          "discovered_because": "S23-v2 fresh installed-runtime rejection"
+        },
+        {
+          "id": "PTC2",
+          "statement": "SCOPA verifies process-group disappearance before returning and fails closed on a survivor or unsupported custody environment.",
+          "status": "open",
+          "verifies_via": "Bounded cleanup polling, orphan detection, unsupported-platform and survivor failure tests",
+          "discovered_on": "2026-08-01",
+          "discovered_because": "Process-Tree Cleanup Hardening Macro Delta S24"
+        },
+        {
+          "id": "PTC3",
+          "statement": "A fresh exact candidate passes clean, offline, dependency-closed, process-tree-focused provider-off qualification.",
+          "status": "open",
+          "verifies_via": "Fresh clean packs, npm 10/11 offline installs, process-tree matrix, privacy/license/audit and hosted receipts",
+          "discovered_on": "2026-08-01",
+          "discovered_because": "Process-Tree Cleanup Hardening Macro Delta S25"
+        }
+      ]
     }
   },
-  "stop_condition": "S23-v2 is stopped. Do not modify the runtime, replay reviews, create consistency or eligibility receipts, launch a provider, or perform release/publication actions without fresh principal authority."
+  "stop_condition": "Stop S24 on any process survivor, false green, unbounded wait, schema drift, unsupported custody treated as green, unrelated dependency/runtime change, or provider/experiment/publication/release action."
 }

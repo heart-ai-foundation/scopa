@@ -1,24 +1,24 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "e1ec7a3c",
-  "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
+  "current_commit": "4de55e2a",
+  "current_phase": "phase-8-process-tree-cleanup-hardening",
+  "active_protocol": "active/2026-08-01-S24-gate-process-tree-custody.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "production-live-requalification",
+  "active_module": "gate-process-custody",
   "crosses": [
-    "dependency-closure-identity",
-    "release-readiness",
-    "conformance"
+    "enforcement",
+    "conformance",
+    "operational-resilience",
+    "release-readiness"
   ],
   "advances_contracts": [
-    "DCI3",
-    "PLQ2",
-    "PLQ3"
+    "PTC1",
+    "PTC2"
   ],
-  "active_protocol_sha256": "sha256:19c9853e07897d13ca6030bd293df27de88e2d2a9e84bae9acf88c544b0289e9",
-  "active_objective": "Freeze one immutable S23 review packet over evidence commit `46afe0e63355b09c03b5f7e261eca30af952e818`\nand candidate SHA-256 `49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`.\nObtain fresh artifact, evidence, and runtime reviews; normalize their reports\nthrough a closed consistency validator; adjudicate every low finding; and run\ndependency, privacy, credential, protocol, accumulated, and hosted gates.",
+  "active_protocol_sha256": "sha256:8cf827f47a8cc6ed94cc1f76bccc0347c0c0d972b8b97209c12a15287b51aed6",
+  "active_objective": "Run every gate in an isolated process group; on timeout or output-limit pressure\nterminate the complete group with bounded SIGTERM/SIGKILL escalation; verify\ngroup disappearance before returning; detect successful parents that leave a\ndescendant; and fail closed when custody cannot be established.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -28,10 +28,13 @@
     "docs/**",
     "schemas/**",
     "packages/release-readiness/**",
+    "packages/enforcement/**",
     "packages/conformance/**",
     "packages/cli/**",
     "fixtures/S20/**",
     "fixtures/S23/**",
+    "fixtures/S24/**",
+    "fixtures/S25/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -39,13 +42,15 @@
     "evidence/S21/**",
     "evidence/S22/**",
     "evidence/S23/**",
+    "evidence/S24/**",
+    "evidence/S25/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s19 && npm run probe:s18:candidate",
+    "fast_deterministic": "npm run test:s2",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "S23-v2 is stopped. Do not modify the runtime, replay reviews, create consistency or eligibility receipts, launch a provider, or perform release/publication actions without fresh principal authority."
+  "stop_condition": "Stop S24 on any process survivor, false green, unbounded wait, schema drift, unsupported custody treated as green, unrelated dependency/runtime change, or provider/experiment/publication/release action."
 }

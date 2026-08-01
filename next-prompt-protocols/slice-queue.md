@@ -1,6 +1,6 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md`
+**Authority:** `macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
@@ -11,8 +11,10 @@ or authorize independent queue entries.
 | S21 | Fresh candidate production-live matrix | `production-live-requalification` | Obtain fresh Claude/Codex evidence for the exact bundled candidate | No assurance or approval transfer | separately approved exact calls only | S20 and separate exact call approval | Stop before launch without approval or on any custody/policy failure | `evidence/S21/` | `completed` |
 | S22 | Sustained bundled-closure soak | `dependency-closure-identity` | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | S21 | Stop on fetch, drift, advisory, privacy, residue, or resource growth | `evidence/S22/` | `completed` |
 | S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `stopped: runtime review found timeout descendant survivor` |
+| S24 | Gate process-tree custody | `gate-process-custody` | Terminate and verify the complete gate process tree | No timed-out, output-limited, or orphan descendant survives | adversarial descendants, cleanup bounds, local and hosted gates | S23-v2 runtime rejection | Stop on survivor, false green, ambiguity, or unrelated change | `evidence/S24/` | `active and provider-off` |
+| S25 | Fresh provider-off candidate qualification | `gate-process-custody` | Build and qualify new bytes without assurance transfer | Exact clean candidate reproduces offline | npm 10/11, privacy/license/audit/process-tree matrix, hosted CI | S24 | Stop on byte/closure/network/audit/privacy/cleanup drift | `evidence/S25/` | `queued and provider-closed` |
 
-S0-S18 and the stopped S19 attempt remain immutable under their governing
-Macro Deltas. S19-v2 through S22 are complete. S23-v1 and S23-v2 both stopped
-correctly; runtime remediation now requires fresh authority. The separately running SCOPA
+S0-S23 remain immutable under their governing Macro Deltas. S24 is the only
+active runtime slice. S25 is provider-off and any later production-live calls
+require a separate exact-digest approval. The separately running SCOPA
 experiment and all publication/release actions remain outside this queue.
