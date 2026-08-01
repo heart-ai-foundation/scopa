@@ -1,6 +1,6 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `c5886b0`
+Current commit reference: `6dc99fc`
 Current active protocol: `active/2026-07-31-S20-bundled-exact-candidate-freeze.md`
 
 ## Scope

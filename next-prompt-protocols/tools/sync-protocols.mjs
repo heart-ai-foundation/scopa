@@ -310,11 +310,12 @@ async function validateCurrentCommit(manifest) {
   // Hosted shallow checkouts may omit the parent-to-HEAD reflog transition.
   // The commit object still binds its exact first parent, so accept that same
   // single activation edge without widening to an older ancestor.
-  const firstParent = execFileSync(
+  const commitObject = execFileSync(
     'git',
-    ['show', '-s', '--format=%P', head],
+    ['cat-file', 'commit', head],
     { cwd: repoRoot, encoding: 'utf8' },
-  ).trim().split(/\s+/)[0] || null;
+  );
+  const firstParent = commitObject.match(/^parent ([0-9a-f]{40})$/m)?.[1] ?? null;
   const parentActivation =
     firstParent && firstParent.startsWith(manifest.current_commit);
   return activationCommit || parentActivation
