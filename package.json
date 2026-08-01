@@ -82,6 +82,7 @@
     "probe:s12:installed": "node packages/release-readiness/src/installed-surface-probe.js",
     "pack:candidate": "node packages/release-readiness/src/candidate-pack-cli.js",
     "probe:s18:candidate": "node packages/release-readiness/src/exact-candidate-cli.js",
+    "probe:s20:candidate": "node packages/release-readiness/src/bundled-exact-candidate-cli.js",
     "probe:s18:soak": "node packages/release-readiness/src/exact-candidate-soak.js",
     "probe:s18:live": "node packages/live-run/src/s18-production-live-cli.js",
     "probe:s18:observe-hardening": "node packages/live-run/src/s18-observe-hardening-cli.js",

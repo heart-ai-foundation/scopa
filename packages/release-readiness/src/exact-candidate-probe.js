@@ -82,23 +82,30 @@ function assertRelativePath(value) {
 }
 
 export function validateExactCandidateMatrix(value) {
+  return validateCandidateMatrix(value, {
+    schema: 'scopa.s18-deterministic-candidate-matrix.v1',
+    label: 'S18',
+  });
+}
+
+function validateCandidateMatrix(value, { schema, label }) {
   if (
     !exactKeys(value, new Set([
       'cases', 'inputs', 'providerTrafficAllowed', 'schema',
     ])) ||
-    value.schema !== 'scopa.s18-deterministic-candidate-matrix.v1' ||
+    value.schema !== schema ||
     value.providerTrafficAllowed !== false ||
     !Array.isArray(value.inputs) ||
     value.inputs.length === 0 ||
     !Array.isArray(value.cases) ||
     value.cases.length === 0
   ) {
-    throw new TypeError('S18 deterministic candidate matrix is invalid');
+    throw new TypeError(`${label} deterministic candidate matrix is invalid`);
   }
   const inputs = value.inputs.map(assertRelativePath);
   if ([...new Set(inputs)].length !== inputs.length ||
       inputs.join('\0') !== [...inputs].sort().join('\0')) {
-    throw new TypeError('S18 matrix inputs must be unique and sorted');
+    throw new TypeError(`${label} matrix inputs must be unique and sorted`);
   }
   const ids = [];
   for (const entry of value.cases) {
@@ -111,14 +118,21 @@ export function validateExactCandidateMatrix(value) {
       entry.command.some((part) => typeof part !== 'string' || !part) ||
       entry.command[0] !== 'npm'
     ) {
-      throw new TypeError('S18 matrix case is invalid');
+      throw new TypeError(`${label} matrix case is invalid`);
     }
     ids.push(entry.id);
   }
   if ([...new Set(ids)].length !== ids.length) {
-    throw new TypeError('S18 matrix case ids must be unique');
+    throw new TypeError(`${label} matrix case ids must be unique`);
   }
   return structuredClone(value);
+}
+
+export function validateBundledExactCandidateMatrix(value) {
+  return validateCandidateMatrix(value, {
+    schema: 'scopa.s20-deterministic-candidate-matrix.v1',
+    label: 'S20',
+  });
 }
 
 function summarizeInstalledSurface(installedProof) {
@@ -262,6 +276,204 @@ export function assertExactCandidateQualification(receipt, sources = null) {
   return receipt;
 }
 
+function summarizeBundle(pack) {
+  const manifest = pack?.bundle?.manifest;
+  const verification = pack?.bundle?.verification;
+  if (
+    manifest?.schema !== 'scopa.production-bundle.v1' ||
+    verification?.schema !== 'scopa.production-bundle-verification.v1' ||
+    verification.ok !== true ||
+    !DIGEST.test(manifest.manifestSha256 ?? '') ||
+    manifest.closureSha256 !== verification.closureSha256 ||
+    manifest.bundledPayloadSha256 !== verification.bundledPayloadSha256 ||
+    manifest.bundledPayloadSha256 !== verification.installedPayloadSha256 ||
+    manifest.licenseInventorySha256 !== verification.licenseInventorySha256 ||
+    manifest.packages.length !== verification.packageCount ||
+    manifest.files.length !== verification.fileCount
+  ) {
+    throw new Error('bundled candidate production identity did not qualify');
+  }
+  return {
+    manifestSha256: manifest.manifestSha256,
+    closureSha256: verification.closureSha256,
+    bundledPayloadSha256: verification.bundledPayloadSha256,
+    installedPayloadSha256: verification.installedPayloadSha256,
+    licenseInventorySha256: verification.licenseInventorySha256,
+    packageCount: verification.packageCount,
+    fileCount: verification.fileCount,
+  };
+}
+
+function summarizeBundledInstalledSurface(installedProof) {
+  const installed = summarizeInstalledSurface(installedProof);
+  const bundle = installedProof?.productionBundle;
+  if (
+    bundle?.schema !== 'scopa.production-bundle-verification.v1' ||
+    bundle.ok !== true ||
+    !DIGEST.test(bundle.closureSha256 ?? '') ||
+    !DIGEST.test(bundle.bundledPayloadSha256 ?? '') ||
+    bundle.bundledPayloadSha256 !== bundle.installedPayloadSha256 ||
+    !DIGEST.test(bundle.licenseInventorySha256 ?? '') ||
+    installedProof.privacy?.bundledFindings?.length !== 0 ||
+    !Number.isSafeInteger(
+      installedProof.privacy?.upstreamStructuralReferences,
+    )
+  ) {
+    throw new Error('installed bundled candidate surface did not qualify');
+  }
+  return {
+    ...installed,
+    productionBundle: structuredClone(bundle),
+    bundledPrivacyFindings: 0,
+    upstreamStructuralReferences:
+      installedProof.privacy.upstreamStructuralReferences,
+  };
+}
+
+function validateMatrixResults(definition, matrixResults) {
+  return Array.isArray(matrixResults) &&
+    matrixResults.length === definition.cases.length &&
+    matrixResults.every((result, index) =>
+      exactKeys(result, new Set(['command', 'exitCode', 'id', 'passed'])) &&
+      result.id === definition.cases[index].id &&
+      canonicalJson(result.command) ===
+        canonicalJson(definition.cases[index].command) &&
+      result.exitCode === 0 &&
+      result.passed === true);
+}
+
+export function buildBundledExactCandidateQualification({
+  npm10Pack,
+  npm11Pack,
+  npm10InstalledProof,
+  npm11InstalledProof,
+  npmVersions,
+  policyAudit,
+  matrix,
+  matrixResults,
+  inputBindings,
+}) {
+  const definition = validateBundledExactCandidateMatrix(matrix);
+  const manifest = npm10Pack?.manifest;
+  if (
+    manifest?.schema !== 'scopa.candidate-manifest.v1' ||
+    manifest.source?.dirty !== false ||
+    !/^[0-9a-f]{40}$/.test(manifest.source?.commit ?? '') ||
+    canonicalJson(manifest) !== canonicalJson(npm11Pack?.manifest) ||
+    canonicalJson(npm10Pack?.bundle) !== canonicalJson(npm11Pack?.bundle) ||
+    !validateMatrixResults(definition, matrixResults) ||
+    !plainObject(inputBindings) ||
+    Object.keys(inputBindings).join('\0') !== definition.inputs.join('\0') ||
+    Object.values(inputBindings).some((digest) => !DIGEST.test(digest)) ||
+    !exactKeys(npmVersions, new Set(['npm10', 'npm11'])) ||
+    npmVersions.npm10 !== '10.9.7' ||
+    npmVersions.npm11 !== '11.19.0'
+  ) {
+    throw new Error('bundled exact candidate qualification inputs are invalid');
+  }
+  const identity = summarizeBundle(npm10Pack);
+  const installedByNpm = {
+    npm10: summarizeBundledInstalledSurface(npm10InstalledProof),
+    npm11: summarizeBundledInstalledSurface(npm11InstalledProof),
+  };
+  for (const installed of Object.values(installedByNpm)) {
+    if (
+      installed.candidateSha256 !== manifest.package.sha256 ||
+      installed.repeatSha256 !== manifest.package.sha256 ||
+      canonicalJson(installed.productionBundle) !==
+        canonicalJson(npm10Pack.bundle.verification)
+    ) {
+      throw new Error('candidate, bundle, and installed identities diverged');
+    }
+  }
+  if (
+    new Set([
+      manifest.package.sha256,
+      identity.closureSha256,
+      identity.bundledPayloadSha256,
+    ]).size !== 3
+  ) {
+    throw new Error('candidate identity classes were collapsed');
+  }
+  const body = {
+    schema: 'scopa.s20-bundled-exact-candidate-qualification.v1',
+    source: structuredClone(manifest.source),
+    candidate: {
+      manifest: structuredClone(manifest),
+      manifestSha256: sha256(manifest),
+      packageSha256: manifest.package.sha256,
+      repeatedPackingByteIdentical: true,
+      npmVersionPackingByteIdentical: true,
+    },
+    productionIdentity: identity,
+    npmVersions: structuredClone(npmVersions),
+    installedByNpm,
+    inputBindings: structuredClone(inputBindings),
+    policyAudit: summarizePolicy(policyAudit),
+    deterministicMatrix: {
+      definitionSha256: sha256(definition),
+      providerTrafficAllowed: false,
+      cases: structuredClone(matrixResults),
+      passed: matrixResults.length,
+      total: matrixResults.length,
+      ok: true,
+    },
+    networkPolicy: {
+      cache: 'empty',
+      install: 'offline-ignore-scripts-no-audit-no-fund',
+      registry: 'unreachable-loopback',
+      denyShim: true,
+      externalRequests: 0,
+    },
+    assurance: {
+      claude: 'partial',
+      codex: 'partial',
+      transferable: false,
+    },
+    providerTrafficAuthorized: false,
+    publicationAuthorized: false,
+    qualification: 'pass',
+  };
+  return { ...body, receiptSha256: sha256(body) };
+}
+
+export function assertBundledExactCandidateQualification(
+  receipt,
+  sources = null,
+) {
+  if (
+    !exactKeys(receipt, new Set([
+      'assurance', 'candidate', 'deterministicMatrix', 'inputBindings',
+      'installedByNpm', 'networkPolicy', 'npmVersions', 'policyAudit',
+      'productionIdentity', 'providerTrafficAuthorized',
+      'publicationAuthorized', 'qualification', 'receiptSha256', 'schema',
+      'source',
+    ])) ||
+    receipt.schema !==
+      'scopa.s20-bundled-exact-candidate-qualification.v1' ||
+    receipt.qualification !== 'pass' ||
+    receipt.providerTrafficAuthorized !== false ||
+    receipt.publicationAuthorized !== false ||
+    receipt.networkPolicy?.externalRequests !== 0 ||
+    receipt.assurance?.transferable !== false ||
+    !DIGEST.test(receipt.receiptSha256 ?? '')
+  ) {
+    throw new Error('S20 bundled exact candidate receipt is invalid');
+  }
+  const body = structuredClone(receipt);
+  delete body.receiptSha256;
+  if (sha256(body) !== receipt.receiptSha256) {
+    throw new Error('S20 bundled exact candidate digest failed');
+  }
+  if (sources !== null) {
+    const expected = buildBundledExactCandidateQualification(sources);
+    if (canonicalJson(expected) !== canonicalJson(receipt)) {
+      throw new Error('S20 bundled exact candidate source binding failed');
+    }
+  }
+  return receipt;
+}
+
 async function inputBindings(root, inputs) {
   const entries = await Promise.all(inputs.map(async (relativePath) => [
     relativePath,
@@ -326,6 +538,97 @@ export async function qualifyExactCandidate({
     artifactPath: packed.artifactPath,
     receipt: assertExactCandidateQualification(
       buildExactCandidateQualification(sources),
+      sources,
+    ),
+  };
+}
+
+export async function qualifyBundledExactCandidate({
+  sourceRoot = ROOT,
+  artifactDirectory,
+  matrixPath,
+  npm10Command = process.env.SCOPA_NPM_COMMAND || 'npm',
+  npm11Command = process.env.SCOPA_NPM11_COMMAND,
+} = {}) {
+  if (typeof artifactDirectory !== 'string' || artifactDirectory.length === 0) {
+    throw new TypeError('bundled exact candidate artifact directory is required');
+  }
+  if (typeof npm11Command !== 'string' || npm11Command.length === 0) {
+    throw new TypeError('SCOPA_NPM11_COMMAND is required for S20 qualification');
+  }
+  const root = path.resolve(sourceRoot);
+  const selectedMatrix = matrixPath ?? path.join(
+    root,
+    'fixtures/S20/deterministic-candidate-matrix.json',
+  );
+  const matrix = validateBundledExactCandidateMatrix(
+    JSON.parse(await readFile(path.resolve(selectedMatrix), 'utf8')),
+  );
+  const matrixResults = [];
+  for (const entry of matrix.cases) {
+    let result;
+    try {
+      result = await invokeCaptured(entry.command[0], entry.command.slice(1), {
+        cwd: root,
+        env: createQualificationEnvironment(),
+      });
+    } catch (error) {
+      const summary = matrixFailureSummary(error, root);
+      throw new Error(
+        `S20 matrix case ${entry.id} failed: ${error.message}` +
+        (summary ? `\n${summary}` : ''),
+      );
+    }
+    matrixResults.push({
+      id: entry.id,
+      command: entry.command,
+      exitCode: result.exitCode,
+      passed: result.exitCode === 0,
+    });
+  }
+  const npm10Version = (await invokeCaptured(npm10Command, ['--version'])).stdout.trim();
+  const npm11Version = (await invokeCaptured(npm11Command, ['--version'])).stdout.trim();
+  const policyAudit = await auditReleasePolicies({ root });
+  const npm10InstalledProof = await probeInstalledSurface({
+    sourceRoot: root,
+    requireClean: true,
+    npmCommand: npm10Command,
+  });
+  const npm11InstalledProof = await probeInstalledSurface({
+    sourceRoot: root,
+    requireClean: true,
+    npmCommand: npm11Command,
+  });
+  const npm10Pack = await packCandidate({
+    sourceRoot: root,
+    outputDirectory: path.join(path.resolve(artifactDirectory), 'npm10'),
+    requireClean: true,
+    npmCommand: npm10Command,
+  });
+  const npm11Pack = await packCandidate({
+    sourceRoot: root,
+    outputDirectory: path.join(path.resolve(artifactDirectory), 'npm11'),
+    requireClean: true,
+    npmCommand: npm11Command,
+  });
+  const sources = {
+    npm10Pack,
+    npm11Pack,
+    npm10InstalledProof,
+    npm11InstalledProof,
+    npmVersions: { npm10: npm10Version, npm11: npm11Version },
+    policyAudit,
+    matrix,
+    matrixResults,
+    inputBindings: await inputBindings(root, matrix.inputs),
+  };
+  return {
+    artifactPaths: {
+      npm10: npm10Pack.artifactPath,
+      npm11: npm11Pack.artifactPath,
+    },
+    receipt: assertBundledExactCandidateQualification(
+      buildBundledExactCandidateQualification(sources),
       sources,
     ),
   };

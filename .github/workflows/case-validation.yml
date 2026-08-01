@@ -43,6 +43,10 @@ jobs:
           npm install --prefix /tmp/scopa-npm11 --ignore-scripts --no-audit --no-fund npm@11.19.0
           SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run test:s19
 
+      - name: Qualify the four-part bundled candidate identity
+        run: |
+          SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run probe:s20:candidate -- --artifact-dir /tmp/scopa-s20-candidate --output /tmp/scopa-s20-qualification.json
+
       - name: Build through the clean official candidate path
         run: npm run pack:candidate -- --output-directory /tmp/scopa-official-candidate
 
