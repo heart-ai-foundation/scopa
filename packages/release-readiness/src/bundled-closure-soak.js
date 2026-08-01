@@ -37,6 +37,12 @@ const QUALIFICATION_SHA256 =
   'ad9d2dc7e22cfd6e5de07ebce0b430f3970e2eb1072f0e1a78711a82559cec2f';
 const S21_CLOSEOUT_SHA256 =
   'e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953';
+const INSTALLED_TREE_SHA256 =
+  '9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db';
+const DEPENDENCY_GRAPH_SHA256 =
+  '76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122';
+const CONTROL_STATE_SHA256 =
+  '6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e';
 const DIGEST = /^[0-9a-f]{64}$/;
 
 function sha256(value) {
@@ -77,6 +83,13 @@ export function createS22BundledClosureSoakPlan() {
       bundledPayloadSha256: PAYLOAD_SHA256,
       installedPayloadSha256: PAYLOAD_SHA256,
       licenseInventorySha256: LICENSE_SHA256,
+    },
+    cycleIdentity: {
+      installedTreeSha256: INSTALLED_TREE_SHA256,
+      installedEntryCount: 1213,
+      dependencyGraphSha256: DEPENDENCY_GRAPH_SHA256,
+      dependencyNodeCount: 14,
+      controlStateSha256: CONTROL_STATE_SHA256,
     },
     cycles: CYCLES,
     npmSequence: Array.from({ length: CYCLES }, (_, index) =>
@@ -146,7 +159,7 @@ export function validateS22BundledClosureSoakPlan(value) {
 
 export function validateS22BundledClosureSoakReceipt(value) {
   exactKeys(value, [
-    'audits', 'cleanup', 'cycles', 'dependencies', 'installedSurface',
+    'audits', 'cleanup', 'cycleLedger', 'cycles', 'dependencies', 'installedSurface',
     'npm', 'planSha256', 'productionIdentity', 'receiptSha256', 'resources',
     'result', 'schema', 'slice', 'sourceCommit', 'traffic',
   ], 'S22 soak receipt');
@@ -159,6 +172,27 @@ export function validateS22BundledClosureSoakReceipt(value) {
   const planIdentity = createS22BundledClosureSoakPlan().productionIdentity;
   if (canonicalJson(value.productionIdentity) !== canonicalJson(planIdentity)) {
     throw new TypeError('S22 production identity drifted');
+  }
+  if (!Array.isArray(value.cycleLedger) || value.cycleLedger.length !== CYCLES) {
+    throw new TypeError('S22 cycle ledger is incomplete');
+  }
+  const cycleIdentity = createS22BundledClosureSoakPlan().cycleIdentity;
+  for (const [index, entry] of value.cycleLedger.entries()) {
+    exactKeys(entry, [
+      'controlStateSha256', 'cycle', 'dependencyGraphSha256', 'durationMs',
+      'externalRequests', 'installedTreeSha256', 'npmId', 'privacyFindings',
+      'runtimePolarityPassed',
+    ], `S22 cycle ledger ${index + 1}`);
+    if (entry.cycle !== index + 1 ||
+        entry.npmId !== createS22BundledClosureSoakPlan().npmSequence[index] ||
+        entry.installedTreeSha256 !== cycleIdentity.installedTreeSha256 ||
+        entry.dependencyGraphSha256 !== cycleIdentity.dependencyGraphSha256 ||
+        entry.controlStateSha256 !== cycleIdentity.controlStateSha256 ||
+        entry.externalRequests !== 0 || entry.privacyFindings !== 0 ||
+        entry.runtimePolarityPassed !== true ||
+        !Number.isSafeInteger(entry.durationMs) || entry.durationMs <= 0) {
+      throw new TypeError(`S22 cycle ledger ${index + 1} drifted`);
+    }
   }
   exactKeys(value.cycles, [
     'allControlStatesIdentical', 'allDependencyGraphsIdentical',
@@ -201,18 +235,23 @@ export function validateS22BundledClosureSoakReceipt(value) {
   ], 'S22 installed surface');
   nonnegativeInteger(value.installedSurface.entryCount, 'S22 entry count');
   if (value.installedSurface.entryCount === 0 ||
+      value.installedSurface.entryCount !== cycleIdentity.installedEntryCount ||
       value.installedSurface.productionFileCount !== 893 ||
       value.installedSurface.privacyFindings !== 0) {
     throw new TypeError('S22 installed surface failed');
   }
   digest(value.installedSurface.treeSha256, 'S22 installed tree');
+  if (value.installedSurface.treeSha256 !== cycleIdentity.installedTreeSha256) {
+    throw new TypeError('S22 installed tree identity drifted');
+  }
   exactKeys(value.dependencies, [
     'graphSha256', 'graphStableAcrossCycles', 'nodeCount',
   ], 'S22 dependencies');
   digest(value.dependencies.graphSha256, 'S22 dependency graph');
   if (!value.dependencies.graphStableAcrossCycles ||
       !Number.isSafeInteger(value.dependencies.nodeCount) ||
-      value.dependencies.nodeCount < 12) {
+      value.dependencies.nodeCount !== cycleIdentity.dependencyNodeCount ||
+      value.dependencies.graphSha256 !== cycleIdentity.dependencyGraphSha256) {
     throw new TypeError('S22 dependency graph failed');
   }
   exactKeys(value.audits, [
@@ -528,6 +567,11 @@ export async function runS22BundledClosureSoak({ candidatePath,
     schema: 'scopa.s22-bundled-closure-soak-receipt.v1', slice: 'S22',
     planSha256: plan.planSha256, sourceCommit: SOURCE_COMMIT,
     productionIdentity: structuredClone(plan.productionIdentity),
+    cycleLedger: cycles.map(({ cycle, npmId, installedTreeSha256,
+      dependencyGraphSha256, controlStateSha256, privacyFindings,
+      runtimePolarityPassed, externalRequests, durationMs }) => ({ cycle, npmId,
+      installedTreeSha256, dependencyGraphSha256, controlStateSha256,
+      privacyFindings, runtimePolarityPassed, externalRequests, durationMs })),
     cycles: { planned: CYCLES, completed: cycles.length,
       freshEmptyCachePerCycle: true, allFourPartIdentitiesExact: true,
       allInstalledTreesIdentical: true, allDependencyGraphsIdentical: true,
