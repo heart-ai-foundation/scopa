@@ -307,10 +307,20 @@ async function validateCurrentCommit(manifest) {
     lastTransition &&
     lastTransition[2] === head &&
     lastTransition[1].startsWith(manifest.current_commit);
-  return activationCommit
+  // Hosted shallow checkouts may omit the parent-to-HEAD reflog transition.
+  // The commit object still binds its exact first parent, so accept that same
+  // single activation edge without widening to an older ancestor.
+  const firstParent = execFileSync(
+    'git',
+    ['show', '-s', '--format=%P', head],
+    { cwd: repoRoot, encoding: 'utf8' },
+  ).trim().split(/\s+/)[0] || null;
+  const parentActivation =
+    firstParent && firstParent.startsWith(manifest.current_commit);
+  return activationCommit || parentActivation
     ? []
     : [
-        `manifest.current_commit (${manifest.current_commit}) matches neither HEAD (${head.slice(0, 8)}) nor its single activation transition`,
+        `manifest.current_commit (${manifest.current_commit}) matches neither HEAD (${head.slice(0, 8)}) nor its single activation parent`,
       ];
 }
 
