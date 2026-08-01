@@ -1,0 +1,93 @@
+{
+  "audits": {
+    "advisoryAuditPerformed": true,
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "privacyFindings": 0,
+    "productionVulnerabilities": 0,
+    "registryAuditCount": 1
+  },
+  "cleanup": {
+    "auditRootRemoved": true,
+    "escapeFileObserved": false,
+    "everyCycleRootRemoved": true,
+    "providerProcessLaunched": false,
+    "staleControlStateObserved": false
+  },
+  "cycleLedger": [
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 1, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2139, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 2, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2151, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 3, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2146, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 4, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2158, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 5, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2161, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 6, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2170, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 7, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2110, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 8, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2172, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 9, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2180, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 10, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2166, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 11, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2138, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm10", "privacyFindings": 0, "runtimePolarityPassed": true },
+    { "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e", "cycle": 12, "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122", "durationMs": 2187, "externalRequests": 0, "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db", "npmId": "npm11", "privacyFindings": 0, "runtimePolarityPassed": true }
+  ],
+  "cycles": {
+    "allControlStatesIdentical": true,
+    "allDependencyGraphsIdentical": true,
+    "allFourPartIdentitiesExact": true,
+    "allInstalledTreesIdentical": true,
+    "allLicenseInventoriesIdentical": true,
+    "allPrivacyScansClean": true,
+    "allRuntimePolarityPassed": true,
+    "completed": 12,
+    "freshEmptyCachePerCycle": true,
+    "maximumDurationMs": 2187,
+    "planned": 12,
+    "totalDurationMs": 25878
+  },
+  "dependencies": {
+    "graphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122",
+    "graphStableAcrossCycles": true,
+    "nodeCount": 14
+  },
+  "installedSurface": {
+    "entryCount": 1213,
+    "privacyFindings": 0,
+    "productionFileCount": 893,
+    "treeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db"
+  },
+  "npm": {
+    "npm10Cycles": 6,
+    "npm10Version": "10.9.7",
+    "npm11Cycles": 6,
+    "npm11Version": "11.19.0",
+    "sequenceFollowed": true
+  },
+  "planSha256": "7bddbee68b19e2a4cb65ef305079a483677c7da9dddd10a3b76b0938312b871e",
+  "productionIdentity": {
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686"
+  },
+  "receiptSha256": "333eb7c93b67e3edc7b19834f7593ba2ae9a3d17e93bfad6e021d77ef1b9248d",
+  "resources": {
+    "descriptorBaseline": 22,
+    "descriptorFinal": 22,
+    "descriptorGrowthLimit": 4,
+    "descriptorGrowthMaximum": 0,
+    "rssBaselineBytes": 94789632,
+    "rssFinalBytes": 72052736,
+    "rssGrowthLimitBytes": 67108864,
+    "rssGrowthMaximumBytes": 102400
+  },
+  "result": "pass",
+  "schema": "scopa.s22-bundled-closure-soak-receipt.v1",
+  "slice": "S22",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "traffic": {
+    "experimentCalls": 0,
+    "installExternalRequests": 0,
+    "providerCalls": 0,
+    "publicationActions": 0,
+    "registryAuditRequests": 1
+  }
+}

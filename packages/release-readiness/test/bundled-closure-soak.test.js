@@ -12,6 +12,7 @@ import {
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const PLAN_PATH = path.join(ROOT, 'fixtures/S22/bundled-closure-soak-plan.json');
+const RECEIPT_PATH = path.join(ROOT, 'evidence/S22/bundled-closure-soak.json');
 
 function receipt() {
   const plan = createS22BundledClosureSoakPlan();
@@ -123,4 +124,27 @@ test('S22 receipt accepts only complete bounded provider-off evidence', () => {
     mutate(hostile);
     assert.throws(() => validateS22BundledClosureSoakReceipt(rehash(hostile)));
   }
+});
+
+test('committed S22 receipt is exact, complete, and leaves resource margin', async () => {
+  const committed = JSON.parse(await readFile(RECEIPT_PATH, 'utf8'));
+  assert.equal(validateS22BundledClosureSoakReceipt(committed), committed);
+  assert.equal(
+    committed.receiptSha256,
+    '333eb7c93b67e3edc7b19834f7593ba2ae9a3d17e93bfad6e021d77ef1b9248d',
+  );
+  assert.equal(committed.cycles.completed, 12);
+  assert.equal(committed.cycleLedger.length, 12);
+  assert.equal(committed.resources.descriptorGrowthMaximum, 0);
+  assert.ok(
+    committed.resources.rssGrowthMaximumBytes
+      < committed.resources.rssGrowthLimitBytes,
+  );
+  assert.deepEqual(committed.traffic, {
+    experimentCalls: 0,
+    installExternalRequests: 0,
+    providerCalls: 0,
+    publicationActions: 0,
+    registryAuditRequests: 1,
+  });
 });

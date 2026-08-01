@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "9d338e5d",
+  "current_commit": "2a5117ae",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "active_protocol": "active/2026-07-31-S22-sustained-bundled-closure-soak.md",
   "active_class": "arc",

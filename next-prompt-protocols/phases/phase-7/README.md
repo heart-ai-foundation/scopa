@@ -1,6 +1,6 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `9d338e5d`
+Current commit reference: `2a5117ae`
 Current active protocol: `active/2026-07-31-S22-sustained-bundled-closure-soak.md`
 
 ## Scope
