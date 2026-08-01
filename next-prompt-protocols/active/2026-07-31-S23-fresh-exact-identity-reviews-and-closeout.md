@@ -114,3 +114,11 @@ Stop the program on any critical, high, or medium finding, contrary verdict,
 identity mismatch, non-fresh reviewer, unadjudicated low, failed gate, privacy
 or credential finding, provider/experiment/publication action, or ambiguous
 result. Remediation and release both require new authority.
+
+## Terminal status — stopped
+
+The first completed fresh evidence review returned `REJECT`: the frozen plan
+targets evidence commit `46afe0e6`, but that commit predates the S22 closeout
+receipt required by the plan. The artifact and runtime reviews were interrupted
+without verdict after this high-severity stop condition fired. Do not retarget
+the packet or replay reviews without fresh principal authority.

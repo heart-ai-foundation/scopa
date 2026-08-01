@@ -3,12 +3,12 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "46afe0e6",
+  "current_commit": "a10fbfa3",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
   "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
-  "active_objective": "Obtain three fresh role-separated exact-identity reviews, reject cross-report drift, adjudicate every low finding, and close only eligibility for a separate release decision.",
+  "active_objective": "STOP S23 after the evidence reviewer rejected the frozen packet because its target commit predates the required S22 closeout; obtain fresh principal authority before correction or replay.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
@@ -948,5 +948,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S23 on any non-fresh reviewer, contrary verdict, critical/high/medium finding, identity mismatch, unadjudicated low, failed gate, privacy or credential finding, provider/experiment/publication action, or ambiguity; remediation and release require new authority."
+  "stop_condition": "S23 is stopped. Do not retarget the frozen packet, replay any review, launch a provider, or perform a release action without fresh principal authority."
 }

@@ -13,6 +13,8 @@ import {
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const PLAN_PATH = path.join(ROOT, 'fixtures/S23/exact-identity-review-plan.json');
+const EVIDENCE_REPORT_PATH = path.join(ROOT, 'evidence/S23/reviews/evidence.json');
+const STOP_PATH = path.join(ROOT, 'evidence/S23/stop.json');
 
 function report(role, reviewerRunId = `fresh-${role}-reviewer`) {
   const plan = createS23ExactIdentityReviewPlan();
@@ -72,6 +74,44 @@ test('S23 report rejects identity, independence, verdict, and traffic drift', ()
     mutate(hostile);
     assert.throws(() => validateS23ExactIdentityReviewReport(rehash(hostile)));
   }
+});
+
+test('S23 report preserves a material rejection but cannot convert it to consistency', () => {
+  const rejected = report('evidence');
+  rejected.findings.high.push({
+    id: 'missing-bound-closeout',
+    summary: 'The frozen packet omits a receipt required by its plan.',
+  });
+  rejected.verdict = 'REJECT';
+  const normalized = rehash(rejected);
+  assert.equal(validateS23ExactIdentityReviewReport(normalized), normalized);
+  assert.throws(() => createS23ReviewConsistencyReceipt({
+    reports: [report('artifact'), normalized, report('runtime')],
+    adjudications: [],
+  }), /rejected report/);
+});
+
+test('committed S23 evidence review preserves the exact stop verdict', async () => {
+  const committed = JSON.parse(await readFile(EVIDENCE_REPORT_PATH, 'utf8'));
+  assert.equal(validateS23ExactIdentityReviewReport(committed), committed);
+  assert.equal(committed.reportSha256,
+    '3706c19af750b6fc64cc6cae3669efd9755d0ec5babaa9807009f2407e6ea4ed');
+  assert.equal(committed.verdict, 'REJECT');
+  assert.equal(committed.findings.high.length, 1);
+  assert.equal(committed.findings.medium.length, 1);
+});
+
+test('S23 stop receipt refuses silent retarget or review replay', async () => {
+  const stop = JSON.parse(await readFile(STOP_PATH, 'utf8'));
+  const { receiptSha256, ...body } = stop;
+  assert.equal(receiptSha256, jsonHash(body));
+  assert.equal(receiptSha256,
+    'b3a9978df68a7c7825b8b2e0a7f3b78fe212d849503065d9225a4815a1dc9e9a');
+  assert.equal(stop.result, 'stopped-rejected-packet');
+  assert.equal(stop.trigger.verdict, 'REJECT');
+  assert.equal(stop.authority.silentRetargetAllowed, false);
+  assert.equal(stop.authority.reviewReplayAllowed, false);
+  assert.equal(stop.authority.remediationRequiresFreshAuthority, true);
 });
 
 test('S23 consistency requires three distinct roles and adjudicates every low', () => {

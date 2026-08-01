@@ -133,9 +133,12 @@ export function validateS23ExactIdentityReviewReport(value) {
       }
     }
   }
-  if (value.findings.critical.length || value.findings.high.length ||
-      value.findings.medium.length || value.verdict !== 'ACCEPT') {
-    throw new TypeError('S23 review contains a material finding or contrary verdict');
+  const hasMaterialFinding = value.findings.critical.length > 0 ||
+    value.findings.high.length > 0 || value.findings.medium.length > 0;
+  if (!['ACCEPT', 'REJECT'].includes(value.verdict) ||
+      (hasMaterialFinding && value.verdict !== 'REJECT') ||
+      (!hasMaterialFinding && value.verdict !== 'ACCEPT')) {
+    throw new TypeError('S23 review verdict contradicts its findings');
   }
   exactKeys(value.traffic, [
     'experimentCalls', 'networkRequests', 'providerCalls', 'publicationActions',
@@ -164,6 +167,11 @@ export function createS23ReviewConsistencyReceipt({ reports, adjudications }) {
     throw new TypeError('S23 consistency requires exactly three reports');
   }
   const validated = reports.map(validateS23ExactIdentityReviewReport);
+  if (validated.some((report) => report.verdict !== 'ACCEPT' ||
+      report.findings.critical.length > 0 || report.findings.high.length > 0 ||
+      report.findings.medium.length > 0)) {
+    throw new TypeError('S23 consistency cannot accept a rejected report');
+  }
   const byRole = new Map(validated.map((report) => [report.role, report]));
   if (byRole.size !== 3 || ROLES.some((role) => !byRole.has(role))) {
     throw new TypeError('S23 reports must cover each role exactly once');

@@ -1,0 +1,67 @@
+{
+  "schema": "scopa.s23-exact-identity-review-report.v1",
+  "slice": "S23",
+  "planSha256": "703cc8df4d92442730cb913e32d94dfb75c20e02a8c5928f4311c4ad85bcb696",
+  "role": "evidence",
+  "reviewerRunId": "fresh-agent-s23-evidence-20260801",
+  "reviewedEvidenceCommit": "46afe0e63355b09c03b5f7e261eca30af952e818",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "candidate": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af"
+  },
+  "freshToExactPacket": true,
+  "priorVerdictsInherited": false,
+  "checksExecuted": [
+    "Recomputed every available canonical S20-S22 plan, matrix, approval, qualification, soak, and closeout hash.",
+    "Verified all S20 source-input bindings against exact source commit bytes.",
+    "Ran the unchanged S21 and S22 structural validators.",
+    "Verified S21 approval-window execution, single-use consumption, invocation count, and provider budgets.",
+    "Verified the S22 alternating npm ledger, duration aggregates, identity stability, cleanup assertions, and resource margins.",
+    "Scanned public packet artifacts for private-value and topology leakage.",
+    "Checked local commit existence and ancestry for recorded hosted bindings.",
+    "Compared the S23-required receipt chain with files present at the exact reviewed evidence commit."
+  ],
+  "findings": {
+    "critical": [],
+    "high": [
+      {
+        "id": "missing-s22-closeout",
+        "summary": "The immutable packet requires S22 closeout c7bc9077... but evidence/S22/closeout.json is absent at reviewed commit 46afe0e6, so the required closeout chain cannot be verified."
+      }
+    ],
+    "medium": [
+      {
+        "id": "premature-plq1-language",
+        "summary": "At the reviewed commit, the S22 README says PLQ1 is satisfied while S22 remains active and the manifest still records PLQ1 as advanced."
+      }
+    ],
+    "low": []
+  },
+  "verdict": "REJECT",
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "networkRequests": 0,
+    "publicationActions": 0
+  },
+  "cleanup": {
+    "disposableMaterialRemoved": true,
+    "repositoryModified": false
+  },
+  "falsePositives": [
+    "Different closed and authorized S21 matrix hashes are expected.",
+    "The one S22 registry audit is separate from zero-network install cycles.",
+    "Equal bundled and installed payload digests do not collapse separately named identity fields."
+  ],
+  "limitations": [
+    "Hosted conclusions were not re-queried because reviewer network access was prohibited.",
+    "Raw S21 private evidence remained outside the repository and was reviewable only through its public digest and custody metadata.",
+    "Candidate bytes were outside this evidence-review role."
+  ],
+  "reportSha256": "3706c19af750b6fc64cc6cae3669efd9755d0ec5babaa9807009f2407e6ea4ed"
+}

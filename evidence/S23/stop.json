@@ -1,0 +1,45 @@
+{
+  "schema": "scopa.s23-review-stop.v1",
+  "slice": "S23",
+  "result": "stopped-rejected-packet",
+  "stoppedAt": "2026-08-01T03:46:59Z",
+  "planSha256": "703cc8df4d92442730cb913e32d94dfb75c20e02a8c5928f4311c4ad85bcb696",
+  "reviewedEvidenceCommit": "46afe0e63355b09c03b5f7e261eca30af952e818",
+  "validatorCommit": "a10fbfa36ab9d366fde5ebd87026c1e1fe3465aa",
+  "trigger": {
+    "role": "evidence",
+    "reportSha256": "3706c19af750b6fc64cc6cae3669efd9755d0ec5babaa9807009f2407e6ea4ed",
+    "verdict": "REJECT",
+    "criticalFindings": 0,
+    "highFindings": 1,
+    "mediumFindings": 1,
+    "lowFindings": 0,
+    "primaryReason": "The immutable review packet points to a commit that predates the S22 closeout required by the same plan."
+  },
+  "reviewDisposition": {
+    "evidence": "completed-reject",
+    "artifact": "interrupted-after-stop",
+    "runtime": "interrupted-after-stop",
+    "consistencyReceiptCreated": false,
+    "eligibilityCloseoutCreated": false
+  },
+  "contracts": {
+    "DCI3": "advanced",
+    "PLQ1": "satisfied-by-S22-current-state-not-review-packet",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "networkRequests": 0,
+    "publicationActions": 0
+  },
+  "authority": {
+    "silentRetargetAllowed": false,
+    "reviewReplayAllowed": false,
+    "remediationRequiresFreshAuthority": true,
+    "releaseAuthorized": false
+  },
+  "receiptSha256": "b3a9978df68a7c7825b8b2e0a7f3b78fe212d849503065d9225a4815a1dc9e9a"
+}
