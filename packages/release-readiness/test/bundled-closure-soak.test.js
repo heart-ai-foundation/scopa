@@ -13,6 +13,7 @@ import {
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const PLAN_PATH = path.join(ROOT, 'fixtures/S22/bundled-closure-soak-plan.json');
 const RECEIPT_PATH = path.join(ROOT, 'evidence/S22/bundled-closure-soak.json');
+const CLOSEOUT_PATH = path.join(ROOT, 'evidence/S22/closeout.json');
 
 function receipt() {
   const plan = createS22BundledClosureSoakPlan();
@@ -147,4 +148,19 @@ test('committed S22 receipt is exact, complete, and leaves resource margin', asy
     publicationActions: 0,
     registryAuditRequests: 1,
   });
+});
+
+test('S22 closeout binds the exact soak and successful hosted gate', async () => {
+  const closeout = JSON.parse(await readFile(CLOSEOUT_PATH, 'utf8'));
+  const { receiptSha256, ...body } = closeout;
+  assert.equal(receiptSha256, jsonHash(body));
+  assert.equal(closeout.result, 'accepted');
+  assert.equal(closeout.soak.receiptSha256,
+    '333eb7c93b67e3edc7b19834f7593ba2ae9a3d17e93bfad6e021d77ef1b9248d');
+  assert.equal(closeout.hosted.conclusion, 'success');
+  assert.equal(closeout.contracts.PLQ1, 'satisfied');
+  assert.equal(closeout.contracts.DCI3, 'advanced');
+  assert.equal(closeout.traffic.providerCalls, 0);
+  assert.equal(closeout.traffic.experimentCalls, 0);
+  assert.equal(closeout.traffic.publicationActions, 0);
 });

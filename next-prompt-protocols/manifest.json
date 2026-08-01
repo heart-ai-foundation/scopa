@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "2a5117ae",
+  "current_commit": "46afe0e6",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
-  "active_protocol": "active/2026-07-31-S22-sustained-bundled-closure-soak.md",
-  "active_objective": "Run 12 fresh provider-off bundled-closure cycles alternating npm 10.9.7 and npm 11.19.0, bind stable four-part identity/tree/graph/license/runtime evidence, and complete one bounded current production audit.",
+  "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
+  "active_objective": "Obtain three fresh role-separated exact-identity reviews, reject cross-report drift, adjudicate every low finding, and close only eligibility for a separate release decision.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S22-sustained-bundled-closure-soak.md",
     "completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
     "completed/2026-07-31-S20-bundled-exact-candidate-freeze.md",
     "completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
@@ -48,10 +49,14 @@
     "packages/conformance/**",
     "packages/cli/**",
     "fixtures/S20/**",
+    "fixtures/S23/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
     "evidence/S20/**",
+    "evidence/S21/**",
+    "evidence/S22/**",
+    "evidence/S23/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
@@ -860,7 +865,10 @@
         "notes/S20",
         "runs/S20",
         "evidence/S20",
-        "evidence/S21"
+        "evidence/S21",
+        "evidence/S22",
+        "fixtures/S23",
+        "evidence/S23"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
@@ -906,14 +914,17 @@
         "notes/S20",
         "runs/S20",
         "evidence/S20",
-        "evidence/S21"
+        "evidence/S21",
+        "evidence/S22",
+        "fixtures/S23",
+        "evidence/S23"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
         {
           "id": "PLQ1",
           "statement": "One new dependency-closed exact installed candidate passes the frozen production-like scenario matrix and sustained bounded soak.",
-          "status": "advanced",
+          "status": "satisfied",
           "verifies_via": "New package/closure/bundle/install identity, complete fresh live matrix, bounded repeat runs, and soak receipt",
           "discovered_on": "2026-07-28",
           "discovered_because": "Reopened by Dependency-Closure Identity Hardening Macro Delta after the S18.4 artifact rejection"
@@ -937,5 +948,5 @@
       ]
     }
   },
-  "stop_condition": "No active protocol. Do not launch S21 or make any provider call until a separate exact candidate-bound principal approval is committed; publication remains unauthorized."
+  "stop_condition": "Stop S23 on any non-fresh reviewer, contrary verdict, critical/high/medium finding, identity mismatch, unadjudicated low, failed gate, privacy or credential finding, provider/experiment/publication action, or ambiguity; remediation and release require new authority."
 }

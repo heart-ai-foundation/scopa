@@ -1,7 +1,7 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `2a5117ae`
-Current active protocol: `active/2026-07-31-S22-sustained-bundled-closure-soak.md`
+Current commit reference: `46afe0e6`
+Current active protocol: `active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
 
 ## Scope
 
@@ -9,12 +9,11 @@ Bind the complete resolved production dependency closure into SCOPA candidate id
 
 ## Active objective
 
-> Run 12 fresh disposable cycles alternating npm 10.9.7 and npm 11.19.0. Every
-> cycle uses an empty cache, unreachable registry, and network-deny shim; binds
-> the four-part production identity plus installed tree, dependency graph, and
-> license inventory; executes allow, deny, status, check, and cold-reload
-> polarity; and removes its complete root. Run one separate current production
-> advisory audit and close with zero provider traffic.
+> Freeze one immutable S23 review packet over evidence commit `46afe0e63355b09c03b5f7e261eca30af952e818`
+> and candidate SHA-256 `49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`.
+> Obtain fresh artifact, evidence, and runtime reviews; normalize their reports
+> through a closed consistency validator; adjudicate every low finding; and run
+> dependency, privacy, credential, protocol, accumulated, and hosted gates.
 
 ## Files in play
 
@@ -29,10 +28,14 @@ Bind the complete resolved production dependency closure into SCOPA candidate id
 - `packages/conformance/**`
 - `packages/cli/**`
 - `fixtures/S20/**`
+- `fixtures/S23/**`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
 - `evidence/S20/**`
+- `evidence/S21/**`
+- `evidence/S22/**`
+- `evidence/S23/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 ## Non-goals
@@ -58,18 +61,16 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Twelve fresh cycles complete, six under each approved npm version.
-- Every install uses a new empty cache, unreachable registry, offline mode,
-  ignore-scripts, and the network-deny shim with zero external requests.
-- Package, closure, bundled payload, installed payload, license inventory,
-  installed tree, dependency graph, and runtime control state are identical.
-- Allow, deny, status, check, and fresh-process cold reload preserve expected
-  polarity without stale state or a false green.
-- Privacy and credential findings, production advisories, provider calls,
-  experiment calls, and publication actions are zero.
-- Descriptor and RSS growth stay within frozen bounds; no process, repository,
-  cache, install root, escape file, or control residue survives.
-- Focused, accumulated, protocol, and hosted gates pass.
+- Artifact, evidence, and runtime reviewers are fresh to this exact packet and
+  return ACCEPT over the same package/closure/bundle/install identities.
+- Critical, high, and medium findings are zero; every low is explicitly
+  adjudicated without weakening a claim or gate.
+- The consistency validator rejects report-field, identity, verdict, role,
+  independence, finding, or review-plan drift.
+- Dependency, license, privacy, credential, protocol, accumulated, CASE, and
+  hosted gates remain green.
+- Provider, experiment, and publication actions are zero.
+- Closeout states only eligibility for a separate private release decision.
 
 ## Handoff
 

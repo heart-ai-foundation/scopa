@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `2a5117ae`
+Current commit reference: `46afe0e6`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `dependency-closure-identity`
-Advances contracts: `DCI2, DCI3, PLQ1`
+Active protocol module: `production-live-requalification`
+Advances contracts: `DCI3, PLQ2, PLQ3`
 
 ## Slice Class
 
@@ -57,8 +57,8 @@ Module progress:
 - codex-live-hardening: 3/3 (100%)
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
-- production-live-requalification: 0/3 (0%)
-Arc total: 69/73 (95%)
+- production-live-requalification: 1/3 (33%)
+Arc total: 70/73 (96%)
 
 ## Descriptor Rung Stop Rule
 
@@ -106,30 +106,31 @@ Read in this order:
 3. `macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md`
 4. `role-context.md`
 5. `phases/phase-7/README.md`
-6. `active/2026-07-31-S22-sustained-bundled-closure-soak.md`
-7. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-8. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-9. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-10. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-11. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-12. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-13. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-14. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-15. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-16. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-17. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-18. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-19. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-20. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-21. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-22. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-23. `completed/2026-07-27-S6-installable-developer-surface.md`
-24. `completed/2026-07-26-S5-interop-export.md`
-25. `completed/2026-07-26-S4-signing-and-anchoring.md`
-26. `completed/2026-07-26-S3-legibility.md`
-27. `completed/2026-07-26-S2-enforcement-loop.md`
-28. `completed/2026-07-26-S0-conformance-harness.md`
-29. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+7. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+8. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+9. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+10. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+11. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+12. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+13. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+14. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+15. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+16. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+17. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+18. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+19. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+20. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+21. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+22. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+23. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+24. `completed/2026-07-27-S6-installable-developer-surface.md`
+25. `completed/2026-07-26-S5-interop-export.md`
+26. `completed/2026-07-26-S4-signing-and-anchoring.md`
+27. `completed/2026-07-26-S3-legibility.md`
+28. `completed/2026-07-26-S2-enforcement-loop.md`
+29. `completed/2026-07-26-S0-conformance-harness.md`
+30. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -163,12 +164,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Run 12 fresh disposable cycles alternating npm 10.9.7 and npm 11.19.0. Every
-> cycle uses an empty cache, unreachable registry, and network-deny shim; binds
-> the four-part production identity plus installed tree, dependency graph, and
-> license inventory; executes allow, deny, status, check, and cold-reload
-> polarity; and removes its complete root. Run one separate current production
-> advisory audit and close with zero provider traffic.
+> Freeze one immutable S23 review packet over evidence commit `46afe0e63355b09c03b5f7e261eca30af952e818`
+> and candidate SHA-256 `49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`.
+> Obtain fresh artifact, evidence, and runtime reviews; normalize their reports
+> through a closed consistency validator; adjudicate every low finding; and run
+> dependency, privacy, credential, protocol, accumulated, and hosted gates.
 
 ## Behavior rules
 
@@ -197,10 +197,14 @@ These protocols are specific to:
 - `packages/conformance/**`
 - `packages/cli/**`
 - `fixtures/S20/**`
+- `fixtures/S23/**`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
 - `evidence/S20/**`
+- `evidence/S21/**`
+- `evidence/S22/**`
+- `evidence/S23/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
@@ -210,4 +214,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-7/README.md`
-- `active/2026-07-31-S22-sustained-bundled-closure-soak.md`
+- `active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`

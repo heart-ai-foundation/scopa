@@ -19,3 +19,7 @@ publication actions were all zero.
 
 S22 satisfies PLQ1 and preserves the evidence needed for DCI3. DCI3 remains
 advanced until S23 supplies the required fresh exact-identity reviews.
+
+`closeout.json` binds the soak to evidence commit
+`46afe0e63355b09c03b5f7e261eca30af952e818` and hosted release-gate run
+[`30682221831`](https://github.com/heart-ai-foundation/scopa/actions/runs/30682221831).

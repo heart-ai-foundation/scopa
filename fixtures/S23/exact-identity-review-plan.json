@@ -1,0 +1,54 @@
+{
+  "schema": "scopa.s23-exact-identity-review-plan.v1",
+  "slice": "S23",
+  "evidenceCommit": "46afe0e63355b09c03b5f7e261eca30af952e818",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "candidate": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af"
+  },
+  "upstreamReceipts": {
+    "s20QualificationSha256": "ad9d2dc7e22cfd6e5de07ebce0b430f3970e2eb1072f0e1a78711a82559cec2f",
+    "s21CloseoutSha256": "e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953",
+    "s22SoakSha256": "333eb7c93b67e3edc7b19834f7593ba2ae9a3d17e93bfad6e021d77ef1b9248d",
+    "s22CloseoutSha256": "c7bc9077a968618ab575bc66491efd72bc39c842fdb3e21b0549d335cca3ff65"
+  },
+  "roles": [
+    {
+      "id": "artifact",
+      "objective": "Reproduce package, bundled closure, installed surface, dependency graph, license, and offline installation identities."
+    },
+    {
+      "id": "evidence",
+      "objective": "Verify S20-S22 receipt chains, approval consumption, privacy boundaries, traffic counts, and claim separation."
+    },
+    {
+      "id": "runtime",
+      "objective": "Reproduce installed CLI/runtime allow-deny-status-check-cold-reload polarity and cleanup without provider traffic."
+    }
+  ],
+  "independence": {
+    "freshToExactPacket": true,
+    "priorVerdictsMayNotBeInherited": true,
+    "crossRoleCommunicationBeforeVerdict": false,
+    "reviewerCount": 3
+  },
+  "acceptance": {
+    "requiredVerdictPerRole": "ACCEPT",
+    "maxCriticalFindings": 0,
+    "maxHighFindings": 0,
+    "maxMediumFindings": 0,
+    "allLowFindingsRequireAdjudication": true,
+    "exactIdentityAgreementRequired": true
+  },
+  "traffic": {
+    "maxProviderCalls": 0,
+    "maxExperimentCalls": 0,
+    "maxPublicationActions": 0
+  },
+  "planSha256": "703cc8df4d92442730cb913e32d94dfb75c20e02a8c5928f4311c4ad85bcb696"
+}

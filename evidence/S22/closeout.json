@@ -1,0 +1,70 @@
+{
+  "schema": "scopa.s22-closeout.v1",
+  "slice": "S22",
+  "result": "accepted",
+  "completedAt": "2026-08-01T03:36:34Z",
+  "evidenceCommit": "46afe0e63355b09c03b5f7e261eca30af952e818",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "soak": {
+    "path": "evidence/S22/bundled-closure-soak.json",
+    "receiptSha256": "333eb7c93b67e3edc7b19834f7593ba2ae9a3d17e93bfad6e021d77ef1b9248d",
+    "planSha256": "7bddbee68b19e2a4cb65ef305079a483677c7da9dddd10a3b76b0938312b871e",
+    "cyclesCompleted": 12,
+    "npm10Cycles": 6,
+    "npm11Cycles": 6,
+    "allExactIdentitiesStable": true,
+    "allRuntimePolarityPassed": true,
+    "maximumDurationMs": 2187
+  },
+  "identity": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedTreeSha256": "9154bf98ec9cd50d18ca8b27095a7242f874e1e19c52a4b0405ef97b146b65db",
+    "dependencyGraphSha256": "76cbcea308c42b729cf0ab74618406349ad4e71478288154b5febc36c08bc122",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "controlStateSha256": "6942b2f9e97fcb4dccba34c3930e69f45c73805528f24ff233451aa97cae3c6e"
+  },
+  "resources": {
+    "descriptorGrowthMaximum": 0,
+    "descriptorGrowthLimit": 4,
+    "rssGrowthMaximumBytes": 102400,
+    "rssGrowthLimitBytes": 67108864,
+    "allCycleRootsRemoved": true
+  },
+  "audits": {
+    "currentProductionAuditPerformed": true,
+    "productionVulnerabilities": 0,
+    "privacyFindings": 0,
+    "registryAuditRequests": 1
+  },
+  "hosted": {
+    "runId": 30682221831,
+    "jobId": 91321396837,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30682221831",
+    "headSha": "46afe0e63355b09c03b5f7e261eca30af952e818",
+    "conclusion": "success",
+    "accumulatedGate": "passed",
+    "npmParity": "passed",
+    "officialCandidatePath": "passed",
+    "caseValidation": "passed"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "installExternalRequests": 0,
+    "registryAuditRequests": 1,
+    "publicationActions": 0
+  },
+  "contracts": {
+    "DCI2": "satisfied",
+    "DCI3": "advanced",
+    "PLQ1": "satisfied",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "nextSlice": "S23-fresh-exact-identity-reviews-provider-off",
+  "receiptSha256": "c7bc9077a968618ab575bc66491efd72bc39c842fdb3e21b0549d335cca3ff65"
+}
