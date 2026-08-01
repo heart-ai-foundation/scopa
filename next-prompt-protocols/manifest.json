@@ -1,9 +1,9 @@
 {
   "project": "SCOPA",
-  "repo_root": "/home/dylan/scopa",
+  "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "92e6356",
+  "current_commit": "982352b",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
