@@ -48,14 +48,19 @@ Start with:
 ## Developer CLI
 
 S6 packages the runtime behind one `scopa` command. During the private
-developer preview, build and install a local tarball rather than resolving a
-registry package:
+developer preview, build from a clean source checkout and install a local
+tarball rather than resolving a registry package:
 
 ```sh
-npm pack
+npm run pack:candidate -- --output-directory /trusted/candidate
 npm install --ignore-scripts \
-  /path/to/heart-ai-foundation-scopa-0.2.0-dev.1.tgz
+  /trusted/candidate/heart-ai-foundation-scopa-0.2.0-dev.1.tgz
 ```
+
+The candidate command stages the reviewed production lock in a clean offline
+root, bundles the complete production payload, emits `production-bundle.json`,
+and verifies the packed dependency bytes before returning. A raw `npm pack`
+from the source checkout is not a qualified SCOPA candidate.
 
 In a repository with a closed slice definition:
 

@@ -26,6 +26,10 @@ import {
   packCandidate,
 } from './artifact.js';
 import {
+  scanProductionBundlePrivacy,
+  verifyProductionBundleRoot,
+} from './production-bundle.js';
+import {
   scanPackagePrivacy,
 } from './package-privacy.js';
 import {
@@ -338,6 +342,7 @@ async function probeLauncher({
 export async function probeInstalledSurface({
   sourceRoot = ROOT,
   requireClean = true,
+  npmCommand = process.env.SCOPA_NPM_COMMAND || 'npm',
 } = {}) {
   const root = path.resolve(sourceRoot);
   const temporaryRoot = await mkdtemp(
@@ -354,11 +359,13 @@ export async function probeInstalledSurface({
       sourceRoot: root,
       outputDirectory: firstArtifactRoot,
       requireClean,
+      npmCommand,
     });
     const second = await packCandidate({
       sourceRoot: root,
       outputDirectory: secondArtifactRoot,
       requireClean,
+      npmCommand,
     });
     const firstBytes = await readFile(first.artifactPath);
     const secondBytes = await readFile(second.artifactPath);
@@ -377,14 +384,23 @@ export async function probeInstalledSurface({
       path.join(consumerRoot, 'package.json'),
       '{"name":"scopa-installed-probe","version":"1.0.0","private":true}\n',
     );
-    await invoke('npm', [
+    await invoke(npmCommand, [
       'install',
       '--ignore-scripts',
       '--no-audit',
       '--no-fund',
       '--package-lock=false',
+      '--offline',
+      '--cache', path.join(temporaryRoot, 'empty-cache'),
+      '--registry', 'http://127.0.0.1:9',
       first.artifactPath,
-    ], { cwd: consumerRoot });
+    ], {
+      cwd: consumerRoot,
+      env: {
+        ...process.env,
+        NODE_OPTIONS: `--require=${path.join(root, 'fixtures', 'S19-v2', 'network-deny.cjs')}`,
+      },
+    });
     const installedRoot = await realpath(
       path.join(
         consumerRoot,
@@ -410,10 +426,20 @@ export async function probeInstalledSurface({
     ) {
       throw new Error('installed metadata drifted from the consumer contract');
     }
+    const productionBundle = JSON.parse(await readFile(
+      path.join(installedRoot, 'production-bundle.json'),
+      'utf8',
+    ));
+    const bundleVerification = await verifyProductionBundleRoot({
+      root: installedRoot,
+      manifest: productionBundle,
+    });
 
     const privacyFindings = await scanPackagePrivacy({
       installedRoot,
-      files: first.manifest.files,
+      files: first.manifest.files.filter(
+        ({ path: filePath }) => !filePath.startsWith('node_modules/'),
+      ),
       forbiddenValues: [
         root,
         path.dirname(root),
@@ -422,6 +448,18 @@ export async function probeInstalledSurface({
     });
     if (privacyFindings.length !== 0) {
       throw new Error('consumer package contains private or credential residue');
+    }
+    const bundlePrivacy = await scanProductionBundlePrivacy({
+      root: installedRoot,
+      manifest: productionBundle,
+      forbiddenValues: [
+        root,
+        path.dirname(root),
+        path.basename(path.dirname(root)),
+      ],
+    });
+    if (bundlePrivacy.findings.length !== 0) {
+      throw new Error('bundled dependencies contain private or credential residue');
     }
 
     const exports = await probeExports({
@@ -450,6 +488,7 @@ export async function probeInstalledSurface({
         deterministic: true,
       },
       consumerPackage: installedPackage,
+      productionBundle: bundleVerification,
       matrix: {
         bins,
         exports,
@@ -459,6 +498,9 @@ export async function probeInstalledSurface({
       privacy: {
         scannedFiles: first.manifest.files.length,
         findings: privacyFindings,
+        bundledFindings: bundlePrivacy.findings,
+        upstreamStructuralReferences:
+          bundlePrivacy.upstreamStructuralReferences.length,
       },
     };
   } finally {

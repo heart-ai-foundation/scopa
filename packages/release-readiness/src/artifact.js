@@ -8,6 +8,7 @@ import {
   mkdtemp,
   readFile,
   rm,
+  unlink,
   writeFile,
 } from 'node:fs/promises';
 import os from 'node:os';
@@ -26,6 +27,10 @@ import {
   validateCandidateManifest,
 } from './schema.js';
 import {
+  createProductionBundle,
+  verifyProductionBundleRoot,
+} from './production-bundle.js';
+import {
   invokeCaptured,
 } from './subprocess.js';
 
@@ -42,6 +47,7 @@ const CONSUMER_PACKAGE_FIELDS = Object.freeze([
   'repository',
   'engines',
   'dependencies',
+  'bundledDependencies',
 ]);
 
 async function invoke(command, args, options = {}) {
@@ -265,8 +271,8 @@ export function createConsumerPackageJson(sourcePackage) {
   return consumerPackage;
 }
 
-async function createConsumerStage(root) {
-  const dryRun = await invoke('npm', [
+async function createConsumerStage(root, npmCommand) {
+  const dryRun = await invoke(npmCommand, [
     'pack',
     '--dry-run',
     '--ignore-scripts',
@@ -276,12 +282,15 @@ async function createConsumerStage(root) {
   if (!Array.isArray(records) || records.length !== 1) {
     throw new Error('npm pack dry run must return exactly one record');
   }
-  await assertPackedDocumentationReferences(root, records[0].files);
+  const sourceFiles = records[0].files.filter(
+    ({ path: filePath }) => !filePath.startsWith('node_modules/'),
+  );
+  await assertPackedDocumentationReferences(root, sourceFiles);
   const stageRoot = await mkdtemp(
     path.join(os.tmpdir(), 'scopa-consumer-stage-'),
   );
   try {
-    for (const entry of records[0].files) {
+    for (const entry of sourceFiles) {
       if (entry.path === 'package.json') continue;
       if (!candidatePathIsCanonical(entry.path)) {
         throw new Error('npm pack inventory contains a non-canonical path');
@@ -304,8 +313,46 @@ async function createConsumerStage(root) {
       `${JSON.stringify(consumerPackage, null, 2)}\n`,
       { mode: 0o644 },
     );
+    const sourceLock = JSON.parse(
+      await readFile(path.join(root, 'package-lock.json'), 'utf8'),
+    );
+    await copyFile(
+      path.join(root, 'package-lock.json'),
+      path.join(stageRoot, 'package-lock.json'),
+    );
+    await invoke(npmCommand, [
+      'ci',
+      '--omit=dev',
+      '--ignore-scripts',
+      '--offline',
+      '--no-audit',
+      '--no-fund',
+    ], { cwd: stageRoot });
+    await unlink(path.join(stageRoot, 'package-lock.json'));
+    const bundleDryRun = await invoke(npmCommand, [
+      'pack',
+      '--dry-run',
+      '--ignore-scripts',
+      '--json',
+    ], { cwd: stageRoot });
+    const bundleRecords = JSON.parse(bundleDryRun.stdout);
+    if (!Array.isArray(bundleRecords) || bundleRecords.length !== 1) {
+      throw new Error('bundled npm pack dry run must return exactly one record');
+    }
+    const productionBundle = await createProductionBundle({
+      stageRoot,
+      sourcePackage: consumerPackage,
+      lock: sourceLock,
+      includedPaths: bundleRecords[0].files.map(({ path: filePath }) => filePath),
+    });
+    await writeFile(
+      path.join(stageRoot, 'production-bundle.json'),
+      `${JSON.stringify(productionBundle, null, 2)}\n`,
+      { mode: 0o644 },
+    );
     return {
       consumerPackage,
+      productionBundle,
       stageRoot,
     };
   } catch (error) {
@@ -318,6 +365,7 @@ export async function packCandidate({
   sourceRoot,
   outputDirectory,
   requireClean = true,
+  npmCommand = process.env.SCOPA_NPM_COMMAND || 'npm',
 }) {
   const root = path.resolve(sourceRoot);
   const gitStatus = (
@@ -336,11 +384,12 @@ export async function packCandidate({
   await mkdir(destination, { recursive: true });
   const {
     consumerPackage,
+    productionBundle,
     stageRoot,
-  } = await createConsumerStage(root);
+  } = await createConsumerStage(root, npmCommand);
   let packResult;
   try {
-    packResult = await invoke('npm', [
+    packResult = await invoke(npmCommand, [
       'pack',
       '--ignore-scripts',
       '--json',
@@ -402,8 +451,38 @@ export async function packCandidate({
     },
     files,
   });
+  const extractionRoot = await mkdtemp(
+    path.join(os.tmpdir(), 'scopa-bundle-extract-'),
+  );
+  let bundleVerification;
+  try {
+    await invoke('tar', [
+      '-xzf',
+      artifactPath,
+      '-C',
+      extractionRoot,
+      '--no-same-owner',
+    ]);
+    const packedRoot = path.join(extractionRoot, 'package');
+    const packedBundle = JSON.parse(
+      await readFile(path.join(packedRoot, 'production-bundle.json'), 'utf8'),
+    );
+    if (JSON.stringify(packedBundle) !== JSON.stringify(productionBundle)) {
+      throw new Error('packed production bundle manifest drifted from staging');
+    }
+    bundleVerification = await verifyProductionBundleRoot({
+      root: packedRoot,
+      manifest: packedBundle,
+    });
+  } finally {
+    await rm(extractionRoot, { recursive: true, force: true });
+  }
   return {
     artifactPath,
+    bundle: {
+      manifest: productionBundle,
+      verification: bundleVerification,
+    },
     consumerPackage,
     manifest,
   };

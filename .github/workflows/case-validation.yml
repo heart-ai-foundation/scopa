@@ -36,6 +36,16 @@ jobs:
       - name: Run accumulated SCOPA release gate
         run: npm test
 
+      - name: Prove npm 10 and npm 11 bundled-closure parity
+        run: |
+          mkdir -p /tmp/scopa-npm10 /tmp/scopa-npm11
+          npm install --prefix /tmp/scopa-npm10 --ignore-scripts --no-audit --no-fund npm@10.9.7
+          npm install --prefix /tmp/scopa-npm11 --ignore-scripts --no-audit --no-fund npm@11.19.0
+          SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run test:s19
+
+      - name: Build through the clean official candidate path
+        run: npm run pack:candidate -- --output-directory /tmp/scopa-official-candidate
+
       - name: Recover and verify the signed native packet
         run: npm run verify:case:s5:artifact
 

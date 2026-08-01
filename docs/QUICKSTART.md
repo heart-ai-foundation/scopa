@@ -16,6 +16,10 @@ npm install --ignore-scripts \
 
 The candidate is not published to npm. Compare the tarball SHA-256 and npm
 integrity value with the supplied candidate manifest before continuing.
+Also compare the supplied production-closure, bundled-payload, and license-
+inventory SHA-256 values with `production-bundle.json` inside the installed
+package. Qualified candidates install with lifecycle scripts disabled from an
+empty cache without contacting a registry.
 
 ## Initialize a clean fixture
 

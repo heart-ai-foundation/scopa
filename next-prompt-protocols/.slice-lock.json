@@ -1,9 +1,9 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "50730fb",
+  "current_commit": "c336230",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": "active/2026-07-31-S19-publishable-dependency-closure-enforcement.md",
+  "active_protocol": "active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "dependency-closure-identity",
@@ -17,23 +17,24 @@
     "DCI2",
     "DCI3"
   ],
-  "active_protocol_sha256": "sha256:1b86d2b6fbc910b1055d6281de366ee9d10d0fc3a785f4b93e8deb5b00ee98e4",
-  "active_objective": "STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed\n`fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,\nswitch to bundling, implement another closure mechanism, build a candidate, or\nresume later queue slots without a fresh principal decision.",
+  "active_protocol_sha256": "sha256:fa73f4feda7393fcb67ee4769bf472c32d7b98a1a73b9231bf21c1618f200e1c",
+  "active_objective": "Generate a candidate that physically carries its complete reviewed production\ndependency payload. Bind the graph and every bundled file independently, then\nprove npm 10 and npm 11 install identical bytes from an empty cache with an\nunreachable registry and zero external requests.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
-    "npm-shrinkwrap.json",
+    ".github/workflows/case-validation.yml",
+    "production-bundle.json",
     "README.md",
     "docs/**",
     "schemas/**",
     "packages/release-readiness/**",
     "packages/conformance/**",
     "packages/cli/**",
-    "fixtures/S19/**",
+    "fixtures/S19-v2/**",
     "next-prompt-protocols/**",
-    "notes/S19/**",
-    "runs/S19/**",
-    "evidence/S19/**",
+    "notes/S19-v2/**",
+    "runs/S19-v2/**",
+    "evidence/S19-v2/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
@@ -42,5 +43,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S19 if packed shrinkwrap is ignored, rewritten, incomplete, dev-contaminated, inconsistent across supported npm versions, dependent on mutable registry metadata for verification, or if package/closure/tree drift can false-green; stop the arc on provider, privacy, experiment, publication, deployment, or assurance-transfer crossover."
+  "stop_condition": "Stop S19-v2 if npm omits or rewrites bundled bytes, attempts a fetch, produces npm-version-specific payloads, or if exact byte equivalence cannot be independently established; stop the arc on unsafe package type, licensing ambiguity, provider, privacy, experiment, publication, deployment, customer, or assurance-transfer crossover."
 }

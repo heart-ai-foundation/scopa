@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `50730fb`
+Current commit reference: `c336230`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -103,29 +103,30 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-07-31-scopa-dependency-closure-identity-hardening.md`
+3. `macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md`
 4. `role-context.md`
 5. `phases/phase-7/README.md`
-6. `active/2026-07-31-S19-publishable-dependency-closure-enforcement.md`
-7. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-8. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-9. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-10. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-11. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-12. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-13. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-14. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-15. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-16. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-17. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-18. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-19. `completed/2026-07-27-S6-installable-developer-surface.md`
-20. `completed/2026-07-26-S5-interop-export.md`
-21. `completed/2026-07-26-S4-signing-and-anchoring.md`
-22. `completed/2026-07-26-S3-legibility.md`
-23. `completed/2026-07-26-S2-enforcement-loop.md`
-24. `completed/2026-07-26-S0-conformance-harness.md`
-25. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+7. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+8. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+9. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+10. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+11. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+12. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+13. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+14. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+15. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+16. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+17. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+18. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+19. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+20. `completed/2026-07-27-S6-installable-developer-surface.md`
+21. `completed/2026-07-26-S5-interop-export.md`
+22. `completed/2026-07-26-S4-signing-and-anchoring.md`
+23. `completed/2026-07-26-S3-legibility.md`
+24. `completed/2026-07-26-S2-enforcement-loop.md`
+25. `completed/2026-07-26-S0-conformance-harness.md`
+26. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -159,10 +160,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> STOP S19. npm 10.9.7 retained the packed consumer shrinkwrap but installed
-> `fast-uri@3.1.5` instead of its approved `3.1.4`. Do not continue to npm 11,
-> switch to bundling, implement another closure mechanism, build a candidate, or
-> resume later queue slots without a fresh principal decision.
+> Generate a candidate that physically carries its complete reviewed production
+> dependency payload. Bind the graph and every bundled file independently, then
+> prove npm 10 and npm 11 install identical bytes from an empty cache with an
+> unreachable registry and zero external requests.
 
 ## Behavior rules
 
@@ -182,18 +183,19 @@ These protocols are specific to:
 
 - `package.json`
 - `package-lock.json`
-- `npm-shrinkwrap.json`
+- `.github/workflows/case-validation.yml`
+- `production-bundle.json`
 - `README.md`
 - `docs/**`
 - `schemas/**`
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `packages/cli/**`
-- `fixtures/S19/**`
+- `fixtures/S19-v2/**`
 - `next-prompt-protocols/**`
-- `notes/S19/**`
-- `runs/S19/**`
-- `evidence/S19/**`
+- `notes/S19-v2/**`
+- `runs/S19-v2/**`
+- `evidence/S19-v2/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
@@ -203,4 +205,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-7/README.md`
-- `active/2026-07-31-S19-publishable-dependency-closure-enforcement.md`
+- `active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`

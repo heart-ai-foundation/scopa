@@ -16,6 +16,7 @@ const SCHEMA_FILES = [
   'scopa.live-receipt.v1.schema.json',
   'scopa.live-evidence.v1.schema.json',
   'scopa.live-evidence.public.v1.schema.json',
+  'scopa.production-bundle.v1.schema.json',
   'scopa.release-posture.v1.schema.json',
 ];
 

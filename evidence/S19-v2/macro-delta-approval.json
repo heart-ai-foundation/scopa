@@ -1,0 +1,31 @@
+{
+  "schema": "scopa.macro-delta-approval.v1",
+  "project": "SCOPA",
+  "approvedOn": "2026-07-31",
+  "principal": "repository-principal",
+  "statement": "i approve this digest",
+  "macroDelta": {
+    "path": "next-prompt-protocols/macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
+    "sha256": "b8951dc9e0803ecf85b1154f4db1ef352238712058b9f31f63dc75da14cc889c",
+    "proposalCommit": "c33623006e4bbcc1a04a264ab6363ecb8cda3645"
+  },
+  "authorizedSlices": [
+    "S19-v2",
+    "S20",
+    "S21",
+    "S22",
+    "S23"
+  ],
+  "activeSlice": "S19-v2",
+  "providerPolicy": {
+    "s19v2Calls": 0,
+    "s20Calls": 0,
+    "s21CallsWithoutSeparateExactApproval": 0,
+    "s22Calls": 0,
+    "s23Calls": 0
+  },
+  "publicationAuthorized": false,
+  "releaseAuthorized": false,
+  "status": "ratified",
+  "approvalSha256": "e2b82e862e14c8e5e597672d90c6bbc15866d3d82ce7b78beb0f47ccaffaa0c5"
+}

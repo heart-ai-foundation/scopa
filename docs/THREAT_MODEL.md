@@ -50,7 +50,8 @@ consumer package.
 | A post-provider evidence fault loses a consumed request and tempts replay or false reconstruction | Pre-call collision refusal and private intent, post-return bounded journal, decimal-string accounting, exact raw/normalized accounting comparison, and conservative maximum reservation for uncertain requests | S15 deterministic resume/accounting controls, exhausted historical campaign, and fresh direct S15R2 denial-to-restart campaign | The historical lost request remains unknown and non-qualifying; S15 acceptance relies on the separately authorized direct remedial evidence, not reconstruction |
 | Journal or packet tampering | Deterministic encoding, hash chain, signatures, optional RFC 3161 anchor | S1/S4 mutation tests and fresh-process verification | Software keys do not prove hardware identity |
 | Stale or revoked timestamp signer | Caller-supplied root and signer-certificate pin; explicit offline verification report | S4/S10 native-packet verification | The offline path records `revocationStatus: "not-checked"` and does not fetch CRL/OCSP state |
-| Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | S10 candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
+| Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | Candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
+| Transitive dependency substitution | Complete npm-bundled production graph, registry integrity pins, per-file SHA-256 and mode inventory, empty-cache offline install, and independent installed-byte comparison | `production-bundle.json` plus S19-v2 verification receipt | A raw source-checkout `npm pack` is not a qualified candidate; use `npm run pack:candidate` |
 | Monorepo-relative or private-path dependency | Explicit package allowlist and source-free install probe | S6 and S10 consumer probes | npm dependencies still rely on their registries/caches |
 | False policy readiness | Closed posture schema and constituent policy audit | Retained source-checkout policy-audit evidence | Policies are project commitments, not formal compliance certification |
 | Secret or raw-path disclosure | Private raw evidence, deterministic public redaction, path scans | S8-S10 publication receipts | Model/provider telemetry outside SCOPA follows provider controls |
@@ -60,6 +61,13 @@ consumer package.
 
 - No lifecycle install scripts are required.
 - The candidate remains `"private": true` and is packed locally.
+- The qualified candidate physically carries all 12 reviewed production
+  packages. npm 10 and npm 11 must produce and install the same tarball and
+  bundled byte identity without registry access.
+- Published SES bytes contain generic user-home path and local-file URL
+  examples. These exact upstream references are counted separately; actual
+  build paths, private evidence topology, and recognizable credentials remain
+  hard failures.
 - Live models run only in disposable fixture repositories.
 - Live launchers bind the exact installed artifact and return one bounded
   terminal envelope for both success and failure.

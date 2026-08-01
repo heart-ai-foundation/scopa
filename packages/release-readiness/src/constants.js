@@ -46,6 +46,7 @@ export const RELEASE_SCHEMAS = Object.freeze({
   candidateManifest: 'scopa.candidate-manifest.v1',
   consumerProof: 'scopa.consumer-proof.v1',
   publicationReceipt: 'scopa.proof-publication-receipt.v1',
+  productionBundle: 'scopa.production-bundle.v1',
 });
 
 export const REQUIRED_POLICY_PATHS = Object.freeze([
@@ -61,6 +62,7 @@ export const REQUIRED_POLICY_PATHS = Object.freeze([
   'schemas/scopa.release-posture.v1.schema.json',
   'schemas/scopa.candidate-manifest.v1.schema.json',
   'schemas/scopa.consumer-proof.v1.schema.json',
+  'schemas/scopa.production-bundle.v1.schema.json',
   'fixtures/S10/clean.slice-definition.json',
   'fixtures/S10/failing.slice-definition.json',
   'fixtures/S10/consumer-client.mjs',
@@ -80,6 +82,7 @@ export const REQUIRED_PACKED_PREFIXES = Object.freeze([
   'schemas/',
   'fixtures/S10/',
   'packages/release-readiness/',
+  'production-bundle.json',
 ]);
 
 export const FORBIDDEN_PACKED_PREFIXES = Object.freeze([
@@ -90,6 +93,5 @@ export const FORBIDDEN_PACKED_PREFIXES = Object.freeze([
   'runs/',
   'next-prompt-protocols/',
   'spec/',
-  'node_modules/',
   'packages/release-readiness/test/',
 ]);

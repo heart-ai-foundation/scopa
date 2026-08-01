@@ -418,6 +418,12 @@ test('packed artifact installs and runs without leaking private build surfaces',
   );
   assert.equal(paths.includes('packages/cli/src/cli.js'), true);
   assert.equal(paths.includes('packages/enforcement/src/lock.js'), true);
+  assert.equal(
+    paths.includes('production-bundle.json'),
+    false,
+    'raw npm pack must not be mistaken for the qualified candidate path',
+  );
+  assert.equal(paths.includes('node_modules/fast-uri/package.json'), true);
 
   const consumer = path.join(temporary, 'consumer');
   await mkdir(consumer);

@@ -6,6 +6,7 @@ export * from './exact-candidate-soak.js';
 export * from './installed-surface-probe.js';
 export * from './package-privacy.js';
 export * from './policy.js';
+export * from './production-bundle.js';
 export * from './proof-parity-probe.js';
 export * from './published-contracts.js';
 export * from './publish-proof.js';

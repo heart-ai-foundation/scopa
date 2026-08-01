@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "50730fb",
+  "current_commit": "c336230",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
-  "macro_delta": "macro-deltas/2026-07-31-scopa-dependency-closure-identity-hardening.md",
-  "active_protocol": "active/2026-07-31-S19-publishable-dependency-closure-enforcement.md",
-  "active_objective": "STOP S19 because npm 10 retained but did not enforce the packed shrinkwrap for an installed dependency; obtain a fresh principal decision before any bundled-production-dependency implementation.",
+  "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
+  "active_protocol": "active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
+  "active_objective": "Generate, pack, install, and independently verify one canonical bundled production payload across npm 10 and npm 11 with empty caches, an unreachable registry, and zero external requests.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md",
     "completed/2026-07-31-S18-exact-production-live-requalification-stopped.md",
     "completed/2026-07-31-S17-sustained-operational-resilience.md",
     "completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md",
@@ -35,35 +36,36 @@
   "allowed_files": [
     "package.json",
     "package-lock.json",
-    "npm-shrinkwrap.json",
+    ".github/workflows/case-validation.yml",
+    "production-bundle.json",
     "README.md",
     "docs/**",
     "schemas/**",
     "packages/release-readiness/**",
     "packages/conformance/**",
     "packages/cli/**",
-    "fixtures/S19/**",
+    "fixtures/S19-v2/**",
     "next-prompt-protocols/**",
-    "notes/S19/**",
-    "runs/S19/**",
-    "evidence/S19/**",
+    "notes/S19-v2/**",
+    "runs/S19-v2/**",
+    "evidence/S19-v2/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
     "No npm publication, GitHub Release, repository visibility change, deployment, customer use, public announcement, certification, or trademark claim",
     "No SCOPA-RV1 experiment protocol, fixture, allocation, ground-truth, analyst, scoring, statistical, preregistration, confirmatory, or publication work",
     "No replay, reclassification, scoring, provider run, or candidate claim for the retained SCOPA-RC1 pilot implementation note",
-    "No provider traffic in S19, S20, S22, or S23 and no S21 traffic without a separate fresh exact candidate-bound approval",
+    "No provider traffic in S19-v2, S20, S22, or S23 and no S21 traffic without a separate fresh exact candidate-bound approval",
     "No transfer of the rejected S18 candidate, provider approval, live assurance, or reviewer verdict to the replacement candidate",
-    "No silent fallback to bundled dependencies if npm shrinkwrap enforcement fails",
-    "No opportunistic dependency upgrade outside the reproduced closure-identity defect",
+    "No dependency upgrade, fork, patch, minimization, or rewrite",
+    "No proprietary verifier, online activation, telemetry, or paid truth source",
     "No customer repository, customer data, production deployment, or uncontrolled mutation",
     "No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level",
     "No operating-system sandbox or full-provider-assurance claim",
     "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
     "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
     "No rewrite of historical evidence",
-    "No queue entries outside the exact approved Dependency-Closure Identity Hardening Macro Delta"
+    "No queue entries outside the exact approved Bundled Production-Closure Hardening Macro Delta"
   ],
   "verification": {
     "fast_deterministic": "npm run test:s19",
@@ -841,40 +843,40 @@
       "root": [
         "package.json",
         "package-lock.json",
-        "npm-shrinkwrap.json",
+        "production-bundle.json",
         "packages/release-readiness",
         "packages/conformance",
         "packages/cli",
         "schemas",
         "docs",
-        "fixtures/S19",
-        "notes/S19",
-        "runs/S19",
-        "evidence/S19"
+        "fixtures/S19-v2",
+        "notes/S19-v2",
+        "runs/S19-v2",
+        "evidence/S19-v2"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
         {
           "id": "DCI1",
-          "statement": "Every consumer candidate carries a canonical publishable production closure with exact versions, resolved sources, integrities, dependency edges, and no development-only nodes.",
+          "statement": "Every candidate carries a canonical production closure and complete bundled payload whose package graph and file bytes are independently bound with no development-only nodes.",
           "status": "open",
-          "verifies_via": "Consumer npm shrinkwrap generation, closed closure validator, packed manifest audit, and production-only graph receipt",
+          "verifies_via": "Clean bundle staging, closed closure and file manifest validators, packed payload audit, and production-only graph receipt",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19"
         },
         {
           "id": "DCI2",
-          "statement": "Supported npm installs and an independent installed probe reproduce exactly the approved closure and reject missing, mutated, transplanted, extra, stale, or semver-drifted graphs.",
+          "statement": "npm 10 and npm 11 empty-cache installs and an independent installed probe reproduce exactly the approved closure and installed payload with zero fetches while missing, mutated, transplanted, extra, stale, or substituted states fail closed.",
           "status": "open",
-          "verifies_via": "npm 10/11 source-free installs, synthetic compatible-transitive drift fixture, graph comparison, and hostile closure corpus",
+          "verifies_via": "npm 10/11 empty-cache unreachable-registry installs, network-denial receipt, byte and graph comparison, and hostile bundle corpus",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19"
         },
         {
           "id": "DCI3",
-          "statement": "Qualification, live, soak, and review evidence bind package, dependency-closure, and installed-tree digests without collapsing them into one claim.",
+          "statement": "Qualification, live, soak, and review evidence bind package, dependency-closure, bundled-payload, and installed-payload digests without collapsing them into one claim.",
           "status": "open",
-          "verifies_via": "Closed identity schema and cross-receipt package/closure/tree consistency validation",
+          "verifies_via": "Closed identity schema and cross-receipt package/closure/bundle/install consistency validation",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19-S23"
         }
@@ -899,7 +901,7 @@
           "id": "PLQ1",
           "statement": "One new dependency-closed exact installed candidate passes the frozen production-like scenario matrix and sustained bounded soak.",
           "status": "open",
-          "verifies_via": "New package/closure/tree identity, complete fresh live matrix, bounded repeat runs, and soak receipt",
+          "verifies_via": "New package/closure/bundle/install identity, complete fresh live matrix, bounded repeat runs, and soak receipt",
           "discovered_on": "2026-07-28",
           "discovered_because": "Reopened by Dependency-Closure Identity Hardening Macro Delta after the S18.4 artifact rejection"
         },
@@ -913,14 +915,14 @@
         },
         {
           "id": "PLQ3",
-          "statement": "Dependency, privacy, credential, protocol, local, and hosted gates remain green and close only eligibility for a separate release decision.",
+          "statement": "Dependency, licensing, privacy, credential, protocol, local, and hosted gates remain green and close only eligibility for a separate release decision.",
           "status": "open",
-          "verifies_via": "Bound audit, privacy, protocol, local, hosted, and no-publication receipts",
+          "verifies_via": "Bound dependency, license, privacy, protocol, local, hosted, and no-publication receipts",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S18"
         }
       ]
     }
   },
-  "stop_condition": "Stop S19 if packed shrinkwrap is ignored, rewritten, incomplete, dev-contaminated, inconsistent across supported npm versions, dependent on mutable registry metadata for verification, or if package/closure/tree drift can false-green; stop the arc on provider, privacy, experiment, publication, deployment, or assurance-transfer crossover."
+  "stop_condition": "Stop S19-v2 if npm omits or rewrites bundled bytes, attempts a fetch, produces npm-version-specific payloads, or if exact byte equivalence cannot be independently established; stop the arc on unsafe package type, licensing ambiguity, provider, privacy, experiment, publication, deployment, customer, or assurance-transfer crossover."
 }
