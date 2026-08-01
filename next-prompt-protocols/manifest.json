@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "4de55e2a",
+  "current_commit": "1bd80d0b",
   "current_phase": "phase-8-process-tree-cleanup-hardening",
   "phase_scope": "Close the reproduced gate descendant-survivor defect, then build and provider-off qualify entirely new candidate bytes without assurance transfer.",
   "macro_delta": "macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md",
-  "active_protocol": "active/2026-08-01-S24-gate-process-tree-custody.md",
-  "active_objective": "Run every verification gate under complete process-tree custody and prove bounded timeout, output-limit, orphan, escalation, and survivor cleanup behavior.",
+  "active_protocol": "active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
+  "active_objective": "Build and provider-off qualify reproducible exact candidate bytes containing the S24 process-tree custody fix without transferring prior assurance.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-01-S24-gate-process-tree-custody.md",
     "completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
     "completed/2026-07-31-S22-sustained-bundled-closure-soak.md",
     "completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
@@ -968,7 +969,7 @@
         {
           "id": "PTC1",
           "statement": "Timeout and output pressure terminate the complete gate process group with bounded escalation.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Signal-ignoring descendant timeout and output-limit adversarial tests",
           "discovered_on": "2026-08-01",
           "discovered_because": "S23-v2 fresh installed-runtime rejection"
@@ -976,7 +977,7 @@
         {
           "id": "PTC2",
           "statement": "SCOPA verifies process-group disappearance before returning and fails closed on a survivor or unsupported custody environment.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Bounded cleanup polling, orphan detection, unsupported-platform and survivor failure tests",
           "discovered_on": "2026-08-01",
           "discovered_because": "Process-Tree Cleanup Hardening Macro Delta S24"
@@ -992,5 +993,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S24 on any process survivor, false green, unbounded wait, schema drift, unsupported custody treated as green, unrelated dependency/runtime change, or provider/experiment/publication/release action."
+  "stop_condition": "Stop S25 on dirty source, byte/closure/install/npm drift, any network attempt, privacy/license/advisory/process survivor, false green, or provider/experiment/publication/release/dependency/unrelated runtime action."
 }

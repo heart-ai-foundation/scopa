@@ -1,7 +1,7 @@
 # Phase 8 Process Tree Cleanup Hardening
 
-Current commit reference: `4de55e2a`
-Current active protocol: `active/2026-08-01-S24-gate-process-tree-custody.md`
+Current commit reference: `1bd80d0b`
+Current active protocol: `active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
 
 ## Scope
 
@@ -9,10 +9,11 @@ Close the reproduced gate descendant-survivor defect, then build and provider-of
 
 ## Active objective
 
-> Run every gate in an isolated process group; on timeout or output-limit pressure
-> terminate the complete group with bounded SIGTERM/SIGKILL escalation; verify
-> group disappearance before returning; detect successful parents that leave a
-> descendant; and fail closed when custody cannot be established.
+> From one clean source commit, produce byte-identical npm 10.9.7 and npm 11.19.0
+> packs; install both with empty caches, offline mode, an unreachable registry,
+> ignore-scripts, and the network-deny shim; then bind package, production bundle,
+> closure, installed payload, license, privacy, policy, protocol, and S24
+> process-tree results in a fresh S25 receipt.
 
 ## Files in play
 
@@ -65,14 +66,14 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Timeout kills a signal-ignoring descendant process group.
-- Output pressure kills the complete group and returns a failed gate.
-- A successful parent that leaves a descendant is detected and cleaned.
-- The runner waits for verified group disappearance and fails closed on cleanup
-  ambiguity.
-- Existing gate-result schema, output accounting, and allow/deny polarity remain
-  compatible.
-- Focused, accumulated, protocol, and hosted gates pass.
+- Source commit is clean and exact.
+- npm 10.9.7 and npm 11.19.0 produce identical package and bundle identities.
+- Both disposable installs are offline, dependency-closed, privacy-clean, and
+  behaviorally green, including the S24 process-tree matrix.
+- Current policy, license, advisory, protocol, accumulated, and hosted gates
+  pass.
+- Candidate assurance remains non-transferable and provider traffic remains
+  closed.
 
 ## Handoff
 

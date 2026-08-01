@@ -129,10 +129,29 @@ function validateCandidateMatrix(value, { schema, label }) {
 }
 
 export function validateBundledExactCandidateMatrix(value) {
+  const contract = bundledQualificationContract(value?.schema);
   return validateCandidateMatrix(value, {
-    schema: 'scopa.s20-deterministic-candidate-matrix.v1',
-    label: 'S20',
+    schema: contract.matrixSchema,
+    label: contract.label,
   });
+}
+
+function bundledQualificationContract(matrixSchema) {
+  if (matrixSchema === 'scopa.s20-deterministic-candidate-matrix.v1') {
+    return {
+      label: 'S20',
+      matrixSchema,
+      receiptSchema: 'scopa.s20-bundled-exact-candidate-qualification.v1',
+    };
+  }
+  if (matrixSchema === 'scopa.s25-deterministic-candidate-matrix.v1') {
+    return {
+      label: 'S25',
+      matrixSchema,
+      receiptSchema: 'scopa.s25-bundled-exact-candidate-qualification.v1',
+    };
+  }
+  throw new TypeError('bundled exact-candidate matrix schema is unsupported');
 }
 
 function summarizeInstalledSurface(installedProof) {
@@ -354,6 +373,7 @@ export function buildBundledExactCandidateQualification({
   inputBindings,
 }) {
   const definition = validateBundledExactCandidateMatrix(matrix);
+  const contract = bundledQualificationContract(definition.schema);
   const manifest = npm10Pack?.manifest;
   if (
     manifest?.schema !== 'scopa.candidate-manifest.v1' ||
@@ -396,7 +416,7 @@ export function buildBundledExactCandidateQualification({
     throw new Error('candidate identity classes were collapsed');
   }
   const body = {
-    schema: 'scopa.s20-bundled-exact-candidate-qualification.v1',
+    schema: contract.receiptSchema,
     source: structuredClone(manifest.source),
     candidate: {
       manifestSha256: sha256(manifest),
@@ -441,6 +461,10 @@ export function assertBundledExactCandidateQualification(
   receipt,
   sources = null,
 ) {
+  const receiptSchemas = new Set([
+    'scopa.s20-bundled-exact-candidate-qualification.v1',
+    'scopa.s25-bundled-exact-candidate-qualification.v1',
+  ]);
   if (
     !exactKeys(receipt, new Set([
       'assurance', 'candidate', 'deterministicMatrix', 'inputBindings',
@@ -449,8 +473,7 @@ export function assertBundledExactCandidateQualification(
       'publicationAuthorized', 'qualification', 'receiptSha256', 'schema',
       'source',
     ])) ||
-    receipt.schema !==
-      'scopa.s20-bundled-exact-candidate-qualification.v1' ||
+    !receiptSchemas.has(receipt.schema) ||
     receipt.qualification !== 'pass' ||
     receipt.providerTrafficAuthorized !== false ||
     receipt.publicationAuthorized !== false ||
@@ -458,17 +481,17 @@ export function assertBundledExactCandidateQualification(
     receipt.assurance?.transferable !== false ||
     !DIGEST.test(receipt.receiptSha256 ?? '')
   ) {
-    throw new Error('S20 bundled exact candidate receipt is invalid');
+    throw new Error('bundled exact candidate receipt is invalid');
   }
   const body = structuredClone(receipt);
   delete body.receiptSha256;
   if (sha256(body) !== receipt.receiptSha256) {
-    throw new Error('S20 bundled exact candidate digest failed');
+    throw new Error('bundled exact candidate digest failed');
   }
   if (sources !== null) {
     const expected = buildBundledExactCandidateQualification(sources);
     if (canonicalJson(expected) !== canonicalJson(receipt)) {
-      throw new Error('S20 bundled exact candidate source binding failed');
+      throw new Error('bundled exact candidate source binding failed');
     }
   }
   return receipt;
@@ -554,7 +577,7 @@ export async function qualifyBundledExactCandidate({
     throw new TypeError('bundled exact candidate artifact directory is required');
   }
   if (typeof npm11Command !== 'string' || npm11Command.length === 0) {
-    throw new TypeError('SCOPA_NPM11_COMMAND is required for S20 qualification');
+    throw new TypeError('SCOPA_NPM11_COMMAND is required for bundled qualification');
   }
   const root = path.resolve(sourceRoot);
   const selectedMatrix = matrixPath ?? path.join(
@@ -564,6 +587,7 @@ export async function qualifyBundledExactCandidate({
   const matrix = validateBundledExactCandidateMatrix(
     JSON.parse(await readFile(path.resolve(selectedMatrix), 'utf8')),
   );
+  const matrixContract = bundledQualificationContract(matrix.schema);
   const matrixResults = [];
   for (const entry of matrix.cases) {
     let result;
@@ -575,7 +599,7 @@ export async function qualifyBundledExactCandidate({
     } catch (error) {
       const summary = matrixFailureSummary(error, root);
       throw new Error(
-        `S20 matrix case ${entry.id} failed: ${error.message}` +
+        `${matrixContract.label} matrix case ${entry.id} failed: ${error.message}` +
         (summary ? `\n${summary}` : ''),
       );
     }

@@ -1,24 +1,23 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "4de55e2a",
+  "current_commit": "1bd80d0b",
   "current_phase": "phase-8-process-tree-cleanup-hardening",
-  "active_protocol": "active/2026-08-01-S24-gate-process-tree-custody.md",
+  "active_protocol": "active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "gate-process-custody",
   "crosses": [
+    "release-readiness",
+    "distribution-hardening",
     "enforcement",
-    "conformance",
-    "operational-resilience",
-    "release-readiness"
+    "conformance"
   ],
   "advances_contracts": [
-    "PTC1",
-    "PTC2"
+    "PTC3"
   ],
-  "active_protocol_sha256": "sha256:8cf827f47a8cc6ed94cc1f76bccc0347c0c0d972b8b97209c12a15287b51aed6",
-  "active_objective": "Run every gate in an isolated process group; on timeout or output-limit pressure\nterminate the complete group with bounded SIGTERM/SIGKILL escalation; verify\ngroup disappearance before returning; detect successful parents that leave a\ndescendant; and fail closed when custody cannot be established.",
+  "active_protocol_sha256": "sha256:f504097c77d0c4c007695faeea1bfb64a13068b67c07253589b68336eeb7ebd1",
+  "active_objective": "From one clean source commit, produce byte-identical npm 10.9.7 and npm 11.19.0\npacks; install both with empty caches, offline mode, an unreachable registry,\nignore-scripts, and the network-deny shim; then bind package, production bundle,\nclosure, installed payload, license, privacy, policy, protocol, and S24\nprocess-tree results in a fresh S25 receipt.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -52,5 +51,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S24 on any process survivor, false green, unbounded wait, schema drift, unsupported custody treated as green, unrelated dependency/runtime change, or provider/experiment/publication/release action."
+  "stop_condition": "Stop S25 on dirty source, byte/closure/install/npm drift, any network attempt, privacy/license/advisory/process survivor, false green, or provider/experiment/publication/release/dependency/unrelated runtime action."
 }

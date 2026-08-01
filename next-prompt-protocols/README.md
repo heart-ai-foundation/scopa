@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `4de55e2a`
+Current commit reference: `1bd80d0b`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
 Active protocol module: `gate-process-custody`
-Advances contracts: `PTC1, PTC2`
+Advances contracts: `PTC3`
 
 ## Slice Class
 
@@ -58,8 +58,8 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 1/3 (33%)
-- gate-process-custody: 0/3 (0%)
-Arc total: 70/76 (92%)
+- gate-process-custody: 2/3 (67%)
+Arc total: 72/76 (95%)
 
 ## Descriptor Rung Stop Rule
 
@@ -107,32 +107,33 @@ Read in this order:
 3. `macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md`
 4. `role-context.md`
 5. `phases/phase-8/README.md`
-6. `active/2026-08-01-S24-gate-process-tree-custody.md`
-7. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
-8. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
-9. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-10. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-11. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-12. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-13. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-14. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-15. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-16. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-17. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-18. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-19. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-20. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-21. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-22. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-23. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-24. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-25. `completed/2026-07-27-S6-installable-developer-surface.md`
-26. `completed/2026-07-26-S5-interop-export.md`
-27. `completed/2026-07-26-S4-signing-and-anchoring.md`
-28. `completed/2026-07-26-S3-legibility.md`
-29. `completed/2026-07-26-S2-enforcement-loop.md`
-30. `completed/2026-07-26-S0-conformance-harness.md`
-31. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+7. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+8. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+9. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+10. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+11. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+12. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+13. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+14. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+15. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+16. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+17. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+18. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+19. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+20. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+21. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+22. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+23. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+24. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+25. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+26. `completed/2026-07-27-S6-installable-developer-surface.md`
+27. `completed/2026-07-26-S5-interop-export.md`
+28. `completed/2026-07-26-S4-signing-and-anchoring.md`
+29. `completed/2026-07-26-S3-legibility.md`
+30. `completed/2026-07-26-S2-enforcement-loop.md`
+31. `completed/2026-07-26-S0-conformance-harness.md`
+32. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -166,10 +167,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Run every gate in an isolated process group; on timeout or output-limit pressure
-> terminate the complete group with bounded SIGTERM/SIGKILL escalation; verify
-> group disappearance before returning; detect successful parents that leave a
-> descendant; and fail closed when custody cannot be established.
+> From one clean source commit, produce byte-identical npm 10.9.7 and npm 11.19.0
+> packs; install both with empty caches, offline mode, an unreachable registry,
+> ignore-scripts, and the network-deny shim; then bind package, production bundle,
+> closure, installed payload, license, privacy, policy, protocol, and S24
+> process-tree results in a fresh S25 receipt.
 
 ## Behavior rules
 
@@ -220,4 +222,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-8/README.md`
-- `active/2026-08-01-S24-gate-process-tree-custody.md`
+- `active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`

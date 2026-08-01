@@ -150,6 +150,24 @@ test('S20 matrix remains closed, sorted, unique, npm-only, and provider-off', ()
   }
 });
 
+test('S25 qualification is separately schema-bound without accepting unknown arcs', () => {
+  const inputs = sources();
+  inputs.matrix.schema = 'scopa.s25-deterministic-candidate-matrix.v1';
+  const receipt = buildBundledExactCandidateQualification(inputs);
+  assert.equal(
+    receipt.schema,
+    'scopa.s25-bundled-exact-candidate-qualification.v1',
+  );
+  assert.equal(assertBundledExactCandidateQualification(receipt, inputs), receipt);
+
+  const unknown = structuredClone(inputs.matrix);
+  unknown.schema = 'scopa.s26-deterministic-candidate-matrix.v1';
+  assert.throws(
+    () => validateBundledExactCandidateMatrix(unknown),
+    /unsupported/,
+  );
+});
+
 test('S20 rejects npm drift and package, graph, installed, privacy, or matrix divergence', () => {
   for (const mutate of [
     (input) => { input.npmVersions.npm11 = '11.19.1'; },

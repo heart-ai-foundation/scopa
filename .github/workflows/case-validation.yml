@@ -44,9 +44,13 @@ jobs:
           SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run test:s19
 
       - name: Qualify the four-part bundled candidate identity
-        if: ${{ hashFiles('next-prompt-protocols/active/2026-07-31-S20-bundled-exact-candidate-freeze.md') != '' }}
+        if: ${{ hashFiles('next-prompt-protocols/active/2026-07-31-S20-bundled-exact-candidate-freeze.md') != '' || hashFiles('next-prompt-protocols/active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md') != '' }}
         run: |
-          SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run probe:s20:candidate -- --artifact-dir /tmp/scopa-s20-candidate --output /tmp/scopa-s20-qualification.json
+          if test -f next-prompt-protocols/active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md; then
+            SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run probe:s20:candidate -- --matrix fixtures/S25/deterministic-candidate-matrix.json --artifact-dir /tmp/scopa-s25-candidate --output /tmp/scopa-s25-qualification.json
+          else
+            SCOPA_NPM_COMMAND=/tmp/scopa-npm10/node_modules/.bin/npm SCOPA_NPM11_COMMAND=/tmp/scopa-npm11/node_modules/.bin/npm npm run probe:s20:candidate -- --artifact-dir /tmp/scopa-s20-candidate --output /tmp/scopa-s20-qualification.json
+          fi
 
       - name: Build through the clean official candidate path
         run: npm run pack:candidate -- --output-directory /tmp/scopa-official-candidate

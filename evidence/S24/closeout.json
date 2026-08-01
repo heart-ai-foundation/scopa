@@ -1,0 +1,53 @@
+{
+  "schema": "scopa.s24-closeout.v1",
+  "slice": "S24",
+  "result": "accepted",
+  "completedAt": "2026-08-01T06:05:41Z",
+  "implementationCommit": "1bd80d0b428b864a96febf61880bbf18d2c8cac7",
+  "runtime": {
+    "platformCustody": "posix-process-group",
+    "terminateGraceMs": 100,
+    "cleanupWaitMs": 1000,
+    "cleanupPollMs": 10,
+    "timeoutDescendantGone": true,
+    "outputLimitDescendantGone": true,
+    "orphanDescendantGone": true,
+    "sigtermResistantEscalationPassed": true,
+    "unsupportedCustodyFailsClosed": true,
+    "gateResultSchemaChanged": false
+  },
+  "local": {
+    "focusedCommand": "npm run test:s2",
+    "focusedPassed": 16,
+    "focusedFailed": 0,
+    "accumulatedCommand": "npm test",
+    "accumulatedPassed": 205,
+    "accumulatedSkipped": 1,
+    "accumulatedFailed": 0,
+    "protocolCheck": "passed"
+  },
+  "hosted": {
+    "runId": 30686962639,
+    "jobId": 91334590860,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30686962639",
+    "headSha": "1bd80d0b428b864a96febf61880bbf18d2c8cac7",
+    "conclusion": "success",
+    "accumulatedGate": "passed",
+    "npmParity": "passed",
+    "officialCandidatePath": "passed",
+    "caseValidation": "passed"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "publicationActions": 0,
+    "releaseActions": 0
+  },
+  "contracts": {
+    "PTC1": "satisfied",
+    "PTC2": "satisfied",
+    "PTC3": "open"
+  },
+  "nextSlice": "S25-fresh-provider-off-candidate-qualification",
+  "receiptSha256": "ec9ab92ec095623bfae9b582af1a28fc3bf55cd57a392010b80a38dc2b9bbd40"
+}

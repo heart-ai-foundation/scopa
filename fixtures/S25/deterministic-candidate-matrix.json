@@ -1,0 +1,46 @@
+{
+  "schema": "scopa.s25-deterministic-candidate-matrix.v1",
+  "providerTrafficAllowed": false,
+  "inputs": [
+    "docs/release-posture.json",
+    "evidence/S17/closeout.json",
+    "evidence/S24/closeout.json",
+    "fixtures/S15/claude-live-policy.json",
+    "fixtures/S16R7/codex-live-policy.json",
+    "fixtures/S25/deterministic-candidate-matrix.json",
+    "next-prompt-protocols/active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
+    "package-lock.json",
+    "package.json",
+    "packages/enforcement/src/gate-runner.js",
+    "packages/enforcement/test/enforcement-loop.test.js",
+    "packages/integrations/claude/src/profile.js",
+    "packages/integrations/codex/src/profile.js",
+    "schemas/scopa.production-bundle.v1.schema.json"
+  ],
+  "cases": [
+    {
+      "id": "accumulated-release-gate",
+      "command": ["npm", "test"]
+    },
+    {
+      "id": "gate-process-tree-custody",
+      "command": ["npm", "run", "test:s2"]
+    },
+    {
+      "id": "bundled-production-closure",
+      "command": ["npm", "run", "test:s19"]
+    },
+    {
+      "id": "closed-release-policy",
+      "command": ["npm", "run", "audit:s10:policy"]
+    },
+    {
+      "id": "published-contract-parity",
+      "command": ["npm", "run", "probe:s11:parity"]
+    },
+    {
+      "id": "protocol-projection",
+      "command": ["npm", "run", "protocol:check"]
+    }
+  ]
+}
