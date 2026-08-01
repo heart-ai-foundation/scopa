@@ -40,7 +40,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
@@ -61,6 +61,7 @@
     "test:s19": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/dependency-closure.test.js",
     "test:s21": "node packages/conformance/src/run-node-tests.js packages/live-run/test/s21-requalification-policy.test.js",
     "test:s22": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/bundled-closure-soak.test.js",
+    "test:s23": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/exact-identity-review.test.js",
     "test:cross-runtime": "node --test packages/kernel-core/test/cross-runtime.test.js",
     "test:lockdown": "node packages/kernel-core/src/lockdown-probe.js",
     "probe:integrity": "node packages/kernel-core/src/integrity-probe.js",
