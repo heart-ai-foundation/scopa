@@ -399,8 +399,8 @@ export function buildBundledExactCandidateQualification({
     schema: 'scopa.s20-bundled-exact-candidate-qualification.v1',
     source: structuredClone(manifest.source),
     candidate: {
-      manifest: structuredClone(manifest),
       manifestSha256: sha256(manifest),
+      package: structuredClone(manifest.package),
       packageSha256: manifest.package.sha256,
       repeatedPackingByteIdentical: true,
       npmVersionPackingByteIdentical: true,

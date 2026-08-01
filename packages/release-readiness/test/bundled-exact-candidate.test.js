@@ -131,6 +131,8 @@ test('S20 receipt binds package, closure, bundle, install, npm parity, and matri
   assert.equal(receipt.installedByNpm.npm10.productionBundle.ok, true);
   assert.equal(receipt.installedByNpm.npm11.productionBundle.ok, true);
   assert.equal(receipt.networkPolicy.externalRequests, 0);
+  assert.equal(Object.hasOwn(receipt.candidate, 'manifest'), false);
+  assert.deepEqual(receipt.candidate.package, inputs.npm10Pack.manifest.package);
 });
 
 test('S20 matrix remains closed, sorted, unique, npm-only, and provider-off', () => {
