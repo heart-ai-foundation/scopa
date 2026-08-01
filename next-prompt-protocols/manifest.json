@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "b033220a",
+  "current_commit": "6fb2d20b",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
-  "active_protocol": "active/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
-  "active_objective": "Keep S21 provider-closed until the principal approves matrix 5b227ecaf12ce6eb4eae03591a1bc7e3dc268f45925e7d9ae3e55bf96ee00f6a, then execute exactly Claude clean, Claude cold-restart, Codex clean, and Codex cold-restart against candidate 49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147.",
+  "active_protocol": null,
+  "active_objective": "S21 is complete. S22 is queued and provider-off; it must establish sustained bundled-closure soak and audit evidence before S23 review.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
     "completed/2026-07-31-S20-bundled-exact-candidate-freeze.md",
     "completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
     "completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md",
@@ -858,7 +859,8 @@
         "fixtures/S20",
         "notes/S20",
         "runs/S20",
-        "evidence/S20"
+        "evidence/S20",
+        "evidence/S21"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
@@ -903,14 +905,15 @@
         "fixtures/S20",
         "notes/S20",
         "runs/S20",
-        "evidence/S20"
+        "evidence/S20",
+        "evidence/S21"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
         {
           "id": "PLQ1",
           "statement": "One new dependency-closed exact installed candidate passes the frozen production-like scenario matrix and sustained bounded soak.",
-          "status": "open",
+          "status": "advanced",
           "verifies_via": "New package/closure/bundle/install identity, complete fresh live matrix, bounded repeat runs, and soak receipt",
           "discovered_on": "2026-07-28",
           "discovered_because": "Reopened by Dependency-Closure Identity Hardening Macro Delta after the S18.4 artifact rejection"

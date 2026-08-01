@@ -1,23 +1,16 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "b033220a",
+  "current_commit": "6fb2d20b",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": "active/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
+  "active_protocol": null,
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "production-live-requalification",
-  "crosses": [
-    "dependency-closure-identity",
-    "live-run-custody",
-    "conformance"
-  ],
-  "advances_contracts": [
-    "DCI3",
-    "PLQ1"
-  ],
-  "active_protocol_sha256": "sha256:e8e0fcf68b8c22463d58f518d451f0114ae641bc52f1fb4302e6e39cbb8193f0",
-  "active_objective": "Bind the S20 package, closure, bundled payload, and installed payload to an\nexact four-call matrix. Keep provider traffic closed until the principal\napproves its digest, then execute Claude clean, Claude cold-restart, Codex\nclean, and Codex cold-restart in that order under bounded private custody.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "S21 is complete. S22 is queued and provider-off; it must establish sustained bundled-closure soak and audit evidence before S23 review.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

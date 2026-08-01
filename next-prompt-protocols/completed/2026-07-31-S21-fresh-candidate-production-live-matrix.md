@@ -108,3 +108,22 @@ entire campaign on any approval, candidate, production identity, client, model,
 account, sequence, budget, usage, timeout, capture, custody, privacy, cleanup,
 MCP inventory, native-surface, refusal, or rate-pressure drift. Do not replay a
 consumed or partially consumed approval.
+
+## Completion
+
+Completed against exact S20 candidate
+`49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`.
+Matrix `5b227ecaf12ce6eb4eae03591a1bc7e3dc268f45925e7d9ae3e55bf96ee00f6a`
+opened through single-use approval
+`81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9`.
+Claude clean, Claude cold-restart, Codex clean, and Codex cold-restart all
+succeeded in order with exact polarity and complete cleanup.
+
+The public campaign digest is
+`5aa21c4815b1e55a862eb8f862467e884414810eecd1792477ba4a1d9e64ffd6`;
+the private aggregate digest is
+`8923cf28f6ba3b9c5ceebf56a64aed28ae09d52c0d41ae93de7447e8c5bbfe9a`.
+The approval is consumed and a replay attempt stopped before provider intent.
+The accumulated local gate and hosted run `30680957090` passed. Closeout
+receipt: `e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953`.
+DCI3 and PLQ1 are advanced; S22 remains provider-off and queued.

@@ -21,6 +21,7 @@ const MATRIX_PATH = path.join(ROOT, 'evidence/S21/closed-production-live-matrix.
 const APPROVAL_PATH = path.join(ROOT, 'evidence/S21/production-live-approval.json');
 const CAMPAIGN_PATH = path.join(ROOT, 'evidence/S21/live/campaign.public.json');
 const CONSUMED_PATH = path.join(ROOT, 'evidence/S21/consumed-approvals.json');
+const CLOSEOUT_PATH = path.join(ROOT, 'evidence/S21/closeout.json');
 
 function rehash(matrix) {
   const copy = structuredClone(matrix);
@@ -182,4 +183,20 @@ test('single-use registry consumes the exact approval for four calls', async () 
         '5aa21c4815b1e55a862eb8f862467e884414810eecd1792477ba4a1d9e64ffd6',
     }],
   });
+});
+
+test('S21 closeout binds the accepted campaign and hosted gate', async () => {
+  const closeout = JSON.parse(await readFile(CLOSEOUT_PATH, 'utf8'));
+  const { receiptSha256, ...body } = closeout;
+  assert.equal(receiptSha256, jsonHash(body));
+  assert.equal(receiptSha256,
+    'e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953');
+  assert.equal(closeout.result, 'accepted');
+  assert.equal(closeout.authorization.singleUseConsumed, true);
+  assert.equal(closeout.campaign.invocationCount, 4);
+  assert.equal(closeout.hosted.conclusion, 'success');
+  assert.equal(closeout.traffic.providerCalls,
+    closeout.traffic.providerCallsAuthorized);
+  assert.equal(closeout.traffic.publicationActions, 0);
+  assert.equal(closeout.traffic.experimentCalls, 0);
 });

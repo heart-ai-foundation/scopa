@@ -39,3 +39,8 @@ alias. Its aggregate private receipt SHA-256 is
 all private files are mode 0600 and all private directories are mode 0700.
 `consumed-approvals.json` permanently closes this approval. A direct replay
 attempt stopped before provider intent because the S21 custody root existed.
+
+`closeout.json` binds the completed campaign, consumed approval, exact
+production identities, local validation, private custody, and hosted run
+`30680957090`. Its receipt SHA-256 is
+`e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953`.

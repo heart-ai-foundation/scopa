@@ -1,0 +1,66 @@
+{
+  "schema": "scopa.s21-closeout.v1",
+  "slice": "S21",
+  "result": "accepted",
+  "completedAt": "2026-08-01T02:58:07Z",
+  "evidenceCommit": "6fb2d20b3558494a8b05fafff8e394aeb9fb578c",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "identity": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477"
+  },
+  "authorization": {
+    "closedMatrixSha256": "5b227ecaf12ce6eb4eae03591a1bc7e3dc268f45925e7d9ae3e55bf96ee00f6a",
+    "approvalSha256": "81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9",
+    "authorizedMatrixSha256": "9b83b7d5d4265526f481cf0d71a77312a5aa37d7d7998c5474f3da398f7ec9d8",
+    "singleUseConsumed": true,
+    "replayProbe": "refused-before-provider-intent"
+  },
+  "campaign": {
+    "invocationCount": 4,
+    "callOrder": [
+      "claude-clean",
+      "claude-cold-restart",
+      "codex-clean",
+      "codex-cold-restart"
+    ],
+    "allTerminalStates": "succeeded",
+    "allPolarityChecks": true,
+    "allCleanupChecks": true,
+    "claudeCostUsd": "0.096816500000000016",
+    "claudeCampaignCeilingUsd": "0.40",
+    "codexTotalTokens": 103814,
+    "codexCampaignCeilingTokens": 252000
+  },
+  "evidence": {
+    "publicCampaignSha256": "5aa21c4815b1e55a862eb8f862467e884414810eecd1792477ba4a1d9e64ffd6",
+    "privateCampaignSha256": "8923cf28f6ba3b9c5ceebf56a64aed28ae09d52c0d41ae93de7447e8c5bbfe9a",
+    "privateBytes": 38255,
+    "privateFilesMode": "0600",
+    "privateDirectoriesMode": "0700",
+    "privacyFindings": 0
+  },
+  "hosted": {
+    "runId": 30680957090,
+    "jobId": 91317711429,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30680957090",
+    "headSha": "6fb2d20b3558494a8b05fafff8e394aeb9fb578c",
+    "conclusion": "success"
+  },
+  "traffic": {
+    "providerCalls": 4,
+    "providerCallsAuthorized": 4,
+    "publicationActions": 0,
+    "experimentCalls": 0
+  },
+  "contracts": {
+    "DCI3": "advanced",
+    "PLQ1": "advanced",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "nextSlice": "S22-sustained-bundled-closure-soak-provider-off",
+  "receiptSha256": "e61d4e92748bde8aab83ea26cbc80357f7f47951ac858b9e0e53417765cb5953"
+}
