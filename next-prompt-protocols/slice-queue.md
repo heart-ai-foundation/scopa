@@ -12,9 +12,9 @@ or authorize independent queue entries.
 | S22 | Sustained bundled-closure soak | `dependency-closure-identity` | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | S21 | Stop on fetch, drift, advisory, privacy, residue, or resource growth | `evidence/S22/` | `completed` |
 | S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `stopped: runtime review found timeout descendant survivor` |
 | S24 | Gate process-tree custody | `gate-process-custody` | Terminate and verify the complete gate process tree | No timed-out, output-limited, or orphan descendant survives | adversarial descendants, cleanup bounds, local and hosted gates | S23-v2 runtime rejection | Stop on survivor, false green, ambiguity, or unrelated change | `evidence/S24/` | `completed` |
-| S25 | Fresh provider-off candidate qualification | `gate-process-custody` | Build and qualify new bytes without assurance transfer | Exact clean candidate reproduces offline | npm 10/11, privacy/license/audit/process-tree matrix, hosted CI | S24 | Stop on byte/closure/network/audit/privacy/cleanup drift | `evidence/S25/` | `active and provider-closed` |
+| S25 | Fresh provider-off candidate qualification | `gate-process-custody` | Build and qualify new bytes without assurance transfer | Exact clean candidate reproduces offline | npm 10/11, privacy/license/audit/process-tree matrix, hosted CI | S24 | Stop on byte/closure/network/audit/privacy/cleanup drift | `evidence/S25/` | `completed; production-live closed` |
 
-S0-S24 remain immutable under their governing Macro Deltas. S25 is the only
-active slice, remains provider-off, and any later production-live calls
+S0-S25 remain immutable under their governing Macro Deltas. There is no active
+slice. Any later production-live calls
 require a separate exact-digest approval. The separately running SCOPA
 experiment and all publication/release actions remain outside this queue.

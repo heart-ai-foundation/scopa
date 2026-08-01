@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "1bd80d0b",
+  "current_commit": "395a7e34",
   "current_phase": "phase-8-process-tree-cleanup-hardening",
   "phase_scope": "Close the reproduced gate descendant-survivor defect, then build and provider-off qualify entirely new candidate bytes without assurance transfer.",
   "macro_delta": "macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md",
-  "active_protocol": "active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
-  "active_objective": "Build and provider-off qualify reproducible exact candidate bytes containing the S24 process-tree custody fix without transferring prior assurance.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "The approved process-tree cleanup Macro Delta is complete. No production-live call is authorized; any next queue requires fresh principal approval.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
     "completed/2026-08-01-S24-gate-process-tree-custody.md",
     "completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
     "completed/2026-07-31-S22-sustained-bundled-closure-soak.md",
@@ -985,7 +986,7 @@
         {
           "id": "PTC3",
           "statement": "A fresh exact candidate passes clean, offline, dependency-closed, process-tree-focused provider-off qualification.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Fresh clean packs, npm 10/11 offline installs, process-tree matrix, privacy/license/audit and hosted receipts",
           "discovered_on": "2026-08-01",
           "discovered_because": "Process-Tree Cleanup Hardening Macro Delta S25"
@@ -993,5 +994,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S25 on dirty source, byte/closure/install/npm drift, any network attempt, privacy/license/advisory/process survivor, false green, or provider/experiment/publication/release/dependency/unrelated runtime action."
+  "stop_condition": "No active protocol. Provider, experiment, publication, release, and production-live actions remain closed pending fresh exact authority."
 }

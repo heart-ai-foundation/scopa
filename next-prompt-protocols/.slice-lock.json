@@ -1,23 +1,16 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "1bd80d0b",
+  "current_commit": "395a7e34",
   "current_phase": "phase-8-process-tree-cleanup-hardening",
-  "active_protocol": "active/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "gate-process-custody",
-  "crosses": [
-    "release-readiness",
-    "distribution-hardening",
-    "enforcement",
-    "conformance"
-  ],
-  "advances_contracts": [
-    "PTC3"
-  ],
-  "active_protocol_sha256": "sha256:f504097c77d0c4c007695faeea1bfb64a13068b67c07253589b68336eeb7ebd1",
-  "active_objective": "From one clean source commit, produce byte-identical npm 10.9.7 and npm 11.19.0\npacks; install both with empty caches, offline mode, an unreachable registry,\nignore-scripts, and the network-deny shim; then bind package, production bundle,\nclosure, installed payload, license, privacy, policy, protocol, and S24\nprocess-tree results in a fresh S25 receipt.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "The approved process-tree cleanup Macro Delta is complete. No production-live call is authorized; any next queue requires fresh principal approval.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -51,5 +44,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S25 on dirty source, byte/closure/install/npm drift, any network attempt, privacy/license/advisory/process survivor, false green, or provider/experiment/publication/release/dependency/unrelated runtime action."
+  "stop_condition": "No active protocol. Provider, experiment, publication, release, and production-live actions remain closed pending fresh exact authority."
 }

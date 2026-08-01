@@ -51,14 +51,21 @@ Forbidden:
 
 | Slice | Class | Objective | Acceptance | Status |
 | --- | --- | --- | --- | --- |
-| S24 | arc | Implement and adversarially prove gate process-tree custody | timeout/output/orphan descendants die; survivor ambiguity fails closed | active |
-| S25 | arc | Build and provider-off qualify fresh candidate bytes | reproducible exact bytes, offline npm parity, privacy/license/audit and process-tree matrix green | queued |
+| S24 | arc | Implement and adversarially prove gate process-tree custody | timeout/output/orphan descendants die; survivor ambiguity fails closed | completed |
+| S25 | arc | Build and provider-off qualify fresh candidate bytes | reproducible exact bytes, offline npm parity, privacy/license/audit and process-tree matrix green | completed |
 
 ## Acceptance boundary
 
 The arc may close only when the new candidate has a distinct exact identity and
 provider-off qualification evidence. This creates eligibility for a separately
 approved production-live matrix; it does not authorize one.
+
+## Closeout
+
+S24 and S25 completed with PTC1-PTC3 satisfied. The new candidate is bound by
+`evidence/S25/exact-candidate-qualification.json` and remains provider-closed.
+There is no active protocol; any production-live call requires a separate
+exact-digest principal approval.
 
 ## Stop conditions
 

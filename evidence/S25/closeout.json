@@ -1,0 +1,63 @@
+{
+  "schema": "scopa.s25-closeout.v1",
+  "slice": "S25",
+  "result": "accepted",
+  "completedAt": "2026-08-01T06:53:43Z",
+  "sourceCommit": "395a7e340084bbefbb5fb1ae575193eb33cacef4",
+  "qualification": {
+    "path": "evidence/S25/exact-candidate-qualification.json",
+    "receiptSha256": "bf3a0a54cf6be03ce5e3a6f6d69b8ebe32ca3ad5e07a6fcab04110e6fea1f6d9",
+    "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+    "candidateManifestSha256": "254d6a8823060b81f4d44500941195d9d8e7be50443c136cb4d6264dbde43c99",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "packageCount": 12,
+    "fileCount": 893
+  },
+  "matrix": {
+    "definitionSha256": "ed28c1fc43dd24c6f3fb7802d33934ac2de931d8c6352082eb5fd70670364658",
+    "casesPassed": 6,
+    "casesTotal": 6,
+    "npm10": "10.9.7",
+    "npm11": "11.19.0",
+    "npmVersionPackingByteIdentical": true,
+    "repeatedPackingByteIdentical": true,
+    "installedProofsIdentical": true,
+    "candidateInstallExternalRequests": 0,
+    "policyChecksPassed": 38,
+    "policyChecksTotal": 38,
+    "privacyFindings": 0,
+    "bundledPrivacyFindings": 0,
+    "processTreeCustody": "passed"
+  },
+  "hosted": {
+    "runId": 30688428178,
+    "jobId": 91338673501,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30688428178",
+    "headSha": "395a7e340084bbefbb5fb1ae575193eb33cacef4",
+    "conclusion": "success",
+    "accumulatedGate": "passed",
+    "npmParity": "passed",
+    "fourPartQualification": "passed",
+    "officialCandidatePath": "passed",
+    "caseValidation": "passed"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "candidateInstallExternalRequests": 0,
+    "localQualificationToolingRegistryInstalls": 2,
+    "publicationActions": 0,
+    "releaseActions": 0
+  },
+  "contracts": {
+    "PTC1": "satisfied",
+    "PTC2": "satisfied",
+    "PTC3": "satisfied"
+  },
+  "nextPosture": "closed-pending-separate-exact-digest-approval-for-any-production-live-call",
+  "receiptSha256": "30c433804929d71f43da71758cd7672abe67407e03f33cc07c05a41c0b7dd492"
+}
