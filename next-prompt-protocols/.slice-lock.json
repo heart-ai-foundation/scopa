@@ -1,16 +1,23 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "de398ff",
+  "current_commit": "b033220a",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": null,
+  "active_protocol": "active/2026-07-31-S21-fresh-candidate-production-live-matrix.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "S20 is complete. S21 remains provider-closed pending a separate principal approval that binds candidate 49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147 and every exact production call.",
+  "active_module": "production-live-requalification",
+  "crosses": [
+    "dependency-closure-identity",
+    "live-run-custody",
+    "conformance"
+  ],
+  "advances_contracts": [
+    "DCI3",
+    "PLQ1"
+  ],
+  "active_protocol_sha256": "sha256:e8e0fcf68b8c22463d58f518d451f0114ae641bc52f1fb4302e6e39cbb8193f0",
+  "active_objective": "Bind the S20 package, closure, bundled payload, and installed payload to an\nexact four-call matrix. Keep provider traffic closed until the principal\napproves its digest, then execute Claude clean, Claude cold-restart, Codex\nclean, and Codex cold-restart in that order under bounded private custody.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

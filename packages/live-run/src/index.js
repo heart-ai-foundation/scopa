@@ -4,5 +4,6 @@ export * from './observe-sequence.js';
 export * from './observe-hardening-policy.js';
 export * from './receipt.js';
 export * from './requalification-policy.js';
+export * from './s21-requalification-policy.js';
 export * from './schema.js';
 export * from './supervisor.js';
