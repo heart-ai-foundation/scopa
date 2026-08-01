@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "b09a005",
+  "current_commit": "d564401",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
-  "active_protocol": "active/2026-07-31-S20-bundled-exact-candidate-freeze.md",
-  "active_objective": "Build one new exact candidate from the clean S19-v2 closeout commit and bind its package, closure, bundled payload, installed payload, policies, clients, and deterministic production-like matrix.",
+  "active_protocol": null,
+  "active_objective": "S20 is complete. S21 remains provider-closed pending a separate principal approval that binds candidate 49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147 and every exact production call.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S20-bundled-exact-candidate-freeze.md",
     "completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
     "completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md",
     "completed/2026-07-31-S18-exact-production-live-requalification-stopped.md",
@@ -933,5 +934,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S20 on identity drift, nondeterminism, any network attempt, dependency or installed-payload mismatch, false green, privacy, credential, licensing, advisory, policy, or matrix failure; stop immediately on dirty source, historical-assurance transfer, provider traffic, experiment crossover, or publication."
+  "stop_condition": "No active protocol. Do not launch S21 or make any provider call until a separate exact candidate-bound principal approval is committed; publication remains unauthorized."
 }

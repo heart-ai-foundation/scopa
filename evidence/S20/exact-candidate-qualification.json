@@ -1,0 +1,194 @@
+{
+  "assurance": {
+    "claude": "partial",
+    "codex": "partial",
+    "transferable": false
+  },
+  "candidate": {
+    "manifestSha256": "77e86bc4edec4a8fab4006217e40579ffc44a1e77d7e78255f3252352a241b85",
+    "npmVersionPackingByteIdentical": true,
+    "package": {
+      "entryCount": 1085,
+      "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+      "integrity": "sha512-PSkkO3iyKA/C27bao0L/i1Wi8mdSdE5mnhTRKAFjZ4yrl3l2bkBE8/oYDRK8Qg2bioe9IlkeNYmKuiLvCB4ynw==",
+      "name": "@heart-ai-foundation/scopa",
+      "packedBytes": 1979999,
+      "sha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+      "shasum": "fe15734b957508eba6a9f4be5d692332945c3974",
+      "unpackedBytes": 8561389,
+      "version": "0.2.0-dev.1"
+    },
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "repeatedPackingByteIdentical": true
+  },
+  "deterministicMatrix": {
+    "cases": [
+      {
+        "command": [
+          "npm",
+          "test"
+        ],
+        "exitCode": 0,
+        "id": "accumulated-release-gate",
+        "passed": true
+      },
+      {
+        "command": [
+          "npm",
+          "run",
+          "test:s19"
+        ],
+        "exitCode": 0,
+        "id": "bundled-production-closure",
+        "passed": true
+      },
+      {
+        "command": [
+          "npm",
+          "run",
+          "audit:s10:policy"
+        ],
+        "exitCode": 0,
+        "id": "closed-release-policy",
+        "passed": true
+      },
+      {
+        "command": [
+          "npm",
+          "run",
+          "probe:s11:parity"
+        ],
+        "exitCode": 0,
+        "id": "published-contract-parity",
+        "passed": true
+      },
+      {
+        "command": [
+          "npm",
+          "run",
+          "protocol:check"
+        ],
+        "exitCode": 0,
+        "id": "protocol-projection",
+        "passed": true
+      }
+    ],
+    "definitionSha256": "dd703591dc6f9d553c7f752e2222f54c2680fce6893567fb2fd4cea820d8f37e",
+    "ok": true,
+    "passed": 5,
+    "providerTrafficAllowed": false,
+    "total": 5
+  },
+  "inputBindings": {
+    "docs/release-posture.json": "6e3dc6f70b6d00d23916bb029abeb1e7f006ef0a0b8e55f2efd217b117baa3b2",
+    "evidence/S17/closeout.json": "d7cd0e793df712b7a3f8d4417df04cccb87fc784f62331206fce608325e3267b",
+    "evidence/S17/cross-client-operational-parity.json": "9ab7996993946fb1fede94c21e21bd0241f37bc6d2ee434e1919f7671f07af8a",
+    "evidence/S19-v2/bundled-production-closure.json": "dc6f4bf72ca0bb9047f03b558273f2a181729685d8caeefe59a16b5f5feddcf3",
+    "fixtures/S15/claude-live-policy.json": "0c7bf8979c549e85d512008ef82d63f6422edce97ca7b31d369bd4cf0bee546e",
+    "fixtures/S16R7/codex-live-policy.json": "2459e2d0a8d4ee831ad3a65c6ed149d681881d7d75da963ad6b8c9abfdd9f8c9",
+    "fixtures/S20/deterministic-candidate-matrix.json": "cf3512fb7b95413b58eff2efc579b50bd73c2f72c24076a02980386c7a90b4ca",
+    "next-prompt-protocols/active/2026-07-31-S20-bundled-exact-candidate-freeze.md": "0b6d9e18151f9f3a298e298d9ec63dc0097fdc81dcbbe16628ac629fd2627dae",
+    "package-lock.json": "51c70cc1ef0e1411d48d57669fdc25699bd9ece65a934e54d2e1e3acadd1b95b",
+    "package.json": "f1b8b9dd982b235b2f13e1b2c719a39b4456702c78ae10e8512e6ae0f392dfc5",
+    "packages/integrations/claude/src/profile.js": "53d0541272fcda91d35007773b55ba940a3833e09bfc6d46a114fb8170ba90af",
+    "packages/integrations/codex/src/profile.js": "a4f6f58889f865e6817f2c974c80a315b67ffbe61c16699bf649b07c467e4cd8",
+    "schemas/scopa.production-bundle.v1.schema.json": "9efcecc53b234893d67fb7aedea060d1930070c7357091b78e730f63bf1b16f7"
+  },
+  "installedByNpm": {
+    "npm10": {
+      "bins": [
+        {
+          "name": "scopa",
+          "outcome": "initialized-and-satisfied"
+        },
+        {
+          "name": "scopa-mcp",
+          "outcome": "closed-launcher-rejection"
+        }
+      ],
+      "bundledPrivacyFindings": 0,
+      "candidateSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+      "deterministic": true,
+      "exportCount": 3,
+      "privacyFindings": 0,
+      "productionBundle": {
+        "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+        "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+        "fileCount": 893,
+        "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+        "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+        "ok": true,
+        "packageCount": 12,
+        "schema": "scopa.production-bundle-verification.v1"
+      },
+      "proofSha256": "2eba639ab21d8d87848909468135685557e99d46ab0a57acba7401c234b10e74",
+      "repeatSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+      "upstreamStructuralReferences": 16
+    },
+    "npm11": {
+      "bins": [
+        {
+          "name": "scopa",
+          "outcome": "initialized-and-satisfied"
+        },
+        {
+          "name": "scopa-mcp",
+          "outcome": "closed-launcher-rejection"
+        }
+      ],
+      "bundledPrivacyFindings": 0,
+      "candidateSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+      "deterministic": true,
+      "exportCount": 3,
+      "privacyFindings": 0,
+      "productionBundle": {
+        "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+        "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+        "fileCount": 893,
+        "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+        "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+        "ok": true,
+        "packageCount": 12,
+        "schema": "scopa.production-bundle-verification.v1"
+      },
+      "proofSha256": "2eba639ab21d8d87848909468135685557e99d46ab0a57acba7401c234b10e74",
+      "repeatSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+      "upstreamStructuralReferences": 16
+    }
+  },
+  "networkPolicy": {
+    "cache": "empty",
+    "denyShim": true,
+    "externalRequests": 0,
+    "install": "offline-ignore-scripts-no-audit-no-fund",
+    "registry": "unreachable-loopback"
+  },
+  "npmVersions": {
+    "npm10": "10.9.7",
+    "npm11": "11.19.0"
+  },
+  "policyAudit": {
+    "auditSha256": "d97bd6ed5480e2c0b307ae379195f405d574ed3a723ed2a2b180131518223e55",
+    "ok": true,
+    "passed": 38,
+    "total": 38
+  },
+  "productionIdentity": {
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "fileCount": 893,
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "manifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "packageCount": 12
+  },
+  "providerTrafficAuthorized": false,
+  "publicationAuthorized": false,
+  "qualification": "pass",
+  "receiptSha256": "ad9d2dc7e22cfd6e5de07ebce0b430f3970e2eb1072f0e1a78711a82559cec2f",
+  "schema": "scopa.s20-bundled-exact-candidate-qualification.v1",
+  "source": {
+    "commit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+    "dirty": false
+  }
+}

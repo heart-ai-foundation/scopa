@@ -52,7 +52,7 @@ a separately approved fresh S21 production-live matrix.
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
 | S19-v2 | Bundled production-closure enforcement | Carry and independently bind all reviewed production bytes | Empty-cache installs cannot fetch or substitute dependency code | npm 10/11, unreachable registry, byte/graph hostility, license inventory | `done` |
-| S20 | Bundled exact-candidate freeze | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | `active` |
+| S20 | Bundled exact-candidate freeze | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | `done` |
 | S21 | Fresh candidate production-live matrix | Obtain new candidate-bound Claude/Codex evidence | No assurance or approval transfer | separately approved exact calls only | `queued and provider-closed` |
 | S22 | Sustained bundled-closure soak | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | `queued` |
 | S23 | Fresh exact-identity reviews and closeout | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | `queued` |
@@ -122,3 +122,20 @@ Stop S20 on identity drift, nondeterminism, any network attempt, dependency or
 installed-payload mismatch, false green, privacy or credential finding,
 licensing ambiguity, advisory failure, policy failure, matrix failure, dirty
 source, historical-assurance transfer, provider traffic, or publication.
+
+## Completion
+
+Completed against clean source commit
+`d56440195dcb24cb6dd43c24e484641b1646a5a9`. Candidate SHA-256
+`49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`
+passed two-pack and npm 10.9.7/npm 11.19.0 byte identity, empty-cache offline
+installed proofs, the five-case deterministic matrix, 38 release-policy
+checks, privacy/license/credential gates, shallow-checkout protocol projection,
+and hosted run `30678929665`.
+
+Canonical qualification receipt:
+`ad9d2dc7e22cfd6e5de07ebce0b430f3970e2eb1072f0e1a78711a82559cec2f`.
+Canonical closeout receipt:
+`d46d3be02571b6d90fd4b4c6a9dda7320db1a2bec2811b3c1c32cbad72d6045c`.
+DCI3 and PLQ1 are advanced, not satisfied. S21 remains provider-closed until
+a separate approval binds this exact candidate and every authorized call.

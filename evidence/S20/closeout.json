@@ -1,0 +1,77 @@
+{
+  "schema": "scopa.s20-closeout.v1",
+  "slice": "S20",
+  "result": "accepted",
+  "completedAt": "2026-08-01T02:00:06Z",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "qualification": {
+    "path": "evidence/S20/exact-candidate-qualification.json",
+    "receiptSha256": "ad9d2dc7e22cfd6e5de07ebce0b430f3970e2eb1072f0e1a78711a82559cec2f",
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "candidateManifestSha256": "77e86bc4edec4a8fab4006217e40579ffc44a1e77d7e78255f3252352a241b85",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "packageCount": 12,
+    "fileCount": 893
+  },
+  "matrix": {
+    "definitionSha256": "dd703591dc6f9d553c7f752e2222f54c2680fce6893567fb2fd4cea820d8f37e",
+    "casesPassed": 5,
+    "casesTotal": 5,
+    "npm10": "10.9.7",
+    "npm11": "11.19.0",
+    "npmVersionPackingByteIdentical": true,
+    "repeatedPackingByteIdentical": true,
+    "installedProofsIdentical": true,
+    "externalRequests": 0,
+    "policyChecksPassed": 38,
+    "policyChecksTotal": 38,
+    "privacyFindings": 0,
+    "bundledPrivacyFindings": 0
+  },
+  "hosted": {
+    "runId": 30678929665,
+    "jobId": 91311806419,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30678929665",
+    "headSha": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+    "conclusion": "success",
+    "accumulatedGate": "passed",
+    "npmParity": "passed",
+    "fourPartQualification": "passed",
+    "officialCandidatePath": "passed",
+    "caseValidation": "passed"
+  },
+  "hardeningFindings": [
+    {
+      "finding": "dual-version TAP exceeded the default synchronous child-process buffer",
+      "resolution": "bounded the release gate at 32 MiB and surfaced runner errors",
+      "closed": true
+    },
+    {
+      "finding": "protocol projection depended on a local absolute repository root and reflog",
+      "resolution": "made the root repository-relative and validated one activation parent from the raw commit object",
+      "closed": true
+    },
+    {
+      "finding": "hosted parent basename scopa was misclassified as a private token",
+      "resolution": "retained absolute structural roots and removed the ambiguous bare basename",
+      "closed": true
+    }
+  ],
+  "traffic": {
+    "providerCalls": 0,
+    "candidateInstallExternalRequests": 0,
+    "publicationActions": 0
+  },
+  "contracts": {
+    "DCI3": "advanced",
+    "PLQ1": "advanced",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "nextSlice": "S21-provider-closed-pending-separate-exact-candidate-bound-approval",
+  "receiptSha256": "d46d3be02571b6d90fd4b4c6a9dda7320db1a2bec2811b3c1c32cbad72d6045c"
+}

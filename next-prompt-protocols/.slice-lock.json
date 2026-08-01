@@ -1,23 +1,16 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "b09a005",
+  "current_commit": "d564401",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": "active/2026-07-31-S20-bundled-exact-candidate-freeze.md",
+  "active_protocol": null,
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "production-live-requalification",
-  "crosses": [
-    "dependency-closure-identity",
-    "release-readiness",
-    "conformance"
-  ],
-  "advances_contracts": [
-    "DCI3",
-    "PLQ1"
-  ],
-  "active_protocol_sha256": "sha256:0b6d9e18151f9f3a298e298d9ec63dc0097fdc81dcbbe16628ac629fd2627dae",
-  "active_objective": "Build one new exact candidate from the clean S19-v2 closeout commit. Prove two\nclean packs are byte-identical and npm 10 and npm 11 empty-cache installs\nreproduce the exact reviewed payload with zero network, privacy, credential,\nlicense, policy, advisory, or matrix finding.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "S20 is complete. S21 remains provider-closed pending a separate principal approval that binds candidate 49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147 and every exact production call.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -42,5 +35,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S20 on identity drift, nondeterminism, any network attempt, dependency or installed-payload mismatch, false green, privacy, credential, licensing, advisory, policy, or matrix failure; stop immediately on dirty source, historical-assurance transfer, provider traffic, experiment crossover, or publication."
+  "stop_condition": "No active protocol. Do not launch S21 or make any provider call until a separate exact candidate-bound principal approval is committed; publication remains unauthorized."
 }
