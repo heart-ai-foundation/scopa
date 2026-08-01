@@ -18,6 +18,7 @@ import { scanProductionBundlePrivacy,
 import { invokeCaptured } from './subprocess.js';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
+const SELF = fileURLToPath(import.meta.url);
 const CYCLES = 12;
 const MAX_DESCRIPTOR_GROWTH = 4;
 const MAX_RSS_GROWTH_BYTES = 64 * 1024 * 1024;
@@ -471,10 +472,13 @@ export async function runS22BundledClosureSoak({ candidatePath,
   const cycles = [];
   for (let index = 0; index < CYCLES; index += 1) {
     const npmId = plan.npmSequence[index];
-    cycles.push(await runCycle({ cycle: index + 1,
-      candidatePath: path.resolve(candidatePath), qualification, npmId,
-      npmCommand: npmId === 'npm10' ? npm10Command : npm11Command,
-      environment }));
+    const npmCommand = npmId === 'npm10' ? npm10Command : npm11Command;
+    const result = await invokeCaptured(process.execPath, [SELF,
+      '--cycle', String(index + 1), '--npm-id', npmId,
+      '--npm-command', npmCommand, '--candidate', path.resolve(candidatePath),
+      '--qualification', path.resolve(qualificationPath),
+    ], { env: environment });
+    cycles.push(JSON.parse(result.stdout));
     peakDescriptors = Math.max(peakDescriptors, await descriptorCount());
     peakRss = Math.max(peakRss, await rssBytes());
   }
@@ -566,6 +570,35 @@ export async function runS22BundledClosureSoak({ candidatePath,
 }
 
 async function main() {
+  if (process.argv[2] === '--cycle') {
+    const args = process.argv.slice(2);
+    const expected = [
+      '--cycle', '--npm-id', '--npm-command', '--candidate', '--qualification',
+    ];
+    if (args.length !== 10 ||
+        expected.some((flag, index) => args[index * 2] !== flag)) {
+      throw new TypeError('invalid S22 isolated cycle arguments');
+    }
+    const cycle = Number(args[1]);
+    const npmId = args[3];
+    const npmCommand = args[5];
+    const candidatePath = path.resolve(args[7]);
+    const qualificationPath = path.resolve(args[9]);
+    if (!Number.isSafeInteger(cycle) || cycle < 1 || cycle > CYCLES ||
+        !['npm10', 'npm11'].includes(npmId)) {
+      throw new TypeError('invalid S22 isolated cycle identity');
+    }
+    const qualification = assertBundledExactCandidateQualification(
+      JSON.parse(await readFile(qualificationPath, 'utf8')));
+    if (qualification.receiptSha256 !== QUALIFICATION_SHA256 ||
+        sha256(await readFile(candidatePath)) !== PACKAGE_SHA256) {
+      throw new TypeError('S22 isolated cycle candidate drifted');
+    }
+    const result = await runCycle({ cycle, npmId, npmCommand, candidatePath,
+      qualification, environment: createQualificationEnvironment() });
+    process.stdout.write(canonicalJson(result));
+    return;
+  }
   if (process.argv.length !== 6 || process.argv[2] !== '--candidate' ||
       process.argv[4] !== '--qualification') {
     throw new TypeError('usage: bundled-closure-soak.js --candidate <tgz> ' +
