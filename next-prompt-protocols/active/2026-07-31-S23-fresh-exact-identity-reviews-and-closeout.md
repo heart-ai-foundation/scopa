@@ -131,3 +131,12 @@ binds remediation approval `5dae71515d698401cfc70761991081c7042bad47338ab5851323
 and preserves the original rejection and stop receipts. Three fresh review
 executions are authorized. Provider, experiment, network, publication,
 release, dependency, candidate, and runtime changes remain forbidden.
+
+## S23-v2 terminal status — stopped
+
+Artifact and evidence reviews returned `ACCEPT`. The runtime reviewer returned
+`REJECT` with one medium finding: a timed-out installed gate killed only its
+immediate child and left a spawned descendant alive after returning failure.
+The reviewer killed the test process and cleaned the disposable root. No
+consistency receipt or eligibility closeout exists. Runtime remediation and
+review replay require fresh principal authority.

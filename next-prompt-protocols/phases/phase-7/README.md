@@ -1,6 +1,6 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `0a6903c2`
+Current commit reference: `e1ec7a3c`
 Current active protocol: `active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
 
 ## Scope

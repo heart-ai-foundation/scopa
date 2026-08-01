@@ -20,6 +20,8 @@ const EVIDENCE_REPORT_PATH = path.join(ROOT, 'evidence/S23/reviews/evidence.json
 const STOP_PATH = path.join(ROOT, 'evidence/S23/stop.json');
 const V2_PLAN_PATH = path.join(ROOT, 'fixtures/S23/exact-identity-review-plan-v2.json');
 const V2_APPROVAL_PATH = path.join(ROOT, 'evidence/S23/remediation-approval.json');
+const V2_REVIEW_ROOT = path.join(ROOT, 'evidence/S23/reviews-v2');
+const V2_STOP_PATH = path.join(ROOT, 'evidence/S23/stop-v2.json');
 
 function report(role, reviewerRunId = `fresh-${role}-reviewer`) {
   const plan = createS23ExactIdentityReviewPlan();
@@ -96,6 +98,30 @@ test('S23-v2 reports cannot mix with the rejected packet', () => {
   assert.throws(() => createS23V2ReviewConsistencyReceipt({
     reports: [reports[0], report('evidence'), reports[2]], adjudications: [],
   }), /mix/);
+});
+
+test('committed S23-v2 reports preserve two accepts and the runtime stop', async () => {
+  const reports = await Promise.all(['artifact', 'evidence', 'runtime'].map(async (role) =>
+    JSON.parse(await readFile(path.join(V2_REVIEW_ROOT, `${role}.json`), 'utf8'))));
+  reports.forEach((value) => assert.equal(validateS23ExactIdentityReviewReport(value), value));
+  assert.deepEqual(reports.map(({ verdict }) => verdict), ['ACCEPT', 'ACCEPT', 'REJECT']);
+  assert.equal(reports[2].findings.medium[0].id, 'timeout-descendant-survivor');
+  assert.throws(() => createS23V2ReviewConsistencyReceipt({
+    reports, adjudications: [],
+  }), /rejected report/);
+});
+
+test('S23-v2 stop receipt forbids unauthorized runtime remediation or replay', async () => {
+  const stop = JSON.parse(await readFile(V2_STOP_PATH, 'utf8'));
+  const { receiptSha256, ...body } = stop;
+  assert.equal(receiptSha256, jsonHash(body));
+  assert.equal(receiptSha256,
+    '3c1ac979a74a3a32f2b07251dd45f75094873561842183cdc2ec050c3c6da256');
+  assert.equal(stop.result, 'stopped-runtime-review-reject');
+  assert.equal(stop.disposition.consistencyReceiptCreated, false);
+  assert.equal(stop.authority.runtimeChangeAuthorized, false);
+  assert.equal(stop.authority.reviewReplayAllowed, false);
+  assert.equal(stop.authority.remediationRequiresFreshAuthority, true);
 });
 
 test('S23 report rejects identity, independence, verdict, and traffic drift', () => {

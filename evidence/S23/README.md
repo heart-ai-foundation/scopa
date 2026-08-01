@@ -24,3 +24,15 @@ the completed S22 closeout. The rejected v1 packet and evidence remain
 immutable. Three fresh v2 review executions are authorized; all provider,
 experiment, network, publication, release, dependency, candidate, and runtime
 changes remain forbidden.
+
+## S23-v2 result — stopped
+
+The artifact and evidence reviews returned `ACCEPT` with zero findings. The
+runtime review returned `REJECT` with one medium finding: timeout handling in
+the installed gate runner killed the immediate child but left a spawned
+descendant alive after SCOPA reported the gate terminated. The reviewer killed
+the test descendant and removed all disposable material.
+
+The finding triggers the frozen stop condition. No consistency receipt or
+eligibility closeout was created, and no runtime remediation was attempted
+under the binding-only authority. `stop-v2.json` records the stopped result.

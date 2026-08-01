@@ -1,0 +1,39 @@
+{
+  "schema": "scopa.s23-v2-exact-identity-review-report.v1",
+  "slice": "S23-v2",
+  "planSha256": "0ce3db317fc90b7cb7d64a71bc1b1a0e84ef9805b90342b544ce7d44a8d52670",
+  "role": "artifact",
+  "reviewerRunId": "fresh-v2-artifact-20260801",
+  "reviewedEvidenceCommit": "853b85fc39b9bf1394655f8ed67e87649ebe078a",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "candidate": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af"
+  },
+  "freshToExactPacket": true,
+  "priorVerdictsInherited": false,
+  "checksExecuted": [
+    "Verified the v2 plan and candidate canonical SHA-256 digests.",
+    "Inspected 1,085 unique regular archive entries with no unsafe paths, duplicates, symlinks, or special files.",
+    "Completed an npm 10.9.7 empty-cache offline install with unreachable registry, network-deny shim, and ignored scripts.",
+    "Reproduced the exact installed tree, 14-node dependency graph, 12-package closure, 893 production files, payload, and license identities.",
+    "Found no package identity, lifecycle, native-addon, license, credential, or private-topology problem.",
+    "Verified the sole npm-generated symlink remains inside the reviewed closure."
+  ],
+  "findings": { "critical": [], "high": [], "medium": [], "low": [] },
+  "verdict": "ACCEPT",
+  "traffic": { "providerCalls": 0, "experimentCalls": 0, "networkRequests": 0, "publicationActions": 0 },
+  "cleanup": { "disposableMaterialRemoved": true, "repositoryModified": false },
+  "falsePositives": [
+    "Sixteen /Users path strings in SES comments and generated copies are upstream stack-trace examples, not runtime paths, credentials, or private evidence topology."
+  ],
+  "limitations": [
+    "This role reproduced the artifact with npm 10.9.7; the frozen S20/S22 packet carries the separate npm 10/11 repetition evidence.",
+    "Runtime polarity and receipt governance belong to the separate runtime and evidence roles."
+  ],
+  "reportSha256": "f92f6fee31d7435a84f5b8874cd4fdf484f42e05ef0882561f7e38657b92e2cb"
+}

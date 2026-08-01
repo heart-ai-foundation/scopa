@@ -3,12 +3,12 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "0a6903c2",
+  "current_commit": "e1ec7a3c",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
   "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
-  "active_objective": "Execute the approved S23-v2 binding-only remediation over completed S22 commit 853b85fc, then obtain three fresh provider-off and network-off exact-identity reviews.",
+  "active_objective": "STOP S23-v2 after the runtime reviewer found that timed-out gates can leave descendant processes alive; obtain fresh principal authority before runtime remediation or review replay.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
@@ -948,5 +948,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S23-v2 on any packet or candidate drift, non-fresh reviewer, contrary verdict, critical/high/medium finding, unadjudicated low, provider/experiment/network/publication/release action, dependency/runtime change, or ambiguity."
+  "stop_condition": "S23-v2 is stopped. Do not modify the runtime, replay reviews, create consistency or eligibility receipts, launch a provider, or perform release/publication actions without fresh principal authority."
 }

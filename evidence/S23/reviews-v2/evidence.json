@@ -1,0 +1,42 @@
+{
+  "schema": "scopa.s23-v2-exact-identity-review-report.v1",
+  "slice": "S23-v2",
+  "planSha256": "0ce3db317fc90b7cb7d64a71bc1b1a0e84ef9805b90342b544ce7d44a8d52670",
+  "role": "evidence",
+  "reviewerRunId": "fresh-v2-evidence-20260801",
+  "reviewedEvidenceCommit": "853b85fc39b9bf1394655f8ed67e87649ebe078a",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9",
+  "candidate": {
+    "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+    "productionBundleManifestSha256": "d975f5914611d4185504acd58a25384de4a72ff89a54a6015a3c63b8b733e686",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af"
+  },
+  "freshToExactPacket": true,
+  "priorVerdictsInherited": false,
+  "checksExecuted": [
+    "Verified that completed-S22 commit 853b85fc contains the required closeout and formal PLQ1 transition.",
+    "Recomputed the S20-S22 qualification, matrix, approval, campaign, plan, soak, and closeout digests.",
+    "Recomputed the v2 plan, remediation approval, and rejected-v1 stop receipt digests.",
+    "Verified all 13 S20 source-input bindings and exact cross-receipt production identities.",
+    "Verified S21 timing, call order, approval consumption, provider budgets, custody, and privacy boundaries.",
+    "Verified all 12 S22 alternating npm cycles, resource margins, cleanup, and locally recorded hosted bindings.",
+    "Scanned public packet artifacts for private values and topology with zero findings."
+  ],
+  "findings": { "critical": [], "high": [], "medium": [], "low": [] },
+  "verdict": "ACCEPT",
+  "traffic": { "providerCalls": 0, "experimentCalls": 0, "networkRequests": 0, "publicationActions": 0 },
+  "cleanup": { "disposableMaterialRemoved": true, "repositoryModified": false },
+  "falsePositives": [
+    "The bounded S22 advisory audit does not violate zero-network install-cycle evidence.",
+    "Equal bundled and installed payload digests preserve separately named identity claims."
+  ],
+  "limitations": [
+    "Hosted conclusions were verified from committed bindings and local ancestry without a network re-query.",
+    "Raw S21 private evidence remained outside the repository and was reviewed through its digest, custody metadata, and public projection.",
+    "Candidate reconstruction and runtime reproduction belong to the other review roles."
+  ],
+  "reportSha256": "c9a1f1c7c7676eb025391f67d14dd2279757686daa6a35d4d5471a3d529de416"
+}

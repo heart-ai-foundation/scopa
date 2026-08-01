@@ -1,0 +1,46 @@
+{
+  "schema": "scopa.s23-v2-review-stop.v1",
+  "slice": "S23-v2",
+  "result": "stopped-runtime-review-reject",
+  "stoppedAt": "2026-08-01T05:32:13Z",
+  "planSha256": "0ce3db317fc90b7cb7d64a71bc1b1a0e84ef9805b90342b544ce7d44a8d52670",
+  "reviewedEvidenceCommit": "853b85fc39b9bf1394655f8ed67e87649ebe078a",
+  "planCommit": "e1ec7a3c9e836dbc43822cdfeb66433f1292b2ff",
+  "reviews": {
+    "artifact": { "reportSha256": "f92f6fee31d7435a84f5b8874cd4fdf484f42e05ef0882561f7e38657b92e2cb", "verdict": "ACCEPT" },
+    "evidence": { "reportSha256": "c9a1f1c7c7676eb025391f67d14dd2279757686daa6a35d4d5471a3d529de416", "verdict": "ACCEPT" },
+    "runtime": { "reportSha256": "f29b63a9be4566dc7479bd7bb5860c74f0e8c857293fa88f80196d92f5f80ed4", "verdict": "REJECT" }
+  },
+  "trigger": {
+    "role": "runtime",
+    "criticalFindings": 0,
+    "highFindings": 0,
+    "mediumFindings": 1,
+    "lowFindings": 0,
+    "findingId": "timeout-descendant-survivor",
+    "primaryReason": "A timed-out installed gate killed only its immediate child while an independently spawned descendant survived after SCOPA returned failure."
+  },
+  "disposition": {
+    "consistencyReceiptCreated": false,
+    "eligibilityCloseoutCreated": false,
+    "runtimeRemediationAttempted": false,
+    "survivingTestProcessKilled": true,
+    "disposableReviewRootRemoved": true
+  },
+  "hostedPlanGate": {
+    "runId": 30684870802,
+    "jobId": 91328570093,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30684870802",
+    "headSha": "e1ec7a3c9e836dbc43822cdfeb66433f1292b2ff",
+    "conclusion": "success"
+  },
+  "contracts": { "DCI3": "advanced", "PLQ1": "satisfied", "PLQ2": "open", "PLQ3": "open" },
+  "traffic": { "providerCalls": 0, "experimentCalls": 0, "networkRequests": 0, "publicationActions": 0, "releaseActions": 0 },
+  "authority": {
+    "runtimeChangeAuthorized": false,
+    "reviewReplayAllowed": false,
+    "remediationRequiresFreshAuthority": true,
+    "releaseAuthorized": false
+  },
+  "receiptSha256": "3c1ac979a74a3a32f2b07251dd45f75094873561842183cdc2ec050c3c6da256"
+}

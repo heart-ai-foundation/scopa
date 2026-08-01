@@ -10,9 +10,9 @@ or authorize independent queue entries.
 | S20 | Bundled exact-candidate freeze | `production-live-requalification` | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two clean packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | S19-v2 and clean closeout commit | Stop on identity drift, network, privacy, license, advisory, or matrix failure | `evidence/S20/` | `completed` |
 | S21 | Fresh candidate production-live matrix | `production-live-requalification` | Obtain fresh Claude/Codex evidence for the exact bundled candidate | No assurance or approval transfer | separately approved exact calls only | S20 and separate exact call approval | Stop before launch without approval or on any custody/policy failure | `evidence/S21/` | `completed` |
 | S22 | Sustained bundled-closure soak | `dependency-closure-identity` | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | S21 | Stop on fetch, drift, advisory, privacy, residue, or resource growth | `evidence/S22/` | `completed` |
-| S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `S23-v2 active: binding-only remediation approved` |
+| S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `stopped: runtime review found timeout descendant survivor` |
 
 S0-S18 and the stopped S19 attempt remain immutable under their governing
-Macro Deltas. S19-v2 through S22 are complete. S23-v1 stopped correctly;
-bounded S23-v2 packet correction and fresh reviews are active. The separately running SCOPA
+Macro Deltas. S19-v2 through S22 are complete. S23-v1 and S23-v2 both stopped
+correctly; runtime remediation now requires fresh authority. The separately running SCOPA
 experiment and all publication/release actions remain outside this queue.
