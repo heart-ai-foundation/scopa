@@ -1,0 +1,93 @@
+{
+  "approvalSha256": "81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9",
+  "authorizedMatrixSha256": "9b83b7d5d4265526f481cf0d71a77312a5aa37d7d7998c5474f3da398f7ec9d8",
+  "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+  "callOrder": [
+    "claude-clean",
+    "claude-cold-restart",
+    "codex-clean",
+    "codex-cold-restart"
+  ],
+  "claude": {
+    "cleanup": {
+      "perRunControlRootDeletionVerified": true,
+      "processGroupsGone": true,
+      "providerMetadataCleanupVerified": true,
+      "repositoryCleanupVerified": true
+    },
+    "scenarios": [
+      {
+        "costUsd": "0.05350970000000001",
+        "expectedCanStop": true,
+        "observedCanStop": true,
+        "scenario": "clean",
+        "terminalState": "succeeded"
+      },
+      {
+        "costUsd": "0.043306800000000006",
+        "expectedCanStop": true,
+        "observedCanStop": true,
+        "scenario": "cold-restart",
+        "terminalState": "succeeded"
+      }
+    ],
+    "totalCostUsd": "0.096816500000000016"
+  },
+  "closedMatrixSha256": "5b227ecaf12ce6eb4eae03591a1bc7e3dc268f45925e7d9ae3e55bf96ee00f6a",
+  "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+  "codex": {
+    "aggregateUsage": {
+      "input_tokens": 102739,
+      "output_tokens": 729,
+      "reasoning_output_tokens": 346,
+      "total_tokens": 103814
+    },
+    "cleanup": {
+      "perRunControlRootDeletionVerified": true,
+      "processGroupsGone": true,
+      "repositoryCleanupVerified": true,
+      "runtimeStateDeletionVerified": true
+    },
+    "scenarios": [
+      {
+        "expectedCanStop": true,
+        "observedCanStop": true,
+        "scenario": "clean",
+        "terminalState": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 36352,
+          "input_tokens": 54651,
+          "output_tokens": 386,
+          "reasoning_output_tokens": 180
+        }
+      },
+      {
+        "expectedCanStop": true,
+        "observedCanStop": true,
+        "scenario": "cold-restart",
+        "terminalState": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 36864,
+          "input_tokens": 48088,
+          "output_tokens": 343,
+          "reasoning_output_tokens": 166
+        }
+      }
+    ]
+  },
+  "executedAt": "2026-08-01T02:52:37.425Z",
+  "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+  "invocationCount": 4,
+  "packageSha256": "49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147",
+  "privateEvidence": {
+    "bytes": 38255,
+    "destinationAlias": "SCOPA_PRIVATE_EVIDENCE_ROOT/S21",
+    "retainedOutsideRepository": true,
+    "retentionHours": 168,
+    "sha256": "8923cf28f6ba3b9c5ceebf56a64aed28ae09d52c0d41ae93de7447e8c5bbfe9a"
+  },
+  "schema": "scopa.s21-live-campaign.public.v1",
+  "sourceCommit": "d56440195dcb24cb6dd43c24e484641b1646a5a9"
+}

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
@@ -18,6 +19,8 @@ import { parseS21LiveArguments } from '../src/s21-production-live-cli.js';
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const MATRIX_PATH = path.join(ROOT, 'evidence/S21/closed-production-live-matrix.json');
 const APPROVAL_PATH = path.join(ROOT, 'evidence/S21/production-live-approval.json');
+const CAMPAIGN_PATH = path.join(ROOT, 'evidence/S21/live/campaign.public.json');
+const CONSUMED_PATH = path.join(ROOT, 'evidence/S21/consumed-approvals.json');
 
 function rehash(matrix) {
   const copy = structuredClone(matrix);
@@ -130,4 +133,53 @@ test('exact approval opens only the exact matrix inside its one-day window', () 
   transplanted.approvalSha256 = jsonHash(body);
   assert.throws(() => authorizeS21LiveMatrix(closed, transplanted),
     /differs from the frozen S21 value/);
+});
+
+test('S21 public campaign proves four bounded calls without private topology', async () => {
+  const text = await readFile(CAMPAIGN_PATH, 'utf8');
+  const campaign = JSON.parse(text);
+  assert.equal(createHash('sha256').update(text).digest('hex'),
+    '5aa21c4815b1e55a862eb8f862467e884414810eecd1792477ba4a1d9e64ffd6');
+  assert.equal(campaign.closedMatrixSha256,
+    createClosedS21LiveMatrix().matrixSha256);
+  assert.equal(campaign.approvalSha256,
+    createS21LiveApproval(createClosedS21LiveMatrix()).approvalSha256);
+  assert.equal(campaign.invocationCount, 4);
+  assert.deepEqual(campaign.callOrder, [
+    'claude-clean', 'claude-cold-restart',
+    'codex-clean', 'codex-cold-restart',
+  ]);
+  for (const run of [...campaign.claude.scenarios, ...campaign.codex.scenarios]) {
+    assert.equal(run.terminalState, 'succeeded');
+    assert.equal(run.expectedCanStop, true);
+    assert.equal(run.observedCanStop, true);
+  }
+  assert.ok(campaign.claude.scenarios.every(({ costUsd }) =>
+    Number(costUsd) <= 0.20));
+  assert.ok(Number(campaign.claude.totalCostUsd) <= 0.40);
+  const codexTotals = campaign.codex.scenarios.map(({ usage }) =>
+    usage.input_tokens + usage.output_tokens + usage.reasoning_output_tokens);
+  assert.ok(codexTotals.every((total) => total <= 126000));
+  assert.ok(codexTotals.reduce((sum, value) => sum + value, 0) <= 252000);
+  for (const cleanup of [campaign.claude.cleanup, campaign.codex.cleanup]) {
+    assert.ok(Object.values(cleanup).every((value) => value === true));
+  }
+  assert.equal(campaign.privateEvidence.destinationAlias,
+    'SCOPA_PRIVATE_EVIDENCE_ROOT/S21');
+  assert.deepEqual(scanPrivateText(text), []);
+});
+
+test('single-use registry consumes the exact approval for four calls', async () => {
+  const registry = JSON.parse(await readFile(CONSUMED_PATH, 'utf8'));
+  assert.deepEqual(registry, {
+    schema: 'scopa.s21-consumed-approvals.v1',
+    approvals: [{
+      approvalSha256:
+        '81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9',
+      executedAt: '2026-08-01T02:52:37.425Z',
+      invocationCount: 4,
+      publicCampaignSha256:
+        '5aa21c4815b1e55a862eb8f862467e884414810eecd1792477ba4a1d9e64ffd6',
+    }],
+  });
 });
