@@ -1,4 +1,5 @@
 export * from './artifact.js';
+export * from './bundled-closure-soak.js';
 export * from './constants.js';
 export * from './consumer-probe.js';
 export * from './exact-candidate-probe.js';

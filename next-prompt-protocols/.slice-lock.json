@@ -1,16 +1,25 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "6fb2d20b",
+  "current_commit": "9d338e5d",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": null,
+  "active_protocol": "active/2026-07-31-S22-sustained-bundled-closure-soak.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "S21 is complete. S22 is queued and provider-off; it must establish sustained bundled-closure soak and audit evidence before S23 review.",
+  "active_module": "dependency-closure-identity",
+  "crosses": [
+    "operational-resilience",
+    "release-readiness",
+    "conformance",
+    "production-live-requalification"
+  ],
+  "advances_contracts": [
+    "DCI2",
+    "DCI3",
+    "PLQ1"
+  ],
+  "active_protocol_sha256": "sha256:c2a43d6dd66ce2a05b74302920531f1e1f1801fca794e9f108342bab78b3891e",
+  "active_objective": "Run 12 fresh disposable cycles alternating npm 10.9.7 and npm 11.19.0. Every\ncycle uses an empty cache, unreachable registry, and network-deny shim; binds\nthe four-part production identity plus installed tree, dependency graph, and\nlicense inventory; executes allow, deny, status, check, and cold-reload\npolarity; and removes its complete root. Run one separate current production\nadvisory audit and close with zero provider traffic.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
