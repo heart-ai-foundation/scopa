@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "a10fbfa3",
+  "current_commit": "0a6903c2",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "active_protocol": "active/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
   "active_class": "arc",
@@ -17,7 +17,7 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:acb71b48dcd4b3971031ce9d3cc6aff8cf542d8bd179c9008a2131d194734ed6",
+  "active_protocol_sha256": "sha256:d3e19c501bcb49235e233dbec16c811f20bb0e529147777852618758295f5ff0",
   "active_objective": "Freeze one immutable S23 review packet over evidence commit `46afe0e63355b09c03b5f7e261eca30af952e818`\nand candidate SHA-256 `49b62ac4b4d869dbca8459aa08f515427e0a04349f014c85cc422d7e0625f147`.\nObtain fresh artifact, evidence, and runtime reviews; normalize their reports\nthrough a closed consistency validator; adjudicate every low finding; and run\ndependency, privacy, credential, protocol, accumulated, and hosted gates.",
   "allowed_files": [
     "package.json",
@@ -47,5 +47,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "S23 is stopped. Do not retarget the frozen packet, replay any review, launch a provider, or perform a release action without fresh principal authority."
+  "stop_condition": "Stop S23-v2 on any packet or candidate drift, non-fresh reviewer, contrary verdict, critical/high/medium finding, unadjudicated low, provider/experiment/network/publication/release action, dependency/runtime change, or ambiguity."
 }

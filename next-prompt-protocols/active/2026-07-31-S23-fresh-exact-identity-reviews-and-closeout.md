@@ -122,3 +122,12 @@ targets evidence commit `46afe0e6`, but that commit predates the S22 closeout
 receipt required by the plan. The artifact and runtime reviews were interrupted
 without verdict after this high-severity stop condition fired. Do not retarget
 the packet or replay reviews without fresh principal authority.
+
+## S23-v2 remediation — approved and active
+
+The principal approved a bounded superseding packet that changes only the
+review binding. S23-v2 targets S22 closeout commit `853b85fc39b9bf1394655f8ed67e87649ebe078a`,
+binds remediation approval `5dae71515d698401cfc70761991081c7042bad47338ab585132344f7d37e94da`,
+and preserves the original rejection and stop receipts. Three fresh review
+executions are authorized. Provider, experiment, network, publication,
+release, dependency, candidate, and runtime changes remain forbidden.

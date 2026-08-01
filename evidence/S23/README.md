@@ -14,3 +14,13 @@ publication traffic were all zero.
 `reviews/evidence.json` preserves the normalized rejection. `stop.json` binds
 the stopped disposition and requires fresh authority before a corrected packet
 or review replay may be created.
+
+## S23-v2 remediation
+
+The principal subsequently approved a binding-only remediation. Approval
+`5dae71515d698401cfc70761991081c7042bad47338ab585132344f7d37e94da`
+authorizes a superseding packet targeting commit `853b85fc...`, which contains
+the completed S22 closeout. The rejected v1 packet and evidence remain
+immutable. Three fresh v2 review executions are authorized; all provider,
+experiment, network, publication, release, dependency, candidate, and runtime
+changes remain forbidden.

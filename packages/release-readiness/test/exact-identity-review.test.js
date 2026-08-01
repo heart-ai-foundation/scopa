@@ -7,14 +7,19 @@ import { jsonHash } from '../../enforcement/src/index.js';
 import {
   createS23ExactIdentityReviewPlan,
   createS23ReviewConsistencyReceipt,
+  createS23V2ExactIdentityReviewPlan,
+  createS23V2ReviewConsistencyReceipt,
   validateS23ExactIdentityReviewPlan,
   validateS23ExactIdentityReviewReport,
+  validateS23V2ExactIdentityReviewPlan,
 } from '../src/exact-identity-review.js';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const PLAN_PATH = path.join(ROOT, 'fixtures/S23/exact-identity-review-plan.json');
 const EVIDENCE_REPORT_PATH = path.join(ROOT, 'evidence/S23/reviews/evidence.json');
 const STOP_PATH = path.join(ROOT, 'evidence/S23/stop.json');
+const V2_PLAN_PATH = path.join(ROOT, 'fixtures/S23/exact-identity-review-plan-v2.json');
+const V2_APPROVAL_PATH = path.join(ROOT, 'evidence/S23/remediation-approval.json');
 
 function report(role, reviewerRunId = `fresh-${role}-reviewer`) {
   const plan = createS23ExactIdentityReviewPlan();
@@ -47,6 +52,16 @@ function rehash(value) {
   return { ...copy, reportSha256: jsonHash(copy) };
 }
 
+function reportV2(role, reviewerRunId = `fresh-v2-${role}-reviewer`) {
+  const value = report(role, reviewerRunId);
+  const plan = createS23V2ExactIdentityReviewPlan();
+  value.schema = 'scopa.s23-v2-exact-identity-review-report.v1';
+  value.slice = 'S23-v2';
+  value.planSha256 = plan.planSha256;
+  value.reviewedEvidenceCommit = plan.evidenceCommit;
+  return rehash(value);
+}
+
 test('committed S23 plan is exact, fresh-review, and provider-off', async () => {
   const committed = JSON.parse(await readFile(PLAN_PATH, 'utf8'));
   assert.deepEqual(committed, createS23ExactIdentityReviewPlan());
@@ -55,6 +70,32 @@ test('committed S23 plan is exact, fresh-review, and provider-off', async () => 
     ['artifact', 'evidence', 'runtime']);
   assert.equal(committed.independence.freshToExactPacket, true);
   assert.equal(committed.traffic.maxProviderCalls, 0);
+});
+
+test('S23-v2 supersedes the rejected packet and binds completed S22', async () => {
+  const plan = JSON.parse(await readFile(V2_PLAN_PATH, 'utf8'));
+  const approval = JSON.parse(await readFile(V2_APPROVAL_PATH, 'utf8'));
+  assert.deepEqual(plan, createS23V2ExactIdentityReviewPlan());
+  assert.equal(validateS23V2ExactIdentityReviewPlan(plan), plan);
+  const { approvalSha256, ...approvalBody } = approval;
+  assert.equal(approvalSha256, jsonHash(approvalBody));
+  assert.equal(plan.evidenceCommit,
+    '853b85fc39b9bf1394655f8ed67e87649ebe078a');
+  assert.equal(plan.remediationApprovalSha256, approvalSha256);
+  assert.equal(plan.upstreamReceipts.s22CloseoutSha256,
+    'c7bc9077a968618ab575bc66491efd72bc39c842fdb3e21b0549d335cca3ff65');
+  assert.deepEqual(plan.authorizedChanges, ['review-packet-binding-only']);
+  assert.ok(Object.values(plan.traffic).every((count) => count === 0));
+});
+
+test('S23-v2 reports cannot mix with the rejected packet', () => {
+  const reports = ['artifact', 'evidence', 'runtime'].map((role) => reportV2(role));
+  const receipt = createS23V2ReviewConsistencyReceipt({ reports, adjudications: [] });
+  assert.equal(receipt.slice, 'S23-v2');
+  assert.equal(receipt.result, 'accepted');
+  assert.throws(() => createS23V2ReviewConsistencyReceipt({
+    reports: [reports[0], report('evidence'), reports[2]], adjudications: [],
+  }), /mix/);
 });
 
 test('S23 report rejects identity, independence, verdict, and traffic drift', () => {

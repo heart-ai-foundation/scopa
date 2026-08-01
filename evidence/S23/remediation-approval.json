@@ -1,0 +1,25 @@
+{
+  "schema": "scopa.s23-v2-remediation-approval.v1",
+  "slice": "S23-v2",
+  "approvedAt": "2026-08-01T04:53:41Z",
+  "principalStatement": "I approve a bounded S23-v2 remediation posture that changes only the immutable review-packet binding to include the completed S22 closeout, then obtains three fresh artifact, evidence, and runtime reviews; zero provider, experiment, network, publication, release, dependency, candidate, or runtime changes.",
+  "supersedes": {
+    "rejectedPlanSha256": "703cc8df4d92442730cb913e32d94dfb75c20e02a8c5928f4311c4ad85bcb696",
+    "stopReceiptSha256": "b3a9978df68a7c7825b8b2e0a7f3b78fe212d849503065d9225a4815a1dc9e9a"
+  },
+  "authorizedChanges": [
+    "bind a superseding immutable review packet to evidence that includes the completed S22 closeout",
+    "obtain one fresh artifact review, one fresh evidence review, and one fresh runtime review",
+    "validate and close only if all frozen S23 acceptance gates pass"
+  ],
+  "forbiddenChanges": [
+    "provider calls",
+    "experiment work or calls",
+    "network or registry requests",
+    "publication or release actions",
+    "dependency changes",
+    "candidate changes",
+    "runtime changes"
+  ],
+  "approvalSha256": "5dae71515d698401cfc70761991081c7042bad47338ab585132344f7d37e94da"
+}

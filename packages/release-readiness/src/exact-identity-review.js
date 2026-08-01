@@ -3,6 +3,11 @@ import { canonicalJson, jsonHash } from '../../enforcement/src/index.js';
 const PLAN_SHA256 =
   '703cc8df4d92442730cb913e32d94dfb75c20e02a8c5928f4311c4ad85bcb696';
 const EVIDENCE_COMMIT = '46afe0e63355b09c03b5f7e261eca30af952e818';
+const V2_PLAN_SHA256 =
+  '0ce3db317fc90b7cb7d64a71bc1b1a0e84ef9805b90342b544ce7d44a8d52670';
+const V2_EVIDENCE_COMMIT = '853b85fc39b9bf1394655f8ed67e87649ebe078a';
+const V2_APPROVAL_SHA256 =
+  '5dae71515d698401cfc70761991081c7042bad47338ab585132344f7d37e94da';
 const SOURCE_COMMIT = 'd56440195dcb24cb6dd43c24e484641b1646a5a9';
 const ROLES = ['artifact', 'evidence', 'runtime'];
 const DIGEST = /^[0-9a-f]{64}$/;
@@ -97,6 +102,58 @@ export function validateS23ExactIdentityReviewPlan(value) {
   return value;
 }
 
+export function createS23V2ExactIdentityReviewPlan() {
+  const prior = createS23ExactIdentityReviewPlan();
+  const body = {
+    schema: 'scopa.s23-v2-exact-identity-review-plan.v1',
+    slice: 'S23-v2',
+    evidenceCommit: V2_EVIDENCE_COMMIT,
+    sourceCommit: SOURCE_COMMIT,
+    remediationApprovalSha256: V2_APPROVAL_SHA256,
+    supersedes: {
+      rejectedPlanSha256: prior.planSha256,
+      stopReceiptSha256:
+        'b3a9978df68a7c7825b8b2e0a7f3b78fe212d849503065d9225a4815a1dc9e9a',
+    },
+    candidate: structuredClone(CANDIDATE),
+    upstreamReceipts: structuredClone(prior.upstreamReceipts),
+    roles: structuredClone(prior.roles),
+    independence: structuredClone(prior.independence),
+    acceptance: structuredClone(prior.acceptance),
+    authorizedChanges: ['review-packet-binding-only'],
+    forbiddenChanges: ['dependency', 'candidate', 'runtime'],
+    traffic: {
+      maxProviderCalls: 0,
+      maxExperimentCalls: 0,
+      maxNetworkRequests: 0,
+      maxPublicationActions: 0,
+      maxReleaseActions: 0,
+    },
+  };
+  return { ...body, planSha256: jsonHash(body) };
+}
+
+export function validateS23V2ExactIdentityReviewPlan(value) {
+  const expected = createS23V2ExactIdentityReviewPlan();
+  if (canonicalJson(value) !== canonicalJson(expected) ||
+      value.planSha256 !== V2_PLAN_SHA256) {
+    throw new TypeError('S23-v2 review plan differs from the frozen plan');
+  }
+  return value;
+}
+
+function reportBinding(value) {
+  if (value.schema === 'scopa.s23-exact-identity-review-report.v1') {
+    return { slice: 'S23', planSha256: PLAN_SHA256,
+      evidenceCommit: EVIDENCE_COMMIT };
+  }
+  if (value.schema === 'scopa.s23-v2-exact-identity-review-report.v1') {
+    return { slice: 'S23-v2', planSha256: V2_PLAN_SHA256,
+      evidenceCommit: V2_EVIDENCE_COMMIT };
+  }
+  throw new TypeError('S23 review report schema is unknown');
+}
+
 export function validateS23ExactIdentityReviewReport(value) {
   exactKeys(value, [
     'candidate', 'checksExecuted', 'cleanup', 'falsePositives', 'findings',
@@ -104,9 +161,9 @@ export function validateS23ExactIdentityReviewReport(value) {
     'reportSha256', 'reviewedEvidenceCommit', 'reviewerRunId', 'role', 'schema',
     'slice', 'sourceCommit', 'traffic', 'verdict',
   ], 'S23 review report');
-  if (value.schema !== 'scopa.s23-exact-identity-review-report.v1' ||
-      value.slice !== 'S23' || value.planSha256 !== PLAN_SHA256 ||
-      value.reviewedEvidenceCommit !== EVIDENCE_COMMIT ||
+  const binding = reportBinding(value);
+  if (value.slice !== binding.slice || value.planSha256 !== binding.planSha256 ||
+      value.reviewedEvidenceCommit !== binding.evidenceCommit ||
       value.sourceCommit !== SOURCE_COMMIT || !ROLES.includes(value.role) ||
       typeof value.reviewerRunId !== 'string' ||
       value.reviewerRunId.trim().length < 8 ||
@@ -163,10 +220,26 @@ export function validateS23ExactIdentityReviewReport(value) {
 }
 
 export function createS23ReviewConsistencyReceipt({ reports, adjudications }) {
+  return createConsistencyReceipt({ reports, adjudications, version: 'v1' });
+}
+
+export function createS23V2ReviewConsistencyReceipt({ reports, adjudications }) {
+  return createConsistencyReceipt({ reports, adjudications, version: 'v2' });
+}
+
+function createConsistencyReceipt({ reports, adjudications, version }) {
   if (!Array.isArray(reports) || reports.length !== 3) {
     throw new TypeError('S23 consistency requires exactly three reports');
   }
   const validated = reports.map(validateS23ExactIdentityReviewReport);
+  const expected = version === 'v2'
+    ? { schema: 'scopa.s23-v2-exact-identity-review-report.v1', slice: 'S23-v2',
+      planSha256: V2_PLAN_SHA256, evidenceCommit: V2_EVIDENCE_COMMIT }
+    : { schema: 'scopa.s23-exact-identity-review-report.v1', slice: 'S23',
+      planSha256: PLAN_SHA256, evidenceCommit: EVIDENCE_COMMIT };
+  if (validated.some((report) => report.schema !== expected.schema)) {
+    throw new TypeError('S23 consistency cannot mix review packet versions');
+  }
   if (validated.some((report) => report.verdict !== 'ACCEPT' ||
       report.findings.critical.length > 0 || report.findings.high.length > 0 ||
       report.findings.medium.length > 0)) {
@@ -202,10 +275,12 @@ export function createS23ReviewConsistencyReceipt({ reports, adjudications }) {
     throw new TypeError('Every S23 low finding requires one adjudication');
   }
   const body = {
-    schema: 'scopa.s23-review-consistency-receipt.v1',
-    slice: 'S23',
-    planSha256: PLAN_SHA256,
-    reviewedEvidenceCommit: EVIDENCE_COMMIT,
+    schema: version === 'v2'
+      ? 'scopa.s23-v2-review-consistency-receipt.v1'
+      : 'scopa.s23-review-consistency-receipt.v1',
+    slice: expected.slice,
+    planSha256: expected.planSha256,
+    reviewedEvidenceCommit: expected.evidenceCommit,
     candidate: structuredClone(CANDIDATE),
     reports: Object.fromEntries(ROLES.map((role) => [role, byRole.get(role).reportSha256])),
     verdicts: Object.fromEntries(ROLES.map((role) => [role, byRole.get(role).verdict])),
