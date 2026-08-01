@@ -435,16 +435,13 @@ export async function probeInstalledSurface({
       manifest: productionBundle,
     });
 
+    const sourceForbiddenValues = installedPrivacyForbiddenValues(root);
     const privacyFindings = await scanPackagePrivacy({
       installedRoot,
       files: first.manifest.files.filter(
         ({ path: filePath }) => !filePath.startsWith('node_modules/'),
       ),
-      forbiddenValues: [
-        root,
-        path.dirname(root),
-        path.basename(path.dirname(root)),
-      ],
+      forbiddenValues: sourceForbiddenValues,
     });
     if (privacyFindings.length !== 0) {
       throw new Error('consumer package contains private or credential residue');
@@ -452,11 +449,7 @@ export async function probeInstalledSurface({
     const bundlePrivacy = await scanProductionBundlePrivacy({
       root: installedRoot,
       manifest: productionBundle,
-      forbiddenValues: [
-        root,
-        path.dirname(root),
-        path.basename(path.dirname(root)),
-      ],
+      forbiddenValues: sourceForbiddenValues,
     });
     if (bundlePrivacy.findings.length !== 0) {
       throw new Error('bundled dependencies contain private or credential residue');
@@ -506,6 +499,11 @@ export async function probeInstalledSurface({
   } finally {
     await rm(temporaryRoot, { recursive: true, force: true });
   }
+}
+
+export function installedPrivacyForbiddenValues(sourceRoot) {
+  const root = path.resolve(sourceRoot);
+  return [root, path.dirname(root)];
 }
 
 function parseArguments(argv) {

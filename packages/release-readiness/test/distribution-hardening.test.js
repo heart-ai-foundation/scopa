@@ -9,6 +9,7 @@ import {
 } from 'node:url';
 import {
   createConsumerPackageJson,
+  installedPrivacyForbiddenValues,
   scanPrivateText,
 } from '../src/index.js';
 
@@ -45,4 +46,15 @@ test('privacy scanner detects structural paths and recognizable credentials', ()
     scanPrivateText('ordinary public documentation'),
     [],
   );
+});
+
+test('installed privacy roots never reduce a project name to a secret token', () => {
+  const roots = installedPrivacyForbiddenValues(
+    '/home/runner/work/scopa/scopa',
+  );
+  assert.deepEqual(roots, [
+    '/home/runner/work/scopa/scopa',
+    '/home/runner/work/scopa',
+  ]);
+  assert.equal(roots.includes('scopa'), false);
 });
