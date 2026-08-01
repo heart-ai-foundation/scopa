@@ -1,8 +1,11 @@
 # Macro Deltas
 
-- `2026-07-31-scopa-dependency-closure-identity-hardening.md` — proposed,
-  digest-gated S19-S23 queue for publishable dependency-closure enforcement,
-  a new exact candidate, fresh live requalification, soak, and reviews.
+- `2026-07-31-scopa-bundled-production-closure-hardening.md` — proposed,
+  digest-gated S19-v2 recovery posture for byte-bound bundled production
+  dependencies, followed by the still-closed S20-S23 requalification queue.
+- `2026-07-31-scopa-dependency-closure-identity-hardening.md` — authorized
+  S19-S23 publishable dependency-closure queue; S19 stopped when npm 10 did
+  not enforce the packed nested shrinkwrap.
 - `2026-07-28-scopa-production-live-run-hardening.md` — authorized S14-S18
   production custody, Claude/Codex edge hardening, resilience, and exact
   candidate requalification; S18 stopped on a fresh medium finding.
