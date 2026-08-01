@@ -1,0 +1,114 @@
+{
+  "schema": "scopa.s19-v2-bundled-production-closure.v1",
+  "slice": "S19-v2",
+  "result": "accepted",
+  "completedAt": "2026-08-01T01:12:36Z",
+  "authority": {
+    "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
+    "macroDeltaSha256": "b8951dc9e0803ecf85b1154f4db1ef352238712058b9f31f63dc75da14cc889c",
+    "macroDeltaApprovalSha256": "e2b82e862e14c8e5e597672d90c6bbc15866d3d82ce7b78beb0f47ccaffaa0c5"
+  },
+  "implementation": {
+    "commit": "7ec818e86abed69ec1aa5709dd23fd584d8a6edc",
+    "candidateSha256": "9b55f8a64723fb99f305328e563b84e0be73e2e108c5257274e593d661637e6f",
+    "candidateSha1": "b8dfec728d90b9fb4f3bd994da4a29822e0ac1e5",
+    "candidateIntegrity": "sha512-F55nuL4KiFWIt85na9SjJeTzTy6VIlSK+pHVqDwyzcYAx0OOoSeYGGsXm7zQmNGDgfBGC3dML7f3xMgj/0LZ0A==",
+    "packedBytes": 1977898,
+    "unpackedBytes": 8548535,
+    "entryCount": 1084,
+    "sourceDirty": false
+  },
+  "productionClosure": {
+    "directBundledDependencies": [
+      "@endo/lockdown",
+      "@noble/hashes",
+      "ajv",
+      "cborg"
+    ],
+    "packageCount": 12,
+    "fileCount": 893,
+    "fastUriVersion": "3.1.4",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af",
+    "developmentNodes": 0
+  },
+  "installMatrix": {
+    "npmVersions": [
+      "10.9.7",
+      "11.19.0"
+    ],
+    "candidateIdentityEqual": true,
+    "bundleIdentityEqual": true,
+    "cacheState": "empty",
+    "installMode": "offline-ignore-scripts-no-audit-no-fund",
+    "registry": "unreachable-loopback",
+    "networkDenyShim": true,
+    "externalRequests": 0
+  },
+  "hostileTests": {
+    "rejected": [
+      "non-exact-direct-version",
+      "missing-direct-bundle-declaration",
+      "install-lifecycle-metadata",
+      "development-node-contamination",
+      "git-source-resolution",
+      "bundled-file-mutation",
+      "bundled-file-removal",
+      "bundled-file-addition",
+      "bundled-file-mode-drift",
+      "self-rehashed-file-false-green",
+      "dependency-edge-transplant",
+      "license-notice-transplant",
+      "actual-forbidden-runtime-value"
+    ],
+    "policyEnforced": [
+      "missing-or-extra-production-node",
+      "link-or-special-file",
+      "native-addon",
+      "peer-dependency",
+      "lifecycle-script",
+      "local-or-git-source",
+      "uncontrolled-source",
+      "missing-integrity"
+    ],
+    "allObservedCasesFailedClosed": true
+  },
+  "privacy": {
+    "repositoryOwnedFindings": 0,
+    "bundleFindings": 0,
+    "credentialFindings": 0,
+    "upstreamStructuralReferences": 16,
+    "adjudication": "Exact public @endo/lockdown/SES bytes contain generic user-home and local-file URL examples; they are retained as upstream structural text and are not SCOPA private paths, credentials, or evidence."
+  },
+  "validation": {
+    "focused": "passed",
+    "deterministicTwoPack": "passed",
+    "installedSurface": "passed",
+    "accumulatedDiscoveredTests": 176,
+    "accumulatedPassed": 175,
+    "accumulatedSkipped": 1,
+    "accumulatedSkipReason": "npm 11 parity is intentionally supplied as a separately configured gate",
+    "npmVersionParityGate": "passed",
+    "protocolGate": "passed",
+    "hostedRunId": 30677302851,
+    "hostedRunUrl": "https://github.com/heart-ai-foundation/scopa/actions/runs/30677302851",
+    "hostedConclusion": "success"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "candidateInstallExternalRequests": 0,
+    "publicationActions": 0
+  },
+  "contracts": {
+    "DCI1": "satisfied",
+    "DCI2": "satisfied",
+    "DCI3": "advanced",
+    "PLQ1": "open",
+    "PLQ2": "open",
+    "PLQ3": "open"
+  },
+  "nextSlice": "S20",
+  "receiptSha256": "7bb7b7f1ae3ae126d294effd322c6dbed5fe0533b84dd632ca06474fa48345b2"
+}

@@ -51,8 +51,8 @@ executed dependency bytes are immutable parts of candidate identity.
 
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
-| S19-v2 | Bundled production-closure enforcement | Carry and independently bind all reviewed production bytes | Empty-cache installs cannot fetch or substitute dependency code | npm 10/11, unreachable registry, byte/graph hostility, license inventory | `active` |
-| S20 | Bundled exact-candidate freeze | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | `queued` |
+| S19-v2 | Bundled production-closure enforcement | Carry and independently bind all reviewed production bytes | Empty-cache installs cannot fetch or substitute dependency code | npm 10/11, unreachable registry, byte/graph hostility, license inventory | `completed` |
+| S20 | Bundled exact-candidate freeze | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | `active` |
 | S21 | Fresh candidate production-live matrix | Obtain new candidate-bound Claude/Codex evidence | No assurance or approval transfer | separately approved exact calls only | `queued and provider-closed` |
 | S22 | Sustained bundled-closure soak | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | `queued` |
 | S23 | Fresh exact-identity reviews and closeout | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | `queued` |
@@ -133,3 +133,21 @@ bytes, attempts a fetch, produces npm-version-specific payloads, or if exact
 byte equivalence cannot be independently established. Stop immediately on
 unsafe package type, licensing ambiguity, provider, privacy, experiment,
 publication, deployment, customer, or historical-assurance crossover.
+
+## Completion
+
+Completed at implementation commit
+`7ec818e86abed69ec1aa5709dd23fd584d8a6edc`. The official candidate SHA-256
+is `9b55f8a64723fb99f305328e563b84e0be73e2e108c5257274e593d661637e6f`.
+The 12-package, 893-file production graph and payload passed deterministic
+packing, npm 10.9.7/npm 11.19.0 identity parity, empty-cache offline install,
+unreachable-registry and network-denial controls, installed-tree equivalence,
+license/privacy checks, hostile cases, the accumulated gate, and hosted run
+`30677302851`.
+
+Canonical receipt:
+`evidence/S19-v2/bundled-production-closure.json`, digest
+`7bb7b7f1ae3ae126d294effd322c6dbed5fe0533b84dd632ca06474fa48345b2`.
+DCI1 and DCI2 are satisfied; DCI3 is advanced and remains open across S20-S23.
+Provider calls, candidate-install external requests, and publication actions
+were all zero.

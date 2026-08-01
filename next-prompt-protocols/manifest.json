@@ -3,15 +3,16 @@
   "repo_root": "/home/dylan/scopa",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "c336230",
+  "current_commit": "7ec818e",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "phase_scope": "Bind the complete resolved production dependency closure into SCOPA candidate identity, then requalify entirely new package bytes without transferring historical assurance.",
   "macro_delta": "macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md",
-  "active_protocol": "active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
-  "active_objective": "Generate, pack, install, and independently verify one canonical bundled production payload across npm 10 and npm 11 with empty caches, an unreachable registry, and zero external requests.",
+  "active_protocol": "active/2026-07-31-S20-bundled-exact-candidate-freeze.md",
+  "active_objective": "Build one new exact candidate from the clean S19-v2 closeout commit and bind its package, closure, bundled payload, installed payload, policies, clients, and deterministic production-like matrix.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
     "completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md",
     "completed/2026-07-31-S18-exact-production-live-requalification-stopped.md",
     "completed/2026-07-31-S17-sustained-operational-resilience.md",
@@ -44,11 +45,11 @@
     "packages/release-readiness/**",
     "packages/conformance/**",
     "packages/cli/**",
-    "fixtures/S19-v2/**",
+    "fixtures/S20/**",
     "next-prompt-protocols/**",
-    "notes/S19-v2/**",
-    "runs/S19-v2/**",
-    "evidence/S19-v2/**",
+    "notes/S20/**",
+    "runs/S20/**",
+    "evidence/S20/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "non_goals": [
@@ -68,7 +69,7 @@
     "No queue entries outside the exact approved Bundled Production-Closure Hardening Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s19",
+    "fast_deterministic": "npm run test:s19 && npm run probe:s18:candidate",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
@@ -852,14 +853,18 @@
         "fixtures/S19-v2",
         "notes/S19-v2",
         "runs/S19-v2",
-        "evidence/S19-v2"
+        "evidence/S19-v2",
+        "fixtures/S20",
+        "notes/S20",
+        "runs/S20",
+        "evidence/S20"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
         {
           "id": "DCI1",
           "statement": "Every candidate carries a canonical production closure and complete bundled payload whose package graph and file bytes are independently bound with no development-only nodes.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Clean bundle staging, closed closure and file manifest validators, packed payload audit, and production-only graph receipt",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19"
@@ -867,7 +872,7 @@
         {
           "id": "DCI2",
           "statement": "npm 10 and npm 11 empty-cache installs and an independent installed probe reproduce exactly the approved closure and installed payload with zero fetches while missing, mutated, transplanted, extra, stale, or substituted states fail closed.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "npm 10/11 empty-cache unreachable-registry installs, network-denial receipt, byte and graph comparison, and hostile bundle corpus",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19"
@@ -875,7 +880,7 @@
         {
           "id": "DCI3",
           "statement": "Qualification, live, soak, and review evidence bind package, dependency-closure, bundled-payload, and installed-payload digests without collapsing them into one claim.",
-          "status": "open",
+          "status": "advanced",
           "verifies_via": "Closed identity schema and cross-receipt package/closure/bundle/install consistency validation",
           "discovered_on": "2026-07-31",
           "discovered_because": "Dependency-Closure Identity Hardening Macro Delta S19-S23"
@@ -893,7 +898,11 @@
         "fixtures/S18",
         "notes/S18",
         "runs/S18",
-        "evidence/S18"
+        "evidence/S18",
+        "fixtures/S20",
+        "notes/S20",
+        "runs/S20",
+        "evidence/S20"
       ],
       "owner": "Heart AI Foundation",
       "exit_contracts": [
@@ -924,5 +933,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S19-v2 if npm omits or rewrites bundled bytes, attempts a fetch, produces npm-version-specific payloads, or if exact byte equivalence cannot be independently established; stop the arc on unsafe package type, licensing ambiguity, provider, privacy, experiment, publication, deployment, customer, or assurance-transfer crossover."
+  "stop_condition": "Stop S20 on identity drift, nondeterminism, any network attempt, dependency or installed-payload mismatch, false green, privacy, credential, licensing, advisory, policy, or matrix failure; stop immediately on dirty source, historical-assurance transfer, provider traffic, experiment crossover, or publication."
 }

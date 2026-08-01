@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `c336230`
+Current commit reference: `7ec818e`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
-Active protocol module: `dependency-closure-identity`
-Advances contracts: `DCI1, DCI2, DCI3`
+Active protocol module: `production-live-requalification`
+Advances contracts: `DCI3, PLQ1`
 
 ## Slice Class
 
@@ -56,9 +56,9 @@ Module progress:
 - claude-live-hardening: 3/3 (100%)
 - codex-live-hardening: 3/3 (100%)
 - operational-resilience: 4/4 (100%)
-- dependency-closure-identity: 0/3 (0%)
+- dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 0/3 (0%)
-Arc total: 67/73 (92%)
+Arc total: 69/73 (95%)
 
 ## Descriptor Rung Stop Rule
 
@@ -106,27 +106,28 @@ Read in this order:
 3. `macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md`
 4. `role-context.md`
 5. `phases/phase-7/README.md`
-6. `active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-7. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-8. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-9. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-10. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-11. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-12. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-13. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-14. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-15. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-16. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-17. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-18. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-19. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-20. `completed/2026-07-27-S6-installable-developer-surface.md`
-21. `completed/2026-07-26-S5-interop-export.md`
-22. `completed/2026-07-26-S4-signing-and-anchoring.md`
-23. `completed/2026-07-26-S3-legibility.md`
-24. `completed/2026-07-26-S2-enforcement-loop.md`
-25. `completed/2026-07-26-S0-conformance-harness.md`
-26. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+7. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+8. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+9. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+10. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+11. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+12. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+13. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+14. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+15. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+16. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+17. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+18. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+19. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+20. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+21. `completed/2026-07-27-S6-installable-developer-surface.md`
+22. `completed/2026-07-26-S5-interop-export.md`
+23. `completed/2026-07-26-S4-signing-and-anchoring.md`
+24. `completed/2026-07-26-S3-legibility.md`
+25. `completed/2026-07-26-S2-enforcement-loop.md`
+26. `completed/2026-07-26-S0-conformance-harness.md`
+27. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -160,10 +161,10 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Generate a candidate that physically carries its complete reviewed production
-> dependency payload. Bind the graph and every bundled file independently, then
-> prove npm 10 and npm 11 install identical bytes from an empty cache with an
-> unreachable registry and zero external requests.
+> Build one new exact candidate from the clean S19-v2 closeout commit. Prove two
+> clean packs are byte-identical and npm 10 and npm 11 empty-cache installs
+> reproduce the exact reviewed payload with zero network, privacy, credential,
+> license, policy, advisory, or matrix finding.
 
 ## Behavior rules
 
@@ -191,11 +192,11 @@ These protocols are specific to:
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `packages/cli/**`
-- `fixtures/S19-v2/**`
+- `fixtures/S20/**`
 - `next-prompt-protocols/**`
-- `notes/S19-v2/**`
-- `runs/S19-v2/**`
-- `evidence/S19-v2/**`
+- `notes/S20/**`
+- `runs/S20/**`
+- `evidence/S20/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
@@ -205,4 +206,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-7/README.md`
-- `active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+- `active/2026-07-31-S20-bundled-exact-candidate-freeze.md`

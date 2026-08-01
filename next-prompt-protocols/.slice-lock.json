@@ -1,24 +1,23 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "c336230",
+  "current_commit": "7ec818e",
   "current_phase": "phase-7-dependency-closed-release-requalification",
-  "active_protocol": "active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md",
+  "active_protocol": "active/2026-07-31-S20-bundled-exact-candidate-freeze.md",
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "dependency-closure-identity",
+  "active_module": "production-live-requalification",
   "crosses": [
+    "dependency-closure-identity",
     "release-readiness",
-    "distribution-hardening",
     "conformance"
   ],
   "advances_contracts": [
-    "DCI1",
-    "DCI2",
-    "DCI3"
+    "DCI3",
+    "PLQ1"
   ],
-  "active_protocol_sha256": "sha256:fa73f4feda7393fcb67ee4769bf472c32d7b98a1a73b9231bf21c1618f200e1c",
-  "active_objective": "Generate a candidate that physically carries its complete reviewed production\ndependency payload. Bind the graph and every bundled file independently, then\nprove npm 10 and npm 11 install identical bytes from an empty cache with an\nunreachable registry and zero external requests.",
+  "active_protocol_sha256": "sha256:0b6d9e18151f9f3a298e298d9ec63dc0097fdc81dcbbe16628ac629fd2627dae",
+  "active_objective": "Build one new exact candidate from the clean S19-v2 closeout commit. Prove two\nclean packs are byte-identical and npm 10 and npm 11 empty-cache installs\nreproduce the exact reviewed payload with zero network, privacy, credential,\nlicense, policy, advisory, or matrix finding.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -30,18 +29,18 @@
     "packages/release-readiness/**",
     "packages/conformance/**",
     "packages/cli/**",
-    "fixtures/S19-v2/**",
+    "fixtures/S20/**",
     "next-prompt-protocols/**",
-    "notes/S19-v2/**",
-    "runs/S19-v2/**",
-    "evidence/S19-v2/**",
+    "notes/S20/**",
+    "runs/S20/**",
+    "evidence/S20/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s19",
+    "fast_deterministic": "npm run test:s19 && npm run probe:s18:candidate",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S19-v2 if npm omits or rewrites bundled bytes, attempts a fetch, produces npm-version-specific payloads, or if exact byte equivalence cannot be independently established; stop the arc on unsafe package type, licensing ambiguity, provider, privacy, experiment, publication, deployment, customer, or assurance-transfer crossover."
+  "stop_condition": "Stop S20 on identity drift, nondeterminism, any network attempt, dependency or installed-payload mismatch, false green, privacy, credential, licensing, advisory, policy, or matrix failure; stop immediately on dirty source, historical-assurance transfer, provider traffic, experiment crossover, or publication."
 }

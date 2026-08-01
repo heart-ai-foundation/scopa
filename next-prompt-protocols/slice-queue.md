@@ -1,35 +1,18 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-07-28-scopa-production-live-run-hardening.md`
+**Authority:** `macro-deltas/2026-07-31-scopa-bundled-production-closure-hardening.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
 | Slot | Slice | Module | Objective | Value gate | Validation gate | Dependencies | Stop/defer condition | Evidence path | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| S14 | Shared live-run custody and supervision | `live-run-custody` | Replace duplicated launcher supervision with one bounded process, terminal, identity, and evidence contract | Every deterministic terminal class is closed, exact-bound, cleanup-proven, and privacy-safe | Fault clients, process-group cleanup, identity/evidence hostility, S8/S9 regression | S13 and ratified production live-run Macro Delta | Stop on raw secret retention, unbounded output/error, orphan process, ambiguous terminal outcome, sourceful resolution, or evidence overwrite | `evidence/S14/` | `completed` |
-| S15 | Claude production live-run edge campaign | `claude-live-hardening` | Exercise current Claude Code through real and deterministic provider edge paths | Real/fault outcomes agree on polarity, cleanup, partial assurance, and non-retention | Core scenarios plus drift, refusal, rate, timeout, truncation, capture/budget, repeat runs | S14 and closed Claude account/network/budget policy | Stop on drift, uncontrolled mutation, privacy event, spend violation, false green, or failed cleanup | `evidence/S15/` | `completed` |
-| S16 | Codex production live-run edge campaign | `codex-live-hardening` | Exercise current Codex through the same bounded outcome contract | Real/fault outcomes agree on polarity, cleanup, partial assurance, and non-retention | Core scenarios plus drift, refusal, timeout, truncation, usage/capture, repeat runs | S15 and closed Codex account/network/budget policy | Stop on drift, uncontrolled mutation, privacy event, usage violation, false green, or failed cleanup | `evidence/S16/` | `completed` |
-| S17 | Sustained recovery, concurrency, and cleanup hardening | `operational-resilience` | Stress operational sequences instead of isolated live sessions | No duplicate action, stale state, pairing loss, unbounded growth, residue, or silent parity drift | Crash/resume, concurrent calls, ceilings, slow reader, repeated soak, cleanup, parity | S15 and S16 | Stop on duplicate mutation, unbounded state, lost pairing, stale reuse, residue, or unexplained divergence | `evidence/S17/` | `completed` |
-| S18 | Exact production-live requalification | `production-live-requalification` | Bind one exact candidate to the full production-like matrix and sustained soak | Exact matrix and three fresh reviews pass without critical/high/medium finding | Clean candidate, full live matrix, soak, audit/privacy, reviews, hosted CI | S17 and closed provider policies | Stop on candidate drift, uncontrolled spend, policy breach, privacy event, instability, false green, or contrary verdict | `evidence/S18/` | `active` |
+| S19-v2 | Bundled production-closure enforcement | `dependency-closure-identity` | Carry and independently bind all reviewed production bytes | Empty-cache installs cannot fetch or substitute dependency code | npm 10/11, unreachable registry, byte/graph hostility, license inventory | Exact-digest approval | Stop on incomplete bundle, fetch, npm drift, unsafe surface, or false green | `evidence/S19-v2/` | `completed` |
+| S20 | Bundled exact-candidate freeze | `production-live-requalification` | Bind package, closure, bundle, install, policies, clients, and deterministic matrix | Two clean packs and installs are identical | clean pack/install, matrix, protocol, accumulated and hosted gates | S19-v2 and clean closeout commit | Stop on identity drift, network, privacy, license, advisory, or matrix failure | `evidence/S20/` | `active` |
+| S21 | Fresh candidate production-live matrix | `production-live-requalification` | Obtain fresh Claude/Codex evidence for the exact bundled candidate | No assurance or approval transfer | separately approved exact calls only | S20 and separate exact call approval | Stop before launch without approval or on any custody/policy failure | `evidence/S21/` | `queued and provider-closed` |
+| S22 | Sustained bundled-closure soak | `dependency-closure-identity` | Repeat empty-cache installs and runtime polarity | No registry/cache moment can masquerade as stability | graph/tree ledger, audit/license/privacy/cleanup | S21 | Stop on fetch, drift, advisory, privacy, residue, or resource growth | `evidence/S22/` | `queued` |
+| S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `queued` |
 
-S0-S17 remain completed under their governing Macro Deltas. Only S18 is
-active. The separately running SCOPA experiment and public release remain
+S0-S18 and the stopped S19 attempt remain immutable under their governing
+Macro Deltas. S19-v2 is complete and S20 is the only active slice. The
+separately running SCOPA experiment and all publication/release actions remain
 outside this queue.
-
-## Queued S17 implementation input
-
-`evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md` is a
-bound, non-scored engineering input to S17's existing transcript-ceiling and
-resource-growth work. Its retained SHA-256 is
-`dd6e4a5d8490297519ababc41886560385b7e13989ba3d1227d9731dac8f5dc4`.
-Its dual-channel evidence contract is queued for deterministic implementation
-only after the active S16 resource defect is closed. The note does not add a
-queue slot, change the ratified Macro Delta, authorize a provider call, replay
-the RC1 pilot, or place experiment protocol, fixture, allocation, scoring,
-statistical, or publication work in this queue.
-
-Before any later candidate posture, the S17 implementation must prove
-canonical full-journal/compact-response equivalence, digest and ordering
-tamper rejection, bounded check/transcript/assurance responses, no-overwrite
-and incomplete-journal failure, cleanup, host-only reconstruction, and the
-unchanged six-tool inventory.

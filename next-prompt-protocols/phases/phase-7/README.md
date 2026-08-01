@@ -1,7 +1,7 @@
 # Phase 7 Dependency Closed Release Requalification
 
-Current commit reference: `c336230`
-Current active protocol: `active/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+Current commit reference: `7ec818e`
+Current active protocol: `active/2026-07-31-S20-bundled-exact-candidate-freeze.md`
 
 ## Scope
 
@@ -9,10 +9,10 @@ Bind the complete resolved production dependency closure into SCOPA candidate id
 
 ## Active objective
 
-> Generate a candidate that physically carries its complete reviewed production
-> dependency payload. Bind the graph and every bundled file independently, then
-> prove npm 10 and npm 11 install identical bytes from an empty cache with an
-> unreachable registry and zero external requests.
+> Build one new exact candidate from the clean S19-v2 closeout commit. Prove two
+> clean packs are byte-identical and npm 10 and npm 11 empty-cache installs
+> reproduce the exact reviewed payload with zero network, privacy, credential,
+> license, policy, advisory, or matrix finding.
 
 ## Files in play
 
@@ -26,11 +26,11 @@ Bind the complete resolved production dependency closure into SCOPA candidate id
 - `packages/release-readiness/**`
 - `packages/conformance/**`
 - `packages/cli/**`
-- `fixtures/S19-v2/**`
+- `fixtures/S20/**`
 - `next-prompt-protocols/**`
-- `notes/S19-v2/**`
-- `runs/S19-v2/**`
-- `evidence/S19-v2/**`
+- `notes/S20/**`
+- `runs/S20/**`
+- `evidence/S20/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
 
 ## Non-goals
@@ -56,21 +56,17 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Candidate metadata declares exactly the four reviewed direct production
-  packages as `bundledDependencies`.
-- Every reachable non-development lock node and every packed dependency byte
-  appears in one canonical closed manifest; missing, extra, unsafe, native,
-  lifecycle-active, local/git, or uncontrolled-source states fail.
-- Candidate, closure, bundled-payload, and installed-payload digests remain
-  distinct and exact.
-- npm 10 and npm 11 empty-cache installs succeed with an unreachable registry,
-  make zero external requests, and reproduce identical dependency bytes.
-- Missing, mutated, transplanted, extra, stale, permission-drifted, dev-
-  contaminated, and self-rehashed false-green states are rejected.
-- Exact license/notice inventory is present and complete.
-- Package privacy and credential scans return zero findings.
-- `npm run test:s19`, installed-surface regression, protocol check, accumulated
-  release gate, and hosted CI pass.
+- A clean post-S19-v2 source commit produces two byte-identical official
+  candidate tarballs.
+- Candidate, closure, bundled-payload, and installed-payload digests are exact,
+  distinct fields and consistent across all S20 receipts.
+- npm 10 and npm 11 reproduce the exact installed payload from empty caches
+  with an unreachable registry and zero external requests.
+- The complete frozen deterministic production-like matrix passes from the
+  installed candidate without source-checkout or historical-assurance use.
+- Dependency, license, advisory, privacy, credential, policy, installed,
+  accumulated, protocol, and hosted gates pass.
+- S20 authorizes no provider call or publication action.
 
 ## Handoff
 
