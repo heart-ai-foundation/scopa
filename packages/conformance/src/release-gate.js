@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { canonicalJsonPretty } from './canonical-json.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+const TEST_OUTPUT_LIMIT_BYTES = 32 * 1024 * 1024;
 
 async function testFiles() {
   const packagesRoot = path.join(ROOT, 'packages');
@@ -40,6 +41,7 @@ function runNode(args) {
     cwd: ROOT,
     encoding: 'utf8',
     env,
+    maxBuffer: TEST_OUTPUT_LIMIT_BYTES,
   });
 }
 
@@ -76,6 +78,11 @@ async function main() {
   const tests = runNode(['--test', '--test-concurrency=1', ...files]);
   process.stdout.write(tests.stdout);
   process.stderr.write(tests.stderr);
+  if (tests.error) {
+    process.stderr.write(
+      `release gate test runner failed: ${tests.error.message}\n`,
+    );
+  }
   if (tests.status !== 0) {
     process.exitCode = tests.status ?? 1;
     return;

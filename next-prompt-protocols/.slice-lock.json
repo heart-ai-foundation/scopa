@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "5817cc3",
+  "current_commit": "5da70ac",
   "current_phase": "phase-7-dependency-closed-release-requalification",
   "active_protocol": "active/2026-07-31-S20-bundled-exact-candidate-freeze.md",
   "active_class": "arc",
