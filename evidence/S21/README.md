@@ -14,3 +14,8 @@ The committed artifact authorizes zero provider calls. S21 may open only after
 the principal explicitly approves the exact matrix digest. Approval is
 single-use, does not transfer between calls or campaigns, cannot be used by an
 experiment, and authorizes neither publication nor customer data.
+
+`production-live-approval.json` records the principal's exact approval of the
+matrix with approval digest
+`81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9`.
+It does not by itself prove that any call ran or passed.

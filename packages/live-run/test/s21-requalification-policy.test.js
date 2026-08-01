@@ -13,9 +13,11 @@ import {
   createS21LiveApproval,
   validateS21LiveMatrix,
 } from '../src/s21-requalification-policy.js';
+import { parseS21LiveArguments } from '../src/s21-production-live-cli.js';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 const MATRIX_PATH = path.join(ROOT, 'evidence/S21/closed-production-live-matrix.json');
+const APPROVAL_PATH = path.join(ROOT, 'evidence/S21/production-live-approval.json');
 
 function rehash(matrix) {
   const copy = structuredClone(matrix);
@@ -63,6 +65,28 @@ test('approval names every call, client, model, budget, expiry, and custody', ()
   assert.equal(approval.singleUse, true);
   assert.equal(approval.experimentUseAllowed, false);
   assert.equal(approval.publicationAllowed, false);
+});
+
+test('committed principal approval is the exact deterministic approval', async () => {
+  const approval = JSON.parse(await readFile(APPROVAL_PATH, 'utf8'));
+  assert.deepEqual(approval,
+    createS21LiveApproval(createClosedS21LiveMatrix()));
+  assert.equal(approval.approvalSha256,
+    '81df2d47f24251ff6d743d0d026fef0a5eb9dd10a484f26a6eb1a3f9117096c9');
+});
+
+test('production CLI requires exact arguments and external private custody', () => {
+  assert.throws(() => parseS21LiveArguments([]), /usage/);
+  assert.throws(() => parseS21LiveArguments([
+    '--matrix', MATRIX_PATH, '--approval', APPROVAL_PATH,
+    '--candidate', '/tmp/candidate.tgz', '--private-root', ROOT,
+  ]), /outside the repository/);
+  const parsed = parseS21LiveArguments([
+    '--matrix', MATRIX_PATH, '--approval', APPROVAL_PATH,
+    '--candidate', '/tmp/candidate.tgz',
+    '--private-root', '/tmp/scopa-s21-private-test',
+  ]);
+  assert.equal(parsed.privateRoot, '/tmp/scopa-s21-private-test');
 });
 
 test('closed posture refuses provider intent and drift cannot self-authorize', () => {
