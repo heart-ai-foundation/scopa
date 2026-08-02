@@ -1,0 +1,28 @@
+{
+  "schema": "scopa.s26r2-scenario-binding-remediation-approval.v1",
+  "decision": "approve-bounded-provider-off-scenario-binding-remediation",
+  "approvedAt": "2026-08-02T13:11:39Z",
+  "authority": "conversation-explicit-principal-agreement",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-02-scopa-s26r2-scenario-binding-remediation.md",
+  "macroDeltaFileSha256": "3c8ec0576c602d360d838388cc34d1e37460e96570e0b23221f2a0de667f100b",
+  "protocolPath": "next-prompt-protocols/active/2026-08-02-S26R2-scenario-binding-remediation.md",
+  "protocolFileSha256": "35b69d9656a2b769018da6dfb1576fab60639a3313d19be001971f952c720e07",
+  "historicalS26R1MatrixSha256": "23246eaa7c8f82c33c8313dddb4553940fa8936d40d28fd0d9c49d8c576fe9c6",
+  "historicalS26R1ApprovalConsumed": true,
+  "authorizedScope": [
+    "single-source-runtime-session-scenario-binding",
+    "adversarial-exact-and-mismatch-tests",
+    "retention-regression-qualification",
+    "closed-s26r2-matrix-freeze",
+    "provider-off-local-and-hosted-qualification"
+  ],
+  "providerCallsAuthorized": 0,
+  "closedS26R2MatrixSha256": "1a4a642411c47349a34720b0aa35ea4ee668cdefac75622871de1bfd6937a947",
+  "prospectiveApprovalSha256": "2af383b52ccdacf6c5d233760f0627e22089be1d1bf8e63b6df084e7d9734ab1",
+  "candidateChangeAllowed": false,
+  "dependencyChangeAllowed": false,
+  "experimentUseAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "nextAuthority": "separate-exact-s26r2-matrix-digest-approval-required"
+}

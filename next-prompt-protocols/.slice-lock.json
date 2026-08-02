@@ -1,9 +1,9 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "dde7c13",
-  "current_phase": "phase-9-s26r1-failure-evidence-remediation",
-  "active_protocol": "active/2026-08-01-S26R1-failure-evidence-remediation.md",
+  "current_commit": "2b759c4",
+  "current_phase": "phase-9-s26r2-scenario-binding-remediation",
+  "active_protocol": "active/2026-08-02-S26R2-scenario-binding-remediation.md",
   "active_class": "hotfix",
   "active_compound": false,
   "active_module": "production-live-requalification",
@@ -16,8 +16,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:d4a871da8de1e542abf8b362371428802770dd7423ea22c2ffebb7ba9ccbf6c8",
-  "active_objective": "Prove that the distinct S26R1 runner retains every returned result before\nqualification, freeze the new closed matrix, and obtain local and hosted\nprovider-off qualification. Do not execute the matrix without separate exact\napproval.",
+  "active_protocol_sha256": "sha256:35b69d9656a2b769018da6dfb1576fab60639a3313d19be001971f952c720e07",
+  "active_objective": "Hold the exact provider-closed S26R2 matrix after proving one\nsession/runtime-scenario binding for each provider, adversarial mismatch\nrejection, and preserved evidence ordering. Do not execute the matrix without\nlater exact approval.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -36,7 +36,10 @@
     "fixtures/S25/**",
     "fixtures/S26/**",
     "fixtures/S26R1/**",
+    "fixtures/S26R2/**",
     "runs/S26R1/**",
+    "runs/S26R2/**",
+    "packages/live-run/test/s26r2-scenario-binding-remediation.test.js",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -48,12 +51,13 @@
     "evidence/S25/**",
     "evidence/S26/**",
     "evidence/S26R1/**",
+    "evidence/S26R2/**",
     "evidence/S27/**",
     "evidence/S28/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/live-run/test/s26r1-failure-evidence-remediation.test.js",
+    "fast_deterministic": "node --test packages/live-run/test/s26r2-scenario-binding-remediation.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"

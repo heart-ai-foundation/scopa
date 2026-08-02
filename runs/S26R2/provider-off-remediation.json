@@ -1,0 +1,48 @@
+{
+  "schema": "scopa.s26r2-provider-off-remediation-run.v1",
+  "performedAt": "2026-08-02T13:20:00Z",
+  "providerTrafficAllowed": false,
+  "providerCallsConsumed": 0,
+  "historicalS26R1Replay": false,
+  "closedMatrixSha256": "1a4a642411c47349a34720b0aa35ea4ee668cdefac75622871de1bfd6937a947",
+  "checks": [
+    {
+      "id": "claude-session-runtime-scenario-exact-binding",
+      "result": "pass"
+    },
+    {
+      "id": "codex-session-runtime-scenario-exact-binding",
+      "result": "pass"
+    },
+    {
+      "id": "identifier-version-provider-call-and-classification-drift",
+      "result": "pass-closed"
+    },
+    {
+      "id": "retain-before-validate-regression",
+      "result": "pass"
+    },
+    {
+      "id": "historical-s26r1-stop-consumption-and-runner-bindings",
+      "result": "pass"
+    },
+    {
+      "id": "s26-through-s26r2-focused-suite",
+      "result": "pass-23-of-23"
+    },
+    {
+      "id": "protocol-projection",
+      "result": "pass"
+    },
+    {
+      "id": "repository-privacy-scan",
+      "result": "pass-zero-findings"
+    },
+    {
+      "id": "accumulated-release-gate",
+      "result": "pass"
+    }
+  ],
+  "result": "provider-off-controls-pass",
+  "nextAuthority": "separate-exact-s26r2-matrix-digest-approval-required"
+}

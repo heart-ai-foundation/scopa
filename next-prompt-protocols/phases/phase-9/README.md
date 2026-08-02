@@ -1,18 +1,18 @@
-# Phase 9 S26r1 Failure Evidence Remediation
+# Phase 9 S26r2 Scenario Binding Remediation
 
-Current commit reference: `dde7c13`
-Current active protocol: `active/2026-08-01-S26R1-failure-evidence-remediation.md`
+Current commit reference: `2b759c4`
+Current active protocol: `active/2026-08-02-S26R2-scenario-binding-remediation.md`
 
 ## Scope
 
-Preserve stopped S26 and ensure every future returned live result is privately retained before qualification, without provider replay or unrelated change.
+Preserve stopped S26R1 and bind each future runtime scenario exactly to its SCOPA session/transcript identity, without provider replay or unrelated change.
 
 ## Active objective
 
-> Prove that the distinct S26R1 runner retains every returned result before
-> qualification, freeze the new closed matrix, and obtain local and hosted
-> provider-off qualification. Do not execute the matrix without separate exact
-> approval.
+> Hold the exact provider-closed S26R2 matrix after proving one
+> session/runtime-scenario binding for each provider, adversarial mismatch
+> rejection, and preserved evidence ordering. Do not execute the matrix without
+> later exact approval.
 
 ## Files in play
 
@@ -33,7 +33,10 @@ Preserve stopped S26 and ensure every future returned live result is privately r
 - `fixtures/S25/**`
 - `fixtures/S26/**`
 - `fixtures/S26R1/**`
+- `fixtures/S26R2/**`
 - `runs/S26R1/**`
+- `runs/S26R2/**`
+- `packages/live-run/test/s26r2-scenario-binding-remediation.test.js`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -45,6 +48,7 @@ Preserve stopped S26 and ensure every future returned live result is privately r
 - `evidence/S25/**`
 - `evidence/S26/**`
 - `evidence/S26R1/**`
+- `evidence/S26R2/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -64,7 +68,7 @@ Preserve stopped S26 and ensure every future returned live result is privately r
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
 - No rewrite of historical evidence
-- No S26 replay and no provider traffic in S26R1 without a separate exact-matrix-digest approval
+- No S26 or S26R1 replay and no provider traffic in S26R2 without a separate exact-matrix-digest approval
 - No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority
 - No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta
 
@@ -74,12 +78,13 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Historical S26 bytes and stop evidence remain exact.
-- The returned run is durably retained before every success assertion.
-- Rejected runs remain private and diagnosable.
-- Collision or write failure stops without overwrite or false green.
-- S26R1 matrix is closed and exact; provider calls authorized are zero.
-- Focused, accumulated, protocol, and hosted gates pass.
+- Historical S26R1 bytes, custody, stop, and consumed approval remain exact.
+- Runtime scenario ID exactly equals the SCOPA session/transcript ID.
+- Matrix scenario remains the `clean` classification.
+- Any identifier or version mismatch rejects deterministically.
+- Retain-before-validate and cleanup contracts do not regress.
+- S26R2 matrix is closed; provider calls authorized are zero.
+- Focused, accumulated, protocol, privacy, and hosted gates pass.
 
 ## Handoff
 

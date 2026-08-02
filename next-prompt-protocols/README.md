@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `dde7c13`
+Current commit reference: `2b759c4`
 
 Active protocol class: `hotfix`
 Active protocol compound: `false`
@@ -104,10 +104,10 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-08-01-scopa-s26-failure-evidence-remediation.md`
+3. `macro-deltas/2026-08-02-scopa-s26r2-scenario-binding-remediation.md`
 4. `role-context.md`
 5. `phases/phase-9/README.md`
-6. `active/2026-08-01-S26R1-failure-evidence-remediation.md`
+6. `active/2026-08-02-S26R2-scenario-binding-remediation.md`
 7. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
 8. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
 9. `completed/2026-08-01-S24-gate-process-tree-custody.md`
@@ -165,14 +165,14 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current phase
 
-- `Phase 9 S26r1 Failure Evidence Remediation`
+- `Phase 9 S26r2 Scenario Binding Remediation`
 
 ## Current active objective
 
-> Prove that the distinct S26R1 runner retains every returned result before
-> qualification, freeze the new closed matrix, and obtain local and hosted
-> provider-off qualification. Do not execute the matrix without separate exact
-> approval.
+> Hold the exact provider-closed S26R2 matrix after proving one
+> session/runtime-scenario binding for each provider, adversarial mismatch
+> rejection, and preserved evidence ordering. Do not execute the matrix without
+> later exact approval.
 
 ## Behavior rules
 
@@ -207,7 +207,10 @@ These protocols are specific to:
 - `fixtures/S25/**`
 - `fixtures/S26/**`
 - `fixtures/S26R1/**`
+- `fixtures/S26R2/**`
 - `runs/S26R1/**`
+- `runs/S26R2/**`
+- `packages/live-run/test/s26r2-scenario-binding-remediation.test.js`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -219,6 +222,7 @@ These protocols are specific to:
 - `evidence/S25/**`
 - `evidence/S26/**`
 - `evidence/S26R1/**`
+- `evidence/S26R2/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -230,4 +234,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-9/README.md`
-- `active/2026-08-01-S26R1-failure-evidence-remediation.md`
+- `active/2026-08-02-S26R2-scenario-binding-remediation.md`
