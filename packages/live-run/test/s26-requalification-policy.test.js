@@ -24,6 +24,10 @@ const MATRIX_PATH = path.join(
   ROOT,
   'evidence/S26/closed-production-live-matrix.json',
 );
+const APPROVAL_PATH = path.join(
+  ROOT,
+  'evidence/S26/production-live-approval.json',
+);
 
 function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
@@ -149,6 +153,20 @@ test('S26 approval is exactly two calls with bounded custody and no release gran
   assert.equal(approval.experimentUseAllowed, false);
   assert.equal(approval.publicationAllowed, false);
   assert.equal(approval.releaseAllowed, false);
+});
+
+test('committed S26 approval is exact and opens only the frozen matrix', async () => {
+  const closed = createClosedS26LiveMatrix();
+  const approvalText = await readFile(APPROVAL_PATH, 'utf8');
+  const approval = JSON.parse(approvalText);
+  assert.deepEqual(approval, createS26LiveApproval(closed));
+  assert.equal(
+    approval.approvalSha256,
+    '6a93ad966927c64bdaa2ea89c1cdf812352e9d44bb11878025c96f58a691f312',
+  );
+  assert.deepEqual(scanPrivateText(approvalText), []);
+  const authorized = authorizeS26LiveMatrix(closed, approval);
+  assert.equal(authorized.constraints.totalProviderCallsAuthorized, 2);
 });
 
 test('closed S26 posture refuses provider intent and all authority drift', () => {
