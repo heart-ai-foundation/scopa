@@ -131,6 +131,34 @@ test('committed S26R2 approval is the exact bounded two-call authority', async (
   assert.deepEqual(scanPrivateText(text), []);
 });
 
+test('S26R2 stop consumes replay after retention projection failure', async () => {
+  const [stopText, consumedText] = await Promise.all([
+    readFile(path.join(ROOT, 'evidence/S26R2/stop.json'), 'utf8'),
+    readFile(path.join(ROOT, 'evidence/S26R2/consumed-approvals.json'), 'utf8'),
+  ]);
+  const stop = JSON.parse(stopText);
+  const consumed = JSON.parse(consumedText);
+  assert.equal(stop.approvalSha256, createS26R2LiveApproval(
+    createClosedS26R2LiveMatrix(),
+  ).approvalSha256);
+  assert.equal(
+    stop.stop.classification,
+    'canonical-private-projection-rejected-fractional-cost',
+  );
+  assert.equal(stop.stop.providerResultReturned, true);
+  assert.equal(stop.stop.qualificationAssertionReached, false);
+  assert.equal(stop.stop.privateRunRetained, false);
+  assert.equal(stop.callAccounting.claudeAttempted, true);
+  assert.equal(stop.callAccounting.codexAttempted, false);
+  assert.equal(stop.callAccounting.replayAllowed, false);
+  assert.equal(consumed.approvals.length, 1);
+  assert.equal(consumed.approvals[0].approvalSha256, stop.approvalSha256);
+  assert.equal(consumed.approvals[0].completedSequence, false);
+  assert.equal(consumed.approvals[0].codexAttempted, false);
+  assert.equal(consumed.approvals[0].replayAllowed, false);
+  assert.deepEqual(scanPrivateText(`${stopText}\n${consumedText}`), []);
+});
+
 test('Claude and Codex runtime scenario identities exactly equal their session identities', () => {
   const matrix = createClosedS26R2LiveMatrix();
   for (const call of matrix.goal.calls) {

@@ -1,0 +1,17 @@
+{
+  "schema": "scopa.s26r2-consumed-approvals.v1",
+  "approvals": [
+    {
+      "approvalSha256": "2af383b52ccdacf6c5d233760f0627e22089be1d1bf8e63b6df084e7d9734ab1",
+      "closedMatrixSha256": "1a4a642411c47349a34720b0aa35ea4ee668cdefac75622871de1bfd6937a947",
+      "authorizedMatrixSha256": "f0dcf53d3355744bcb10894cc05ac87b91ea395d1fb5824c8542f1327fe76af1",
+      "consumedAt": "2026-08-02T14:30:31Z",
+      "callsAttempted": 1,
+      "callsConservativelyConsumed": 1,
+      "completedSequence": false,
+      "codexAttempted": false,
+      "replayAllowed": false,
+      "stopReceipt": "evidence/S26R2/stop.json"
+    }
+  ]
+}
