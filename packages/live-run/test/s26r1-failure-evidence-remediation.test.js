@@ -119,6 +119,29 @@ test('S26R1 remediation approval grants deterministic work but zero calls', asyn
   assert.deepEqual(scanPrivateText(text), []);
 });
 
+test('committed S26R1 live approval is the exact bounded two-call authority', async () => {
+  const text = await readFile(
+    path.join(ROOT, 'evidence/S26R1/production-live-approval.json'),
+    'utf8',
+  );
+  const approval = JSON.parse(text);
+  const expected = createS26R1LiveApproval(createClosedS26R1LiveMatrix());
+  assert.deepEqual(approval, expected);
+  assert.equal(
+    approval.approvalSha256,
+    '2be32359f1cd1fe5067a39351be688cce746db4b144a2284e39ce3b4403fe1c4',
+  );
+  assert.deepEqual(approval.calls.map(({ id }) => id), [
+    'claude-clean',
+    'codex-clean',
+  ]);
+  assert.equal(approval.singleUse, true);
+  assert.equal(approval.experimentUseAllowed, false);
+  assert.equal(approval.publicationAllowed, false);
+  assert.equal(approval.releaseAllowed, false);
+  assert.deepEqual(scanPrivateText(text), []);
+});
+
 test('a rejected returned run is retained before the qualification error', async () => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-s26r1-test-'));
   try {
