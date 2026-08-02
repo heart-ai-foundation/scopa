@@ -108,6 +108,29 @@ test('S26R2 Macro Delta approval grants deterministic work and zero calls', asyn
   assert.deepEqual(scanPrivateText(text), []);
 });
 
+test('committed S26R2 approval is the exact bounded two-call authority', async () => {
+  const text = await readFile(
+    path.join(ROOT, 'evidence/S26R2/production-live-approval.json'),
+    'utf8',
+  );
+  const approval = JSON.parse(text);
+  const expected = createS26R2LiveApproval(createClosedS26R2LiveMatrix());
+  assert.deepEqual(approval, expected);
+  assert.equal(
+    approval.approvalSha256,
+    '2af383b52ccdacf6c5d233760f0627e22089be1d1bf8e63b6df084e7d9734ab1',
+  );
+  assert.deepEqual(approval.calls.map(({ id }) => id), [
+    'claude-clean',
+    'codex-clean',
+  ]);
+  assert.equal(approval.singleUse, true);
+  assert.equal(approval.experimentUseAllowed, false);
+  assert.equal(approval.publicationAllowed, false);
+  assert.equal(approval.releaseAllowed, false);
+  assert.deepEqual(scanPrivateText(text), []);
+});
+
 test('Claude and Codex runtime scenario identities exactly equal their session identities', () => {
   const matrix = createClosedS26R2LiveMatrix();
   for (const call of matrix.goal.calls) {
