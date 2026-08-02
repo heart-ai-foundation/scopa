@@ -142,6 +142,34 @@ test('committed S26R1 live approval is the exact bounded two-call authority', as
   assert.deepEqual(scanPrivateText(text), []);
 });
 
+test('S26R1 stop consumes replay after Claude and proves Codex was not attempted', async () => {
+  const [stopText, consumedText] = await Promise.all([
+    readFile(path.join(ROOT, 'evidence/S26R1/stop.json'), 'utf8'),
+    readFile(path.join(ROOT, 'evidence/S26R1/consumed-approvals.json'), 'utf8'),
+  ]);
+  const stop = JSON.parse(stopText);
+  const consumed = JSON.parse(consumedText);
+  assert.equal(stop.approvalSha256, createS26R1LiveApproval(
+    createClosedS26R1LiveMatrix(),
+  ).approvalSha256);
+  assert.equal(stop.stop.classification, 'runner-scenario-binding-mismatch');
+  assert.equal(stop.stop.retainedBeforeQualification, true);
+  assert.equal(stop.callAccounting.claudeAttempted, true);
+  assert.equal(stop.callAccounting.codexAttempted, false);
+  assert.equal(stop.callAccounting.replayAllowed, false);
+  assert.equal(stop.boundedStructuralDiagnosis.offlineNormalizationSucceeded, true);
+  assert.equal(stop.boundedStructuralDiagnosis.exactToolOrderObserved, true);
+  assert.equal(stop.boundedStructuralDiagnosis.terminalPolarity, true);
+  assert.equal(stop.custody.privateRunRetainedOutsideRepository, true);
+  assert.match(stop.custody.privateRunSha256, /^[0-9a-f]{64}$/);
+  assert.equal(consumed.approvals.length, 1);
+  assert.equal(consumed.approvals[0].approvalSha256, stop.approvalSha256);
+  assert.equal(consumed.approvals[0].completedSequence, false);
+  assert.equal(consumed.approvals[0].codexAttempted, false);
+  assert.equal(consumed.approvals[0].replayAllowed, false);
+  assert.deepEqual(scanPrivateText(`${stopText}\n${consumedText}`), []);
+});
+
 test('a rejected returned run is retained before the qualification error', async () => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-s26r1-test-'));
   try {

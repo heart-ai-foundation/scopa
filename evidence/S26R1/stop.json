@@ -1,0 +1,61 @@
+{
+  "schema": "scopa.s26r1-production-live-stop.v1",
+  "stoppedAt": "2026-08-02T13:00:48Z",
+  "controlCommit": "c72c55b2e71b0bb816c3cfe58fbfaa9b3fd62d27",
+  "hostedApprovalRunId": 30736666695,
+  "closedMatrixSha256": "23246eaa7c8f82c33c8313dddb4553940fa8936d40d28fd0d9c49d8c576fe9c6",
+  "authorizedMatrixSha256": "0a8676d7f4133a6e554aacfd68a2947a8524d4e64927338276afbbcaabedd54c",
+  "approvalSha256": "2be32359f1cd1fe5067a39351be688cce746db4b144a2284e39ce3b4403fe1c4",
+  "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+  "callAccounting": {
+    "approved": 2,
+    "attempted": 1,
+    "conservativelyConsumed": 1,
+    "claudeAttempted": true,
+    "codexAttempted": false,
+    "replayAllowed": false
+  },
+  "stop": {
+    "stage": "claude-clean-post-session-validation",
+    "classification": "runner-scenario-binding-mismatch",
+    "runnerError": "claude S26R1 run did not reach normalized success",
+    "terminalState": "normalization-failed",
+    "terminalReason": "stream-normalization-error",
+    "providerExitCode": 0,
+    "providerOutputTruncated": false,
+    "retainedBeforeQualification": true,
+    "codexSkippedByStopCondition": true
+  },
+  "boundedStructuralDiagnosis": {
+    "offlineNormalizationSucceeded": true,
+    "matrixScenario": "clean",
+    "observedTranscriptScenario": "S26R1-claude-clean",
+    "terminalPolarity": true,
+    "exactToolOrderObserved": true,
+    "turns": 7,
+    "costUsd": 0.0533924,
+    "rateLimitEvents": 1,
+    "cleanupGroupGone": true,
+    "orphanDetected": false
+  },
+  "custody": {
+    "privateIntentRetainedOutsideRepository": true,
+    "privateIntentSha256": "5d6ab742e33c0460adc1e1addb779b6f90ce8ef8862709dc0b2a9c2463343a2c",
+    "privateRunRetainedOutsideRepository": true,
+    "privateRunSha256": "468decf9b6ebe4fe9d6c09a1272f2c78550540b6ec56832c56a4f9a73953c875",
+    "privateRunBytes": 64326,
+    "privateFileMode": "0600",
+    "privateRootMode": "0700",
+    "rawProviderMaterialInRepository": false,
+    "publicPathDisclosure": false
+  },
+  "reconciliation": {
+    "taggedProcessSurvivorObserved": false,
+    "publicSuccessDerivativeWritten": false,
+    "qualificationAccepted": false,
+    "s27Authorized": false,
+    "releaseAllowed": false
+  },
+  "result": "stopped-non-qualifying-runner-defect",
+  "nextAuthority": "fresh-bounded-scenario-binding-remediation-macro-delta-required"
+}
