@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `2c78d9ba`
+Current commit reference: `f1d84dce`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
@@ -168,9 +168,8 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Create one closed, exact candidate-bound two-call matrix and execute it only after a separate
-> exact-digest approval. Continue to S27 and S28 only when each prior value gate
-> passes.
+> Preserve the stopped S26 result. Claude clean did not reach normalized success;
+> Codex was not attempted, replay is forbidden, and S27/S28 remain blocked.
 
 ## Behavior rules
 

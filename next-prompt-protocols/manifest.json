@@ -3,12 +3,12 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "2c78d9ba",
+  "current_commit": "f1d84dce",
   "current_phase": "phase-9-r1-exact-byte-qualification",
   "phase_scope": "Bind the exact S25 candidate to two non-redundant client calls, fresh parallel reviews, and one R1 go/no-go decision without ceremonial replay.",
   "macro_delta": "macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md",
   "active_protocol": "active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
-  "active_objective": "Freeze a closed exact-digest S26 two-call matrix and deterministic preflight; provider intent remains closed until separate exact approval.",
+  "active_objective": "Preserve the non-qualifying S26 stop after Claude failed normalized-success validation; Codex was skipped, replay is forbidden, and S27/S28 remain blocked.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
@@ -1008,5 +1008,5 @@
       ]
     }
   },
-  "stop_condition": "Stop S26 before provider intent on missing exact approval or any candidate, package, closure, client, model, prompt, budget, tool-inventory, custody, privacy, schema, or digest drift; experiment, publication, and release actions remain forbidden."
+  "stop_condition": "S26 is stopped non-qualifying. Do not retry Claude, attempt Codex, activate S27/S28, or perform experiment, publication, or release actions without a fresh bounded Macro Delta and exact authority."
 }

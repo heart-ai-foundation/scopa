@@ -5,7 +5,7 @@
 **Crosses:** [`release-readiness`, `gate-process-custody`, `claude-live-hardening`, `codex-live-hardening`]
 **Advances contracts:** [`PLQ2`, `PLQ3`]
 **Compound:** false
-**Status:** S26 active; provider-closed; no release authority
+**Status:** S26 stopped non-qualifying after Claude; S27/S28 blocked; provider and release closed
 
 ## Why this exists
 
@@ -15,9 +15,8 @@ review. Those are the only material gaps before a principal R1 decision.
 
 ## Next objective
 
-Create one closed, exact candidate-bound two-call matrix and execute it only after a separate
-exact-digest approval. Continue to S27 and S28 only when each prior value gate
-passes.
+Preserve the stopped S26 result. Claude clean did not reach normalized success;
+Codex was not attempted, replay is forbidden, and S27/S28 remain blocked.
 
 ## Descriptor rung check
 
@@ -48,9 +47,9 @@ Claude and Codex transports. No descriptor-only precursor slice is permitted.
 
 | Queue slot | Slice | Purpose | Value gate | Validation gate | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S26 exact-byte client qualification | Bind the S25 tarball to both distinct client transports | exactly two calls retire untested client compatibility without replaying unchanged continuity campaigns | digest preflight; Claude clean then Codex clean; strict SCOPA surface; allow/deny; cleanup | `active, provider-closed` |
-| 2 | S27 parallel exact-byte reviews | Independently challenge artifact, evidence, and installed runtime claims | prior runtime review found a real defect, so one fresh three-role pass is justified | three parallel reports, all ACCEPT, no material finding; installed descendant probes | `queued behind S26` |
-| 3 | S28 R1 go/no-go | Close PLQ2/PLQ3 and obtain one durable release decision | converts complete evidence into one actionable boundary | consistency validator, final hosted gate, principal GO or NO-GO | `queued behind S27` |
+| 1 | S26 exact-byte client qualification | Bind the S25 tarball to both distinct client transports | exactly two calls retire untested client compatibility without replaying unchanged continuity campaigns | digest preflight; Claude clean then Codex clean; strict SCOPA surface; allow/deny; cleanup | `stopped non-qualifying after Claude; no replay` |
+| 2 | S27 parallel exact-byte reviews | Independently challenge artifact, evidence, and installed runtime claims | prior runtime review found a real defect, so one fresh three-role pass is justified | three parallel reports, all ACCEPT, no material finding; installed descendant probes | `blocked by S26` |
+| 3 | S28 R1 go/no-go | Close PLQ2/PLQ3 and obtain one durable release decision | converts complete evidence into one actionable boundary | consistency validator, final hosted gate, principal GO or NO-GO | `blocked by S26` |
 
 Queue rules specific to this arc:
 

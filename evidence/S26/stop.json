@@ -1,0 +1,44 @@
+{
+  "schema": "scopa.s26-production-live-stop.v1",
+  "stoppedAt": "2026-08-02T05:39:51Z",
+  "controlCommit": "f1d84dce9e81175175f2948fbc59fef419d2b421",
+  "hostedApprovalRunId": 30733781829,
+  "closedMatrixSha256": "0ae0aa91fbe8a8eaa800fce6496735ae270ea2c91cb12879a235c27d099725a4",
+  "approvalSha256": "6a93ad966927c64bdaa2ea89c1cdf812352e9d44bb11878025c96f58a691f312",
+  "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+  "callAccounting": {
+    "approved": 2,
+    "attempted": 1,
+    "conservativelyConsumed": 1,
+    "claudeAttempted": true,
+    "codexAttempted": false,
+    "replayAllowed": false
+  },
+  "stop": {
+    "stage": "claude-clean-post-session-validation",
+    "classification": "non-qualifying-live-result",
+    "runnerError": "claude S26 run did not reach normalized success",
+    "normalizedSuccessObserved": false,
+    "providerInvocationStatus": "may-have-started-conservatively-consumed",
+    "rawRunRetained": false,
+    "rawRunRetentionFailure": "runner-asserted-before-writing-the-returned-run",
+    "codexSkippedByStopCondition": true
+  },
+  "custody": {
+    "privateIntentRetainedOutsideRepository": true,
+    "privateIntentSha256": "0b27386a78c8bbaaad8154327247d44b65703865163a094f71c429e5d9bc3d0f",
+    "privateIntentMode": "0600",
+    "privateRootMode": "0700",
+    "rawProviderMaterialInRepository": false,
+    "publicPathDisclosure": false
+  },
+  "reconciliation": {
+    "s26TaggedProcessSurvivorObserved": false,
+    "publicSuccessDerivativeWritten": false,
+    "qualificationAccepted": false,
+    "s27Authorized": false,
+    "releaseAllowed": false
+  },
+  "result": "stopped-non-qualifying",
+  "nextAuthority": "fresh-bounded-remediation-macro-delta-required"
+}

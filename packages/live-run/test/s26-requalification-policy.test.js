@@ -169,6 +169,35 @@ test('committed S26 approval is exact and opens only the frozen matrix', async (
   assert.equal(authorized.constraints.totalProviderCallsAuthorized, 2);
 });
 
+test('S26 stop consumes replay and proves Codex was never attempted', async () => {
+  const [stopText, consumedText] = await Promise.all([
+    readFile(path.join(ROOT, 'evidence/S26/stop.json'), 'utf8'),
+    readFile(path.join(ROOT, 'evidence/S26/consumed-approvals.json'), 'utf8'),
+  ]);
+  const stop = JSON.parse(stopText);
+  const consumed = JSON.parse(consumedText);
+  assert.equal(stop.result, 'stopped-non-qualifying');
+  assert.equal(stop.callAccounting.approved, 2);
+  assert.equal(stop.callAccounting.attempted, 1);
+  assert.equal(stop.callAccounting.conservativelyConsumed, 1);
+  assert.equal(stop.callAccounting.claudeAttempted, true);
+  assert.equal(stop.callAccounting.codexAttempted, false);
+  assert.equal(stop.callAccounting.replayAllowed, false);
+  assert.equal(stop.stop.normalizedSuccessObserved, false);
+  assert.equal(stop.stop.rawRunRetained, false);
+  assert.equal(stop.reconciliation.qualificationAccepted, false);
+  assert.equal(stop.reconciliation.s27Authorized, false);
+  assert.equal(consumed.approvals.length, 1);
+  assert.equal(
+    consumed.approvals[0].approvalSha256,
+    '6a93ad966927c64bdaa2ea89c1cdf812352e9d44bb11878025c96f58a691f312',
+  );
+  assert.equal(consumed.approvals[0].completedSequence, false);
+  assert.equal(consumed.approvals[0].replayAllowed, false);
+  assert.deepEqual(scanPrivateText(stopText), []);
+  assert.deepEqual(scanPrivateText(consumedText), []);
+});
+
 test('closed S26 posture refuses provider intent and all authority drift', () => {
   const closed = createClosedS26LiveMatrix();
   assert.throws(

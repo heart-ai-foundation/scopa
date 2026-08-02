@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "2c78d9ba",
+  "current_commit": "f1d84dce",
   "current_phase": "phase-9-r1-exact-byte-qualification",
   "active_protocol": "active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
   "active_class": "arc",
@@ -17,8 +17,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:78169cc8a9aca1a0b95e425c905735987ed2fdf89054d3595affb03d76349a74",
-  "active_objective": "Create one closed, exact candidate-bound two-call matrix and execute it only after a separate\nexact-digest approval. Continue to S27 and S28 only when each prior value gate\npasses.",
+  "active_protocol_sha256": "sha256:f8c231294d37d7da702844e12f3aa6ccdc257eab0186f54fe3e45a41931b245d",
+  "active_objective": "Preserve the stopped S26 result. Claude clean did not reach normalized success;\nCodex was not attempted, replay is forbidden, and S27/S28 remain blocked.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -56,5 +56,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S26 before provider intent on missing exact approval or any candidate, package, closure, client, model, prompt, budget, tool-inventory, custody, privacy, schema, or digest drift; experiment, publication, and release actions remain forbidden."
+  "stop_condition": "S26 is stopped non-qualifying. Do not retry Claude, attempt Codex, activate S27/S28, or perform experiment, publication, or release actions without a fresh bounded Macro Delta and exact authority."
 }

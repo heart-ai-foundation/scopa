@@ -1,6 +1,6 @@
 # Phase 9 R1 Exact Byte Qualification
 
-Current commit reference: `2c78d9ba`
+Current commit reference: `f1d84dce`
 Current active protocol: `active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
 
 ## Scope
@@ -9,9 +9,8 @@ Bind the exact S25 candidate to two non-redundant client calls, fresh parallel r
 
 ## Active objective
 
-> Create one closed, exact candidate-bound two-call matrix and execute it only after a separate
-> exact-digest approval. Continue to S27 and S28 only when each prior value gate
-> passes.
+> Preserve the stopped S26 result. Claude clean did not reach normalized success;
+> Codex was not attempted, replay is forbidden, and S27/S28 remain blocked.
 
 ## Files in play
 
