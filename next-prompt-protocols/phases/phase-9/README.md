@@ -1,16 +1,18 @@
-# Phase 9 R1 Exact Byte Qualification
+# Phase 9 S26r1 Failure Evidence Remediation
 
-Current commit reference: `f1d84dce`
-Current active protocol: `active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+Current commit reference: `dde7c13`
+Current active protocol: `active/2026-08-01-S26R1-failure-evidence-remediation.md`
 
 ## Scope
 
-Bind the exact S25 candidate to two non-redundant client calls, fresh parallel reviews, and one R1 go/no-go decision without ceremonial replay.
+Preserve stopped S26 and ensure every future returned live result is privately retained before qualification, without provider replay or unrelated change.
 
 ## Active objective
 
-> Preserve the stopped S26 result. Claude clean did not reach normalized success;
-> Codex was not attempted, replay is forbidden, and S27/S28 remain blocked.
+> Prove that the distinct S26R1 runner retains every returned result before
+> qualification, freeze the new closed matrix, and obtain local and hosted
+> provider-off qualification. Do not execute the matrix without separate exact
+> approval.
 
 ## Files in play
 
@@ -30,6 +32,8 @@ Bind the exact S25 candidate to two non-redundant client calls, fresh parallel r
 - `fixtures/S24/**`
 - `fixtures/S25/**`
 - `fixtures/S26/**`
+- `fixtures/S26R1/**`
+- `runs/S26R1/**`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -40,6 +44,7 @@ Bind the exact S25 candidate to two non-redundant client calls, fresh parallel r
 - `evidence/S24/**`
 - `evidence/S25/**`
 - `evidence/S26/**`
+- `evidence/S26R1/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -59,7 +64,7 @@ Bind the exact S25 candidate to two non-redundant client calls, fresh parallel r
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
 - No rewrite of historical evidence
-- No provider traffic in S26 without a separate exact-matrix-digest approval
+- No S26 replay and no provider traffic in S26R1 without a separate exact-matrix-digest approval
 - No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority
 - No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta
 
@@ -69,13 +74,12 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- S26: two exact calls only, both qualifying, zero cleanup/privacy/policy drift.
-- S27: three fresh ACCEPT verdicts, no critical/high/medium finding, every low
-  adjudicated, installed descendant cleanup independently reproduced.
-- S28: PLQ2 and PLQ3 satisfied by machine-checked evidence, hosted gate green,
-  and one explicit principal GO or NO-GO decision.
-- Provider and release gates remain closed except for separately approved exact
-  actions.
+- Historical S26 bytes and stop evidence remain exact.
+- The returned run is durably retained before every success assertion.
+- Rejected runs remain private and diagnosable.
+- Collision or write failure stops without overwrite or false green.
+- S26R1 matrix is closed and exact; provider calls authorized are zero.
+- Focused, accumulated, protocol, and hosted gates pass.
 
 ## Handoff
 

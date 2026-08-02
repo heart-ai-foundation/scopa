@@ -1,0 +1,30 @@
+{
+  "schema": "scopa.s26r1-provider-off-remediation-run.v1",
+  "providerTrafficAllowed": false,
+  "providerCallsConsumed": 0,
+  "historicalS26Replay": false,
+  "checks": [
+    {
+      "id": "rejected-run-retained-before-rejection",
+      "result": "pass"
+    },
+    {
+      "id": "accepted-run-retained-before-acceptance",
+      "result": "pass"
+    },
+    {
+      "id": "collision-no-overwrite",
+      "result": "pass"
+    },
+    {
+      "id": "retention-failure-precedes-qualification",
+      "result": "pass"
+    },
+    {
+      "id": "historical-stop-and-runner-byte-bindings",
+      "result": "pass"
+    }
+  ],
+  "result": "provider-off-controls-pass",
+  "nextAuthority": "separate-exact-s26r1-matrix-digest-approval-required"
+}

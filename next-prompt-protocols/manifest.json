@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "f1d84dce",
-  "current_phase": "phase-9-r1-exact-byte-qualification",
-  "phase_scope": "Bind the exact S25 candidate to two non-redundant client calls, fresh parallel reviews, and one R1 go/no-go decision without ceremonial replay.",
-  "macro_delta": "macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md",
-  "active_protocol": "active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
-  "active_objective": "Preserve the non-qualifying S26 stop after Claude failed normalized-success validation; Codex was skipped, replay is forbidden, and S27/S28 remain blocked.",
-  "active_class": "arc",
+  "current_commit": "dde7c13",
+  "current_phase": "phase-9-s26r1-failure-evidence-remediation",
+  "phase_scope": "Preserve stopped S26 and ensure every future returned live result is privately retained before qualification, without provider replay or unrelated change.",
+  "macro_delta": "macro-deltas/2026-08-01-scopa-s26-failure-evidence-remediation.md",
+  "active_protocol": "active/2026-08-01-S26R1-failure-evidence-remediation.md",
+  "active_objective": "Provider-off qualify the S26R1 journal-before-validation runner and freeze its closed exact matrix; no production call is authorized.",
+  "active_class": "hotfix",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
     "completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
     "completed/2026-08-01-S24-gate-process-tree-custody.md",
     "completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md",
@@ -57,6 +58,8 @@
     "fixtures/S24/**",
     "fixtures/S25/**",
     "fixtures/S26/**",
+    "fixtures/S26R1/**",
+    "runs/S26R1/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -67,6 +70,7 @@
     "evidence/S24/**",
     "evidence/S25/**",
     "evidence/S26/**",
+    "evidence/S26R1/**",
     "evidence/S27/**",
     "evidence/S28/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
@@ -85,12 +89,12 @@
     "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
     "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
     "No rewrite of historical evidence",
-    "No provider traffic in S26 without a separate exact-matrix-digest approval",
+    "No S26 replay and no provider traffic in S26R1 without a separate exact-matrix-digest approval",
     "No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority",
     "No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/live-run/test/s26-requalification-policy.test.js",
+    "fast_deterministic": "node --test packages/live-run/test/s26r1-failure-evidence-remediation.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
@@ -885,6 +889,8 @@
         "evidence/S23",
         "fixtures/S26",
         "evidence/S26",
+        "fixtures/S26R1",
+        "evidence/S26R1",
         "evidence/S27",
         "evidence/S28"
       ],
@@ -938,6 +944,8 @@
         "evidence/S23",
         "fixtures/S26",
         "evidence/S26",
+        "fixtures/S26R1",
+        "evidence/S26R1",
         "evidence/S27",
         "evidence/S28"
       ],
@@ -1008,5 +1016,5 @@
       ]
     }
   },
-  "stop_condition": "S26 is stopped non-qualifying. Do not retry Claude, attempt Codex, activate S27/S28, or perform experiment, publication, or release actions without a fresh bounded Macro Delta and exact authority."
+  "stop_condition": "Stop S26R1 on missing failure evidence, journal-after-assert behavior, overwrite, private-mode failure, historical S26 drift, provider intent, or unrelated change; later calls require separate exact-digest authority."
 }

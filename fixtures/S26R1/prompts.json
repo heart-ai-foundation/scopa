@@ -1,0 +1,4 @@
+{
+  "claude-clean": "S26R1 exact-byte qualification, Claude clean. Use only the six SCOPA MCP tools. In order: orient; read task.txt; write workspace/claude.txt with exact content CLAUDE_ALLOWED followed by one newline; check; inspect assurance; capture the transcript. Return the exact machine result from SCOPA. Do not use native tools or claim more assurance than SCOPA reports.",
+  "codex-clean": "S26R1 exact-byte qualification, Codex clean. Use only the six SCOPA MCP tools. In order: orient; read task.txt; write workspace/codex.txt with exact content CODEX_ALLOWED followed by one newline; check; inspect assurance; capture the transcript. Return the exact machine result from SCOPA. Do not use native tools or claim more assurance than SCOPA reports."
+}

@@ -2,9 +2,9 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f1d84dce`
+Current commit reference: `dde7c13`
 
-Active protocol class: `arc`
+Active protocol class: `hotfix`
 Active protocol compound: `false`
 Active protocol module: `production-live-requalification`
 Advances contracts: `PLQ2, PLQ3`
@@ -104,37 +104,38 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md`
+3. `macro-deltas/2026-08-01-scopa-s26-failure-evidence-remediation.md`
 4. `role-context.md`
 5. `phases/phase-9/README.md`
-6. `active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
-7. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
-8. `completed/2026-08-01-S24-gate-process-tree-custody.md`
-9. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
-10. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
-11. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-12. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-13. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-14. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-15. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-16. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-17. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-18. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-19. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-20. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-21. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-22. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-23. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-24. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-25. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-26. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-27. `completed/2026-07-27-S6-installable-developer-surface.md`
-28. `completed/2026-07-26-S5-interop-export.md`
-29. `completed/2026-07-26-S4-signing-and-anchoring.md`
-30. `completed/2026-07-26-S3-legibility.md`
-31. `completed/2026-07-26-S2-enforcement-loop.md`
-32. `completed/2026-07-26-S0-conformance-harness.md`
-33. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-08-01-S26R1-failure-evidence-remediation.md`
+7. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+8. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+9. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+10. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+11. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+12. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+13. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+14. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+15. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+16. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+17. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+18. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+19. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+20. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+21. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+22. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+23. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+24. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+25. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+26. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+27. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+28. `completed/2026-07-27-S6-installable-developer-surface.md`
+29. `completed/2026-07-26-S5-interop-export.md`
+30. `completed/2026-07-26-S4-signing-and-anchoring.md`
+31. `completed/2026-07-26-S3-legibility.md`
+32. `completed/2026-07-26-S2-enforcement-loop.md`
+33. `completed/2026-07-26-S0-conformance-harness.md`
+34. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -164,12 +165,14 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current phase
 
-- `Phase 9 R1 Exact Byte Qualification`
+- `Phase 9 S26r1 Failure Evidence Remediation`
 
 ## Current active objective
 
-> Preserve the stopped S26 result. Claude clean did not reach normalized success;
-> Codex was not attempted, replay is forbidden, and S27/S28 remain blocked.
+> Prove that the distinct S26R1 runner retains every returned result before
+> qualification, freeze the new closed matrix, and obtain local and hosted
+> provider-off qualification. Do not execute the matrix without separate exact
+> approval.
 
 ## Behavior rules
 
@@ -203,6 +206,8 @@ These protocols are specific to:
 - `fixtures/S24/**`
 - `fixtures/S25/**`
 - `fixtures/S26/**`
+- `fixtures/S26R1/**`
+- `runs/S26R1/**`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -213,6 +218,7 @@ These protocols are specific to:
 - `evidence/S24/**`
 - `evidence/S25/**`
 - `evidence/S26/**`
+- `evidence/S26R1/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -224,4 +230,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-9/README.md`
-- `active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+- `active/2026-08-01-S26R1-failure-evidence-remediation.md`

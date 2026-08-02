@@ -1,15 +1,14 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "f1d84dce",
-  "current_phase": "phase-9-r1-exact-byte-qualification",
-  "active_protocol": "active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
-  "active_class": "arc",
+  "current_commit": "dde7c13",
+  "current_phase": "phase-9-s26r1-failure-evidence-remediation",
+  "active_protocol": "active/2026-08-01-S26R1-failure-evidence-remediation.md",
+  "active_class": "hotfix",
   "active_compound": false,
   "active_module": "production-live-requalification",
   "crosses": [
-    "release-readiness",
-    "gate-process-custody",
+    "live-run-custody",
     "claude-live-hardening",
     "codex-live-hardening"
   ],
@@ -17,8 +16,8 @@
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:f8c231294d37d7da702844e12f3aa6ccdc257eab0186f54fe3e45a41931b245d",
-  "active_objective": "Preserve the stopped S26 result. Claude clean did not reach normalized success;\nCodex was not attempted, replay is forbidden, and S27/S28 remain blocked.",
+  "active_protocol_sha256": "sha256:d4a871da8de1e542abf8b362371428802770dd7423ea22c2ffebb7ba9ccbf6c8",
+  "active_objective": "Prove that the distinct S26R1 runner retains every returned result before\nqualification, freeze the new closed matrix, and obtain local and hosted\nprovider-off qualification. Do not execute the matrix without separate exact\napproval.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -36,6 +35,8 @@
     "fixtures/S24/**",
     "fixtures/S25/**",
     "fixtures/S26/**",
+    "fixtures/S26R1/**",
+    "runs/S26R1/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -46,15 +47,16 @@
     "evidence/S24/**",
     "evidence/S25/**",
     "evidence/S26/**",
+    "evidence/S26R1/**",
     "evidence/S27/**",
     "evidence/S28/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/live-run/test/s26-requalification-policy.test.js",
+    "fast_deterministic": "node --test packages/live-run/test/s26r1-failure-evidence-remediation.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "S26 is stopped non-qualifying. Do not retry Claude, attempt Codex, activate S27/S28, or perform experiment, publication, or release actions without a fresh bounded Macro Delta and exact authority."
+  "stop_condition": "Stop S26R1 on missing failure evidence, journal-after-assert behavior, overwrite, private-mode failure, historical S26 drift, provider intent, or unrelated change; later calls require separate exact-digest authority."
 }

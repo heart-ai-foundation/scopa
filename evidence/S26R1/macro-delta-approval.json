@@ -1,0 +1,25 @@
+{
+  "schema": "scopa.s26r1-failure-evidence-remediation-approval.v1",
+  "decision": "approve-bounded-provider-off-failure-evidence-remediation",
+  "approvedAt": "2026-08-02T05:49:00Z",
+  "authority": "conversation-explicit-principal-agreement",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-01-scopa-s26-failure-evidence-remediation.md",
+  "macroDeltaFileSha256": "17579961b82b967c0945c9966a55f88bb61081191dd5298889eca485d91de46f",
+  "protocolPath": "next-prompt-protocols/active/2026-08-01-S26R1-failure-evidence-remediation.md",
+  "protocolFileSha256": "d4a871da8de1e542abf8b362371428802770dd7423ea22c2ffebb7ba9ccbf6c8",
+  "historicalS26MatrixSha256": "0ae0aa91fbe8a8eaa800fce6496735ae270ea2c91cb12879a235c27d099725a4",
+  "historicalS26ApprovalConsumed": true,
+  "authorizedScope": [
+    "journal-returned-run-before-qualification",
+    "adversarial-failure-retention-tests",
+    "closed-s26r1-matrix-freeze",
+    "provider-off-local-and-hosted-qualification"
+  ],
+  "providerCallsAuthorized": 0,
+  "closedS26R1MatrixSha256": "23246eaa7c8f82c33c8313dddb4553940fa8936d40d28fd0d9c49d8c576fe9c6",
+  "prospectiveApprovalSha256": "2be32359f1cd1fe5067a39351be688cce746db4b144a2284e39ce3b4403fe1c4",
+  "experimentUseAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "nextAuthority": "separate-exact-s26r1-matrix-digest-approval-required"
+}

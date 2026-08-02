@@ -1,6 +1,6 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md`
+**Authority:** `macro-deltas/2026-08-01-scopa-s26-failure-evidence-remediation.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
@@ -14,10 +14,11 @@ or authorize independent queue entries.
 | S24 | Gate process-tree custody | `gate-process-custody` | Terminate and verify the complete gate process tree | No timed-out, output-limited, or orphan descendant survives | adversarial descendants, cleanup bounds, local and hosted gates | S23-v2 runtime rejection | Stop on survivor, false green, ambiguity, or unrelated change | `evidence/S24/` | `completed` |
 | S25 | Fresh provider-off candidate qualification | `gate-process-custody` | Build and qualify new bytes without assurance transfer | Exact clean candidate reproduces offline | npm 10/11, privacy/license/audit/process-tree matrix, hosted CI | S24 | Stop on byte/closure/network/audit/privacy/cleanup drift | `evidence/S25/` | `completed; production-live closed` |
 | S26 | Exact-byte client qualification | `production-live-requalification` | Bind the S25 tarball to both supported client transports | Two non-redundant exact calls replace four-call ceremonial replay | exact digest/preflight, Claude clean then Codex clean, allow/deny polarity, cleanup | S25 plus separate exact call approval | Stop before provider intent on approval or identity drift; stop after intent on any provider/custody failure | `evidence/S26/` | `stopped non-qualifying after Claude; Codex skipped; no replay` |
+| S26R1 | Failure-evidence remediation | `production-live-requalification` | Retain every returned run before qualification | Makes future non-qualifying results diagnosable without replay | rejected/accepted retention, collision, mode, historical binding, hosted CI | stopped S26 plus bounded remediation approval | Stop on provider intent, S26 mutation, missing journal, overwrite, or false green | `evidence/S26R1/` | `active; deterministic complete; provider-closed` |
 | S27 | Parallel exact-byte reviews | `production-live-requalification` | Challenge artifact, evidence, and installed runtime claims once | Prior runtime review found a real defect; exact new bytes require fresh verdicts | three parallel reports, installed descendant probes, deterministic consistency | accepted S26 | Stop on any REJECT, material finding, or unadjudicated low | `evidence/S27/` | `blocked by S26` |
 | S28 | R1 go/no-go decision | `production-live-requalification` | Close PLQ2/PLQ3 and make one durable release decision | Converts complete evidence into one actionable boundary | consistency projection, final hosted gate, principal GO or NO-GO | accepted S27 | Do not activate on non-qualifying evidence; GO does not execute release | `evidence/S28/` | `blocked by S26` |
 
-S0-S25 remain immutable under their governing Macro Deltas. S26 stopped after
-the Claude call failed post-session validation; the exact approval is consumed,
-Codex was not attempted, and replay is forbidden. S27/S28, the separate SCOPA
-experiment, and all publication/release actions remain closed.
+S0-S26 remain immutable under their governing Macro Deltas. S26R1 changes only
+future operator evidence ordering and is provider-closed. The S26 approval is
+consumed; S27/S28, the separate SCOPA experiment, and all publication/release
+actions remain closed.
