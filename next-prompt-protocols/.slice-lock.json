@@ -1,16 +1,24 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "395a7e34",
-  "current_phase": "phase-8-process-tree-cleanup-hardening",
-  "active_protocol": null,
-  "active_class": null,
+  "current_commit": "2c78d9ba",
+  "current_phase": "phase-9-r1-exact-byte-qualification",
+  "active_protocol": "active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
+  "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "The approved process-tree cleanup Macro Delta is complete. No production-live call is authorized; any next queue requires fresh principal approval.",
+  "active_module": "production-live-requalification",
+  "crosses": [
+    "release-readiness",
+    "gate-process-custody",
+    "claude-live-hardening",
+    "codex-live-hardening"
+  ],
+  "advances_contracts": [
+    "PLQ2",
+    "PLQ3"
+  ],
+  "active_protocol_sha256": "sha256:78169cc8a9aca1a0b95e425c905735987ed2fdf89054d3595affb03d76349a74",
+  "active_objective": "Create one closed, exact candidate-bound two-call matrix and execute it only after a separate\nexact-digest approval. Continue to S27 and S28 only when each prior value gate\npasses.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -27,6 +35,7 @@
     "fixtures/S23/**",
     "fixtures/S24/**",
     "fixtures/S25/**",
+    "fixtures/S26/**",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -36,13 +45,16 @@
     "evidence/S23/**",
     "evidence/S24/**",
     "evidence/S25/**",
+    "evidence/S26/**",
+    "evidence/S27/**",
+    "evidence/S28/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s2",
+    "fast_deterministic": "node --test packages/live-run/test/s26-requalification-policy.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "No active protocol. Provider, experiment, publication, release, and production-live actions remain closed pending fresh exact authority."
+  "stop_condition": "Stop S26 before provider intent on missing exact approval or any candidate, package, closure, client, model, prompt, budget, tool-inventory, custody, privacy, schema, or digest drift; experiment, publication, and release actions remain forbidden."
 }

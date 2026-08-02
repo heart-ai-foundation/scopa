@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.s26-exact-call-interpretation.v1",
+  "decision": "preserve-the-approved-two-clean-call-minimum",
+  "reason": "The approved queue and call table specify Claude clean then Codex clean. A clean call observes allowed-work polarity; it cannot also observe a denied mutation without changing the approved scenario.",
+  "liveObservations": [
+    "claude-clean-allowed-work",
+    "codex-clean-allowed-work"
+  ],
+  "denialPolarityBasis": {
+    "kind": "immutable-deterministic-prerequisite",
+    "replayedInS26ProviderTraffic": false,
+    "contracts": ["PTC1", "PTC2", "PTC3"]
+  },
+  "scopeEffect": {
+    "providerCallsAdded": 0,
+    "providerCallsRemoved": 0,
+    "callSequenceChanged": false,
+    "experimentUseAllowed": false,
+    "releaseAllowed": false
+  }
+}

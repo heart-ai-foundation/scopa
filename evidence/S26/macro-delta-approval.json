@@ -1,0 +1,15 @@
+{
+  "schema": "scopa.s26-macro-delta-approval.v1",
+  "decision": "approve-r1-exact-byte-qualification-macro-delta",
+  "approvedAt": "2026-08-02T04:37:23Z",
+  "authority": "conversation-explicit-principal-approval",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md",
+  "macroDeltaFileSha256": "975d76c5abe446d6c612e136e5cc131755ca3354e4355840a0c9690834aaf41b",
+  "queuePath": "next-prompt-protocols/active/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
+  "queueFileSha256": "78169cc8a9aca1a0b95e425c905735987ed2fdf89054d3595affb03d76349a74",
+  "authorizedSlices": ["S26", "S27", "S28"],
+  "providerCallsAuthorized": 0,
+  "releaseActionsAuthorized": 0,
+  "experimentUseAllowed": false,
+  "nextAuthority": "separate-exact-s26-matrix-digest-approval-required"
+}

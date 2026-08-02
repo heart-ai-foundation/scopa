@@ -1,6 +1,6 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-08-01-scopa-process-tree-cleanup-hardening.md`
+**Authority:** `macro-deltas/2026-08-01-scopa-r1-exact-byte-qualification.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
@@ -13,8 +13,11 @@ or authorize independent queue entries.
 | S23 | Fresh exact-identity reviews and closeout | `production-live-requalification` | Three unfamiliar roles reproduce four-part identity claims | Three ACCEPT verdicts and zero critical/high/medium findings | consistency, protocol, local, hosted, no-publication gates | S22 | Stop on contrary verdict, identity mismatch, or unadjudicated finding | `evidence/S23/` | `stopped: runtime review found timeout descendant survivor` |
 | S24 | Gate process-tree custody | `gate-process-custody` | Terminate and verify the complete gate process tree | No timed-out, output-limited, or orphan descendant survives | adversarial descendants, cleanup bounds, local and hosted gates | S23-v2 runtime rejection | Stop on survivor, false green, ambiguity, or unrelated change | `evidence/S24/` | `completed` |
 | S25 | Fresh provider-off candidate qualification | `gate-process-custody` | Build and qualify new bytes without assurance transfer | Exact clean candidate reproduces offline | npm 10/11, privacy/license/audit/process-tree matrix, hosted CI | S24 | Stop on byte/closure/network/audit/privacy/cleanup drift | `evidence/S25/` | `completed; production-live closed` |
+| S26 | Exact-byte client qualification | `production-live-requalification` | Bind the S25 tarball to both supported client transports | Two non-redundant exact calls replace four-call ceremonial replay | exact digest/preflight, Claude clean then Codex clean, allow/deny polarity, cleanup | S25 plus separate exact call approval | Stop before provider intent on approval or identity drift; stop after intent on any provider/custody failure | `evidence/S26/` | `active and provider-closed` |
+| S27 | Parallel exact-byte reviews | `production-live-requalification` | Challenge artifact, evidence, and installed runtime claims once | Prior runtime review found a real defect; exact new bytes require fresh verdicts | three parallel reports, installed descendant probes, deterministic consistency | accepted S26 | Stop on any REJECT, material finding, or unadjudicated low | `evidence/S27/` | `queued` |
+| S28 | R1 go/no-go decision | `production-live-requalification` | Close PLQ2/PLQ3 and make one durable release decision | Converts complete evidence into one actionable boundary | consistency projection, final hosted gate, principal GO or NO-GO | accepted S27 | Do not activate on non-qualifying evidence; GO does not execute release | `evidence/S28/` | `queued` |
 
-S0-S25 remain immutable under their governing Macro Deltas. There is no active
-slice. Any later production-live calls
-require a separate exact-digest approval. The separately running SCOPA
-experiment and all publication/release actions remain outside this queue.
+S0-S25 remain immutable under their governing Macro Deltas. S26 is active only
+for deterministic controls and remains provider-closed until a separate exact
+matrix-digest approval. The separately running SCOPA experiment and all
+publication/release actions remain outside this queue.

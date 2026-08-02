@@ -1,6 +1,6 @@
 # SCOPA R1 Exact-Byte Qualification Macro Delta — Proposal
 
-**Status:** draft; not approved
+**Status:** principal-approved on 2026-08-01; provider and release gates remain closed
 **Project:** SCOPA
 **Proposed phase:** Phase 9 — R1 exact-byte qualification and decision
 **Source candidate commit:** `395a7e340084bbefbb5fb1ae575193eb33cacef4`
@@ -30,7 +30,7 @@ Retire only the uncertainty that blocks an R1 decision:
 3. make one durable principal go/no-go release decision from the resulting
    evidence.
 
-This proposal does not itself authorize a provider call, release, publication,
+This approval does not itself authorize a provider call, release, publication,
 version change, tag, registry action, deployment, announcement, or experiment.
 
 ## Why this is proportional
@@ -152,7 +152,7 @@ or announce SCOPA. Those actions require exact principal authority after GO.
 
 ## Approval boundary
 
-Approval of this Macro Delta would authorize drafting and deterministic
-implementation of S26-S28 controls. It would not authorize the two production
+Approval of this Macro Delta authorizes drafting and deterministic
+implementation of S26-S28 controls. It does not authorize the two production
 calls. Those require a later exact matrix digest approval after the closed
 matrix exists. Release execution remains separately closed even if S28 is GO.

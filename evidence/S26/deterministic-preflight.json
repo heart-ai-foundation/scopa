@@ -1,0 +1,42 @@
+{
+  "schema": "scopa.s26-deterministic-preflight.v1",
+  "performedAt": "2026-08-02T04:53:20Z",
+  "providerTrafficAllowed": false,
+  "providerCallsConsumed": 0,
+  "closedMatrix": {
+    "matrixSha256": "0ae0aa91fbe8a8eaa800fce6496735ae270ea2c91cb12879a235c27d099725a4",
+    "fileSha256": "92990b8b35e71efc1ab419a331cca2f6fa3c55100e6664afbf6289b469cc051c",
+    "expectedApprovalSha256": "6a93ad966927c64bdaa2ea89c1cdf812352e9d44bb11878025c96f58a691f312"
+  },
+  "candidate": {
+    "sourceCommit": "395a7e340084bbefbb5fb1ae575193eb33cacef4",
+    "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+    "retainedNpm10AndNpm11TarballsByteIdentical": true,
+    "publishableSourceDiffCountFromCandidateCommit": 0,
+    "productionBundleIsCandidateEmbedded": true
+  },
+  "controls": {
+    "promptsSha256": "f59f5015c578ac1cc110a08d83d566f51add19e1104f6a31acafbf0ac28dcbce",
+    "runnerSha256": "720b1d9a3baf1c435cfd918d23a988798b84788c33b8e332b655f210c56def1a",
+    "policySha256": "323fbcf4aa7f1f5013afd2027618c4cfcc50350c83e9c5546c42ca7377bc01e3",
+    "exactCallInterpretationSha256": "72158eac3a07e11a4b45a6920395139ebb420cdf91cbfa149d7cbfe70534dcec"
+  },
+  "clients": {
+    "claude": "2.1.220 (Claude Code)",
+    "codex": "codex-cli 0.146.0"
+  },
+  "checks": {
+    "closedGate": "pass",
+    "approvalDrift": "pass",
+    "candidateDrift": "pass",
+    "promptDrift": "pass",
+    "clientVersionDrift": "pass",
+    "approvalWindowDrift": "pass",
+    "privateRootBoundary": "pass",
+    "runnerSyntax": "pass",
+    "focusedTests": "pass",
+    "accumulatedGateHostProcessSemantics": "pass"
+  },
+  "result": "ready-for-hosted-closed-control-checkpoint",
+  "nextAuthority": "separate-exact-matrix-digest-principal-approval-required"
+}
