@@ -1,0 +1,29 @@
+{
+  "schema": "scopa.s26r3-canonical-evidence-projection-remediation-approval.v1",
+  "decision": "approve-bounded-provider-off-canonical-evidence-projection-remediation",
+  "approvedAt": "2026-08-02T14:38:17Z",
+  "authority": "conversation-explicit-principal-agreement",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-02-scopa-s26r3-canonical-evidence-projection-remediation.md",
+  "macroDeltaFileSha256": "585d3303f1ccc2677dc7b0c3fce4d7d3e390d543c3a7362375e225aadf859c4f",
+  "protocolPath": "next-prompt-protocols/active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md",
+  "protocolFileSha256": "64325cc7cd473c0e856003384dd3338f7dd041fa5bd5ea05d8d7149a126ac5a1",
+  "historicalS26R2MatrixSha256": "1a4a642411c47349a34720b0aa35ea4ee668cdefac75622871de1bfd6937a947",
+  "historicalS26R2ApprovalConsumed": true,
+  "authorizedScope": [
+    "installed-candidate-claude-evidence-projection",
+    "pre-intent-decimal-serialization-proof",
+    "adversarial-cost-and-retention-tests",
+    "closed-s26r3-matrix-freeze",
+    "provider-off-local-and-hosted-qualification"
+  ],
+  "providerCallsAuthorized": 0,
+  "closedS26R3MatrixSha256": "237f90ea7c67cc5799c5a71fa17855304220f9028fe0d45ab3d2e9748fe93b9c",
+  "prospectiveApprovalSha256": "5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb",
+  "canonicalJsonRelaxationAllowed": false,
+  "candidateChangeAllowed": false,
+  "dependencyChangeAllowed": false,
+  "experimentUseAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "nextAuthority": "separate-exact-s26r3-matrix-digest-approval-required"
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "scopa.s26r3-provider-off-remediation-run.v1",
+  "performedAt": "2026-08-02T14:49:21Z",
+  "providerTrafficAllowed": false,
+  "providerCallsConsumed": 0,
+  "historicalS26R2Replay": false,
+  "closedMatrixSha256": "237f90ea7c67cc5799c5a71fa17855304220f9028fe0d45ab3d2e9748fe93b9c",
+  "prospectiveApprovalSha256": "5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb",
+  "checks": [
+    {
+      "id": "installed-candidate-projection-before-provider-intent",
+      "result": "pass"
+    },
+    {
+      "id": "zero-fractional-and-policy-maximum-decimal-projection",
+      "result": "pass"
+    },
+    {
+      "id": "malformed-negative-exponent-and-nonfinite-cost-rejection",
+      "result": "pass-closed"
+    },
+    {
+      "id": "private-public-claude-evidence-projection-parity",
+      "result": "pass"
+    },
+    {
+      "id": "retain-before-validate-and-mode-0600",
+      "result": "pass"
+    },
+    {
+      "id": "collision-no-overwrite",
+      "result": "pass"
+    },
+    {
+      "id": "scenario-session-transcript-exact-binding",
+      "result": "pass-closed-on-drift"
+    },
+    {
+      "id": "historical-s26r2-stop-consumption-and-runner-bindings",
+      "result": "pass"
+    },
+    {
+      "id": "s26-through-s26r3-focused-suite",
+      "result": "pass-34-of-34"
+    },
+    {
+      "id": "protocol-projection",
+      "result": "pass"
+    },
+    {
+      "id": "repository-privacy-scan",
+      "result": "pass-zero-findings"
+    },
+    {
+      "id": "accumulated-release-gate",
+      "result": "pass"
+    }
+  ],
+  "result": "provider-off-controls-pass",
+  "nextAuthority": "separate-exact-s26r3-matrix-and-approval-digest-approval-required"
+}

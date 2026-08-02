@@ -1,23 +1,22 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "2b759c4",
-  "current_phase": "phase-9-s26r2-scenario-binding-remediation",
-  "active_protocol": "active/2026-08-02-S26R2-scenario-binding-remediation.md",
+  "current_commit": "f42437e",
+  "current_phase": "phase-9-s26r3-canonical-evidence-projection-remediation",
+  "active_protocol": "active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md",
   "active_class": "hotfix",
   "active_compound": false,
   "active_module": "production-live-requalification",
   "crosses": [
     "live-run-custody",
-    "claude-live-hardening",
-    "codex-live-hardening"
+    "claude-live-hardening"
   ],
   "advances_contracts": [
     "PLQ2",
     "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:35b69d9656a2b769018da6dfb1576fab60639a3313d19be001971f952c720e07",
-  "active_objective": "Hold the exact provider-closed S26R2 matrix after proving one\nsession/runtime-scenario binding for each provider, adversarial mismatch\nrejection, and preserved evidence ordering. Do not execute the matrix without\nlater exact approval.",
+  "active_protocol_sha256": "sha256:64325cc7cd473c0e856003384dd3338f7dd041fa5bd5ea05d8d7149a126ac5a1",
+  "active_objective": "Hold the exact S26R3 closed matrix and its provider-off qualification evidence.\nNo production call is authorized. A later live run requires separate principal\napproval of the exact matrix digest and prospective approval digest.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -37,9 +36,12 @@
     "fixtures/S26/**",
     "fixtures/S26R1/**",
     "fixtures/S26R2/**",
+    "fixtures/S26R3/**",
     "runs/S26R1/**",
     "runs/S26R2/**",
+    "runs/S26R3/**",
     "packages/live-run/test/s26r2-scenario-binding-remediation.test.js",
+    "packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js",
     "next-prompt-protocols/**",
     "notes/S20/**",
     "runs/S20/**",
@@ -52,12 +54,13 @@
     "evidence/S26/**",
     "evidence/S26R1/**",
     "evidence/S26R2/**",
+    "evidence/S26R3/**",
     "evidence/S27/**",
     "evidence/S28/**",
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/live-run/test/s26r2-scenario-binding-remediation.test.js",
+    "fast_deterministic": "node --test packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"

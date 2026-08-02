@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `2b759c4`
+Current commit reference: `f42437e`
 
 Active protocol class: `hotfix`
 Active protocol compound: `false`
@@ -104,10 +104,10 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-08-02-scopa-s26r2-scenario-binding-remediation.md`
+3. `macro-deltas/2026-08-02-scopa-s26r3-canonical-evidence-projection-remediation.md`
 4. `role-context.md`
 5. `phases/phase-9/README.md`
-6. `active/2026-08-02-S26R2-scenario-binding-remediation.md`
+6. `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
 7. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
 8. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
 9. `completed/2026-08-01-S24-gate-process-tree-custody.md`
@@ -165,14 +165,13 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current phase
 
-- `Phase 9 S26r2 Scenario Binding Remediation`
+- `Phase 9 S26r3 Canonical Evidence Projection Remediation`
 
 ## Current active objective
 
-> Hold the exact provider-closed S26R2 matrix after proving one
-> session/runtime-scenario binding for each provider, adversarial mismatch
-> rejection, and preserved evidence ordering. Do not execute the matrix without
-> later exact approval.
+> Hold the exact S26R3 closed matrix and its provider-off qualification evidence.
+> No production call is authorized. A later live run requires separate principal
+> approval of the exact matrix digest and prospective approval digest.
 
 ## Behavior rules
 
@@ -208,9 +207,12 @@ These protocols are specific to:
 - `fixtures/S26/**`
 - `fixtures/S26R1/**`
 - `fixtures/S26R2/**`
+- `fixtures/S26R3/**`
 - `runs/S26R1/**`
 - `runs/S26R2/**`
+- `runs/S26R3/**`
 - `packages/live-run/test/s26r2-scenario-binding-remediation.test.js`
+- `packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -223,6 +225,7 @@ These protocols are specific to:
 - `evidence/S26/**`
 - `evidence/S26R1/**`
 - `evidence/S26R2/**`
+- `evidence/S26R3/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -234,4 +237,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-9/README.md`
-- `active/2026-08-02-S26R2-scenario-binding-remediation.md`
+- `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`

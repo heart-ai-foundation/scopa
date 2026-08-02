@@ -1,18 +1,17 @@
-# Phase 9 S26r2 Scenario Binding Remediation
+# Phase 9 S26r3 Canonical Evidence Projection Remediation
 
-Current commit reference: `2b759c4`
-Current active protocol: `active/2026-08-02-S26R2-scenario-binding-remediation.md`
+Current commit reference: `f42437e`
+Current active protocol: `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
 
 ## Scope
 
-Preserve stopped S26R1 and bind each future runtime scenario exactly to its SCOPA session/transcript identity, without provider replay or unrelated change.
+Preserve stopped S26R2 and project Claude fractional USD accounting through the exact installed-candidate evidence boundary before canonical serialization, without provider replay or unrelated change.
 
 ## Active objective
 
-> Hold the exact provider-closed S26R2 matrix after proving one
-> session/runtime-scenario binding for each provider, adversarial mismatch
-> rejection, and preserved evidence ordering. Do not execute the matrix without
-> later exact approval.
+> Hold the exact S26R3 closed matrix and its provider-off qualification evidence.
+> No production call is authorized. A later live run requires separate principal
+> approval of the exact matrix digest and prospective approval digest.
 
 ## Files in play
 
@@ -34,9 +33,12 @@ Preserve stopped S26R1 and bind each future runtime scenario exactly to its SCOP
 - `fixtures/S26/**`
 - `fixtures/S26R1/**`
 - `fixtures/S26R2/**`
+- `fixtures/S26R3/**`
 - `runs/S26R1/**`
 - `runs/S26R2/**`
+- `runs/S26R3/**`
 - `packages/live-run/test/s26r2-scenario-binding-remediation.test.js`
+- `packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js`
 - `next-prompt-protocols/**`
 - `notes/S20/**`
 - `runs/S20/**`
@@ -49,6 +51,7 @@ Preserve stopped S26R1 and bind each future runtime scenario exactly to its SCOP
 - `evidence/S26/**`
 - `evidence/S26R1/**`
 - `evidence/S26R2/**`
+- `evidence/S26R3/**`
 - `evidence/S27/**`
 - `evidence/S28/**`
 - `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`
@@ -68,7 +71,7 @@ Preserve stopped S26R1 and bind each future runtime scenario exactly to its SCOP
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
 - No rewrite of historical evidence
-- No S26 or S26R1 replay and no provider traffic in S26R2 without a separate exact-matrix-digest approval
+- No S26, S26R1, or S26R2 replay and no provider traffic in S26R3 without a separate exact-matrix-digest approval
 - No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority
 - No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta
 
@@ -78,12 +81,12 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Historical S26R1 bytes, custody, stop, and consumed approval remain exact.
-- Runtime scenario ID exactly equals the SCOPA session/transcript ID.
-- Matrix scenario remains the `clean` classification.
-- Any identifier or version mismatch rejects deterministically.
-- Retain-before-validate and cleanup contracts do not regress.
-- S26R2 matrix is closed; provider calls authorized are zero.
+- Historical S26R2 bytes, intent, stop, and consumed approval remain exact.
+- Installed-candidate projection passes before provider intent.
+- Fractional cost becomes an exact decimal string in private and public evidence.
+- Malformed cost fails closed; canonical JSON remains strict.
+- Write-before-qualification, no-replace, mode, scenario, and cleanup controls remain intact.
+- S26R3 matrix is closed; provider calls authorized are zero.
 - Focused, accumulated, protocol, privacy, and hosted gates pass.
 
 ## Handoff
