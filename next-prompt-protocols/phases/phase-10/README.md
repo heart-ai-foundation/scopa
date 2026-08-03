@@ -1,6 +1,6 @@
 # Phase 10 R1 Public Release Finalization
 
-Current commit reference: `b157ba2`
+Current commit reference: `1345fb8`
 Current active protocol: `active/2026-08-03-R1F-public-release-finalization.md`
 
 ## Scope
