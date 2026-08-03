@@ -6,6 +6,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { scanPrivateText } from '../../release-readiness/src/package-privacy.js';
+import { jsonHash } from '../../enforcement/src/index.js';
 import { normalizedEvidenceProjection } from '../../integrations/claude/src/production-live-probe.js';
 import {
   S26R3_PROVIDER_GATE_CLOSED,
@@ -289,4 +290,63 @@ test('prospective S26R3 authority is exact, ordered, and still grants no release
   assert.equal(approval.experimentUseAllowed, false);
   assert.equal(approval.publicationAllowed, false);
   assert.equal(approval.releaseAllowed, false);
+});
+
+test('accepted S26R3 campaign binds two clean calls and consumes its exact approval', async () => {
+  const publicText = await readFile(
+    path.join(ROOT, 'evidence/S26R3/live/campaign.public.json'),
+    'utf8',
+  );
+  const campaign = JSON.parse(publicText);
+  assert.equal(
+    sha256(publicText),
+    '178092bff3078e5b6c43def13298779b2829895e2f32b67cdbebcfaae5eec076',
+  );
+  assert.deepEqual(campaign.callOrder, ['claude-clean', 'codex-clean']);
+  assert.equal(campaign.invocationCount, 2);
+  assert.deepEqual(campaign.runs.map(({ terminalState }) => terminalState), [
+    'succeeded',
+    'succeeded',
+  ]);
+  assert.deepEqual(campaign.runs.map(({ canStop }) => canStop), [true, true]);
+  assert.equal(campaign.runs[0].costUsd, '0.0534345');
+  assert.equal(campaign.runs[0].turns, 7);
+  assert.equal(
+    campaign.runs[1].usage.input_tokens
+      + campaign.runs[1].usage.output_tokens
+      + campaign.runs[1].usage.reasoning_output_tokens,
+    55001,
+  );
+  for (const run of campaign.runs) {
+    assert.equal(run.cleanup.groupGone, true);
+    assert.equal(run.cleanup.orphanDetected, false);
+  }
+  assert.deepEqual(scanPrivateText(publicText), []);
+
+  const consumedText = await readFile(
+    path.join(ROOT, 'evidence/S26R3/consumed-approvals.json'),
+    'utf8',
+  );
+  const consumed = JSON.parse(consumedText);
+  assert.equal(consumed.approvals.length, 1);
+  assert.equal(
+    consumed.approvals[0].approvalSha256,
+    '5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb',
+  );
+  assert.equal(consumed.approvals[0].invocationCount, 2);
+  assert.deepEqual(scanPrivateText(consumedText), []);
+
+  const closeoutText = await readFile(
+    path.join(ROOT, 'evidence/S26R3/closeout.json'),
+    'utf8',
+  );
+  const closeout = JSON.parse(closeoutText);
+  const { receiptSha256, ...body } = closeout;
+  assert.equal(jsonHash(body), receiptSha256);
+  assert.equal(closeout.result, 'accepted');
+  assert.equal(closeout.authorization.singleUseConsumed, true);
+  assert.equal(closeout.traffic.providerCalls, 2);
+  assert.equal(closeout.traffic.experimentCalls, 0);
+  assert.equal(closeout.traffic.releaseActions, 0);
+  assert.deepEqual(scanPrivateText(closeoutText), []);
 });

@@ -1,6 +1,6 @@
 # Phase 9 S26r3 Canonical Evidence Projection Remediation
 
-Current commit reference: `f42437e`
+Current commit reference: `08b6998`
 Current active protocol: `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
 
 ## Scope

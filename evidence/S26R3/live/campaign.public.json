@@ -1,0 +1,78 @@
+{
+  "approvalSha256": "5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb",
+  "authorizedMatrixSha256": "4e76e51f32b5aaf4a4a130e2c2e164a79f9ee926322a1fc2df64da97325b512c",
+  "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+  "callOrder": [
+    "claude-clean",
+    "codex-clean"
+  ],
+  "closedMatrixSha256": "237f90ea7c67cc5799c5a71fa17855304220f9028fe0d45ab3d2e9748fe93b9c",
+  "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+  "completedAt": "2026-08-03T01:37:30.154Z",
+  "executedAt": "2026-08-03T01:37:03.874Z",
+  "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+  "invocationCount": 2,
+  "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+  "privateEvidence": {
+    "bytes": 180032,
+    "destinationAlias": "SCOPA_PRIVATE_EVIDENCE_ROOT/S26R3",
+    "retainedOutsideRepository": true,
+    "retentionHours": 168,
+    "sha256": "5e6c7c119df1e31b3d2424e8c9fb17b5b3c20f4d60cb967d6f177db6a16216dc"
+  },
+  "runs": [
+    {
+      "canStop": true,
+      "cleanup": {
+        "groupGone": true,
+        "killSent": false,
+        "method": "posix-process-group",
+        "orphanDetected": false,
+        "termSent": false
+      },
+      "costUsd": "0.0534345",
+      "provider": "claude",
+      "scenario": "clean",
+      "terminalState": "succeeded",
+      "tools": [
+        "scopa_orientation",
+        "scopa_read_file",
+        "scopa_write_file",
+        "scopa_check",
+        "scopa_assurance",
+        "scopa_transcript"
+      ],
+      "turns": 7
+    },
+    {
+      "canStop": true,
+      "cleanup": {
+        "groupGone": true,
+        "killSent": false,
+        "method": "posix-process-group",
+        "orphanDetected": false,
+        "termSent": false
+      },
+      "provider": "codex",
+      "scenario": "clean",
+      "terminalState": "succeeded",
+      "tools": [
+        "scopa_orientation",
+        "scopa_read_file",
+        "scopa_write_file",
+        "scopa_check",
+        "scopa_assurance",
+        "scopa_transcript"
+      ],
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 43008,
+        "input_tokens": 54517,
+        "output_tokens": 346,
+        "reasoning_output_tokens": 138
+      }
+    }
+  ],
+  "schema": "scopa.s26r3-live-campaign.public.v1",
+  "sourceCommit": "395a7e340084bbefbb5fb1ae575193eb33cacef4"
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "scopa.s26r3-closeout.v1",
+  "slice": "S26R3",
+  "result": "accepted",
+  "completedAt": "2026-08-03T01:37:30.154Z",
+  "remediationCommit": "39433abea1d105700b419354d2f29ef61ab20913",
+  "approvalCommit": "08b699890f59b0193f8d70276ab13b28157d3395",
+  "identity": {
+    "sourceCommit": "395a7e340084bbefbb5fb1ae575193eb33cacef4",
+    "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477"
+  },
+  "authorization": {
+    "closedMatrixSha256": "237f90ea7c67cc5799c5a71fa17855304220f9028fe0d45ab3d2e9748fe93b9c",
+    "approvalSha256": "5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb",
+    "authorizedMatrixSha256": "4e76e51f32b5aaf4a4a130e2c2e164a79f9ee926322a1fc2df64da97325b512c",
+    "singleUseConsumed": true,
+    "replayProbe": "refused-before-installation-or-provider-intent"
+  },
+  "campaign": {
+    "invocationCount": 2,
+    "callOrder": [
+      "claude-clean",
+      "codex-clean"
+    ],
+    "allTerminalStates": "succeeded",
+    "allPolarityChecks": true,
+    "allCleanupChecks": true,
+    "claudeCostUsd": "0.0534345",
+    "claudeCampaignCeilingUsd": "0.20",
+    "claudeTurns": 7,
+    "claudeTurnCeiling": 12,
+    "codexTotalTokens": 55001,
+    "codexCampaignCeilingTokens": 126000
+  },
+  "evidence": {
+    "publicCampaignSha256": "178092bff3078e5b6c43def13298779b2829895e2f32b67cdbebcfaae5eec076",
+    "privateCampaignSha256": "5e6c7c119df1e31b3d2424e8c9fb17b5b3c20f4d60cb967d6f177db6a16216dc",
+    "privateIntentSha256": "560d195613307d1d155a62245917e96e6da34c7efedc9aa08d43ea9c1eda32ec",
+    "privateClaudeRunSha256": "a1389666402dd55659dbfe66566a327a4d0f7e8f636661b4880ae7a7f2f51c16",
+    "privateCodexRunSha256": "b1d779460284d3b95f51319186f85c59da3e2a0ef268c13fa4001458459ca144",
+    "privateCampaignBytes": 180032,
+    "privateFilesMode": "0600",
+    "privateDirectoriesMode": "0700",
+    "privacyFindings": 0
+  },
+  "hostedApproval": {
+    "runId": 30777180019,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30777180019",
+    "headSha": "08b699890f59b0193f8d70276ab13b28157d3395",
+    "conclusion": "success"
+  },
+  "traffic": {
+    "providerCalls": 2,
+    "providerCallsAuthorized": 2,
+    "experimentCalls": 0,
+    "publicationActions": 0,
+    "releaseActions": 0
+  },
+  "contracts": {
+    "PLQ2": "advanced",
+    "PLQ3": "open"
+  },
+  "nextSlice": "S27-parallel-exact-byte-reviews",
+  "receiptSha256": "a746ea6ed697e8349081489f81c5212c3299b3ad48646b6393713784a6351e50"
+}

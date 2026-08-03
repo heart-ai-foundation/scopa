@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `f42437e`
+Current commit reference: `08b6998`
 
 Active protocol class: `hotfix`
 Active protocol compound: `false`

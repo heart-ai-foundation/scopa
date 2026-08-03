@@ -1,0 +1,11 @@
+{
+  "approvals": [
+    {
+      "approvalSha256": "5563e521614ea04834170545b07375e54613ef7ad1ba6519242b25dc4e7094eb",
+      "executedAt": "2026-08-03T01:37:03.874Z",
+      "invocationCount": 2,
+      "publicCampaignSha256": "178092bff3078e5b6c43def13298779b2829895e2f32b67cdbebcfaae5eec076"
+    }
+  ],
+  "schema": "scopa.s26r3-consumed-approvals.v1"
+}
