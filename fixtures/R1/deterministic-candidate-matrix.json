@@ -1,0 +1,47 @@
+{
+  "schema": "scopa.s25-deterministic-candidate-matrix.v1",
+  "providerTrafficAllowed": false,
+  "inputs": [
+    "RELEASE_NOTES.md",
+    "docs/CLAIMS.md",
+    "docs/QUICKSTART.md",
+    "docs/VERSIONING.md",
+    "docs/release-posture.json",
+    "evidence/R1/finalization-approval.json",
+    "fixtures/R1/deterministic-candidate-matrix.json",
+    "next-prompt-protocols/active/2026-08-03-R1F-public-release-finalization.md",
+    "next-prompt-protocols/manifest.json",
+    "package-lock.json",
+    "package.json",
+    "packages/release-readiness/src/artifact.js",
+    "packages/release-readiness/src/constants.js",
+    "packages/release-readiness/src/policy.js",
+    "schemas/scopa.release-posture.v1.schema.json"
+  ],
+  "cases": [
+    {
+      "id": "accumulated-release-gate",
+      "command": ["npm", "test"]
+    },
+    {
+      "id": "gate-process-tree-custody",
+      "command": ["npm", "run", "test:s2"]
+    },
+    {
+      "id": "bundled-production-closure",
+      "command": ["npm", "run", "test:s19"]
+    },
+    {
+      "id": "closed-release-policy",
+      "command": ["npm", "run", "audit:s10:policy"]
+    },
+    {
+      "id": "published-contract-parity",
+      "command": ["npm", "run", "probe:s11:parity"]
+    },
+    {
+      "id": "protocol-projection",
+      "command": ["npm", "run", "protocol:check"]
+    }
+  ]
+}

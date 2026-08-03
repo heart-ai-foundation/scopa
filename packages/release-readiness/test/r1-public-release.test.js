@@ -5,6 +5,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { auditReleasePolicies, createConsumerPackageJson } from '../src/index.js';
+import { validateBundledExactCandidateMatrix } from '../src/exact-candidate-probe.js';
 import { runS28Eligibility } from '../../../fixtures/S28/s28-r1-decision.mjs';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
@@ -84,4 +85,17 @@ test('release notes state install surface and bounded non-claims', async () => {
   assert.match(notes, /Apache-2\.0/);
   assert.match(notes, /not an operating-system sandbox/);
   assert.match(notes, /no install lifecycle scripts/);
+});
+
+test('R1 exact-candidate matrix is current, provider-off, and input-complete', async () => {
+  const matrix = validateBundledExactCandidateMatrix(
+    await json('fixtures/R1/deterministic-candidate-matrix.json'));
+  assert.equal(matrix.providerTrafficAllowed, false);
+  assert.equal(matrix.inputs.includes(
+    'next-prompt-protocols/active/2026-08-03-R1F-public-release-finalization.md'),
+  true);
+  assert.equal(matrix.inputs.includes('evidence/R1/finalization-approval.json'), true);
+  for (const relativePath of matrix.inputs) {
+    assert.equal((await readFile(path.join(ROOT, relativePath))).length > 0, true);
+  }
 });
