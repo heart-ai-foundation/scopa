@@ -60,7 +60,7 @@ async function exerciseClient({ send, notify }) {
       capabilities: {},
       clientInfo: {
         name: 'scopa-consumer-fixture',
-        version: '0.2.0-dev.1',
+        version: '0.2.0',
       },
     },
   });

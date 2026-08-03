@@ -1,5 +1,5 @@
 export const RELEASE_PACKAGE_NAME = '@heart-ai-foundation/scopa';
-export const RELEASE_VERSION = '0.2.0-dev.1';
+export const RELEASE_VERSION = '0.2.0';
 export const RELEASE_LICENSE = 'Apache-2.0';
 export const RELEASE_LICENSE_SHA256 =
   'c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4';
@@ -33,7 +33,7 @@ export const CONSUMER_VERIFIED_CLAIMS = Object.freeze([
 ]);
 
 export const CONSUMER_NON_CLAIMS = Object.freeze([
-  'no npm, GitHub Release, public repository, or production publication',
+  'no hosted service, production deployment, or telemetry',
   'no operating-system sandbox claim',
   'no provider or human identity attestation',
   'no transfer of full assurance to Claude or Codex',
@@ -78,6 +78,7 @@ export const REQUIRED_PACKED_PREFIXES = Object.freeze([
   'CONTRIBUTING.md',
   'GOVERNANCE.md',
   'README.md',
+  'RELEASE_NOTES.md',
   'docs/',
   'schemas/',
   'fixtures/S10/',

@@ -23,7 +23,7 @@
       "required": ["name", "version", "bundledDependencies"],
       "properties": {
         "name": { "const": "@heart-ai-foundation/scopa" },
-        "version": { "const": "0.2.0-dev.1" },
+        "version": { "const": "0.2.0" },
         "bundledDependencies": {
           "type": "array",
           "minItems": 1,

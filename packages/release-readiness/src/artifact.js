@@ -38,6 +38,7 @@ const CONSUMER_PACKAGE_FIELDS = Object.freeze([
   'name',
   'version',
   'private',
+  'publishConfig',
   'license',
   'description',
   'type',

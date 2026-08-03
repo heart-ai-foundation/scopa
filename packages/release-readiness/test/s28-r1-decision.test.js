@@ -46,6 +46,15 @@ test('committed S28 eligibility and closed posture are exact and provider-off', 
   assert.equal(posture.providerCallsAuthorized, 0);
 });
 
+test('sanctioned R1 metadata drift uses only exact immutable S28 input bytes', async () => {
+  const inputs = await loadS28Inputs();
+  assert.equal(inputs.fileHashes.packageLock,
+    '51c70cc1ef0e1411d48d57669fdc25699bd9ece65a934e54d2e1e3acadd1b95b');
+  assert.equal(inputs.fileHashes.releasePosture,
+    '6e3dc6f70b6d00d23916bb029abeb1e7f006ef0a0b8e55f2efd217b117baa3b2');
+  assert.equal(inputs.documents.releasePosture.publication.repositoryVisibility, 'private');
+});
+
 test('S28 activation binds the exact protocol but authorizes no decision or traffic', async () => {
   const approval = JSON.parse(await readFile(
     path.join(ROOT, 'evidence/S28/activation-approval.json'), 'utf8'));

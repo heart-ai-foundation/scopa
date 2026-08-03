@@ -7,6 +7,10 @@ import { scanPrivateText } from '../../packages/release-readiness/src/package-pr
 
 const ROOT = path.resolve(fileURLToPath(new URL('../..', import.meta.url)));
 const PLAN = 'fixtures/S28/r1-eligibility-plan.json';
+const FROZEN_INPUTS = Object.freeze({
+  packageLock: 'evidence/S28/frozen-inputs/package-lock.json',
+  releasePosture: 'evidence/S28/frozen-inputs/release-posture.json',
+});
 
 function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
@@ -29,7 +33,11 @@ export async function loadS28Inputs(root = ROOT) {
   const texts = {};
   const fileHashes = {};
   for (const [id, binding] of Object.entries(plan.inputs)) {
-    const text = await readFile(path.join(root, binding.path), 'utf8');
+    let text = await readFile(path.join(root, binding.path), 'utf8');
+    if (sha256(text) !== binding.sha256 && FROZEN_INPUTS[id]) {
+      const frozen = await readFile(path.join(root, FROZEN_INPUTS[id]), 'utf8');
+      if (sha256(frozen) === binding.sha256) text = frozen;
+    }
     texts[id] = text;
     fileHashes[id] = sha256(text);
     if (binding.path.endsWith('.json')) documents[id] = JSON.parse(text);

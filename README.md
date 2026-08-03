@@ -13,8 +13,8 @@ reference implementation.
 
 ## Status
 
-SCOPA `0.2.0-dev.1` is a private developer-preview candidate. S0-S15 are
-complete: conformance, sealed core, enforcement, legibility, signing and
+SCOPA `0.2.0` is the first public stable release of the free Apache-2.0
+runtime. Its completed qualification arc covers conformance, sealed core, enforcement, legibility, signing and
 anchoring, CASE/UCO export, local distribution, the model-neutral MCP bridge,
 separately evidenced Claude Code and Codex integrations, source-free consumer
 qualification, proof/distribution hardening, and exact-candidate adversarial
@@ -22,20 +22,18 @@ requalification. The shared live-run custody layer now closes process,
 terminal, installed-identity, and private/public evidence behavior before
 provider traffic.
 
-Phase 6 is active for production-like live-run edge hardening. The bounded
+Production-like live-run edge hardening is complete. The bounded
 S15 Claude slice is accepted. Its original six-request campaign remains an
 honest fail-closed historical record: four requests qualified, one reproduced
 callable-tool drift, and one lost its denied-path result before publication.
 A separately authorized two-request remedial campaign then directly proved
 scope denial and fresh-process continuity over the same disposable repository
-on one exact installed candidate. Codex live-edge hardening is now active.
+on one exact installed candidate. Codex live-edge hardening is also complete.
 Its 21-scenario deterministic fault corpus is qualified, and its exact
 four-call production policy was explicitly approved on 2026-07-29. Provider
-execution has not yet completed.
-Sustained recovery and exact requalification remain queued. The separate
-SCOPA research experiment is outside this queue. The package and repository
-remain private; publication and production deployment require separate
-principal requests.
+execution and exact requalification completed under bounded evidence. The
+separate SCOPA research experiment is outside this release. SCOPA is a local
+developer tool, not a hosted production service.
 
 Start with:
 
@@ -47,14 +45,19 @@ Start with:
 
 ## Developer CLI
 
-S6 packages the runtime behind one `scopa` command. During the private
-developer preview, build from a clean source checkout and install a local
-tarball rather than resolving a registry package:
+Install the public package without lifecycle scripts:
+
+```sh
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+```
+
+For exact-byte verification from a source checkout, build the qualified local
+tarball rather than invoking raw `npm pack`:
 
 ```sh
 npm run pack:candidate -- --output-directory /trusted/candidate
 npm install --ignore-scripts \
-  /trusted/candidate/heart-ai-foundation-scopa-0.2.0-dev.1.tgz
+  /trusted/candidate/heart-ai-foundation-scopa-0.2.0.tgz
 ```
 
 The candidate command stages the reviewed production lock in a clean offline

@@ -1,9 +1,9 @@
 # SCOPA release readiness
 
-This package implements the S10 private developer-preview release boundary.
-It validates the principal-approved release posture, audits required security
-and governance surfaces, packs the exact candidate, verifies its integrity,
-and drives a source-free consumer reproduction.
+This package implements SCOPA's exact-byte release boundary. It validates the
+principal-approved release posture, audits required security and governance
+surfaces, packs the exact candidate, verifies its integrity, and drives a
+source-free consumer reproduction.
 
 S11 makes the shipped JSON Schemas executable through the same validator used
 by the runtime exports. Candidate-manifest cross-field rules that portable
@@ -26,8 +26,9 @@ to prove deterministic bytes, installs only the tarball, imports every export,
 executes every bin, and scans every installed file for structural private-path
 or recognizable credential residue.
 
-The package does not publish anything. `package.json` remains private, and the
-S10 commands create only local tarballs and evidence receipts.
+The package is public-release capable, but these commands never publish it.
+They create only local tarballs and evidence receipts; registry and GitHub
+publication remain separately authorized release-execution actions.
 
 S18 adds a provider-closed exact-candidate probe. It runs the frozen local
 matrix, packs and installs the clean candidate repeatedly, binds policy and

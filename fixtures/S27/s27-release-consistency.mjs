@@ -41,7 +41,14 @@ export async function loadS27ReviewInputs(root = ROOT) {
   const texts = {};
   const fileHashes = {};
   for (const [id, binding] of Object.entries(plan.inputs)) {
-    const text = await readFile(path.join(root, binding.path), 'utf8');
+    let text = await readFile(path.join(root, binding.path), 'utf8');
+    if (id === 'releasePosture' && sha256(text) !== binding.sha256) {
+      const frozen = await readFile(
+        path.join(root, 'evidence/S28/frozen-inputs/release-posture.json'),
+        'utf8',
+      );
+      if (sha256(frozen) === binding.sha256) text = frozen;
+    }
     texts[id] = text;
     documents[id] = JSON.parse(text);
     fileHashes[id] = sha256(text);

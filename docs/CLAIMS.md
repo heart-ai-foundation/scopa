@@ -77,8 +77,8 @@ SCOPA does not:
 - guarantee the completeness of external vulnerability databases;
 - constitute legal advice, formal compliance certification, or production
   authorization;
-- authorize npm publication, a public repository, a GitHub Release, trademark
-  exclusivity, customer deployment, or a public launch.
+- create a hosted service, production deployment authorization, trademark
+  exclusivity, formal certification, or customer-specific assurance.
 
 Every claim is relative to the recorded version, fixture, tool inventory,
 capability matrix, and trust policy. A recorded

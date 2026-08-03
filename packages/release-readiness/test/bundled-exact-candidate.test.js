@@ -20,8 +20,8 @@ function candidateManifest() {
     source: { commit: '1'.repeat(40), dirty: false },
     package: {
       name: '@heart-ai-foundation/scopa',
-      version: '0.2.0-dev.1',
-      filename: 'heart-ai-foundation-scopa-0.2.0-dev.1.tgz',
+      version: '0.2.0',
+      filename: 'heart-ai-foundation-scopa-0.2.0.tgz',
       entryCount: 1,
       packedBytes: 1,
       unpackedBytes: 1,

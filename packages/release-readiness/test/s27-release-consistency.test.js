@@ -45,6 +45,13 @@ test('committed compressed S27 review is exact, provider-off, and ACCEPT', async
   });
 });
 
+test('R1 migration preserves the exact S27 release-posture input', async () => {
+  const inputs = await loadS27ReviewInputs();
+  assert.equal(inputs.fileHashes.releasePosture,
+    '6e3dc6f70b6d00d23916bb029abeb1e7f006ef0a0b8e55f2efd217b117baa3b2');
+  assert.equal(inputs.documents.releasePosture.publication.repositoryVisibility, 'private');
+});
+
 test('principal approval binds the compressed protocol and authorizes zero traffic', async () => {
   const approval = JSON.parse(await readFile(
     path.join(ROOT, 'evidence/S27/macro-delta-approval.json'),

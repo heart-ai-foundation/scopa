@@ -26,7 +26,7 @@
       "const": "Heart AI Foundation"
     },
     "version": {
-      "const": "0.2.0-dev.1"
+      "const": "0.2.0"
     },
     "license": {
       "const": "Apache-2.0"
@@ -98,19 +98,19 @@
       ],
       "properties": {
         "repositoryVisibility": {
-          "const": "private"
+          "const": "public"
         },
         "artifactChannel": {
-          "const": "local-tarball"
+          "const": "npm-and-github-release"
         },
         "npm": {
-          "const": false
+          "const": true
         },
         "githubRelease": {
-          "const": false
+          "const": true
         },
         "publicRelease": {
-          "const": false
+          "const": true
         },
         "production": {
           "const": false

@@ -239,7 +239,7 @@
           "uniqueItems": true,
           "prefixItems": [
             {
-              "const": "no npm, GitHub Release, public repository, or production publication"
+              "const": "no hosted service, production deployment, or telemetry"
             },
             {
               "const": "no operating-system sandbox claim"

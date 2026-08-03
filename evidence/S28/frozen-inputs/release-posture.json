@@ -1,0 +1,39 @@
+{
+  "schema": "scopa.release-posture.v1",
+  "project": "SCOPA",
+  "publisher": "Heart AI Foundation",
+  "version": "0.2.0-dev.1",
+  "license": "Apache-2.0",
+  "contributions": {
+    "model": "DCO-1.1",
+    "requiresSignoff": true,
+    "claRequired": false
+  },
+  "naming": {
+    "package": "@heart-ai-foundation/scopa",
+    "bins": {
+      "scopa": "./packages/cli/src/cli.js",
+      "scopa-mcp": "./packages/adapter-host/src/cli.js"
+    },
+    "trademarkStatus": "working-name-no-registration-claim"
+  },
+  "publication": {
+    "repositoryVisibility": "private",
+    "artifactChannel": "local-tarball",
+    "npm": false,
+    "githubRelease": false,
+    "publicRelease": false,
+    "production": false,
+    "requiresSeparatePrincipalApproval": true
+  },
+  "freeToolBoundary": {
+    "verificationPaidDependency": false,
+    "consultationBoundary": [
+      "profile design",
+      "governance installation",
+      "evidence quality review",
+      "regulated integration",
+      "reconstructability assessment"
+    ]
+  }
+}

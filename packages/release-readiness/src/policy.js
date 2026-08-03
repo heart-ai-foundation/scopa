@@ -68,9 +68,11 @@ export async function auditReleasePolicies({ root }) {
       `${packageJson.name}@${packageJson.version} license=${packageJson.license}`,
     );
     add(
-      'package-private',
-      packageJson.private === true,
-      'package.json private must remain true for private evaluation',
+      'package-public',
+      packageJson.private === false &&
+        packageJson.publishConfig?.access === 'public' &&
+        packageJson.publishConfig?.tag === 'latest',
+      'package.json is explicitly public under the npm latest channel',
     );
     add(
       'package-binaries',
@@ -113,11 +115,15 @@ export async function auditReleasePolicies({ root }) {
       JSON.parse(await read('docs/release-posture.json')),
     );
     add(
-      'release-posture-closed',
-      posture.publication.npm === false &&
-        posture.publication.publicRelease === false &&
-        posture.publication.repositoryVisibility === 'private',
-      'closed release posture preserves private tarball-only evaluation',
+      'release-posture-public-target',
+      posture.publication.npm === true &&
+        posture.publication.githubRelease === true &&
+        posture.publication.publicRelease === true &&
+        posture.publication.production === false &&
+        posture.publication.repositoryVisibility === 'public' &&
+        posture.publication.artifactChannel === 'npm-and-github-release' &&
+        posture.publication.requiresSeparatePrincipalApproval === true,
+      'public free-tool channels are explicit while hosted production remains false',
     );
   } catch (error) {
     add(
@@ -155,7 +161,7 @@ export async function auditReleasePolicies({ root }) {
       id: 'quickstart-source-free',
       path: 'docs/QUICKSTART.md',
       phrases: [
-        '0.2.0-dev.1.tgz',
+        '@heart-ai-foundation/scopa@0.2.0',
         'scopa init',
         'scopa-mcp',
         'SCOPA_SCOPE_DENIED',
@@ -177,9 +183,9 @@ export async function auditReleasePolicies({ root }) {
       phrases: ['Verified claims', 'Non-claims', 'partial', 'does not'],
     },
     {
-      id: 'versioning-preview',
+      id: 'versioning-stable',
       path: 'docs/VERSIONING.md',
-      phrases: ['0.2.0-dev.1', 'pre-release', 'separate principal approval'],
+      phrases: ['0.2.0', 'public stable release', 'evidence-backed decision'],
     },
   ];
   for (const check of contentChecks) {

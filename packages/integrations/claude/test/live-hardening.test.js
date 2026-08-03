@@ -67,7 +67,7 @@ const ARTIFACT = Object.freeze({
   sourceCommit: 'a'.repeat(40),
   package: Object.freeze({
     name: '@heart-ai-foundation/scopa',
-    version: '0.2.0-dev.1',
+    version: '0.2.0',
     sha256: 'b'.repeat(64),
     integrity: `sha512-${Buffer.alloc(64, 7).toString('base64')}`,
   }),

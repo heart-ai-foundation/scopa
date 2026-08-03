@@ -38,7 +38,7 @@ function releasePosture() {
     schema: RELEASE_SCHEMAS.posture,
     project: 'SCOPA',
     publisher: 'Heart AI Foundation',
-    version: '0.2.0-dev.1',
+    version: '0.2.0',
     license: 'Apache-2.0',
     contributions: {
       model: 'DCO-1.1',
@@ -54,11 +54,11 @@ function releasePosture() {
       trademarkStatus: 'working-name-no-registration-claim',
     },
     publication: {
-      repositoryVisibility: 'private',
-      artifactChannel: 'local-tarball',
-      npm: false,
-      githubRelease: false,
-      publicRelease: false,
+      repositoryVisibility: 'public',
+      artifactChannel: 'npm-and-github-release',
+      npm: true,
+      githubRelease: true,
+      publicRelease: true,
       production: false,
       requiresSeparatePrincipalApproval: true,
     },
@@ -81,8 +81,8 @@ function candidateManifest() {
     },
     package: {
       name: '@heart-ai-foundation/scopa',
-      version: '0.2.0-dev.1',
-      filename: 'heart-ai-foundation-scopa-0.2.0-dev.1.tgz',
+      version: '0.2.0',
+      filename: 'heart-ai-foundation-scopa-0.2.0.tgz',
       entryCount: 1,
       packedBytes: 1,
       unpackedBytes: 1,
@@ -154,10 +154,11 @@ function consumerProof() {
   };
 }
 
-test('root package carries the approved private developer-preview identity', () => {
+test('root package carries the approved public stable identity', () => {
   assert.equal(PACKAGE.name, '@heart-ai-foundation/scopa');
-  assert.equal(PACKAGE.version, '0.2.0-dev.1');
-  assert.equal(PACKAGE.private, true);
+  assert.equal(PACKAGE.version, '0.2.0');
+  assert.equal(PACKAGE.private, false);
+  assert.deepEqual(PACKAGE.publishConfig, { access: 'public', tag: 'latest' });
   assert.equal(PACKAGE.license, 'Apache-2.0');
   assert.equal(
     PACKAGE.exports['./release-readiness'],
@@ -165,7 +166,7 @@ test('root package carries the approved private developer-preview identity', () 
   );
 });
 
-test('release posture is closed and rejects unknown fields or publication drift', () => {
+test('release posture fixes the public channels and rejects drift', () => {
   assert.deepEqual(validateReleasePosture(releasePosture()), releasePosture());
   const unknown = releasePosture();
   unknown.extra = true;
@@ -174,7 +175,7 @@ test('release posture is closed and rejects unknown fields or publication drift'
     /contract violation/,
   );
   const publicRelease = releasePosture();
-  publicRelease.publication.npm = true;
+  publicRelease.publication.npm = false;
   assert.throws(
     () => validateReleasePosture(publicRelease),
     /contract violation/,
@@ -193,7 +194,7 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
     /contract violation/,
   );
   const wrong = candidateManifest();
-  wrong.package.version = '0.2.0';
+  wrong.package.version = '0.2.1';
   assert.throws(
     () => validateCandidateManifest(wrong),
     /contract violation/,

@@ -2,7 +2,7 @@
   "schema": "scopa.release-posture.v1",
   "project": "SCOPA",
   "publisher": "Heart AI Foundation",
-  "version": "0.2.0-dev.1",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "contributions": {
     "model": "DCO-1.1",
@@ -18,11 +18,11 @@
     "trademarkStatus": "working-name-no-registration-claim"
   },
   "publication": {
-    "repositoryVisibility": "private",
-    "artifactChannel": "local-tarball",
-    "npm": false,
-    "githubRelease": false,
-    "publicRelease": false,
+    "repositoryVisibility": "public",
+    "artifactChannel": "npm-and-github-release",
+    "npm": true,
+    "githubRelease": true,
+    "publicRelease": true,
     "production": false,
     "requiresSeparatePrincipalApproval": true
   },

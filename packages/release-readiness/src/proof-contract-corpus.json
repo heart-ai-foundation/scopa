@@ -6,7 +6,7 @@
       "schema": "scopa.release-posture.v1",
       "project": "SCOPA",
       "publisher": "Heart AI Foundation",
-      "version": "0.2.0-dev.1",
+      "version": "0.2.0",
       "license": "Apache-2.0",
       "contributions": {
         "model": "DCO-1.1",
@@ -22,11 +22,11 @@
         "trademarkStatus": "working-name-no-registration-claim"
       },
       "publication": {
-        "repositoryVisibility": "private",
-        "artifactChannel": "local-tarball",
-        "npm": false,
-        "githubRelease": false,
-        "publicRelease": false,
+        "repositoryVisibility": "public",
+        "artifactChannel": "npm-and-github-release",
+        "npm": true,
+        "githubRelease": true,
+        "publicRelease": true,
         "production": false,
         "requiresSeparatePrincipalApproval": true
       },
@@ -46,8 +46,8 @@
       },
       "package": {
         "name": "@heart-ai-foundation/scopa",
-        "version": "0.2.0-dev.1",
-        "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+        "version": "0.2.0",
+        "filename": "heart-ai-foundation-scopa-0.2.0.tgz",
         "entryCount": 2,
         "packedBytes": 1024,
         "unpackedBytes": 4096,
@@ -78,8 +78,8 @@
         },
         "package": {
           "name": "@heart-ai-foundation/scopa",
-          "version": "0.2.0-dev.1",
-          "filename": "heart-ai-foundation-scopa-0.2.0-dev.1.tgz",
+          "version": "0.2.0",
+          "filename": "heart-ai-foundation-scopa-0.2.0.tgz",
           "entryCount": 2,
           "packedBytes": 1024,
           "unpackedBytes": 4096,
@@ -153,7 +153,7 @@
           "known exit-7 fixture remained blocked"
         ],
         "nonClaims": [
-          "no npm, GitHub Release, public repository, or production publication",
+          "no hosted service, production deployment, or telemetry",
           "no operating-system sandbox claim",
           "no provider or human identity attestation",
           "no transfer of full assurance to Claude or Codex",
@@ -626,7 +626,7 @@
         {
           "operation": "replace",
           "path": "/publication/npm",
-          "value": true
+          "value": false
         }
       ],
       "expected": "reject"

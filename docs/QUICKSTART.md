@@ -1,25 +1,22 @@
-# SCOPA 0.2 developer-preview quickstart
+# SCOPA 0.2 quickstart
 
-This quickstart uses a local candidate tarball. It requires Node.js 22 or
-newer and does not require the SCOPA source checkout.
+This quickstart requires Node.js 22 or newer and does not require the SCOPA
+source checkout.
 
-## Install the candidate
+## Install SCOPA
 
-Receive the exact candidate and its manifest through the private evaluation
-channel. In a new empty directory:
+In a new empty directory:
 
 ```sh
 npm init -y
-npm install --ignore-scripts \
-  /path/to/heart-ai-foundation-scopa-0.2.0-dev.1.tgz
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
 ```
 
-The candidate is not published to npm. Compare the tarball SHA-256 and npm
-integrity value with the supplied candidate manifest before continuing.
-Also compare the supplied production-closure, bundled-payload, and license-
-inventory SHA-256 values with `production-bundle.json` inside the installed
-package. Qualified candidates install with lifecycle scripts disabled from an
-empty cache without contacting a registry.
+For exact-byte verification, compare the registry integrity and released
+tarball SHA-256 with the GitHub Release checksums. Also compare the released
+production-closure, bundled-payload, and license-inventory SHA-256 values with
+`production-bundle.json` inside the installed package. SCOPA uses no install
+lifecycle scripts.
 
 ## Initialize a clean fixture
 

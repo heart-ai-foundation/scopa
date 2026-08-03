@@ -1,0 +1,23 @@
+{
+  "schema": "scopa.r1-finalization-approval.v1",
+  "decision": "approve-public-0.2.0-finalization",
+  "approvedAt": "2026-08-03T03:40:00Z",
+  "authority": "conversation-explicit-principal-approval",
+  "target": {
+    "repository": "heart-ai-foundation/scopa",
+    "repositoryVisibility": "public",
+    "package": "@heart-ai-foundation/scopa",
+    "version": "0.2.0",
+    "npmAccess": "public",
+    "npmDistTag": "latest",
+    "gitTag": "v0.2.0",
+    "githubReleaseTitle": "SCOPA v0.2.0",
+    "githubPrerelease": false
+  },
+  "providerCallsAuthorized": 0,
+  "experimentUseAllowed": false,
+  "finalizationAllowed": true,
+  "publicationActionsAuthorized": 0,
+  "releaseExecutionAuthorized": false,
+  "nextAuthority": "exact-release-execution-matrix-approval-required"
+}
