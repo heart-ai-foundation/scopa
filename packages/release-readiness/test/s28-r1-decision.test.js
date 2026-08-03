@@ -11,6 +11,7 @@ import {
   loadS28Inputs,
   runS28Eligibility,
 } from '../../../fixtures/S28/s28-r1-decision.mjs';
+import { jsonHash } from '../../enforcement/src/index.js';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 
@@ -54,8 +55,40 @@ test('S28 activation binds the exact protocol but authorizes no decision or traf
   assert.equal(approval.releaseAllowed, false);
   assert.equal(sha256(await readFile(path.join(ROOT, approval.macroDeltaPath))),
     approval.macroDeltaFileSha256);
-  assert.equal(sha256(await readFile(path.join(ROOT, approval.protocolPath))),
+  assert.equal(sha256(await readFile(path.join(
+    ROOT,
+    approval.protocolPath.replace(/^next-prompt-protocols\/active\//,
+      'next-prompt-protocols/completed/'),
+  ))),
     approval.protocolFileSha256);
+});
+
+test('committed principal GO exactly matches the approved prospective digest', async () => {
+  const posture = createClosedS28DecisionPosture(await runS28Eligibility());
+  const expected = createS28PrincipalDecision(posture, 'GO');
+  const committed = JSON.parse(await readFile(
+    path.join(ROOT, 'evidence/S28/principal-decision.json'), 'utf8'));
+  assert.deepEqual(committed, expected);
+  assert.equal(committed.decisionSha256,
+    'cb24c054a23594a8ea5d4608275b01c1bab6a3117b51f51c5dcc20736597464d');
+  assert.equal(committed.releaseExecutionAuthorized, false);
+});
+
+test('S28 closeout binds GO while every release action remains closed', async () => {
+  const closeout = JSON.parse(await readFile(
+    path.join(ROOT, 'evidence/S28/closeout.json'), 'utf8'));
+  const decision = JSON.parse(await readFile(
+    path.join(ROOT, 'evidence/S28/principal-decision.json'), 'utf8'));
+  assert.equal(closeout.result, 'accepted-go');
+  assert.equal(closeout.principalDecision.decisionSha256, decision.decisionSha256);
+  assert.equal(closeout.principalDecision.exactPostureMatched, true);
+  assert.deepEqual(closeout.contracts,
+    { PLQ1: 'satisfied', PLQ2: 'satisfied', PLQ3: 'satisfied' });
+  assert.deepEqual(closeout.traffic,
+    { providerCalls: 0, experimentCalls: 0, publicationActions: 0, releaseActions: 0 });
+  assert.equal(closeout.releaseExecutionAuthorized, false);
+  const { receiptSha256, ...body } = closeout;
+  assert.equal(jsonHash(body), receiptSha256);
 });
 
 test('prospective GO and NO-GO decisions are exact and never execute release', async () => {

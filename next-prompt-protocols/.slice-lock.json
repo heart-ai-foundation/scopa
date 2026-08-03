@@ -1,22 +1,16 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "3836e5f",
-  "current_phase": "phase-9-s28-r1-go-no-go-decision",
-  "active_protocol": "active/2026-08-03-S28-r1-go-no-go-decision.md",
-  "active_class": "arc",
+  "current_commit": "5094af6",
+  "current_phase": "phase-9-r1-release-eligible-no-active-protocol",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "production-live-requalification",
-  "crosses": [
-    "dependency-closure-identity",
-    "release-readiness",
-    "gate-process-custody"
-  ],
-  "advances_contracts": [
-    "PLQ3"
-  ],
-  "active_protocol_sha256": "sha256:6c002e4d99d9b1d1658aed151c1573fc13cba4fd04e22f86e7015e966f917329",
-  "active_objective": "Compute and host-qualify one exact R1 eligibility projection, freeze a closed\nGO/NO-GO posture, and present its digest for an explicit principal decision.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "No active protocol. S28 GO is recorded for the exact candidate; release execution requires a separate exact principal authorization.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -67,5 +61,5 @@
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop S26R1 on missing failure evidence, journal-after-assert behavior, overwrite, private-mode failure, historical S26 drift, provider intent, or unrelated change; later calls require separate exact-digest authority."
+  "stop_condition": "No active protocol. Do not publish, tag, version, deploy, announce, or otherwise execute an R1 release without a separate exact principal authorization."
 }
