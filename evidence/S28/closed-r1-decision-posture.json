@@ -1,0 +1,22 @@
+{
+  "schema": "scopa.s28-r1-decision-posture.v1",
+  "candidate": {
+    "sourceCommit": "395a7e340084bbefbb5fb1ae575193eb33cacef4",
+    "packageSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+    "closureSha256": "6071fda7b96dbe6bb87ed154ef3dc3d94e5f53be114148e663a7e9523e76180e",
+    "bundledPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "installedPayloadSha256": "d876bb115d8dd8755dfbddcbdabf84bf931487b177f24daf29a3d90aef5d7477",
+    "licenseInventorySha256": "a4066aa11d8d819047753fc841322b607807152f30a3a8342efc31f2fa7d84af"
+  },
+  "eligibilityReceiptSha256": "a3124152c3d5ea239ebfb9040300de0ce4ed34ebd80eb5654bfe88f68f299e17",
+  "decision": "PENDING",
+  "permittedDecisions": ["GO", "NO-GO"],
+  "releaseExecutionAuthorized": false,
+  "publicationAuthorized": false,
+  "providerCallsAuthorized": 0,
+  "experimentUseAuthorized": false,
+  "effectOnGo": "eligible-for-separately-authorized-r1-release-action",
+  "effectOnNoGo": "release-remains-closed",
+  "nextAuthority": "explicit-principal-decision-on-exact-posture-digest-required",
+  "postureSha256": "e83ff0ecc64fd40e14bc1fbfd73aaa60ad26a6ae8ffa9e053d789f61dd83b6fa"
+}

@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "0cdface",
-  "current_phase": "phase-9-s27-compressed-release-consistency-review",
-  "phase_scope": "Execute one provider-off exact-byte consistency review over S24, S25, and accepted S26R3 evidence without repeating provider, artifact, soak, or three-role review work.",
-  "macro_delta": "macro-deltas/2026-08-02-scopa-s27-compressed-release-consistency-review.md",
-  "active_protocol": "active/2026-08-02-S27-compressed-release-consistency-review.md",
-  "active_objective": "Hold the S27 deterministic ACCEPT receipt pending its hosted gate; S28 requires separate activation and provider/release gates remain closed.",
+  "current_commit": "3836e5f",
+  "current_phase": "phase-9-s28-r1-go-no-go-decision",
+  "phase_scope": "Bind accepted S24-S27 evidence into one exact R1 eligibility projection and a closed principal GO/NO-GO posture without provider or release action.",
+  "macro_delta": "macro-deltas/2026-08-03-scopa-s28-r1-go-no-go-decision.md",
+  "active_protocol": "active/2026-08-03-S28-r1-go-no-go-decision.md",
+  "active_objective": "Compute and host-qualify one exact S28 R1 eligibility projection and closed PENDING decision posture; principal decision and release remain closed.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-02-S27-compressed-release-consistency-review.md",
     "completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md",
     "completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md",
     "completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md",
@@ -63,6 +64,7 @@
     "fixtures/S26R2/**",
     "fixtures/S26R3/**",
     "fixtures/S27/**",
+    "fixtures/S28/**",
     "runs/S26R1/**",
     "runs/S26R2/**",
     "runs/S26R3/**",
@@ -99,12 +101,12 @@
     "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
     "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
     "No rewrite of historical evidence",
-    "No S26, S26R1, S26R2, or S26R3 replay and no provider traffic in S27",
+    "No S26, S26R1, S26R2, or S26R3 replay and no provider traffic in S28",
     "No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority",
     "No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/release-readiness/test/s27-release-consistency.test.js",
+    "fast_deterministic": "node --test packages/release-readiness/test/s28-r1-decision.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
@@ -903,6 +905,7 @@
         "evidence/S26R1",
         "fixtures/S27",
         "evidence/S27",
+        "fixtures/S28",
         "evidence/S28"
       ],
       "owner": "Heart AI Foundation",
@@ -973,7 +976,7 @@
         {
           "id": "PLQ2",
           "statement": "One exact-byte executable release-consistency review returns ACCEPT with no critical, high, or medium finding and all low findings adjudicated.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "One hash-bound provider-off review of evidence custody, approval closure, installed identity, and claim boundaries",
           "discovered_on": "2026-07-28",
           "discovered_because": "Production Live-Run Hardening Macro Delta S18"

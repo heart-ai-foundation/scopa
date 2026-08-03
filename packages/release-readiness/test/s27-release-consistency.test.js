@@ -59,7 +59,11 @@ test('principal approval binds the compressed protocol and authorizes zero traff
     approval.macroDeltaFileSha256,
   );
   assert.equal(
-    sha256(await readFile(path.join(ROOT, approval.protocolPath))),
+    sha256(await readFile(path.join(
+      ROOT,
+      approval.protocolPath.replace(/^next-prompt-protocols\/active\//,
+        'next-prompt-protocols/completed/'),
+    ))),
     approval.protocolFileSha256,
   );
 });

@@ -1,0 +1,19 @@
+{
+  "schema": "scopa.s28-activation-approval.v1",
+  "decision": "approve-s28-deterministic-eligibility-and-closed-decision-posture",
+  "approvedAt": "2026-08-03T02:10:00Z",
+  "authority": "conversation-explicit-principal-instruction",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-03-scopa-s28-r1-go-no-go-decision.md",
+  "macroDeltaFileSha256": "aecf1e4626bb8f32c73db9686e10512c2223b40d8c406443b845047022425c87",
+  "protocolPath": "next-prompt-protocols/active/2026-08-03-S28-r1-go-no-go-decision.md",
+  "protocolFileSha256": "6c002e4d99d9b1d1658aed151c1573fc13cba4fd04e22f86e7015e966f917329",
+  "eligibilityReceiptSha256": "a3124152c3d5ea239ebfb9040300de0ce4ed34ebd80eb5654bfe88f68f299e17",
+  "decisionPostureSha256": "e83ff0ecc64fd40e14bc1fbfd73aaa60ad26a6ae8ffa9e053d789f61dd83b6fa",
+  "principalDecisionAuthorized": false,
+  "providerCallsAuthorized": 0,
+  "experimentUseAllowed": false,
+  "candidateChangeAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "nextAuthority": "explicit-principal-go-no-go-decision-on-exact-posture-digest"
+}

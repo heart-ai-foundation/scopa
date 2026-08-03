@@ -1,0 +1,51 @@
+{
+  "schema": "scopa.s27-closeout.v1",
+  "slice": "S27",
+  "result": "accepted",
+  "completedAt": "2026-08-03T02:00:00Z",
+  "evidenceCommit": "3836e5fad759d68a3f0daffce2e88769743c32b5",
+  "review": {
+    "shape": "one-executable-release-consistency-review",
+    "planSha256": "22607ee9f5b0321178c578a26031d538484110fbbc9ad71ce3cb096e9cab6f12",
+    "receiptSha256": "08ce586fdb778484ed747e24c288e6e14e47016ea53b0b1474834ee13cbcd102",
+    "verdict": "ACCEPT",
+    "boundariesPassed": 4,
+    "boundariesTotal": 4,
+    "criticalFindings": 0,
+    "highFindings": 0,
+    "mediumFindings": 0,
+    "lowFindings": 0,
+    "unadjudicatedLowFindings": 0
+  },
+  "local": {
+    "focusedPassed": 18,
+    "focusedFailed": 0,
+    "accumulatedPassed": 248,
+    "accumulatedSkipped": 1,
+    "accumulatedFailed": 0,
+    "protocolCheck": "passed",
+    "publishableCandidateSourceChanges": 0
+  },
+  "hosted": {
+    "runId": 30778059620,
+    "url": "https://github.com/heart-ai-foundation/scopa/actions/runs/30778059620",
+    "headSha": "3836e5fad759d68a3f0daffce2e88769743c32b5",
+    "conclusion": "success",
+    "accumulatedGate": "passed",
+    "npmParity": "passed",
+    "officialCandidatePath": "passed",
+    "caseValidation": "passed"
+  },
+  "traffic": {
+    "providerCalls": 0,
+    "experimentCalls": 0,
+    "publicationActions": 0,
+    "releaseActions": 0
+  },
+  "contracts": {
+    "PLQ2": "satisfied",
+    "PLQ3": "open"
+  },
+  "nextAuthority": "separate-s28-protocol-activation-and-principal-go-no-go-decision",
+  "receiptSha256": "3a67882ffa2cde1fc196a42ba755ff70324f590ecd978c0949e0c946fea97cfb"
+}

@@ -1,17 +1,16 @@
-# Phase 9 S27 Compressed Release Consistency Review
+# Phase 9 S28 R1 Go No Go Decision
 
-Current commit reference: `0cdface`
-Current active protocol: `active/2026-08-02-S27-compressed-release-consistency-review.md`
+Current commit reference: `3836e5f`
+Current active protocol: `active/2026-08-03-S28-r1-go-no-go-decision.md`
 
 ## Scope
 
-Execute one provider-off exact-byte consistency review over S24, S25, and accepted S26R3 evidence without repeating provider, artifact, soak, or three-role review work.
+Bind accepted S24-S27 evidence into one exact R1 eligibility projection and a closed principal GO/NO-GO posture without provider or release action.
 
 ## Active objective
 
-> Hold the exact ACCEPT receipt while its evidence commit completes hosted
-> qualification. After a green hosted gate, S28 still requires separate protocol
-> activation and cannot execute a release.
+> Compute and host-qualify one exact R1 eligibility projection, freeze a closed
+> GO/NO-GO posture, and present its digest for an explicit principal decision.
 
 ## Files in play
 
@@ -35,6 +34,7 @@ Execute one provider-off exact-byte consistency review over S24, S25, and accept
 - `fixtures/S26R2/**`
 - `fixtures/S26R3/**`
 - `fixtures/S27/**`
+- `fixtures/S28/**`
 - `runs/S26R1/**`
 - `runs/S26R2/**`
 - `runs/S26R3/**`
@@ -72,7 +72,7 @@ Execute one provider-off exact-byte consistency review over S24, S25, and accept
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
 - No rewrite of historical evidence
-- No S26, S26R1, S26R2, or S26R3 replay and no provider traffic in S27
+- No S26, S26R1, S26R2, or S26R3 replay and no provider traffic in S28
 - No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority
 - No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta
 
@@ -82,14 +82,12 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Exact S24, S25, and S26R3 inputs are hash-bound.
-- Four-part installed production identity is consistent.
-- Approval, authorized matrix, campaign, consumption, and closeout are consistent.
-- Both production results stayed successful, bounded, clean, and privacy-safe.
-- Release posture and assurance claims remain closed and partial.
-- Every adversarial drift class returns REJECT.
-- Exactly one review receipt returns ACCEPT with no findings.
-- Focused, protocol, accumulated, and hosted gates pass provider-off.
+- Exact S24-S27 and candidate inputs are hash-bound.
+- PLQ2 and PLQ3 eligibility conditions pass or fail closed with a named reason.
+- Adversarial identity, closeout, hosted, finding, traffic, privacy, and claim drift reject.
+- Closed posture decision is `PENDING`, release authorization is false, and its digest is exact.
+- Focused, protocol, accumulated, and hosted gates pass.
+- One subsequent principal GO or NO-GO binds only the exact posture digest.
 
 ## Handoff
 

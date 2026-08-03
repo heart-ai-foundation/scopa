@@ -1,21 +1,22 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "0cdface",
-  "current_phase": "phase-9-s27-compressed-release-consistency-review",
-  "active_protocol": "active/2026-08-02-S27-compressed-release-consistency-review.md",
+  "current_commit": "3836e5f",
+  "current_phase": "phase-9-s28-r1-go-no-go-decision",
+  "active_protocol": "active/2026-08-03-S28-r1-go-no-go-decision.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "production-live-requalification",
   "crosses": [
     "dependency-closure-identity",
+    "release-readiness",
     "gate-process-custody"
   ],
   "advances_contracts": [
-    "PLQ2"
+    "PLQ3"
   ],
-  "active_protocol_sha256": "sha256:772aec70a5873f21a327dc9a5af57918efa23b63c02ba7e128692701e229b062",
-  "active_objective": "Hold the exact ACCEPT receipt while its evidence commit completes hosted\nqualification. After a green hosted gate, S28 still requires separate protocol\nactivation and cannot execute a release.",
+  "active_protocol_sha256": "sha256:6c002e4d99d9b1d1658aed151c1573fc13cba4fd04e22f86e7015e966f917329",
+  "active_objective": "Compute and host-qualify one exact R1 eligibility projection, freeze a closed\nGO/NO-GO posture, and present its digest for an explicit principal decision.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -37,6 +38,7 @@
     "fixtures/S26R2/**",
     "fixtures/S26R3/**",
     "fixtures/S27/**",
+    "fixtures/S28/**",
     "runs/S26R1/**",
     "runs/S26R2/**",
     "runs/S26R3/**",
@@ -60,7 +62,7 @@
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/release-readiness/test/s27-release-consistency.test.js",
+    "fast_deterministic": "node --test packages/release-readiness/test/s28-r1-decision.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
