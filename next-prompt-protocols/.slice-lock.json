@@ -1,22 +1,21 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "08b6998",
-  "current_phase": "phase-9-s26r3-canonical-evidence-projection-remediation",
-  "active_protocol": "active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md",
-  "active_class": "hotfix",
+  "current_commit": "0cdface",
+  "current_phase": "phase-9-s27-compressed-release-consistency-review",
+  "active_protocol": "active/2026-08-02-S27-compressed-release-consistency-review.md",
+  "active_class": "arc",
   "active_compound": false,
   "active_module": "production-live-requalification",
   "crosses": [
-    "live-run-custody",
-    "claude-live-hardening"
+    "dependency-closure-identity",
+    "gate-process-custody"
   ],
   "advances_contracts": [
-    "PLQ2",
-    "PLQ3"
+    "PLQ2"
   ],
-  "active_protocol_sha256": "sha256:64325cc7cd473c0e856003384dd3338f7dd041fa5bd5ea05d8d7149a126ac5a1",
-  "active_objective": "Hold the exact S26R3 closed matrix and its provider-off qualification evidence.\nNo production call is authorized. A later live run requires separate principal\napproval of the exact matrix digest and prospective approval digest.",
+  "active_protocol_sha256": "sha256:772aec70a5873f21a327dc9a5af57918efa23b63c02ba7e128692701e229b062",
+  "active_objective": "Hold the exact ACCEPT receipt while its evidence commit completes hosted\nqualification. After a green hosted gate, S28 still requires separate protocol\nactivation and cannot execute a release.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -37,6 +36,7 @@
     "fixtures/S26R1/**",
     "fixtures/S26R2/**",
     "fixtures/S26R3/**",
+    "fixtures/S27/**",
     "runs/S26R1/**",
     "runs/S26R2/**",
     "runs/S26R3/**",
@@ -60,7 +60,7 @@
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js",
+    "fast_deterministic": "node --test packages/release-readiness/test/s27-release-consistency.test.js",
     "installed_probe": "npm run probe:s12:installed",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"

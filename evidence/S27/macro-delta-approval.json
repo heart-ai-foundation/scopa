@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.s27-compressed-review-approval.v1",
+  "decision": "approve-compressed-provider-off-release-consistency-review",
+  "approvedAt": "2026-08-03T01:48:00Z",
+  "authority": "conversation-explicit-principal-agreement",
+  "macroDeltaPath": "next-prompt-protocols/macro-deltas/2026-08-02-scopa-s27-compressed-release-consistency-review.md",
+  "macroDeltaFileSha256": "c65c1db37e6c91dbc06b99155eb90fff4c7c56907e1f35542c6273907ac610c9",
+  "protocolPath": "next-prompt-protocols/active/2026-08-02-S27-compressed-release-consistency-review.md",
+  "protocolFileSha256": "772aec70a5873f21a327dc9a5af57918efa23b63c02ba7e128692701e229b062",
+  "supersedesReviewShape": "three-parallel-artifact-evidence-runtime-reviews",
+  "authorizedReviewShape": "one-executable-release-consistency-review",
+  "reviewReceiptSha256": "08ce586fdb778484ed747e24c288e6e14e47016ea53b0b1474834ee13cbcd102",
+  "providerCallsAuthorized": 0,
+  "candidateChangeAllowed": false,
+  "dependencyChangeAllowed": false,
+  "experimentUseAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "s28Activated": false,
+  "nextAuthority": "separate-s28-protocol-activation-required-after-hosted-success"
+}

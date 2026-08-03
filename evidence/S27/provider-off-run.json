@@ -1,0 +1,24 @@
+{
+  "schema": "scopa.s27-provider-off-run.v1",
+  "performedAt": "2026-08-03T02:00:00Z",
+  "reviewReceiptSha256": "08ce586fdb778484ed747e24c288e6e14e47016ea53b0b1474834ee13cbcd102",
+  "planSha256": "22607ee9f5b0321178c578a26031d538484110fbbc9ad71ce3cb096e9cab6f12",
+  "checks": [
+    { "id": "public-private-evidence-binding", "result": "pass" },
+    { "id": "single-use-approval-closure", "result": "pass" },
+    { "id": "installed-production-identity", "result": "pass" },
+    { "id": "release-claim-boundary", "result": "pass" },
+    { "id": "adversarial-byte-identity-approval-cleanup-budget-privacy-claim-drift", "result": "pass-closed" },
+    { "id": "focused-s26r3-and-s27-suite", "result": "pass-18-of-18" },
+    { "id": "accumulated-release-gate", "result": "pass-248-with-1-intentional-skip" },
+    { "id": "protocol-projection", "result": "pass" }
+  ],
+  "verdict": "ACCEPT",
+  "findings": [],
+  "providerCalls": 0,
+  "experimentCalls": 0,
+  "publicationActions": 0,
+  "releaseActions": 0,
+  "hostedGate": "pending-for-exact-evidence-commit",
+  "nextAuthority": "green-hosted-gate-then-separate-s28-protocol-activation-required"
+}

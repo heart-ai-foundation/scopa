@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `08b6998`
+Current commit reference: `0cdface`
 
-Active protocol class: `hotfix`
+Active protocol class: `arc`
 Active protocol compound: `false`
 Active protocol module: `production-live-requalification`
-Advances contracts: `PLQ2, PLQ3`
+Advances contracts: `PLQ2`
 
 ## Slice Class
 
@@ -104,38 +104,39 @@ Read in this order:
 
 1. `.slice-lock.json`
 2. `manifest.json`
-3. `macro-deltas/2026-08-02-scopa-s26r3-canonical-evidence-projection-remediation.md`
+3. `macro-deltas/2026-08-02-scopa-s27-compressed-release-consistency-review.md`
 4. `role-context.md`
 5. `phases/phase-9/README.md`
-6. `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
-7. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
-8. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
-9. `completed/2026-08-01-S24-gate-process-tree-custody.md`
-10. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
-11. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
-12. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-13. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-14. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-15. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-16. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-17. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-18. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-19. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-20. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-21. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-22. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-23. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-24. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-25. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-26. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-27. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-28. `completed/2026-07-27-S6-installable-developer-surface.md`
-29. `completed/2026-07-26-S5-interop-export.md`
-30. `completed/2026-07-26-S4-signing-and-anchoring.md`
-31. `completed/2026-07-26-S3-legibility.md`
-32. `completed/2026-07-26-S2-enforcement-loop.md`
-33. `completed/2026-07-26-S0-conformance-harness.md`
-34. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-08-02-S27-compressed-release-consistency-review.md`
+7. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+8. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+9. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+10. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+11. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+12. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+13. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+14. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+15. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+16. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+17. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+18. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+19. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+20. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+21. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+22. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+23. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+24. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+25. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+26. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+27. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+28. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+29. `completed/2026-07-27-S6-installable-developer-surface.md`
+30. `completed/2026-07-26-S5-interop-export.md`
+31. `completed/2026-07-26-S4-signing-and-anchoring.md`
+32. `completed/2026-07-26-S3-legibility.md`
+33. `completed/2026-07-26-S2-enforcement-loop.md`
+34. `completed/2026-07-26-S0-conformance-harness.md`
+35. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -165,13 +166,13 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current phase
 
-- `Phase 9 S26r3 Canonical Evidence Projection Remediation`
+- `Phase 9 S27 Compressed Release Consistency Review`
 
 ## Current active objective
 
-> Hold the exact S26R3 closed matrix and its provider-off qualification evidence.
-> No production call is authorized. A later live run requires separate principal
-> approval of the exact matrix digest and prospective approval digest.
+> Hold the exact ACCEPT receipt while its evidence commit completes hosted
+> qualification. After a green hosted gate, S28 still requires separate protocol
+> activation and cannot execute a release.
 
 ## Behavior rules
 
@@ -208,6 +209,7 @@ These protocols are specific to:
 - `fixtures/S26R1/**`
 - `fixtures/S26R2/**`
 - `fixtures/S26R3/**`
+- `fixtures/S27/**`
 - `runs/S26R1/**`
 - `runs/S26R2/**`
 - `runs/S26R3/**`
@@ -237,4 +239,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-9/README.md`
-- `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+- `active/2026-08-02-S27-compressed-release-consistency-review.md`

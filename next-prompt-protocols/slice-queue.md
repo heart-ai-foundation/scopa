@@ -1,6 +1,6 @@
 # SCOPA Slice Queue
 
-**Authority:** `macro-deltas/2026-08-02-scopa-s26r3-canonical-evidence-projection-remediation.md`
+**Authority:** `macro-deltas/2026-08-02-scopa-s27-compressed-release-consistency-review.md`
 **Rule:** This file materializes the canonical Macro Delta. It does not create
 or authorize independent queue entries.
 
@@ -17,10 +17,10 @@ or authorize independent queue entries.
 | S26R1 | Failure-evidence remediation | `production-live-requalification` | Retain every returned run before qualification | Makes future non-qualifying results diagnosable without replay | rejected/accepted retention, collision, mode, historical binding, hosted CI | stopped S26 plus bounded remediation approval | Stop on provider intent, S26 mutation, missing journal, overwrite, or false green | `evidence/S26R1/` | `stopped after Claude; result retained; scenario-binding defect diagnosed; Codex skipped; no replay` |
 | S26R2 | Scenario-binding remediation | `production-live-requalification` | Bind runtime scenario exactly to the SCOPA session/transcript identity | Prevents structurally successful calls from being falsely rejected while preserving strict normalization | exact Claude/Codex bindings, identifier/version/classification drift, retention regression, hosted CI | stopped S26R1 plus bounded provider-off remediation approval | Stop on provider intent, historical mutation, accepted mismatch, retention regression, or false green | `evidence/S26R2/` | `stopped after Claude return; canonical cost projection prevented retention; Codex skipped; no replay` |
 | S26R3 | Canonical evidence-projection remediation | `production-live-requalification` | Convert Claude fractional USD accounting to exact decimal strings at the durable evidence boundary | Makes returned evidence serializable without weakening canonical JSON | installed projection, zero/fractional/max/malformed costs, retention, collision, private/public parity, hosted CI | stopped S26R2 plus bounded provider-off remediation approval | Stop on provider intent, historical mutation, direct fractional serialization, projection divergence, malformed acceptance, or overwrite | `evidence/S26R3/` | `completed; accepted; approval consumed; replay closed` |
-| S27 | Parallel exact-byte reviews | `production-live-requalification` | Challenge artifact, evidence, and installed runtime claims once | Prior runtime review found a real defect; exact new bytes require fresh verdicts | three parallel reports, installed descendant probes, deterministic consistency | accepted S26R3 | Stop on any REJECT, material finding, or unadjudicated low | `evidence/S27/` | `ready; requires separate protocol activation` |
-| S28 | R1 go/no-go decision | `production-live-requalification` | Close PLQ2/PLQ3 and make one durable release decision | Converts complete evidence into one actionable boundary | consistency projection, final hosted gate, principal GO or NO-GO | accepted S27 | Do not activate on non-qualifying evidence; GO does not execute release | `evidence/S28/` | `blocked by S26R3` |
+| S27 | Compressed release-consistency review | `production-live-requalification` | Check evidence custody, approval closure, installed identity, and R1 claim boundaries once | One executable verdict rejects mixed generations without repeating bound work | exact hashes, canonical receipts, privacy, cleanup, budgets, adversarial drift | accepted S26R3 plus approved compression amendment | Stop on REJECT, identity/evidence/approval/claim drift, material finding, or provider intent | `evidence/S27/` | `deterministic ACCEPT; hosted pending; provider-off; release-closed` |
+| S28 | R1 go/no-go decision | `production-live-requalification` | Close PLQ2/PLQ3 and make one durable release decision | Converts complete evidence into one actionable boundary | consistency projection, final hosted gate, principal GO or NO-GO | accepted S27 | Do not activate on non-qualifying evidence; GO does not execute release | `evidence/S28/` | `blocked by S27` |
 
-S0-S26R2 remain immutable under their governing Macro Deltas. S26R3 changes
-only future durable Claude evidence projection and is provider-closed. The
-S26R2 approval is consumed; S27/S28, the separate SCOPA experiment, and all
-publication/release actions remain closed.
+S0-S26R3 remain immutable under their governing Macro Deltas. S27 performs one
+provider-off executable consistency review and does not repeat the three-role
+review shape. S28, the separate SCOPA experiment, and all publication/release
+actions remain closed.

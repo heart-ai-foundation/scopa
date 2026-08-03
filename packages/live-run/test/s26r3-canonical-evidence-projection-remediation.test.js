@@ -100,7 +100,11 @@ test('S26R3 Macro Delta approval grants deterministic work and zero calls', asyn
     approval.macroDeltaFileSha256,
   );
   assert.equal(
-    sha256(await readFile(path.join(ROOT, approval.protocolPath))),
+    sha256(await readFile(path.join(
+      ROOT,
+      approval.protocolPath.replace(/^next-prompt-protocols\/active\//,
+        'next-prompt-protocols/completed/'),
+    ))),
     approval.protocolFileSha256,
   );
   assert.equal(approval.candidateChangeAllowed, false);

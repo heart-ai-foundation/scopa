@@ -1,17 +1,17 @@
-# Phase 9 S26r3 Canonical Evidence Projection Remediation
+# Phase 9 S27 Compressed Release Consistency Review
 
-Current commit reference: `08b6998`
-Current active protocol: `active/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+Current commit reference: `0cdface`
+Current active protocol: `active/2026-08-02-S27-compressed-release-consistency-review.md`
 
 ## Scope
 
-Preserve stopped S26R2 and project Claude fractional USD accounting through the exact installed-candidate evidence boundary before canonical serialization, without provider replay or unrelated change.
+Execute one provider-off exact-byte consistency review over S24, S25, and accepted S26R3 evidence without repeating provider, artifact, soak, or three-role review work.
 
 ## Active objective
 
-> Hold the exact S26R3 closed matrix and its provider-off qualification evidence.
-> No production call is authorized. A later live run requires separate principal
-> approval of the exact matrix digest and prospective approval digest.
+> Hold the exact ACCEPT receipt while its evidence commit completes hosted
+> qualification. After a green hosted gate, S28 still requires separate protocol
+> activation and cannot execute a release.
 
 ## Files in play
 
@@ -34,6 +34,7 @@ Preserve stopped S26R2 and project Claude fractional USD accounting through the 
 - `fixtures/S26R1/**`
 - `fixtures/S26R2/**`
 - `fixtures/S26R3/**`
+- `fixtures/S27/**`
 - `runs/S26R1/**`
 - `runs/S26R2/**`
 - `runs/S26R3/**`
@@ -71,7 +72,7 @@ Preserve stopped S26R2 and project Claude fractional USD accounting through the 
 - No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality
 - No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence
 - No rewrite of historical evidence
-- No S26, S26R1, or S26R2 replay and no provider traffic in S26R3 without a separate exact-matrix-digest approval
+- No S26, S26R1, S26R2, or S26R3 replay and no provider traffic in S27
 - No cold-restart replay, repeated sustained soak, sequential review protocols, review-of-review slice, or release-execution slice without evidence-driven reopening or exact principal authority
 - No queue entries outside the exact approved R1 Exact-Byte Qualification Macro Delta
 
@@ -81,13 +82,14 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
-- Historical S26R2 bytes, intent, stop, and consumed approval remain exact.
-- Installed-candidate projection passes before provider intent.
-- Fractional cost becomes an exact decimal string in private and public evidence.
-- Malformed cost fails closed; canonical JSON remains strict.
-- Write-before-qualification, no-replace, mode, scenario, and cleanup controls remain intact.
-- S26R3 matrix is closed; provider calls authorized are zero.
-- Focused, accumulated, protocol, privacy, and hosted gates pass.
+- Exact S24, S25, and S26R3 inputs are hash-bound.
+- Four-part installed production identity is consistent.
+- Approval, authorized matrix, campaign, consumption, and closeout are consistent.
+- Both production results stayed successful, bounded, clean, and privacy-safe.
+- Release posture and assurance claims remain closed and partial.
+- Every adversarial drift class returns REJECT.
+- Exactly one review receipt returns ACCEPT with no findings.
+- Focused, protocol, accumulated, and hosted gates pass provider-off.
 
 ## Handoff
 

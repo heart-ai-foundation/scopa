@@ -1,0 +1,29 @@
+{
+  "schema": "scopa.s27-release-consistency-plan.v1",
+  "reviewId": "S27-compressed-exact-byte-release-consistency-v1",
+  "candidateSha256": "aa744c45c8d28bc609205748f4594a9dc6fa829fd996e63c3917a0693165e8d6",
+  "boundaries": [
+    "public-private-evidence-binding",
+    "single-use-approval-closure",
+    "installed-production-identity",
+    "release-claim-boundary"
+  ],
+  "inputs": {
+    "s24Closeout": { "path": "evidence/S24/closeout.json", "sha256": "38afd399fa99b5a3262868717f786c7acdfa5188ca96433e6d59e5e1c44239d7" },
+    "s25Qualification": { "path": "evidence/S25/exact-candidate-qualification.json", "sha256": "91a33cfadb482fbb809027c25eb567e4507eebd5ab35b285b4b9812b94446f12" },
+    "s25Closeout": { "path": "evidence/S25/closeout.json", "sha256": "dccc32c864bba86ef7931dd3c3adafcc357eb4da3563163154e081493af461a9" },
+    "s26r3Matrix": { "path": "evidence/S26R3/closed-production-live-matrix.json", "sha256": "8226f7a0f1559d1c18811d92a840cac8dfae4f1a67c47236b03ae887331dca83" },
+    "s26r3Approval": { "path": "evidence/S26R3/production-live-approval.json", "sha256": "3f1e7d035ece2ba20306b7cf64478b5bb4f7ea3f2a4c0e39d7f92a7b8c141e38" },
+    "s26r3Campaign": { "path": "evidence/S26R3/live/campaign.public.json", "sha256": "178092bff3078e5b6c43def13298779b2829895e2f32b67cdbebcfaae5eec076" },
+    "s26r3Consumption": { "path": "evidence/S26R3/consumed-approvals.json", "sha256": "86d4aa7579f9396a4363a2f466cd9460a0248136ac3453c5a51759383d62aa5b" },
+    "s26r3Closeout": { "path": "evidence/S26R3/closeout.json", "sha256": "3c06f2a8612e93e5de2a7f56386adeecfef2f90eb7d995847b1c01d18d9511de" },
+    "releasePosture": { "path": "docs/release-posture.json", "sha256": "6e3dc6f70b6d00d23916bb029abeb1e7f006ef0a0b8e55f2efd217b117baa3b2" }
+  },
+  "providerTrafficAllowed": false,
+  "experimentUseAllowed": false,
+  "publicationAllowed": false,
+  "releaseAllowed": false,
+  "requiredVerdict": "ACCEPT",
+  "materialFindingsAllowed": 0,
+  "nextAuthority": "separate-s28-protocol-activation-required"
+}
