@@ -39,6 +39,9 @@ jobs:
       - name: Run accumulated SCOPA release gate
         run: npm test
 
+      - name: Test exact npm release verifier
+        run: node --test .github/scripts/verify-release-asset.test.mjs
+
       - name: Prove npm 10 and npm 11 bundled-closure parity
         run: |
           mkdir -p /tmp/scopa-npm10 /tmp/scopa-npm11

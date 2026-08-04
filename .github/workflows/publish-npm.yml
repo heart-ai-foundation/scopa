@@ -1,0 +1,173 @@
+name: Publish exact npm release
+
+run-name: Publish ${{ inputs.tag }} to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing stable GitHub Release tag (for example, v0.3.0)
+        required: true
+        type: string
+      sha256:
+        description: Approved lowercase SHA-256 of the exact npm tarball
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish-exact-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out publisher controls
+        uses: actions/checkout@v7.0.1
+        with:
+          path: publisher
+          persist-credentials: false
+
+      - name: Check out exact release source
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          path: release-source
+          persist-credentials: false
+
+      - name: Set up Node.js for npm OIDC
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install the pinned OIDC-capable npm CLI
+        run: >-
+          npm install --prefix "$RUNNER_TEMP/npm-cli" --ignore-scripts
+          --no-audit --no-fund npm@11.19.0
+
+      - name: Download the immutable GitHub Release assets
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "tag must be a stable vMAJOR.MINOR.PATCH value" >&2
+            exit 1
+          fi
+          if ! [[ "$EXPECTED_SHA256" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "sha256 must be 64 lowercase hexadecimal characters" >&2
+            exit 1
+          fi
+          test "$(gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = false
+          test "$(gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isPrerelease --jq .isPrerelease)" = false
+          version="${RELEASE_TAG#v}"
+          filename="heart-ai-foundation-scopa-${version}.tgz"
+          release_dir="$RUNNER_TEMP/scopa-release"
+          mkdir -p "$release_dir"
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir "$release_dir" \
+            --pattern "$filename" \
+            --pattern SHA256SUMS
+          test -f "$release_dir/$filename"
+          test -f "$release_dir/SHA256SUMS"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "filename=$filename" >> "$GITHUB_OUTPUT"
+          echo "release_dir=$release_dir" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag, source, checksum, package, and lifecycle identity
+        id: verify
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+          RELEASE_DIR: ${{ steps.release.outputs.release_dir }}
+          RELEASE_FILENAME: ${{ steps.release.outputs.filename }}
+        run: |
+          set -euo pipefail
+          verification="$RUNNER_TEMP/release-asset-verification.json"
+          node publisher/.github/scripts/verify-release-asset.mjs \
+            --archive "$RELEASE_DIR/$RELEASE_FILENAME" \
+            --checksum "$RELEASE_DIR/SHA256SUMS" \
+            --source-package release-source/package.json \
+            --tag "$RELEASE_TAG" \
+            --sha256 "$EXPECTED_SHA256" | tee "$verification"
+          integrity="$(node -e 'const v=require(process.argv[1]); process.stdout.write(v.integrity)' "$verification")"
+          echo "integrity=$integrity" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse overwrite or an ambiguous registry response
+        env:
+          NPM: ${{ runner.temp }}/npm-cli/node_modules/.bin/npm
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          set +e
+          registry_result="$("$NPM" view "@heart-ai-foundation/scopa@$VERSION" version --registry=https://registry.npmjs.org/ 2>&1)"
+          registry_status="$?"
+          set -e
+          if test "$registry_status" -eq 0; then
+            echo "refusing to overwrite existing npm version: $registry_result" >&2
+            exit 1
+          fi
+          if ! grep -q 'E404' <<<"$registry_result"; then
+            echo "npm registry absence check was inconclusive" >&2
+            exit 1
+          fi
+
+      - name: Publish the exact tarball through npm trusted publishing
+        env:
+          NPM: ${{ runner.temp }}/npm-cli/node_modules/.bin/npm
+          RELEASE_DIR: ${{ steps.release.outputs.release_dir }}
+          RELEASE_FILENAME: ${{ steps.release.outputs.filename }}
+        run: >-
+          "$NPM" publish "$RELEASE_DIR/$RELEASE_FILENAME"
+          --access public --tag latest --ignore-scripts
+          --registry=https://registry.npmjs.org/
+
+      - name: Verify public registry byte parity
+        env:
+          NPM: ${{ runner.temp }}/npm-cli/node_modules/.bin/npm
+          VERSION: ${{ steps.release.outputs.version }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+          EXPECTED_INTEGRITY: ${{ steps.verify.outputs.integrity }}
+        run: |
+          set -euo pipefail
+          registry_json=""
+          for attempt in $(seq 1 12); do
+            if registry_json="$("$NPM" view "@heart-ai-foundation/scopa@$VERSION" version dist.tarball dist.integrity --json --registry=https://registry.npmjs.org/ 2>/dev/null)"; then
+              break
+            fi
+            sleep 5
+          done
+          test -n "$registry_json"
+          public_version="$(node -e 'const v=JSON.parse(process.argv[1]); process.stdout.write(v.version)' "$registry_json")"
+          public_url="$(node -e 'const v=JSON.parse(process.argv[1]); process.stdout.write(v["dist.tarball"])' "$registry_json")"
+          public_integrity="$(node -e 'const v=JSON.parse(process.argv[1]); process.stdout.write(v["dist.integrity"])' "$registry_json")"
+          test "$public_version" = "$VERSION"
+          test "$public_integrity" = "$EXPECTED_INTEGRITY"
+          curl --fail --silent --show-error --location "$public_url" --output "$RUNNER_TEMP/public-package.tgz"
+          echo "$EXPECTED_SHA256  $RUNNER_TEMP/public-package.tgz" | sha256sum --check --strict
+          test "$("$NPM" view @heart-ai-foundation/scopa dist-tags.latest --registry=https://registry.npmjs.org/)" = "$VERSION"
+
+      - name: Record the verified publication
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+        run: |
+          {
+            echo "### Verified npm publication"
+            echo
+            echo "- Package: \`@heart-ai-foundation/scopa@$VERSION\`"
+            echo "- Dist-tag: \`latest\`"
+            echo "- SHA-256: \`$EXPECTED_SHA256\`"
+            echo "- Authentication: GitHub Actions OIDC trusted publishing"
+          } >> "$GITHUB_STEP_SUMMARY"
