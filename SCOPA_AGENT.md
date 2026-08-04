@@ -72,6 +72,9 @@ dependencies:
 3. use
    `npx --yes --package @heart-ai-foundation/scopa@0.2.0 scopa`.
 
+In the commands below, `scopa` means the launcher selected here. Check its
+`--help` output and do not assume that a command exists in every release.
+
 If downloading the package requires host or network approval, request that
 approval once and explain that it is for the pinned public package. Do not add
 SCOPA to the target project's manifest unless the developer asks.
@@ -101,7 +104,7 @@ represent gate commands as argv arrays without a shell, and default closed:
 
 Replace the illustrative values; never run them literally. Prefer existing,
 focused project checks. Include broader checks only when their cost and scope
-fit the task. Then run:
+fit the task.
 
 Inventory the agent's real capability surface in
 `scopa.capability-matrix.json`. Use `scopa.capability-matrix.v1`, identify the
@@ -153,12 +156,23 @@ scopa doctor --lock \
 
 This command captures the pre-lock diagnosis, initializes the exact definition,
 runs its real gates, and returns the terminal map. If the pinned public runtime
-does not yet list `doctor`, use the compatible explicit fallback:
+does not list `doctor`, initialize explicitly:
 
 ```sh
 scopa init --definition scopa.slice-definition.json
+```
+
+If that runtime lists `map`, also run:
+
+```sh
 scopa map --matrix scopa.capability-matrix.json --authority scopa.authority-declarations.json
 ```
+
+Public `0.2.0` provides the enforcement baseline but does not include `doctor`
+or `map`. With that runtime, inspect `scopa status`, retain the matrix and
+authority declarations for review, and report that a runtime-computed Workflow
+Boundary Map was unavailable. Do not promote the result above partial
+assurance.
 
 Inspect the pre-mutation map. Unknown evidence must remain `unknown`, and any
 native bypass must keep assurance `partial`. Do not begin product mutation if
@@ -200,6 +214,11 @@ Run the focused checks needed while developing, then run:
 
 ```sh
 scopa check
+```
+
+When supported, refresh the terminal map:
+
+```sh
 scopa map --matrix scopa.capability-matrix.json --authority scopa.authority-declarations.json
 ```
 
@@ -218,7 +237,8 @@ Keep the handoff concise and include:
 - the outcome and changed product files;
 - the gates run and whether `canStop` is true;
 - the SCOPA route used; and
-- the boundary-map assurance and any authority-required surfaces; and
+- the boundary-map assurance when available, otherwise the runtime limitation;
+- any authority-required surfaces; and
 - any partial-assurance route, skipped check, or remaining risk.
 
 Do not require the developer to read generated ceremony to learn whether the

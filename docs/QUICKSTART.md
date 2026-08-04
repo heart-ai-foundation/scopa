@@ -1,59 +1,65 @@
-# Quickstart: point your agent at SCOPA
+# Quickstart: give your agent one file
 
 Give a coding agent two things:
 
 1. [`SCOPA_AGENT.md`](../SCOPA_AGENT.md)
 2. the task you want completed
 
-For example:
+## 1. Send one prompt
+
+From a SCOPA checkout:
 
 > Read `SCOPA_AGENT.md` and add request-ID logging to this service. Preserve
 > its public API and do not change dependencies.
 
-That is the primary SCOPA workflow. The agent inspects the repository, derives
-the smallest path and verification boundary, bootstraps the pinned public
-runtime, performs supported writes through SCOPA, runs the real completion
-gates, and reports the resulting assurance. You do not need to preinstall a
-package or author a slice definition.
-
-When the template is hosted with the repository, you can point an agent at its
-raw URL instead of copying it into the target project:
+From any other repository:
 
 ```text
 Read https://raw.githubusercontent.com/heart-ai-foundation/scopa/main/SCOPA_AGENT.md
 and implement <your task> in this repository.
 ```
 
-Replace `<your task>` with the actual outcome. A repository checkout can use
-the local file and does not need network access to read the protocol.
+Replace `<your task>` with the result you want. The developer does not need to
+preinstall SCOPA, learn its commands, or write policy JSON.
 
-## What the agent handles
+## 2. Let the agent establish the boundary
 
-The entry protocol tells the agent to:
+The agent entry tells a compatible agent to:
 
-1. discover project instructions, relevant files, and existing checks;
-2. treat ordinary work as one small slice instead of creating a roadmap;
-3. generate and lock the SCOPA boundary itself;
-4. map controlled, uncontrolled, unknown, disabled, and authority-required routes;
-5. use the strongest available governed mutation route;
-6. stop on scope denial or missing authority;
-7. run real project gates and require `canStop: true`; and
-8. report limitations without turning them into ceremony.
+1. inspect repository instructions, relevant files, existing changes, and
+   available checks;
+2. define the smallest allowed path set and real completion gates;
+3. bootstrap a compatible SCOPA runtime without changing project dependencies;
+4. record the actual capability and external-authority surface;
+5. use the strongest governed write route available;
+6. stop on a scope denial or missing authority; and
+7. finish only when the declared gates pass with `canStop: true`.
 
-## What remains explicit
+The agent creates visible control files, including the slice definition,
+capability matrix, authority declarations, and `.scopa/` lock state. Review
+them like other repository changes before committing them.
 
-SCOPA does not convert a general shell or native editor into a controlled
-capability. If those bypass routes remain active, the agent must report
-partial assurance even when its observed changes stay in scope. A host seeking
-the strongest boundary should expose the model-neutral SCOPA MCP tools and
-disable native mutation routes.
+## 3. Read the final report
 
-Publishing, deployment, paid provider calls, credential use, destructive
-operations, and external-system changes still require explicit authority.
+The handoff should state:
 
-## Manual and integration paths
+- what changed;
+- which checks passed;
+- whether SCOPA reported `canStop: true`;
+- which mutation route was used; and
+- what remains uncontrolled, unknown, or authority-required.
 
-Use the [manual walkthrough](MANUAL_SETUP.md) when you want to exercise every
-interface yourself. For permanent host configuration, see the
-[integration guide](INTEGRATIONS.md). The [slice-definition reference](SLICE_DEFINITION.md)
-documents the policy the agent generates on your behalf.
+An active shell, native editor, plugin, or other bypass keeps the result at
+partial assurance even if the observed changes stayed in scope. SCOPA does not
+turn a general-purpose host into an operating-system sandbox.
+
+Publishing, deployment, paid model calls, credential use, destructive actions,
+and changes to external systems still require explicit authority.
+
+## Prefer manual control?
+
+Use the [manual walkthrough](MANUAL_SETUP.md) to exercise the released runtime
+yourself. For a permanent host connection, see the
+[integration guide](INTEGRATIONS.md). The
+[slice-definition reference](SLICE_DEFINITION.md) documents the policy the
+agent generates.

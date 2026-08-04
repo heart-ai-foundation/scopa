@@ -1,134 +1,115 @@
 # SCOPA
 
-SCOPA is an open-source enforcement runtime for bounded, verifiable autonomous
-coding work. It gives an agent a mechanically enforced answer to four
-questions:
+SCOPA is an open-source runtime for bounded, verifiable coding-agent work. It
+turns four questions into local, machine-checkable controls:
 
-1. **Scope:** which repository paths may change?
-2. **Completion:** which real commands must pass before work is complete?
-3. **Continuity:** which verified state may survive a restart or context loss?
-4. **Evidence:** what can another person or process verify independently?
+| Question | SCOPA control |
+| --- | --- |
+| What may change? | Locked repository path rules |
+| What proves completion? | Real commands with explicit pass or fail results |
+| What may survive a restart? | Hash-bound, validated state |
+| What can others verify? | Versioned receipts and evidence packets |
 
-SCOPA implements the controls of Next-Prompt Protocol v2.4. The protocol
-defines the practice; SCOPA is the executable reference implementation.
+SCOPA implements Next-Prompt Protocol v2.4. The protocol defines the practice;
+SCOPA is the executable reference implementation.
 
-## See the boundary before setup
+## Start with one prompt
 
-On the current source line, Boundary Doctor gives a repository-specific answer
-before `.scopa/` exists:
+Give your coding agent the task and point it at [`SCOPA_AGENT.md`](SCOPA_AGENT.md):
+
+> Read `SCOPA_AGENT.md` and add request-ID logging to this service. Preserve
+> its public API and do not change dependencies.
+
+From another repository, use the raw file:
+
+```text
+Read https://raw.githubusercontent.com/heart-ai-foundation/scopa/main/SCOPA_AGENT.md
+and implement <your task> in this repository.
+```
+
+The agent inspects the repository, chooses the smallest honest boundary,
+bootstraps a compatible SCOPA runtime, performs the work, runs real project
+checks, and reports what the result proves. You do not need to preinstall
+SCOPA or write policy JSON.
+
+Ordinary work stays ordinary: the agent entry does not create a roadmap,
+approval digest, or protocol queue for a contained task. See the
+[two-minute quickstart](docs/QUICKSTART.md).
+
+## See the boundary first
+
+Boundary Doctor gives a read-only, repository-specific diagnosis before
+`.scopa/` exists:
 
 ```sh
 node packages/cli/src/cli.js doctor --format markdown --repo /path/to/project
 ```
 
-It performs a bounded, read-only local diagnosis—no model call, network probe,
-account, or target dependency. The result distinguishes observed markers,
-honest absence, and unknown evidence without pretending to know the agent's
-authority. Its Markdown is privacy-minimized and SHA-256-bound to the canonical
-JSON source.
+It makes no model call or network probe. It reports observed repository
+markers, honest absence, unknown evidence, and completion candidates without
+claiming to know an agent's permissions. After review, `doctor --lock` can
+convert explicit scope, capability, and authority declarations into locked
+SCOPA state. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
 
-When the scope, completion gates, capability surface, and external authority
-posture have been reviewed, one explicit `doctor --lock` command converts them
-into hardened SCOPA state and returns the actual terminal Workflow Boundary
-Map. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
+Boundary Doctor is available on `main`, not in the published `0.2.0` package.
+The [release-status table](#current-source-and-public-release) lists the exact
+difference.
 
-Boundary Doctor is newer than the published `0.2.0` tarball. Until a later
-release is separately qualified, use the source command above or confirm that
-an installed build lists `doctor` in `scopa --help`.
+## How it works
 
-## Start with one prompt
+1. A slice definition locks allowed paths, non-goals, and verification gates.
+2. The dispatcher rejects writes that escape that boundary.
+3. Gates run as bounded subprocesses without a shell.
+4. `canStop` becomes true only when every declared gate passes.
+5. A Workflow Boundary Map separates controlled, uncontrolled, unknown,
+   disabled, and authority-required capabilities.
 
-Point your coding agent at [`SCOPA_AGENT.md`](SCOPA_AGENT.md) and state the
-task:
+The same dispatcher serves the CLI and the local MCP host. Restart state is
+hash-validated before reuse, and evidence uses versioned schemas with explicit
+assurance limits.
 
-> Read `SCOPA_AGENT.md` and add request-ID logging to this service. Preserve
-> its public API and do not change dependencies.
+SCOPA is a local developer tool. It is not an operating-system sandbox, a
+hosted service, provider identity attestation, or permission to publish,
+deploy, use credentials, or change an external system.
 
-That is the primary workflow. The agent discovers the repository, derives a
-small closed boundary, bootstraps the pinned SCOPA runtime, performs supported
-writes through it, runs real project gates, and reports whether it can stop.
-The developer does not need to install SCOPA or author policy JSON first.
+## Choose an interface
 
-Use the raw file from another repository:
+| Interface | Use it for | Reference |
+| --- | --- | --- |
+| `SCOPA_AGENT.md` | Point an agent at one self-contained operating protocol | [Agent entry](SCOPA_AGENT.md) |
+| `scopa` | Diagnose, initialize, run checks, inspect state, and verify evidence | [CLI](packages/cli/README.md) |
+| `scopa-mcp` | Expose six governed tools over local MCP stdio | [MCP host](packages/adapter-host/README.md) |
+| `@heart-ai-foundation/scopa/claude` | Launch the reviewed Claude Code profile | [Claude](packages/integrations/claude/README.md) |
+| `@heart-ai-foundation/scopa/codex` | Launch the reviewed Codex profile | [Codex](packages/integrations/codex/README.md) |
 
-```text
-https://raw.githubusercontent.com/heart-ai-foundation/scopa/main/SCOPA_AGENT.md
-```
+## Current source and public release
 
-The agent entry applies an anti-ceremony rule: ordinary work is one contained
-slice. It creates a Macro Delta or protocol queue only for genuinely
-multi-slice work, a change of authority, or an explicit developer request.
-See the [two-minute quickstart](docs/QUICKSTART.md).
+| Capability | `main` | npm `0.2.0` |
+| --- | :---: | :---: |
+| Locked scope, governed writes, gates, and evidence verification | Yes | Yes |
+| Model-neutral MCP, Claude Code, and Codex integrations | Yes | Yes |
+| Workflow Boundary Map and offline assessment | Yes | No |
+| Boundary Doctor and atomic `doctor --lock` | Yes | No |
 
-SCOPA also projects locked policy, completion state, capability inventories,
-and explicit authority boundaries into a deterministic
-[Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md). Missing evidence remains
-`unknown`; it never becomes an implicit safety claim.
+Use `scopa --help` to confirm the commands in an installed build. Source-only
+commands can be run from this checkout as `node packages/cli/src/cli.js ...`.
 
-## Why SCOPA?
-
-Agent instructions are useful, but instructions alone cannot prove that an
-agent stayed in scope or that its tests actually passed. SCOPA places those
-decisions behind a local tool boundary:
-
-- path rules are locked before mutation;
-- writes are routed through a scope-checking dispatcher;
-- completion is derived from bounded subprocess results, not model prose;
-- restart state is hash-bound and validated before reuse; and
-- receipts use versioned schemas and explicit assurance limits.
-
-SCOPA is a local developer tool. It is not a hosted service, an operating-system
-sandbox, or a provider identity attestation.
-
-## Status
-
-- **Current public release:** `0.2.0`
 - **License:** Apache-2.0
 - **Runtime:** Node.js 22 or newer
 - **Platforms:** the CLI is portable; process-tree gate custody currently
   requires POSIX process groups
-- **Integrations:** model-neutral MCP, Claude Code, and Codex
 - **Assurance:** the model-neutral fixture can earn full assurance relative to
   its enumerated surface; Claude Code and Codex remain explicitly partial
 
-The package is public at `@heart-ai-foundation/scopa`. Release qualification,
-adversarial findings, and historical protocol records remain reviewable in
-this repository; they are supporting evidence rather than the primary
-developer documentation.
-
 ## Manual setup
 
-You can also operate SCOPA directly when integrating a host or inspecting each
-control yourself.
-
-Install SCOPA in a clean project:
+Install the current public release without lifecycle scripts:
 
 ```sh
 npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
 ```
 
-Create `scopa.slice-definition.json`:
-
-```json
-{
-  "schema": "scopa.slice-definition.v1",
-  "sliceId": "add-health-endpoint",
-  "allowedPaths": ["src/**", "test/**"],
-  "amendmentPath": ".scopa/amendment.json",
-  "gates": [
-    {
-      "id": "tests",
-      "command": ["npm", "test"],
-      "cwd": ".",
-      "timeoutMs": 120000
-    }
-  ],
-  "nonGoals": ["No dependency changes", "No deployment"],
-  "stopCondition": { "kind": "all-gates-pass" }
-}
-```
-
-Bind the definition and inspect the real stop state:
+Then initialize and check a repository that contains a closed slice definition:
 
 ```sh
 npx scopa init --definition scopa.slice-definition.json
@@ -136,65 +117,52 @@ npx scopa status
 npx scopa check
 ```
 
-`status` is observational. `check` runs the declared gates and exits nonzero
-while completion is blocked. Initialization is idempotent for identical bytes
-and refuses conflicting control state.
+`status` observes the current state. `check` runs the declared gates and exits
+nonzero while completion is blocked. Identical initialization is idempotent;
+conflicting control state is never overwritten.
 
-For a complete source-free walkthrough—including an allowed write, a denied
-escape, MCP tool inventory, and independent evidence verification—follow the
-[manual walkthrough](docs/MANUAL_SETUP.md).
+Follow the [manual walkthrough](docs/MANUAL_SETUP.md) for an allowed write, a
+denied escape, MCP tool inventory, and independent evidence verification. The
+[slice-definition reference](docs/SLICE_DEFINITION.md) documents the policy
+format.
 
-## Core interfaces
+## Assurance and evidence
 
-| Interface | Purpose | Start here |
-| --- | --- | --- |
-| `scopa` | Initialize policy, inspect status, run trusted-host tool requests, execute gates, and verify evidence | [CLI reference](packages/cli/README.md) |
-| `scopa-mcp` | Expose six governed SCOPA tools over local MCP stdio | [MCP host reference](packages/adapter-host/README.md) |
-| `@heart-ai-foundation/scopa/claude` | Launch the reviewed Claude Code profile through the SCOPA bridge | [Claude integration](packages/integrations/claude/README.md) |
-| `@heart-ai-foundation/scopa/codex` | Launch the reviewed Codex profile through the SCOPA bridge | [Codex integration](packages/integrations/codex/README.md) |
-| `@heart-ai-foundation/scopa/release-readiness` | Build and verify exact source-free release candidates | [Release-readiness reference](packages/release-readiness/README.md) |
-
-The MCP host exposes exactly six tools: orientation, contained read, governed
-write, completion check, assurance inspection, and transcript inspection. It
-has no independent filesystem-write, process, network, browser, or plugin
-primitive. Every mutation reaches the same dispatcher used by the CLI.
-
-## Enforcement model
-
-SCOPA separates a pure effect loop from the trusted host that performs effects.
-The active slice definition is normalized, hashed, and persisted as a lock.
-Before a registered mutation executes, SCOPA:
-
-1. resolves the requested repository path;
-2. rejects repository escape, symlink aliases, hard-linked targets, and
-   undeclared paths;
-3. binds the authorized parent directory;
-4. revalidates topology immediately before mutation; and
-5. records a correction-bearing denial or a governed result.
-
-Verification gates run as argv arrays without a shell, in repository-contained
-working directories, with a small sanitized environment, bounded output,
-timeouts, process-group termination, and descendant-survivor checks. A model's
-claim that work is finished has no effect on `canStop`.
-
-See [Architecture](docs/ARCHITECTURE.md), [Slice-definition reference](docs/SLICE_DEFINITION.md),
-and [Threat model](docs/THREAT_MODEL.md) for the full boundary.
-
-## Evidence and assurance
+Assurance is computed from the capability surface, not selected as marketing
+language. Any active shell, native editor, plugin, or other route that bypasses
+SCOPA forces `partial`, even when all observed changes stay in scope. Success
+with one provider does not transfer assurance to another.
 
 SCOPA can produce deterministic journals, signed evidence packets, optional
-RFC 3161 timestamp anchors, and CASE/UCO 1.4 exports. Verification always
-requires the relying party's expected bytes and trust policy. A software
-signature proves key possession, not human identity or hardware provenance.
+RFC 3161 timestamp anchors, and CASE/UCO 1.4 exports. A signature proves key
+possession; it does not prove human identity or hardware-key provenance. Read
+[Claims and non-claims](docs/CLAIMS.md), [Architecture](docs/ARCHITECTURE.md),
+and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 
-Adapter assurance is computed from an enumerated capability matrix. Any active
-uncontrolled route forces `partial`; success with one provider does not
-transfer assurance to another. See [Claims and non-claims](docs/CLAIMS.md).
+## Documentation
+
+- **Get started:** [Quickstart](docs/QUICKSTART.md),
+  [Boundary Doctor](docs/BOUNDARY_DOCTOR.md),
+  [manual walkthrough](docs/MANUAL_SETUP.md)
+- **Operate:** [CLI](packages/cli/README.md),
+  [slice definition](docs/SLICE_DEFINITION.md),
+  [Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md),
+  [troubleshooting](docs/TROUBLESHOOTING.md)
+- **Integrate:** [Integration guide](docs/INTEGRATIONS.md),
+  [MCP host](packages/adapter-host/README.md),
+  [Claude](packages/integrations/claude/README.md),
+  [Codex](packages/integrations/codex/README.md)
+- **Trust:** [Architecture](docs/ARCHITECTURE.md),
+  [threat model](docs/THREAT_MODEL.md),
+  [claims](docs/CLAIMS.md), [security policy](SECURITY.md)
+- **Project:** [Contributing](CONTRIBUTING.md), [governance](GOVERNANCE.md),
+  [versioning](docs/VERSIONING.md), [changelog](CHANGELOG.md)
 
 ## Exact release bytes
 
 SCOPA has no install lifecycle scripts. For a release-sensitive installation,
-compare all three of the following:
+compare the npm integrity and tarball values with the checksum published in the
+corresponding GitHub Release:
 
 ```sh
 npm view @heart-ai-foundation/scopa@0.2.0 dist.integrity
@@ -202,49 +170,16 @@ npm view @heart-ai-foundation/scopa@0.2.0 dist.tarball
 sha256sum heart-ai-foundation-scopa-0.2.0.tgz
 ```
 
-Authenticate the expected SHA-256 through the corresponding GitHub Release.
-From a source checkout, the qualified workflow uses `npm run pack:candidate`;
-raw `npm pack` is not equivalent to the reviewed bundled candidate.
+From a source checkout, use `npm run pack:candidate`; raw `npm pack` is not the
+reviewed candidate workflow.
 
-## Documentation
+## Security and stewardship
 
-- [Agent entry](SCOPA_AGENT.md) — the self-contained point-and-go protocol
-- [Quickstart](docs/QUICKSTART.md) — give an agent one file and one task
-- [Boundary Doctor](docs/BOUNDARY_DOCTOR.md) — diagnose before setup and create
-  a digest-bound before/after proof
-- [Manual walkthrough](docs/MANUAL_SETUP.md) — exercise each runtime interface
-- [Slice-definition reference](docs/SLICE_DEFINITION.md) — author scope and gates
-- [Architecture](docs/ARCHITECTURE.md) — components, data flow, and trust boundaries
-- [Integration guide](docs/INTEGRATIONS.md) — choose MCP, Claude Code, or Codex
-- [Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md) — inspect controlled,
-  uncontrolled, unknown, disabled, and authority-sensitive routes
-- [CLI reference](packages/cli/README.md) — commands, JSON envelopes, and exits
-- [Threat model](docs/THREAT_MODEL.md) — controls and residual risk
-- [Claims and non-claims](docs/CLAIMS.md) — precise assurance language
-- [Troubleshooting](docs/TROUBLESHOOTING.md) — common failures and safe diagnostics
-- [Security policy](SECURITY.md) — supported versions and private reporting
-- [Contributing](CONTRIBUTING.md) — development workflow and DCO
-- [Governance](GOVERNANCE.md) — stewardship and open-core boundary
-- [Versioning](docs/VERSIONING.md) and [changelog](CHANGELOG.md)
-
-## Security
-
-Please do not open a public issue for a suspected vulnerability or include
-secrets in diagnostics. Follow [SECURITY.md](SECURITY.md) for the private
-reporting path. SCOPA's security claims are bounded; the project does not claim
-formal certification, complete vulnerability-database coverage, or protection
-from a separately privileged local process.
-
-## Contributing
-
-Contributions are welcome under Apache-2.0 and the Developer Certificate of
-Origin 1.1; no CLA is required. Start with [CONTRIBUTING.md](CONTRIBUTING.md),
-follow the [Code of Conduct](CODE_OF_CONDUCT.md), and use the repository's issue
-and pull-request templates. Security fixes follow the private process above.
-
-## Stewardship
+Do not open a public issue for a suspected vulnerability or put secrets in
+diagnostics. Follow [SECURITY.md](SECURITY.md) for private reporting.
 
 [Heart AI Foundation](https://github.com/heart-ai-foundation) publishes SCOPA
-as a free reference implementation. Consultation may extend the runtime with
+as a free reference implementation. Contributions use Apache-2.0 and the
+Developer Certificate of Origin 1.1; no CLA is required. Consultation may add
 profiles, governance installation, and evidence review, but independent
-verification must remain available without a paid service.
+verification remains available without a paid service.
