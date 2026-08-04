@@ -1,0 +1,17 @@
+SCOPA S34 zero-state boundary doctor qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s34
+PASS npm run test:s6
+PASS npm run test:docs
+PASS npm run protocol:check
+PASS git diff --check
+
+The corpus covered uninitialized state, repeated canonical output, filesystem
+snapshot equality, symlink opacity, bounded truncation, oversized structured
+manifest handling, absolute-path rejection, favorable-claim rejection, and CLI
+usage failure without mutation.
+
+No provider, network probe, environment inspection, repository mutation,
+experiment, customer, hosted service, publication, or release action occurred.

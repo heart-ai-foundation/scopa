@@ -1,0 +1,26 @@
+{
+  "schema": "scopa.slice-definition.v1",
+  "sliceId": "boundary-doctor-installed",
+  "allowedPaths": [
+    "workspace/**"
+  ],
+  "amendmentPath": ".scopa/amendment.json",
+  "gates": [
+    {
+      "id": "installed-provider-off-gate",
+      "command": [
+        "node",
+        "-e",
+        "process.exit(0)"
+      ],
+      "cwd": ".",
+      "timeoutMs": 5000
+    }
+  ],
+  "nonGoals": [
+    "No network, provider, deployment, or publication action"
+  ],
+  "stopCondition": {
+    "kind": "all-gates-pass"
+  }
+}

@@ -95,8 +95,10 @@ export async function auditReleasePolicies({ root }) {
         'docs/**',
         'schemas/**',
         'fixtures/S10/**',
+        'fixtures/S31/**',
+        'fixtures/S36/**',
       ].every((entry) => fileRules.includes(entry)),
-      'package allowlist includes license, policy, docs, schemas, and S10 fixtures',
+      'package allowlist includes license, policy, docs, schemas, and reviewed public fixtures',
     );
   } catch (error) {
     add('package-identity', false, `package.json error: ${error.message}`);
@@ -201,6 +203,17 @@ export async function auditReleasePolicies({ root }) {
       phrases: ['Runtime claims', 'Non-claims', 'partial', 'SCOPA does not'],
     },
     {
+      id: 'boundary-doctor-honesty',
+      path: 'docs/BOUNDARY_DOCTOR.md',
+      phrases: [
+        'does not call a model or probe the network',
+        'do **not** establish an agent\'s permissions',
+        'sourceSha256',
+        'canStop: false',
+        'not a risk score',
+      ],
+    },
+    {
       id: 'workflow-boundary-map-honesty',
       path: 'docs/WORKFLOW_BOUNDARY_MAP.md',
       phrases: [
@@ -248,6 +261,14 @@ export async function auditReleasePolicies({ root }) {
     [
       'schemas/scopa.consumer-proof.v1.schema.json',
       'scopa.consumer-proof.v1.schema.json',
+    ],
+    [
+      'schemas/scopa.boundary-diagnostic.v1.schema.json',
+      'scopa.boundary-diagnostic.v1.schema.json',
+    ],
+    [
+      'schemas/scopa.boundary-doctor-report.v1.schema.json',
+      'scopa.boundary-doctor-report.v1.schema.json',
     ],
     [
       'schemas/scopa.slice-definition.v1.schema.json',

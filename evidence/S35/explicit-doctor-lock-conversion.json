@@ -1,0 +1,26 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S35",
+  "status": "accepted",
+  "providerTraffic": false,
+  "networkProbe": false,
+  "claims": {
+    "completeInputSetRequired": true,
+    "allInputsValidatedBeforeMutation": true,
+    "repositoryContainedRegularInputs": true,
+    "hardenedInitializerReused": true,
+    "malformedInputLeavesStateIdentical": true,
+    "conflictOverwritten": false,
+    "passingGateCanStop": true,
+    "failingGateFalseGreen": false,
+    "repeatInvocationIdempotent": true,
+    "actualAfterMapReturned": true
+  },
+  "verification": [
+    "npm run test:s35",
+    "npm run test:s6",
+    "npm run test:docs",
+    "npm run protocol:check",
+    "git diff --check"
+  ]
+}

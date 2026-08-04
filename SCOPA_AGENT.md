@@ -31,6 +31,11 @@ Treat the developer's request as the task definition. Infer routine details
 from the repository instead of asking the developer to translate their goal
 into SCOPA terminology.
 
+When the selected runtime lists `doctor` in `scopa --help`, run `scopa doctor`
+before authoring control files. Use its bounded observations as discovery
+evidence, not as a claim about your own tools or authority. Do not execute its
+completion candidates automatically.
+
 ### 2. Choose the smallest boundary
 
 Classify the work internally:
@@ -136,7 +141,19 @@ Allowed declaration statuses are `disabled`, `uncontrolled`, and
 If the current agent session already uses a provider, credentials, browser, or
 external system outside SCOPA, mark that active route `uncontrolled`.
 
-Then run:
+Then run one prevalidated lock transaction when the selected runtime supports
+Boundary Doctor:
+
+```sh
+scopa doctor --lock \
+  --definition scopa.slice-definition.json \
+  --matrix scopa.capability-matrix.json \
+  --authority scopa.authority-declarations.json
+```
+
+This command captures the pre-lock diagnosis, initializes the exact definition,
+runs its real gates, and returns the terminal map. If the pinned public runtime
+does not yet list `doctor`, use the compatible explicit fallback:
 
 ```sh
 scopa init --definition scopa.slice-definition.json

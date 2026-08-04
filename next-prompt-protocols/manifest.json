@@ -3,15 +3,18 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "09e5c908",
-  "current_phase": "phase-11-workflow-boundary-mapping",
-  "phase_scope": "Create a portable deterministic workflow boundary map, point-and-go developer experience, and free offline assessment interoperability without provider, customer, publication, or release action.",
-  "macro_delta": "macro-deltas/2026-08-03-scopa-workflow-boundary-mapping.md",
+  "current_commit": "e765db3",
+  "current_phase": "phase-12-boundary-doctor-adoption-wedge",
+  "phase_scope": "Turn an uninitialized repository into a truthful provider-off boundary diagnosis, explicit minimum lock, and sanitized before/after proof without hosted, customer, publication, or release action.",
+  "macro_delta": "macro-deltas/2026-08-03-scopa-boundary-doctor-adoption-wedge.md",
   "active_protocol": null,
-  "active_objective": "Phase 11 is complete. No implementation, provider, experiment, publication, release, customer, or external-system action is authorized.",
-  "active_class": null,
+  "active_objective": "S34-S36 Boundary Doctor Adoption Wedge complete; BD1-BD3 satisfied; no active implementation protocol and future release remains closed.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md",
+    "completed/2026-08-03-S35-explicit-doctor-lock-conversion.md",
+    "completed/2026-08-03-S34-zero-state-boundary-doctor.md",
     "completed/2026-08-03-S33-adversarial-usability-qualification.md",
     "completed/2026-08-03-S32-portable-assessment-interoperability.md",
     "completed/2026-08-03-S31-point-and-go-installed-journey.md",
@@ -65,14 +68,27 @@
     "packages/cli/**",
     "packages/agent-surface/**",
     "packages/workflow-boundary-map/**",
+    "packages/boundary-doctor/**",
     "fixtures/S29/**",
     "fixtures/S30/**",
     "fixtures/S31/**",
     "fixtures/S32/**",
     "fixtures/S33/**",
+    "fixtures/S34/**",
+    "fixtures/S35/**",
+    "fixtures/S36/**",
     "notes/S29/**",
     "runs/S29/**",
     "evidence/S29/**",
+    "notes/S34/**",
+    "notes/S35/**",
+    "notes/S36/**",
+    "runs/S34/**",
+    "runs/S35/**",
+    "runs/S36/**",
+    "evidence/S34/**",
+    "evidence/S35/**",
+    "evidence/S36/**",
     "fixtures/S20/**",
     "fixtures/S23/**",
     "fixtures/S24/**",
@@ -128,8 +144,8 @@
     "No provider/model call or experiment use during R1 finalization"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/workflow-boundary-map/test/adversarial.test.js",
-    "installed_probe": "npm run test:s33",
+    "fast_deterministic": "node --test packages/boundary-doctor/test/*.test.js",
+    "installed_probe": "npm run test:s36",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
@@ -1074,6 +1090,52 @@
         }
       ]
     },
+    "boundary-doctor": {
+      "root": [
+        "packages/boundary-doctor",
+        "packages/cli",
+        "schemas/scopa.boundary-diagnostic.v1.schema.json",
+        "fixtures/S34",
+        "fixtures/S35",
+        "fixtures/S36",
+        "notes/S34",
+        "notes/S35",
+        "notes/S36",
+        "runs/S34",
+        "runs/S35",
+        "runs/S36",
+        "evidence/S34",
+        "evidence/S35",
+        "evidence/S36"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "BD1",
+          "statement": "An uninitialized repository yields a bounded deterministic diagnostic without mutation, network access, provider traffic, secret values, or agent-authority overclaim.",
+          "status": "satisfied",
+          "verifies_via": "Hostile repository corpus, before/after inventory, bounded traversal, privacy scan, and schema validation",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Boundary Doctor Adoption Wedge Macro Delta S34"
+        },
+        {
+          "id": "BD2",
+          "statement": "Explicit lock conversion prevalidates every input, refuses conflicts, initializes through the hardened project path, and returns the actual terminal map.",
+          "status": "satisfied",
+          "verifies_via": "Malformed-input no-mutation tests, conflicts, installed lock journey, and real gate polarity",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Boundary Doctor Adoption Wedge Macro Delta S35"
+        },
+        {
+          "id": "BD3",
+          "statement": "JSON and Markdown doctor outputs bind the same semantics and exclude private workflow material from the shareable projection.",
+          "status": "satisfied",
+          "verifies_via": "Digest parity, redaction hostility, package inventory, and installed clean/cold process qualification",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Boundary Doctor Adoption Wedge Macro Delta S36"
+        }
+      ]
+    },
     "gate-process-custody": {
       "root": [
         "packages/enforcement",
@@ -1113,5 +1175,5 @@
       ]
     }
   },
-  "stop_condition": "Stop on material false-green, privacy leak, installed or cold-process failure, advisory, documentation contradiction, ceremony, or provider, experiment, customer, publication, release, or external-system authority."
+  "stop_condition": "Stop on diagnostic mutation, symlink traversal, unbounded discovery, private material, agent-authority overclaim, ambiguous absence claims, lock mutation before validation, or provider, hosted, experiment, customer, publication, release, or external-system authority."
 }

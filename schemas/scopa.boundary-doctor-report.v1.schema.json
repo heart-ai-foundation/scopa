@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.boundary-doctor-report.v1.schema.json",
+  "title": "SCOPA boundary doctor Markdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "format", "sourceSchema", "sourceSha256", "summary", "content"],
+  "properties": {
+    "schema": { "const": "scopa.boundary-doctor-report.v1" },
+    "format": { "const": "markdown" },
+    "sourceSchema": {
+      "enum": ["scopa.boundary-diagnostic.v1", "scopa.doctor-lock-result.v1"]
+    },
+    "sourceSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "before", "terminal"],
+      "properties": {
+        "kind": { "enum": ["diagnostic", "lock-result"] },
+        "before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scopaInitialized", "scanTruncated", "detected", "unknown", "completionCandidates", "posture"],
+          "properties": {
+            "scopaInitialized": { "type": "boolean" },
+            "scanTruncated": { "type": "boolean" },
+            "detected": { "type": "integer", "minimum": 0 },
+            "unknown": { "type": "integer", "minimum": 0 },
+            "completionCandidates": { "type": "integer", "minimum": 0 },
+            "posture": { "const": "review-required" }
+          }
+        },
+        "terminal": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["status", "canStop", "gates", "failedGates", "assurance", "controlled", "uncontrolled", "unknown", "authorityRequired", "disabled"],
+              "properties": {
+                "status": { "enum": ["blocked", "satisfied"] },
+                "canStop": { "type": "boolean" },
+                "gates": { "type": "integer", "minimum": 0 },
+                "failedGates": { "type": "integer", "minimum": 0 },
+                "assurance": { "enum": ["full", "partial", "unknown"] },
+                "controlled": { "type": "integer", "minimum": 0 },
+                "uncontrolled": { "type": "integer", "minimum": 0 },
+                "unknown": { "type": "integer", "minimum": 0 },
+                "authorityRequired": { "type": "integer", "minimum": 0 },
+                "disabled": { "type": "integer", "minimum": 0 }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "content": { "type": "string", "minLength": 1 }
+  }
+}

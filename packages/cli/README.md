@@ -10,6 +10,35 @@ npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
 Every command except `--help` writes one canonical
 `scopa.cli-result.v1` JSON object.
 
+## Diagnose before initialization
+
+```sh
+scopa doctor
+scopa doctor --format markdown
+```
+
+The first form returns the read-only `scopa.boundary-diagnostic.v1`. The second
+returns a `scopa.boundary-doctor-report.v1` whose Markdown `content` and summary
+are SHA-256-bound to the canonical diagnostic. Neither form creates `.scopa`,
+executes a discovered command, reads environment variables, or probes the
+network.
+
+Convert a complete reviewed declaration set into control state and the actual
+terminal map:
+
+```sh
+scopa doctor --lock \
+  --definition scopa.slice-definition.json \
+  --matrix scopa.capability-matrix.json \
+  --authority scopa.authority-declarations.json
+```
+
+All three inputs are required and validate before mutation. Add `--format
+markdown` for a digest-bound, path-free before/after projection. Gate failure
+returns exit `4` with a blocked result, never a successful setup envelope. See
+the [Boundary Doctor guide](../../docs/BOUNDARY_DOCTOR.md) for limits, privacy,
+schemas, and assurance boundaries.
+
 ## Initialize
 
 Create a closed slice definition in the target repository, then bind it:

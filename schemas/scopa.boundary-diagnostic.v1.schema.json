@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.boundary-diagnostic.v1.schema.json",
+  "title": "SCOPA boundary diagnostic v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "subject", "limits", "inventory", "indicators", "completionCandidates", "summary", "posture", "claims"],
+  "properties": {
+    "schema": { "const": "scopa.boundary-diagnostic.v1" },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "repositoryKind", "scopaInitialized"],
+      "properties": {
+        "kind": { "const": "host-process-observation" },
+        "repositoryKind": { "enum": ["directory", "git"] },
+        "scopaInitialized": { "type": "boolean" }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxEntries", "maxDepth", "maxPathBytes", "maxStructuredBytes", "maxPathsPerIndicator", "excludedDirectories"],
+      "properties": {
+        "maxEntries": { "$ref": "#/$defs/positive" },
+        "maxDepth": { "$ref": "#/$defs/positive" },
+        "maxPathBytes": { "$ref": "#/$defs/positive" },
+        "maxStructuredBytes": { "$ref": "#/$defs/positive" },
+        "maxPathsPerIndicator": { "$ref": "#/$defs/positive" },
+        "excludedDirectories": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonEmptyString" } }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entriesObserved", "regularFiles", "directories", "symlinks", "other", "unreadable", "excludedDirectories", "truncated"],
+      "properties": {
+        "entriesObserved": { "$ref": "#/$defs/count" },
+        "regularFiles": { "$ref": "#/$defs/count" },
+        "directories": { "$ref": "#/$defs/count" },
+        "symlinks": { "$ref": "#/$defs/count" },
+        "other": { "$ref": "#/$defs/count" },
+        "unreadable": { "$ref": "#/$defs/count" },
+        "excludedDirectories": { "$ref": "#/$defs/count" },
+        "truncated": { "type": "boolean" }
+      }
+    },
+    "indicators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/indicator" } },
+    "completionCandidates": { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["totalIndicators", "detected", "notDetected", "unknown", "completionCandidates"],
+      "properties": {
+        "totalIndicators": { "$ref": "#/$defs/count" },
+        "detected": { "$ref": "#/$defs/count" },
+        "notDetected": { "$ref": "#/$defs/count" },
+        "unknown": { "$ref": "#/$defs/count" },
+        "completionCandidates": { "$ref": "#/$defs/count" }
+      }
+    },
+    "posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "basis"],
+      "properties": {
+        "level": { "const": "review-required" },
+        "basis": { "const": "zero-state-observation-does-not-measure-agent-authority" }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agentAuthorityMeasured", "environmentInspected", "fileContentsIndexed", "networkProbed", "repositoryMutated"],
+      "properties": {
+        "agentAuthorityMeasured": { "const": false },
+        "environmentInspected": { "const": false },
+        "fileContentsIndexed": { "const": false },
+        "networkProbed": { "const": false },
+        "repositoryMutated": { "const": false }
+      }
+    }
+  },
+  "$defs": {
+    "count": { "type": "integer", "minimum": 0 },
+    "positive": { "type": "integer", "minimum": 1 },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "relativePath": { "type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$" },
+    "indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "category", "status", "evidence", "count", "paths", "pathsTruncated"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "category": { "enum": ["agent-config", "browser", "completion", "credentials", "deployment", "external-system", "host-process", "instructions", "network", "provider", "publication", "repository", "scopa-control", "tool-extension"] },
+        "status": { "enum": ["detected", "not-detected", "unknown"] },
+        "evidence": { "enum": ["bounded-marker-scan", "bounded-package-manifest", "doctor-process-running", "host-process-access-check", "marker-not-observed", "not-probed", "scan-truncated"] },
+        "count": { "$ref": "#/$defs/count" },
+        "paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/relativePath" } },
+        "pathsTruncated": { "type": "boolean" }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "invocation"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "source": { "const": "package.json" },
+        "invocation": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/nonEmptyString" } }
+      }
+    }
+  }
+}

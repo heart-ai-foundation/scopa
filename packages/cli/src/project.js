@@ -245,6 +245,67 @@ async function initializeFiles(entries) {
   return { created, unchanged };
 }
 
+async function initializeValidatedProject({
+  root,
+  definition,
+  definitionRelative,
+}) {
+  const definitionCandidate = resolveInside(
+    root,
+    definitionRelative,
+    'definition path',
+  );
+  const definitionResolvedRelative = path.relative(root, definitionCandidate)
+    .split(path.sep)
+    .join('/');
+  if (definitionResolvedRelative !== definitionRelative) {
+    throw new ProjectConfigurationError(
+      'definition path must be a normalized repository-relative path',
+      { details: { path: definitionRelative } },
+    );
+  }
+  const lock = createSliceLock(definition);
+  const config = defaultProjectConfig();
+  await assertSafeControlDirectory(root, { create: true });
+  const entries = [
+    {
+      label: 'slice lock',
+      relativePath: config.lockFile,
+      target: resolveInside(root, config.lockFile, 'lockFile'),
+      content: canonicalJsonPretty(lock),
+    },
+    {
+      label: 'project config',
+      relativePath: PROJECT_CONFIG_PATH,
+      target: resolveInside(root, PROJECT_CONFIG_PATH, 'config path'),
+      content: canonicalJsonPretty(config),
+    },
+  ];
+  const result = await initializeFiles(entries);
+  return {
+    schema: 'scopa.init-result.v1',
+    definitionPath: definitionRelative,
+    lockHash: lock.definitionHash,
+    configPath: PROJECT_CONFIG_PATH,
+    lockPath: PROJECT_LOCK_PATH,
+    created: result.created,
+    unchanged: result.unchanged,
+  };
+}
+
+export async function initializeProjectFromDefinition({
+  repoRoot,
+  definition,
+  definitionPath,
+}) {
+  const root = await realpath(repoRoot);
+  return initializeValidatedProject({
+    root,
+    definition,
+    definitionRelative: definitionPath,
+  });
+}
+
 export async function initializeProject({
   repoRoot,
   definitionPath,
@@ -288,33 +349,11 @@ export async function initializeProject({
       { details: { path: definitionRelative } },
     );
   }
-  const lock = createSliceLock(definition);
-  const config = defaultProjectConfig();
-  await assertSafeControlDirectory(root, { create: true });
-  const entries = [
-    {
-      label: 'slice lock',
-      relativePath: config.lockFile,
-      target: resolveInside(root, config.lockFile, 'lockFile'),
-      content: canonicalJsonPretty(lock),
-    },
-    {
-      label: 'project config',
-      relativePath: PROJECT_CONFIG_PATH,
-      target: resolveInside(root, PROJECT_CONFIG_PATH, 'config path'),
-      content: canonicalJsonPretty(config),
-    },
-  ];
-  const result = await initializeFiles(entries);
-  return {
-    schema: 'scopa.init-result.v1',
-    definitionPath: definitionRelative,
-    lockHash: lock.definitionHash,
-    configPath: PROJECT_CONFIG_PATH,
-    lockPath: PROJECT_LOCK_PATH,
-    created: result.created,
-    unchanged: result.unchanged,
-  };
+  return initializeValidatedProject({
+    root,
+    definition,
+    definitionRelative,
+  });
 }
 
 export async function loadProject(repoRoot) {

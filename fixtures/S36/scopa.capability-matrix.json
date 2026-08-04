@@ -1,0 +1,51 @@
+{
+  "schema": "scopa.capability-matrix.v1",
+  "subject": {
+    "adapter": "scopa-doctor-installed",
+    "client": "provider-off-fixture",
+    "transport": "local-cli"
+  },
+  "capabilities": [
+    {
+      "id": "scopa.write_file",
+      "category": "mutate",
+      "exposure": "advertised",
+      "mediation": "scopa-dispatcher",
+      "effect": "MUTATE",
+      "evidence": "SCOPA dispatcher is the advertised mutation route"
+    },
+    {
+      "id": "native.filesystem-write",
+      "category": "mutate",
+      "exposure": "native",
+      "mediation": "uncontrolled",
+      "effect": "MUTATE",
+      "evidence": "fixture setup can author declarations"
+    },
+    {
+      "id": "native.process-execution",
+      "category": "execute",
+      "exposure": "native",
+      "mediation": "uncontrolled",
+      "effect": "OBSERVE",
+      "evidence": "fixture invokes the local CLI and declared gate"
+    },
+    {
+      "id": "native.network",
+      "category": "network",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "the installed journey performs no network request"
+    },
+    {
+      "id": "native.extensions",
+      "category": "extension",
+      "exposure": "disabled",
+      "mediation": "disabled",
+      "effect": null,
+      "evidence": "the installed journey loads no extension"
+    }
+  ],
+  "assurance": "partial"
+}

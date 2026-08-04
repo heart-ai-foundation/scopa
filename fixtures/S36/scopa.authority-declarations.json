@@ -1,0 +1,29 @@
+{
+  "schema": "scopa.authority-declarations.v1",
+  "declarations": [
+    {
+      "id": "browser",
+      "status": "disabled"
+    },
+    {
+      "id": "credentials",
+      "status": "authority-required"
+    },
+    {
+      "id": "deployment",
+      "status": "authority-required"
+    },
+    {
+      "id": "external-systems",
+      "status": "authority-required"
+    },
+    {
+      "id": "provider",
+      "status": "authority-required"
+    },
+    {
+      "id": "publication",
+      "status": "authority-required"
+    }
+  ]
+}

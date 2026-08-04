@@ -15,6 +15,8 @@ Usage:
   scopa check [--repo <directory>]
   scopa map [--matrix <file>] [--authority <file>] [--format json|markdown] [--repo <directory>]
   scopa assess --map <file> [--baseline <file>] [--repo <directory>]
+  scopa doctor [--format json|markdown] [--repo <directory>]
+  scopa doctor --lock --definition <file> --matrix <file> --authority <file> [--format json|markdown] [--repo <directory>]
   scopa run --request-json <json> [--repo <directory>]
   scopa verify (--packet <file> | --case-export <file>) [trust options] [--repo <directory>]
 

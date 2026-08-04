@@ -1,0 +1,25 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S34",
+  "status": "accepted",
+  "providerTraffic": false,
+  "networkProbe": false,
+  "repositoryMutation": false,
+  "claims": {
+    "uninitializedDiagnostic": true,
+    "deterministicCanonicalOutput": true,
+    "boundedTraversal": true,
+    "symlinkTargetsTraversed": false,
+    "environmentInspected": false,
+    "agentAuthorityMeasured": false,
+    "missingMarkerClaimsDisabled": false,
+    "schemaValid": true
+  },
+  "verification": [
+    "npm run test:s34",
+    "npm run test:s6",
+    "npm run test:docs",
+    "npm run protocol:check",
+    "git diff --check"
+  ]
+}

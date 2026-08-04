@@ -1,9 +1,9 @@
 # SCOPA Slice Queue
 
-**Current proposal:** `macro-deltas/2026-08-03-scopa-workflow-boundary-mapping.md`
-**Rule:** Completed history remains immutable. S29-S33 are a principal-directed
-product queue, not authorization for provider, experiment, publication,
-release, customer, or external-system action.
+**Current proposal:** `macro-deltas/2026-08-03-scopa-boundary-doctor-adoption-wedge.md`
+**Rule:** Completed history remains immutable. S34-S36 are a principal-directed
+provider-off product queue, not authorization for provider, experiment,
+publication, release, customer, hosted, or external-system action.
 
 | Slot | Slice | Module | Objective | Value gate | Validation gate | Dependencies | Stop/defer condition | Evidence path | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -27,8 +27,12 @@ release, customer, or external-system action.
 | S31 | Point-and-go installed journey | `agent-surface` | Make the one-file agent protocol map-first and prove it in a clean installed consumer | Converts the usability promise into an executable source-free test | no dependency-manifest mutation, allow/deny polarity, map, gates, `canStop`, partial-assurance honesty | S30 | Stop if setup remains developer-owned or native bypass is reported as controlled | `evidence/S31/` | `completed; WBM3 satisfied` |
 | S32 | Portable assessment interoperability | `workflow-boundary-map` | Validate, compare, and export sanitized boundary assessment packets offline | Creates a free common artifact for self-assessment and optional consultation | deterministic round trip, semantic regression diff, redaction hostility, no-network proof | S30-S31 | Stop on paid/hosted dependency, lead capture, customer leakage, or proprietary truth | `evidence/S32/` | `completed; WBM4 satisfied` |
 | S33 | Adversarial usability qualification | `release-readiness` | Test the installed S29-S32 surface for false confidence and developer comprehension | Determines whether the arc actually earns a release decision | unknown-surface attacks, misleading-green rejection, installed clean/cold checks, docs journey; outside model only with separate approval | S29-S32 | Stop on material finding; no automatic remediation queue or release action | `evidence/S33/` | `completed; WBM5 satisfied; publication closed` |
+| S34 | Zero-state boundary doctor | `boundary-doctor` | Diagnose repository-specific boundary indicators before setup without claiming agent authority | Makes SCOPA useful before a developer already believes in the governance problem | bounded traversal, symlink opacity, no-mutation inventory, privacy, determinism | approved adoption-wedge queue | Stop on mutation, private data, favorable absence claim, or provider/network intent | `evidence/S34/` | `completed; BD1 satisfied` |
+| S35 | Explicit doctor lock conversion | `boundary-doctor` | Convert complete caller-reviewed declarations into hardened control state and the actual terminal map | Turns diagnosis into enforcement without inferred authority or a second setup workflow | malformed no-write, conflicts, real gate polarity, repeat idempotence | S34 | Stop on prevalidation breach, overwrite, false green, or inferred authority | `evidence/S35/` | `completed; BD2 satisfied` |
+| S36 | Shareable doctor proof and installed qualification | `boundary-doctor` | Bind sanitized Markdown to exact JSON and prove zero-state-to-lock from the packed install | Makes the insight legible and portable without leaking workflow material or requiring target setup | digest parity, privacy corpus, installed clean/cold process, package inventory, accumulated provider-off gates | S34-S35 | Stop on disclosure, digest drift, format-dependent semantics, target dependency setup, or network/provider intent | `evidence/S36/` | `completed; BD3 satisfied` |
 
-S0-S28, the public R1 execution, and the S29-S33 workflow-boundary-mapping arc
-are complete historical work. There is no active implementation protocol. The
-separate SCOPA experiment, provider traffic, customer activity, and any future
-release remain closed.
+S0-S28, the public R1 execution, the S29-S33 workflow-boundary-mapping arc,
+and the S34-S36 boundary-doctor adoption wedge are complete historical work.
+There is no active implementation protocol. The separate SCOPA
+experiment, provider traffic, customer activity, hosted use, publication, and
+any future release remain closed.

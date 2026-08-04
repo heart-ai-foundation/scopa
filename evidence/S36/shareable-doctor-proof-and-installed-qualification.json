@@ -1,0 +1,38 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S36",
+  "status": "accepted",
+  "providerTraffic": false,
+  "networkProbe": false,
+  "publicationAction": false,
+  "releaseAction": false,
+  "claims": {
+    "jsonDefaultPreserved": true,
+    "markdownDigestBound": true,
+    "sourceRecomputationValidated": true,
+    "jsonMarkdownTerminalParity": true,
+    "privateWorkflowStringsProjected": false,
+    "blockedFormattingFalseGreen": false,
+    "sourceFreePackedJourney": true,
+    "targetDependencyManifestCreated": false,
+    "targetDependencyTreeCreated": false,
+    "coldProcessTerminalSemanticsReproduced": true,
+    "packagePrivateEvidenceIncluded": false,
+    "published020ClaimedToContainChanges": false
+  },
+  "verification": [
+    "npm run test:s34",
+    "npm run test:s35",
+    "npm run test:s36",
+    "npm run test:s6",
+    "npm run test:s10",
+    "npm run test:s11",
+    "npm run test:s12",
+    "npm run test:s31",
+    "npm run test:docs",
+    "npm run audit:s10:policy",
+    "bounded accumulated test-file groups",
+    "conformance clean/fault polarities",
+    "git diff --check"
+  ]
+}

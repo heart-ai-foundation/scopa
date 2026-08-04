@@ -2,15 +2,15 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `09e5c908`
+Current commit reference: `e765db3`
 
 Active protocol: `none`
-Active protocol class: `unset`
+Active protocol class: `arc`
 Active protocol compound: `false`
 
 ## Current State
 
-Phase 11 is complete. No implementation, provider, experiment, publication, release, customer, or external-system action is authorized.
+S34-S36 Boundary Doctor Adoption Wedge complete; BD1-BD3 satisfied; no active implementation protocol and future release remains closed.
 
 Module progress:
 - conformance: 3/3 (100%)
@@ -36,8 +36,9 @@ Module progress:
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
 - workflow-boundary-map: 5/5 (100%)
+- boundary-doctor: 3/3 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 80/81 (99%)
+Arc total: 83/84 (99%)
 
 ## Queued Work
 
@@ -54,7 +55,7 @@ When a new active protocol is selected:
 
 ## Current Phase
 
-- `Phase 11 Workflow Boundary Mapping`
+- `Phase 12 Boundary Doctor Adoption Wedge`
 
 ## Scope Boundaries
 
@@ -72,14 +73,27 @@ When a new active protocol is selected:
 - `packages/cli/**`
 - `packages/agent-surface/**`
 - `packages/workflow-boundary-map/**`
+- `packages/boundary-doctor/**`
 - `fixtures/S29/**`
 - `fixtures/S30/**`
 - `fixtures/S31/**`
 - `fixtures/S32/**`
 - `fixtures/S33/**`
+- `fixtures/S34/**`
+- `fixtures/S35/**`
+- `fixtures/S36/**`
 - `notes/S29/**`
 - `runs/S29/**`
 - `evidence/S29/**`
+- `notes/S34/**`
+- `notes/S35/**`
+- `notes/S36/**`
+- `runs/S34/**`
+- `runs/S35/**`
+- `runs/S36/**`
+- `evidence/S34/**`
+- `evidence/S35/**`
+- `evidence/S36/**`
 - `fixtures/S20/**`
 - `fixtures/S23/**`
 - `fixtures/S24/**`

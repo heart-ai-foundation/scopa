@@ -1,0 +1,40 @@
+SCOPA S36 shareable doctor proof and installed qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+Source base commit: e765db3
+
+PASS npm run test:s34
+PASS npm run test:s35
+PASS npm run test:s36
+PASS npm run test:s6
+PASS npm run test:s10
+PASS npm run test:s11
+PASS npm run test:s12
+PASS npm run test:s31
+PASS npm run test:docs
+PASS npm run audit:s10:policy
+PASS conformance replay clean/fault polarity
+PASS conformance containment clean/fault polarity
+PASS workflow-map S29/S30/S32/S33 groups
+PASS Claude, Codex, and shared live-run S8/S9/S14/S15/S16/S17 groups
+PASS live-run full test-file group: 77 tests
+PASS S21/S22/S23 groups
+PASS remaining release-readiness test files in bounded groups
+PASS git diff --check
+
+The monolithic release-gate invocation exceeded the execution wrapper's
+single-process window before emitting a terminal report. It was not counted as
+a pass. Its discovered test files and four required conformance polarities were
+instead executed in bounded groups; the only discovered failure was the
+expected public-fixture allowlist needing the new reviewed S36 fixtures. That
+allowlist was updated and its focused packed CLI suite passed afterward.
+
+Qualification covered digest recomputation, summary/content tamper, hostile
+private strings, JSON/Markdown semantic parity, blocked-format polarity,
+pre-mutation format refusal, exact tar inventory, source-free target setup,
+clean and cold processes, local policy audit, documentation integrity, and
+package privacy.
+
+No provider traffic, model call, network probe, experiment action, customer or
+hosted use, publication, release, deployment, browser action, credential use,
+or external-system action occurred.

@@ -1,6 +1,13 @@
-import { readFile } from 'node:fs/promises';
+import {
+  lstat,
+  open,
+  readFile,
+  realpath,
+} from 'node:fs/promises';
+import { constants as fsConstants } from 'node:fs';
 import path from 'node:path';
 import {
+  createSliceLock,
   evaluateStopCondition,
 } from '../../enforcement/src/index.js';
 import {
@@ -11,6 +18,7 @@ import { verifyEvidencePacket } from '../../depth/src/index.js';
 import { verifyCaseExportBytes } from '../../interop/src/index.js';
 import {
   initializeProject,
+  initializeProjectFromDefinition,
   loadProject,
 } from './project.js';
 import {
@@ -22,6 +30,10 @@ import {
 import {
   validateCapabilityMatrix,
 } from '../../adapter-host/src/assurance.js';
+import {
+  createBoundaryDiagnostic,
+  renderBoundaryDoctorMarkdown,
+} from '../../boundary-doctor/src/index.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
 export const CLI_EXIT = Object.freeze({
@@ -91,6 +103,16 @@ function optionSpec(command) {
       ...common,
       '--map': { name: 'map', required: true },
       '--baseline': { name: 'baseline' },
+    };
+  }
+  if (command === 'doctor') {
+    return {
+      ...common,
+      '--lock': { name: 'lock', boolean: true },
+      '--definition': { name: 'definition' },
+      '--matrix': { name: 'matrix' },
+      '--authority': { name: 'authority' },
+      '--format': { name: 'format' },
     };
   }
   if (command === 'verify') {
@@ -267,6 +289,187 @@ async function readJsonInput(repoRoot, requestedPath, label) {
   }
 }
 
+const DOCTOR_INPUT_MAX_BYTES = 1_048_576;
+
+function validateDoctorInputPath(requestedPath, label) {
+  if (
+    typeof requestedPath !== 'string' ||
+    requestedPath.length === 0 ||
+    path.posix.isAbsolute(requestedPath) ||
+    requestedPath === '..' ||
+    requestedPath.startsWith('../') ||
+    requestedPath.includes('/../') ||
+    requestedPath.includes('\\') ||
+    requestedPath.includes('*') ||
+    path.posix.normalize(requestedPath) !== requestedPath ||
+    requestedPath === '.scopa' ||
+    requestedPath.startsWith('.scopa/')
+  ) {
+    throw new CliUsageError(
+      `${label} must be a normalized repository-contained path outside .scopa`,
+    );
+  }
+}
+
+async function readDoctorJsonInput(root, requestedPath, label) {
+  validateDoctorInputPath(requestedPath, label);
+  const candidate = path.resolve(root, requestedPath);
+  const relative = path.relative(root, candidate);
+  if (
+    relative === '..' ||
+    relative.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relative)
+  ) {
+    throw new CliUsageError(`${label} escapes the repository`);
+  }
+  let metadata;
+  let resolved;
+  let handle;
+  try {
+    metadata = await lstat(candidate);
+    resolved = await realpath(candidate);
+    handle = await open(
+      candidate,
+      fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW,
+    );
+  } catch {
+    throw new CliUsageError(`${label} must be a readable regular JSON file`);
+  }
+  let bytes;
+  try {
+    const opened = await handle.stat();
+    if (
+      !metadata.isFile() ||
+      metadata.isSymbolicLink() ||
+      metadata.nlink !== 1 ||
+      metadata.size > DOCTOR_INPUT_MAX_BYTES ||
+      resolved !== candidate ||
+      !opened.isFile() ||
+      opened.nlink !== 1 ||
+      opened.dev !== metadata.dev ||
+      opened.ino !== metadata.ino
+    ) {
+      throw new CliUsageError(
+        `${label} must be an unaliased regular file no larger than ${DOCTOR_INPUT_MAX_BYTES} bytes`,
+      );
+    }
+    bytes = await handle.readFile();
+    const [after, resolvedAfter] = await Promise.all([
+      lstat(candidate),
+      realpath(candidate),
+    ]);
+    if (
+      after.dev !== opened.dev ||
+      after.ino !== opened.ino ||
+      after.nlink !== 1 ||
+      resolvedAfter !== candidate
+    ) {
+      throw new CliUsageError(`${label} changed while it was being read`);
+    }
+  } catch (error) {
+    if (error instanceof CliUsageError) throw error;
+    throw new CliUsageError(`${label} must be a readable regular JSON file`);
+  } finally {
+    await handle.close().catch(() => {});
+  }
+  if (bytes.byteLength > DOCTOR_INPUT_MAX_BYTES) {
+    throw new CliUsageError(
+      `${label} must be no larger than ${DOCTOR_INPUT_MAX_BYTES} bytes`,
+    );
+  }
+  try {
+    return {
+      value: JSON.parse(bytes.toString('utf8')),
+      relativePath: relative.split(path.sep).join('/'),
+    };
+  } catch {
+    throw new CliUsageError(`${label} must contain valid JSON`);
+  }
+}
+
+async function doctorLockCommand(options) {
+  const declaredInputs = [
+    ['definition', '--definition'],
+    ['matrix', '--matrix'],
+    ['authority', '--authority'],
+  ];
+  const missing = declaredInputs
+    .filter(([name]) => options[name] === undefined)
+    .map(([, flag]) => flag);
+  if (missing.length > 0) {
+    throw new CliUsageError(
+      `doctor --lock requires ${missing.join(', ')}`,
+    );
+  }
+
+  const root = await realpath(options.repo);
+  const [definitionInput, matrixInput, authorityInput] = await Promise.all([
+    readDoctorJsonInput(root, options.definition, 'slice definition'),
+    readDoctorJsonInput(root, options.matrix, 'capability matrix'),
+    readDoctorJsonInput(root, options.authority, 'authority declaration document'),
+  ]);
+
+  // Validate the complete declaration set before the diagnostic or any write.
+  const definitionLock = createSliceLock(definitionInput.value);
+  const capabilityMatrix = validateCapabilityMatrix(matrixInput.value);
+  const authorityDocument = validateAuthorityDeclarationDocument(
+    authorityInput.value,
+  );
+  const before = await createBoundaryDiagnostic({ repoRoot: root });
+  const initialization = await initializeProjectFromDefinition({
+    repoRoot: root,
+    definition: definitionLock.definition,
+    definitionPath: definitionInput.relativePath,
+  });
+  const project = await loadProject(root);
+  const stopState = await evaluateStopCondition({
+    lock: project.lock,
+    repoRoot: project.repoRoot,
+  });
+  const after = createWorkflowBoundaryMap({
+    lock: project.lock,
+    stopState,
+    capabilityMatrix,
+    authorityDeclarations: authorityDocument.declarations,
+  });
+  const result = {
+    schema: 'scopa.doctor-lock-result.v1',
+    status: after.completion.canStop ? 'satisfied' : 'blocked',
+    before,
+    initialization,
+    after,
+  };
+  const output = options.format === 'markdown'
+    ? renderBoundaryDoctorMarkdown(result)
+    : result;
+  if (!after.completion.canStop) {
+    return {
+      exitCode: CLI_EXIT.blocked,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: false,
+        command: 'doctor',
+        error: {
+          code: 'SCOPA_DOCTOR_LOCK_BLOCKED',
+          message: options.format === 'markdown'
+            ? 'boundary lock created; completion remains blocked'
+            : `boundary lock created; completion blocked by: ${after.completion.failedGates.join(', ')}`,
+          details: output,
+        },
+      },
+    };
+  }
+  return {
+    exitCode: CLI_EXIT.success,
+    envelope: {
+      schema: CLI_RESULT_SCHEMA,
+      ok: true,
+      command: 'doctor',
+      result: output,
+    },
+  };
+}
+
 async function mapCommand(options) {
   const format = options.format ?? 'json';
   if (!['json', 'markdown'].includes(format)) {
@@ -311,7 +514,9 @@ async function assessCommand(options) {
 }
 
 export async function executeCommand(argv) {
-  const { command, options } = parseCommand(argv);
+  const parsed = parseCommand(argv);
+  const { command } = parsed;
+  let { options } = parsed;
   if (command === 'init') {
     return {
       exitCode: CLI_EXIT.success,
@@ -348,6 +553,33 @@ export async function executeCommand(argv) {
         ok: true,
         command,
         result: await assessCommand(options),
+      },
+    };
+  }
+  if (command === 'doctor') {
+    const format = options.format ?? 'json';
+    if (!['json', 'markdown'].includes(format)) {
+      throw new CliUsageError('--format must be json or markdown');
+    }
+    options = Object.freeze({ ...options, format });
+    const declarationFlags = ['definition', 'matrix', 'authority'];
+    if (!options.lock && declarationFlags.some((name) => options[name] !== undefined)) {
+      throw new CliUsageError(
+        '--definition, --matrix, and --authority require doctor --lock',
+      );
+    }
+    if (options.lock) return doctorLockCommand(options);
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: format === 'markdown'
+          ? renderBoundaryDoctorMarkdown(
+            await createBoundaryDiagnostic({ repoRoot: options.repo }),
+          )
+          : await createBoundaryDiagnostic({ repoRoot: options.repo }),
       },
     };
   }
@@ -389,6 +621,7 @@ export function failureResult(command, error) {
       'SCOPA_PROJECT_CONFIG_INVALID',
       'SCOPA_SLICE_LOCK_INVALID',
       'SCOPA_WORKFLOW_BOUNDARY_MAP_INVALID',
+      'SCOPA_BOUNDARY_DIAGNOSTIC_INVALID',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';

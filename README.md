@@ -12,6 +12,30 @@ questions:
 SCOPA implements the controls of Next-Prompt Protocol v2.4. The protocol
 defines the practice; SCOPA is the executable reference implementation.
 
+## See the boundary before setup
+
+On the current source line, Boundary Doctor gives a repository-specific answer
+before `.scopa/` exists:
+
+```sh
+node packages/cli/src/cli.js doctor --format markdown --repo /path/to/project
+```
+
+It performs a bounded, read-only local diagnosis—no model call, network probe,
+account, or target dependency. The result distinguishes observed markers,
+honest absence, and unknown evidence without pretending to know the agent's
+authority. Its Markdown is privacy-minimized and SHA-256-bound to the canonical
+JSON source.
+
+When the scope, completion gates, capability surface, and external authority
+posture have been reviewed, one explicit `doctor --lock` command converts them
+into hardened SCOPA state and returns the actual terminal Workflow Boundary
+Map. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
+
+Boundary Doctor is newer than the published `0.2.0` tarball. Until a later
+release is separately qualified, use the source command above or confirm that
+an installed build lists `doctor` in `scopa --help`.
+
 ## Start with one prompt
 
 Point your coding agent at [`SCOPA_AGENT.md`](SCOPA_AGENT.md) and state the
@@ -186,6 +210,8 @@ raw `npm pack` is not equivalent to the reviewed bundled candidate.
 
 - [Agent entry](SCOPA_AGENT.md) — the self-contained point-and-go protocol
 - [Quickstart](docs/QUICKSTART.md) — give an agent one file and one task
+- [Boundary Doctor](docs/BOUNDARY_DOCTOR.md) — diagnose before setup and create
+  a digest-bound before/after proof
 - [Manual walkthrough](docs/MANUAL_SETUP.md) — exercise each runtime interface
 - [Slice-definition reference](docs/SLICE_DEFINITION.md) — author scope and gates
 - [Architecture](docs/ARCHITECTURE.md) — components, data flow, and trust boundaries

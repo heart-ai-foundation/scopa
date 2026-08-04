@@ -1,0 +1,19 @@
+SCOPA S35 explicit doctor lock conversion qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+Source commit: e765db3
+
+PASS npm run test:s35
+PASS npm run test:s6
+PASS npm run test:docs
+PASS npm run protocol:check
+PASS git diff --check
+
+The corpus covered a passing conversion, complete-declaration enforcement,
+malformed JSON with byte-identical repository state, path escape, symlinked
+input, changed-definition conflict, exact repeat idempotence, declaration-byte
+preservation, and a real failing gate retained as an actual blocked map.
+
+No provider traffic, network probe, experiment action, customer or hosted use,
+publication, release, deployment, browser action, or external-system action
+occurred.

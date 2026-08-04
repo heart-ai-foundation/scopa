@@ -59,6 +59,7 @@ export const REQUIRED_POLICY_PATHS = Object.freeze([
   'GOVERNANCE.md',
   'SCOPA_AGENT.md',
   'docs/ARCHITECTURE.md',
+  'docs/BOUNDARY_DOCTOR.md',
   'docs/INTEGRATIONS.md',
   'docs/MANUAL_SETUP.md',
   'docs/QUICKSTART.md',
@@ -72,6 +73,8 @@ export const REQUIRED_POLICY_PATHS = Object.freeze([
   'schemas/scopa.release-posture.v1.schema.json',
   'schemas/scopa.authority-declarations.v1.schema.json',
   'schemas/scopa.boundary-assessment-packet.v1.schema.json',
+  'schemas/scopa.boundary-diagnostic.v1.schema.json',
+  'schemas/scopa.boundary-doctor-report.v1.schema.json',
   'schemas/scopa.candidate-manifest.v1.schema.json',
   'schemas/scopa.consumer-proof.v1.schema.json',
   'schemas/scopa.slice-definition.v1.schema.json',
@@ -86,6 +89,9 @@ export const REQUIRED_POLICY_PATHS = Object.freeze([
   'fixtures/S10/freetsa-root.pem',
   'fixtures/S31/task.txt',
   'fixtures/S31/point-and-go-client.mjs',
+  'fixtures/S36/scopa.slice-definition.json',
+  'fixtures/S36/scopa.capability-matrix.json',
+  'fixtures/S36/scopa.authority-declarations.json',
 ]);
 
 export const REQUIRED_PACKED_PREFIXES = Object.freeze([
@@ -102,6 +108,8 @@ export const REQUIRED_PACKED_PREFIXES = Object.freeze([
   'docs/',
   'schemas/',
   'fixtures/S10/',
+  'fixtures/S31/',
+  'fixtures/S36/',
   'packages/release-readiness/',
   'production-bundle.json',
 ]);
