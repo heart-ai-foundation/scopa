@@ -86,7 +86,10 @@ export async function auditReleasePolicies({ root }) {
       'package-public-surfaces',
       [
         'LICENSE',
+        'CODE_OF_CONDUCT.md',
+        'CHANGELOG.md',
         'SECURITY.md',
+        'SUPPORT.md',
         'CONTRIBUTING.md',
         'GOVERNANCE.md',
         'docs/**',
@@ -140,13 +143,17 @@ export async function auditReleasePolicies({ root }) {
       phrases: [
         'Do not open a public issue',
         'https://empathyethicist.ai/contact/',
-        'do not include exploit details',
+        'Never send real credentials',
       ],
     },
     {
       id: 'contribution-dco',
       path: 'CONTRIBUTING.md',
-      phrases: ['Developer Certificate of Origin', 'Signed-off-by', 'no CLA'],
+      phrases: [
+        'Developer Certificate of Origin',
+        'Signed-off-by',
+        'No Contributor License Agreement is required',
+      ],
     },
     {
       id: 'governance-authority',
@@ -158,20 +165,31 @@ export async function auditReleasePolicies({ root }) {
       ],
     },
     {
-      id: 'quickstart-source-free',
+      id: 'agent-entry-point-and-go',
+      path: 'SCOPA_AGENT.md',
+      phrases: [
+        'The developer should not need to install SCOPA',
+        'Do not create a roadmap, Macro Delta, approval digest',
+        'scopa init',
+        'canStop: true',
+        'partial',
+      ],
+    },
+    {
+      id: 'quickstart-agent-first',
       path: 'docs/QUICKSTART.md',
       phrases: [
-        '@heart-ai-foundation/scopa@0.2.0',
-        'scopa init',
-        'scopa-mcp',
-        'SCOPA_SCOPE_DENIED',
+        'SCOPA_AGENT.md',
+        'preinstall',
+        'canStop: true',
+        'partial assurance',
       ],
     },
     {
       id: 'threat-model-boundaries',
       path: 'docs/THREAT_MODEL.md',
       phrases: [
-        '## Assets',
+        '## Protected assets',
         '## Trust boundaries',
         '## Threats and controls',
         'Residual risk',
@@ -180,12 +198,28 @@ export async function auditReleasePolicies({ root }) {
     {
       id: 'claims-partial-assurance',
       path: 'docs/CLAIMS.md',
-      phrases: ['Verified claims', 'Non-claims', 'partial', 'does not'],
+      phrases: ['Runtime claims', 'Non-claims', 'partial', 'SCOPA does not'],
+    },
+    {
+      id: 'workflow-boundary-map-honesty',
+      path: 'docs/WORKFLOW_BOUNDARY_MAP.md',
+      phrases: [
+        'controlled',
+        'uncontrolled',
+        'unknown',
+        'authority-required',
+        'Missing information always becomes',
+        'must not require telemetry',
+      ],
     },
     {
       id: 'versioning-stable',
       path: 'docs/VERSIONING.md',
-      phrases: ['0.2.0', 'public stable release', 'evidence-backed decision'],
+      phrases: [
+        '0.2.0',
+        'first public release',
+        'Public release execution remains',
+      ],
     },
   ];
   for (const check of contentChecks) {
@@ -214,6 +248,10 @@ export async function auditReleasePolicies({ root }) {
     [
       'schemas/scopa.consumer-proof.v1.schema.json',
       'scopa.consumer-proof.v1.schema.json',
+    ],
+    [
+      'schemas/scopa.slice-definition.v1.schema.json',
+      'scopa.slice-definition.v1.schema.json',
     ],
   ];
   for (const [relativePath, suffix] of schemaChecks) {

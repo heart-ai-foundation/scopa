@@ -1,25 +1,20 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "1345fb8",
-  "current_phase": "phase-10-r1-public-release-finalization",
-  "active_protocol": "active/2026-08-03-R1F-public-release-finalization.md",
-  "active_class": "arc",
+  "current_commit": "09e5c908",
+  "current_phase": "phase-11-workflow-boundary-mapping",
+  "active_protocol": null,
+  "active_class": null,
   "active_compound": false,
-  "active_module": "distribution-hardening",
-  "crosses": [
-    "release-readiness",
-    "release-requalification",
-    "dependency-closure-identity"
-  ],
-  "advances_contracts": [
-    "DCI3"
-  ],
-  "active_protocol_sha256": "sha256:69bc96ce389c8d8823e57cb338fd90494b0d7ba509431019f38457871f1a95c5",
-  "active_objective": "Produce one exact, provider-off qualified public `0.2.0` tarball and one closed\nsingle-use execution matrix for separate digest approval.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "Phase 11 is complete. No implementation, provider, experiment, publication, release, customer, or external-system action is authorized.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
+    "SCOPA_AGENT.md",
     ".github/workflows/case-validation.yml",
     "production-bundle.json",
     "README.md",
@@ -29,6 +24,16 @@
     "packages/enforcement/**",
     "packages/conformance/**",
     "packages/cli/**",
+    "packages/agent-surface/**",
+    "packages/workflow-boundary-map/**",
+    "fixtures/S29/**",
+    "fixtures/S30/**",
+    "fixtures/S31/**",
+    "fixtures/S32/**",
+    "fixtures/S33/**",
+    "notes/S29/**",
+    "runs/S29/**",
+    "evidence/S29/**",
     "fixtures/S20/**",
     "fixtures/S23/**",
     "fixtures/S24/**",
@@ -65,10 +70,10 @@
     "evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/release-readiness/test/r1-public-release.test.js",
-    "installed_probe": "npm run probe:s12:installed",
+    "fast_deterministic": "node --test packages/workflow-boundary-map/test/adversarial.test.js",
+    "installed_probe": "npm run test:s33",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
-  "stop_condition": "Stop on historical receipt drift, final-byte nondeterminism, publish-dry-run failure, credential overclaim, any public action, unrelated change, or hosted failure; exact execution approval is separate."
+  "stop_condition": "Stop on material false-green, privacy leak, installed or cold-process failure, advisory, documentation contradiction, ceremony, or provider, experiment, customer, publication, release, or external-system authority."
 }

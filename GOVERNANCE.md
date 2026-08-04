@@ -15,7 +15,7 @@ publication, production deployment, or public claims require a recorded
 decision and separate principal approval.
 
 Maintainers may merge compatible contributions under Apache-2.0 after DCO
-sign-off. There is no CLA in the approved developer-preview posture.
+sign-off. SCOPA requires no CLA.
 
 ## Technical invariants
 

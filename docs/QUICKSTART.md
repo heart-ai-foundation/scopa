@@ -1,81 +1,59 @@
-# SCOPA 0.2 quickstart
+# Quickstart: point your agent at SCOPA
 
-This quickstart requires Node.js 22 or newer and does not require the SCOPA
-source checkout.
+Give a coding agent two things:
 
-## Install SCOPA
+1. [`SCOPA_AGENT.md`](../SCOPA_AGENT.md)
+2. the task you want completed
 
-In a new empty directory:
+For example:
 
-```sh
-npm init -y
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+> Read `SCOPA_AGENT.md` and add request-ID logging to this service. Preserve
+> its public API and do not change dependencies.
+
+That is the primary SCOPA workflow. The agent inspects the repository, derives
+the smallest path and verification boundary, bootstraps the pinned public
+runtime, performs supported writes through SCOPA, runs the real completion
+gates, and reports the resulting assurance. You do not need to preinstall a
+package or author a slice definition.
+
+When the template is hosted with the repository, you can point an agent at its
+raw URL instead of copying it into the target project:
+
+```text
+Read https://raw.githubusercontent.com/heart-ai-foundation/scopa/main/SCOPA_AGENT.md
+and implement <your task> in this repository.
 ```
 
-For exact-byte verification, compare the registry integrity and released
-tarball SHA-256 with the GitHub Release checksums. Also compare the released
-production-closure, bundled-payload, and license-inventory SHA-256 values with
-`production-bundle.json` inside the installed package. SCOPA uses no install
-lifecycle scripts.
+Replace `<your task>` with the actual outcome. A repository checkout can use
+the local file and does not need network access to read the protocol.
 
-## Initialize a clean fixture
+## What the agent handles
 
-```sh
-mkdir -p consumer-repo/.git consumer-repo/workspace
-cp node_modules/@heart-ai-foundation/scopa/fixtures/S10/clean.slice-definition.json \
-  consumer-repo/scopa.slice-definition.json
-cd consumer-repo
-../node_modules/.bin/scopa init --definition scopa.slice-definition.json
-../node_modules/.bin/scopa status
-```
+The entry protocol tells the agent to:
 
-## Exercise the supported model-neutral adapter
+1. discover project instructions, relevant files, and existing checks;
+2. treat ordinary work as one small slice instead of creating a roadmap;
+3. generate and lock the SCOPA boundary itself;
+4. map controlled, uncontrolled, unknown, disabled, and authority-required routes;
+5. use the strongest available governed mutation route;
+6. stop on scope denial or missing authority;
+7. run real project gates and require `canStop: true`; and
+8. report limitations without turning them into ceremony.
 
-Run the packaged consumer client. It launches only `scopa-mcp`, inventories the
-six SCOPA tools, performs an allowed write, observes `SCOPA_SCOPE_DENIED` for
-an escaping write, checks the real terminal state, and captures the adapter
-transcript:
+## What remains explicit
 
-```sh
-node ../node_modules/@heart-ai-foundation/scopa/fixtures/S10/consumer-client.mjs \
-  --server ../node_modules/.bin/scopa-mcp \
-  --repo . \
-  --session ../node_modules/@heart-ai-foundation/scopa/fixtures/S10/session.json \
-  --matrix ../node_modules/@heart-ai-foundation/scopa/fixtures/S10/capability-matrix.json
-```
+SCOPA does not convert a general shell or native editor into a controlled
+capability. If those bypass routes remain active, the agent must report
+partial assurance even when its observed changes stay in scope. A host seeking
+the strongest boundary should expose the model-neutral SCOPA MCP tools and
+disable native mutation routes.
 
-The expected result has `allowedWrite: true`, `scopeDenied: true`,
-`terminal.status: "satisfied"`, and `terminal.canStop: true`.
+Publishing, deployment, paid provider calls, credential use, destructive
+operations, and external-system changes still require explicit authority.
 
-## Independently verify the retained packet
+## Manual and integration paths
 
-From `consumer-repo`:
-
-```sh
-../node_modules/.bin/scopa verify \
-  --packet ../node_modules/@heart-ai-foundation/scopa/fixtures/S10/2026-07-26-freetsa-packet.json \
-  --timestamp-roots ../node_modules/@heart-ai-foundation/scopa/fixtures/S10/freetsa-root.pem \
-  --require-timestamp \
-  --timestamp-authority-id freetsa.org-2026 \
-  --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc
-```
-
-This is an offline trust-policy check against the caller-supplied root and
-signer pin. Its report records `revocationStatus: "not-checked"`: SCOPA does
-not fetch or validate CRL/OCSP state in this path. Evaluators who require
-current revocation status must perform a separate provider-authoritative
-revocation check.
-
-## Prove a known failure remains blocked
-
-Create a second repository with
-`fixtures/S10/failing.slice-definition.json`, initialize it, and run
-`scopa check`. The expected exit code is `4`, the error code is
-`SCOPA_COMPLETION_BLOCKED`, and `canStop` is false.
-
-## Interpretation
-
-This quickstart proves local artifact installation, the model-neutral SCOPA
-tool boundary, scope denial, real completion state, cold filesystem state, and
-independent packet verification. It does not prove OS sandboxing, provider
-identity, production readiness, or full Claude/Codex assurance.
+Use the [manual walkthrough](MANUAL_SETUP.md) when you want to exercise every
+interface yourself. For permanent host configuration, see the
+[integration guide](INTEGRATIONS.md). The [slice-definition reference](SLICE_DEFINITION.md)
+documents the policy the agent generates on your behalf.

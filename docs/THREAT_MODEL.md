@@ -1,106 +1,92 @@
-# SCOPA developer-preview threat model
+# Threat model
 
 ## Scope
 
-This model covers the local SCOPA package, CLI, model-neutral MCP bridge,
-Claude/Codex launch profiles, packed S10 consumer artifact, evidence verifier,
-and GitHub-hosted release gate. It does not cover a production deployment,
-customer repository, package registry, provider infrastructure, or separately
-privileged local attacker.
+This model covers the public SCOPA package, CLI, trusted reference host,
+model-neutral MCP adapter, Claude/Codex launcher profiles, gate subprocesses,
+continuity state, evidence verification, source-free package qualification,
+and GitHub/npm release delivery.
 
-Named contributor audit commands and retained gate evidence refer to a SCOPA
-source checkout; those scripts are intentionally absent from the source-free
-consumer package.
+It does not cover a customer production deployment, provider infrastructure,
+the security of arbitrary gate commands, or a separately privileged local
+attacker. Contributor-only commands and retained campaign evidence refer to a
+source checkout and are not runtime authority for package consumers.
 
-## Assets
+## Protected assets
 
-- slice scope, gate definition, stop state, and continuity state;
+- slice scope, gate definitions, stop state, and continuity state;
 - repository files reachable through registered tools;
-- append-only journals, signatures, timestamp evidence, and INFER pins;
-- adapter transcripts and capability matrices;
-- candidate artifact, integrity manifest, public fixtures, and policy state;
-- private vulnerability reports and any credentials used by live model CLIs.
+- effect journals, signatures, timestamp evidence, and INFER pins;
+- adapter sessions, transcripts, and capability matrices;
+- package bytes, dependency closure, manifests, and public schemas; and
+- private provider output, vulnerability reports, and credentials used by
+  opt-in live clients.
 
 ## Trust boundaries
 
-1. Untrusted model or client to the MCP/host tool boundary.
-2. Trusted SCOPA dispatcher to the repository filesystem.
-3. Gate runner to bounded child processes.
-4. Local candidate artifact to a source-free consumer.
+1. Untrusted agent or MCP client to the trusted tool host.
+2. Trusted dispatcher to repository topology and filesystem operations.
+3. Gate runner to bounded child-process trees.
+4. Persisted control state to a fresh process.
 5. Evidence producer to an independent verifier with caller-supplied trust.
-6. Repository/CI configuration to GitHub-hosted runners and dependency
-   registries.
-7. Claude/Codex launch configuration to provider, account, session, policy,
-   network, plugin, skill, and native execution surfaces.
-8. Live client process groups and raw evidence to bounded terminal and public
-   evidence records.
+6. Source repository and lockfile to the source-free npm artifact.
+7. GitHub/npm delivery to a developer authenticating expected release bytes.
+8. Provider launcher to account, model, network, policy, plugin, skill, native
+   execution, and client-store surfaces.
+9. Private raw evidence to a sanitized public derivative.
 
 ## Threats and controls
 
-| Threat | Control | Verification | Residual risk |
-| --- | --- | --- | --- |
-| Path escape, symlink/hard-link alias, or topology swap | Canonical scope check, topology revalidation, dispatcher-only registered mutation | S2 hostile path tests and S7-S10 denied calls | Concurrent privileged processes outside the trusted host remain out of scope |
-| Model asserts completion over failure | Real argv gate execution and machine stop state | Exit-7 fixtures and `SCOPA_COMPLETION_BLOCKED` | A malicious operator can replace the host outside the measured boundary |
-| Hidden adapter mutation route | Explicit tool inventory and capability/bypass matrix | S8/S9 live proofs and parity report | Claude and Codex remain `partial` because native routes are not all SCOPA-controlled |
-| Unknown or reordered model events | Closed stream normalizers bound to SCOPA transcript | S8/S9 negative controls | Provider event formats can change and require a pinned adapter update |
-| Timeout, output pressure, client crash, or orphan descendant loses terminal state | Shared finite capture, closed terminal envelope, dedicated process group, bounded TERM/KILL escalation, and cleanup verification | S14 deterministic process fault matrix | A privileged local process can still interfere outside the measured process group |
-| Codex reported usage exceeds the approved per-run or aggregate allowance | Exact input/output/reasoning/total ceilings and a closed `usage-limit` terminal | S16 deterministic usage-overrun corpus | Provider usage telemetry is provider-reported and is not an independent billing attestation |
-| Host credentials or harness state leak into a Codex child | Explicit ten-name production environment allowlist and smaller synthetic fixture environment | S16 environment-contract and 21-scenario deterministic corpus | Allowed paths may reference provider-owned client stores that still require private residue audit |
-| Live receipt leaks credentials, roots, prompts, or provider output | Exact artifact/profile/policy digests, no raw environment map, atomic mode-0600 private evidence, designated public redaction, collision checks, and privacy scan | S14 protected-value mutation and destination-hostility corpus | Private raw evidence still requires operator-controlled retention and access policy |
-| A post-provider evidence fault loses a consumed request and tempts replay or false reconstruction | Pre-call collision refusal and private intent, post-return bounded journal, decimal-string accounting, exact raw/normalized accounting comparison, and conservative maximum reservation for uncertain requests | S15 deterministic resume/accounting controls, exhausted historical campaign, and fresh direct S15R2 denial-to-restart campaign | The historical lost request remains unknown and non-qualifying; S15 acceptance relies on the separately authorized direct remedial evidence, not reconstruction |
-| Journal or packet tampering | Deterministic encoding, hash chain, signatures, optional RFC 3161 anchor | S1/S4 mutation tests and fresh-process verification | Software keys do not prove hardware identity |
-| Stale or revoked timestamp signer | Caller-supplied root and signer-certificate pin; explicit offline verification report | S4/S10 native-packet verification | The offline path records `revocationStatus: "not-checked"` and does not fetch CRL/OCSP state |
-| Candidate substitution | Git commit, file inventory, SHA-1, SHA-256, and npm SHA-512 integrity binding | Candidate manifest | Secure delivery of the expected manifest remains an evaluator responsibility |
-| Transitive dependency substitution | Complete npm-bundled production graph, registry integrity pins, per-file SHA-256 and mode inventory, empty-cache offline install, and independent installed-byte comparison | `production-bundle.json` plus S19-v2 verification receipt | A raw source-checkout `npm pack` is not a qualified candidate; use `npm run pack:candidate` |
-| Monorepo-relative or private-path dependency | Explicit package allowlist and source-free install probe | S6 and S10 consumer probes | npm dependencies still rely on their registries/caches |
-| False policy readiness | Closed posture schema and constituent policy audit | Retained source-checkout policy-audit evidence | Policies are project commitments, not formal compliance certification |
-| Secret or raw-path disclosure | Private raw evidence, deterministic public redaction, path scans | S8-S10 publication receipts | Model/provider telemetry outside SCOPA follows provider controls |
-| Supply-chain vulnerability | Exact dependencies, lockfile, source-checkout `npm audit`, hosted clean install | Accumulated release gate | Audit databases are incomplete and change over time |
+| Threat | Primary controls | Residual risk |
+| --- | --- | --- |
+| Out-of-scope or escaping write | Closed path rules, canonical resolution, repository containment, topology revalidation, parent binding | A separately privileged process can interfere outside the trusted-host assumption |
+| Symlink or hard-link alias | Existing-ancestor resolution, symlink denial, multi-link target denial | Filesystem and platform semantics outside supported paths may differ |
+| Model asserts false completion | Real bounded gates and machine `canStop` | A malicious operator can replace the trusted host or policy |
+| Gate hangs, floods output, or leaves descendants | Timeouts, per-stream limits, POSIX process groups, TERM/KILL escalation, survivor verification | Unsupported platforms fail closed; privileged processes remain out of scope |
+| Hidden mutation route | Exact tool inventory and capability matrix | Claude/Codex remain `partial` because native routes are not all controlled |
+| Provider or client event drift | Pinned profiles and closed stream normalizers | Client upgrades require deliberate requalification |
+| Credential or raw-output disclosure | Small environment policies, private mode-0600 evidence, designated redaction, collision and privacy checks | Provider-owned telemetry follows provider controls |
+| Consumed provider call loses evidence | Pre-call intent, bounded post-return journal, conservative accounting, no-replay policy | Provider return without durable evidence remains non-qualifying |
+| Continuity transplant or silent repair | Hash-bound lock and rotation records, closed schemas, conflict refusal | Operator loss of all trusted state requires explicit recovery decisions |
+| Journal or packet tampering | Deterministic encoding, hash chains, signatures, optional timestamp anchors | Software keys do not prove hardware or human identity |
+| Stale timestamp trust | Caller roots, signer fingerprint, explicit timestamp policy | Offline verification does not fetch CRL/OCSP state |
+| Candidate substitution | Commit, inventory, SHA-1, SHA-256, npm integrity, installed-byte checks | Evaluator must authenticate the expected release digest |
+| Transitive dependency substitution | Lockfile integrity, bundled closure inventory, empty-cache offline install, installed-byte comparison | Registries, audit databases, and upstream projects can change or be compromised |
+| Newly disclosed dependency vulnerability | Current advisory-database scan, exact-version review, patch update, hostile regression where applicable | Advisory severity may not equal SCOPA exploitability; databases are incomplete |
+| Malformed or unbounded MCP traffic | Frame, request-ID, in-flight, transcript, and backpressure bounds | Denial traffic can still consume resources within configured limits |
+| Overstated assurance | Computed matrices and explicit non-claims | Users may ignore documentation or attach the wrong matrix |
 
 ## Security controls
 
-- No lifecycle install scripts are required.
-- The candidate remains `"private": true` and is packed locally.
-- The qualified candidate physically carries all 12 reviewed production
-  packages. npm 10 and npm 11 must produce and install the same tarball and
-  bundled byte identity without registry access.
-- Published SES bytes contain generic user-home path and local-file URL
-  examples. These exact upstream references are counted separately; actual
-  build paths, private evidence topology, and recognizable credentials remain
-  hard failures.
-- Live models run only in disposable fixture repositories.
-- Live launchers bind the exact installed artifact and return one bounded
-  terminal envelope for both success and failure.
-- The first approved S16 Codex attempt stopped during its local version probe
-  before provider launch. The separately approved S16-v2 campaign used a
-  distinct policy/scenario version and `S16R2` evidence namespace and stopped
-  after one call when client-store custody exceeded its audit bound. Its gate
-  is closed and the three unlaunched calls cannot be inferred or replayed.
-- A proposed S16-v3 continuation uses a distinct policy ID, scenario version,
-  three-call aggregate allowance, and `S16R3` evidence namespace. Its gate is
-  closed so deterministic qualification cannot silently become provider
-  authority.
-- Provider raw output remains private; repository-facing derivatives bind its
-  digest and expose only designated redactions.
-- Verification uses caller-supplied timestamp roots and signer pins.
-- Offline timestamp verification reports that certificate revocation is not
-  checked; revocation-sensitive evaluators need a separate CRL/OCSP check.
-- Known-failing fixtures remain part of the release boundary.
-- GitHub Actions uses read-only repository contents permission.
-- Security reporting avoids public exploit disclosure.
+- No install lifecycle scripts are required.
+- Public candidates are built through the qualified bundled-candidate path,
+  not raw source-checkout `npm pack`.
+- The package carries versioned schemas, threat boundaries, claims, security
+  reporting instructions, and known-failing controls.
+- Production dependencies are exact at the direct layer and integrity-locked
+  transitively. Dependency advisories are reassessed at maintenance time.
+- Agent mutations pass through one registered dispatcher.
+- Gate commands use `shell: false` and a small inherited environment.
+- Model clients run only through explicit, opt-in profiles and do not enter
+  default tests or CI.
+- Raw prompts, arguments, environment values, provider output, and private
+  roots are excluded from public receipts.
+- Diagnostic stacks are opt-in and must never be treated as public evidence.
+- GitHub Actions uses read-only repository-content permission.
+- Vulnerabilities are reported through a private channel.
 
 ## Explicit non-claims
 
-SCOPA is not an OS sandbox, EDR, container boundary, provider attestation,
-formal compliance certification, or guarantee against a privileged local
-attacker. Behavior parity between Claude and Codex does not transfer assurance
-between them.
+SCOPA is not an OS sandbox, hosted service, provider attestation, EDR, formal
+certification, guarantee of complete agent capture, or protection against a
+privileged local attacker. Behavior parity does not transfer assurance between
+integrations.
 
 ## Residual risk
 
-The highest residual risks are adapter-native authority outside SCOPA,
-provider/account policy drift, concurrent privileged filesystem mutation,
-software-key provenance and offline revocation-status limits,
-dependency-registry compromise, and evaluator failure to authenticate the
-expected candidate manifest. These risks are documented; they are not
-converted into full assurance.
+The highest residual risks are uncontrolled adapter-native authority,
+provider/account policy drift, privileged local filesystem interference,
+software-key provenance, offline certificate-revocation limits, dependency and
+registry compromise, and evaluator failure to authenticate expected bytes.
+These risks are retained as boundaries rather than converted into stronger
+claims.

@@ -1,0 +1,14 @@
+SCOPA S32 provider-off qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s32
+PASS npm run test:s30
+PASS npm run test:s10
+PASS npm run test:docs
+PASS git diff --check
+
+Redaction corpus excluded raw slice ID, relative paths, non-goal prose, gate ID,
+gate output, and capability evidence. Source scan found no HTTP or fetch route.
+No provider, hosted service, telemetry, experiment, customer, publication, or
+release action occurred.

@@ -1,0 +1,24 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S29",
+  "status": "accepted",
+  "providerTraffic": false,
+  "runtimeChanges": [
+    "pure deterministic workflow boundary map projection",
+    "closed runtime validator",
+    "published JSON Schema"
+  ],
+  "claims": {
+    "missingEvidenceRemainsUnknown": true,
+    "authorityCannotClaimControl": true,
+    "rawGateOutputProjected": false,
+    "allMatrixCapabilitiesProjected": true,
+    "canonicalOutputReproduced": true
+  },
+  "verification": [
+    "npm run test:s29",
+    "npm run test:s10",
+    "npm run test:docs",
+    "git diff --check"
+  ]
+}

@@ -268,6 +268,18 @@ test('candidate documentation cannot reference absent packed files', () => {
     findMissingPackedDocumentationReferences({
       documents: [
         {
+          path: 'docs/ARCHITECTURE.md',
+          text: 'Read [claims](CLAIMS.md).',
+        },
+      ],
+      packedPaths,
+    }),
+    [],
+  );
+  assert.deepEqual(
+    findMissingPackedDocumentationReferences({
+      documents: [
+        {
           path: 'README.md',
           text: 'Read `spec/missing.md`.',
         },

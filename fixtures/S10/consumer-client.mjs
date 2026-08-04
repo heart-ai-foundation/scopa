@@ -137,7 +137,13 @@ export async function runConsumerClient(options) {
     '--matrix-file',
     options.matrix,
   ];
-  const child = spawn(options.server, serverArgs, {
+  // Invoke the JavaScript entry point through the current Node runtime. Direct
+  // shebang execution can lose the executable-entry identity when a package
+  // manager's .bin symlink is launched by child_process.spawn(), causing the
+  // module to return without starting stdio. This path behaves consistently
+  // across npm's supported symlink layouts and still exercises the real MCP
+  // process boundary.
+  const child = spawn(process.execPath, [options.server, ...serverArgs], {
     stdio: ['pipe', 'pipe', 'pipe'],
   });
   const pending = new Map();

@@ -96,7 +96,7 @@ test('reviewed lock yields one exact production-only bundled closure', () => {
   assert.equal(closure.packages.some(({ name }) => name === 'deno'), false);
   assert.equal(
     closure.packages.find(({ name }) => name === 'fast-uri').version,
-    '3.1.4',
+    '3.1.5',
   );
 
   const range = clone(PACKAGE);

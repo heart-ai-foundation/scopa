@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible, non-security SCOPA defect
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report vulnerabilities, credentials, private evidence, or customer data here. Follow SECURITY.md instead.
+  - type: input
+    id: version
+    attributes:
+      label: SCOPA version
+      description: Include the npm version and integrity or source commit when available.
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: boundary
+    attributes:
+      label: Affected boundary
+      options:
+        - Scope enforcement
+        - Completion gates
+        - Continuity or control state
+        - Evidence verification
+        - MCP adapter
+        - Claude Code integration
+        - Codex integration
+        - Packaging or installation
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use synthetic data and include exact commands, exits, and sanitized output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Node 22.x, npm 10.x, Fedora Linux"
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: This report contains no secrets, private evidence, personal data, or uncoordinated vulnerability details.
+          required: true

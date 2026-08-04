@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.authority-declarations.v1.schema.json",
+  "title": "SCOPA authority declarations v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "declarations"],
+  "properties": {
+    "schema": { "const": "scopa.authority-declarations.v1" },
+    "declarations": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "enum": ["browser", "credentials", "deployment", "external-systems", "provider", "publication"] },
+          "status": { "enum": ["authority-required", "disabled", "uncontrolled"] }
+        }
+      }
+    }
+  }
+}

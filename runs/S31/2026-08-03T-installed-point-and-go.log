@@ -1,0 +1,20 @@
+SCOPA S31 provider-off qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s31
+PASS npm run test:s30
+PASS npm run test:s6
+PASS npm run test:s10
+PASS npm run test:docs
+PASS git diff --check
+
+Observed installed journey:
+- one TASK.txt developer input
+- agent-created policy, capability, and authority documents
+- pre-mutation assurance partial; canStop false; two uncontrolled routes
+- governed write accepted; repository escape denied
+- terminal canStop true; assurance remains partial
+- no target dependency manifest or install tree
+
+No provider, experiment, customer, publication, or release action occurred.

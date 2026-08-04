@@ -1,8 +1,11 @@
 # `scopa`
 
 The developer CLI installs from the root `@heart-ai-foundation/scopa` package.
-The package remains private during the developer-preview arc; S6 validates
-local tarball installation only.
+Install the current public release with lifecycle scripts disabled:
+
+```sh
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+```
 
 Every command except `--help` writes one canonical
 `scopa.cli-result.v1` JSON object.
@@ -14,6 +17,9 @@ Create a closed slice definition in the target repository, then bind it:
 ```sh
 scopa init --definition scopa.slice-definition.json
 ```
+
+See the [slice-definition reference](../../docs/SLICE_DEFINITION.md) and its
+[JSON Schema](../../schemas/scopa.slice-definition.v1.schema.json).
 
 Initialization creates `.scopa/config.json` and
 `.scopa/slice-lock.json`. Existing identical files are left unchanged.
@@ -32,6 +38,31 @@ scopa run --request-json \
 `check` returns exit `4` when any declared verification gate fails. `run`
 submits one raw tool request to the trusted reference host; it is not an agent
 adapter and does not imply Claude or Codex conformance.
+
+## Map the workflow boundary
+
+```sh
+scopa map
+scopa map --matrix capability-matrix.json --authority authority.json
+scopa map --matrix capability-matrix.json --authority authority.json --format markdown
+```
+
+The default result is `scopa.workflow-boundary-map.v1`. Without a capability
+matrix or explicit authority declarations, required surfaces remain `unknown`.
+Markdown output stays inside the canonical CLI envelope as a
+digest-bound `scopa.workflow-boundary-map-render.v1` result.
+
+Create a sanitized offline assessment packet from a saved map, optionally
+compared with a baseline:
+
+```sh
+scopa assess --map current-map.json
+scopa assess --map current-map.json --baseline baseline-map.json
+```
+
+The packet contains structural metrics, committed identifiers, and regression
+polarity. It excludes raw path text, non-goal prose, prompts, gate output,
+provider output, and capability evidence prose.
 
 ## Verify
 

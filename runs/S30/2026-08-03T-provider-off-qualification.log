@@ -1,0 +1,12 @@
+SCOPA S30 provider-off qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s30
+PASS npm run test:s6 (confirmed on rerun after one transient harness failure)
+PASS npm run test:s10
+PASS npm run test:docs
+PASS git diff --check
+
+No MCP surface expansion, provider call, experiment, customer action,
+publication, or release occurred.

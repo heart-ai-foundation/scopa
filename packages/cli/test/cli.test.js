@@ -6,6 +6,7 @@ import {
   mkdir,
   mkdtemp,
   readFile,
+  readdir,
   realpath,
   rm,
   symlink,
@@ -370,10 +371,40 @@ test('packed artifact installs and runs without leaking private build surfaces',
     temporary,
   ]);
   assert.equal(pack.status, 0, pack.stderr || pack.stdout);
-  const manifests = JSON.parse(pack.stdout);
-  assert.equal(manifests.length, 1);
-  const manifest = manifests[0];
-  const paths = manifest.files.map((entry) => entry.path);
+  const archive = path.join(
+    temporary,
+    'heart-ai-foundation-scopa-0.2.0.tgz',
+  );
+  await access(archive);
+  const consumer = path.join(temporary, 'consumer');
+  await mkdir(consumer);
+  await writeFile(
+    path.join(consumer, 'package.json'),
+    '{"name":"scopa-consumer","version":"1.0.0","private":true}\n',
+  );
+  const install = await invoke('npm', consumer, [
+    'install',
+    '--ignore-scripts',
+    '--no-audit',
+    '--no-fund',
+    '--package-lock=false',
+    archive,
+  ]);
+  assert.equal(install.status, 0, install.stderr || install.stdout);
+  const installedPackage = path.join(
+    consumer,
+    'node_modules/@heart-ai-foundation/scopa',
+  );
+  const installedEntries = await readdir(installedPackage, {
+    recursive: true,
+    withFileTypes: true,
+  });
+  const paths = installedEntries
+    .filter((entry) => entry.isFile())
+    .map((entry) => path.relative(
+      installedPackage,
+      path.join(entry.parentPath, entry.name),
+    ).split(path.sep).join('/'));
   for (const forbidden of [
     '.github/',
     'evidence/',
@@ -401,6 +432,8 @@ test('packed artifact installs and runs without leaking private build surfaces',
       'fixtures/S15/claude-live-policy.json',
       'fixtures/S18/deterministic-candidate-matrix.json',
       'fixtures/S18/exact-candidate-soak-plan.json',
+      'fixtures/S31/point-and-go-client.mjs',
+      'fixtures/S31/task.txt',
     ],
     'tarball must contain only the reviewed public fixtures and policy',
   );
@@ -424,23 +457,6 @@ test('packed artifact installs and runs without leaking private build surfaces',
     'raw npm pack must not be mistaken for the qualified candidate path',
   );
   assert.equal(paths.includes('node_modules/fast-uri/package.json'), true);
-
-  const consumer = path.join(temporary, 'consumer');
-  await mkdir(consumer);
-  await writeFile(
-    path.join(consumer, 'package.json'),
-    '{"name":"scopa-consumer","version":"1.0.0","private":true}\n',
-  );
-  const archive = path.join(temporary, manifest.filename);
-  const install = await invoke('npm', consumer, [
-    'install',
-    '--ignore-scripts',
-    '--no-audit',
-    '--no-fund',
-    '--package-lock=false',
-    archive,
-  ]);
-  assert.equal(install.status, 0, install.stderr || install.stdout);
 
   await mkdir(path.join(consumer, '.git'));
   await mkdir(path.join(consumer, 'workspace'));

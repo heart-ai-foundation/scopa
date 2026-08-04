@@ -1,0 +1,35 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S33",
+  "status": "accepted",
+  "providerTraffic": false,
+  "experimentUse": false,
+  "publicationAction": false,
+  "releaseAction": false,
+  "claims": {
+    "missingEvidenceFalseGreenRejected": true,
+    "authorityDeclarationForgeryRejected": true,
+    "installedCleanJourney": true,
+    "freshProcessJourney": true,
+    "documentationJourneyIsPointAndGo": true,
+    "partialAssuranceDisclosed": true,
+    "packageDocumentationReferencesQualified": true,
+    "highSeverityAdvisories": 0
+  },
+  "qualification": {
+    "tests": 288,
+    "passed": 287,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "optional npm 11 command is not configured"
+  },
+  "verification": [
+    "npm run test:s33",
+    "npm run test:s31",
+    "npm test",
+    "npm audit --audit-level=high",
+    "npm run protocol:check",
+    "git diff --check"
+  ],
+  "recommendation": "Accept WBM1-WBM5 for maintainer review and future release planning; publication remains closed pending a separately authorized versioned release qualification."
+}

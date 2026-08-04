@@ -1,0 +1,11 @@
+SCOPA S29 provider-off qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s29
+PASS npm run test:s10
+PASS npm run test:docs
+PASS git diff --check
+
+No provider call, experiment use, customer data, network-dependent runtime,
+publication, or release action occurred.

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.slice-definition.v1.schema.json",
+  "title": "SCOPA slice definition v1",
+  "description": "Closed developer-owned scope and completion contract accepted by scopa init.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "sliceId",
+    "allowedPaths",
+    "amendmentPath",
+    "gates",
+    "nonGoals",
+    "stopCondition"
+  ],
+  "properties": {
+    "schema": {
+      "const": "scopa.slice-definition.v1"
+    },
+    "sliceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "allowedPaths": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/)(?!\\.(?:/\\*\\*)?$)(?!\\./)(?!.*//)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?:[^*]+|[^*]+/\\*\\*)$"
+      }
+    },
+    "amendmentPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!\\.?\\.?$)(?!\\./)(?!.*//)(?!.*\\\\)(?!.*\\*)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "command", "cwd", "timeoutMs"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?:\\.|(?!/)(?!\\./)(?!.*//)(?!.*\\\\)(?!.*\\*)(?!.*(?:^|/)\\.\\.(?:/|$)).+)$"
+          },
+          "timeoutMs": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 300000
+          }
+        }
+      }
+    },
+    "nonGoals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "stopCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "const": "all-gates-pass"
+        }
+      }
+    }
+  }
+}

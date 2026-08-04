@@ -1,5 +1,8 @@
 # Macro Deltas
 
+- `2026-08-03-scopa-workflow-boundary-mapping.md` — principal-directed draft
+  queue for a portable workflow boundary map, point-and-go qualification, and
+  open assessment interoperability with a clean consultation boundary.
 - `2026-07-31-scopa-bundled-production-closure-hardening.md` — proposed,
   digest-gated S19-v2 recovery posture for byte-bound bundled production
   dependencies, followed by the still-closed S20-S23 requalification queue.

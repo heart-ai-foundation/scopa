@@ -1,0 +1,1 @@
+Create workspace/result.txt containing exactly: point-and-go complete

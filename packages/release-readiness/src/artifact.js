@@ -121,17 +121,25 @@ function globPattern(reference) {
   return new RegExp(`${source}(?:/.*)?$`, 'u');
 }
 
-function packedReferenceExists(reference, packedPaths, packed) {
+function packedReferenceExists(reference, documentPath, packedPaths, packed) {
   const normalized = reference.replace(/\/+$/g, '');
-  if (
-    packed.has(normalized) ||
-    packedPaths.some((filePath) => filePath.startsWith(`${normalized}/`))
-  ) {
-    return true;
+  const documentRelative = path.posix.normalize(
+    path.posix.join(path.posix.dirname(documentPath), normalized),
+  );
+  const candidates = [...new Set([normalized, documentRelative])];
+  for (const candidate of candidates) {
+    if (
+      packed.has(candidate) ||
+      packedPaths.some((filePath) => filePath.startsWith(`${candidate}/`))
+    ) {
+      return true;
+    }
+    if (candidate.includes('*') || candidate.includes('?')) {
+      const pattern = globPattern(candidate);
+      if (packedPaths.some((filePath) => pattern.test(filePath))) return true;
+    }
   }
-  if (!normalized.includes('*') && !normalized.includes('?')) return false;
-  const pattern = globPattern(normalized);
-  return packedPaths.some((filePath) => pattern.test(filePath));
+  return false;
 }
 
 export function findMissingPackedDocumentationReferences({
@@ -159,7 +167,14 @@ export function findMissingPackedDocumentationReferences({
     const localText = document.text.replace(EXTERNAL_URI, '');
     for (const match of localText.matchAll(PACKED_DOCUMENT_REFERENCE)) {
       const reference = match[0].replace(/[.,;:]+$/g, '');
-      if (packedReferenceExists(reference, packedPaths, packed)) continue;
+      if (
+        packedReferenceExists(
+          reference,
+          document.path,
+          packedPaths,
+          packed,
+        )
+      ) continue;
       const key = `${document.path}\0${reference}`;
       if (seenMissing.has(key)) continue;
       seenMissing.add(key);

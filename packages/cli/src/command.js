@@ -13,6 +13,15 @@ import {
   initializeProject,
   loadProject,
 } from './project.js';
+import {
+  createWorkflowBoundaryMap,
+  createBoundaryAssessmentPacket,
+  renderWorkflowBoundaryMapMarkdown,
+  validateAuthorityDeclarationDocument,
+} from '../../workflow-boundary-map/src/index.js';
+import {
+  validateCapabilityMatrix,
+} from '../../adapter-host/src/assurance.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
 export const CLI_EXIT = Object.freeze({
@@ -67,6 +76,21 @@ function optionSpec(command) {
     return {
       ...common,
       '--request-json': { name: 'requestJson', required: true },
+    };
+  }
+  if (command === 'map') {
+    return {
+      ...common,
+      '--matrix': { name: 'matrix' },
+      '--authority': { name: 'authority' },
+      '--format': { name: 'format' },
+    };
+  }
+  if (command === 'assess') {
+    return {
+      ...common,
+      '--map': { name: 'map', required: true },
+      '--baseline': { name: 'baseline' },
     };
   }
   if (command === 'verify') {
@@ -235,6 +259,57 @@ async function verifyCommand(options) {
   };
 }
 
+async function readJsonInput(repoRoot, requestedPath, label) {
+  try {
+    return JSON.parse(await readFile(path.resolve(repoRoot, requestedPath), 'utf8'));
+  } catch {
+    throw new CliUsageError(`${label} must be a readable JSON file`);
+  }
+}
+
+async function mapCommand(options) {
+  const format = options.format ?? 'json';
+  if (!['json', 'markdown'].includes(format)) {
+    throw new CliUsageError('--format must be json or markdown');
+  }
+  const project = await loadProject(options.repo);
+  const stopState = await evaluateStopCondition({
+    lock: project.lock,
+    repoRoot: project.repoRoot,
+  });
+  const capabilityMatrix = options.matrix
+    ? validateCapabilityMatrix(await readJsonInput(
+      options.repo,
+      options.matrix,
+      'capability matrix',
+    ))
+    : null;
+  const authorityDocument = options.authority
+    ? validateAuthorityDeclarationDocument(await readJsonInput(
+      options.repo,
+      options.authority,
+      'authority declaration document',
+    ))
+    : null;
+  const map = createWorkflowBoundaryMap({
+    lock: project.lock,
+    stopState,
+    capabilityMatrix,
+    authorityDeclarations: authorityDocument?.declarations ?? [],
+  });
+  return format === 'markdown'
+    ? renderWorkflowBoundaryMapMarkdown(map)
+    : map;
+}
+
+async function assessCommand(options) {
+  const currentMap = await readJsonInput(options.repo, options.map, 'workflow boundary map');
+  const baselineMap = options.baseline
+    ? await readJsonInput(options.repo, options.baseline, 'baseline workflow boundary map')
+    : null;
+  return createBoundaryAssessmentPacket({ currentMap, baselineMap });
+}
+
 export async function executeCommand(argv) {
   const { command, options } = parseCommand(argv);
   if (command === 'init') {
@@ -253,6 +328,28 @@ export async function executeCommand(argv) {
   }
   if (command === 'status' || command === 'check') {
     return stopStateResult(command, options.repo);
+  }
+  if (command === 'map') {
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await mapCommand(options),
+      },
+    };
+  }
+  if (command === 'assess') {
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await assessCommand(options),
+      },
+    };
   }
   if (command === 'run') {
     const project = await loadProject(options.repo);
@@ -291,6 +388,8 @@ export function failureResult(command, error) {
       'SCOPA_INIT_CONFLICT',
       'SCOPA_PROJECT_CONFIG_INVALID',
       'SCOPA_SLICE_LOCK_INVALID',
+      'SCOPA_WORKFLOW_BOUNDARY_MAP_INVALID',
+      'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';
   const verification =

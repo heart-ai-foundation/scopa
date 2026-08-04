@@ -1,0 +1,26 @@
+SCOPA S33 provider-off adversarial usability qualification
+Date: 2026-08-03
+Working directory: /home/dylan/scopa
+
+PASS npm run test:s33
+PASS npm run test:s31 (installed one-task journey and fresh-process map)
+PASS npm test (288 tests: 287 passed, 0 failed, 1 optional npm-11 skip)
+PASS npm audit --audit-level=high (0 vulnerabilities)
+PASS npm run protocol:check
+PASS git diff --check
+
+Adversarial finding: caller-supplied surface status could attempt to relabel a
+missing-evidence surface as controlled. The validator now derives the allowed
+status from source/evidence relationships and rejects the false green.
+
+Qualification finding: the packed-document audit did not resolve sibling links
+relative to their document. It now checks package-root and document-relative
+paths, retains absent-reference rejection, and has regression coverage.
+
+Documentation finding: one slice-definition example used a shell-composed
+string. It now demonstrates a bounded argv array and instructs authors to use a
+separate gate for another command.
+
+No provider/model call, experiment, customer data, hosted truth source,
+telemetry, publication, release, deployment, or external-system mutation
+occurred.

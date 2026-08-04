@@ -28,7 +28,10 @@ jobs:
           cache-dependency-path: packages/interop/requirements-case-validator.txt
 
       - name: Install JavaScript dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+
+      - name: Reject high-severity dependency advisories
+        run: npm audit --audit-level=high
 
       - name: Install independent CASE validator
         run: python -m pip install -r packages/interop/requirements-case-validator.txt

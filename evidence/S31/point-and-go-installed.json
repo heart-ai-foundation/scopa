@@ -1,0 +1,21 @@
+{
+  "schema": "scopa.slice-evidence.v1",
+  "sliceId": "S31",
+  "status": "accepted",
+  "providerTraffic": false,
+  "sourceFreeInstalled": true,
+  "developerInputs": ["SCOPA_AGENT.md", "one task"],
+  "preMutation": {
+    "assurance": "partial",
+    "canStop": false,
+    "uncontrolledRoutes": 2
+  },
+  "terminal": {
+    "allowedWrite": true,
+    "escapeDenied": true,
+    "canStop": true,
+    "assurance": "partial"
+  },
+  "targetDependencyManifestCreated": false,
+  "targetInstallTreeCreated": false
+}

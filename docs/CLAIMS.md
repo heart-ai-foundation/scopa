@@ -1,86 +1,90 @@
-# SCOPA developer-preview claims
+# Claims and non-claims
 
-## Verified claims
+This document defines the public assurance language for SCOPA `0.2.x`. Claims
+are relative to the exact package, configuration, trust policy, integration,
+and evidence named by the verifier.
 
-- The packed package installs in a source-free local repository.
-- Registered SCOPA mutations pass through the trusted dispatcher.
-- Escaping writes receive a correction-bearing scope denial before execution.
-- Real failing gates remain blocked regardless of model prose.
-- Persisted control state supports cold process restart.
-- Signed native packets can be verified independently with caller trust
-  policy.
-- The S8 Claude and S9 Codex fixtures share four behavior outcomes.
-- Package and proof receipts bind exact bytes and redact private paths.
-- Claude and Codex use one bounded process-group supervisor whose deterministic
-  S14 faults close success, exit, signal, timeout, output limit, spawn failure,
-  drift, normalization, and cleanup outcomes as machine-readable data.
-- S14 live receipts bind exact installed identity and sanitized policy without
-  raw environment values; public live evidence binds private bytes and exposes
-  only designated redactions.
-- Four S15 requests against one exact installed Claude candidate preserved
-  false-green polarity, SCOPA-only callable tools, stable account binding,
-  finite evidence, process-group cleanup, and bounded non-resumable provider
-  metadata. Three restart/read observations used explicitly reconstructed
-  synthetic state after an earlier evidence loss.
-- A separately authorized two-request S15 remedial campaign against exact
-  installed candidate `6235d647` directly preserved denied-path polarity and
-  then read the produced state in fresh Claude/bridge processes over the same
-  disposable repository lineage. Both runs exposed only the six SCOPA tools,
-  retained `partial` assurance, left no provider-store or process residue, and
-  cost USD `0.1004578` against a USD `0.40` ceiling.
-- The S16 deterministic Codex corpus closes 21 core, drift, refusal, timeout,
-  truncation, usage/capture, repeat, and cleanup outcomes without provider
-  traffic. Its published policy binds an explicitly approved four-call
-  allowance, exact token ceilings, an environment allowlist, evidence
-  retention, cleanup, and stop conditions. Provider execution is not claimed
-  until retained live evidence exists. Its first production attempt stopped
-  locally on client-version drift before provider launch and consumed zero
-  provider calls.
-- The fresh S16-v2 policy separately binds Codex CLI 0.146.0, four approved
-  one-turn scenarios, the prior token/time/capture ceilings, a distinct
-  `S16R2` evidence namespace, and stop-on-first-failure behavior. It stopped
-  after one correct clean provider outcome when the isolated client store
-  exceeded the audit bound; three calls were not launched and no campaign
-  qualification is claimed.
-- The proposed S16-v3 continuation is a distinct closed policy for only the
-  three never-launched scenarios. It has no provider authority and no live
-  result until the exact policy and fresh `S16R3` destination are explicitly
-  approved.
+## Runtime claims
+
+The public package is designed and tested to provide the following within its
+trusted-host boundary:
+
+- closed, hash-bound slice definitions with exact files or `/**` subtrees;
+- repository-escape, symlink-alias, and hard-link mutation denial;
+- parent-directory binding and topology revalidation before governed writes;
+- real argv-based verification gates with finite output, timeout, and
+  process-tree cleanup;
+- machine stop state that cannot be overridden by model prose;
+- compact, hash-verified continuity state across fresh processes;
+- deterministic effect journals and independently verifiable evidence packets;
+- optional RFC 3161 timestamp verification under relying-party-supplied trust;
+- deterministic CASE/UCO 1.4 export with native-packet recovery; and
+- stable, versioned JSON result and error envelopes.
+
+## Package and adapter claims
+
+- `@heart-ai-foundation/scopa` installs without lifecycle scripts.
+- Qualified release candidates bundle the reviewed production dependency
+  closure and are tested from a source-free consumer directory.
+- `scopa-mcp` exposes six closed tools and has no independent mutation,
+  process, network, browser, or plugin primitive.
+- Adapter transcripts bind the actual MCP client identity and a validated
+  capability matrix.
+- Unknown tools, malformed frames, duplicate or exhausted request IDs,
+  excessive frames, output backpressure, and transcript-capacity exhaustion
+  fail within finite bounds.
+- Live-run receipts bind exact installed identity, client profile, requested
+  model, scenario, limits, capability matrix, and sanitized environment policy.
+- Receipt metadata does not retain raw prompts, tool arguments, environment
+  values, repository roots, or provider output.
 
 ## Adapter assurance
 
-The deterministic stream-only S7/S10 client can earn `full` assurance relative
-to its closed enumerated surface because it has no native write, process,
-network, or extension primitive. Claude Code and Codex are separately labeled
-`partial`; each retains documented uncontrolled provider or native routes.
+Assurance is computed against an enumerated capability surface:
+
+- the deterministic model-neutral fixture may earn `full` assurance because
+  it exposes no native write, process, network, or extension route; and
+- Claude Code and Codex remain `partial` because reviewed provider and native
+  capabilities remain outside SCOPA.
+
+`Full` never means universally secure. It means that the named fixture has no
+active uncontrolled capability in the matrix being evaluated. A successful
+scenario on one adapter does not transfer assurance to another.
+
+## Evidence interpretation
+
+- A hash binds bytes; it does not authenticate where the expected hash came
+  from.
+- A software signature proves possession of the signing key; it does not prove
+  human identity, hardware custody, or provider identity.
+- An RFC 3161 result proves the asserted timestamp under the caller's roots,
+  signer pin, and verification policy. Offline verification records when
+  certificate revocation was not checked.
+- CASE validation proves graph conformance; it does not verify SCOPA's native
+  cryptography or provenance.
+- A launcher-observed model string is not provider-signed provenance. Requested
+  aliases are labeled as aliases, not immutable model snapshots.
 
 ## Non-claims
 
 SCOPA does not:
 
-- provide an operating-system sandbox or protect against a separately
-  privileged local process;
-- attest provider identity, immutable model snapshots, model-alias resolution,
+- provide an operating-system sandbox, container boundary, EDR, or protection
+  from a separately privileged local process;
+- control native capabilities that a launcher leaves outside the SCOPA tool
+  surface;
+- attest provider identity, account ownership, immutable model snapshots,
   human identity, or hardware-backed key provenance without separate evidence;
-- turn CASE graph validation into cryptographic verification;
+- guarantee complete workflow capture, provider telemetry, billing accuracy,
+  or external client-store cleanup beyond the measured policy;
 - make Claude/Codex behavior parity a full-assurance claim;
-- treat the accepted S15 remedial result as provider certification, an
-  immutable model snapshot, or evidence beyond its exact candidate, policy,
-  client, account boundary, and two recorded scenarios;
-- treat S16 deterministic qualification or its approved policy as real Codex
-  production evidence, account verification, or authority beyond its exact
-  four calls;
-- treat the zero-call S16 version-drift stop as live provider evidence or
-  authority to replay the stopped campaign;
-- treat the one-call S16-v2 clean outcome as campaign acceptance, evidence for
-  the three unlaunched scenarios, or authority to replay;
-- guarantee the completeness of external vulnerability databases;
-- constitute legal advice, formal compliance certification, or production
-  authorization;
-- create a hosted service, production deployment authorization, trademark
-  exclusivity, formal certification, or customer-specific assurance.
+- turn CASE graph validation into cryptographic verification;
+- guarantee that vulnerability databases are complete or current;
+- provide legal advice, production authorization, or formal compliance
+  certification;
+- create a hosted service, customer-specific assurance, or trademark
+  exclusivity; or
+- make verification depend on a paid consultation offering.
 
-Every claim is relative to the recorded version, fixture, tool inventory,
-capability matrix, and trust policy. A recorded
-`snapshotStatus: "requested-alias-not-snapshot"` is an explicit provenance
-limit, not an immutable model-version claim.
+Historical live-run policies, budgets, and approvals are retained evidence.
+They are not reusable authority for new provider traffic.

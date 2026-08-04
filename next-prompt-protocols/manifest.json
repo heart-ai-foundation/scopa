@@ -3,15 +3,21 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "1345fb8",
-  "current_phase": "phase-10-r1-public-release-finalization",
-  "phase_scope": "Finalize and provider-off qualify the actual public 0.2.0 bytes and a closed exact execution matrix; all public actions remain disabled.",
-  "macro_delta": "macro-deltas/2026-08-03-scopa-r1-public-release-finalization.md",
-  "active_protocol": "active/2026-08-03-R1F-public-release-finalization.md",
-  "active_objective": "Produce one exact public 0.2.0 artifact and closed release-execution matrix for separate digest approval without provider, experiment, or publication action.",
-  "active_class": "arc",
+  "current_commit": "09e5c908",
+  "current_phase": "phase-11-workflow-boundary-mapping",
+  "phase_scope": "Create a portable deterministic workflow boundary map, point-and-go developer experience, and free offline assessment interoperability without provider, customer, publication, or release action.",
+  "macro_delta": "macro-deltas/2026-08-03-scopa-workflow-boundary-mapping.md",
+  "active_protocol": null,
+  "active_objective": "Phase 11 is complete. No implementation, provider, experiment, publication, release, customer, or external-system action is authorized.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-03-S33-adversarial-usability-qualification.md",
+    "completed/2026-08-03-S32-portable-assessment-interoperability.md",
+    "completed/2026-08-03-S31-point-and-go-installed-journey.md",
+    "completed/2026-08-03-S30-boundary-map-cli.md",
+    "completed/2026-08-03-S29-workflow-boundary-map-contract.md",
+    "completed/2026-08-03-R1F-public-release-finalization.md",
     "completed/2026-08-03-S28-r1-go-no-go-decision.md",
     "completed/2026-08-02-S27-compressed-release-consistency-review.md",
     "completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md",
@@ -47,6 +53,7 @@
   "allowed_files": [
     "package.json",
     "package-lock.json",
+    "SCOPA_AGENT.md",
     ".github/workflows/case-validation.yml",
     "production-bundle.json",
     "README.md",
@@ -56,6 +63,16 @@
     "packages/enforcement/**",
     "packages/conformance/**",
     "packages/cli/**",
+    "packages/agent-surface/**",
+    "packages/workflow-boundary-map/**",
+    "fixtures/S29/**",
+    "fixtures/S30/**",
+    "fixtures/S31/**",
+    "fixtures/S32/**",
+    "fixtures/S33/**",
+    "notes/S29/**",
+    "runs/S29/**",
+    "evidence/S29/**",
     "fixtures/S20/**",
     "fixtures/S23/**",
     "fixtures/S24/**",
@@ -100,7 +117,7 @@
     "No dependency upgrade, fork, patch, minimization, or rewrite",
     "No proprietary verifier, online activation, telemetry, or paid truth source",
     "No customer repository, customer data, production deployment, or uncontrolled mutation",
-    "No new public CLI command, bin, provider integration, tool, effect category, trust class, or assurance level",
+    "No new provider integration, MCP mutation tool, effect category, trust class, or assurance level",
     "No operating-system sandbox or full-provider-assurance claim",
     "No weakening or removal of the six-tool adapter, scope dispatcher, verifier, known-failing fixtures, hostile corpora, or independently useful free functionality",
     "No credential value, authorization header, raw environment map, provider raw session, private root, customer content, screenshot, token fragment, or rotation secret in repository evidence",
@@ -111,8 +128,8 @@
     "No provider/model call or experiment use during R1 finalization"
   ],
   "verification": {
-    "fast_deterministic": "node --test packages/release-readiness/test/r1-public-release.test.js",
-    "installed_probe": "npm run probe:s12:installed",
+    "fast_deterministic": "node --test packages/workflow-boundary-map/test/adversarial.test.js",
+    "installed_probe": "npm run test:s33",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
@@ -996,6 +1013,67 @@
         }
       ]
     },
+    "workflow-boundary-map": {
+      "root": [
+        "SCOPA_AGENT.md",
+        "README.md",
+        "docs",
+        "schemas",
+        "packages/workflow-boundary-map",
+        "packages/cli",
+        "fixtures/S29",
+        "fixtures/S30",
+        "fixtures/S31",
+        "fixtures/S32",
+        "fixtures/S33",
+        "notes/S29",
+        "runs/S29",
+        "evidence/S29"
+      ],
+      "owner": "Heart AI Foundation",
+      "exit_contracts": [
+        {
+          "id": "WBM1",
+          "statement": "A closed deterministic map represents controlled, uncontrolled, unknown, and authority-sensitive workflow surfaces without overstating assurance.",
+          "status": "satisfied",
+          "verifies_via": "Schema corpus, pure generator hostility, missing-capability polarity, and canonical-byte reproduction",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Workflow Boundary Mapping Macro Delta S29"
+        },
+        {
+          "id": "WBM2",
+          "statement": "Initialized SCOPA state projects matching machine-readable and human-readable boundary maps through a stable provider-off CLI.",
+          "status": "satisfied",
+          "verifies_via": "CLI integration, stale-state rejection, JSON and Markdown semantic parity, and no-mutation proof",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Workflow Boundary Mapping Macro Delta S30"
+        },
+        {
+          "id": "WBM3",
+          "statement": "One agent entry plus one task produces and consumes the map from a source-free installation without manual SCOPA setup or dependency-manifest mutation.",
+          "status": "satisfied",
+          "verifies_via": "Installed point-and-go consumer fixture with allowed and denied polarity, gates, and assurance honesty",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Workflow Boundary Mapping Macro Delta S31"
+        },
+        {
+          "id": "WBM4",
+          "statement": "Boundary maps validate, compare, and export as sanitized portable assessment packets without a paid or hosted dependency.",
+          "status": "satisfied",
+          "verifies_via": "Offline round trip, semantic diff, redaction hostility, and no-network qualification",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Workflow Boundary Mapping Macro Delta S32"
+        },
+        {
+          "id": "WBM5",
+          "statement": "Fresh installed-surface qualification rejects false confidence and demonstrates developer-legible control boundaries.",
+          "status": "satisfied",
+          "verifies_via": "Provider-off adversarial usability suite and optional separately approved outside-model evaluation",
+          "discovered_on": "2026-08-03",
+          "discovered_because": "Workflow Boundary Mapping Macro Delta S33"
+        }
+      ]
+    },
     "gate-process-custody": {
       "root": [
         "packages/enforcement",
@@ -1035,5 +1113,5 @@
       ]
     }
   },
-  "stop_condition": "Stop on historical receipt drift, final-byte nondeterminism, publish-dry-run failure, credential overclaim, any public action, unrelated change, or hosted failure; exact execution approval is separate."
+  "stop_condition": "Stop on material false-green, privacy leak, installed or cold-process failure, advisory, documentation contradiction, ceremony, or provider, experiment, customer, publication, release, or external-system authority."
 }

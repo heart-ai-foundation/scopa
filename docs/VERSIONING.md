@@ -1,11 +1,13 @@
 # SCOPA versioning
 
-`0.2.0` is SCOPA's first public stable release of the bounded runtime and its
+`0.2.0` is SCOPA's first public release of the bounded runtime and its
 documented evidence contracts. It is published under Apache-2.0.
 
-SCOPA follows semantic-versioning syntax for working release identifiers:
+SCOPA follows Semantic Versioning syntax and treats compatibility deliberately:
 
-- `MAJOR` may change when the public contract becomes incompatible;
+- while the major version is `0`, incompatible changes may occur in a minor
+  release and must be documented prominently;
+- after `1.0.0`, `MAJOR` changes the public contract incompatibly;
 - `MINOR` may add compatible runtime or evidence capability;
 - `PATCH` may correct compatible behavior;
 - prerelease suffixes identify non-stable candidates and do not receive the
@@ -16,5 +18,7 @@ boundaries independent of the npm package number. A package version increase
 does not silently rename or reinterpret historical records.
 
 `0.2.0` does not create a long-term-support window, hosted-service promise,
-formal certification, or stable `1.0.0` commitment. Each future release still
-requires an evidence-backed decision and separately authorized execution.
+formal certification, or `1.0.0` compatibility commitment. Patch releases may
+ship bounded security, bug, dependency, test, and documentation maintenance
+without inventing a new product roadmap. Public release execution remains a
+separate, reviewable action.

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.boundary-assessment-packet.v1.schema.json",
+  "title": "SCOPA sanitized boundary assessment packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "bindings", "posture", "metrics", "comparison", "privacy"],
+  "properties": {
+    "schema": { "const": "scopa.boundary-assessment-packet.v1" },
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["currentMapSha256", "baselineMapSha256"],
+      "properties": {
+        "currentMapSha256": { "$ref": "#/$defs/sha256" },
+        "baselineMapSha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+      }
+    },
+    "posture": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "reasons"],
+      "properties": {
+        "status": { "enum": ["bounded", "review-required"] },
+        "reasons": { "type": "array", "uniqueItems": true, "items": { "enum": ["completion-blocked", "unknown-surfaces", "uncontrolled-surfaces", "baseline-regressions"] } }
+      }
+    },
+    "metrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["canStop", "assurance", "surfaces"],
+      "properties": {
+        "canStop": { "type": "boolean" },
+        "assurance": { "enum": ["full", "partial", "unknown"] },
+        "surfaces": {
+          "type": "object", "additionalProperties": false,
+          "required": ["total", "controlled", "uncontrolled", "unknown", "authorityRequired", "disabled"],
+          "properties": {
+            "total": { "$ref": "#/$defs/count" }, "controlled": { "$ref": "#/$defs/count" },
+            "uncontrolled": { "$ref": "#/$defs/count" }, "unknown": { "$ref": "#/$defs/count" },
+            "authorityRequired": { "$ref": "#/$defs/count" }, "disabled": { "$ref": "#/$defs/count" }
+          }
+        }
+      }
+    },
+    "comparison": {
+      "type": "object", "additionalProperties": false,
+      "required": ["total", "regressions", "improvements", "neutral", "changes"],
+      "properties": {
+        "total": { "$ref": "#/$defs/count" }, "regressions": { "$ref": "#/$defs/count" },
+        "improvements": { "$ref": "#/$defs/count" }, "neutral": { "$ref": "#/$defs/count" },
+        "changes": { "type": "array", "items": { "$ref": "#/$defs/change" } }
+      }
+    },
+    "privacy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["projection", "excluded"],
+      "properties": {
+        "projection": { "const": "structural-v1" },
+        "excluded": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "count": { "type": "integer", "minimum": 0 },
+    "change": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "category", "idSha256", "before", "after", "polarity"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 }, "category": { "type": "string", "minLength": 1 },
+        "idSha256": { "$ref": "#/$defs/sha256" },
+        "before": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "after": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "polarity": { "enum": ["regression", "improvement", "neutral"] }
+      }
+    }
+  }
+}

@@ -13,6 +13,8 @@ Usage:
   scopa init --definition <file> [--repo <directory>]
   scopa status [--repo <directory>]
   scopa check [--repo <directory>]
+  scopa map [--matrix <file>] [--authority <file>] [--format json|markdown] [--repo <directory>]
+  scopa assess --map <file> [--baseline <file>] [--repo <directory>]
   scopa run --request-json <json> [--repo <directory>]
   scopa verify (--packet <file> | --case-export <file>) [trust options] [--repo <directory>]
 

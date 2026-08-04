@@ -5,7 +5,7 @@
 **Crosses:** [`release-readiness`, `release-requalification`, `dependency-closure-identity`]
 **Advances contracts:** [`DCI3`]
 **Compound:** false
-**Status:** active; publication closed
+**Status:** completed; public `0.2.0` release and npm remediation verified
 
 ## Why this exists
 
