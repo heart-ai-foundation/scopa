@@ -3,6 +3,10 @@
 `0.2.0` is SCOPA's first public release of the bounded runtime and its
 documented evidence contracts. It is published under Apache-2.0.
 
+`0.3.0` adds the point-and-go agent entry, Workflow Boundary Map, offline
+assessment, and Boundary Doctor. It preserves the `0.2.0` command behavior and
+versioned evidence contracts while adding new interfaces.
+
 SCOPA follows Semantic Versioning syntax and treats compatibility deliberately:
 
 - while the major version is `0`, incompatible changes may occur in a minor

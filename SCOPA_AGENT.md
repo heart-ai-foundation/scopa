@@ -70,7 +70,7 @@ dependencies:
 2. when working in the SCOPA source repository, use
    `node packages/cli/src/cli.js`; otherwise
 3. use
-   `npx --yes --package @heart-ai-foundation/scopa@0.2.0 scopa`.
+   `npx --yes --package @heart-ai-foundation/scopa@0.3.0 scopa`.
 
 In the commands below, `scopa` means the launcher selected here. Check its
 `--help` output and do not assume that a command exists in every release.
@@ -168,11 +168,10 @@ If that runtime lists `map`, also run:
 scopa map --matrix scopa.capability-matrix.json --authority scopa.authority-declarations.json
 ```
 
-Public `0.2.0` provides the enforcement baseline but does not include `doctor`
-or `map`. With that runtime, inspect `scopa status`, retain the matrix and
-authority declarations for review, and report that a runtime-computed Workflow
-Boundary Map was unavailable. Do not promote the result above partial
-assurance.
+With an older runtime that does not provide `map`, inspect `scopa status`,
+retain the matrix and authority declarations for review, and report that a
+runtime-computed Workflow Boundary Map was unavailable. Do not promote the
+result above partial assurance.
 
 Inspect the pre-mutation map. Unknown evidence must remain `unknown`, and any
 native bypass must keep assurance `partial`. Do not begin product mutation if

@@ -17,6 +17,10 @@ import {
   createMcpMessageHandler,
 } from '../../packages/adapter-host/src/index.js';
 
+const PACKAGE = JSON.parse(
+  await readFile(new URL('../../package.json', import.meta.url), 'utf8'),
+);
+
 function parseArgs(argv) {
   const options = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -60,7 +64,7 @@ async function exerciseClient({ send, notify }) {
       capabilities: {},
       clientInfo: {
         name: 'scopa-consumer-fixture',
-        version: '0.2.0',
+        version: PACKAGE.version,
       },
     },
   });

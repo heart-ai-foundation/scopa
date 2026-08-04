@@ -20,6 +20,9 @@ import {
 
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(new URL('../../..', import.meta.url).pathname);
+const PACKAGE = JSON.parse(
+  await readFile(path.join(ROOT, 'package.json'), 'utf8'),
+);
 
 let commandSequence = 0;
 
@@ -54,7 +57,7 @@ test('packed doctor completes a source-free zero-state-to-lock journey in clean 
   });
   const archive = path.join(
     temporary,
-    'heart-ai-foundation-scopa-0.2.0.tgz',
+    `heart-ai-foundation-scopa-${PACKAGE.version}.tgz`,
   );
   await access(archive);
 

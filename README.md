@@ -1,5 +1,9 @@
 # SCOPA
 
+[![npm version](https://img.shields.io/npm/v/@heart-ai-foundation/scopa)](https://www.npmjs.com/package/@heart-ai-foundation/scopa)
+[![release gate](https://github.com/heart-ai-foundation/scopa/actions/workflows/case-validation.yml/badge.svg)](https://github.com/heart-ai-foundation/scopa/actions/workflows/case-validation.yml)
+[![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
 SCOPA is an open-source runtime for bounded, verifiable coding-agent work. It
 turns four questions into local, machine-checkable controls:
 
@@ -42,7 +46,8 @@ Boundary Doctor gives a read-only, repository-specific diagnosis before
 `.scopa/` exists:
 
 ```sh
-node packages/cli/src/cli.js doctor --format markdown --repo /path/to/project
+npx --yes --package @heart-ai-foundation/scopa@0.3.0 \
+  scopa doctor --format markdown --repo /path/to/project
 ```
 
 It makes no model call or network probe. It reports observed repository
@@ -50,10 +55,6 @@ markers, honest absence, unknown evidence, and completion candidates without
 claiming to know an agent's permissions. After review, `doctor --lock` can
 convert explicit scope, capability, and authority declarations into locked
 SCOPA state. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
-
-Boundary Doctor is available on `main`, not in the published `0.2.0` package.
-The [release-status table](#current-source-and-public-release) lists the exact
-difference.
 
 ## How it works
 
@@ -82,18 +83,12 @@ deploy, use credentials, or change an external system.
 | `@heart-ai-foundation/scopa/claude` | Launch the reviewed Claude Code profile | [Claude](packages/integrations/claude/README.md) |
 | `@heart-ai-foundation/scopa/codex` | Launch the reviewed Codex profile | [Codex](packages/integrations/codex/README.md) |
 
-## Current source and public release
+## Status
 
-| Capability | `main` | npm `0.2.0` |
-| --- | :---: | :---: |
-| Locked scope, governed writes, gates, and evidence verification | Yes | Yes |
-| Model-neutral MCP, Claude Code, and Codex integrations | Yes | Yes |
-| Workflow Boundary Map and offline assessment | Yes | No |
-| Boundary Doctor and atomic `doctor --lock` | Yes | No |
-
-Use `scopa --help` to confirm the commands in an installed build. Source-only
-commands can be run from this checkout as `node packages/cli/src/cli.js ...`.
-
+- **Current public release:** `0.3.0`
+- **Package:** `@heart-ai-foundation/scopa`
+- **Included:** enforcement runtime, Boundary Doctor, Workflow Boundary Map,
+  offline assessment, model-neutral MCP, Claude Code, and Codex integrations
 - **License:** Apache-2.0
 - **Runtime:** Node.js 22 or newer
 - **Platforms:** the CLI is portable; process-tree gate custody currently
@@ -106,7 +101,7 @@ commands can be run from this checkout as `node packages/cli/src/cli.js ...`.
 Install the current public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
 ```
 
 Then initialize and check a repository that contains a closed slice definition:
@@ -165,9 +160,9 @@ compare the npm integrity and tarball values with the checksum published in the
 corresponding GitHub Release:
 
 ```sh
-npm view @heart-ai-foundation/scopa@0.2.0 dist.integrity
-npm view @heart-ai-foundation/scopa@0.2.0 dist.tarball
-sha256sum heart-ai-foundation-scopa-0.2.0.tgz
+npm view @heart-ai-foundation/scopa@0.3.0 dist.integrity
+npm view @heart-ai-foundation/scopa@0.3.0 dist.tarball
+sha256sum heart-ai-foundation-scopa-0.3.0.tgz
 ```
 
 From a source checkout, use `npm run pack:candidate`; raw `npm pack` is not the

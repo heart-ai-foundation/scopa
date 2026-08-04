@@ -122,6 +122,7 @@ export async function auditReleasePolicies({ root }) {
     add(
       'release-posture-public-target',
       posture.publication.npm === true &&
+        posture.version === RELEASE_VERSION &&
         posture.publication.githubRelease === true &&
         posture.publication.publicRelease === true &&
         posture.publication.production === false &&

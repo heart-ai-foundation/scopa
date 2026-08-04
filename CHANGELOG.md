@@ -6,6 +6,19 @@ compatibility policy.
 
 ## Unreleased
 
+## 0.3.0 — 2026-08-03
+
+### Added
+
+- Add the self-contained `SCOPA_AGENT.md` point-and-go workflow: give a coding
+  agent one file and one task without preinstalling SCOPA or authoring policy
+  JSON.
+- Add deterministic Workflow Boundary Maps with explicit controlled,
+  uncontrolled, unknown, disabled, and authority-required surfaces.
+- Add sanitized offline boundary assessments and baseline comparison.
+- Add the read-only Boundary Doctor diagnosis, privacy-minimized Markdown
+  reports, and atomic `doctor --lock` conversion.
+
 ### Security
 
 - Update the transitive `fast-uri` dependency from `3.1.4` to patched `3.1.5`
@@ -21,7 +34,7 @@ compatibility policy.
 
 ### Documentation
 
-- Rebuild the repository landing page around a five-minute developer path and
+- Rebuild the repository landing page around the one-prompt developer path and
   progressive disclosure.
 - Add architecture, integration, slice-definition, troubleshooting, support,
   and community-contribution guidance.
@@ -29,6 +42,8 @@ compatibility policy.
   runtime contract.
 - Reconcile preview-era security, claims, governance, and threat-model text
   with the public `0.2.x` posture.
+- Clearly distinguish historical `0.2.0` evidence from the current package
+  identity and make release schemas reusable across stable versions.
 
 ## 0.2.0 — 2026-08-03
 

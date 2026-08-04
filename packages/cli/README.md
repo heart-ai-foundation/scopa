@@ -4,27 +4,19 @@ The `scopa` command is installed by the root
 `@heart-ai-foundation/scopa` package. Every command except `--help` writes one
 canonical `scopa.cli-result.v1` JSON object.
 
-## Availability
-
-This page documents the current `main` branch. The public `0.2.0` package
-contains `init`, `status`, `check`, `run`, and `verify`. The `doctor`, `map`,
-and `assess` commands were added later and are not in that tarball.
-
-| Runtime | How to run it |
-| --- | --- |
-| Current source | `node packages/cli/src/cli.js <command>` |
-| Public `0.2.0` | `scopa <command>` after installation |
+## Install and run
 
 Install the public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
 ```
 
-Always use `scopa --help` to confirm the commands available in an installed
-build.
+The examples below use `scopa` as the command name. After a local installation,
+run it as `npx scopa` or from an npm script. From a source checkout, use
+`node packages/cli/src/cli.js`.
 
-## Diagnose and lock (`main`)
+## Diagnose and lock
 
 Inspect a repository without creating `.scopa/` or running discovered commands:
 
@@ -77,7 +69,7 @@ scopa run --request-json \
 - `run` submits one tool request to the trusted reference host. It is not an
   agent adapter and does not imply Claude or Codex conformance.
 
-## Map and assess (`main`)
+## Map and assess
 
 Create a deterministic Workflow Boundary Map:
 

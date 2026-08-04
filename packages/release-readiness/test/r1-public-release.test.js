@@ -18,11 +18,11 @@ function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
 }
 
-test('R1 package and lock carry only the approved public stable identity', async () => {
+test('current package and lock carry the supported public stable identity', async () => {
   const packageJson = await json('package.json');
   const lock = await json('package-lock.json');
   assert.equal(packageJson.name, '@heart-ai-foundation/scopa');
-  assert.equal(packageJson.version, '0.2.0');
+  assert.equal(packageJson.version, '0.3.0');
   assert.equal(packageJson.private, false);
   assert.deepEqual(packageJson.publishConfig, { access: 'public', tag: 'latest' });
   assert.equal(packageJson.files.includes('RELEASE_NOTES.md'), true);
@@ -35,9 +35,9 @@ test('R1 package and lock carry only the approved public stable identity', async
   assert.deepEqual(consumer.publishConfig, packageJson.publishConfig);
 });
 
-test('R1 posture names exact public channels but not hosted production', async () => {
+test('current posture names exact public channels but not hosted production', async () => {
   const posture = await json('docs/release-posture.json');
-  assert.equal(posture.version, '0.2.0');
+  assert.equal(posture.version, '0.3.0');
   assert.deepEqual(posture.publication, {
     repositoryVisibility: 'public',
     artifactChannel: 'npm-and-github-release',
@@ -81,7 +81,7 @@ test('stable migration preserves the exact approved S28 decision', async () => {
 
 test('release notes state install surface and bounded non-claims', async () => {
   const notes = await readFile(path.join(ROOT, 'RELEASE_NOTES.md'), 'utf8');
-  assert.match(notes, /@heart-ai-foundation\/scopa@0\.2\.0/);
+  assert.match(notes, /@heart-ai-foundation\/scopa@0\.3\.0/);
   assert.match(notes, /Apache-2\.0/);
   assert.match(notes, /not an operating-system sandbox/);
   assert.match(notes, /no install lifecycle scripts/);

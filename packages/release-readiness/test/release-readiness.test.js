@@ -15,6 +15,7 @@ import {
 import {
   CONSUMER_NON_CLAIMS,
   CONSUMER_VERIFIED_CLAIMS,
+  RELEASE_VERSION,
   RELEASE_SCHEMAS,
   auditReleasePolicies,
   createPublicConsumerProof,
@@ -38,7 +39,7 @@ function releasePosture() {
     schema: RELEASE_SCHEMAS.posture,
     project: 'SCOPA',
     publisher: 'Heart AI Foundation',
-    version: '0.2.0',
+    version: RELEASE_VERSION,
     license: 'Apache-2.0',
     contributions: {
       model: 'DCO-1.1',
@@ -81,8 +82,8 @@ function candidateManifest() {
     },
     package: {
       name: '@heart-ai-foundation/scopa',
-      version: '0.2.0',
-      filename: 'heart-ai-foundation-scopa-0.2.0.tgz',
+      version: RELEASE_VERSION,
+      filename: `heart-ai-foundation-scopa-${RELEASE_VERSION}.tgz`,
       entryCount: 1,
       packedBytes: 1,
       unpackedBytes: 1,
@@ -156,7 +157,7 @@ function consumerProof() {
 
 test('root package carries the approved public stable identity', () => {
   assert.equal(PACKAGE.name, '@heart-ai-foundation/scopa');
-  assert.equal(PACKAGE.version, '0.2.0');
+  assert.equal(PACKAGE.version, RELEASE_VERSION);
   assert.equal(PACKAGE.private, false);
   assert.deepEqual(PACKAGE.publishConfig, { access: 'public', tag: 'latest' });
   assert.equal(PACKAGE.license, 'Apache-2.0');
@@ -194,7 +195,7 @@ test('candidate manifest is closed, sorted, normalized, and identity-bound', () 
     /contract violation/,
   );
   const wrong = candidateManifest();
-  wrong.package.version = '0.2.1';
+  wrong.package.version = '0.3.1';
   assert.throws(
     () => validateCandidateManifest(wrong),
     /contract violation/,

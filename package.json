@@ -1,17 +1,23 @@
 {
   "name": "@heart-ai-foundation/scopa",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "publishConfig": {
     "access": "public",
     "tag": "latest"
   },
   "license": "Apache-2.0",
-  "description": "Open enforcement runtime for bounded, verifiable autonomous coding work",
+  "description": "Local enforcement runtime for bounded, verifiable coding-agent workflows",
   "keywords": [
     "agentic-ai",
+    "agentic-workflows",
+    "agent-governance",
     "autonomous-agents",
+    "claude-code",
+    "codex",
     "coding-agents",
+    "developer-tools",
+    "llm-security",
     "mcp",
     "model-context-protocol",
     "policy-enforcement",

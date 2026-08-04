@@ -40,6 +40,9 @@ const runtime = await import(pathToFileURL(path.join(
   'command.js',
 )));
 const task = await readFile(path.resolve(options.task), 'utf8');
+const packageMetadata = JSON.parse(
+  await readFile(new URL('../../package.json', import.meta.url), 'utf8'),
+);
 if (task.trim() !== 'Create workspace/result.txt containing exactly: point-and-go complete') {
   throw new Error('unexpected deterministic task');
 }
@@ -65,8 +68,8 @@ const definition = {
 const matrix = {
   schema: 'scopa.capability-matrix.v1',
   subject: {
-    adapter: 'SCOPA_AGENT.md@0.2.0',
-    client: 'point-and-go-consumer@0.2.0',
+    adapter: `SCOPA_AGENT.md@${packageMetadata.version}`,
+    client: `point-and-go-consumer@${packageMetadata.version}`,
     transport: 'native-agent-session',
   },
   capabilities: [

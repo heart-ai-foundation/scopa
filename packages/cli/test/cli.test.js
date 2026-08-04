@@ -29,6 +29,9 @@ const CLEAN_DEFINITION = JSON.parse(
     'utf8',
   ),
 );
+const PACKAGE = JSON.parse(
+  await readFile(path.join(ROOT, 'package.json'), 'utf8'),
+);
 
 async function repository(context, {
   definition = CLEAN_DEFINITION,
@@ -373,7 +376,7 @@ test('packed artifact installs and runs without leaking private build surfaces',
   assert.equal(pack.status, 0, pack.stderr || pack.stdout);
   const archive = path.join(
     temporary,
-    'heart-ai-foundation-scopa-0.2.0.tgz',
+    `heart-ai-foundation-scopa-${PACKAGE.version}.tgz`,
   );
   await access(archive);
   const consumer = path.join(temporary, 'consumer');

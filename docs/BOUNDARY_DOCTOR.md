@@ -4,8 +4,8 @@
 agent-workflow surface. It works before `.scopa/` exists, requires no target
 dependency, and does not call a model or probe the network.
 
-Boundary Doctor is available on the current source line, not in the public
-`0.2.0` tarball. Confirm support with `scopa --help`.
+Boundary Doctor is included in public release `0.3.0` and later. Confirm support
+in any installed build with `scopa --help`.
 
 ## Run a diagnosis
 

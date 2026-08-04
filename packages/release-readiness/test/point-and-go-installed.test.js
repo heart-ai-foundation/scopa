@@ -17,6 +17,9 @@ import { pathToFileURL } from 'node:url';
 
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(new URL('../../..', import.meta.url).pathname);
+const PACKAGE = JSON.parse(
+  await readFile(path.join(ROOT, 'package.json'), 'utf8'),
+);
 
 test('installed package completes the one-task map-first journey', async (context) => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'scopa-point-go-'));
@@ -30,7 +33,7 @@ test('installed package completes the one-task map-first journey', async (contex
   });
   const archive = path.join(
     temporary,
-    'heart-ai-foundation-scopa-0.2.0.tgz',
+    `heart-ai-foundation-scopa-${PACKAGE.version}.tgz`,
   );
   await access(archive);
 

@@ -16,7 +16,7 @@ Start in a new empty directory:
 mkdir scopa-quickstart
 cd scopa-quickstart
 npm init -y
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.2.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
 ```
 
 SCOPA does not use install lifecycle scripts. For release-sensitive use, follow

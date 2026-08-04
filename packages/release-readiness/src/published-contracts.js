@@ -81,6 +81,18 @@ function candidateInvariants(enabled, value) {
     });
   }
 
+  const expectedFilename = typeof value?.package?.version === 'string'
+    ? `heart-ai-foundation-scopa-${value.package.version}.tgz`
+    : null;
+  if (value?.package?.filename !== expectedFilename) {
+    errors.push({
+      instancePath: '/package/filename',
+      keyword: 'x-scopa-candidate-invariants',
+      message: 'must match the package version',
+      params: { invariant: 'filename-matches-version' },
+    });
+  }
+
   candidateInvariants.errors = errors.length === 0 ? null : errors;
   return errors.length === 0;
 }
