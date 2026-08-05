@@ -28,6 +28,18 @@ prints at most three prioritized findings, separates observation from unknown
 agent authority, and ends with one next action. Use `scopa --help` for command
 documentation or `scopa doctor` for the complete machine-readable result.
 
+## See three real enforcement failures
+
+```sh
+scopa demo
+```
+
+The deterministic demo uses an isolated temporary repository to exercise the
+real scope dispatcher, completion gate, and capability-matrix validator. It
+then performs one allowed correction, verifies `canStop: true` with `partial`
+assurance, and removes the fixture. Use `--format json` for the bound result.
+See [demo proof](../../docs/DEMO.md).
+
 ## Diagnose and lock
 
 Inspect a repository without creating `.scopa/` or running discovered commands:

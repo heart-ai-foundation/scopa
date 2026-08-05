@@ -1,0 +1,30 @@
+S42 focused validation
+baseline: 463f64d
+
+npm run test:s42
+PASS — real scope/completion/assurance faults, truthful correction, deterministic exact output, target no-write, cleanup, no-network, and optional-handoff checks
+
+npm run test:s41
+PASS — provider-off pull-request reporting regression
+
+npm run test:s38
+PASS — runtime-owned begin and CLI/MCP parity regression
+
+npm run test:s2
+MANAGED-SANDBOX RUN — nested Node spawns were denied with EPERM and produced empty child output; this was an execution-environment restriction
+UNSANDBOXED PROVIDER-OFF RUN PASS — 19/19 enforcement, live-probe, and schema tests passed, including adversarial descendant termination
+
+npm run test:docs
+PASS — documentation check (38 files)
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Provider/model calls: none
+Network/telemetry calls: none
+Caller-repository writes: none
+Retained temporary state: none
+Publication/release/deployment actions: none

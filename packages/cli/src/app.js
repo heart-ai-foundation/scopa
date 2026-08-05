@@ -11,6 +11,7 @@ import {
 export const HELP = `SCOPA developer CLI
 
 Usage:
+  scopa demo [--format terminal|json]
   scopa assistant detect [--repo <directory>]
   scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--repo <directory>]
   scopa assistant uninstall [--dry-run] [--repo <directory>]
@@ -57,7 +58,9 @@ export async function runCli(argv, options = {}) {
   } catch (error) {
     outcome = failureResult(argv[0], error);
   }
-  if (argv[0] === 'view' && outcome.envelope.ok) {
+  if (argv[0] === 'demo' && outcome.envelope.ok) {
+    write(outcome.envelope.result.content);
+  } else if (argv[0] === 'view' && outcome.envelope.ok) {
     const result = outcome.envelope.result;
     write(result.export === null
       ? result.content

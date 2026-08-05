@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `ad3f31c`
-Current active protocol: `active/2026-08-05-S41-provider-off-pr-distribution.md`
+Current commit reference: `463f64d`
+Current active protocol: `active/2026-08-05-S42-reproducible-proof-and-handoff.md`
 
 ## Scope
 
@@ -9,11 +9,12 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Add a provider-off local GitHub Action and read-only pull-request workflow that
-> validate an optional Boundary Card and write a sanitized job summary. The
-> default workflow must use read-only permissions and never execute PR-declared
-> commands. An optional PR comment surface must require explicit enablement, a
-> token supplied by the caller, and full-commit-pinned trusted action code.
+> Add one provider-off `scopa demo` command that creates an isolated temporary
+> fixture and mechanically proves scope escape denial, asserted-completion
+> rejection, and uncontrolled-route assurance-overclaim rejection, then reaches
+> a truthful terminal state and cleans up. Bind README and demo documentation to
+> exact output, and add a transparent optional organizational-review handoff
+> without lead capture or gated free functionality.
 
 ## Files in play
 
@@ -88,20 +89,21 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s42`
 - `npm run test:s41`
-- `npm run test:s40`
-- `npm run test:s33`
+- `npm run test:s38`
+- `npm run test:s2`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- Default pull-request workflow declares only `contents: read`, persists no
-  checkout credential, performs no package install, and executes no card gate.
-- Valid cards produce sanitized count/digest summaries; missing cards remain
-  explicitly unknown; malformed, oversized, aliased, or hostile cards fail
-  before summary publication.
-- PR comments require literal opt-in, a caller token, a pull-request event, and
-  documentation requiring full-commit-pinned trusted action code.
-- Fork fixtures expose no secret or write route, and all untrusted values remain
-  data rather than workflow commands or executable script.
+- `scopa demo` uses real dispatcher, gate, and capability-matrix validators;
+  all three injected false claims are rejected and the allowed correction
+  reaches `canStop: true` with `partial` assurance.
+- Output is deterministic, privacy-safe, exact-tested against README/docs, and
+  contains no unsupported metric or favorable generic claim.
+- The caller repository remains byte-identical, the temporary repository is
+  removed, and no network/provider/telemetry surface is touched.
+- The free proof and artifacts are complete before a plainly optional,
+  non-capturing organizational-review handoff.
 
 ## Handoff
 

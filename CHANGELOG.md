@@ -22,6 +22,9 @@ compatibility policy.
 - Add a least-privilege provider-off GitHub Action that validates optional
   Boundary Cards into sanitized job summaries, reports missing evidence as
   unknown, and keeps PR commenting explicitly disabled by default.
+- Add the one-command isolated demo proving real scope-denial,
+  blocked-completion, and assurance-overclaim rejection paths with exact-tested
+  output and verified cleanup.
 
 ### Changed
 

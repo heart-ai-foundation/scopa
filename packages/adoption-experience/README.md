@@ -18,6 +18,10 @@ The fourth contract turns an optional validated card into a fixed sanitized
 GitHub job summary. Missing evidence stays unknown, and PR commenting remains
 an explicit token-bearing opt-in outside the read-only default workflow.
 
+The fifth contract is the deterministic isolated demo: three injected false
+claims must fail through real runtime paths before a truthful correction and
+verified cleanup.
+
 The runtime never derives repository scope, gate commands, authority, or
 client capabilities from natural-language prose. External actions default to
 `authority-required`; unverified native client routes remain `uncontrolled`;

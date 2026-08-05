@@ -1,21 +1,21 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ad3f31c",
+  "current_commit": "463f64d",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "active_protocol": "active/2026-08-05-S41-provider-off-pr-distribution.md",
+  "active_protocol": "active/2026-08-05-S42-reproducible-proof-and-handoff.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "adoption-experience",
   "crosses": [
-    "distribution",
-    "workflow-boundary-map"
+    "enforcement",
+    "distribution"
   ],
   "advances_contracts": [
-    "AX5"
+    "AX6"
   ],
-  "active_protocol_sha256": "sha256:3562c3ac7afc32e2c1f82e641d347e3d1df65dd76ae74d9911467a4d4e76777f",
-  "active_objective": "Add a provider-off local GitHub Action and read-only pull-request workflow that\nvalidate an optional Boundary Card and write a sanitized job summary. The\ndefault workflow must use read-only permissions and never execute PR-declared\ncommands. An optional PR comment surface must require explicit enablement, a\ntoken supplied by the caller, and full-commit-pinned trusted action code.",
+  "active_protocol_sha256": "sha256:de1702e24f6235e9b24f69f0eb97f5122ba516adfdaaab945976cf353da4f09a",
+  "active_objective": "Add one provider-off `scopa demo` command that creates an isolated temporary\nfixture and mechanically proves scope escape denial, asserted-completion\nrejection, and uncontrolled-route assurance-overclaim rejection, then reaches\na truthful terminal state and cleans up. Bind README and demo documentation to\nexact output, and add a transparent optional organizational-review handoff\nwithout lead capture or gated free functionality.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -68,9 +68,9 @@
     "next-prompt-protocols/**"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s41",
-    "visual_regression": "npm run test:s40",
-    "adversarial_regression": "npm run test:s33",
+    "fast_deterministic": "npm run test:s42",
+    "pr_regression": "npm run test:s41",
+    "bootstrap_regression": "npm run test:s38",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },

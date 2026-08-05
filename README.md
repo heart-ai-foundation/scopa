@@ -17,6 +17,34 @@ turns four questions into local, machine-checkable controls:
 SCOPA implements Next-Prompt Protocol v2.4. The protocol defines the practice;
 SCOPA is the executable reference implementation.
 
+## See it catch real failures
+
+```sh
+scopa demo
+```
+
+Exact tested output:
+
+```text
+SCOPA DEMO — THREE REAL FAILURE CHECKS
+
+PASS  Scope escape denied by the path dispatcher
+PASS  Completion claim blocked until the real gate passed
+PASS  Full-assurance overclaim rejected for native bypasses
+
+FINAL  Declared gates satisfied: yes
+       Reported assurance: partial
+       Uncontrolled routes: 4
+       Temporary workspace removed: yes
+
+Proof SHA-256 c7058bd0d3c1bb4f8c5c00c95097c1ae8594a57c34d66072013d3a8d6b0f6af5
+Local deterministic demonstration; not a security certification or guaranteed prevention claim.
+```
+
+The command uses the real dispatcher, gate runner, and assurance validator in
+an isolated temporary repository, then verifies cleanup. It does not touch the
+current repository or call a network or model. See [the demo proof](docs/DEMO.md).
+
 ## Start with one prompt
 
 Give your coding agent the task and point it at [`SCOPA_AGENT.md`](SCOPA_AGENT.md):
@@ -184,6 +212,7 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 ## Documentation
 
 - **Get started:** [Quickstart](docs/QUICKSTART.md),
+  [demo proof](docs/DEMO.md),
   [runtime-owned begin](docs/BEGIN.md),
   [assistant installation](docs/ASSISTANT_INSTALLATION.md),
   [Boundary Doctor](docs/BOUNDARY_DOCTOR.md),
@@ -202,7 +231,8 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
   [threat model](docs/THREAT_MODEL.md),
   [claims](docs/CLAIMS.md), [security policy](SECURITY.md)
 - **Project:** [Contributing](CONTRIBUTING.md), [governance](GOVERNANCE.md),
-  [versioning](docs/VERSIONING.md), [changelog](CHANGELOG.md)
+  [versioning](docs/VERSIONING.md), [changelog](CHANGELOG.md),
+  [optional organizational review](docs/ORGANIZATIONAL_REVIEW.md)
 
 ## Exact release bytes
 

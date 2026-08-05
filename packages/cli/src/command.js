@@ -37,12 +37,15 @@ import {
 } from '../../boundary-doctor/src/index.js';
 import {
   BOUNDARY_VIEW_RESULT_SCHEMA,
+  DEMO_VIEW_RESULT_SCHEMA,
   beginSlice,
   createBoundaryCard,
   detectAssistantSurfaces,
   installAssistant,
   renderBoundaryCardHtml,
   renderBoundaryCardTerminal,
+  renderDemoTerminal,
+  runDemo,
   tryLoadBeginState,
   uninstallAssistant,
   writeBoundaryCardExport,
@@ -121,6 +124,11 @@ function optionSpec(command) {
       ...common,
       '--format': { name: 'format' },
       '--output': { name: 'output' },
+    };
+  }
+  if (command === 'demo') {
+    return {
+      '--format': { name: 'format' },
     };
   }
   if (command === 'map') {
@@ -691,6 +699,29 @@ export async function executeCommand(argv) {
       },
     };
   }
+  if (command === 'demo') {
+    const format = options.format ?? 'terminal';
+    if (!['json', 'terminal'].includes(format)) {
+      throw new CliUsageError('--format must be terminal or json');
+    }
+    const demo = await runDemo();
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: {
+          schema: DEMO_VIEW_RESULT_SCHEMA,
+          format,
+          demo,
+          content: format === 'json'
+            ? canonicalJsonPretty(demo)
+            : renderDemoTerminal(demo),
+        },
+      },
+    };
+  }
   if (command === 'status' || command === 'check') {
     return stopStateResult(command, options.repo);
   }
@@ -787,6 +818,7 @@ export function failureResult(command, error) {
       'SCOPA_ASSISTANT_INSTALL_CONFLICT',
       'SCOPA_BOUNDARY_CARD_INVALID',
       'SCOPA_BOUNDARY_CARD_CONFLICT',
+      'SCOPA_DEMO_INVALID',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';
