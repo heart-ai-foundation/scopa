@@ -18,9 +18,10 @@ scopa
 
 The snapshot shows no more than three prioritized findings and one next action.
 It intentionally omits schemas, digests, paths, and assurance terminology.
-Use `scopa doctor` when automation or complete canonical evidence is needed.
-Both forms use the same bounded diagnostic and neither establishes an agent's
-tools or permissions.
+Use `scopa doctor` for named local evidence. Its human output lists detected
+and unknown indicators, categories, counts, and bounded repository-relative
+paths. Both forms use the same bounded diagnostic and neither establishes an
+agent's tools or permissions.
 
 ## Run a diagnosis
 
@@ -36,9 +37,16 @@ From an installed build that lists the command:
 scopa doctor
 ```
 
-No file is created and no discovered command is executed. The result is a
-canonical `scopa.boundary-diagnostic.v1` JSON object inside the standard CLI
-envelope. It reports:
+No file is created and no discovered command is executed. At a terminal the
+default result is concise local-only text. Request the canonical
+`scopa.boundary-diagnostic.v1` JSON object explicitly when automation or
+complete machine evidence is needed:
+
+```sh
+scopa doctor --format json
+```
+
+Both forms report:
 
 - repository instruction and agent-configuration markers;
 - hooks, MCP, CI, deployment, publication, and credential-file markers;

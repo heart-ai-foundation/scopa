@@ -67,7 +67,7 @@ never be presented as prevention.
 | Out-of-scope change observation | closes the gap between a truthful assurance basis and an unqualified completion headline | yes |
 | Front-door alignment | the documented adoption commands must succeed for a first-time reader | yes |
 | Pull-request default value | the highest-traffic surface SCOPA owns must not default to uninformative | yes |
-| Adopter fact badge and discovery surface | adopters cannot currently advertise SCOPA without a grade claim; a fact-stating badge preserves the no-score rule | yes |
+| Adopter fact badge and discovery surface | adopters cannot currently advertise SCOPA without a grade claim; a fact-stating badge and repository-owned contact content preserve the no-score and no-external-mutation rules | yes |
 | Adversarial virality qualification | makes the standing credibility exposure a permanent regression gate | yes |
 
 ## Non-goal preservation
@@ -89,7 +89,7 @@ never be presented as prevention.
 | OS-sandbox or full-agent-control claim | NOT APPROACHED | S46 strengthens the bypass disclosure rather than narrowing it |
 | Completion semantics driven by unverifiable signal | NOT APPROACHED | `canStop` remains defined solely by declared gate results |
 | Favorable score, grade, or safe-to-merge badge | NOT APPROACHED | S49 is fact-stating and carries the partial-assurance basis |
-| Hidden analytics or lead capture | NOT APPROACHED | S49 discovery surfaces are public metadata and a contact path only |
+| Hidden analytics or lead capture | NOT APPROACHED | S49 produces repository-owned badge and contact content only; enabling or changing public GitHub settings remains separately authorized |
 | Unverifiable performance or efficacy claim | NOT APPROACHED | S51, the only measurement slice, is queued closed |
 | Live PR mutation or public release during implementation | NOT APPROACHED | fixture and dry-run qualification only |
 
@@ -135,7 +135,9 @@ S51 remains closed. No principal decision blocks S44.
 
 Activate S44, human-first command output. Continue to a later slot only when
 the preceding slot produces executable value and its focused validation passes.
-S46 depends on S44's render seam. S50 runs last and gates the arc. The sole
+S46 depends on S44's render seam. S50 qualifies clean packed candidate bytes
+and retains public 0.4.0 only as an immutable regression baseline; it does not
+require or authorize publication. S50 runs last and gates the arc. The sole
 ordered implementation queue is `next-prompt-protocols/slice-queue.md`.
 
 ## References

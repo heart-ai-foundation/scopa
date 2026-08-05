@@ -1,6 +1,7 @@
 import process from 'node:process';
 import { canonicalJsonPretty } from '../../enforcement/src/index.js';
 import {
+  renderBoundaryDoctorLocal,
   renderBoundarySnapshot,
 } from '../../boundary-doctor/src/index.js';
 import {
@@ -43,7 +44,7 @@ const HUMAN_RENDERERS = Object.freeze({
   begin: (result) => renderBeginHuman(result),
   check: (result) => renderCheckHuman(result),
   status: (result) => renderStatusHuman(result),
-  doctor: (result) => renderBoundarySnapshot(result),
+  doctor: (result) => renderBoundaryDoctorLocal(result),
 });
 
 // Human text is the default for a person at a terminal; a pipe, redirect, or

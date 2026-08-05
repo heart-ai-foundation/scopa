@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `4643cb3`
+Current commit reference: `ee4c38a`
 
 Active protocol: `none`
 Active protocol class: `unset`
@@ -10,7 +10,7 @@ Active protocol compound: `false`
 
 ## Current State
 
-S44 is complete with OA1 satisfied. S45 local diagnostic detail is the next queued slice and has no drafted active protocol yet.
+S45 is complete with OA2 satisfied. S46 out-of-scope change observation is the next queued slice and has no drafted active protocol yet.
 
 Module progress:
 - conformance: 3/3 (100%)
@@ -37,9 +37,9 @@ Module progress:
 - production-live-requalification: 3/3 (100%)
 - adoption-experience: 8/11 (73%)
 - workflow-boundary-map: 5/5 (100%)
-- boundary-doctor: 3/4 (75%)
+- boundary-doctor: 4/4 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 91/98 (93%)
+Arc total: 92/98 (94%)
 
 ## Queued Work
 
@@ -87,6 +87,13 @@ When a new active protocol is selected:
 - `fixtures/S41/**`
 - `fixtures/S42/**`
 - `fixtures/S43/**`
+- `fixtures/S44/**`
+- `fixtures/S45/**`
+- `fixtures/S46/**`
+- `fixtures/S47/**`
+- `fixtures/S48/**`
+- `fixtures/S49/**`
+- `fixtures/S50/**`
 - `notes/S37/**`
 - `notes/S38/**`
 - `notes/S39/**`
@@ -94,6 +101,13 @@ When a new active protocol is selected:
 - `notes/S41/**`
 - `notes/S42/**`
 - `notes/S43/**`
+- `notes/S44/**`
+- `notes/S45/**`
+- `notes/S46/**`
+- `notes/S47/**`
+- `notes/S48/**`
+- `notes/S49/**`
+- `notes/S50/**`
 - `runs/S37/**`
 - `runs/S38/**`
 - `runs/S39/**`
@@ -101,6 +115,13 @@ When a new active protocol is selected:
 - `runs/S41/**`
 - `runs/S42/**`
 - `runs/S43/**`
+- `runs/S44/**`
+- `runs/S45/**`
+- `runs/S46/**`
+- `runs/S47/**`
+- `runs/S48/**`
+- `runs/S49/**`
+- `runs/S50/**`
 - `evidence/S37/**`
 - `evidence/S38/**`
 - `evidence/S39/**`
@@ -108,4 +129,11 @@ When a new active protocol is selected:
 - `evidence/S41/**`
 - `evidence/S42/**`
 - `evidence/S43/**`
+- `evidence/S44/**`
+- `evidence/S45/**`
+- `evidence/S46/**`
+- `evidence/S47/**`
+- `evidence/S48/**`
+- `evidence/S49/**`
+- `evidence/S50/**`
 - `next-prompt-protocols/**`
