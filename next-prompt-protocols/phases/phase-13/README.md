@@ -12,11 +12,12 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 > Build one provider-off installed-adoption qualifier for the current packed
 > bytes. Prove zero-argument first insight in under thirty seconds with no target
 > mutation; runtime-owned begin with zero manually authored SCOPA control files;
-> clean and cold assistant installation; exact demo behavior; privacy-safe and
-> accessible Boundary Card export; and valid/missing PR reporting without a
-> network call. Run the accumulated provider-off gates, then add or update the
-> canonical Heart Vault SCOPA documents with exact commit, test, behavior,
-> limitation, and supersession bindings.
+> clean and cold portable generic Agent Skills installation plus the named Claude
+> Code and Codex conveniences; exact demo behavior; privacy-safe and accessible
+> Boundary Card export; and valid/missing PR reporting without a network call.
+> Run the accumulated provider-off gates, then add or update the canonical Heart
+> Vault SCOPA documents with exact commit, test, behavior, limitation, and
+> supersession bindings.
 
 ## Files in play
 
@@ -107,8 +108,10 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
   thirty seconds and leaves the target inventory byte-identical.
 - Installed `begin` creates the runtime-owned control state from one explicit
   request while the developer manually authors zero SCOPA control files.
-- Installed assistant clean and cold-restart flows remain project-local,
-  reversible, collision-safe, and free of user-home mutation.
+- Installed generic Agent Skills, Claude Code, and Codex clean and cold-restart
+  flows remain project-local, reversible, collision-safe, and free of user-home
+  mutation. Generic qualification proves the portable skill contract without
+  attesting to an otherwise unknown client's discovery behavior.
 - Installed demo output equals the S43 path-independent exact fixture and
   cleans all temporary state; the historical S42 evidence remains immutable,
   and Boundary Card export passes privacy and accessibility assertions.

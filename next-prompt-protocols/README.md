@@ -193,11 +193,12 @@ After the artifacts are written, update the protocol state from the repo tip:
 > Build one provider-off installed-adoption qualifier for the current packed
 > bytes. Prove zero-argument first insight in under thirty seconds with no target
 > mutation; runtime-owned begin with zero manually authored SCOPA control files;
-> clean and cold assistant installation; exact demo behavior; privacy-safe and
-> accessible Boundary Card export; and valid/missing PR reporting without a
-> network call. Run the accumulated provider-off gates, then add or update the
-> canonical Heart Vault SCOPA documents with exact commit, test, behavior,
-> limitation, and supersession bindings.
+> clean and cold portable generic Agent Skills installation plus the named Claude
+> Code and Codex conveniences; exact demo behavior; privacy-safe and accessible
+> Boundary Card export; and valid/missing PR reporting without a network call.
+> Run the accumulated provider-off gates, then add or update the canonical Heart
+> Vault SCOPA documents with exact commit, test, behavior, limitation, and
+> supersession bindings.
 
 ## Behavior rules
 

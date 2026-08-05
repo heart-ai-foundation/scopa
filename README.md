@@ -81,9 +81,11 @@ scopa assistant install --dry-run
 scopa assistant install
 ```
 
-SCOPA detects Claude Code, Codex, and generic Agent Skills markers or accepts
-an explicit `--client`. It never edits user-global configuration or overwrites
-an existing assistant file. See [assistant installation](docs/ASSISTANT_INSTALLATION.md).
+The portable generic Agent Skills path is the baseline for compatible agents;
+Claude Code and Codex are named conveniences with known project-local paths.
+SCOPA detects their markers or accepts an explicit `--client`. It never edits
+user-global configuration or overwrites an existing assistant file. See
+[assistant installation](docs/ASSISTANT_INSTALLATION.md).
 
 ## See the boundary first
 

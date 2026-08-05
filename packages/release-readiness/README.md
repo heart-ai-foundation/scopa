@@ -2,8 +2,9 @@
 
 In a source checkout, the provider-off Phase 13 adoption qualifier packs and
 installs the current bytes offline, then exercises first insight, runtime-owned
-begin, Claude and Codex project-local installation, the enforcement demo,
-Boundary Card, and PR reporting from that installation:
+begin, portable generic Agent Skills installation, named Claude and Codex
+project-local installation, the enforcement demo, Boundary Card, and PR
+reporting from that installation:
 
 ```sh
 npm run qualify:s43:installed
@@ -80,4 +81,5 @@ npm run probe:s18:candidate -- \
 The candidate manifest binds artifact bytes and the consumer proof binds
 observed installation and execution outcomes. Neither is a registry
 publication, provider identity attestation, trademark grant, production
-security certification, or full-assurance claim for Claude or Codex.
+security certification, or full-assurance claim for Claude, Codex, or an
+otherwise unknown generic client.

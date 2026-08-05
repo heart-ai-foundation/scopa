@@ -22,11 +22,12 @@ release behavior.
 Build one provider-off installed-adoption qualifier for the current packed
 bytes. Prove zero-argument first insight in under thirty seconds with no target
 mutation; runtime-owned begin with zero manually authored SCOPA control files;
-clean and cold assistant installation; exact demo behavior; privacy-safe and
-accessible Boundary Card export; and valid/missing PR reporting without a
-network call. Run the accumulated provider-off gates, then add or update the
-canonical Heart Vault SCOPA documents with exact commit, test, behavior,
-limitation, and supersession bindings.
+clean and cold portable generic Agent Skills installation plus the named Claude
+Code and Codex conveniences; exact demo behavior; privacy-safe and accessible
+Boundary Card export; and valid/missing PR reporting without a network call.
+Run the accumulated provider-off gates, then add or update the canonical Heart
+Vault SCOPA documents with exact commit, test, behavior, limitation, and
+supersession bindings.
 
 ## Descriptor rung check
 
@@ -43,7 +44,8 @@ workflow material, silently reaches the network, or overstates assurance.
 - New uncertainty reduced: whether the combined source features survive
   packaging and deliver useful first value without developer setup.
 - Validation: clean pack/install, fresh-process timing and no-write inventory,
-  runtime-owned state, clean/cold assistant flows, demo exactness, card
+  runtime-owned state, clean/cold generic, Claude, and Codex assistant flows,
+  demo exactness, card
   privacy/accessibility, PR positive/negative polarity, cleanup, package
   contents, and accumulated provider-off gates.
 - Consecutive metadata/decision slice check: pass.
@@ -122,8 +124,10 @@ cleanup, accumulated gates, and every canonical Heart Vault file and digest.
   thirty seconds and leaves the target inventory byte-identical.
 - Installed `begin` creates the runtime-owned control state from one explicit
   request while the developer manually authors zero SCOPA control files.
-- Installed assistant clean and cold-restart flows remain project-local,
-  reversible, collision-safe, and free of user-home mutation.
+- Installed generic Agent Skills, Claude Code, and Codex clean and cold-restart
+  flows remain project-local, reversible, collision-safe, and free of user-home
+  mutation. Generic qualification proves the portable skill contract without
+  attesting to an otherwise unknown client's discovery behavior.
 - Installed demo output equals the S43 path-independent exact fixture and
   cleans all temporary state; the historical S42 evidence remains immutable,
   and Boundary Card export passes privacy and accessibility assertions.

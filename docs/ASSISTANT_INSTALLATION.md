@@ -1,8 +1,11 @@
 # Project-local assistant installation
 
-SCOPA can place one small operating skill in a supported assistant's
-project-local discovery path. It never edits user-global configuration by
-default, merges configuration, or overwrites an existing file.
+SCOPA can place one small operating skill in an assistant's project-local
+discovery path. The portable Agent Skills surface is the general baseline;
+named Claude Code and Codex selections are conveniences for their known local
+paths, not requirements for using SCOPA. The installer never edits user-global
+configuration by default, merges configuration, or overwrites an existing
+file.
 
 ## Preview and install
 
@@ -30,11 +33,12 @@ Auto-detection supports these project-local surfaces:
 | --- | --- | --- |
 | Claude Code | `.claude/`, `.mcp.json`, or `CLAUDE.md` | `.claude/skills/scopa/SKILL.md` |
 | Codex | `.codex/` | `.agents/skills/scopa/SKILL.md` |
-| Generic Agent Skills | `.agents/` or `AGENTS.md` | `.agents/skills/scopa/SKILL.md` |
+| Generic Agent Skills | `.agents/` or a repository-level generic agent-instructions marker | `.agents/skills/scopa/SKILL.md` |
 
-If detection is unknown or ambiguous, SCOPA makes no selection and writes
-nothing. Choose a supported surface explicitly when you know which assistant
-the repository uses:
+Any assistant that discovers project-local Agent Skills can use the generic
+installation; it does not need to be Claude Code or Codex. If detection is
+unknown or ambiguous, SCOPA makes no selection and writes nothing. Choose a
+surface explicitly when you know which convention the repository uses:
 
 ```sh
 scopa assistant install --client claude-code
@@ -51,7 +55,9 @@ symlinked parent, different receipt, or concurrent collision fails closed.
 The skill teaches the assistant to use the runtime-owned `scopa begin`
 transaction. It does not claim that installing an instruction disables native
 shell, editor, network, plugin, or provider routes. Bootstrap assurance remains
-`partial`.
+`partial`. A generic installation proves only the local, reversible skill
+contract; it does not attest to an unknown assistant's discovery behavior or
+transfer assurance to that client.
 
 ## Uninstall
 

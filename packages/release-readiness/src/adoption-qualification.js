@@ -532,6 +532,13 @@ export async function qualifyInstalledAdoption({
       runtimeEnv,
       temporaryRoot,
     }));
+    assistants.push(await qualifyAssistant({
+      cli,
+      client: 'generic',
+      marker: '.agents',
+      runtimeEnv,
+      temporaryRoot,
+    }));
 
     const installedInventory = await treeInventory(installedRoot);
     const privacyModule = await import(pathToFileURL(path.join(

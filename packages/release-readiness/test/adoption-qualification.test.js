@@ -16,7 +16,7 @@ test('packed bytes reproduce the complete provider-off adoption journey', async 
   assert.equal(receipt.taskBootstrap.assurance, 'partial');
   assert.deepEqual(
     receipt.assistants.map((entry) => entry.client),
-    ['claude-code', 'codex'],
+    ['claude-code', 'codex', 'generic'],
   );
   assert.equal(receipt.assistants.every((entry) =>
     entry.cleanInstalled && entry.coldIdempotent && entry.uninstalled), true);

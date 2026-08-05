@@ -172,8 +172,9 @@ export async function auditReleasePolicies({ root }) {
       path: 'SCOPA_AGENT.md',
       phrases: [
         'The developer should not need to install SCOPA',
-        'Do not create a roadmap, Macro Delta, approval digest',
-        'scopa init',
+        'The runtime must list `begin`',
+        'The legacy `scopa init',
+        'Do not manufacture approval rounds',
         'canStop: true',
         'partial',
       ],
