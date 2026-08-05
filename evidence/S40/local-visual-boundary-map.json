@@ -1,0 +1,56 @@
+{
+  "schema": "scopa.s40-evidence.v1",
+  "slice": "S40",
+  "baselineCommit": "95be277",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "browserOpened": false,
+  "sourceFixture": {
+    "beginRequest": "fixtures/S38/begin-request.json",
+    "boundaryMapSha256": "85fc56d988e24cfe34ae44e8b37a2795a0da69ba02c46811423660d86f8715ea"
+  },
+  "card": {
+    "schema": "scopa.boundary-card.v1",
+    "sha256": "ce2d8c3ad5d61e882a1d83fcbcd9943c214a75bca812fb6c704f6487f87373ba",
+    "sourceMapBound": true,
+    "completion": "satisfied",
+    "assurance": "partial",
+    "controlled": 8,
+    "uncontrolled": 4,
+    "unknown": 0,
+    "authorityRequired": 6
+  },
+  "renderedBytes": {
+    "jsonSha256": "259fb1fb7a2236564baa58f181037657c48a3dfa525e818c019aa908f39c51d2",
+    "terminalSha256": "fb7e282507fdfe76f856f7df9c7c785628f771d067c9e7dc521ce8da786300d8",
+    "htmlSha256": "471a89da7842e3cea86e7fc304de37b2727632bcdbfcf0196e858be505829f73",
+    "htmlBytes": 3532,
+    "deterministic": true,
+    "semanticSourceEqual": true
+  },
+  "privacy": {
+    "corpusPath": "fixtures/S40/privacy-tokens.json",
+    "corpusSha256": "226ae864468e5499ffc8a46dc4d0541e17a3c8ad1bb6ca2f90a8d9147c14f4d6",
+    "rawPathIncluded": false,
+    "nonGoalTextIncluded": false,
+    "gateIdOrOutputIncluded": false,
+    "capabilityEvidenceIncluded": false,
+    "remoteAssetIncluded": false,
+    "scriptIncluded": false
+  },
+  "contract": {
+    "schemaPath": "schemas/scopa.boundary-card.v1.schema.json",
+    "schemaSha256": "2aff29a3d4be223090240a2d661f5aa99e50a0e93b2bef95679892cfec4c1605",
+    "testPath": "packages/adoption-experience/test/boundary-card.test.js",
+    "testSha256": "ade4958559408722350edd46afd388db03f691baf055c8813065561455d5ebc1"
+  },
+  "export": {
+    "defaultViewMutation": false,
+    "explicitOnly": true,
+    "repositoryContained": true,
+    "noReplace": true,
+    "byteIdenticalToRenderer": true
+  },
+  "status": "accepted"
+}

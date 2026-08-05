@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "9f5701a",
+  "current_commit": "95be277",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
   "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
-  "active_protocol": "active/2026-08-05-S39-safe-assistant-installation.md",
-  "active_objective": "Add reversible project-local Claude Code, Codex, and generic assistant installation with dry-run parity, exact uninstall, and a compressed runtime-owned SCOPA agent entry.",
+  "active_protocol": "active/2026-08-05-S40-local-visual-boundary-map.md",
+  "active_objective": "Render one privacy-minimized canonical Boundary Card as compact terminal text and accessible standalone local HTML with deterministic no-replace export.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S39-safe-assistant-installation.md",
     "completed/2026-08-05-S38-runtime-owned-task-bootstrap.md",
     "completed/2026-08-04-S37-instant-boundary-insight.md",
     "completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md",
@@ -121,9 +122,9 @@
     "No docs-only, marketing-only, approval-only, review-of-review, or closeout queue slot; every slot must change executable behavior or validate a concrete product claim"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s39",
-    "bootstrap_regression": "npm run test:s38",
-    "installed_regression": "npm run test:s31",
+    "fast_deterministic": "npm run test:s40",
+    "assistant_regression": "npm run test:s39",
+    "map_regression": "npm run test:s30",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
@@ -1080,7 +1081,7 @@
         {
           "id": "AX3",
           "statement": "A reversible project-local installer detects qualified assistant surfaces and enables a one-prompt task journey without user-global mutation or unsupported assurance transfer.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Claude, Codex, and generic Agent Skills fixtures; dry-run/install/uninstall parity; idempotence; collision refusal; and source-free journey",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S39"

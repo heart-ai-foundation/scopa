@@ -15,6 +15,7 @@ Usage:
   scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--repo <directory>]
   scopa assistant uninstall [--dry-run] [--repo <directory>]
   scopa begin --request-json <json> [--repo <directory>]
+  scopa view [--format terminal|html|json] [--output <file>] [--repo <directory>]
   scopa init --definition <file> [--repo <directory>]
   scopa status [--repo <directory>]
   scopa check [--repo <directory>]
@@ -56,6 +57,13 @@ export async function runCli(argv, options = {}) {
   } catch (error) {
     outcome = failureResult(argv[0], error);
   }
-  write(canonicalJsonPretty(outcome.envelope));
+  if (argv[0] === 'view' && outcome.envelope.ok) {
+    const result = outcome.envelope.result;
+    write(result.export === null
+      ? result.content
+      : `SCOPA Boundary Card exported (${result.export.bytes} bytes, SHA-256 ${result.export.sha256}).\n`);
+  } else {
+    write(canonicalJsonPretty(outcome.envelope));
+  }
   return outcome.exitCode;
 }

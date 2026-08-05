@@ -7,6 +7,7 @@ import {
 import { constants as fsConstants } from 'node:fs';
 import path from 'node:path';
 import {
+  canonicalJsonPretty,
   createSliceLock,
   evaluateStopCondition,
 } from '../../enforcement/src/index.js';
@@ -35,11 +36,16 @@ import {
   renderBoundaryDoctorMarkdown,
 } from '../../boundary-doctor/src/index.js';
 import {
+  BOUNDARY_VIEW_RESULT_SCHEMA,
   beginSlice,
+  createBoundaryCard,
   detectAssistantSurfaces,
   installAssistant,
+  renderBoundaryCardHtml,
+  renderBoundaryCardTerminal,
   tryLoadBeginState,
   uninstallAssistant,
+  writeBoundaryCardExport,
 } from '../../adoption-experience/src/index.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
@@ -108,6 +114,13 @@ function optionSpec(command) {
       ...common,
       '--client': { name: 'client' },
       '--dry-run': { name: 'dryRun', boolean: true },
+    };
+  }
+  if (command === 'view') {
+    return {
+      ...common,
+      '--format': { name: 'format' },
+      '--output': { name: 'output' },
     };
   }
   if (command === 'map') {
@@ -509,11 +522,7 @@ async function doctorLockCommand(options) {
   };
 }
 
-async function mapCommand(options) {
-  const format = options.format ?? 'json';
-  if (!['json', 'markdown'].includes(format)) {
-    throw new CliUsageError('--format must be json or markdown');
-  }
+async function workflowBoundaryMap(options) {
   const project = await loadProject(options.repo);
   const stopState = await evaluateStopCondition({
     lock: project.lock,
@@ -536,15 +545,50 @@ async function mapCommand(options) {
       'authority declaration document',
     ))
     : beginState?.authorityDeclarations ?? null;
-  const map = createWorkflowBoundaryMap({
+  return createWorkflowBoundaryMap({
     lock: project.lock,
     stopState,
     capabilityMatrix,
     authorityDeclarations: authorityDocument?.declarations ?? [],
   });
+}
+
+async function mapCommand(options) {
+  const format = options.format ?? 'json';
+  if (!['json', 'markdown'].includes(format)) {
+    throw new CliUsageError('--format must be json or markdown');
+  }
+  const map = await workflowBoundaryMap(options);
   return format === 'markdown'
     ? renderWorkflowBoundaryMapMarkdown(map)
     : map;
+}
+
+async function viewCommand(options) {
+  const format = options.format ?? 'terminal';
+  if (!['html', 'json', 'terminal'].includes(format)) {
+    throw new CliUsageError('--format must be terminal, html, or json');
+  }
+  const card = createBoundaryCard(await workflowBoundaryMap({ repo: options.repo }));
+  const content = format === 'html'
+    ? renderBoundaryCardHtml(card)
+    : format === 'json'
+      ? canonicalJsonPretty(card)
+      : renderBoundaryCardTerminal(card);
+  const exported = options.output
+    ? await writeBoundaryCardExport({
+      repoRoot: options.repo,
+      output: options.output,
+      content,
+    })
+    : null;
+  return {
+    schema: BOUNDARY_VIEW_RESULT_SCHEMA,
+    format,
+    card,
+    content,
+    export: exported,
+  };
 }
 
 async function assessCommand(options) {
@@ -633,6 +677,17 @@ export async function executeCommand(argv) {
           client: options.client ?? 'auto',
           dryRun: Boolean(options.dryRun),
         }),
+      },
+    };
+  }
+  if (command === 'view') {
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await viewCommand(options),
       },
     };
   }
@@ -730,6 +785,8 @@ export function failureResult(command, error) {
       'SCOPA_BEGIN_REQUEST_INVALID',
       'SCOPA_ASSISTANT_INSTALL_INVALID',
       'SCOPA_ASSISTANT_INSTALL_CONFLICT',
+      'SCOPA_BOUNDARY_CARD_INVALID',
+      'SCOPA_BOUNDARY_CARD_CONFLICT',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';

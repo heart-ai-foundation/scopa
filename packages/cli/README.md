@@ -127,6 +127,20 @@ Otherwise, without a capability matrix or authority declarations, required
 surfaces stay `unknown`. Markdown remains inside the canonical JSON envelope
 and is bound to its source map.
 
+Render the active map as a privacy-minimized human Boundary Card:
+
+```sh
+scopa view
+scopa view --format html --output scopa-boundary.html
+scopa view --format json --output scopa-boundary.json
+```
+
+Unlike machine-oriented subcommands, `view` prints its selected presentation
+directly. With `--output`, it writes exact repository-contained bytes with
+no-replace semantics and prints only the byte count and digest. The standalone
+HTML contains no script, remote asset, telemetry, path, prompt, raw gate
+output, or capability evidence. See [Boundary Card](../../docs/BOUNDARY_CARD.md).
+
 Create a sanitized offline assessment, optionally compared with a baseline:
 
 ```sh

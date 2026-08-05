@@ -5,7 +5,7 @@
 **Crosses:** [`adapter-host`, `distribution`]
 **Advances contracts:** [`AX3`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; AX3 satisfied; provider-off implementation only
 
 ## Why this exists
 

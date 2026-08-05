@@ -1,0 +1,13 @@
+{
+  "schema": "scopa.s40-privacy-corpus.v1",
+  "mustNotAppear": [
+    "private-API-key-SECRET",
+    "prompt-injection-DO-NOT-SHARE",
+    "customer-gate-name",
+    "raw gate output",
+    "authorization header"
+  ],
+  "formats": ["json", "terminal", "html"],
+  "remoteAssetsAllowed": false,
+  "scriptsAllowed": false
+}

@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `9f5701a`
-Current active protocol: `active/2026-08-05-S39-safe-assistant-installation.md`
+Current commit reference: `95be277`
+Current active protocol: `active/2026-08-05-S40-local-visual-boundary-map.md`
 
 ## Scope
 
@@ -9,11 +9,11 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Detect supported project-local Claude Code, Codex, and generic Agent Skills
-> surfaces; preview or install the appropriate SCOPA instruction and bootstrap
-> MCP entry without user-global mutation; provide exact idempotent uninstall;
-> and compress `SCOPA_AGENT.md` to the runtime-owned one-prompt journey. Refuse
-> collisions and unsupported assurance transfer.
+> Project the canonical Workflow Boundary Map into one privacy-minimized
+> Boundary Card, render it as compact terminal text and accessible standalone
+> local HTML, and optionally export exact bytes with no-replace semantics. All
+> formats must preserve completion and control polarity while omitting paths,
+> non-goal prose, prompts, raw gate output, capability evidence, and secrets.
 
 ## Files in play
 
@@ -88,20 +88,20 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s40`
 - `npm run test:s39`
-- `npm run test:s38`
-- `npm run test:s31`
-- `npm run test:s7`
+- `npm run test:s30`
+- `npm run test:s33`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- Dry-run and apply produce the same canonical plan; apply creates only named
-  project-local files with no-replace semantics and a hash-bound receipt.
-- Repeated install is idempotent, a changed or pre-existing target fails before
-  mutation, and uninstall removes only receipt-bound unchanged files.
-- Claude Code, Codex, and generic fixtures receive explicit supported entries;
-  unknown/ambiguous surfaces fail closed without assurance transfer.
-- `SCOPA_AGENT.md` uses `scopa begin` as the primary path and contains no
-  developer-authored policy-document workflow.
+- Terminal, HTML, and JSON reproduce one validated card and bind the same
+  canonical map digest with no private source fields.
+- HTML is standalone, script-free, keyboard/reader-legible, responsive, and
+  contains no remote URL or executable content.
+- Default view is read-only; explicit export is repository-contained,
+  no-replace, deterministic, and byte-identical to the corresponding renderer.
+- Unknown and uncontrolled surfaces remain visually and textually adverse or
+  neutral; no favorable aggregate score exists.
 
 ## Handoff
 

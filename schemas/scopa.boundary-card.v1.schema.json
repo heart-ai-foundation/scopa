@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heart-ai-foundation.github.io/scopa/schemas/scopa.boundary-card.v1.schema.json",
+  "title": "SCOPA privacy-minimized Boundary Card v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "sourceMapSha256",
+    "completion",
+    "assurance",
+    "surfaces",
+    "scope"
+  ],
+  "properties": {
+    "schema": { "const": "scopa.boundary-card.v1" },
+    "sourceMapSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "completion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "canStop", "gates"],
+      "properties": {
+        "status": { "enum": ["blocked", "satisfied"] },
+        "canStop": { "type": "boolean" },
+        "gates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["total", "passed", "failed", "timedOut"],
+          "properties": {
+            "total": { "type": "integer", "minimum": 1 },
+            "passed": { "type": "integer", "minimum": 0 },
+            "failed": { "type": "integer", "minimum": 0 },
+            "timedOut": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "basis"],
+      "properties": {
+        "level": { "enum": ["unknown", "partial", "full"] },
+        "basis": {
+          "enum": [
+            "incomplete-capability-evidence",
+            "active-uncontrolled-route",
+            "complete-known-surface"
+          ]
+        }
+      }
+    },
+    "surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "controlled",
+        "uncontrolled",
+        "unknown",
+        "authorityRequired",
+        "disabled"
+      ],
+      "properties": {
+        "total": { "type": "integer", "minimum": 1 },
+        "controlled": { "type": "integer", "minimum": 0 },
+        "uncontrolled": { "type": "integer", "minimum": 0 },
+        "unknown": { "type": "integer", "minimum": 0 },
+        "authorityRequired": { "type": "integer", "minimum": 0 },
+        "disabled": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedPathRules", "nonGoals"],
+      "properties": {
+        "allowedPathRules": { "type": "integer", "minimum": 1 },
+        "nonGoals": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

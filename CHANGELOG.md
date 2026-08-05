@@ -17,6 +17,8 @@ compatibility policy.
 - Add reversible project-local Claude Code, Codex, and generic Agent Skills
   installation with exact dry-run plans, collision refusal, idempotence, and
   receipt-bound uninstall.
+- Add the privacy-minimized Boundary Card with deterministic terminal, JSON,
+  and accessible standalone script-free HTML rendering and no-replace export.
 
 ### Changed
 

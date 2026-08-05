@@ -73,6 +73,7 @@ test('public journey leads with one file and discloses assurance limits', async 
   assert.ok(readme.indexOf('## Start with one prompt') < readme.indexOf('## Manual setup'));
   assert.match(quickstart, /two things:[\s\S]*SCOPA_AGENT\.md[\s\S]*task you want completed/);
   assert.match(quickstart, /partial assurance/);
-  assert.ok(agent.indexOf('scopa map') < agent.indexOf('### 4. Work'));
+  assert.ok(agent.indexOf('scopa begin') < agent.indexOf('## 3. Work'));
+  assert.ok(agent.indexOf('scopa map') > agent.indexOf('## 4. Verify'));
   assert.match(agent, /Simplicity must not become a false security claim/);
 });

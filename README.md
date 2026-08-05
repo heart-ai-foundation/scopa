@@ -84,6 +84,19 @@ claiming to know an agent's permissions. After review, `doctor --lock` can
 convert explicit scope, capability, and authority declarations into locked
 SCOPA state. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
 
+After a task boundary exists, make it legible without exposing repository
+details:
+
+```sh
+scopa view
+scopa view --format html --output scopa-boundary.html
+```
+
+The terminal and standalone script-free HTML Boundary Cards preserve the
+canonical completion and control counts, bind the source map digest, and omit
+paths, prompts, gate output, and capability evidence. See
+[Boundary Card](docs/BOUNDARY_CARD.md).
+
 ## How it works
 
 1. A slice definition locks allowed paths, non-goals, and verification gates.
@@ -172,6 +185,7 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 - **Operate:** [CLI](packages/cli/README.md),
   [slice definition](docs/SLICE_DEFINITION.md),
   [Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md),
+  [Boundary Card](docs/BOUNDARY_CARD.md),
   [troubleshooting](docs/TROUBLESHOOTING.md)
 - **Integrate:** [Integration guide](docs/INTEGRATIONS.md),
   [MCP host](packages/adapter-host/README.md),

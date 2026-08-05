@@ -73,7 +73,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s40 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
     "test:docs": "node tools/check-docs.mjs",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js packages/enforcement/test/slice-definition-schema.test.js",
@@ -88,6 +88,7 @@
     "test:s37": "node packages/conformance/src/run-node-tests.js packages/boundary-doctor/test/snapshot.test.js packages/cli/test/first-run.test.js",
     "test:s38": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/begin.test.js packages/adoption-experience/test/parity.test.js",
     "test:s39": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/assistant-install.test.js packages/release-readiness/test/assistant-install-installed.test.js",
+    "test:s40": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/boundary-card.test.js",
     "test:s3": "node packages/conformance/src/run-node-tests.js packages/legibility/test/legibility.test.js",
     "test:s4": "node packages/conformance/src/run-node-tests.js packages/depth/test/depth.test.js",
     "test:s5": "node packages/conformance/src/run-node-tests.js packages/interop/test/interop.test.js",
