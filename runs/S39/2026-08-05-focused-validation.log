@@ -1,0 +1,28 @@
+S39 focused validation
+baseline: 9f5701a
+
+npm run test:s39
+PASS — detection, unknown/ambiguous refusal, dry-run/apply parity, no-replace install, idempotence, alias/collision hostility, changed-target refusal, receipt cleanup bounds, uninstall, CLI actions, no-home mutation, compressed agent entry, and clean/cold packed-byte journey
+
+npm run test:s38
+PASS — runtime-owned begin regression
+
+npm run test:s31
+PASS — installed point-and-go regression
+
+npm run test:s7
+PASS — adapter-host regression
+
+npm run test:docs
+PASS — documentation check
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Provider/model calls: none
+Network probes: none
+User-global mutations: none
+External or release mutations: none

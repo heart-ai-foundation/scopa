@@ -5,7 +5,7 @@
 **Crosses:** [`enforcement`, `adapter-host`, `distribution`]
 **Advances contracts:** [`AX2`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; AX2 satisfied; provider-off implementation only
 
 ## Why this exists
 
@@ -106,4 +106,3 @@ Stop on inferred policy, hidden authority, prevalidation breach, conflicting-
 state overwrite, shell execution, false gate success, profile overclaim,
 developer-authored policy requirement, provider/network intent, or weakening
 of existing Doctor lock semantics.
-

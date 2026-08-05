@@ -14,6 +14,14 @@ compatibility policy.
   transaction for explicit task boundaries, closed authority defaults,
   conservative client profiles, real gate results, and a terminal Workflow
   Boundary Map without caller-authored policy files.
+- Add reversible project-local Claude Code, Codex, and generic Agent Skills
+  installation with exact dry-run plans, collision refusal, idempotence, and
+  receipt-bound uninstall.
+
+### Changed
+
+- Compress `SCOPA_AGENT.md` around the runtime-owned `begin` journey and remove
+  the three-document policy-authoring path from the one-prompt workflow.
 
 ## 0.3.0 — 2026-08-03
 

@@ -45,6 +45,18 @@ Ordinary work stays ordinary: the agent entry does not create a roadmap,
 approval digest, or protocol queue for a contained task. See the
 [two-minute quickstart](docs/QUICKSTART.md).
 
+To make SCOPA discoverable in a repository on later prompts, preview and add
+one reversible project-local skill:
+
+```sh
+scopa assistant install --dry-run
+scopa assistant install
+```
+
+SCOPA detects Claude Code, Codex, and generic Agent Skills markers or accepts
+an explicit `--client`. It never edits user-global configuration or overwrites
+an existing assistant file. See [assistant installation](docs/ASSISTANT_INSTALLATION.md).
+
 ## See the boundary first
 
 In a development build that includes the first-run snapshot, run SCOPA with no
@@ -154,6 +166,7 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 
 - **Get started:** [Quickstart](docs/QUICKSTART.md),
   [runtime-owned begin](docs/BEGIN.md),
+  [assistant installation](docs/ASSISTANT_INSTALLATION.md),
   [Boundary Doctor](docs/BOUNDARY_DOCTOR.md),
   [manual walkthrough](docs/MANUAL_SETUP.md)
 - **Operate:** [CLI](packages/cli/README.md),

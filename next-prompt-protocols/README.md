@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `2f72261e`
+Current commit reference: `9f5701a`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
 Active protocol module: `adoption-experience`
-Advances contracts: `AX2`
+Advances contracts: `AX3`
 
 ## Slice Class
 
@@ -58,11 +58,11 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
-- adoption-experience: 1/7 (14%)
+- adoption-experience: 2/7 (29%)
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 3/3 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 84/91 (92%)
+Arc total: 85/91 (93%)
 
 ## Descriptor Rung Stop Rule
 
@@ -110,48 +110,49 @@ Read in this order:
 3. `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
 4. `role-context.md`
 5. `phases/phase-13/README.md`
-6. `active/2026-08-05-S38-runtime-owned-task-bootstrap.md`
-7. `completed/2026-08-04-S37-instant-boundary-insight.md`
-8. `completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md`
-9. `completed/2026-08-03-S35-explicit-doctor-lock-conversion.md`
-10. `completed/2026-08-03-S34-zero-state-boundary-doctor.md`
-11. `completed/2026-08-03-S33-adversarial-usability-qualification.md`
-12. `completed/2026-08-03-S32-portable-assessment-interoperability.md`
-13. `completed/2026-08-03-S31-point-and-go-installed-journey.md`
-14. `completed/2026-08-03-S30-boundary-map-cli.md`
-15. `completed/2026-08-03-S29-workflow-boundary-map-contract.md`
-16. `completed/2026-08-03-R1F-public-release-finalization.md`
-17. `completed/2026-08-03-S28-r1-go-no-go-decision.md`
-18. `completed/2026-08-02-S27-compressed-release-consistency-review.md`
-19. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
-20. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
-21. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
-22. `completed/2026-08-01-S24-gate-process-tree-custody.md`
-23. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
-24. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
-25. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-26. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-27. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-28. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-29. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-30. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-31. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-32. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-33. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-34. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-35. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-36. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-37. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-38. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-39. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-40. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-41. `completed/2026-07-27-S6-installable-developer-surface.md`
-42. `completed/2026-07-26-S5-interop-export.md`
-43. `completed/2026-07-26-S4-signing-and-anchoring.md`
-44. `completed/2026-07-26-S3-legibility.md`
-45. `completed/2026-07-26-S2-enforcement-loop.md`
-46. `completed/2026-07-26-S0-conformance-harness.md`
-47. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-08-05-S39-safe-assistant-installation.md`
+7. `completed/2026-08-05-S38-runtime-owned-task-bootstrap.md`
+8. `completed/2026-08-04-S37-instant-boundary-insight.md`
+9. `completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md`
+10. `completed/2026-08-03-S35-explicit-doctor-lock-conversion.md`
+11. `completed/2026-08-03-S34-zero-state-boundary-doctor.md`
+12. `completed/2026-08-03-S33-adversarial-usability-qualification.md`
+13. `completed/2026-08-03-S32-portable-assessment-interoperability.md`
+14. `completed/2026-08-03-S31-point-and-go-installed-journey.md`
+15. `completed/2026-08-03-S30-boundary-map-cli.md`
+16. `completed/2026-08-03-S29-workflow-boundary-map-contract.md`
+17. `completed/2026-08-03-R1F-public-release-finalization.md`
+18. `completed/2026-08-03-S28-r1-go-no-go-decision.md`
+19. `completed/2026-08-02-S27-compressed-release-consistency-review.md`
+20. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+21. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+22. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+23. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+24. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+25. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+26. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+27. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+28. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+29. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+30. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+31. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+32. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+33. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+34. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+35. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+36. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+37. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+38. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+39. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+40. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+41. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+42. `completed/2026-07-27-S6-installable-developer-surface.md`
+43. `completed/2026-07-26-S5-interop-export.md`
+44. `completed/2026-07-26-S4-signing-and-anchoring.md`
+45. `completed/2026-07-26-S3-legibility.md`
+46. `completed/2026-07-26-S2-enforcement-loop.md`
+47. `completed/2026-07-26-S0-conformance-harness.md`
+48. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -185,13 +186,11 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Add one atomic begin-slice operation available through the CLI and MCP host. It
-> must accept an explicit structured task boundary from the agent—outcome,
-> allowed repository paths, real gate argv arrays, non-goals, and a named client
-> profile—then prevalidate the complete transaction, create default-closed
-> authority and honest capability declarations, initialize SCOPA, run the gates,
-> and return the actual boundary map. No developer-authored policy files and no
-> natural-language policy inference.
+> Detect supported project-local Claude Code, Codex, and generic Agent Skills
+> surfaces; preview or install the appropriate SCOPA instruction and bootstrap
+> MCP entry without user-global mutation; provide exact idempotent uninstall;
+> and compress `SCOPA_AGENT.md` to the runtime-owned one-prompt journey. Refuse
+> collisions and unsupported assurance transfer.
 
 ## Behavior rules
 
@@ -266,4 +265,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-13/README.md`
-- `active/2026-08-05-S38-runtime-owned-task-bootstrap.md`
+- `active/2026-08-05-S39-safe-assistant-installation.md`

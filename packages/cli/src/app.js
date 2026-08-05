@@ -11,6 +11,9 @@ import {
 export const HELP = `SCOPA developer CLI
 
 Usage:
+  scopa assistant detect [--repo <directory>]
+  scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--repo <directory>]
+  scopa assistant uninstall [--dry-run] [--repo <directory>]
   scopa begin --request-json <json> [--repo <directory>]
   scopa init --definition <file> [--repo <directory>]
   scopa status [--repo <directory>]

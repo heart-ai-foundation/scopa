@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "2f72261e",
+  "current_commit": "9f5701a",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
   "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
-  "active_protocol": "active/2026-08-05-S38-runtime-owned-task-bootstrap.md",
-  "active_objective": "Add one atomic CLI and MCP begin-slice operation that turns an agent-supplied explicit task boundary into default-closed SCOPA state without developer-authored policy files or inferred authority.",
+  "active_protocol": "active/2026-08-05-S39-safe-assistant-installation.md",
+  "active_objective": "Add reversible project-local Claude Code, Codex, and generic assistant installation with dry-run parity, exact uninstall, and a compressed runtime-owned SCOPA agent entry.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S38-runtime-owned-task-bootstrap.md",
     "completed/2026-08-04-S37-instant-boundary-insight.md",
     "completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md",
     "completed/2026-08-03-S35-explicit-doctor-lock-conversion.md",
@@ -120,9 +121,9 @@
     "No docs-only, marketing-only, approval-only, review-of-review, or closeout queue slot; every slot must change executable behavior or validate a concrete product claim"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s37",
-    "doctor_regression": "npm run test:s34",
-    "installed_regression": "npm run test:s36",
+    "fast_deterministic": "npm run test:s39",
+    "bootstrap_regression": "npm run test:s38",
+    "installed_regression": "npm run test:s31",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
@@ -1071,7 +1072,7 @@
         {
           "id": "AX2",
           "statement": "One atomic runtime API converts an agent-supplied explicit task boundary into default-closed SCOPA state without developer-authored policy files or inferred authority.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Atomic prevalidation, conflicting-state denial, closed authority defaults, explicit path/gate binding, map output, and allow/deny polarity",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S38"

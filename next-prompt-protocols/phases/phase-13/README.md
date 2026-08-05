@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `2f72261e`
-Current active protocol: `active/2026-08-05-S38-runtime-owned-task-bootstrap.md`
+Current commit reference: `9f5701a`
+Current active protocol: `active/2026-08-05-S39-safe-assistant-installation.md`
 
 ## Scope
 
@@ -9,13 +9,11 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Add one atomic begin-slice operation available through the CLI and MCP host. It
-> must accept an explicit structured task boundary from the agent—outcome,
-> allowed repository paths, real gate argv arrays, non-goals, and a named client
-> profile—then prevalidate the complete transaction, create default-closed
-> authority and honest capability declarations, initialize SCOPA, run the gates,
-> and return the actual boundary map. No developer-authored policy files and no
-> natural-language policy inference.
+> Detect supported project-local Claude Code, Codex, and generic Agent Skills
+> surfaces; preview or install the appropriate SCOPA instruction and bootstrap
+> MCP entry without user-global mutation; provide exact idempotent uninstall;
+> and compress `SCOPA_AGENT.md` to the runtime-owned one-prompt journey. Refuse
+> collisions and unsupported assurance transfer.
 
 ## Files in play
 
@@ -90,19 +88,20 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s39`
 - `npm run test:s38`
-- `npm run test:s35`
-- `npm run test:s37`
+- `npm run test:s31`
 - `npm run test:s7`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- One begin request in a clean repository creates only validated SCOPA state,
-  returns the actual terminal map, and requires no caller-authored file.
-- Malformed scope, escaping paths, shell-shaped gates, unknown profiles,
-  conflicting state, and incomplete input fail before mutation.
-- External authority defaults closed, active native bypasses remain
-  uncontrolled, and assurance cannot exceed the selected profile evidence.
-- CLI and MCP expose the same request and result semantics.
+- Dry-run and apply produce the same canonical plan; apply creates only named
+  project-local files with no-replace semantics and a hash-bound receipt.
+- Repeated install is idempotent, a changed or pre-existing target fails before
+  mutation, and uninstall removes only receipt-bound unchanged files.
+- Claude Code, Codex, and generic fixtures receive explicit supported entries;
+  unknown/ambiguous surfaces fail closed without assurance transfer.
+- `SCOPA_AGENT.md` uses `scopa begin` as the primary path and contains no
+  developer-authored policy-document workflow.
 
 ## Handoff
 

@@ -69,6 +69,23 @@ and conservative capability declarations, initializes the lock, runs the real
 gates, and returns the terminal Boundary Map. A blocked map exits `4`.
 Conflicting state is never overwritten. See [Begin a governed task](../../docs/BEGIN.md).
 
+## Add a project-local assistant skill
+
+```sh
+scopa assistant detect
+scopa assistant install --dry-run
+scopa assistant install
+scopa assistant uninstall --dry-run
+scopa assistant uninstall
+```
+
+Auto-detection recognizes Claude Code, Codex, and generic Agent Skills markers.
+Use `--client claude-code`, `--client codex`, or `--client generic` when a clean
+repository has no unique marker. Install creates one no-replace skill and a
+hash-bound receipt under `.scopa/`; uninstall removes only unchanged,
+receipt-bound bytes. No user-global configuration is read or written. See
+[assistant installation](../../docs/ASSISTANT_INSTALLATION.md).
+
 ## Initialize
 
 Create a closed [slice definition](../../docs/SLICE_DEFINITION.md), then bind

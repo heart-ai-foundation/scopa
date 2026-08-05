@@ -1,0 +1,22 @@
+{
+  "schema": "scopa.s39-supported-surfaces.v1",
+  "surfaces": [
+    {
+      "client": "claude-code",
+      "markers": [".claude", ".mcp.json", "CLAUDE.md"],
+      "target": ".claude/skills/scopa/SKILL.md"
+    },
+    {
+      "client": "codex",
+      "markers": [".codex"],
+      "target": ".agents/skills/scopa/SKILL.md"
+    },
+    {
+      "client": "generic",
+      "markers": [".agents", "AGENTS.md"],
+      "target": ".agents/skills/scopa/SKILL.md"
+    }
+  ],
+  "defaultScope": "project-local",
+  "unknownOrAmbiguous": "refuse-auto-selection"
+}

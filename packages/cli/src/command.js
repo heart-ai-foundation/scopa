@@ -36,7 +36,10 @@ import {
 } from '../../boundary-doctor/src/index.js';
 import {
   beginSlice,
+  detectAssistantSurfaces,
+  installAssistant,
   tryLoadBeginState,
+  uninstallAssistant,
 } from '../../adoption-experience/src/index.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
@@ -100,6 +103,13 @@ function optionSpec(command) {
       '--request-json': { name: 'requestJson', required: true },
     };
   }
+  if (command === 'assistant') {
+    return {
+      ...common,
+      '--client': { name: 'client' },
+      '--dry-run': { name: 'dryRun', boolean: true },
+    };
+  }
   if (command === 'map') {
     return {
       ...common,
@@ -144,7 +154,18 @@ export function parseCommand(argv) {
   const command = argv[0];
   const specification = optionSpec(command);
   const options = {};
-  for (let index = 1; index < argv.length; index += 1) {
+  let startIndex = 1;
+  if (command === 'assistant') {
+    const action = argv[1];
+    if (!['detect', 'install', 'uninstall'].includes(action)) {
+      throw new CliUsageError(
+        'assistant requires one action: detect, install, or uninstall',
+      );
+    }
+    options.action = action;
+    startIndex = 2;
+  }
+  for (let index = startIndex; index < argv.length; index += 1) {
     const flag = argv[index];
     const config = specification[flag];
     if (!config) throw new CliUsageError(`unknown argument: ${flag}`);
@@ -569,6 +590,52 @@ export async function executeCommand(argv) {
       },
     };
   }
+  if (command === 'assistant') {
+    if (options.action === 'detect') {
+      if (options.client !== undefined || options.dryRun) {
+        throw new CliUsageError('assistant detect accepts only --repo');
+      }
+      return {
+        exitCode: CLI_EXIT.success,
+        envelope: {
+          schema: CLI_RESULT_SCHEMA,
+          ok: true,
+          command,
+          result: await detectAssistantSurfaces(options.repo),
+        },
+      };
+    }
+    if (options.action === 'uninstall') {
+      if (options.client !== undefined) {
+        throw new CliUsageError('assistant uninstall does not accept --client');
+      }
+      return {
+        exitCode: CLI_EXIT.success,
+        envelope: {
+          schema: CLI_RESULT_SCHEMA,
+          ok: true,
+          command,
+          result: await uninstallAssistant({
+            repoRoot: options.repo,
+            dryRun: Boolean(options.dryRun),
+          }),
+        },
+      };
+    }
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await installAssistant({
+          repoRoot: options.repo,
+          client: options.client ?? 'auto',
+          dryRun: Boolean(options.dryRun),
+        }),
+      },
+    };
+  }
   if (command === 'status' || command === 'check') {
     return stopStateResult(command, options.repo);
   }
@@ -661,6 +728,8 @@ export function failureResult(command, error) {
       'SCOPA_WORKFLOW_BOUNDARY_MAP_INVALID',
       'SCOPA_BOUNDARY_DIAGNOSTIC_INVALID',
       'SCOPA_BEGIN_REQUEST_INVALID',
+      'SCOPA_ASSISTANT_INSTALL_INVALID',
+      'SCOPA_ASSISTANT_INSTALL_CONFLICT',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';
