@@ -36,9 +36,10 @@ Auto-detection supports these project-local surfaces:
 | Generic Agent Skills | `.agents/` or a repository-level generic agent-instructions marker | `.agents/skills/scopa/` |
 
 Any assistant that discovers project-local Agent Skills can use the generic
-installation; it does not need to be Claude Code or Codex. If detection is
-unknown or ambiguous, SCOPA makes no selection and writes nothing. Choose a
-surface explicitly when you know which convention the repository uses:
+installation; it does not need to be Claude Code or Codex. With no recognized
+marker, automatic installation selects that generic project-local path. If
+multiple known client markers make detection ambiguous, SCOPA writes nothing
+and lists every explicit choice:
 
 ```sh
 scopa assistant install --client claude-code

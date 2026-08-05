@@ -134,11 +134,11 @@ ${clientLine}
 2. Convert the developer's task into one explicit \`scopa.begin-request.v1\`:
    outcome, smallest allowed paths, direct argv gates, non-goals, and the
    matching client profile. Do not ask the developer to author policy JSON.
-3. Run \`scopa begin --request-json '<request>'\`. An initially blocked task
+3. Run \`scopa begin --format json --request-json '<request>'\`. An initially blocked task
    gate is evidence, not a setup failure.
 4. Keep every change inside the locked paths. A native editor or shell remains
    an uncontrolled bypass, so do not claim full assurance.
-5. Run \`scopa check\`; finish only when \`canStop\` is true. Report any
+5. Run \`scopa check --format json\`; finish only when \`canStop\` is true. Report any
    authority-required or uncontrolled route.
 
 SCOPA does not grant permission to publish, deploy, use credentials, call a
@@ -461,9 +461,10 @@ async function selectClient(root, requested) {
     return requested;
   }
   const detection = await detectAssistantSurfaces(root);
+  if (detection.status === 'unknown') return 'generic';
   if (detection.status !== 'detected') {
     throw new AssistantInstallError(
-      `assistant auto-detection is ${detection.status}; select an explicit supported client`,
+      `assistant auto-detection is ${detection.status}; choose --client ${ASSISTANT_CLIENTS.join(', ')}`,
       { details: detection },
     );
   }

@@ -40,6 +40,10 @@ creates validated state under `.scopa/`, runs the real gates, and returns the
 actual Boundary Map. The developer does not author or review three setup
 documents before useful work can start.
 
+The agent entry selects `--format json` for fields it consumes. At a terminal,
+`begin`, `check`, `status`, and `doctor` otherwise print concise human text;
+redirects and pipes receive the canonical JSON envelope.
+
 ## 3. Read the final report
 
 The handoff should state:

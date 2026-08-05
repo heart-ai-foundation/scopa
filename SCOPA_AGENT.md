@@ -39,7 +39,7 @@ the one-prompt journey.
 Derive the smallest honest boundary and submit it in one call:
 
 ```sh
-scopa begin --request-json '{
+scopa begin --format json --request-json '{
   "schema":"scopa.begin-request.v1",
   "sliceId":"short-task-name",
   "outcome":"the concrete requested result",
@@ -92,7 +92,7 @@ the developer explicitly authorizes the exact action.
 Run focused checks while developing, then run:
 
 ```sh
-scopa check
+scopa check --format json
 scopa map
 ```
 

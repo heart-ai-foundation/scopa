@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "16e5808",
+  "current_commit": "8006523",
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "active_protocol": null,
   "active_class": null,
@@ -10,7 +10,7 @@
   "crosses": [],
   "advances_contracts": [],
   "active_protocol_sha256": null,
-  "active_objective": "S46 is complete with OA3 satisfied. S47 front-door alignment is the next queued slice and has no drafted active protocol yet.",
+  "active_objective": "S47 is complete with OA4 satisfied. S48 pull-request default value is the next queued slice and has no drafted active protocol yet.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
