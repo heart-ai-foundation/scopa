@@ -149,7 +149,8 @@
     "test:s44": "node packages/conformance/src/run-node-tests.js packages/cli/test/human-output.test.js",
     "test:s45": "node packages/conformance/src/run-node-tests.js packages/boundary-doctor/test/local-render.test.js",
     "test:s46": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/change-observation.test.js",
-    "test:s47": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/front-door.test.js"
+    "test:s47": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/front-door.test.js",
+    "test:s48": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/pr-default.test.js packages/adoption-experience/test/pr-report.test.js"
   },
   "engines": {
     "node": ">=22"

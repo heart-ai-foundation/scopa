@@ -110,9 +110,17 @@ export async function loadPullRequestBoundaryCard({ workspace, cardPath }) {
 }
 
 function availableSummary(card) {
-  const status = card.completion.canStop ? 'SATISFIED' : 'BLOCKED';
+  const hasUnverifiedChanges = card.completion.canStop && card.observed && (
+    card.observed.outsideAllowedPaths > 0 ||
+    card.observed.declaredNonGoalContacts > 0
+  );
+  const status = card.completion.canStop
+    ? hasUnverifiedChanges
+      ? 'SATISFIED — WITH UNVERIFIED CHANGES'
+      : 'SATISFIED'
+    : 'BLOCKED';
   const assurance = card.assurance.level.toUpperCase();
-  return [
+  const lines = [
     '## SCOPA Boundary Check',
     '',
     '> Caller-supplied validated Boundary Card; this is not independent attestation.',
@@ -123,21 +131,43 @@ function availableSummary(card) {
     `- Surfaces: ${card.surfaces.controlled} controlled, ${card.surfaces.uncontrolled} uncontrolled, ${card.surfaces.unknown} unknown, ${card.surfaces.authorityRequired} authority-required, ${card.surfaces.disabled} disabled`,
     `- Scope counts: ${card.scope.allowedPathRules} allowed-path rules, ${card.scope.nonGoals} non-goals`,
     `- Source map SHA-256: \`${card.sourceMapSha256}\``,
+  ];
+  if (card.observed) {
+    lines.push(
+      `- Observed tracked changes: ${card.observed.versionControlledChanges} total, ${card.observed.outsideAllowedPaths} outside allowed paths, ${card.observed.declaredNonGoalContacts} recognized non-goal contacts`,
+      '',
+      'Observation is reporting only. It does not mean a change was prevented, controlled, attributed, or unauthorized.',
+    );
+  }
+  lines.push(
     '',
     'No paths, prompts, gate output, capability evidence, or secret values are included. This report is not approval, certification, or a safe-to-merge claim.',
     '',
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 function missingSummary() {
   return [
     '## SCOPA Boundary Check',
     '',
+    '> No validated Boundary Card was supplied. The action observed only that the configured card file is absent.',
+    '',
     '- Completion: **UNKNOWN — no Boundary Card supplied**',
     '- Assurance: **UNKNOWN — no capability evidence supplied**',
     '- Scope: **UNKNOWN — no validated scope counts supplied**',
     '',
-    'Add a privacy-minimized `scopa.boundary-card.v1` artifact to report evidence. No gate or project command was executed by this check.',
+    '### Add reviewable evidence',
+    '',
+    'After establishing a SCOPA task boundary, create the privacy-minimized artifact:',
+    '',
+    '```sh',
+    'scopa view --format json --output scopa-boundary.json',
+    '```',
+    '',
+    'Add `scopa-boundary.json` to the pull request. This action can then validate and report declared-gate completion, assurance basis, control and scope counts, source-map identity, and aggregate observed tracked-change counts when present.',
+    '',
+    'No gate or project command was executed by this check. No pull-request text or card-supplied command was executed. Missing evidence is not a pass, approval, certification, or safe-to-merge result.',
     '',
   ].join('\n');
 }

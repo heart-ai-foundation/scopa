@@ -1,11 +1,11 @@
 # Phase 14 Legible Value And Organic Adoption
 
-Current commit reference: `8006523`
+Current commit reference: `e5bc3f0`
 Current active protocol: `none`
 
 ## Active Objective
 
-S47 is complete with OA4 satisfied. S48 pull-request default value is the next queued slice and has no drafted active protocol yet.
+S48 is complete with OA5 satisfied. S49 adopter fact badge and repository-owned discovery surface is the next queued slice and has no drafted active protocol yet.
 
 ## Verification
 
