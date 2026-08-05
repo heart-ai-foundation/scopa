@@ -46,7 +46,7 @@ async function resolveThroughExistingAncestor(target) {
   }
 }
 
-function matchesRule(relative, rule) {
+export function matchesPathRule(relative, rule) {
   if (rule.endsWith('/**')) {
     const prefix = rule.slice(0, -3);
     return relative === prefix || relative.startsWith(`${prefix}/`);
@@ -184,7 +184,7 @@ export class PathBoundary {
         reason: 'rotation state is kernel-owned continuity data',
       });
     }
-    if (!definition.allowedPaths.some((rule) => matchesRule(relative, rule))) {
+    if (!definition.allowedPaths.some((rule) => matchesPathRule(relative, rule))) {
       throw new ScopeDeniedError({
         requestedPath: relative,
         allowedPaths: definition.allowedPaths,

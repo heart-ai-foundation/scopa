@@ -1,7 +1,7 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ee4c38a",
+  "current_commit": "16e5808",
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "active_protocol": null,
   "active_class": null,
@@ -10,7 +10,7 @@
   "crosses": [],
   "advances_contracts": [],
   "active_protocol_sha256": null,
-  "active_objective": "S45 is complete with OA2 satisfied. S46 out-of-scope change observation is the next queued slice and has no drafted active protocol yet.",
+  "active_objective": "S46 is complete with OA3 satisfied. S47 front-door alignment is the next queued slice and has no drafted active protocol yet.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

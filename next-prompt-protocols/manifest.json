@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "ee4c38a",
+  "current_commit": "16e5808",
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and prepare repository-owned public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
   "active_protocol": null,
-  "active_objective": "S45 is complete with OA2 satisfied. S46 out-of-scope change observation is the next queued slice and has no drafted active protocol yet.",
+  "active_objective": "S46 is complete with OA3 satisfied. S47 front-door alignment is the next queued slice and has no drafted active protocol yet.",
   "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S46-out-of-scope-change-observation.md",
     "completed/2026-08-05-S45-local-diagnostic-detail.md",
     "completed/2026-08-05-S44-human-first-command-output.md",
     "completed/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
@@ -325,8 +326,8 @@
         {
           "id": "OA3",
           "statement": "Version-controlled changes outside the locked paths are observed and reported, with declared-non-goal contact counted separately, and are never presented as prevented or controlled.",
-          "status": "open",
-          "verifies_via": "Clean-tree and dirty-tree polarity fixtures, additive card-field compatibility tests, and non-enforcement wording assertions",
+          "status": "satisfied",
+          "verifies_via": "Real Git clean/inside/outside/non-goal polarity, actual view-command wiring, optional v1 card/schema compatibility, path-absence checks, and non-enforcement headline assertions",
           "discovered_on": "2026-08-05",
           "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }

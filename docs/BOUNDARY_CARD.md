@@ -10,6 +10,12 @@ the repository details behind them:
   authority-required, or disabled; and
 - how many allowed path rules and non-goals define the scope.
 
+When the repository is Git-backed, the card may also include counts of tracked
+working-tree changes, changes outside the allowed path rules, and conservatively
+recognized contact with a declared non-goal. No changed path or non-goal text is
+included. This is observation only: it does not attribute a change to an agent
+or claim that SCOPA prevented, controlled, or authorized it.
+
 Every card binds the complete source map by SHA-256. It deliberately omits raw
 paths, non-goal text, prompts, gate identifiers and output, capability evidence,
 provider output, environment values, credentials, and private roots.
@@ -24,7 +30,10 @@ scopa view
 
 This prints a compact plain-text card and does not create a file. `UNKNOWN`
 means capability evidence is incomplete. `PARTIAL` means an active route can
-bypass SCOPA. Neither state receives a favorable score or badge.
+bypass SCOPA. `SATISFIED — WITH UNVERIFIED CHANGES` means all declared gates
+passed while tracked outside-scope or recognized non-goal contact was observed;
+`canStop` remains a declared-gate result. None of these states is a safety,
+approval, or attribution claim.
 
 ## Create a standalone local HTML card
 

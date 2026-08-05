@@ -10,6 +10,7 @@ import {
   canonicalJsonPretty,
   createSliceLock,
   evaluateStopCondition,
+  observeVersionControlledChanges,
 } from '../../enforcement/src/index.js';
 import {
   createReferenceAgentHost,
@@ -583,7 +584,13 @@ async function viewCommand(options) {
   if (!['html', 'json', 'terminal'].includes(format)) {
     throw new CliUsageError('--format must be terminal, html, or json');
   }
-  const card = createBoundaryCard(await workflowBoundaryMap({ repo: options.repo }));
+  const map = await workflowBoundaryMap({ repo: options.repo });
+  const observation = await observeVersionControlledChanges({
+    repoRoot: options.repo,
+    allowedPaths: map.scope.allowedPaths,
+    nonGoals: map.scope.nonGoals,
+  });
+  const card = createBoundaryCard(map, { observation });
   const content = format === 'html'
     ? renderBoundaryCardHtml(card)
     : format === 'json'

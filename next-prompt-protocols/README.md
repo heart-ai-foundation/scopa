@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `ee4c38a`
+Current commit reference: `16e5808`
 
 Active protocol: `none`
 Active protocol class: `unset`
@@ -10,13 +10,13 @@ Active protocol compound: `false`
 
 ## Current State
 
-S45 is complete with OA2 satisfied. S46 out-of-scope change observation is the next queued slice and has no drafted active protocol yet.
+S46 is complete with OA3 satisfied. S47 front-door alignment is the next queued slice and has no drafted active protocol yet.
 
 Module progress:
 - conformance: 3/3 (100%)
 - kernel-core: 4/4 (100%)
 - journal: 5/5 (100%)
-- enforcement: 4/5 (80%)
+- enforcement: 5/5 (100%)
 - agent-surface: 3/3 (100%)
 - legibility: 4/4 (100%)
 - depth: 4/4 (100%)
@@ -39,7 +39,7 @@ Module progress:
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 4/4 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 92/98 (94%)
+Arc total: 93/98 (95%)
 
 ## Queued Work
 
