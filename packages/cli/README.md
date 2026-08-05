@@ -1,8 +1,9 @@
 # SCOPA CLI
 
 The `scopa` command is installed by the root
-`@heart-ai-foundation/scopa` package. Every command except `--help` writes one
-canonical `scopa.cli-result.v1` JSON object.
+`@heart-ai-foundation/scopa` package. Running it without arguments prints a
+short human-first repository snapshot. Explicit subcommands write one canonical
+`scopa.cli-result.v1` JSON object.
 
 ## Install and run
 
@@ -15,6 +16,17 @@ npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
 The examples below use `scopa` as the command name. After a local installation,
 run it as `npx scopa` or from an npm script. From a source checkout, use
 `node packages/cli/src/cli.js`.
+
+## First look
+
+```sh
+scopa
+```
+
+The zero-argument path creates no files and runs no discovered commands. It
+prints at most three prioritized findings, separates observation from unknown
+agent authority, and ends with one next action. Use `scopa --help` for command
+documentation or `scopa doctor` for the complete machine-readable result.
 
 ## Diagnose and lock
 

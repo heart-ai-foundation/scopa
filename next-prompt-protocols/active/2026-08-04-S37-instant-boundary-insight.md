@@ -5,7 +5,7 @@
 **Crosses:** [`boundary-doctor`, `distribution`]
 **Advances contracts:** [`AX1`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; AX1 satisfied; provider-off implementation only
 
 ## Why this exists
 
@@ -106,4 +106,3 @@ Stop on repository mutation, network or provider intent, private material,
 authority overclaim, favorable absence language, more than one required user
 decision before first value, compatibility drift, or a default result that
 still requires SCOPA terminology to understand.
-

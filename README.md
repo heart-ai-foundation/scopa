@@ -42,7 +42,18 @@ approval digest, or protocol queue for a contained task. See the
 
 ## See the boundary first
 
-Boundary Doctor gives a read-only, repository-specific diagnosis before
+In a development build that includes the first-run snapshot, run SCOPA with no
+arguments from the repository you want to inspect:
+
+```sh
+scopa
+```
+
+It returns at most three plain-language findings and one next action without
+creating files, executing discovered commands, calling a model, or probing the
+network. From this source checkout, use `node packages/cli/src/cli.js`.
+
+Boundary Doctor remains the complete machine-readable diagnosis before
 `.scopa/` exists:
 
 ```sh

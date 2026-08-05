@@ -14,7 +14,7 @@
   "advances_contracts": [
     "AX1"
   ],
-  "active_protocol_sha256": "sha256:689f046b80e4daa561073c2cc584f4f6a958debf8ce69bf0e07f13dc94849f01",
+  "active_protocol_sha256": "sha256:d7a772c856493473b07de4035c1b8b8ad49a5474a5c2f479d8a823ce1783d829",
   "active_objective": "Make zero-argument `scopa` run a read-only, human-first boundary snapshot for\nthe current repository. It must present at most three prioritized observations,\nclearly distinguish observed facts from unknown authority, and give one next\naction. Preserve explicit `--help` and the existing canonical Doctor JSON\ncontract for automation.",
   "allowed_files": [
     "package.json",

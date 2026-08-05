@@ -1062,7 +1062,7 @@
         {
           "id": "AX1",
           "statement": "Zero-argument SCOPA yields a concise repository-specific boundary insight with no configuration, mutation, network, provider call, or authority overclaim.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Prioritized human-output fixtures, canonical semantic parity, bounded timing, privacy hostility, and before/after filesystem inventory",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S37"
