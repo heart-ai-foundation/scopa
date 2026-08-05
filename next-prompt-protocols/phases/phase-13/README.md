@@ -109,8 +109,9 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
   request while the developer manually authors zero SCOPA control files.
 - Installed assistant clean and cold-restart flows remain project-local,
   reversible, collision-safe, and free of user-home mutation.
-- Installed demo output equals the exact S42 fixture and cleans all temporary
-  state; Boundary Card export passes privacy and accessibility assertions.
+- Installed demo output equals the S43 path-independent exact fixture and
+  cleans all temporary state; the historical S42 evidence remains immutable,
+  and Boundary Card export passes privacy and accessibility assertions.
 - Installed PR valid/missing fixtures retain truthful polarity and make no
   network or write-enabled GitHub call.
 - Package inventory contains every required runtime/doc/schema surface and no

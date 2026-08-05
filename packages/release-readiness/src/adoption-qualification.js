@@ -585,7 +585,7 @@ export async function qualifyInstalledAdoption({
       },
       assistants,
       demo: {
-        exactS42Output: true,
+        exactQualifiedOutput: true,
         outputSha256: sha256(demo.stdout),
         proofSha256: /^Proof SHA-256 ([0-9a-f]{64})$/mu.exec(demo.stdout)?.[1],
       },

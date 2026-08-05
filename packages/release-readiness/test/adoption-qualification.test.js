@@ -20,7 +20,7 @@ test('packed bytes reproduce the complete provider-off adoption journey', async 
   );
   assert.equal(receipt.assistants.every((entry) =>
     entry.cleanInstalled && entry.coldIdempotent && entry.uninstalled), true);
-  assert.equal(receipt.demo.exactS42Output, true);
+  assert.equal(receipt.demo.exactQualifiedOutput, true);
   assert.equal(receipt.boundaryCard.accessibleStandaloneHtml, true);
   assert.equal(receipt.pullRequestReport.validEvidence, 'validated-card');
   assert.equal(receipt.pullRequestReport.missingEvidence, 'unavailable');
