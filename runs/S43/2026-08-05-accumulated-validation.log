@@ -1,0 +1,59 @@
+SCOPA S43 accumulated provider-off validation
+Date: 2026-08-05
+Qualified source: 12db637e0b9e804a107f368ef6d03838055b421d
+
+Chronology
+
+1. npm run protocol:sync
+   PASS after local process execution was permitted outside the managed
+   sandbox. The sandbox-only attempt returned spawnSync git EPERM.
+
+2. release policy audit
+   PASS; zero failed policy checks.
+
+3. npm run test:docs
+   PASS; documentation check passed for 38 files.
+
+4. npm run test:s43
+   PASS; packed installed journey reproduced from current source bytes.
+   Generic Agent Skills, Claude Code, and Codex all passed clean install,
+   cold idempotence, and safe uninstall.
+
+5. first complete npm test attempt
+   FAIL; four checks exposed two defects:
+   - packed docs named a root agent-instruction file absent from the package;
+   - the release-policy audit retained superseded SCOPA_AGENT wording.
+   The failures were retained as failures. Documentation closure and the
+   current one-prompt policy contract were corrected without a waiver.
+
+6. npm test
+   PASS after correction; complete provider-off release and focused S29-S43,
+   S8-S17, and S21-S23 gates plus docs completed with exit 0.
+
+7. npm run qualify:s43:installed -- --output
+   evidence/S43/installed-adoption-qualification.json
+   PASS from clean committed implementation 12db637e0b9e804a107f368ef6d03838055b421d.
+
+Installed receipt highlights
+
+- tarball SHA-256: ba740c3253d7ebd8fefa0ba37857d25603e408daf6f982c126b18b0972838dfe
+- packed bytes: 2022598
+- packed entries: 1143
+- first insight: 321 ms under 30000 ms; target unchanged
+- manual control files: 0
+- terminal canStop: true; assurance: partial
+- exact demo proof: 74798ac93431995f82abb8ac68533cf53f4a74f61a947d9cb54fd3e295d63cb5
+- runtime network attempts: 0
+- installed privacy findings: 0
+- shareable private-marker findings: 0
+- cleanup: passed
+- receipt SHA-256: dbe2f706098292d2bc70eba729bf4baa0fa230bc3066815a192f5f400e9a84de
+
+Execution boundary
+
+Nested local Node, npm, and git subprocesses required process permission
+outside the managed sandbox because the sandbox returned EPERM. The commands
+remained local and provider-off. No network access, provider/model call,
+experiment use, GitHub mutation, npm publication, release, tag, push,
+deployment, customer/hosted action, credential use, or external-system action
+was authorized or performed.

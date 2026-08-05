@@ -1,20 +1,44 @@
 # SCOPA CLI
 
 The `scopa` command is installed by the root
-`@heart-ai-foundation/scopa` package. Every command except `--help` writes one
-canonical `scopa.cli-result.v1` JSON object.
+`@heart-ai-foundation/scopa` package. Running it without arguments prints a
+short human-first repository snapshot. Explicit subcommands write one canonical
+`scopa.cli-result.v1` JSON object.
 
 ## Install and run
 
 Install the public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
 ```
 
 The examples below use `scopa` as the command name. After a local installation,
 run it as `npx scopa` or from an npm script. From a source checkout, use
 `node packages/cli/src/cli.js`.
+
+## First look
+
+```sh
+scopa
+```
+
+The zero-argument path creates no files and runs no discovered commands. It
+prints at most three prioritized findings, separates observation from unknown
+agent authority, and ends with one next action. Use `scopa --help` for command
+documentation or `scopa doctor` for the complete machine-readable result.
+
+## See three real enforcement failures
+
+```sh
+scopa demo
+```
+
+The deterministic demo uses an isolated temporary repository to exercise the
+real scope dispatcher, completion gate, and capability-matrix validator. It
+then performs one allowed correction, verifies `canStop: true` with `partial`
+assurance, and removes the fixture. Use `--format json` for the bound result.
+See [demo proof](../../docs/DEMO.md).
 
 ## Diagnose and lock
 
@@ -42,6 +66,37 @@ scopa doctor --lock \
 All three inputs validate before mutation. Add `--format markdown` for a
 digest-bound before/after report. A failed gate exits `4`; it never becomes a
 successful setup result. See [Boundary Doctor](../../docs/BOUNDARY_DOCTOR.md).
+
+## Begin from one task boundary
+
+In this source version, `begin` accepts one closed JSON request instead of
+three caller-authored policy files:
+
+```sh
+scopa begin --request-json '{"schema":"scopa.begin-request.v1","sliceId":"logging","outcome":"Add request-ID logging","allowedPaths":["src/**","test/**"],"gates":[{"id":"tests","command":["npm","test"],"cwd":".","timeoutMs":120000}],"nonGoals":["No dependency changes"],"clientProfile":"generic"}'
+```
+
+SCOPA validates everything before mutation, creates default-closed authority
+and conservative capability declarations, initializes the lock, runs the real
+gates, and returns the terminal Boundary Map. A blocked map exits `4`.
+Conflicting state is never overwritten. See [Begin a governed task](../../docs/BEGIN.md).
+
+## Add a project-local assistant skill
+
+```sh
+scopa assistant detect
+scopa assistant install --dry-run
+scopa assistant install
+scopa assistant uninstall --dry-run
+scopa assistant uninstall
+```
+
+Auto-detection recognizes Claude Code, Codex, and generic Agent Skills markers.
+Use `--client claude-code`, `--client codex`, or `--client generic` when a clean
+repository has no unique marker. Install creates one no-replace skill and a
+hash-bound receipt under `.scopa/`; uninstall removes only unchanged,
+receipt-bound bytes. No user-global configuration is read or written. See
+[assistant installation](../../docs/ASSISTANT_INSTALLATION.md).
 
 ## Initialize
 
@@ -79,9 +134,24 @@ scopa map --matrix capability-matrix.json --authority authority.json
 scopa map --matrix capability-matrix.json --authority authority.json --format markdown
 ```
 
-Without a capability matrix or authority declarations, required surfaces stay
-`unknown`. Markdown remains inside the canonical JSON envelope and is bound to
-its source map.
+After `scopa begin`, `map` uses the validated runtime-owned declarations.
+Otherwise, without a capability matrix or authority declarations, required
+surfaces stay `unknown`. Markdown remains inside the canonical JSON envelope
+and is bound to its source map.
+
+Render the active map as a privacy-minimized human Boundary Card:
+
+```sh
+scopa view
+scopa view --format html --output scopa-boundary.html
+scopa view --format json --output scopa-boundary.json
+```
+
+Unlike machine-oriented subcommands, `view` prints its selected presentation
+directly. With `--output`, it writes exact repository-contained bytes with
+no-replace semantics and prints only the byte count and digest. The standalone
+HTML contains no script, remote asset, telemetry, path, prompt, raw gate
+output, or capability evidence. See [Boundary Card](../../docs/BOUNDARY_CARD.md).
 
 Create a sanitized offline assessment, optionally compared with a baseline:
 

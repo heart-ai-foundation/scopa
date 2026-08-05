@@ -1,0 +1,27 @@
+{
+  "schema": "scopa.s37-evidence.v1",
+  "slice": "S37",
+  "baselineCommit": "0ba7878",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "repositoryMutationOnFirstRun": false,
+  "claims": {
+    "zeroArgumentsHumanFirst": true,
+    "maximumFindings": 3,
+    "oneNextAction": true,
+    "agentAuthorityExplicitlyUnknown": true,
+    "doctorAutomationPreserved": true,
+    "helpPreserved": true
+  },
+  "focusedValidation": [
+    "npm run test:s37",
+    "npm run test:s34",
+    "npm run test:s36",
+    "npm run test:docs",
+    "node next-prompt-protocols/tools/sync-protocols.mjs --check",
+    "git diff --check"
+  ],
+  "status": "accepted"
+}
+

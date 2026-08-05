@@ -1,0 +1,53 @@
+{
+  "schema": "scopa.s39-evidence.v1",
+  "slice": "S39",
+  "baselineCommit": "9f5701a",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "userGlobalMutation": false,
+  "supportedSurfaces": {
+    "path": "fixtures/S39/supported-surfaces.json",
+    "sha256": "cd2a69dc8452c513cdb1e72e8363c5ced521a62bec06a771a065857ec96bd77e",
+    "clients": ["claude-code", "codex", "generic"],
+    "unknownAutoSelection": "refused",
+    "ambiguousAutoSelection": "refused"
+  },
+  "claudePlan": {
+    "schema": "scopa.assistant-install-plan.v1",
+    "sha256": "db9445a14a2fbca443b0a2082f81292c4102536bf2e66ea0f11f8672095305f4",
+    "target": ".claude/skills/scopa/SKILL.md",
+    "targetSha256": "2226958750404b1bd8c42cc1f466f7b9f63c46abc93212c5c8e2537dc6609f7b",
+    "receiptPath": ".scopa/assistant-install.json",
+    "dryRunApplyParity": true,
+    "idempotentReplayCreated": []
+  },
+  "reversibility": {
+    "cleanFixtureBeforeAfterInventoryEqual": true,
+    "changedTargetRemoved": false,
+    "unrelatedDirectoryReceiptEntryAccepted": false,
+    "collisionMutation": false,
+    "aliasTraversal": false
+  },
+  "agentEntry": {
+    "path": "SCOPA_AGENT.md",
+    "sha256": "f96532f83c1a1118ecc703e0d3d08dd35f09bb8da1508b0ad03b409aa75add6b",
+    "lines": 115,
+    "runtimeOwnedBeginPrimary": true,
+    "manualPolicyDocumentsRequired": false
+  },
+  "hostileCorpus": {
+    "path": "packages/adoption-experience/test/assistant-install.test.js",
+    "sha256": "0b7dd67100e1b9e68afa711f23f13528f58036af1f82abb85d88f410fa24eaea"
+  },
+  "installedQualification": {
+    "path": "packages/release-readiness/test/assistant-install-installed.test.js",
+    "sha256": "483e8d5a5041f5767cb2377594c0fd973b670d24f8bee4ed0e9d5e705e9f29dd",
+    "packedBytesUsed": true,
+    "cleanInstall": true,
+    "coldIdempotentReplay": true,
+    "exactUninstall": true,
+    "targetDependencyMutation": false
+  },
+  "status": "accepted"
+}

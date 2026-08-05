@@ -310,8 +310,9 @@ export function createMcpMessageHandler({
             },
           },
           serverInfo: SERVER_INFO,
-          instructions:
-            'Use only advertised SCOPA tools. A task is complete only when scopa_check returns canStop true.',
+          instructions: typeof bridge.instructions === 'function'
+            ? bridge.instructions()
+            : 'Use only advertised SCOPA tools. A task is complete only when scopa_check returns canStop true.',
         });
       } catch (error) {
         return protocolError({

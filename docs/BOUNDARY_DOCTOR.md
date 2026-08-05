@@ -7,6 +7,21 @@ dependency, and does not call a model or probe the network.
 Boundary Doctor is included in public release `0.3.0` and later. Confirm support
 in any installed build with `scopa --help`.
 
+## Start with the human snapshot
+
+Release `0.4.0` makes zero-argument `scopa` a read-only first look at the
+current repository:
+
+```sh
+scopa
+```
+
+The snapshot shows no more than three prioritized findings and one next action.
+It intentionally omits schemas, digests, paths, and assurance terminology.
+Use `scopa doctor` when automation or complete canonical evidence is needed.
+Both forms use the same bounded diagnostic and neither establishes an agent's
+tools or permissions.
+
 ## Run a diagnosis
 
 From this source checkout:

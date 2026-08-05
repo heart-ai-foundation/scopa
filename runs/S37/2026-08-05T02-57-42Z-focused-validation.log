@@ -1,0 +1,24 @@
+S37 focused validation
+baseline: 0ba7878
+
+npm run test:s37
+PASS — 2 test files
+
+npm run test:s34
+PASS — 2 test files
+
+npm run test:s36
+PASS — 2 test files, including installed qualification
+
+npm run test:docs
+PASS — documentation check
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Manual zero-argument source probe
+PASS — concise human snapshot; no canonical envelope on the default path
+

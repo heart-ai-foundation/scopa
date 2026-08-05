@@ -21,6 +21,14 @@ adapter runtime. The only mutation handler calls
 `createReferenceAgentHost().invoke()`. The bridge is a tool-boundary
 enforcement host, not an operating-system sandbox.
 
+Before a repository is initialized, `scopa-mcp --bootstrap --repo <path>`
+starts a separate bootstrap-only host that advertises one tool:
+`scopa_begin`. It accepts the same explicit `scopa.begin-request.v1` boundary
+as the CLI, creates runtime-owned closed defaults, runs the declared gates,
+and returns the actual Boundary Map. It neither infers policy from prose nor
+advertises the six operational tools. See
+[Begin a governed task](../../docs/BEGIN.md).
+
 Governed writes require descriptor-directory binding through `/proc/self/fd`
 or `/dev/fd`. A host without either facility fails closed with scope denial
 instead of reopening an authorized path by name.

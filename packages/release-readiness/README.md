@@ -1,5 +1,21 @@
 # SCOPA release readiness
 
+In a source checkout, the provider-off Phase 13 adoption qualifier packs and
+installs the current bytes offline, then exercises first insight, runtime-owned
+begin, portable generic Agent Skills installation, named Claude and Codex
+project-local installation, the enforcement demo, Boundary Card, and PR
+reporting from that installation:
+
+```sh
+npm run qualify:s43:installed
+```
+
+Use `-- --output <receipt.json>` for a no-replace machine-readable receipt.
+The qualifier does not authorize publication or transfer release assurance.
+It scans first-party installed bytes and shareable outputs for private values;
+the accumulated release gates retain bundled-dependency privacy and integrity
+coverage.
+
 This package implements SCOPA's exact-byte release boundary. It validates the
 principal-approved release posture, audits required security and governance
 surfaces, packs the exact candidate, verifies its integrity, and drives a
@@ -65,4 +81,5 @@ npm run probe:s18:candidate -- \
 The candidate manifest binds artifact bytes and the consumer proof binds
 observed installation and execution outcomes. Neither is a registry
 publication, provider identity attestation, trademark grant, production
-security certification, or full-assurance claim for Claude or Codex.
+security certification, or full-assurance claim for Claude, Codex, or an
+otherwise unknown generic client.

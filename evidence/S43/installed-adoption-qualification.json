@@ -1,0 +1,94 @@
+{
+  "artifact": {
+    "installedOutsideSourceCheckout": true,
+    "packedEntryCount": 1143,
+    "packedInventorySha256": "535c5ed1bd5e57e00536d674f6f32e88fe46346fe0516c673cfe961eace5ec9c",
+    "qualificationOnlyPathsPresent": false,
+    "requiredPathsPresent": true,
+    "tarballBytes": 2022598,
+    "tarballSha256": "ba740c3253d7ebd8fefa0ba37857d25603e408daf6f982c126b18b0972838dfe"
+  },
+  "assistants": [
+    {
+      "cleanInstalled": true,
+      "client": "claude-code",
+      "coldIdempotent": true,
+      "detected": true,
+      "restoredInventorySha256": "78a705e0e565a43b350d332b8a478f6588288ad3af6a68e6f2aa7a3ebefdabf7",
+      "uninstalled": true
+    },
+    {
+      "cleanInstalled": true,
+      "client": "codex",
+      "coldIdempotent": true,
+      "detected": true,
+      "restoredInventorySha256": "f95a577ff5a02c3c5082dd59879a7cc822663d70c9177faa93ea4ce261b64999",
+      "uninstalled": true
+    },
+    {
+      "cleanInstalled": true,
+      "client": "generic",
+      "coldIdempotent": true,
+      "detected": true,
+      "restoredInventorySha256": "75a9e693d244f24310eb292b0cda9454539ac268da7be77bc3becccfc1fb643f",
+      "uninstalled": true
+    }
+  ],
+  "boundaryCard": {
+    "accessibleStandaloneHtml": true,
+    "htmlSha256": "694051b28a9652e21d65893cbacbf372028528c71781b53bce1032011e8d928d",
+    "jsonSha256": "ec3ab3287317e68b0e45a2b9d6f88759472a12680236ea8d8e047198d75eddb7",
+    "privateMarkerFindings": 0,
+    "sourceMapSha256": "810ba1714f8227a03d400c98858de0c8e1cc1cfc810c827413400473df48713b"
+  },
+  "cleanup": {
+    "temporaryRootRemoved": true
+  },
+  "demo": {
+    "exactQualifiedOutput": true,
+    "outputSha256": "6c68c7c0b74b9c7038708151642c012f0ce97c90c9320ec316e928b33184932d",
+    "proofSha256": "74798ac93431995f82abb8ac68533cf53f4a74f61a947d9cb54fd3e295d63cb5"
+  },
+  "firstInsight": {
+    "durationMs": 321,
+    "limitMs": 30000,
+    "outputSha256": "341c5d81b7b802350313cc330b9d625996d600487d165c713ca631db5acdf443",
+    "targetInventorySha256": "f7d3bf6d821f919312813b1015c50bf1f6ecfa58fd9497eebc1ae08610c998c0",
+    "targetUnchanged": true,
+    "underLimit": true
+  },
+  "network": {
+    "attempts": 0,
+    "runtimeGuardActive": true
+  },
+  "privacy": {
+    "installedFirstPartyFindings": 0,
+    "shareablePrivateMarkerFindings": 0
+  },
+  "pullRequestReport": {
+    "commentEnabled": false,
+    "missingEvidence": "unavailable",
+    "missingSummarySha256": "ed6f0cb24c66b0a717b62b0532e5b70c4fd31e11f3c537a602e78f45090ab8fd",
+    "networkCalled": false,
+    "validEvidence": "validated-card",
+    "validSummarySha256": "ff0423774382fd8cfba54ddfda6a3585b630a57c9363aa27576cc98d359b226b"
+  },
+  "schema": "scopa.installed-adoption-qualification.v1",
+  "source": {
+    "commit": "12db637e0b9e804a107f368ef6d03838055b421d",
+    "packageName": "@heart-ai-foundation/scopa",
+    "packageVersion": "0.3.0"
+  },
+  "taskBootstrap": {
+    "assurance": "partial",
+    "governedAllowedWrite": true,
+    "initiallyBlocked": true,
+    "manualControlFiles": 0,
+    "runtimeOwnedControlFiles": [
+      ".scopa/config.json",
+      ".scopa/slice-lock.json",
+      ".scopa/begin-state.json"
+    ],
+    "terminalCanStop": true
+  }
+}

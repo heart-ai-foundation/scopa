@@ -1,0 +1,27 @@
+name: SCOPA Boundary Check
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  boundary-summary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out pull-request content without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Report supplied boundary evidence without executing project code
+        uses: ./.github/actions/scopa-boundary-check
+        with:
+          card-path: scopa-boundary.json
+          comment: "false"

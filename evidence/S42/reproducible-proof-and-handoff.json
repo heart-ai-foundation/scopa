@@ -1,0 +1,74 @@
+{
+  "schema": "scopa.s42-evidence.v1",
+  "slice": "S42",
+  "baselineCommit": "463f64d",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "telemetryUsed": false,
+  "callerRepositoryMutated": false,
+  "demo": {
+    "command": "scopa demo",
+    "resultSchema": "scopa.demo-result.v1",
+    "resultSha256": "c7058bd0d3c1bb4f8c5c00c95097c1ae8594a57c34d66072013d3a8d6b0f6af5",
+    "terminalOutputPath": "fixtures/S42/expected-output.txt",
+    "terminalOutputSha256": "b5964d2742822f975626e7ade8562a8c895050f61ab85464fb45b474b9ff1888",
+    "deterministic": true,
+    "temporaryRepositoryRemoved": true
+  },
+  "faults": [
+    {
+      "id": "scope-escape",
+      "runtimePath": "trusted write dispatcher",
+      "evidenceCode": "SCOPA_SCOPE_DENIED",
+      "injected": true,
+      "accepted": false,
+      "escapeArtifactCreated": false
+    },
+    {
+      "id": "asserted-completion",
+      "runtimePath": "gate runner and stop evaluator",
+      "evidenceCode": "SCOPA_COMPLETION_BLOCKED",
+      "injected": true,
+      "accepted": false
+    },
+    {
+      "id": "assurance-overclaim",
+      "runtimePath": "capability-matrix validator",
+      "evidenceCode": "SCOPA_ADAPTER_SCHEMA_INVALID",
+      "injected": true,
+      "accepted": false
+    }
+  ],
+  "terminal": {
+    "status": "satisfied",
+    "canStop": true,
+    "assurance": "partial",
+    "uncontrolled": 4,
+    "sourceMapSha256": "c250160567796bec080a7a469f79c24725dc2e6afe2dd596a823e5a05e86a6d1"
+  },
+  "implementation": {
+    "runnerPath": "packages/adoption-experience/src/demo.js",
+    "runnerSha256": "2bafcc5a7255f745dbbe37afd2a02b27fc8894251d4ee876a0864555ae1b7400",
+    "gatePath": "packages/adoption-experience/src/demo-gate.mjs",
+    "gateSha256": "6796f34486e099700ead01129d2d8ebce123f02fe7f14dc174ca7093b9ee41fb",
+    "testPath": "packages/adoption-experience/test/demo.test.js",
+    "testSha256": "982f2c407206eba29754274fd0df95ca7044fc403bfbe1cd36c8fc91c81777f5"
+  },
+  "documentation": {
+    "demoPath": "docs/DEMO.md",
+    "demoSha256": "b183c30bb6e7f257558cd4fbc327bd3b8b6fb4dd4e5d483d535a9bd4e23b00c2",
+    "handoffPath": "docs/ORGANIZATIONAL_REVIEW.md",
+    "handoffSha256": "7329fa6b4f99de964016d79127b3bd448c6e18f58f752d35f5bdcc83480ae480",
+    "freeResultCompleteBeforeHandoff": true,
+    "leadCapture": false,
+    "exclusiveAdvisorClaim": false
+  },
+  "claims": {
+    "benchmarkClaim": false,
+    "securityCertificationClaim": false,
+    "guaranteedPreventionClaim": false,
+    "installedQualificationDeferredTo": "S43"
+  },
+  "status": "accepted"
+}

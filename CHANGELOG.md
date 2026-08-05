@@ -6,6 +6,42 @@ compatibility policy.
 
 ## Unreleased
 
+## 0.4.0 — 2026-08-04
+
+- Add an offline installed-adoption qualifier covering under-30-second
+  read-only first insight, zero-manual-file task bootstrap, reversible Claude
+  Code, Codex, and generic Agent Skills integration, exact demo output,
+  Boundary Card privacy and accessibility, and valid/missing PR reporting
+  behind a runtime network tripwire.
+- Make the demo proof digest reproducible across installation directories by
+  removing its absolute source-path binding while retaining real gate
+  execution and the historical S42 evidence unchanged.
+
+### Added
+
+- Make zero-argument `scopa` return an immediate, read-only repository
+  boundary snapshot with at most three findings and one next action.
+- Add the runtime-owned `scopa begin` and bootstrap-only `scopa_begin` MCP
+  transaction for explicit task boundaries, closed authority defaults,
+  conservative client profiles, real gate results, and a terminal Workflow
+  Boundary Map without caller-authored policy files.
+- Add reversible project-local Claude Code, Codex, and generic Agent Skills
+  installation with exact dry-run plans, collision refusal, idempotence, and
+  receipt-bound uninstall.
+- Add the privacy-minimized Boundary Card with deterministic terminal, JSON,
+  and accessible standalone script-free HTML rendering and no-replace export.
+- Add a least-privilege provider-off GitHub Action that validates optional
+  Boundary Cards into sanitized job summaries, reports missing evidence as
+  unknown, and keeps PR commenting explicitly disabled by default.
+- Add the one-command isolated demo proving real scope-denial,
+  blocked-completion, and assurance-overclaim rejection paths with exact-tested
+  output and verified cleanup.
+
+### Changed
+
+- Compress `SCOPA_AGENT.md` around the runtime-owned `begin` journey and remove
+  the three-document policy-authoring path from the one-prompt workflow.
+
 ## 0.3.0 — 2026-08-03
 
 ### Added

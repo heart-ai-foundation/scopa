@@ -17,6 +17,34 @@ turns four questions into local, machine-checkable controls:
 SCOPA implements Next-Prompt Protocol v2.4. The protocol defines the practice;
 SCOPA is the executable reference implementation.
 
+## See it catch real failures
+
+```sh
+scopa demo
+```
+
+Exact tested output:
+
+```text
+SCOPA DEMO — THREE REAL FAILURE CHECKS
+
+PASS  Scope escape denied by the path dispatcher
+PASS  Completion claim blocked until the real gate passed
+PASS  Full-assurance overclaim rejected for native bypasses
+
+FINAL  Declared gates satisfied: yes
+       Reported assurance: partial
+       Uncontrolled routes: 4
+       Temporary workspace removed: yes
+
+Proof SHA-256 e0215dd02f61841677b60cb8e4ca7f796359c7daf30fef8354fdc40eac0ba24d
+Local deterministic demonstration; not a security certification or guaranteed prevention claim.
+```
+
+The command uses the real dispatcher, gate runner, and assurance validator in
+an isolated temporary repository, then verifies cleanup. It does not touch the
+current repository or call a network or model. See [the demo proof](docs/DEMO.md).
+
 ## Start with one prompt
 
 Give your coding agent the task and point it at [`SCOPA_AGENT.md`](SCOPA_AGENT.md):
@@ -36,17 +64,47 @@ bootstraps a compatible SCOPA runtime, performs the work, runs real project
 checks, and reports what the result proves. You do not need to preinstall
 SCOPA or write policy JSON.
 
+In this source version, the agent can submit that explicit boundary through
+one [`scopa begin`](docs/BEGIN.md) call. SCOPA owns the closed authority
+defaults, conservative client-capability declaration, lock creation, first
+gate run, and terminal Boundary Map.
+
 Ordinary work stays ordinary: the agent entry does not create a roadmap,
 approval digest, or protocol queue for a contained task. See the
 [two-minute quickstart](docs/QUICKSTART.md).
 
+To make SCOPA discoverable in a repository on later prompts, preview and add
+one reversible project-local skill:
+
+```sh
+scopa assistant install --dry-run
+scopa assistant install
+```
+
+The portable generic Agent Skills path is the baseline for compatible agents;
+Claude Code and Codex are named conveniences with known project-local paths.
+SCOPA detects their markers or accepts an explicit `--client`. It never edits
+user-global configuration or overwrites an existing assistant file. See
+[assistant installation](docs/ASSISTANT_INSTALLATION.md).
+
 ## See the boundary first
 
-Boundary Doctor gives a read-only, repository-specific diagnosis before
+In a development build that includes the first-run snapshot, run SCOPA with no
+arguments from the repository you want to inspect:
+
+```sh
+scopa
+```
+
+It returns at most three plain-language findings and one next action without
+creating files, executing discovered commands, calling a model, or probing the
+network. From this source checkout, use `node packages/cli/src/cli.js`.
+
+Boundary Doctor remains the complete machine-readable diagnosis before
 `.scopa/` exists:
 
 ```sh
-npx --yes --package @heart-ai-foundation/scopa@0.3.0 \
+npx --yes --package @heart-ai-foundation/scopa@0.4.0 \
   scopa doctor --format markdown --repo /path/to/project
 ```
 
@@ -55,6 +113,25 @@ markers, honest absence, unknown evidence, and completion candidates without
 claiming to know an agent's permissions. After review, `doctor --lock` can
 convert explicit scope, capability, and authority declarations into locked
 SCOPA state. See [Boundary Doctor](docs/BOUNDARY_DOCTOR.md).
+
+After a task boundary exists, make it legible without exposing repository
+details:
+
+```sh
+scopa view
+scopa view --format html --output scopa-boundary.html
+```
+
+The terminal and standalone script-free HTML Boundary Cards preserve the
+canonical completion and control counts, bind the source map digest, and omit
+paths, prompts, gate output, and capability evidence. See
+[Boundary Card](docs/BOUNDARY_CARD.md).
+
+For pull requests, the included [GitHub Action](docs/GITHUB_ACTION.md)
+validates an optional card into a sanitized job summary. Its default workflow
+has only `contents: read`, executes no project or gate command, persists no
+checkout credential, and treats missing evidence as unknown. PR comments are a
+separate full-commit-pinned, token-bearing opt-in.
 
 ## How it works
 
@@ -79,13 +156,13 @@ deploy, use credentials, or change an external system.
 | --- | --- | --- |
 | `SCOPA_AGENT.md` | Point an agent at one self-contained operating protocol | [Agent entry](SCOPA_AGENT.md) |
 | `scopa` | Diagnose, initialize, run checks, inspect state, and verify evidence | [CLI](packages/cli/README.md) |
-| `scopa-mcp` | Expose six governed tools over local MCP stdio | [MCP host](packages/adapter-host/README.md) |
+| `scopa-mcp` | Bootstrap one task or expose six governed tools over local MCP stdio | [MCP host](packages/adapter-host/README.md) |
 | `@heart-ai-foundation/scopa/claude` | Launch the reviewed Claude Code profile | [Claude](packages/integrations/claude/README.md) |
 | `@heart-ai-foundation/scopa/codex` | Launch the reviewed Codex profile | [Codex](packages/integrations/codex/README.md) |
 
 ## Status
 
-- **Current public release:** `0.3.0`
+- **Current public release:** `0.4.0`
 - **Package:** `@heart-ai-foundation/scopa`
 - **Included:** enforcement runtime, Boundary Doctor, Workflow Boundary Map,
   offline assessment, model-neutral MCP, Claude Code, and Codex integrations
@@ -101,7 +178,7 @@ deploy, use credentials, or change an external system.
 Install the current public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
 ```
 
 Then initialize and check a repository that contains a closed slice definition:
@@ -137,11 +214,16 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 ## Documentation
 
 - **Get started:** [Quickstart](docs/QUICKSTART.md),
+  [demo proof](docs/DEMO.md),
+  [runtime-owned begin](docs/BEGIN.md),
+  [assistant installation](docs/ASSISTANT_INSTALLATION.md),
   [Boundary Doctor](docs/BOUNDARY_DOCTOR.md),
   [manual walkthrough](docs/MANUAL_SETUP.md)
 - **Operate:** [CLI](packages/cli/README.md),
   [slice definition](docs/SLICE_DEFINITION.md),
   [Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md),
+  [Boundary Card](docs/BOUNDARY_CARD.md),
+  [GitHub Action](docs/GITHUB_ACTION.md),
   [troubleshooting](docs/TROUBLESHOOTING.md)
 - **Integrate:** [Integration guide](docs/INTEGRATIONS.md),
   [MCP host](packages/adapter-host/README.md),
@@ -151,7 +233,8 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
   [threat model](docs/THREAT_MODEL.md),
   [claims](docs/CLAIMS.md), [security policy](SECURITY.md)
 - **Project:** [Contributing](CONTRIBUTING.md), [governance](GOVERNANCE.md),
-  [versioning](docs/VERSIONING.md), [changelog](CHANGELOG.md)
+  [versioning](docs/VERSIONING.md), [changelog](CHANGELOG.md),
+  [optional organizational review](docs/ORGANIZATIONAL_REVIEW.md)
 
 ## Exact release bytes
 
@@ -160,9 +243,9 @@ compare the npm integrity and tarball values with the checksum published in the
 corresponding GitHub Release:
 
 ```sh
-npm view @heart-ai-foundation/scopa@0.3.0 dist.integrity
-npm view @heart-ai-foundation/scopa@0.3.0 dist.tarball
-sha256sum heart-ai-foundation-scopa-0.3.0.tgz
+npm view @heart-ai-foundation/scopa@0.4.0 dist.integrity
+npm view @heart-ai-foundation/scopa@0.4.0 dist.tarball
+sha256sum heart-ai-foundation-scopa-0.4.0.tgz
 ```
 
 From a source checkout, use `npm run pack:candidate`; raw `npm pack` is not the

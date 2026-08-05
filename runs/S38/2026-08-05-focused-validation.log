@@ -1,0 +1,27 @@
+S38 focused validation
+baseline: 2f72261e
+
+npm run test:s38
+PASS — runtime transaction, closed defaults, pass/fail gates, hostile no-write corpus, conflict refusal, profile honesty, CLI/MCP parity, and persisted map reuse
+
+npm run test:s35
+PASS — existing Doctor lock conversion preserved
+
+npm run test:s37
+PASS — zero-argument first insight preserved
+
+npm run test:s7
+PASS — initialized six-tool adapter host preserved
+
+npm run test:docs
+PASS — documentation check
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Provider/model calls: none
+Network probes: none
+External or release mutations: none

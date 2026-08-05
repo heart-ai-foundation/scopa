@@ -1,0 +1,26 @@
+name: SCOPA Boundary Check
+description: Validate an optional privacy-minimized Boundary Card and write a truthful pull-request job summary.
+inputs:
+  card-path:
+    description: Workspace-relative scopa.boundary-card.v1 JSON file. Missing evidence is reported as unknown.
+    required: false
+    default: scopa-boundary.json
+  comment:
+    description: Post the sanitized report to the pull request. Disabled by default; use only from full-commit-pinned trusted action code.
+    required: false
+    default: "false"
+  github-token:
+    description: Explicit token for comment opt-in. Leave empty for the read-only default.
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - id: report
+      name: Validate and summarize Boundary Card
+      shell: bash
+      env:
+        INPUT_CARD_PATH: ${{ inputs.card-path }}
+        INPUT_COMMENT: ${{ inputs.comment }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: node "$GITHUB_ACTION_PATH/report.mjs"

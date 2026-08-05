@@ -1,0 +1,28 @@
+S40 focused validation
+baseline: 95be277
+
+npm run test:s40
+PASS — canonical card projection, privacy omission, deterministic terminal/JSON/HTML, semantic polarity, validator hostility, script/remote isolation, accessibility markers, read-only default, exact export, no-replace, and path containment
+
+npm run test:s39
+PASS — assistant installation regression
+
+npm run test:s30
+PASS — canonical Workflow Boundary Map regression
+
+npm run test:s33
+PASS — adversarial public-journey regression aligned to runtime-owned begin
+
+npm run test:docs
+PASS — documentation check
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Provider/model calls: none
+Network/browser actions: none
+Implicit export writes: none
+External or release mutations: none

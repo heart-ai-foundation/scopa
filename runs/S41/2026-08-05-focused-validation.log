@@ -1,0 +1,25 @@
+S41 focused validation
+baseline: ad3f31c
+
+npm run test:s41
+PASS — valid/missing reports, fixed sanitization, no-default-network, malformed/oversized/alias/escape failures before publication, comment guards, stubbed bounded comment request, and static least-privilege workflow/action checks
+
+npm run test:s40
+PASS — Boundary Card regression
+
+npm run test:s33
+PASS — adversarial public-journey regression
+
+npm run test:docs
+PASS — documentation check
+
+node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS
+
+git diff --check
+PASS
+
+Provider/model calls: none
+GitHub API/network calls: none
+PR or repository writes: none
+Marketplace/publication/release actions: none

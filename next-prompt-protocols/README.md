@@ -2,15 +2,15 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `e765db3`
+Current commit reference: `12db637`
 
 Active protocol: `none`
-Active protocol class: `arc`
+Active protocol class: `unset`
 Active protocol compound: `false`
 
 ## Current State
 
-S34-S36 Boundary Doctor Adoption Wedge complete; BD1-BD3 satisfied; no active implementation protocol and future release remains closed.
+Phase 13 S37-S43 is complete with AX1-AX7 satisfied provider-off; no new implementation or release scope is active.
 
 Module progress:
 - conformance: 3/3 (100%)
@@ -35,10 +35,11 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
+- adoption-experience: 7/7 (100%)
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 3/3 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 83/84 (99%)
+Arc total: 90/91 (99%)
 
 ## Queued Work
 
@@ -55,76 +56,56 @@ When a new active protocol is selected:
 
 ## Current Phase
 
-- `Phase 12 Boundary Doctor Adoption Wedge`
+- `Phase 13 Instant Value And Organic Distribution`
 
 ## Scope Boundaries
 
 - `package.json`
 - `package-lock.json`
-- `SCOPA_AGENT.md`
-- `.github/workflows/case-validation.yml`
 - `production-bundle.json`
+- `SCOPA_AGENT.md`
 - `README.md`
 - `docs/**`
 - `schemas/**`
-- `packages/release-readiness/**`
-- `packages/enforcement/**`
-- `packages/conformance/**`
+- `examples/**`
 - `packages/cli/**`
-- `packages/agent-surface/**`
-- `packages/workflow-boundary-map/**`
 - `packages/boundary-doctor/**`
-- `fixtures/S29/**`
-- `fixtures/S30/**`
-- `fixtures/S31/**`
-- `fixtures/S32/**`
-- `fixtures/S33/**`
-- `fixtures/S34/**`
-- `fixtures/S35/**`
-- `fixtures/S36/**`
-- `notes/S29/**`
-- `runs/S29/**`
-- `evidence/S29/**`
-- `notes/S34/**`
-- `notes/S35/**`
-- `notes/S36/**`
-- `runs/S34/**`
-- `runs/S35/**`
-- `runs/S36/**`
-- `evidence/S34/**`
-- `evidence/S35/**`
-- `evidence/S36/**`
-- `fixtures/S20/**`
-- `fixtures/S23/**`
-- `fixtures/S24/**`
-- `fixtures/S25/**`
-- `fixtures/S26/**`
-- `fixtures/S26R1/**`
-- `fixtures/S26R2/**`
-- `fixtures/S26R3/**`
-- `fixtures/S27/**`
-- `fixtures/S28/**`
-- `fixtures/R1/**`
-- `runs/S26R1/**`
-- `runs/S26R2/**`
-- `runs/S26R3/**`
-- `packages/live-run/test/s26r2-scenario-binding-remediation.test.js`
-- `packages/live-run/test/s26r3-canonical-evidence-projection-remediation.test.js`
+- `packages/workflow-boundary-map/**`
+- `packages/agent-surface/**`
+- `packages/adapter-host/**`
+- `packages/integrations/**`
+- `packages/enforcement/**`
+- `packages/release-readiness/**`
+- `packages/adoption-experience/**`
+- `packages/launcher/**`
+- `.github/actions/scopa-boundary-check/**`
+- `.github/workflows/scopa-boundary-check.yml`
+- `fixtures/S37/**`
+- `fixtures/S38/**`
+- `fixtures/S39/**`
+- `fixtures/S40/**`
+- `fixtures/S41/**`
+- `fixtures/S42/**`
+- `fixtures/S43/**`
+- `notes/S37/**`
+- `notes/S38/**`
+- `notes/S39/**`
+- `notes/S40/**`
+- `notes/S41/**`
+- `notes/S42/**`
+- `notes/S43/**`
+- `runs/S37/**`
+- `runs/S38/**`
+- `runs/S39/**`
+- `runs/S40/**`
+- `runs/S41/**`
+- `runs/S42/**`
+- `runs/S43/**`
+- `evidence/S37/**`
+- `evidence/S38/**`
+- `evidence/S39/**`
+- `evidence/S40/**`
+- `evidence/S41/**`
+- `evidence/S42/**`
+- `evidence/S43/**`
 - `next-prompt-protocols/**`
-- `notes/S20/**`
-- `runs/S20/**`
-- `evidence/S20/**`
-- `evidence/S21/**`
-- `evidence/S22/**`
-- `evidence/S23/**`
-- `evidence/S24/**`
-- `evidence/S25/**`
-- `evidence/S26/**`
-- `evidence/S26R1/**`
-- `evidence/S26R2/**`
-- `evidence/S26R3/**`
-- `evidence/S27/**`
-- `evidence/S28/**`
-- `evidence/R1/**`
-- `RELEASE_NOTES.md`
-- `evidence/RC1/2026-07-30-resource-bound-evidence-implementation-note.md`

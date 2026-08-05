@@ -7,6 +7,7 @@ import {
 import { constants as fsConstants } from 'node:fs';
 import path from 'node:path';
 import {
+  canonicalJsonPretty,
   createSliceLock,
   evaluateStopCondition,
 } from '../../enforcement/src/index.js';
@@ -34,6 +35,21 @@ import {
   createBoundaryDiagnostic,
   renderBoundaryDoctorMarkdown,
 } from '../../boundary-doctor/src/index.js';
+import {
+  BOUNDARY_VIEW_RESULT_SCHEMA,
+  DEMO_VIEW_RESULT_SCHEMA,
+  beginSlice,
+  createBoundaryCard,
+  detectAssistantSurfaces,
+  installAssistant,
+  renderBoundaryCardHtml,
+  renderBoundaryCardTerminal,
+  renderDemoTerminal,
+  runDemo,
+  tryLoadBeginState,
+  uninstallAssistant,
+  writeBoundaryCardExport,
+} from '../../adoption-experience/src/index.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
 export const CLI_EXIT = Object.freeze({
@@ -90,6 +106,31 @@ function optionSpec(command) {
       '--request-json': { name: 'requestJson', required: true },
     };
   }
+  if (command === 'begin') {
+    return {
+      ...common,
+      '--request-json': { name: 'requestJson', required: true },
+    };
+  }
+  if (command === 'assistant') {
+    return {
+      ...common,
+      '--client': { name: 'client' },
+      '--dry-run': { name: 'dryRun', boolean: true },
+    };
+  }
+  if (command === 'view') {
+    return {
+      ...common,
+      '--format': { name: 'format' },
+      '--output': { name: 'output' },
+    };
+  }
+  if (command === 'demo') {
+    return {
+      '--format': { name: 'format' },
+    };
+  }
   if (command === 'map') {
     return {
       ...common,
@@ -134,7 +175,18 @@ export function parseCommand(argv) {
   const command = argv[0];
   const specification = optionSpec(command);
   const options = {};
-  for (let index = 1; index < argv.length; index += 1) {
+  let startIndex = 1;
+  if (command === 'assistant') {
+    const action = argv[1];
+    if (!['detect', 'install', 'uninstall'].includes(action)) {
+      throw new CliUsageError(
+        'assistant requires one action: detect, install, or uninstall',
+      );
+    }
+    options.action = action;
+    startIndex = 2;
+  }
+  for (let index = startIndex; index < argv.length; index += 1) {
     const flag = argv[index];
     const config = specification[flag];
     if (!config) throw new CliUsageError(`unknown argument: ${flag}`);
@@ -221,6 +273,14 @@ function parseRequest(value) {
     );
   }
   return request;
+}
+
+function parseJsonArgument(value, label) {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    throw new CliUsageError(`${label} is not valid JSON: ${error.message}`);
+  }
 }
 
 function trustOptions(options, trustedTimestampRootsPem) {
@@ -470,39 +530,73 @@ async function doctorLockCommand(options) {
   };
 }
 
-async function mapCommand(options) {
-  const format = options.format ?? 'json';
-  if (!['json', 'markdown'].includes(format)) {
-    throw new CliUsageError('--format must be json or markdown');
-  }
+async function workflowBoundaryMap(options) {
   const project = await loadProject(options.repo);
   const stopState = await evaluateStopCondition({
     lock: project.lock,
     repoRoot: project.repoRoot,
   });
+  const beginState = !options.matrix && !options.authority
+    ? await tryLoadBeginState(options.repo)
+    : null;
   const capabilityMatrix = options.matrix
     ? validateCapabilityMatrix(await readJsonInput(
       options.repo,
       options.matrix,
       'capability matrix',
     ))
-    : null;
+    : beginState?.capabilityMatrix ?? null;
   const authorityDocument = options.authority
     ? validateAuthorityDeclarationDocument(await readJsonInput(
       options.repo,
       options.authority,
       'authority declaration document',
     ))
-    : null;
-  const map = createWorkflowBoundaryMap({
+    : beginState?.authorityDeclarations ?? null;
+  return createWorkflowBoundaryMap({
     lock: project.lock,
     stopState,
     capabilityMatrix,
     authorityDeclarations: authorityDocument?.declarations ?? [],
   });
+}
+
+async function mapCommand(options) {
+  const format = options.format ?? 'json';
+  if (!['json', 'markdown'].includes(format)) {
+    throw new CliUsageError('--format must be json or markdown');
+  }
+  const map = await workflowBoundaryMap(options);
   return format === 'markdown'
     ? renderWorkflowBoundaryMapMarkdown(map)
     : map;
+}
+
+async function viewCommand(options) {
+  const format = options.format ?? 'terminal';
+  if (!['html', 'json', 'terminal'].includes(format)) {
+    throw new CliUsageError('--format must be terminal, html, or json');
+  }
+  const card = createBoundaryCard(await workflowBoundaryMap({ repo: options.repo }));
+  const content = format === 'html'
+    ? renderBoundaryCardHtml(card)
+    : format === 'json'
+      ? canonicalJsonPretty(card)
+      : renderBoundaryCardTerminal(card);
+  const exported = options.output
+    ? await writeBoundaryCardExport({
+      repoRoot: options.repo,
+      output: options.output,
+      content,
+    })
+    : null;
+  return {
+    schema: BOUNDARY_VIEW_RESULT_SCHEMA,
+    format,
+    card,
+    content,
+    export: exported,
+  };
 }
 
 async function assessCommand(options) {
@@ -528,6 +622,103 @@ export async function executeCommand(argv) {
           repoRoot: options.repo,
           definitionPath: options.definition,
         }),
+      },
+    };
+  }
+  if (command === 'begin') {
+    const result = await beginSlice({
+      repoRoot: options.repo,
+      request: parseJsonArgument(options.requestJson, '--request-json'),
+    });
+    return {
+      exitCode: result.status === 'blocked'
+        ? CLI_EXIT.blocked
+        : CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result,
+      },
+    };
+  }
+  if (command === 'assistant') {
+    if (options.action === 'detect') {
+      if (options.client !== undefined || options.dryRun) {
+        throw new CliUsageError('assistant detect accepts only --repo');
+      }
+      return {
+        exitCode: CLI_EXIT.success,
+        envelope: {
+          schema: CLI_RESULT_SCHEMA,
+          ok: true,
+          command,
+          result: await detectAssistantSurfaces(options.repo),
+        },
+      };
+    }
+    if (options.action === 'uninstall') {
+      if (options.client !== undefined) {
+        throw new CliUsageError('assistant uninstall does not accept --client');
+      }
+      return {
+        exitCode: CLI_EXIT.success,
+        envelope: {
+          schema: CLI_RESULT_SCHEMA,
+          ok: true,
+          command,
+          result: await uninstallAssistant({
+            repoRoot: options.repo,
+            dryRun: Boolean(options.dryRun),
+          }),
+        },
+      };
+    }
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await installAssistant({
+          repoRoot: options.repo,
+          client: options.client ?? 'auto',
+          dryRun: Boolean(options.dryRun),
+        }),
+      },
+    };
+  }
+  if (command === 'view') {
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: await viewCommand(options),
+      },
+    };
+  }
+  if (command === 'demo') {
+    const format = options.format ?? 'terminal';
+    if (!['json', 'terminal'].includes(format)) {
+      throw new CliUsageError('--format must be terminal or json');
+    }
+    const demo = await runDemo();
+    return {
+      exitCode: CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result: {
+          schema: DEMO_VIEW_RESULT_SCHEMA,
+          format,
+          demo,
+          content: format === 'json'
+            ? canonicalJsonPretty(demo)
+            : renderDemoTerminal(demo),
+        },
       },
     };
   }
@@ -622,6 +813,12 @@ export function failureResult(command, error) {
       'SCOPA_SLICE_LOCK_INVALID',
       'SCOPA_WORKFLOW_BOUNDARY_MAP_INVALID',
       'SCOPA_BOUNDARY_DIAGNOSTIC_INVALID',
+      'SCOPA_BEGIN_REQUEST_INVALID',
+      'SCOPA_ASSISTANT_INSTALL_INVALID',
+      'SCOPA_ASSISTANT_INSTALL_CONFLICT',
+      'SCOPA_BOUNDARY_CARD_INVALID',
+      'SCOPA_BOUNDARY_CARD_CONFLICT',
+      'SCOPA_DEMO_INVALID',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';

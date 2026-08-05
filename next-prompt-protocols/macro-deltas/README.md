@@ -1,5 +1,8 @@
 # Macro Deltas
 
+- `2026-08-04-scopa-instant-value-phase-transition.md` — principal-directed
+  transition from technically complete adoption controls to a zero-friction,
+  insight-first developer journey; S37 is the active executable handoff.
 - `2026-08-03-scopa-workflow-boundary-mapping.md` — principal-directed draft
   queue for a portable workflow boundary map, point-and-go qualification, and
   open assessment interoperability with a clean consultation boundary.

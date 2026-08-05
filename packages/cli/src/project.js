@@ -16,6 +16,7 @@ import {
 
 export const PROJECT_CONFIG_SCHEMA = 'scopa.project-config.v1';
 export const PROJECT_CONFIG_PATH = '.scopa/config.json';
+export const PROJECT_BEGIN_STATE_PATH = '.scopa/begin-state.json';
 export const PROJECT_LOCK_PATH = '.scopa/slice-lock.json';
 export const PROJECT_ROTATION_PATH = '.scopa/rotation.json';
 
@@ -249,6 +250,7 @@ async function initializeValidatedProject({
   root,
   definition,
   definitionRelative,
+  beginState = null,
 }) {
   const definitionCandidate = resolveInside(
     root,
@@ -281,8 +283,16 @@ async function initializeValidatedProject({
       content: canonicalJsonPretty(config),
     },
   ];
+  if (beginState !== null) {
+    entries.push({
+      label: 'begin state',
+      relativePath: PROJECT_BEGIN_STATE_PATH,
+      target: resolveInside(root, PROJECT_BEGIN_STATE_PATH, 'begin state path'),
+      content: canonicalJsonPretty(beginState),
+    });
+  }
   const result = await initializeFiles(entries);
-  return {
+  const initialization = {
     schema: 'scopa.init-result.v1',
     definitionPath: definitionRelative,
     lockHash: lock.definitionHash,
@@ -291,6 +301,24 @@ async function initializeValidatedProject({
     created: result.created,
     unchanged: result.unchanged,
   };
+  if (beginState !== null) {
+    initialization.beginStatePath = PROJECT_BEGIN_STATE_PATH;
+  }
+  return initialization;
+}
+
+export async function initializeProjectFromBeginDefinition({
+  repoRoot,
+  definition,
+  beginState,
+}) {
+  const root = await realpath(repoRoot);
+  return initializeValidatedProject({
+    root,
+    definition,
+    definitionRelative: PROJECT_BEGIN_STATE_PATH,
+    beginState,
+  });
 }
 
 export async function initializeProjectFromDefinition({

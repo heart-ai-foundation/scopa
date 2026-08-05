@@ -1,0 +1,40 @@
+{
+  "schema": "scopa.s43-canon-bindings.v1",
+  "source": {
+    "commit": "12db637e0b9e804a107f368ef6d03838055b421d",
+    "packageName": "@heart-ai-foundation/scopa",
+    "workingPackageVersion": "0.3.0",
+    "releaseState": "provider-off-qualified-source-candidate-not-released"
+  },
+  "installedQualification": {
+    "path": "evidence/S43/installed-adoption-qualification.json",
+    "sha256": "dbe2f706098292d2bc70eba729bf4baa0fa230bc3066815a192f5f400e9a84de"
+  },
+  "canonicalDocuments": [
+    {
+      "logicalPath": "SCOPA/Instant Value and Installed Adoption/SCOPA_Instant_Value_and_Installed_Adoption_Canon_Amendment_v1_0.md",
+      "sha256": "ae077e2b022b5d80236872f7dedaccdd0be29a2708f49f0ab7fa6dce28dadf3d"
+    },
+    {
+      "logicalPath": "SCOPA/Instant Value and Installed Adoption/SCOPA_S37_S43_Implementation_and_Qualification_Record_2026_08_05.md",
+      "sha256": "dd762767a8df70d68e9b5aed8f86c0061a668171c4af890f2f7d2a81fd4d8edc"
+    }
+  ],
+  "durableMemory": {
+    "logicalPath": "llm-memories/projects/scopa/evidence/2026-08-05-S37-S43-instant-value-installed-qualification-closeout.md",
+    "sha256": "3be66e26c4865771c32efc58f410f9ce5ed61431d4a4d92432bb5658d84bf1fa"
+  },
+  "publicReleaseUnchanged": {
+    "version": "0.3.0",
+    "sourceCommit": "78b5b9534280113ea86873756d2f858e2b0f8b8d",
+    "tarballSha256": "9c36a4428c29cb45fad2c11d850c1556225e142f35bce10b7fdbd7ae23155c63"
+  },
+  "authority": {
+    "providerCalls": 0,
+    "experimentUse": false,
+    "networkProbes": 0,
+    "publication": false,
+    "releaseExecution": false,
+    "push": false
+  }
+}

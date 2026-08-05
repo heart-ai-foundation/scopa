@@ -1,0 +1,30 @@
+{
+  "schema": "scopa.boundary-card.v1",
+  "sourceMapSha256": "85fc56d988e24cfe34ae44e8b37a2795a0da69ba02c46811423660d86f8715ea",
+  "completion": {
+    "status": "satisfied",
+    "canStop": true,
+    "gates": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "timedOut": 0
+    }
+  },
+  "assurance": {
+    "level": "partial",
+    "basis": "active-uncontrolled-route"
+  },
+  "surfaces": {
+    "total": 18,
+    "controlled": 8,
+    "uncontrolled": 4,
+    "unknown": 0,
+    "authorityRequired": 6,
+    "disabled": 0
+  },
+  "scope": {
+    "allowedPathRules": 2,
+    "nonGoals": 2
+  }
+}
