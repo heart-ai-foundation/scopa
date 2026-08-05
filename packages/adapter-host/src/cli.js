@@ -14,6 +14,9 @@ import {
   createAdapterBridge,
 } from './bridge.js';
 import {
+  createBootstrapBridge,
+} from './bootstrap-bridge.js';
+import {
   serveMcpStdio,
 } from './mcp-stdio.js';
 
@@ -49,6 +52,13 @@ export function parseArguments(argv) {
   ]);
   for (let index = 0; index < argv.length; index += 1) {
     const flag = argv[index];
+    if (flag === '--bootstrap') {
+      if (options.bootstrap === true) {
+        throw new LauncherError('SCOPA_LAUNCHER_ARGUMENT_INVALID');
+      }
+      options.bootstrap = true;
+      continue;
+    }
     const name = allowed.get(flag);
     if (!name) {
       throw new LauncherError('SCOPA_LAUNCHER_ARGUMENT_INVALID');
@@ -62,6 +72,19 @@ export function parseArguments(argv) {
     }
     options[name] = value;
     index += 1;
+  }
+  if (options.bootstrap === true) {
+    if (
+      options.matrixFile !== undefined ||
+      options.sessionFile !== undefined ||
+      options.evidenceJournal !== undefined
+    ) {
+      throw new LauncherError('SCOPA_LAUNCHER_ARGUMENT_INVALID');
+    }
+    return {
+      repo: path.resolve(options.repo ?? process.cwd()),
+      bootstrap: true,
+    };
   }
   for (const name of ['matrixFile', 'sessionFile']) {
     if (options[name] === undefined) {
@@ -111,12 +134,14 @@ export async function main(argv = process.argv.slice(2)) {
   const options = parseArguments(argv);
   let bridge;
   try {
-    bridge = await createAdapterBridge({
-      repoRoot: options.repo,
-      session: await readJson(options.sessionFile),
-      capabilityMatrix: await readJson(options.matrixFile),
-      evidenceJournalPath: options.evidenceJournal,
-    });
+    bridge = options.bootstrap
+      ? createBootstrapBridge({ repoRoot: options.repo })
+      : await createAdapterBridge({
+        repoRoot: options.repo,
+        session: await readJson(options.sessionFile),
+        capabilityMatrix: await readJson(options.matrixFile),
+        evidenceJournalPath: options.evidenceJournal,
+      });
   } catch (error) {
     if (error instanceof LauncherError) throw error;
     throw new LauncherError(

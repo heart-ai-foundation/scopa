@@ -11,6 +11,7 @@ import {
 export const HELP = `SCOPA developer CLI
 
 Usage:
+  scopa begin --request-json <json> [--repo <directory>]
   scopa init --definition <file> [--repo <directory>]
   scopa status [--repo <directory>]
   scopa check [--repo <directory>]
@@ -55,4 +56,3 @@ export async function runCli(argv, options = {}) {
   write(canonicalJsonPretty(outcome.envelope));
   return outcome.exitCode;
 }
-

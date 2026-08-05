@@ -1,0 +1,9 @@
+{
+  "name": "@heart-ai-foundation/scopa-adoption-experience",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  }
+}

@@ -6,6 +6,15 @@ compatibility policy.
 
 ## Unreleased
 
+### Added
+
+- Make zero-argument `scopa` return an immediate, read-only repository
+  boundary snapshot with at most three findings and one next action.
+- Add the runtime-owned `scopa begin` and bootstrap-only `scopa_begin` MCP
+  transaction for explicit task boundaries, closed authority defaults,
+  conservative client profiles, real gate results, and a terminal Workflow
+  Boundary Map without caller-authored policy files.
+
 ## 0.3.0 — 2026-08-03
 
 ### Added

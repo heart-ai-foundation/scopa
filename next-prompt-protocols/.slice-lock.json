@@ -1,21 +1,22 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "ad48b5c",
+  "current_commit": "2f72261e",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "active_protocol": "active/2026-08-04-S37-instant-boundary-insight.md",
+  "active_protocol": "active/2026-08-05-S38-runtime-owned-task-bootstrap.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "adoption-experience",
   "crosses": [
-    "boundary-doctor",
+    "enforcement",
+    "adapter-host",
     "distribution"
   ],
   "advances_contracts": [
-    "AX1"
+    "AX2"
   ],
-  "active_protocol_sha256": "sha256:d7a772c856493473b07de4035c1b8b8ad49a5474a5c2f479d8a823ce1783d829",
-  "active_objective": "Make zero-argument `scopa` run a read-only, human-first boundary snapshot for\nthe current repository. It must present at most three prioritized observations,\nclearly distinguish observed facts from unknown authority, and give one next\naction. Preserve explicit `--help` and the existing canonical Doctor JSON\ncontract for automation.",
+  "active_protocol_sha256": "sha256:693f16dfbe30bbeb67d9b694b7b1e42227da305ae35c68e4f053da91857af61d",
+  "active_objective": "Add one atomic begin-slice operation available through the CLI and MCP host. It\nmust accept an explicit structured task boundary from the agent—outcome,\nallowed repository paths, real gate argv arrays, non-goals, and a named client\nprofile—then prevalidate the complete transaction, create default-closed\nauthority and honest capability declarations, initialize SCOPA, run the gates,\nand return the actual boundary map. No developer-authored policy files and no\nnatural-language policy inference.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

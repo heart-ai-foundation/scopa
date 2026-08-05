@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `ad48b5c`
-Current active protocol: `active/2026-08-04-S37-instant-boundary-insight.md`
+Current commit reference: `2f72261e`
+Current active protocol: `active/2026-08-05-S38-runtime-owned-task-bootstrap.md`
 
 ## Scope
 
@@ -9,11 +9,13 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Make zero-argument `scopa` run a read-only, human-first boundary snapshot for
-> the current repository. It must present at most three prioritized observations,
-> clearly distinguish observed facts from unknown authority, and give one next
-> action. Preserve explicit `--help` and the existing canonical Doctor JSON
-> contract for automation.
+> Add one atomic begin-slice operation available through the CLI and MCP host. It
+> must accept an explicit structured task boundary from the agent—outcome,
+> allowed repository paths, real gate argv arrays, non-goals, and a named client
+> profile—then prevalidate the complete transaction, create default-closed
+> authority and honest capability declarations, initialize SCOPA, run the gates,
+> and return the actual boundary map. No developer-authored policy files and no
+> natural-language policy inference.
 
 ## Files in play
 
@@ -88,22 +90,19 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s38`
+- `npm run test:s35`
 - `npm run test:s37`
-- `npm run test:s34`
-- `npm run test:s36`
+- `npm run test:s7`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- Zero-argument source execution completes inside a five-second test budget on
-  the bounded fixture and performs no write, network, provider, or discovered
-  command execution.
-- Default output is at most 20 nonblank lines, contains no schema or digest
-  vocabulary, shows no more than three prioritized findings, distinguishes
-  observation from unknown authority, and ends with one concrete next action.
-- `scopa --help` still emits usage, and existing `scopa doctor` JSON and
-  Markdown contracts remain byte- and exit-compatible unless a versioned
-  compatibility change is explicitly justified.
-- Every human statement is traceable to the canonical diagnostic; missing
-  markers never become claims that a capability is unavailable.
+- One begin request in a clean repository creates only validated SCOPA state,
+  returns the actual terminal map, and requires no caller-authored file.
+- Malformed scope, escaping paths, shell-shaped gates, unknown profiles,
+  conflicting state, and incomplete input fail before mutation.
+- External authority defaults closed, active native bypasses remain
+  uncontrolled, and assurance cannot exceed the selected profile evidence.
+- CLI and MCP expose the same request and result semantics.
 
 ## Handoff
 

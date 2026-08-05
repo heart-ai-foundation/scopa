@@ -55,6 +55,20 @@ All three inputs validate before mutation. Add `--format markdown` for a
 digest-bound before/after report. A failed gate exits `4`; it never becomes a
 successful setup result. See [Boundary Doctor](../../docs/BOUNDARY_DOCTOR.md).
 
+## Begin from one task boundary
+
+In this source version, `begin` accepts one closed JSON request instead of
+three caller-authored policy files:
+
+```sh
+scopa begin --request-json '{"schema":"scopa.begin-request.v1","sliceId":"logging","outcome":"Add request-ID logging","allowedPaths":["src/**","test/**"],"gates":[{"id":"tests","command":["npm","test"],"cwd":".","timeoutMs":120000}],"nonGoals":["No dependency changes"],"clientProfile":"generic"}'
+```
+
+SCOPA validates everything before mutation, creates default-closed authority
+and conservative capability declarations, initializes the lock, runs the real
+gates, and returns the terminal Boundary Map. A blocked map exits `4`.
+Conflicting state is never overwritten. See [Begin a governed task](../../docs/BEGIN.md).
+
 ## Initialize
 
 Create a closed [slice definition](../../docs/SLICE_DEFINITION.md), then bind
@@ -91,9 +105,10 @@ scopa map --matrix capability-matrix.json --authority authority.json
 scopa map --matrix capability-matrix.json --authority authority.json --format markdown
 ```
 
-Without a capability matrix or authority declarations, required surfaces stay
-`unknown`. Markdown remains inside the canonical JSON envelope and is bound to
-its source map.
+After `scopa begin`, `map` uses the validated runtime-owned declarations.
+Otherwise, without a capability matrix or authority declarations, required
+surfaces stay `unknown`. Markdown remains inside the canonical JSON envelope
+and is bound to its source map.
 
 Create a sanitized offline assessment, optionally compared with a baseline:
 

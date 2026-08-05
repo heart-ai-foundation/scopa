@@ -36,6 +36,11 @@ bootstraps a compatible SCOPA runtime, performs the work, runs real project
 checks, and reports what the result proves. You do not need to preinstall
 SCOPA or write policy JSON.
 
+In this source version, the agent can submit that explicit boundary through
+one [`scopa begin`](docs/BEGIN.md) call. SCOPA owns the closed authority
+defaults, conservative client-capability declaration, lock creation, first
+gate run, and terminal Boundary Map.
+
 Ordinary work stays ordinary: the agent entry does not create a roadmap,
 approval digest, or protocol queue for a contained task. See the
 [two-minute quickstart](docs/QUICKSTART.md).
@@ -90,7 +95,7 @@ deploy, use credentials, or change an external system.
 | --- | --- | --- |
 | `SCOPA_AGENT.md` | Point an agent at one self-contained operating protocol | [Agent entry](SCOPA_AGENT.md) |
 | `scopa` | Diagnose, initialize, run checks, inspect state, and verify evidence | [CLI](packages/cli/README.md) |
-| `scopa-mcp` | Expose six governed tools over local MCP stdio | [MCP host](packages/adapter-host/README.md) |
+| `scopa-mcp` | Bootstrap one task or expose six governed tools over local MCP stdio | [MCP host](packages/adapter-host/README.md) |
 | `@heart-ai-foundation/scopa/claude` | Launch the reviewed Claude Code profile | [Claude](packages/integrations/claude/README.md) |
 | `@heart-ai-foundation/scopa/codex` | Launch the reviewed Codex profile | [Codex](packages/integrations/codex/README.md) |
 
@@ -148,6 +153,7 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
 ## Documentation
 
 - **Get started:** [Quickstart](docs/QUICKSTART.md),
+  [runtime-owned begin](docs/BEGIN.md),
   [Boundary Doctor](docs/BOUNDARY_DOCTOR.md),
   [manual walkthrough](docs/MANUAL_SETUP.md)
 - **Operate:** [CLI](packages/cli/README.md),

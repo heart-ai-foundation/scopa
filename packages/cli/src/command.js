@@ -34,6 +34,10 @@ import {
   createBoundaryDiagnostic,
   renderBoundaryDoctorMarkdown,
 } from '../../boundary-doctor/src/index.js';
+import {
+  beginSlice,
+  tryLoadBeginState,
+} from '../../adoption-experience/src/index.js';
 
 export const CLI_RESULT_SCHEMA = 'scopa.cli-result.v1';
 export const CLI_EXIT = Object.freeze({
@@ -85,6 +89,12 @@ function optionSpec(command) {
     };
   }
   if (command === 'run') {
+    return {
+      ...common,
+      '--request-json': { name: 'requestJson', required: true },
+    };
+  }
+  if (command === 'begin') {
     return {
       ...common,
       '--request-json': { name: 'requestJson', required: true },
@@ -221,6 +231,14 @@ function parseRequest(value) {
     );
   }
   return request;
+}
+
+function parseJsonArgument(value, label) {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    throw new CliUsageError(`${label} is not valid JSON: ${error.message}`);
+  }
 }
 
 function trustOptions(options, trustedTimestampRootsPem) {
@@ -480,20 +498,23 @@ async function mapCommand(options) {
     lock: project.lock,
     repoRoot: project.repoRoot,
   });
+  const beginState = !options.matrix && !options.authority
+    ? await tryLoadBeginState(options.repo)
+    : null;
   const capabilityMatrix = options.matrix
     ? validateCapabilityMatrix(await readJsonInput(
       options.repo,
       options.matrix,
       'capability matrix',
     ))
-    : null;
+    : beginState?.capabilityMatrix ?? null;
   const authorityDocument = options.authority
     ? validateAuthorityDeclarationDocument(await readJsonInput(
       options.repo,
       options.authority,
       'authority declaration document',
     ))
-    : null;
+    : beginState?.authorityDeclarations ?? null;
   const map = createWorkflowBoundaryMap({
     lock: project.lock,
     stopState,
@@ -528,6 +549,23 @@ export async function executeCommand(argv) {
           repoRoot: options.repo,
           definitionPath: options.definition,
         }),
+      },
+    };
+  }
+  if (command === 'begin') {
+    const result = await beginSlice({
+      repoRoot: options.repo,
+      request: parseJsonArgument(options.requestJson, '--request-json'),
+    });
+    return {
+      exitCode: result.status === 'blocked'
+        ? CLI_EXIT.blocked
+        : CLI_EXIT.success,
+      envelope: {
+        schema: CLI_RESULT_SCHEMA,
+        ok: true,
+        command,
+        result,
       },
     };
   }
@@ -622,6 +660,7 @@ export function failureResult(command, error) {
       'SCOPA_SLICE_LOCK_INVALID',
       'SCOPA_WORKFLOW_BOUNDARY_MAP_INVALID',
       'SCOPA_BOUNDARY_DIAGNOSTIC_INVALID',
+      'SCOPA_BEGIN_REQUEST_INVALID',
       'SCOPA_ADAPTER_SCHEMA_INVALID',
     ].includes(error?.code);
   const denied = error?.code === 'SCOPA_SCOPE_DENIED';

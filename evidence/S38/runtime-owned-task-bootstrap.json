@@ -1,0 +1,60 @@
+{
+  "schema": "scopa.s38-evidence.v1",
+  "slice": "S38",
+  "baselineCommit": "2f72261e",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "fixture": {
+    "path": "fixtures/S38/begin-request.json",
+    "canonicalRequestSha256": "827c9e1d9af47c79409ec66b6864b60f19b9a8089cb81dc9301fc10647ec4180"
+  },
+  "transaction": {
+    "beginStateSha256": "9eb9ce4096878aef4ce658bfe22fc729bbcc906d7e213f0746399abfdad882be",
+    "definitionHash": "d82729cb3c8db5c9dcd5e8b78143d52acae0166f34936e0c50d39664a844379b",
+    "created": [
+      ".scopa/slice-lock.json",
+      ".scopa/config.json",
+      ".scopa/begin-state.json"
+    ]
+  },
+  "terminalMap": {
+    "sha256": "85fc56d988e24cfe34ae44e8b37a2795a0da69ba02c46811423660d86f8715ea",
+    "completionSha256": "a3d3ef4057a347f72109d23d59f345583b7007fd1f2442ace6adc822744ebc96",
+    "capabilityMatrixSha256": "185c77cb3d25f5d235741a79d90975b652910ce3dcc858ed0096f848f0e99646",
+    "authorityDeclarationsSha256": "6441f7aac7ba6acd65d18b9656b6756dbb5c8c32aa8d452db42c7b786a21d8a6",
+    "status": "satisfied",
+    "assurance": "partial",
+    "unknown": 0,
+    "uncontrolled": 4,
+    "authorityRequired": 6,
+    "gate": {
+      "id": "acceptance",
+      "status": "passed",
+      "exitCode": 0
+    }
+  },
+  "hostileCorpus": {
+    "testPath": "packages/adoption-experience/test/begin.test.js",
+    "sha256": "27ca65884e362620c4379f0d4890b8cef31ff34052646b66a596f123c0924eb3",
+    "cases": [
+      "incomplete input",
+      "escaping allowed path",
+      "escaping gate cwd",
+      "string-shaped command",
+      "shell interpreter",
+      "shell operator token",
+      "unknown profile",
+      "invalid timeout",
+      "conflicting begin state"
+    ],
+    "malformedRepositoryMutation": false
+  },
+  "parity": {
+    "testPath": "packages/adoption-experience/test/parity.test.js",
+    "sha256": "e3b0781a5732cdfb57473f394c74343fd9e36f686392dd7b8ef7dde2d5a7ea75",
+    "cliMcpResultEqual": true,
+    "persistedMapEqual": true
+  },
+  "status": "accepted"
+}

@@ -10,7 +10,7 @@ mechanical enforcement of Next-Prompt Protocol v2.4.
 3. `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
 4. `role-context.md`
 5. `phases/phase-13/README.md`
-6. `active/2026-08-04-S37-instant-boundary-insight.md`
+6. `active/2026-08-05-S38-runtime-owned-task-bootstrap.md`
 7. `slice-queue.md` for ordered candidates after the active slice
 8. Completed protocols only as historical background
 
