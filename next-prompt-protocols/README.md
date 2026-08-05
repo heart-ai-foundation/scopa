@@ -2,7 +2,7 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `01ea903`
+Current commit reference: `e86418f`
 
 Active protocol: `none`
 Active protocol class: `unset`
@@ -10,7 +10,7 @@ Active protocol compound: `false`
 
 ## Current State
 
-S49 is complete with OA6 satisfied. S50 adversarial virality qualification is the final authorized Phase 14 slice and has no drafted active protocol yet.
+Phase 14 S44-S50 is complete with OA1-OA7 satisfied provider-off. S51 remains closed and unauthorized. Release, publication, merge, announcement, provider traffic, experiment use, and external-system action remain closed.
 
 Module progress:
 - conformance: 3/3 (100%)
@@ -25,7 +25,7 @@ Module progress:
 - adapter-host: 3/3 (100%)
 - claude-adapter: 3/3 (100%)
 - codex-adapter: 3/3 (100%)
-- release-readiness: 3/4 (75%)
+- release-readiness: 4/4 (100%)
 - proof-integrity: 3/3 (100%)
 - distribution-hardening: 3/3 (100%)
 - release-requalification: 3/3 (100%)
@@ -39,7 +39,7 @@ Module progress:
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 4/4 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 96/98 (98%)
+Arc total: 97/98 (99%)
 
 ## Queued Work
 

@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "01ea903",
+  "current_commit": "e86418f",
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and prepare repository-owned public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
   "active_protocol": null,
-  "active_objective": "S49 is complete with OA6 satisfied. S50 adversarial virality qualification is the final authorized Phase 14 slice and has no drafted active protocol yet.",
+  "active_objective": "Phase 14 S44-S50 is complete with OA1-OA7 satisfied provider-off. S51 remains closed and unauthorized. Release, publication, merge, announcement, provider traffic, experiment use, and external-system action remain closed.",
   "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S50-adversarial-virality-qualification.md",
     "completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md",
     "completed/2026-08-05-S48-pull-request-default-value.md",
     "completed/2026-08-05-S47-front-door-alignment.md",
@@ -652,8 +653,8 @@
         {
           "id": "OA7",
           "statement": "The out-of-scope presentation exposure and the cold first-contact journey are permanent regression gates.",
-          "status": "open",
-          "verifies_via": "Reproduced native non-goal violation with headline qualification assertion and cold installed-candidate timing, plus the immutable public 0.4.0 regression baseline",
+          "status": "satisfied",
+          "verifies_via": "Offline installed-candidate native non-goal reproduction across JSON, terminal, PR, and badge; cold first-contact ceiling; exact v0.4.0 tag and fixture digests; and S45-S50 permanent root-gate wiring",
           "discovered_on": "2026-08-05",
           "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
