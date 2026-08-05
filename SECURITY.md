@@ -7,7 +7,7 @@ tool boundary. Security reports are welcome and should be handled privately.
 
 | Version | Support status |
 | --- | --- |
-| Latest `0.2.x` release | Security fixes evaluated |
+| Current stable release | Security fixes evaluated |
 | Older releases and prereleases | Upgrade required |
 
 SCOPA is pre-1.0 software. Support means that the maintainers will assess a

@@ -6,6 +6,22 @@ compatibility policy.
 
 ## Unreleased
 
+## 0.5.0 — 2026-08-05
+
+### Added
+
+- Observe tracked, staged, and nonignored untracked Git working-tree changes,
+  report tracked and untracked counts separately, and classify both against
+  declared path and non-goal boundaries without exposing changed paths.
+- Add a deterministic, accessible, script-free SVG Boundary Evidence badge
+  that reports computed assurance and aggregate observation facts without a
+  score, grade, certification, or safe-to-merge claim.
+- Make marker-free repositories default to the portable project-local generic
+  Agent Skill while retaining explicit Claude Code and Codex targets and
+  failing closed on ambiguous recognized markers.
+- Make the default pull-request summary explain missing evidence as unknown and
+  provide the exact local command that produces a privacy-minimized card.
+
 ### Changed
 
 - `begin`, `check`, `status`, and `doctor` now print concise human text when
@@ -21,6 +37,34 @@ compatibility policy.
   with `jq -r '.result.content'` should now read the command output directly.
 - `doctor --format` rejects an unsupported value with `--format must be human,
   json, or markdown`.
+- Assistant detect, preview, install, and uninstall now render concise human
+  output at a terminal and retain canonical JSON for explicit machine use or
+  redirected output.
+- The installed agent protocol now finishes with explicit JSON `check`, JSON
+  `view`, and `map`, and requires aggregate Boundary Card findings in its final
+  report.
+- The zero-argument snapshot now ends with the executable, no-write
+  `scopa assistant install --dry-run` continuation.
+
+### Fixed
+
+- Qualify human completion as `SATISFIED — WITH UNVERIFIED CHANGES` when a
+  passing gate coexists with observable outside-path or declared-non-goal
+  contacts. Canonical `completion.status` and gate-only `canStop` are unchanged.
+- Return concise recovery guidance for malformed `begin` input at a terminal
+  while preserving the canonical machine error and exit code.
+- Identify explicit Boundary Card exports as caller-directed local writes
+  outside the governed task mutation boundary, and observe later nonignored
+  untracked exports without disclosing their paths.
+- Correct singular and plural badge wording for non-goal contacts.
+
+### Qualification
+
+- Add permanent source and installed-package hostile tests for final
+  `check`/`view` order, tracked and untracked contacts, privacy, output-mode
+  parity, export semantics, and badge grammar.
+- Qualify the exact local candidate through a second fresh-agent offline
+  installed journey with zero product findings at every severity.
 
 ## 0.4.0 — 2026-08-04
 

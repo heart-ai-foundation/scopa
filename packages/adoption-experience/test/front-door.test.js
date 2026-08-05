@@ -116,7 +116,7 @@ test('agent-consumed begin and check commands stay JSON under a terminal harness
 test('the three front-door copies and output-mode guidance stay prominent and exact', async () => {
   const readme = await readFile(new URL('../../../README.md', import.meta.url), 'utf8');
   const prompt = 'Read https://raw.githubusercontent.com/heart-ai-foundation/scopa/main/SCOPA_AGENT.md';
-  const snapshot = 'npx --yes --package @heart-ai-foundation/scopa@0.4.0 scopa';
+  const snapshot = 'npx --yes --package @heart-ai-foundation/scopa@0.5.0 scopa';
   const demo = `${snapshot} demo`;
   assert.ok(readme.indexOf(prompt) < readme.indexOf('Next-Prompt Protocol'));
   assert.ok(readme.indexOf(snapshot) < readme.indexOf(demo));

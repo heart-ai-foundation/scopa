@@ -12,7 +12,7 @@ body:
     attributes:
       label: SCOPA version
       description: Include the npm version and integrity or source commit when available.
-      placeholder: "0.4.0"
+      placeholder: "0.5.0"
     validations:
       required: true
   - type: dropdown

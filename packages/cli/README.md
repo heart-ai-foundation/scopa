@@ -14,7 +14,7 @@ subcommand writes the canonical JSON object.
 Install the public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.5.0
 ```
 
 The examples below use `scopa` as the command name. After a local installation,

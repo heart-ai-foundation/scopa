@@ -39,13 +39,13 @@ Inspect the current repository without installing a dependency or creating
 files:
 
 ```sh
-npx --yes --package @heart-ai-foundation/scopa@0.4.0 scopa
+npx --yes --package @heart-ai-foundation/scopa@0.5.0 scopa
 ```
 
 Then run the deterministic demonstration:
 
 ```sh
-npx --yes --package @heart-ai-foundation/scopa@0.4.0 scopa demo
+npx --yes --package @heart-ai-foundation/scopa@0.5.0 scopa demo
 ```
 
 Exact tested output:
@@ -62,7 +62,7 @@ FINAL  Declared gates satisfied: yes
        Uncontrolled routes: 4
        Temporary workspace removed: yes
 
-Proof SHA-256 e0215dd02f61841677b60cb8e4ca7f796359c7daf30fef8354fdc40eac0ba24d
+Proof SHA-256 dd08ce8f5cb819365037020d586c06258f358487efaf68ce73299f4e25245a21
 Local deterministic demonstration; not a security certification or guaranteed prevention claim.
 ```
 
@@ -120,7 +120,7 @@ Boundary Doctor remains the complete machine-readable diagnosis before
 `.scopa/` exists:
 
 ```sh
-npx --yes --package @heart-ai-foundation/scopa@0.4.0 \
+npx --yes --package @heart-ai-foundation/scopa@0.5.0 \
   scopa doctor --format markdown --repo /path/to/project
 ```
 
@@ -201,7 +201,7 @@ deploy, use credentials, or change an external system.
 
 ## Status
 
-- **Current public release:** `0.4.0`
+- **Current public release:** `0.5.0`
 - **Package:** `@heart-ai-foundation/scopa`
 - **Included:** enforcement runtime, Boundary Doctor, Workflow Boundary Map,
   offline assessment, model-neutral MCP, Claude Code, and Codex integrations
@@ -217,7 +217,7 @@ deploy, use credentials, or change an external system.
 Install the current public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.5.0
 ```
 
 Then initialize and check a repository that contains a closed slice definition:
@@ -282,9 +282,9 @@ compare the npm integrity and tarball values with the checksum published in the
 corresponding GitHub Release:
 
 ```sh
-npm view @heart-ai-foundation/scopa@0.4.0 dist.integrity
-npm view @heart-ai-foundation/scopa@0.4.0 dist.tarball
-sha256sum heart-ai-foundation-scopa-0.4.0.tgz
+npm view @heart-ai-foundation/scopa@0.5.0 dist.integrity
+npm view @heart-ai-foundation/scopa@0.5.0 dist.tarball
+sha256sum heart-ai-foundation-scopa-0.5.0.tgz
 ```
 
 From a source checkout, use `npm run pack:candidate`; raw `npm pack` is not the

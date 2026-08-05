@@ -13,6 +13,13 @@ least-privilege pull-request reporting, and the reproducible enforcement demo.
 It preserves the prior runtime and evidence contracts while reducing the
 developer-owned setup surface.
 
+`0.5.0` makes the first-time finish loop human-readable and credibility-safe.
+It adds privacy-minimized tracked and untracked working-tree observation,
+qualified completion presentation, a fact-only evidence badge, marker-free
+generic assistant setup, actionable pull-request unknowns, and explicit local
+evidence-export semantics. Canonical gate completion and versioned machine
+envelopes remain compatible.
+
 SCOPA follows Semantic Versioning syntax and treats compatibility deliberately:
 
 - while the major version is `0`, incompatible changes may occur in a minor
