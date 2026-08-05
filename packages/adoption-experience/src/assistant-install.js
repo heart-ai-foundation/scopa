@@ -138,8 +138,11 @@ ${clientLine}
    gate is evidence, not a setup failure.
 4. Keep every change inside the locked paths. A native editor or shell remains
    an uncontrolled bypass, so do not claim full assurance.
-5. Run \`scopa check --format json\`; finish only when \`canStop\` is true. Report any
-   authority-required or uncontrolled route.
+5. Run \`scopa check --format json\`, then \`scopa view --format json\`. Finish only
+   when \`canStop\` is true. Do not report a clean boundary when
+   \`outsideAllowedPaths\` or \`declaredNonGoalContacts\` is nonzero; report the
+   aggregate tracked and untracked counts, or disclose unavailable observation.
+   Report any authority-required or uncontrolled route.
 
 SCOPA does not grant permission to publish, deploy, use credentials, call a
 provider, browse, or change an external system.

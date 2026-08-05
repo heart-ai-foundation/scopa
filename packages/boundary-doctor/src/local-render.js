@@ -48,7 +48,7 @@ export function renderBoundaryDoctorLocal(diagnostic) {
     candidateLine(diagnostic),
     diagnostic.subject.scopaInitialized
       ? 'NEXT  Run scopa status to inspect the active task boundary.'
-      : 'NEXT  Give SCOPA_AGENT.md and your task to your coding agent.',
+      : 'NEXT  Run scopa assistant install --dry-run to preview the reversible project-local agent setup.',
   ];
   return `${lines.join('\n')}\n`;
 }

@@ -93,13 +93,20 @@ Run focused checks while developing, then run:
 
 ```sh
 scopa check --format json
+scopa view --format json
 scopa map
 ```
 
 Finish only when the declared gates pass and SCOPA reports `canStop: true`.
-Model prose cannot override a blocked gate. Do not manufacture approval rounds,
-review ceremonies, or outside-model tests after the task is proven unless the
-developer asked for them or model-specific behavior is the product under test.
+Before reporting a clean boundary, inspect the Boundary Card's `observed`
+counts. If `outsideAllowedPaths` or `declaredNonGoalContacts` is nonzero, say
+`SATISFIED — WITH UNVERIFIED CHANGES` and report the aggregate counts. If
+observation is unavailable, disclose that limit. Never imply that zero observed
+changes proves containment. Model prose cannot override a blocked gate.
+Do not manufacture approval rounds, review ceremonies, or outside-model tests
+after
+the task is proven unless the developer asked for them or model-specific
+behavior is the product under test.
 
 ## Final report
 
@@ -107,6 +114,8 @@ State, concisely:
 
 - what changed;
 - which gates passed and whether `canStop` is true;
+- the Boundary Card's tracked, untracked, outside-path, and non-goal-contact
+  counts, or that observation was unavailable;
 - the SCOPA or native mutation route used;
 - the Boundary Map assurance level; and
 - any uncontrolled, unknown, authority-required, or skipped surface.

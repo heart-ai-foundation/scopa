@@ -45,6 +45,10 @@ const OBSERVED_KEYS = new Set([
   'outsideAllowedPaths',
   'versionControlledChanges',
 ]);
+const OBSERVED_KEYS_WITH_UNTRACKED = new Set([
+  ...OBSERVED_KEYS,
+  'untrackedChanges',
+]);
 
 export class BoundaryCardError extends Error {
   constructor(message, {
@@ -156,21 +160,31 @@ export function validateBoundaryCard(value) {
     throw new BoundaryCardError('scope must contain an allowed path rule');
   }
   if (Object.hasOwn(value, 'observed')) {
-    exactObject(value.observed, OBSERVED_KEYS, 'boundary card observed changes');
-    if (
-      value.observed.basis !==
-      'git-tracked-working-tree-observation-not-enforcement'
-    ) throw new BoundaryCardError('observed change basis is unsupported');
+    const includesUntracked = Object.hasOwn(value.observed, 'untrackedChanges');
+    exactObject(
+      value.observed,
+      includesUntracked ? OBSERVED_KEYS_WITH_UNTRACKED : OBSERVED_KEYS,
+      'boundary card observed changes',
+    );
+    const expectedBasis = includesUntracked
+      ? 'git-working-tree-observation-not-enforcement'
+      : 'git-tracked-working-tree-observation-not-enforcement';
+    if (value.observed.basis !== expectedBasis) {
+      throw new BoundaryCardError('observed change basis is unsupported');
+    }
     for (const key of [
       'versionControlledChanges',
+      ...(includesUntracked ? ['untrackedChanges'] : []),
       'outsideAllowedPaths',
       'declaredNonGoalContacts',
     ]) count(value.observed[key], `observed.${key}`);
+    const totalObserved = value.observed.versionControlledChanges +
+      (value.observed.untrackedChanges ?? 0);
     if (
       value.observed.outsideAllowedPaths >
-        value.observed.versionControlledChanges ||
+        totalObserved ||
       value.observed.declaredNonGoalContacts >
-        value.observed.versionControlledChanges
+        totalObserved
     ) throw new BoundaryCardError('observed change counts are inconsistent');
   }
   return deepFreeze(JSON.parse(canonicalJsonPretty(value)));
@@ -247,10 +261,13 @@ export function renderBoundaryCardTerminal(cardValue) {
     `Allowed path rules ${card.scope.allowedPathRules} | Non-goals ${card.scope.nonGoals}`,
   ];
   if (card.observed) {
+    const untracked = Object.hasOwn(card.observed, 'untrackedChanges')
+      ? card.observed.untrackedChanges
+      : 'not assessed';
     lines.push(
       '',
-      'OBSERVED TRACKED CHANGES (reporting only)',
-      `Tracked ${card.observed.versionControlledChanges} | Outside allowed paths ${card.observed.outsideAllowedPaths} | Recognized non-goal contacts ${card.observed.declaredNonGoalContacts}`,
+      'OBSERVED GIT WORKING-TREE CHANGES (reporting only)',
+      `Tracked ${card.observed.versionControlledChanges} | Untracked ${untracked} | Outside allowed paths ${card.observed.outsideAllowedPaths} | Recognized non-goal contacts ${card.observed.declaredNonGoalContacts}`,
       'Observed does not mean prevented, controlled, attributed, or unauthorized.',
     );
   }
@@ -345,9 +362,10 @@ code { overflow-wrap: anywhere; }
 </div>
 </section>
 ${card.observed ? `<section aria-labelledby="observed-heading">
-<h2 id="observed-heading">Observed tracked changes — reporting only</h2>
+<h2 id="observed-heading">Observed Git working-tree changes — reporting only</h2>
 <div class="grid">
 <dl><dt>Tracked</dt><dd>${value(card.observed.versionControlledChanges)}</dd></dl>
+<dl><dt>Untracked</dt><dd>${value(Object.hasOwn(card.observed, 'untrackedChanges') ? card.observed.untrackedChanges : 'not assessed')}</dd></dl>
 <dl><dt>Outside allowed paths</dt><dd>${value(card.observed.outsideAllowedPaths)}</dd></dl>
 <dl><dt>Recognized non-goal contacts</dt><dd>${value(card.observed.declaredNonGoalContacts)}</dd></dl>
 </div>
@@ -375,8 +393,14 @@ function badgeAssurance(card) {
 }
 
 function badgeObservation(card) {
-  if (!card.observed) return 'TRACKED CHANGE OBSERVATION UNAVAILABLE';
-  return `${card.observed.outsideAllowedPaths} OUTSIDE · ${card.observed.declaredNonGoalContacts} NON-GOAL CONTACTS OBSERVED`;
+  if (!card.observed) return 'WORKING-TREE OBSERVATION UNAVAILABLE';
+  const contacts = card.observed.declaredNonGoalContacts === 1
+    ? 'CONTACT'
+    : 'CONTACTS';
+  const untracked = Object.hasOwn(card.observed, 'untrackedChanges')
+    ? `${card.observed.untrackedChanges} UNTRACKED`
+    : 'UNTRACKED NOT ASSESSED';
+  return `${untracked} · ${card.observed.outsideAllowedPaths} OUTSIDE · ${card.observed.declaredNonGoalContacts} NON-GOAL ${contacts}`;
 }
 
 export function renderBoundaryBadgeSvg(cardValue) {
@@ -466,5 +490,7 @@ export async function writeBoundaryCardExport({ repoRoot, output, content }) {
     path: relative,
     sha256: createHash('sha256').update(content, 'utf8').digest('hex'),
     bytes: Buffer.byteLength(content),
+    outsideTaskMutationBoundary: true,
+    basis: 'explicit-local-evidence-export-not-governed-task-write',
   });
 }

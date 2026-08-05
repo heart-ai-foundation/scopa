@@ -11,6 +11,10 @@ import { matchesPathRule } from './path-boundary.js';
 const execFileAsync = promisify(execFile);
 
 export const CHANGE_OBSERVATION_SCHEMA = 'scopa.change-observation.v1';
+const LEGACY_OBSERVATION_BASIS =
+  'git-tracked-working-tree-observation-not-enforcement';
+const WORKING_TREE_OBSERVATION_BASIS =
+  'git-working-tree-observation-not-enforcement';
 const MAX_OUTPUT_BYTES = 1024 * 1024;
 const MAX_CHANGED_PATHS = 4096;
 const DEPENDENCY_FILES = new Set([
@@ -92,9 +96,12 @@ export function validateChangeObservation(value) {
   if (value.schema !== CHANGE_OBSERVATION_SCHEMA) {
     throw new TypeError('unsupported change observation schema');
   }
-  if (value.basis !== 'git-tracked-working-tree-observation-not-enforcement') {
+  if (![LEGACY_OBSERVATION_BASIS, WORKING_TREE_OBSERVATION_BASIS].includes(
+    value.basis,
+  )) {
     throw new TypeError('unsupported change observation basis');
   }
+  const includesUntracked = value.basis === WORKING_TREE_OBSERVATION_BASIS;
   if (!Array.isArray(value.changes) || value.changes.length > MAX_CHANGED_PATHS) {
     throw new TypeError('change observation paths are invalid');
   }
@@ -103,11 +110,14 @@ export function validateChangeObservation(value) {
       !change ||
       Array.isArray(change) ||
       typeof change !== 'object' ||
-      Object.keys(change).sort().join('\0') !==
-        ['declaredNonGoalContact', 'outsideAllowedPaths', 'path'].join('\0') ||
+      Object.keys(change).sort().join('\0') !== (includesUntracked
+        ? ['declaredNonGoalContact', 'outsideAllowedPaths', 'path', 'tracked']
+        : ['declaredNonGoalContact', 'outsideAllowedPaths', 'path']
+      ).join('\0') ||
       normalizedGitPath(change.path) === null ||
       typeof change.outsideAllowedPaths !== 'boolean' ||
-      typeof change.declaredNonGoalContact !== 'boolean'
+      typeof change.declaredNonGoalContact !== 'boolean' ||
+      (includesUntracked && typeof change.tracked !== 'boolean')
     ) throw new TypeError(`change observation entry ${index} is invalid`);
   }
   const sorted = [...value.changes].sort((left, right) =>
@@ -121,7 +131,12 @@ export function validateChangeObservation(value) {
     throw new TypeError('change observation paths must be unique and sorted');
   }
   const expected = {
-    versionControlledChanges: value.changes.length,
+    versionControlledChanges: includesUntracked
+      ? value.changes.filter((item) => item.tracked).length
+      : value.changes.length,
+    ...(includesUntracked
+      ? { untrackedChanges: value.changes.filter((item) => !item.tracked).length }
+      : {}),
     outsideAllowedPaths: value.changes.filter((item) =>
       item.outsideAllowedPaths
     ).length,
@@ -143,29 +158,53 @@ export async function observeVersionControlledChanges({
   stringArray(allowedPaths, 'allowedPaths', { minimum: 1 });
   stringArray(nonGoals, 'nonGoals');
   const root = await realpath(repoRoot);
-  let stdout;
+  let trackedUnstaged;
+  let trackedStaged;
+  let untracked;
   try {
-    ({ stdout } = await execFileAsync(
-      'git',
-      ['-c', 'core.quotepath=false', 'diff', '--name-only', '-z', '--no-ext-diff', 'HEAD', '--'],
-      {
+    const git = (args) => execFileAsync('git', [
+      '-c', 'core.quotepath=false', ...args,
+    ], {
         cwd: root,
         encoding: 'utf8',
         maxBuffer: MAX_OUTPUT_BYTES,
         timeout: 5000,
         windowsHide: true,
-      },
-    ));
+      });
+    [
+      { stdout: trackedUnstaged },
+      { stdout: trackedStaged },
+      { stdout: untracked },
+    ] = await Promise.all([
+      git(['diff', '--name-only', '-z', '--no-ext-diff', '--']),
+      git(['diff', '--cached', '--name-only', '-z', '--no-ext-diff', '--']),
+      git(['ls-files', '--others', '--exclude-standard', '-z', '--']),
+    ]);
   } catch {
     return null;
   }
-  const paths = [...new Set(
-    stdout.split('\0').filter(Boolean).map(normalizedGitPath),
-  )];
-  if (paths.includes(null) || paths.length > MAX_CHANGED_PATHS) return null;
+  const parsePaths = (stdout) => stdout
+    .split('\0')
+    .filter(Boolean)
+    .map(normalizedGitPath);
+  const trackedPaths = new Set([
+    ...parsePaths(trackedUnstaged),
+    ...parsePaths(trackedStaged),
+  ]);
+  const untrackedPaths = new Set(parsePaths(untracked).filter((relativePath) =>
+    relativePath !== '.scopa' && !relativePath?.startsWith('.scopa/')
+  ));
+  const paths = [...new Set([...trackedPaths, ...untrackedPaths])];
+  if (
+    paths.includes(null) ||
+    trackedPaths.has(null) ||
+    untrackedPaths.has(null) ||
+    paths.length > MAX_CHANGED_PATHS
+  ) return null;
   paths.sort((left, right) => left.localeCompare(right));
   const changes = paths.map((relativePath) => ({
     path: relativePath,
+    tracked: trackedPaths.has(relativePath),
     outsideAllowedPaths: !allowedPaths.some((rule) =>
       matchesPathRule(relativePath, rule)
     ),
@@ -173,10 +212,11 @@ export async function observeVersionControlledChanges({
   }));
   return validateChangeObservation({
     schema: CHANGE_OBSERVATION_SCHEMA,
-    basis: 'git-tracked-working-tree-observation-not-enforcement',
+    basis: WORKING_TREE_OBSERVATION_BASIS,
     changes,
     summary: {
-      versionControlledChanges: changes.length,
+      versionControlledChanges: changes.filter((item) => item.tracked).length,
+      untrackedChanges: changes.filter((item) => !item.tracked).length,
       outsideAllowedPaths: changes.filter((item) => item.outsideAllowedPaths).length,
       declaredNonGoalContacts: changes.filter((item) =>
         item.declaredNonGoalContact

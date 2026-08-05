@@ -5,8 +5,10 @@ import {
   renderBoundarySnapshot,
 } from '../../boundary-doctor/src/index.js';
 import {
+  renderAssistantHuman,
   renderBeginHuman,
   renderCheckHuman,
+  renderCliFailureHuman,
   renderStatusHuman,
 } from '../../adoption-experience/src/index.js';
 import {
@@ -18,9 +20,9 @@ export const HELP = `SCOPA developer CLI
 
 Usage:
   scopa demo [--format terminal|json]
-  scopa assistant detect [--repo <directory>]
-  scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--repo <directory>]
-  scopa assistant uninstall [--dry-run] [--repo <directory>]
+  scopa assistant detect [--format human|json] [--repo <directory>]
+  scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--format human|json] [--repo <directory>]
+  scopa assistant uninstall [--dry-run] [--format human|json] [--repo <directory>]
   scopa begin --request-json <json> [--format human|json] [--repo <directory>]
   scopa view [--format terminal|html|json|badge] [--output <file>] [--repo <directory>]
   scopa init --definition <file> [--repo <directory>]
@@ -34,15 +36,16 @@ Usage:
   scopa verify (--packet <file> | --case-export <file>) [trust options] [--repo <directory>]
 
 Run without arguments for a read-only repository snapshot. begin, check,
-status, and doctor print human text at a terminal and the canonical JSON
+status, doctor, and assistant actions print human text at a terminal and the canonical JSON
 envelope when redirected or piped; --format selects either explicitly. Every
 other subcommand result is canonical JSON. status observes blocked state with
 exit 0; check returns exit 4 when completion gates are blocked.
 `;
 
 const HUMAN_RENDERERS = Object.freeze({
+  assistant: (result) => renderAssistantHuman(result),
   begin: (result) => renderBeginHuman(result),
-  check: (result) => renderCheckHuman(result),
+  check: (result, context) => renderCheckHuman(result, context),
   status: (result) => renderStatusHuman(result),
   doctor: (result) => renderBoundaryDoctorLocal(result),
 });
@@ -64,18 +67,39 @@ function humanPayload(command, envelope) {
   return null;
 }
 
-function humanRender(argv, outcome, options) {
+async function checkObservation(argv, outcome) {
+  if (argv[0] !== 'check' || outcome.envelope.result?.canStop !== true) {
+    return undefined;
+  }
+  const repoIndex = argv.indexOf('--repo');
+  const viewArgs = ['view', '--format', 'json'];
+  if (repoIndex !== -1) viewArgs.push('--repo', argv[repoIndex + 1]);
+  try {
+    const viewed = await executeCommand(viewArgs);
+    return viewed.envelope.result.card.observed ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function humanRender(argv, outcome, options) {
   const renderer = HUMAN_RENDERERS[argv[0]];
   if (!renderer) return null;
-  const payload = humanPayload(argv[0], outcome.envelope);
-  if (payload === null) return null;
   const format = requestedFormat(argv);
   if (format === 'json' || format === 'markdown') return null;
   const interactive = options.isTty ?? process.stdout.isTTY === true;
   if (format !== 'human' && !interactive) return null;
+  if (
+    !outcome.envelope.ok &&
+    ['assistant', 'begin'].includes(argv[0])
+  ) {
+    return renderCliFailureHuman(argv[0], outcome.envelope.error);
+  }
+  const payload = humanPayload(argv[0], outcome.envelope);
+  if (payload === null) return null;
   // doctor --lock returns a terminal map rather than a diagnostic.
   if (argv[0] === 'doctor' && argv.includes('--lock')) return null;
-  return renderer(payload);
+  return renderer(payload, { observation: await checkObservation(argv, outcome) });
 }
 
 export async function runCli(argv, options = {}) {
@@ -110,11 +134,11 @@ export async function runCli(argv, options = {}) {
     const result = outcome.envelope.result;
     write(result.export === null
       ? result.content
-      : `SCOPA Boundary Card exported (${result.export.bytes} bytes, SHA-256 ${result.export.sha256}).\n`);
+      : `SCOPA Boundary Card exported (${result.export.bytes} bytes, SHA-256 ${result.export.sha256}).\nThis explicit local evidence export is outside the locked task mutation boundary and is not a governed task write.\n`);
   } else if (argv[0] === 'doctor' && requestedFormat(argv) === 'markdown' && outcome.envelope.ok) {
     write(outcome.envelope.result.content);
   } else {
-    const human = humanRender(argv, outcome, options);
+    const human = await humanRender(argv, outcome, options);
     write(human ?? canonicalJsonPretty(outcome.envelope));
   }
   return outcome.exitCode;

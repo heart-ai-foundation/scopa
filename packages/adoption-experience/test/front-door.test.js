@@ -69,6 +69,7 @@ test('marker-free auto install uses only the reversible generic project path', a
   assert.match(skill, /portable Agent Skills entry/u);
   assert.match(skill, /scopa begin --format json --request-json/u);
   assert.match(skill, /scopa check --format json/u);
+  assert.match(skill, /scopa view --format json/u);
 });
 
 test('ambiguous detection stays closed and enumerates every valid explicit client', async (context) => {
@@ -93,6 +94,7 @@ test('agent-consumed begin and check commands stay JSON under a terminal harness
   const agentEntry = await readFile(new URL('../../../SCOPA_AGENT.md', import.meta.url), 'utf8');
   assert.match(agentEntry, /scopa begin --format json --request-json/u);
   assert.match(agentEntry, /^scopa check --format json$/mu);
+  assert.match(agentEntry, /^scopa view --format json$/mu);
 
   const root = await temporaryRoot(context);
   const begin = await invoke([

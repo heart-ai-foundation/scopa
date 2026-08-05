@@ -34,8 +34,8 @@ oversized, malformed, escaping, symlinked, or semantically inconsistent input
 before writing the summary. It never includes raw paths, prompts, gate output,
 capability evidence, card paths, environment maps, or token values.
 
-When a current card includes aggregate tracked-change observation, the report
-shows those counts. A satisfied card with an outside-path or recognized
+When a current card includes aggregate Git working-tree observation, the report
+shows separate tracked and untracked counts. A satisfied card with an outside-path or recognized
 non-goal contact is headed `SATISFIED — WITH UNVERIFIED CHANGES`; its canonical
 completion and `canStop` are unchanged. Observation is reporting only, not a
 claim of prevention, control, attribution, or authorization.

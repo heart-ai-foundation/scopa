@@ -73,7 +73,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s40 && npm run test:s41 && npm run test:s42 && npm run test:s43 && npm run test:s44 && npm run test:s45 && npm run test:s46 && npm run test:s47 && npm run test:s48 && npm run test:s49 && npm run test:s50 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s40 && npm run test:s41 && npm run test:s42 && npm run test:s43 && npm run test:s44 && npm run test:s45 && npm run test:s46 && npm run test:s47 && npm run test:s48 && npm run test:s49 && npm run test:s50 && npm run test:s52 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
     "test:docs": "node tools/check-docs.mjs",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js packages/enforcement/test/slice-definition-schema.test.js",
@@ -152,7 +152,8 @@
     "test:s47": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/front-door.test.js",
     "test:s48": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/pr-default.test.js packages/adoption-experience/test/pr-report.test.js",
     "test:s49": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/fact-badge.test.js",
-    "test:s50": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/phase14-installed-adversarial.test.js"
+    "test:s50": "node packages/conformance/src/run-node-tests.js packages/release-readiness/test/phase14-installed-adversarial.test.js",
+    "test:s52": "node packages/conformance/src/run-node-tests.js packages/adoption-experience/test/first-time-hardening.test.js"
   },
   "engines": {
     "node": ">=22"

@@ -55,20 +55,22 @@ async function initialized(context) {
   return { root, map: result.boundaryMap };
 }
 
-function observedCard(map, outside = 1, nonGoal = 1) {
-  const count = Math.max(outside, nonGoal, 1);
+function observedCard(map, outside = 1, nonGoal = 1, untracked = 0) {
+  const count = Math.max(outside, nonGoal, untracked, 1);
   const changes = Array.from({ length: count }, (_, index) => ({
     path: `observed-${index}.txt`,
+    tracked: index >= untracked,
     outsideAllowedPaths: index < outside,
     declaredNonGoalContact: index < nonGoal,
   }));
   return createBoundaryCard(map, {
     observation: {
       schema: 'scopa.change-observation.v1',
-      basis: 'git-tracked-working-tree-observation-not-enforcement',
+      basis: 'git-working-tree-observation-not-enforcement',
       changes,
       summary: {
-        versionControlledChanges: count,
+        versionControlledChanges: count - untracked,
+        untrackedChanges: untracked,
         outsideAllowedPaths: outside,
         declaredNonGoalContacts: nonGoal,
       },
@@ -98,7 +100,7 @@ test('badge is deterministic, accessible, source-bound, and fact-only', async (c
   assert.match(svg, /<title id="scopa-badge-title">/u);
   assert.match(svg, /<desc id="scopa-badge-description">/u);
   assert.match(svg, /PARTIAL · ACTIVE UNCONTROLLED ROUTE/u);
-  assert.match(svg, /1 OUTSIDE · 1 NON-GOAL CONTACTS OBSERVED/u);
+  assert.match(svg, /0 UNTRACKED · 1 OUTSIDE · 1 NON-GOAL CONTACT/u);
   assert.match(svg, new RegExp(card.sourceMapSha256, 'u'));
   assert.doesNotMatch(svg, /<script|<foreignObject|\son[a-z]+=|href=|url\(/iu);
   for (const value of PRIVATE) assert.equal(svg.includes(value), false);
@@ -113,9 +115,11 @@ test('fixed validated card renders the exact reviewed badge bytes', () => {
 test('unavailable and zero observation remain explicit rather than favorable', async (context) => {
   const { map } = await initialized(context);
   const unavailable = renderBoundaryBadgeSvg(createBoundaryCard(map));
-  assert.match(unavailable, /TRACKED CHANGE OBSERVATION UNAVAILABLE/u);
+  assert.match(unavailable, /WORKING-TREE OBSERVATION UNAVAILABLE/u);
   const zero = renderBoundaryBadgeSvg(observedCard(map, 0, 0));
-  assert.match(zero, /0 OUTSIDE · 0 NON-GOAL CONTACTS OBSERVED/u);
+  assert.match(zero, /0 UNTRACKED · 0 OUTSIDE · 0 NON-GOAL CONTACTS/u);
+  const untracked = renderBoundaryBadgeSvg(observedCard(map, 1, 0, 1));
+  assert.match(untracked, /1 UNTRACKED · 1 OUTSIDE · 0 NON-GOAL CONTACTS/u);
   assertFactOnly(unavailable);
   assertFactOnly(zero);
 });

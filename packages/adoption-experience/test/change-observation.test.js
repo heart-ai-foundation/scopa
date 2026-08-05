@@ -84,6 +84,7 @@ test('real Git polarity separates tracked, outside, and non-goal counts', async 
   const clean = await observation(root, boundaryMap);
   assert.deepEqual(clean.summary, {
     versionControlledChanges: 0,
+    untrackedChanges: 0,
     outsideAllowedPaths: 0,
     declaredNonGoalContacts: 0,
   });
@@ -92,6 +93,7 @@ test('real Git polarity separates tracked, outside, and non-goal counts', async 
   const inside = await observation(root, boundaryMap);
   assert.deepEqual(inside.summary, {
     versionControlledChanges: 1,
+    untrackedChanges: 0,
     outsideAllowedPaths: 0,
     declaredNonGoalContacts: 0,
   });
@@ -100,6 +102,7 @@ test('real Git polarity separates tracked, outside, and non-goal counts', async 
   const outside = await observation(root, boundaryMap);
   assert.deepEqual(outside.summary, {
     versionControlledChanges: 2,
+    untrackedChanges: 0,
     outsideAllowedPaths: 1,
     declaredNonGoalContacts: 1,
   });
@@ -142,9 +145,10 @@ test('view command wires the real observation into the privacy-minimized card', 
 
   assert.equal(viewed.exitCode, 0);
   assert.deepEqual(viewed.envelope.result.card.observed, {
-    basis: 'git-tracked-working-tree-observation-not-enforcement',
+    basis: 'git-working-tree-observation-not-enforcement',
     declaredNonGoalContacts: 1,
     outsideAllowedPaths: 1,
+    untrackedChanges: 0,
     versionControlledChanges: 1,
   });
   assert.equal(viewed.envelope.result.card.completion.canStop, true);
@@ -155,6 +159,29 @@ test('view command wires the real observation into the privacy-minimized card', 
   );
   assert.equal(viewed.envelope.result.content.includes('package.json'), false);
   assert.equal(viewed.envelope.result.content.includes('changing dependencies'), false);
+});
+
+test('ordinary untracked files are counted and classified without path disclosure', async (context) => {
+  const root = await repository(context);
+  const begun = await beginSlice({ repoRoot: root, request: request() });
+  await writeFile(path.join(root, 'new-root-file.txt'), 'untracked outside scope\n');
+  await writeFile(path.join(root, 'src/new-file.js'), 'export const fresh = true;\n');
+
+  const observed = await observation(root, begun.boundaryMap);
+  assert.deepEqual(observed.summary, {
+    versionControlledChanges: 0,
+    untrackedChanges: 2,
+    outsideAllowedPaths: 1,
+    declaredNonGoalContacts: 0,
+  });
+  const card = createBoundaryCard(begun.boundaryMap, { observation: observed });
+  const terminal = renderBoundaryCardTerminal(card);
+  const json = canonicalJsonPretty(card);
+  assert.match(terminal, /Tracked 0 \| Untracked 2 \| Outside allowed paths 1/u);
+  for (const output of [terminal, json]) {
+    assert.equal(output.includes('new-root-file.txt'), false);
+    assert.equal(output.includes('src/new-file.js'), false);
+  }
 });
 
 test('legacy cards remain valid and do not invent observation', async (context) => {

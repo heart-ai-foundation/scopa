@@ -43,6 +43,11 @@ blocked. Run `scopa check --format json` and inspect `error.details.gates` for e
 bounded stdout/stderr. Run the gate's argv directly only for local diagnosis;
 the authoritative result remains the SCOPA-run gate.
 
+When the gates pass, run `scopa view --format json` before reporting a clean
+boundary. `canStop` is a gate result; the card separately reports tracked and
+untracked Git working-tree changes outside the task paths or in contact with a
+declared non-goal.
+
 ## A gate cannot find a command
 
 Gates receive a small environment containing only `CI`, `LANG`, and `PATH`.

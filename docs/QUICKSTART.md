@@ -51,6 +51,8 @@ The handoff should state:
 - what changed;
 - which checks passed;
 - whether SCOPA reported `canStop: true`;
+- the final Boundary Card's tracked, untracked, outside-path, and recognized
+  non-goal-contact counts, or that Git observation was unavailable;
 - which mutation route was used; and
 - what remains uncontrolled, unknown, or authority-required.
 
@@ -60,6 +62,11 @@ turn a general-purpose host into an operating-system sandbox.
 
 Publishing, deployment, paid model calls, credential use, destructive actions,
 and changes to external systems still require explicit authority.
+
+Gate completion and working-tree observation answer different questions. The
+agent must run `scopa view --format json` after the final `scopa check --format
+json`; it must not turn a nonzero outside-path or non-goal count into an
+unqualified clean-completion report.
 
 ## Prefer manual control?
 

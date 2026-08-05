@@ -64,7 +64,7 @@ export function renderBeginHuman(result) {
   return joinLines(lines);
 }
 
-export function renderCheckHuman(result) {
+export function renderCheckHuman(result, { observation = undefined } = {}) {
   const counts = gateCounts(result.gates);
   const lines = [
     'SCOPA COMPLETION CHECK',
@@ -85,7 +85,29 @@ export function renderCheckHuman(result) {
     lines.push(`${label}  ${gate.id} — ${detail}, ${gate.durationMs}ms`);
   }
   if (result.canStop) {
-    lines.push('', 'Next  Completion is satisfied. Run scopa view for a shareable Boundary Card.');
+    lines.push('');
+    if (observation === undefined || observation === null) {
+      lines.push('Observation  Git working-tree observation unavailable.');
+    } else {
+      const untracked = Object.hasOwn(observation, 'untrackedChanges')
+        ? observation.untrackedChanges
+        : 'not assessed';
+      lines.push(
+        `Observation  ${observation.versionControlledChanges} tracked / ${untracked} untracked / ${observation.outsideAllowedPaths} outside / ${observation.declaredNonGoalContacts} non-goal contacts`,
+      );
+    }
+    if (
+      observation &&
+      (observation.outsideAllowedPaths > 0 ||
+        observation.declaredNonGoalContacts > 0)
+    ) {
+      lines.push(
+        'Warning  SATISFIED — WITH UNVERIFIED CHANGES.',
+        'Next  Run scopa view and report the aggregate boundary warning.',
+      );
+    } else {
+      lines.push('Next  Run scopa view for the complete Boundary Card.');
+    }
   } else {
     lines.push(
       '',
@@ -118,4 +140,74 @@ export function renderStatusHuman(result) {
   );
   lines.push('This is an observation of recorded state; it does not run the gates.');
   return joinLines(lines);
+}
+
+function assistantTarget(result) {
+  return result.plan?.targets?.[0]?.path ?? null;
+}
+
+export function renderAssistantHuman(result) {
+  if (result.schema === 'scopa.assistant-detection.v1') {
+    const lines = ['SCOPA ASSISTANT DETECTION'];
+    if (result.status === 'detected') {
+      lines.push(`Detected  ${result.client}`);
+    } else if (result.status === 'ambiguous') {
+      lines.push(`Detected  ambiguous (${result.candidates.join(', ')})`);
+    } else {
+      lines.push('Detected  no recognized assistant marker');
+    }
+    lines.push(
+      '',
+      result.status === 'ambiguous'
+        ? 'Next  Choose scopa assistant install --client generic, claude-code, or codex.'
+        : 'Next  Run scopa assistant install --dry-run to preview the project-local setup.',
+    );
+    return joinLines(lines);
+  }
+
+  const target = assistantTarget(result);
+  const lines = [
+    result.action === 'preview'
+      ? 'SCOPA ASSISTANT SETUP PREVIEW'
+      : result.action === 'preview-uninstall'
+        ? 'SCOPA ASSISTANT REMOVAL PREVIEW'
+        : result.action === 'uninstall'
+          ? 'SCOPA ASSISTANT SETUP REMOVED'
+          : 'SCOPA ASSISTANT SETUP INSTALLED',
+    `Client    ${result.plan.client}`,
+    `Skill     ${target}`,
+    `Receipt   ${result.plan.receiptPath}`,
+  ];
+  if (result.action === 'preview') {
+    lines.push('', 'No files changed.', 'Next  Run scopa assistant install to apply this exact plan.');
+  } else if (result.action === 'preview-uninstall') {
+    lines.push('', 'No files changed.', 'Next  Run scopa assistant uninstall to remove only receipt-bound files.');
+  } else if (result.action === 'uninstall') {
+    lines.push('', `Removed   ${result.removed.join(', ')}`, 'Next  No SCOPA assistant files remain from this receipt.');
+  } else if (result.created.length === 0) {
+    lines.push('', 'No files changed; this exact setup is already installed.', 'Next  Give your coding agent the repository task.');
+  } else {
+    lines.push('', `Created   ${result.created.join(', ')}`, 'Next  Give your coding agent the repository task.');
+  }
+  return joinLines(lines);
+}
+
+export function renderCliFailureHuman(command, error) {
+  const title = command === 'begin'
+    ? 'SCOPA COULD NOT BEGIN THIS TASK'
+    : command === 'assistant'
+      ? 'SCOPA COULD NOT CHANGE ASSISTANT SETUP'
+      : 'SCOPA COMMAND COULD NOT RUN';
+  const next = command === 'begin'
+    ? 'Correct the boundary request and run scopa begin again.'
+    : command === 'assistant'
+      ? 'Review the reason, then retry with an explicit client or corrected local state.'
+      : 'Review the reason and run scopa --help for the supported command shape.';
+  return joinLines([
+    title,
+    `Reason  ${error.message}`,
+    '',
+    `Next  ${next}`,
+    'Use --format json for the canonical structured error.',
+  ]);
 }

@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "e86418f",
-  "current_phase": "phase-14-legible-value-and-organic-adoption",
-  "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and prepare repository-owned public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
-  "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
-  "active_protocol": null,
-  "active_objective": "Phase 14 S44-S50 is complete with OA1-OA7 satisfied provider-off. S51 remains closed and unauthorized. Release, publication, merge, announcement, provider traffic, experiment use, and external-system action remain closed.",
-  "active_class": null,
+  "current_commit": "63da198",
+  "current_phase": "phase-15-first-time-production-hardening",
+  "phase_scope": "Close only the reproducible first-time finish-loop, untracked-observation, human-recovery, self-contained continuation, evidence-export boundary, and badge-grammar defects found by a fresh installed-package stress test, then repeat one fresh provider-off installed stress pass. Preserve gate-only canStop, privacy, legacy cards, canonical machine output, and every release/provider/experiment boundary.",
+  "macro_delta": "macro-deltas/2026-08-05-scopa-first-time-production-hardening.md",
+  "active_protocol": "active/2026-08-05-S53-fresh-first-time-installed-requalification.md",
+  "active_objective": "Give the exact locally packed S52 candidate to one fresh agent for an offline, public-facing installed-product stress pass. Close Phase 15 only if no critical, high, or medium product finding remains. Release, merge, publication, provider traffic, experiment use, network access, and external-system action remain closed.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S52-first-time-production-hardening.md",
     "completed/2026-08-05-S50-adversarial-virality-qualification.md",
     "completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md",
     "completed/2026-08-05-S48-pull-request-default-value.md",
@@ -102,6 +103,8 @@
     "fixtures/S48/**",
     "fixtures/S49/**",
     "fixtures/S50/**",
+    "fixtures/S52/**",
+    "fixtures/S53/**",
     "notes/S37/**",
     "notes/S38/**",
     "notes/S39/**",
@@ -116,6 +119,8 @@
     "notes/S48/**",
     "notes/S49/**",
     "notes/S50/**",
+    "notes/S52/**",
+    "notes/S53/**",
     "runs/S37/**",
     "runs/S38/**",
     "runs/S39/**",
@@ -130,6 +135,8 @@
     "runs/S48/**",
     "runs/S49/**",
     "runs/S50/**",
+    "runs/S52/**",
+    "runs/S53/**",
     "evidence/S37/**",
     "evidence/S38/**",
     "evidence/S39/**",
@@ -144,6 +151,8 @@
     "evidence/S48/**",
     "evidence/S49/**",
     "evidence/S50/**",
+    "evidence/S52/**",
+    "evidence/S53/**",
     "next-prompt-protocols/**"
   ],
   "non_goals": [
@@ -1204,6 +1213,22 @@
           "verifies_via": "Exact deterministic SVG fixture, assurance/observation polarity, forbidden-mark rejection, CLI no-replace export, privacy/accessibility checks, and repository-owned contact audit",
           "discovered_on": "2026-08-05",
           "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "FH1",
+          "statement": "The documented first-time finish loop always inspects the privacy-minimized Boundary Card after gate completion, counts tracked and untracked Git working-tree changes, and cannot report an unqualified clean boundary when an outside-path or non-goal contact is observed.",
+          "status": "satisfied",
+          "verifies_via": "Source and installed first-time hostile fixtures covering final check/view order, tracked and untracked polarity, terminal warning, privacy, assistant setup, malformed recovery, export boundary, and badge grammar",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "Fresh installed-package first-time developer stress test after Phase 14"
+        },
+        {
+          "id": "FH2",
+          "statement": "A fresh agent independently completes the packed installed first-time journey with no critical, high, or medium product finding and no release, provider, experiment, network, privacy, or cleanup violation.",
+          "status": "open",
+          "verifies_via": "One fresh-agent S53 installed-package stress report against new exact candidate bytes",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "First-Time Production Hardening Macro Delta S53"
         }
       ]
     },

@@ -137,6 +137,8 @@ function assertPrivateProjection(value, temporary, target) {
     temporary,
     target,
     'package.json',
+    'new-root.txt',
+    'src/new.js',
     PRIVATE_NON_GOAL,
   ]) assert.equal(value.includes(forbidden), false, `projection disclosed ${forbidden}`);
 }
@@ -177,6 +179,22 @@ test('packed candidate closes the native non-goal presentation exposure', async 
   assert.equal(preview.result.plan.targets[0].path, '.agents/skills/scopa/SKILL.md');
   assert.deepEqual(await inventory(firstContact), firstBefore);
 
+  const installedAssistant = parseJson((await invokeCli(candidate.cli, firstContact, [
+    'assistant', 'install', '--format', 'json', '--repo', firstContact,
+  ])).stdout, 'installed generic assistant');
+  assert.equal(installedAssistant.result.status, 'installed');
+  const installedSkill = await readFile(path.join(
+    firstContact,
+    '.agents/skills/scopa/SKILL.md',
+  ), 'utf8');
+  assert.match(installedSkill, /scopa check --format json/u);
+  assert.match(installedSkill, /scopa view --format json/u);
+  const installedAgentEntry = await readFile(
+    path.join(candidate.installed, 'SCOPA_AGENT.md'),
+    'utf8',
+  );
+  assert.match(installedAgentEntry, /^scopa view --format json$/mu);
+
   const target = path.join(temporary, 'native-violation');
   await mkdir(target);
   await initializeGitTarget(target);
@@ -189,6 +207,28 @@ test('packed candidate closes the native non-goal presentation exposure', async 
     path.join(target, 'package.json'),
     '{"name":"s50-target","version":"1.0.0","dependencies":{}}\n',
   );
+  await writeFile(path.join(target, 'src/new.js'), 'export const fresh = true;\n');
+  await writeFile(path.join(target, 'new-root.txt'), 'outside and untracked\n');
+
+  const checked = parseJson((await invokeCli(candidate.cli, target, [
+    'check', '--format', 'json', '--repo', target,
+  ])).stdout, 'installed final check');
+  assert.equal(checked.result.canStop, true);
+
+  const installedApp = await import(pathToFileURL(path.join(
+    candidate.installed,
+    'packages/cli/src/app.js',
+  )).href);
+  let humanCheck = '';
+  const humanCheckExit = await installedApp.runCli([
+    'check', '--repo', target,
+  ], {
+    isTty: true,
+    write(value) { humanCheck += value; },
+  });
+  assert.equal(humanCheckExit, 0);
+  assert.match(humanCheck, /SATISFIED — WITH UNVERIFIED CHANGES/u);
+  assert.match(humanCheck, /1 tracked \/ 2 untracked \/ 2 outside \/ 1 non-goal contacts/u);
 
   const jsonCardText = (await invokeCli(candidate.cli, target, [
     'view', '--format', 'json', '--repo', target,
@@ -197,9 +237,10 @@ test('packed candidate closes the native non-goal presentation exposure', async 
   assert.equal(card.completion.status, 'satisfied');
   assert.equal(card.completion.canStop, true);
   assert.deepEqual(card.observed, {
-    basis: 'git-tracked-working-tree-observation-not-enforcement',
+    basis: 'git-working-tree-observation-not-enforcement',
     declaredNonGoalContacts: 1,
-    outsideAllowedPaths: 1,
+    outsideAllowedPaths: 2,
+    untrackedChanges: 2,
     versionControlledChanges: 1,
   });
 
@@ -207,13 +248,13 @@ test('packed candidate closes the native non-goal presentation exposure', async 
     'view', '--format', 'terminal', '--repo', target,
   ])).stdout;
   assert.match(terminal, /SATISFIED — WITH UNVERIFIED CHANGES/u);
-  assert.match(terminal, /Tracked 1 \| Outside allowed paths 1 \| Recognized non-goal contacts 1/u);
+  assert.match(terminal, /Tracked 1 \| Untracked 2 \| Outside allowed paths 2 \| Recognized non-goal contacts 1/u);
 
   const badge = (await invokeCli(candidate.cli, target, [
     'view', '--format', 'badge', '--repo', target,
   ])).stdout;
   assert.match(badge, /PARTIAL · ACTIVE UNCONTROLLED ROUTE/u);
-  assert.match(badge, /1 OUTSIDE · 1 NON-GOAL CONTACTS OBSERVED/u);
+  assert.match(badge, /2 UNTRACKED · 2 OUTSIDE · 1 NON-GOAL CONTACT/u);
   assert.doesNotMatch(badge, /\b(?:grade|score|pass|approved|certified)\b/iu);
 
   const installedReport = await import(pathToFileURL(path.join(
@@ -222,7 +263,7 @@ test('packed candidate closes the native non-goal presentation exposure', async 
   )).href);
   const pr = installedReport.createPullRequestReport(card);
   assert.match(pr.summary, /SATISFIED — WITH UNVERIFIED CHANGES/u);
-  assert.match(pr.summary, /1 total, 1 outside allowed paths, 1 recognized non-goal contacts/u);
+  assert.match(pr.summary, /1 tracked, 2 untracked, 2 outside allowed paths, 1 recognized non-goal contacts/u);
 
   for (const projection of [jsonCardText, terminal, badge, pr.summary]) {
     assertPrivateProjection(projection, temporary, target);

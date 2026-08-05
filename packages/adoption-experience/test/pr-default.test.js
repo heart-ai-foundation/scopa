@@ -44,7 +44,7 @@ test('observed changes qualify the PR headline without changing canonical comple
   assert.equal(observedCard.completion.status, 'satisfied');
   assert.equal(observedCard.completion.canStop, true);
   assert.match(report.summary, /Completion: \*\*SATISFIED — WITH UNVERIFIED CHANGES\*\*/u);
-  assert.match(report.summary, /2 total, 1 outside allowed paths, 1 recognized non-goal contacts/u);
+  assert.match(report.summary, /2 tracked, untracked files not assessed, 1 outside allowed paths, 1 recognized non-goal contacts/u);
   assert.match(report.summary, /reporting only/u);
   assert.doesNotMatch(report.summary, /PRIVATE_PATH|package\.json|changing dependencies/u);
 });
@@ -61,5 +61,5 @@ test('inside-only observation stays satisfied while retaining aggregate facts', 
   });
   assert.match(report.summary, /Completion: \*\*SATISFIED\*\*/u);
   assert.doesNotMatch(report.summary, /WITH UNVERIFIED CHANGES/u);
-  assert.match(report.summary, /1 total, 0 outside allowed paths/u);
+  assert.match(report.summary, /1 tracked, untracked files not assessed, 0 outside allowed paths/u);
 });

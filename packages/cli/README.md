@@ -102,6 +102,9 @@ hash-bound receipt under `.scopa/`; uninstall removes only unchanged,
 receipt-bound bytes. No user-global configuration is read or written. See
 [assistant installation](../../docs/ASSISTANT_INSTALLATION.md).
 
+At a terminal, assistant actions render a concise human summary. Redirects and
+pipes retain the canonical envelope; automation should add `--format json`.
+
 ## Initialize
 
 Create a closed [slice definition](../../docs/SLICE_DEFINITION.md), then bind
@@ -154,10 +157,13 @@ scopa view --format badge --output scopa-boundary.svg
 
 Unlike machine-oriented subcommands, `view` prints its selected presentation
 directly. With `--output`, it writes exact repository-contained bytes with
-no-replace semantics and prints only the byte count and digest. The standalone
+no-replace semantics and prints the byte count, digest, and the fact that this
+explicit evidence export is outside the locked task mutation boundary. A
+subsequent card counts an untracked outside-path export without disclosing its
+path. The standalone
 HTML contains no script, remote asset, telemetry, path, prompt, raw gate
 output, or capability evidence. The SVG badge states assurance and aggregate
-observation facts without a grade or pass mark. See
+tracked and untracked observation facts without a grade or pass mark. See
 [Boundary Card](../../docs/BOUNDARY_CARD.md).
 
 Create a sanitized offline assessment, optionally compared with a baseline:

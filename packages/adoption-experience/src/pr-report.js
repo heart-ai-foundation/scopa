@@ -133,8 +133,11 @@ function availableSummary(card) {
     `- Source map SHA-256: \`${card.sourceMapSha256}\``,
   ];
   if (card.observed) {
+    const untracked = Object.hasOwn(card.observed, 'untrackedChanges')
+      ? `${card.observed.untrackedChanges} untracked`
+      : 'untracked files not assessed';
     lines.push(
-      `- Observed tracked changes: ${card.observed.versionControlledChanges} total, ${card.observed.outsideAllowedPaths} outside allowed paths, ${card.observed.declaredNonGoalContacts} recognized non-goal contacts`,
+      `- Observed Git working-tree changes: ${card.observed.versionControlledChanges} tracked, ${untracked}, ${card.observed.outsideAllowedPaths} outside allowed paths, ${card.observed.declaredNonGoalContacts} recognized non-goal contacts`,
       '',
       'Observation is reporting only. It does not mean a change was prevented, controlled, attributed, or unauthorized.',
     );
@@ -165,7 +168,7 @@ function missingSummary() {
     'scopa view --format json --output scopa-boundary.json',
     '```',
     '',
-    'Add `scopa-boundary.json` to the pull request. This action can then validate and report declared-gate completion, assurance basis, control and scope counts, source-map identity, and aggregate observed tracked-change counts when present.',
+    'Add `scopa-boundary.json` to the pull request. This action can then validate and report declared-gate completion, assurance basis, control and scope counts, source-map identity, and aggregate observed Git working-tree counts when present.',
     '',
     'No gate or project command was executed by this check. No pull-request text or card-supplied command was executed. Missing evidence is not a pass, approval, certification, or safe-to-merge result.',
     '',

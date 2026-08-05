@@ -5,8 +5,9 @@
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 SCOPA tells you what a coding agent was allowed to change, whether real project
-checks passed, and whether tracked changes were observed outside the declared
-boundary. It runs locally, works with compatible coding agents, and does not
+checks passed, and whether tracked or untracked Git working-tree changes were
+observed outside the declared boundary. It runs locally, works with compatible
+coding agents, and does not
 require an account.
 
 ## Give your agent one line
@@ -110,9 +111,10 @@ It returns at most three plain-language findings and one next action without
 creating files, executing discovered commands, calling a model, or probing the
 network. From this source checkout, use `node packages/cli/src/cli.js`.
 
-At a terminal, `begin`, `check`, `status`, and `doctor` print concise human
-text. Redirects and pipes receive the canonical JSON envelope; agents and
-automation should select `--format json` explicitly when consuming fields.
+At a terminal, `begin`, `check`, `status`, `doctor`, and assistant installation
+actions print concise human text. Redirects and pipes receive the canonical
+JSON envelope; agents and automation should select `--format json` explicitly
+when consuming fields.
 
 Boundary Doctor remains the complete machine-readable diagnosis before
 `.scopa/` exists:
@@ -143,8 +145,13 @@ paths, prompts, gate output, and capability evidence. See
 [Boundary Card](docs/BOUNDARY_CARD.md).
 
 The local SVG is an adopter-facing fact badge, not a grade. It carries the
-computed assurance basis, aggregate change-observation facts, and source-map
-binding without remote assets, tracking, or private repository detail.
+computed assurance basis, aggregate tracked and untracked change-observation
+facts, and source-map binding without remote assets, tracking, or private
+repository detail.
+
+`--output` is an explicit local evidence-export request, not a governed task
+write. SCOPA says so in the result. A subsequent card observes an untracked
+export outside the task path boundary; export paths themselves remain private.
 
 For pull requests, the included [GitHub Action](docs/GITHUB_ACTION.md)
 validates an optional card into a sanitized job summary. Its default workflow

@@ -10,9 +10,10 @@ the repository details behind them:
   authority-required, or disabled; and
 - how many allowed path rules and non-goals define the scope.
 
-When the repository is Git-backed, the card may also include counts of tracked
-working-tree changes, changes outside the allowed path rules, and conservatively
-recognized contact with a declared non-goal. No changed path or non-goal text is
+When the repository is Git-backed, the card may also include separate tracked
+and untracked working-tree counts, changes outside the allowed path rules, and
+conservatively recognized contact with a declared non-goal. SCOPA-owned
+`.scopa/` control state is excluded. No changed path or non-goal text is
 included. This is observation only: it does not attribute a change to an agent
 or claim that SCOPA prevented, controlled, or authorized it.
 
@@ -31,7 +32,8 @@ scopa view
 This prints a compact plain-text card and does not create a file. `UNKNOWN`
 means capability evidence is incomplete. `PARTIAL` means an active route can
 bypass SCOPA. `SATISFIED — WITH UNVERIFIED CHANGES` means all declared gates
-passed while tracked outside-scope or recognized non-goal contact was observed;
+passed while an observed working-tree change was outside scope or in contact
+with a recognized non-goal;
 `canStop` remains a declared-gate result. None of these states is a safety,
 approval, or attribution claim.
 
@@ -46,6 +48,12 @@ visible status text, high-contrast light/dark styling, and print support. It
 contains no JavaScript, remote asset, URL, telemetry, analytics, or network
 dependency. SCOPA writes with no-replace semantics and refuses an existing
 target or aliased/escaping parent.
+
+An explicit `--output` is a local evidence export outside the locked task
+mutation boundary; it is not dispatched as governed task work. The command
+states that boundary after writing. If the exported file is untracked and
+outside the task paths, a subsequent card includes it in the aggregate
+untracked and outside-path counts without revealing its path.
 
 SCOPA does not open a browser. Review the file locally, then choose whether to
 share it.
@@ -71,7 +79,7 @@ scopa view --format badge --output scopa-boundary.svg
 
 The standalone SVG is a compact projection of the same validated card. It
 states `SCOPA BOUNDARY EVIDENCE`, the computed assurance level and basis, and
-aggregate tracked-change observation when available. The complete source-map
+aggregate tracked and untracked working-tree observation when available. The complete source-map
 SHA-256 is embedded as a nonvisual binding. The file contains no script,
 remote image, font, link, analytics, telemetry, path, prompt, gate output, or
 private evidence.
@@ -87,4 +95,6 @@ Regenerate the SVG and its underlying JSON card when the task boundary changes;
 do not present an old snapshot as current. A fact-stating badge is permitted.
 A grade, score, pass mark, approval, certification, risk rank, or safe-to-merge
 badge is not. Zero observed outside-path changes means zero in that bounded Git
-observation, not universal containment or safety.
+working-tree observation, not universal containment or safety. A legacy card
+that did not assess untracked files states that limit rather than implying
+zero.

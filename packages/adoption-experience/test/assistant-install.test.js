@@ -111,6 +111,7 @@ test('dry-run, install, idempotence, and uninstall are plan-bound and reversible
   );
   assert.match(skill, /scopa begin --format json --request-json/u);
   assert.match(skill, /scopa check --format json/u);
+  assert.match(skill, /scopa view --format json/u);
   assert.doesNotMatch(skill, /capability-matrix|authority-declarations/u);
   assert.equal((await stat(path.join(root, '.scopa/assistant-install.json'))).mode & 0o777, 0o600);
 
@@ -212,6 +213,7 @@ test('the agent entry is compact and uses only the runtime-owned bootstrap path'
   assert.equal(text.split(/\r?\n/u).length <= 125, true);
   assert.match(text, /scopa begin --format json --request-json/u);
   assert.match(text, /scopa check --format json/u);
+  assert.match(text, /scopa view --format json/u);
   assert.doesNotMatch(
     text,
     /scopa\.capability-matrix|scopa\.authority-declarations|doctor --lock/u,

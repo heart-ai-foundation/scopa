@@ -1,16 +1,39 @@
 # Next Prompt Protocols
 
-This is the canonical handoff target for project work. The manifest currently has no active protocol.
+This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `e86418f`
+Current commit reference: `63da198`
 
-Active protocol: `none`
-Active protocol class: `unset`
+Active protocol class: `arc`
 Active protocol compound: `false`
+Active protocol module: `release-readiness`
+Advances contracts: `FH2`
 
-## Current State
+## Slice Class
 
-Phase 14 S44-S50 is complete with OA1-OA7 satisfied provider-off. S51 remains closed and unauthorized. Release, publication, merge, announcement, provider traffic, experiment use, and external-system action remain closed.
+Every active protocol declares one class:
+
+- `arc`: planned multi-slice work. Requires descriptor rung check, productivity mix, evidence, non-goals, acceptance, and a slice queue when multiple slices are visible.
+- `spike`: exploratory work. Requires descriptor rung check, non-goals, acceptance, and evidence with `runs/` minimum.
+- `hotfix`: concrete bug or unblock with a known fix. Requires acceptance and evidence with `runs/` minimum.
+
+Class adjusts the thinking ceremony only. Worktree isolation and commit-after-each-slice rules still apply.
+
+## Compound Slice Rule
+
+Compound slices are allowed only when `**Compound:** true` names one approved pattern: `paired-diff`, `shared-gate`, or `refactor-then-use`.
+
+Compound slices use one acceptance gate, one evidence set, and one closeout, but each sub-slice keeps its own non-goals row. Hard cap: three sub-slices. Combining only for speed is not a valid reason.
+
+## Module Tags
+
+Every active protocol declares:
+
+- `**Module:**` — the owning module for the slice.
+- `**Crosses:**` — other modules intentionally touched by the slice.
+- `**Advances contracts:**` — module exit contracts advanced or satisfied by the slice.
+
+Module tags are structural metadata, not a folder hierarchy. They let the protocol check module ownership, boundary slices, and contract progress without creating another required nesting level.
 
 Module progress:
 - conformance: 3/3 (100%)
@@ -35,30 +58,169 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
-- adoption-experience: 11/11 (100%)
+- adoption-experience: 12/13 (92%)
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 4/4 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 97/98 (99%)
+Arc total: 98/100 (98%)
 
-## Queued Work
+## Descriptor Rung Stop Rule
 
-Use `queued/` for protocol queues that are not active yet. A queued protocol should become active only when the remaining work is executable and locally verifiable.
+Descriptor rungs are complete when they restate blockers that are already named by an earlier descriptor instead of unlocking a new executable test or runtime decision.
 
-## Handoff Workflow
+A descriptor-only slice is allowed only when it directly enables one of these:
 
-When a new active protocol is selected:
+- a helper or validator that runtime or test code can call,
+- a test-controlled probe,
+- a packet or command handoff attempt,
+- a replay activation path,
+- a runtime consumer boundary,
+- a production-off invariant that must be proven before runtime code changes.
 
-1. Move it into `active/`.
-2. Set `manifest.active_protocol` to the active-relative path.
-3. Run `node tools/sync-protocols.mjs --commit <sha>`.
-4. Run `node tools/sync-protocols.mjs --check`.
+Do not draft or rotate approval/review/inspection/archive/summary/closeout descriptor rungs as standalone progress. If a proposed slice cannot name the executable test, probe, handoff, activation path, or runtime boundary it unlocks, choose a runtime seam instead.
 
-## Current Phase
+Each active protocol should state its expected mix of runtime behavior, contract/test code, and metadata/docs. If the expected runtime behavior is `0%` for more than one consecutive sextuplet, the next protocol must target a test-controlled runtime-adjacent action rather than another metadata-only descriptor rung.
 
-- `Phase 14 Legible Value And Organic Adoption`
+## Slice Queue Canon
 
-## Scope Boundaries
+Use a slice queue when an active protocol contains several follow-on slices. The queue is canonical for repeated multi-slice loops because it makes continuation an explicit decision after each slice.
+
+A slice queue should include:
+
+- the ordered candidate slices,
+- the purpose of each slice,
+- the value gate that justifies doing it now,
+- the focused validation gate,
+- the current status: `queued`, `active`, `done`, `blocked`, `dropped`, or `deferred`.
+
+Queue discipline:
+
+- Commit and push after each completed queue slot when the active protocol requires slice commits.
+- Before starting the next slot, verify the previous slot changed runtime behavior, test coverage, production guardrails, or decision clarity. If it only added ceremony, stop and report.
+- Reorder, split, collapse, defer, or drop queued slots when evidence shows a smaller or clearer path.
+- Stop and ask before continuing if the queue becomes mostly descriptor-only, if validation cost is not proportional to the change, or if the next slot does not unlock a concrete executable step.
+- Draft the next protocol from the remaining queue only after closeout states what changed, what did not move, and what evidence justifies continuing.
+
+## How an agent must apply context
+
+Read in this order:
+
+1. `.slice-lock.json`
+2. `manifest.json`
+3. `macro-deltas/2026-08-05-scopa-first-time-production-hardening.md`
+4. `role-context.md`
+5. `phases/phase-15/README.md`
+6. `active/2026-08-05-S53-fresh-first-time-installed-requalification.md`
+7. `completed/2026-08-05-S52-first-time-production-hardening.md`
+8. `completed/2026-08-05-S50-adversarial-virality-qualification.md`
+9. `completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md`
+10. `completed/2026-08-05-S48-pull-request-default-value.md`
+11. `completed/2026-08-05-S47-front-door-alignment.md`
+12. `completed/2026-08-05-S46-out-of-scope-change-observation.md`
+13. `completed/2026-08-05-S45-local-diagnostic-detail.md`
+14. `completed/2026-08-05-S44-human-first-command-output.md`
+15. `completed/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md`
+16. `completed/2026-08-05-S42-reproducible-proof-and-handoff.md`
+17. `completed/2026-08-05-S41-provider-off-pr-distribution.md`
+18. `completed/2026-08-05-S40-local-visual-boundary-map.md`
+19. `completed/2026-08-05-S39-safe-assistant-installation.md`
+20. `completed/2026-08-05-S38-runtime-owned-task-bootstrap.md`
+21. `completed/2026-08-04-S37-instant-boundary-insight.md`
+22. `completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md`
+23. `completed/2026-08-03-S35-explicit-doctor-lock-conversion.md`
+24. `completed/2026-08-03-S34-zero-state-boundary-doctor.md`
+25. `completed/2026-08-03-S33-adversarial-usability-qualification.md`
+26. `completed/2026-08-03-S32-portable-assessment-interoperability.md`
+27. `completed/2026-08-03-S31-point-and-go-installed-journey.md`
+28. `completed/2026-08-03-S30-boundary-map-cli.md`
+29. `completed/2026-08-03-S29-workflow-boundary-map-contract.md`
+30. `completed/2026-08-03-R1F-public-release-finalization.md`
+31. `completed/2026-08-03-S28-r1-go-no-go-decision.md`
+32. `completed/2026-08-02-S27-compressed-release-consistency-review.md`
+33. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+34. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+35. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+36. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+37. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+38. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+39. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+40. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+41. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+42. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+43. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+44. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+45. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+46. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+47. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+48. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+49. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+50. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+51. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+52. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+53. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+54. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+55. `completed/2026-07-27-S6-installable-developer-surface.md`
+56. `completed/2026-07-26-S5-interop-export.md`
+57. `completed/2026-07-26-S4-signing-and-anchoring.md`
+58. `completed/2026-07-26-S3-legibility.md`
+59. `completed/2026-07-26-S2-enforcement-loop.md`
+60. `completed/2026-07-26-S0-conformance-harness.md`
+61. `completed/2026-07-26-S1-sealed-core.md`
+
+If a fact is not in those files or the code, verify it locally before acting.
+
+## Folder layout
+
+- `active/` contains the single protocol that should be used for the next implementation slice.
+- `completed/` contains protocols that have already been consumed or superseded.
+- `slice-queue.md`, when present, records candidate future slices without making them active.
+- `phases/` contains phase-specific readme files and constraints.
+- `manifest.json` is the machine-readable source of truth for the current handoff state.
+- `.slice-lock.json` is the slice lockfile that must match the manifest and active protocol.
+- `role-context.md` is the distilled behavior summary taken from the role bibles.
+
+## Handoff workflow
+
+When a slice is complete, write the companion artifacts under `..`:
+
+- a note in `notes/` describing the change and the non-goals that stayed intact,
+- a run record in `runs/` capturing the exact commands, working directory, result status, and source commit,
+- an evidence JSON in `evidence/` summarizing the slice, modified files, ABI additions, and verification results.
+
+After the artifacts are written, update the protocol state from the repo tip:
+
+- run `node tools/sync-protocols.mjs --commit $(git rev-parse --short=8 HEAD)`,
+- run `node tools/sync-protocols.mjs --check`,
+- do not hand off until `README.md`, `phases/phase-15/README.md`, `manifest.json`, and `.slice-lock.json` are in sync.
+
+## Current phase
+
+- `Phase 15 First Time Production Hardening`
+
+## Current active objective
+
+> Give one fresh agent the exact locally packed S52 candidate. Require an offline
+> install with lifecycle scripts disabled into an isolated tool root, then have
+> the agent use only package-facing documentation and output to exercise cold
+> first insight, assistant preview/install, begin/check/view/map, tracked and
+> untracked hostility, evidence export, badge, privacy, recovery, uninstall, and
+> cleanup. Retain its commands, exact candidate identity, findings, and verdict.
+
+## Behavior rules
+
+- Be specific. Do not infer broader work from a narrow prompt.
+- Do not spin on assumptions when the next step is explicit.
+- If the active protocol and the code disagree, stop and report the mismatch.
+- If `.slice-lock.json`, `manifest.json`, or the active protocol disagree, stop and report the mismatch.
+- New active protocols must include `**Class:**` and `**Compound:**` headers.
+- New active protocols must include `**Module:**`, `**Crosses:**`, and `**Advances contracts:**` headers.
+- Keep the current scope narrow until the current slice is verified and documented.
+- Use the exact verification commands listed in the active protocol.
+- Run this folder's sync check before handing off: `node tools/sync-protocols.mjs --check` or `npm run protocol:check`
+
+## Scope boundaries
+
+These protocols are specific to:
 
 - `package.json`
 - `package-lock.json`
@@ -94,6 +256,8 @@ When a new active protocol is selected:
 - `fixtures/S48/**`
 - `fixtures/S49/**`
 - `fixtures/S50/**`
+- `fixtures/S52/**`
+- `fixtures/S53/**`
 - `notes/S37/**`
 - `notes/S38/**`
 - `notes/S39/**`
@@ -108,6 +272,8 @@ When a new active protocol is selected:
 - `notes/S48/**`
 - `notes/S49/**`
 - `notes/S50/**`
+- `notes/S52/**`
+- `notes/S53/**`
 - `runs/S37/**`
 - `runs/S38/**`
 - `runs/S39/**`
@@ -122,6 +288,8 @@ When a new active protocol is selected:
 - `runs/S48/**`
 - `runs/S49/**`
 - `runs/S50/**`
+- `runs/S52/**`
+- `runs/S53/**`
 - `evidence/S37/**`
 - `evidence/S38/**`
 - `evidence/S39/**`
@@ -136,4 +304,15 @@ When a new active protocol is selected:
 - `evidence/S48/**`
 - `evidence/S49/**`
 - `evidence/S50/**`
+- `evidence/S52/**`
+- `evidence/S53/**`
 - `next-prompt-protocols/**`
+
+Treat every manifest non-goal as closed unless principal direction or a ratified Macro Delta amendment changes it.
+
+## Where to start for the current slice
+
+Start with:
+
+- `phases/phase-15/README.md`
+- `active/2026-08-05-S53-fresh-first-time-installed-requalification.md`

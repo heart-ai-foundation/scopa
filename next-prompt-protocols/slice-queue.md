@@ -1,12 +1,11 @@
 # SCOPA Slice Queue
 
-**Current phase transition:** `macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md`
-**Rule:** Completed history remains immutable. S44-S51 are one principal-
-directed, provider-off implementation queue for legible value and organic
-adoption. The queue authorizes no provider, experiment, publication, release,
-customer, hosted-service, telemetry, deployment, or external-system action.
-S51 is queued closed and requires a separate explicit provider authority and
-allowance before any activation.
+**Current phase transition:** `macro-deltas/2026-08-05-scopa-first-time-production-hardening.md`
+**Rule:** Completed history remains immutable. S52 remediates only findings
+reproduced by the principal-requested fresh installed-package first-time stress
+test; S53 performs one fresh provider-off installed retest. The queue authorizes
+no provider, experiment, publication, release, merge, customer, hosted-service,
+telemetry, deployment, or external-system action.
 
 **Superseded phase transition:** `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
 governed S37-S43, which are complete.
@@ -51,18 +50,20 @@ governed S37-S43, which are complete.
 | S49 | Adopter fact badge and discovery surface | `adoption-experience` | Provide a fact-stating adopter badge, narrow the blanket badge prohibition to a grade-and-score prohibition, and prepare repository-owned discovery and contact content; actual GitHub settings remain a separately authorized external action | Adopters can advertise SCOPA without asserting a grade, and the consultation handoff becomes reachable from repository-owned surfaces | no grade/score/pass semantics, partial-assurance basis carried, deterministic badge content, no telemetry or lead capture, canon amendment consistency, no GitHub mutation | S44, S46; principal canon amendment | Stop on favorable-score semantics, safe-to-merge implication, hidden analytics, lead capture, unqualified assurance display, or external-system mutation | `evidence/S49/` | `completed; OA6 satisfied` |
 | S50 | Adversarial virality qualification | `release-readiness` | Make the out-of-scope presentation exposure a permanent regression gate and time the cold first-contact journey from clean packed candidate bytes while retaining public 0.4.0 as the immutable regression baseline | The failure that would produce a public credibility dunk can never silently re-land | reproduced native non-goal violation, headline qualification assertion, cold installed-candidate first-insight timing, public-0.4.0 baseline checks, accumulated provider-off gates, docs exact-output corpus | S44-S49 | Stop on material finding, false green, claim drift, or any release, publication, or announcement action | `evidence/S50/` | `completed; OA7 satisfied; release closed` |
 | S51 | Measured agent-behavior artifact | `live-run` | Measure the rate at which real agent runs claim completion while a declared gate is failing, across models, as a citable artifact | Converts SCOPA's central premise into a measurement rather than an assertion | separately approved exact calls only, cost ceiling, provider-store cleanup, no assurance transfer between providers, retention of non-qualifying runs | S44-S50 plus separate explicit provider authority and allowance | **Closed. Stop before any provider intent without a separate written authority and allowance; stop on unverifiable claim framing** | `evidence/S51/` | `closed; unauthorized` |
+| S52 | First-time production hardening | `adoption-experience` | Require final Boundary Card inspection, observe tracked and untracked Git changes, simplify terminal recovery/setup, make cold continuation executable, disclose export write boundaries, and correct badge grammar | A first-time agent cannot report clean completion while SCOPA has observable boundary contacts | exact source and installed hostile journey, legacy card compatibility, machine-output parity, privacy, docs | fresh-agent Phase 14 stress report | Stop on completion drift, false clean, untracked omission, privacy leak, machine-envelope drift, or expanded authority | `evidence/S52/` | `completed; FH1 satisfied` |
+| S53 | Fresh first-time installed requalification | `release-readiness` | Give new packed bytes to one fresh agent and repeat the complete cold hostile journey | Closes the loop only when an unfamiliar consumer finds no material defect | exact candidate, offline install, public-only entry, setup/begin/check/view/export/badge/cleanup hostility | S52 and full provider-off gate | Stop on any critical/high/medium finding, false clean, privacy/cleanup failure, or release/provider intent | `evidence/S53/` | `active` |
 
 S0-S28, the public R1 execution, the S29-S33 workflow-boundary-mapping arc,
 and the S34-S36 boundary-doctor adoption wedge are complete historical work.
 S37-S43 and all AX1-AX7 contracts are complete provider-off, and public 0.4.0
 is released.
 
-S44-S51 are the active Phase 14 queue and are governed by
-`macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md`. S44-S50
-are complete with OA1-OA7 satisfied provider-off. S51 remains closed and
-unauthorized. Phase 14 implementation is complete; release, publication, merge,
-announcement, provider traffic, experiment use, and external-system action
-remain closed.
+S52-S53 are the active Phase 15 queue governed by
+`macro-deltas/2026-08-05-scopa-first-time-production-hardening.md`. S52 is
+complete with FH1 satisfied; S53 is now the one fresh provider-off installed
+requalification. S51 remains closed and unauthorized.
+Release, publication, merge, announcement, provider traffic, experiment use,
+and external-system action remain closed.
 
 Phase 14 changes presentation, observation, and exposure only. It adds no
 enforcement claim and weakens no existing limit. Two constraints bind the whole

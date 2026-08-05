@@ -1,16 +1,21 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "e86418f",
-  "current_phase": "phase-14-legible-value-and-organic-adoption",
-  "active_protocol": null,
-  "active_class": null,
+  "current_commit": "63da198",
+  "current_phase": "phase-15-first-time-production-hardening",
+  "active_protocol": "active/2026-08-05-S53-fresh-first-time-installed-requalification.md",
+  "active_class": "arc",
   "active_compound": false,
-  "active_module": null,
-  "crosses": [],
-  "advances_contracts": [],
-  "active_protocol_sha256": null,
-  "active_objective": "Phase 14 S44-S50 is complete with OA1-OA7 satisfied provider-off. S51 remains closed and unauthorized. Release, publication, merge, announcement, provider traffic, experiment use, and external-system action remain closed.",
+  "active_module": "release-readiness",
+  "crosses": [
+    "adoption-experience",
+    "enforcement"
+  ],
+  "advances_contracts": [
+    "FH2"
+  ],
+  "active_protocol_sha256": "sha256:2acdfad5cf052fd9c3746514ac187134fc4ee99c580457cf18728ab5f340ba6a",
+  "active_objective": "Give one fresh agent the exact locally packed S52 candidate. Require an offline\ninstall with lifecycle scripts disabled into an isolated tool root, then have\nthe agent use only package-facing documentation and output to exercise cold\nfirst insight, assistant preview/install, begin/check/view/map, tracked and\nuntracked hostility, evidence export, badge, privacy, recovery, uninstall, and\ncleanup. Retain its commands, exact candidate identity, findings, and verdict.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -46,6 +51,8 @@
     "fixtures/S48/**",
     "fixtures/S49/**",
     "fixtures/S50/**",
+    "fixtures/S52/**",
+    "fixtures/S53/**",
     "notes/S37/**",
     "notes/S38/**",
     "notes/S39/**",
@@ -60,6 +67,8 @@
     "notes/S48/**",
     "notes/S49/**",
     "notes/S50/**",
+    "notes/S52/**",
+    "notes/S53/**",
     "runs/S37/**",
     "runs/S38/**",
     "runs/S39/**",
@@ -74,6 +83,8 @@
     "runs/S48/**",
     "runs/S49/**",
     "runs/S50/**",
+    "runs/S52/**",
+    "runs/S53/**",
     "evidence/S37/**",
     "evidence/S38/**",
     "evidence/S39/**",
@@ -88,6 +99,8 @@
     "evidence/S48/**",
     "evidence/S49/**",
     "evidence/S50/**",
+    "evidence/S52/**",
+    "evidence/S53/**",
     "next-prompt-protocols/**"
   ],
   "verification": {

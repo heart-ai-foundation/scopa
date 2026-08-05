@@ -120,6 +120,7 @@ function optionSpec(command) {
       ...common,
       '--client': { name: 'client' },
       '--dry-run': { name: 'dryRun', boolean: true },
+      '--format': { name: 'format' },
     };
   }
   if (command === 'view') {
@@ -659,6 +660,10 @@ export async function executeCommand(argv) {
     };
   }
   if (command === 'assistant') {
+    const format = options.format ?? 'json';
+    if (!['human', 'json'].includes(format)) {
+      throw new CliUsageError('--format must be human or json');
+    }
     if (options.action === 'detect') {
       if (options.client !== undefined || options.dryRun) {
         throw new CliUsageError('assistant detect accepts only --repo');
