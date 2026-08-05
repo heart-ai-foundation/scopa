@@ -5,7 +5,7 @@
 **Crosses:** [`boundary-doctor`, `legibility`]
 **Advances contracts:** [`OA1`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; OA1 satisfied; provider-off implementation only
 
 ## Why this exists
 

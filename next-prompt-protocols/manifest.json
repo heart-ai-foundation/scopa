@@ -7,11 +7,12 @@
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and open the public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
-  "active_protocol": "active/2026-08-05-S44-human-first-command-output.md",
-  "active_objective": "Render doctor, begin, check, and status as concise human text by default and make --format markdown emit Markdown, preserving every canonical JSON envelope, schema, and exit code behind explicit --format json.",
-  "active_class": "arc",
+  "active_protocol": null,
+  "active_objective": "S44 is complete with OA1 satisfied. S45 local diagnostic detail is the next queued slice and has no drafted active protocol yet.",
+  "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S44-human-first-command-output.md",
     "completed/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
     "completed/2026-08-05-S42-reproducible-proof-and-handoff.md",
     "completed/2026-08-05-S41-provider-off-pr-distribution.md",
@@ -1141,8 +1142,8 @@
         {
           "id": "OA1",
           "statement": "Every documented first-contact command renders readable human output by default while its canonical JSON envelope, schema, and exit codes remain unchanged behind explicit --format json.",
-          "status": "open",
-          "verifies_via": "Per-command human and JSON render fixtures, 0.4.0 envelope byte comparison, and exit-code tables",
+          "status": "satisfied",
+          "verifies_via": "Per-command human and JSON render fixtures in packages/cli/test/human-output.test.js, 0.4.0 envelope comparison against fixtures/S44/baseline-0.4.0, and exit-code assertions",
           "discovered_on": "2026-08-05",
           "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         },
