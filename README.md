@@ -134,6 +134,7 @@ details:
 ```sh
 scopa view
 scopa view --format html --output scopa-boundary.html
+scopa view --format badge --output scopa-boundary.svg
 ```
 
 The terminal and standalone script-free HTML Boundary Cards preserve the
@@ -141,11 +142,25 @@ canonical completion and control counts, bind the source map digest, and omit
 paths, prompts, gate output, and capability evidence. See
 [Boundary Card](docs/BOUNDARY_CARD.md).
 
+The local SVG is an adopter-facing fact badge, not a grade. It carries the
+computed assurance basis, aggregate change-observation facts, and source-map
+binding without remote assets, tracking, or private repository detail.
+
 For pull requests, the included [GitHub Action](docs/GITHUB_ACTION.md)
 validates an optional card into a sanitized job summary. Its default workflow
 has only `contents: read`, executes no project or gate command, persists no
 checkout credential, and treats missing evidence as unknown. PR comments are a
 separate full-commit-pinned, token-bearing opt-in.
+
+## From one repository to an organization
+
+The free local result is complete. If the same boundary problem spans many
+repositories, teams, agent clients, or authority owners, read the
+[optional organizational workflow-boundary review](docs/ORGANIZATIONAL_REVIEW.md).
+Heart AI Foundation offers that work, and organizations may use any qualified
+advisor. To discuss a private engagement, use the
+[Heart AI Foundation contact route](https://empathyethicist.ai/contact/); SCOPA
+itself sends no telemetry or lead data.
 
 ## How it works
 

@@ -364,6 +364,41 @@ ${card.observed ? `<section aria-labelledby="observed-heading">
 `;
 }
 
+function badgeAssurance(card) {
+  if (card.assurance.level === 'unknown') {
+    return 'UNKNOWN · INCOMPLETE CAPABILITY EVIDENCE';
+  }
+  if (card.assurance.level === 'partial') {
+    return 'PARTIAL · ACTIVE UNCONTROLLED ROUTE';
+  }
+  return 'FULL · ENUMERATED SURFACE ONLY';
+}
+
+function badgeObservation(card) {
+  if (!card.observed) return 'TRACKED CHANGE OBSERVATION UNAVAILABLE';
+  return `${card.observed.outsideAllowedPaths} OUTSIDE · ${card.observed.declaredNonGoalContacts} NON-GOAL CONTACTS OBSERVED`;
+}
+
+export function renderBoundaryBadgeSvg(cardValue) {
+  const card = validateBoundaryCard(cardValue);
+  const assurance = badgeAssurance(card);
+  const observation = badgeObservation(card);
+  const title = `SCOPA boundary evidence. ${assurance}. ${observation}.`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scopa-badge-title scopa-badge-description" viewBox="0 0 760 76" width="760" height="76" data-source-map-sha256="${card.sourceMapSha256}">
+<title id="scopa-badge-title">${title}</title>
+<desc id="scopa-badge-description">Local fact-only projection of a validated SCOPA Boundary Card.</desc>
+<metadata>source-map-sha256:${card.sourceMapSha256}</metadata>
+<rect width="760" height="76" rx="10" fill="#18201d"/>
+<rect x="2" y="2" width="756" height="72" rx="8" fill="#fffdf7" stroke="#18201d" stroke-width="2"/>
+<rect x="2" y="2" width="224" height="72" rx="8" fill="#18201d"/>
+<text x="18" y="33" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="1">SCOPA BOUNDARY</text>
+<text x="18" y="54" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13" letter-spacing="1">EVIDENCE</text>
+<text x="244" y="31" fill="#18201d" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700">${assurance}</text>
+<text x="244" y="54" fill="#52605a" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">${observation}</text>
+</svg>
+`;
+}
+
 function exportPath(value) {
   if (
     typeof value !== 'string' ||

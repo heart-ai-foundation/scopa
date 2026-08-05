@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "e5bc3f0",
+  "current_commit": "01ea903",
   "current_phase": "phase-14-legible-value-and-organic-adoption",
   "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and prepare repository-owned public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
   "active_protocol": null,
-  "active_objective": "S48 is complete with OA5 satisfied. S49 adopter fact badge and repository-owned discovery surface is the next queued slice and has no drafted active protocol yet.",
+  "active_objective": "S49 is complete with OA6 satisfied. S50 adversarial virality qualification is the final authorized Phase 14 slice and has no drafted active protocol yet.",
   "active_class": null,
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md",
     "completed/2026-08-05-S48-pull-request-default-value.md",
     "completed/2026-08-05-S47-front-door-alignment.md",
     "completed/2026-08-05-S46-out-of-scope-change-observation.md",
@@ -1198,8 +1199,8 @@
         {
           "id": "OA6",
           "statement": "Adopters can display a badge that states observed facts and carries the assurance basis while asserting no grade, score, or pass.",
-          "status": "open",
-          "verifies_via": "Deterministic badge-content fixtures and grade-semantics rejection tests",
+          "status": "satisfied",
+          "verifies_via": "Exact deterministic SVG fixture, assurance/observation polarity, forbidden-mark rejection, CLI no-replace export, privacy/accessibility checks, and repository-owned contact audit",
           "discovered_on": "2026-08-05",
           "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }

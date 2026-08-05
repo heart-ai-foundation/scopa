@@ -27,4 +27,8 @@ Community support is best-effort. The public project does not include an SLA,
 production operations, incident response for customer systems, or formal
 compliance advice. Paid consultation may cover profiles, governance
 installation, evidence review, and regulated integration, but verification of
-SCOPA evidence remains independently available.
+SCOPA evidence remains independently available. When the need spans multiple
+repositories, teams, or authority owners, read the
+[optional organizational review](docs/ORGANIZATIONAL_REVIEW.md) and use the
+[Heart AI Foundation contact route](https://empathyethicist.ai/contact/) to
+discuss a private engagement. SCOPA does not transmit contact or usage data.

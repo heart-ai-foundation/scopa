@@ -43,6 +43,7 @@ import {
   createBoundaryCard,
   detectAssistantSurfaces,
   installAssistant,
+  renderBoundaryBadgeSvg,
   renderBoundaryCardHtml,
   renderBoundaryCardTerminal,
   renderDemoTerminal,
@@ -581,8 +582,8 @@ async function mapCommand(options) {
 
 async function viewCommand(options) {
   const format = options.format ?? 'terminal';
-  if (!['html', 'json', 'terminal'].includes(format)) {
-    throw new CliUsageError('--format must be terminal, html, or json');
+  if (!['badge', 'html', 'json', 'terminal'].includes(format)) {
+    throw new CliUsageError('--format must be terminal, html, json, or badge');
   }
   const map = await workflowBoundaryMap({ repo: options.repo });
   const observation = await observeVersionControlledChanges({
@@ -593,9 +594,11 @@ async function viewCommand(options) {
   const card = createBoundaryCard(map, { observation });
   const content = format === 'html'
     ? renderBoundaryCardHtml(card)
-    : format === 'json'
-      ? canonicalJsonPretty(card)
-      : renderBoundaryCardTerminal(card);
+    : format === 'badge'
+      ? renderBoundaryBadgeSvg(card)
+      : format === 'json'
+        ? canonicalJsonPretty(card)
+        : renderBoundaryCardTerminal(card);
   const exported = options.output
     ? await writeBoundaryCardExport({
       repoRoot: options.repo,

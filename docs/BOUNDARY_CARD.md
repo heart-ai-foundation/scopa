@@ -62,3 +62,29 @@ object. JSON is the portable semantic form; terminal and HTML are renderings.
 The source map remains the truth. A card is not an operating-system sandbox,
 safety result, security certification, compliance finding, or readiness
 assessment.
+
+## Create a fact-stating adopter badge
+
+```sh
+scopa view --format badge --output scopa-boundary.svg
+```
+
+The standalone SVG is a compact projection of the same validated card. It
+states `SCOPA BOUNDARY EVIDENCE`, the computed assurance level and basis, and
+aggregate tracked-change observation when available. The complete source-map
+SHA-256 is embedded as a nonvisual binding. The file contains no script,
+remote image, font, link, analytics, telemetry, path, prompt, gate output, or
+private evidence.
+
+To display it in an adopter README, commit the generated SVG and use a local
+reference:
+
+```html
+<img alt="SCOPA boundary evidence" src="./scopa-boundary.svg">
+```
+
+Regenerate the SVG and its underlying JSON card when the task boundary changes;
+do not present an old snapshot as current. A fact-stating badge is permitted.
+A grade, score, pass mark, approval, certification, risk rank, or safe-to-merge
+badge is not. Zero observed outside-path changes means zero in that bounded Git
+observation, not universal containment or safety.

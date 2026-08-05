@@ -149,13 +149,16 @@ Render the active map as a privacy-minimized human Boundary Card:
 scopa view
 scopa view --format html --output scopa-boundary.html
 scopa view --format json --output scopa-boundary.json
+scopa view --format badge --output scopa-boundary.svg
 ```
 
 Unlike machine-oriented subcommands, `view` prints its selected presentation
 directly. With `--output`, it writes exact repository-contained bytes with
 no-replace semantics and prints only the byte count and digest. The standalone
 HTML contains no script, remote asset, telemetry, path, prompt, raw gate
-output, or capability evidence. See [Boundary Card](../../docs/BOUNDARY_CARD.md).
+output, or capability evidence. The SVG badge states assurance and aggregate
+observation facts without a grade or pass mark. See
+[Boundary Card](../../docs/BOUNDARY_CARD.md).
 
 Create a sanitized offline assessment, optionally compared with a baseline:
 

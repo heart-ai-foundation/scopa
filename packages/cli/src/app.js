@@ -22,7 +22,7 @@ Usage:
   scopa assistant install [--client auto|claude-code|codex|generic] [--dry-run] [--repo <directory>]
   scopa assistant uninstall [--dry-run] [--repo <directory>]
   scopa begin --request-json <json> [--format human|json] [--repo <directory>]
-  scopa view [--format terminal|html|json] [--output <file>] [--repo <directory>]
+  scopa view [--format terminal|html|json|badge] [--output <file>] [--repo <directory>]
   scopa init --definition <file> [--repo <directory>]
   scopa status [--format human|json] [--repo <directory>]
   scopa check [--format human|json] [--repo <directory>]
