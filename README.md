@@ -97,6 +97,12 @@ canonical completion and control counts, bind the source map digest, and omit
 paths, prompts, gate output, and capability evidence. See
 [Boundary Card](docs/BOUNDARY_CARD.md).
 
+For pull requests, the included [GitHub Action](docs/GITHUB_ACTION.md)
+validates an optional card into a sanitized job summary. Its default workflow
+has only `contents: read`, executes no project or gate command, persists no
+checkout credential, and treats missing evidence as unknown. PR comments are a
+separate full-commit-pinned, token-bearing opt-in.
+
 ## How it works
 
 1. A slice definition locks allowed paths, non-goals, and verification gates.
@@ -186,6 +192,7 @@ and the [Threat model](docs/THREAT_MODEL.md) before sensitive use.
   [slice definition](docs/SLICE_DEFINITION.md),
   [Workflow Boundary Map](docs/WORKFLOW_BOUNDARY_MAP.md),
   [Boundary Card](docs/BOUNDARY_CARD.md),
+  [GitHub Action](docs/GITHUB_ACTION.md),
   [troubleshooting](docs/TROUBLESHOOTING.md)
 - **Integrate:** [Integration guide](docs/INTEGRATIONS.md),
   [MCP host](packages/adapter-host/README.md),

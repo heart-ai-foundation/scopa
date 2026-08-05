@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "95be277",
+  "current_commit": "ad3f31c",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
   "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
-  "active_protocol": "active/2026-08-05-S40-local-visual-boundary-map.md",
-  "active_objective": "Render one privacy-minimized canonical Boundary Card as compact terminal text and accessible standalone local HTML with deterministic no-replace export.",
+  "active_protocol": "active/2026-08-05-S41-provider-off-pr-distribution.md",
+  "active_objective": "Add a least-privilege provider-off GitHub Action that validates optional Boundary Cards into sanitized job summaries, with PR comments disabled unless explicitly and safely enabled.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S40-local-visual-boundary-map.md",
     "completed/2026-08-05-S39-safe-assistant-installation.md",
     "completed/2026-08-05-S38-runtime-owned-task-bootstrap.md",
     "completed/2026-08-04-S37-instant-boundary-insight.md",
@@ -122,9 +123,9 @@
     "No docs-only, marketing-only, approval-only, review-of-review, or closeout queue slot; every slot must change executable behavior or validate a concrete product claim"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s40",
-    "assistant_regression": "npm run test:s39",
-    "map_regression": "npm run test:s30",
+    "fast_deterministic": "npm run test:s41",
+    "visual_regression": "npm run test:s40",
+    "adversarial_regression": "npm run test:s33",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },
@@ -1089,7 +1090,7 @@
         {
           "id": "AX4",
           "statement": "The canonical boundary map renders as an accessible local visual and compact Boundary Card without remote assets, semantic drift, or private workflow disclosure.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "JSON, terminal, and HTML parity; accessibility checks; deterministic export; redaction hostility; and script isolation",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S40"

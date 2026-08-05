@@ -1,21 +1,21 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "95be277",
+  "current_commit": "ad3f31c",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "active_protocol": "active/2026-08-05-S40-local-visual-boundary-map.md",
+  "active_protocol": "active/2026-08-05-S41-provider-off-pr-distribution.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "adoption-experience",
   "crosses": [
-    "workflow-boundary-map",
-    "distribution"
+    "distribution",
+    "workflow-boundary-map"
   ],
   "advances_contracts": [
-    "AX4"
+    "AX5"
   ],
-  "active_protocol_sha256": "sha256:cfd6ba281f7038c31b08281a43695716ea6e867ae323200d011ef6ad4b514c01",
-  "active_objective": "Project the canonical Workflow Boundary Map into one privacy-minimized\nBoundary Card, render it as compact terminal text and accessible standalone\nlocal HTML, and optionally export exact bytes with no-replace semantics. All\nformats must preserve completion and control polarity while omitting paths,\nnon-goal prose, prompts, raw gate output, capability evidence, and secrets.",
+  "active_protocol_sha256": "sha256:3562c3ac7afc32e2c1f82e641d347e3d1df65dd76ae74d9911467a4d4e76777f",
+  "active_objective": "Add a provider-off local GitHub Action and read-only pull-request workflow that\nvalidate an optional Boundary Card and write a sanitized job summary. The\ndefault workflow must use read-only permissions and never execute PR-declared\ncommands. An optional PR comment surface must require explicit enablement, a\ntoken supplied by the caller, and full-commit-pinned trusted action code.",
   "allowed_files": [
     "package.json",
     "package-lock.json",
@@ -68,9 +68,9 @@
     "next-prompt-protocols/**"
   ],
   "verification": {
-    "fast_deterministic": "npm run test:s40",
-    "assistant_regression": "npm run test:s39",
-    "map_regression": "npm run test:s30",
+    "fast_deterministic": "npm run test:s41",
+    "visual_regression": "npm run test:s40",
+    "adversarial_regression": "npm run test:s33",
     "protocol_check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
     "release_gate": "node packages/conformance/src/release-gate.js"
   },

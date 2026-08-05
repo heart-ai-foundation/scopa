@@ -1,0 +1,61 @@
+{
+  "schema": "scopa.s41-evidence.v1",
+  "slice": "S41",
+  "baselineCommit": "ad3f31c",
+  "classification": "implementation",
+  "providerUsed": false,
+  "networkProbed": false,
+  "githubApiCalled": false,
+  "defaultWorkflow": {
+    "path": ".github/workflows/scopa-boundary-check.yml",
+    "sha256": "d94eeca6b8b54a4644d22ca19c46bc91649b4fbcbf795e61f74b6735cd8e8e49",
+    "contentsPermission": "read",
+    "writePermission": false,
+    "persistedCheckoutCredential": false,
+    "packageInstall": false,
+    "projectOrGateExecution": false,
+    "commentEnabled": false
+  },
+  "action": {
+    "metadataPath": ".github/actions/scopa-boundary-check/action.yml",
+    "metadataSha256": "618afda44a3d718f0856677a5e357a6f35013ebb37c368c9df6f4b534e1f9778",
+    "runnerPath": ".github/actions/scopa-boundary-check/report.mjs",
+    "runnerSha256": "80fbc453c7aec45da3c6ac6ec24b64b4c43b89dc7a89106f4b336519352f9b57",
+    "remoteActionDependency": false,
+    "commentDefault": false
+  },
+  "validEvidence": {
+    "fixturePath": "fixtures/S41/valid-card.json",
+    "fixtureFileSha256": "46859fa432e250103d77501030cba34a9d2073a6393c14910fd04add414933b8",
+    "canonicalCardSha256": "ce2d8c3ad5d61e882a1d83fcbcd9943c214a75bca812fb6c704f6487f87373ba",
+    "reportSha256": "8320942f40414af1161b564cd2a7933e332c3baa9c61ebef1b7f91bafac9ddd0",
+    "summarySha256": "cc1ee6615b5569c3cc56272cf3899c410af76f63cf21cc18eb91edc93208c4c4",
+    "independentAttestationClaim": false
+  },
+  "missingEvidence": {
+    "reportSha256": "179593dce3e635b56cca7993017ab71611901eb78c645616581d692f1d60e364",
+    "summarySha256": "ed6f0cb24c66b0a717b62b0532e5b70c4fd31e11f3c537a602e78f45090ab8fd",
+    "completion": "unknown",
+    "assurance": "unknown",
+    "scope": "unknown"
+  },
+  "commentGuards": {
+    "literalOptIn": true,
+    "explicitToken": true,
+    "pullRequestEvent": true,
+    "repositoryAndNumberValidated": true,
+    "fullCommitPinRequiredByDocs": true,
+    "qualificationTransport": "stub",
+    "liveCommentCreated": false
+  },
+  "hostileCorpus": {
+    "testPath": "packages/adoption-experience/test/pr-report.test.js",
+    "testSha256": "09b3753e151d1ceb34aadb6f3b2c3c428ef4048478817485bca534a4dc479db7",
+    "eventFixturePath": "fixtures/S41/pull-request-event.json",
+    "eventFixtureSha256": "c56989ceca0c6ebde41840619515a0907bd938ad3fe46e2b523d2b8e69349559",
+    "summaryInjectionAccepted": false,
+    "forkDefaultWriteRoute": false,
+    "tokenInReport": false
+  },
+  "status": "accepted"
+}

@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `95be277`
-Current active protocol: `active/2026-08-05-S40-local-visual-boundary-map.md`
+Current commit reference: `ad3f31c`
+Current active protocol: `active/2026-08-05-S41-provider-off-pr-distribution.md`
 
 ## Scope
 
@@ -9,11 +9,11 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Project the canonical Workflow Boundary Map into one privacy-minimized
-> Boundary Card, render it as compact terminal text and accessible standalone
-> local HTML, and optionally export exact bytes with no-replace semantics. All
-> formats must preserve completion and control polarity while omitting paths,
-> non-goal prose, prompts, raw gate output, capability evidence, and secrets.
+> Add a provider-off local GitHub Action and read-only pull-request workflow that
+> validate an optional Boundary Card and write a sanitized job summary. The
+> default workflow must use read-only permissions and never execute PR-declared
+> commands. An optional PR comment surface must require explicit enablement, a
+> token supplied by the caller, and full-commit-pinned trusted action code.
 
 ## Files in play
 
@@ -88,20 +88,20 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s41`
 - `npm run test:s40`
-- `npm run test:s39`
-- `npm run test:s30`
 - `npm run test:s33`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- Terminal, HTML, and JSON reproduce one validated card and bind the same
-  canonical map digest with no private source fields.
-- HTML is standalone, script-free, keyboard/reader-legible, responsive, and
-  contains no remote URL or executable content.
-- Default view is read-only; explicit export is repository-contained,
-  no-replace, deterministic, and byte-identical to the corresponding renderer.
-- Unknown and uncontrolled surfaces remain visually and textually adverse or
-  neutral; no favorable aggregate score exists.
+- Default pull-request workflow declares only `contents: read`, persists no
+  checkout credential, performs no package install, and executes no card gate.
+- Valid cards produce sanitized count/digest summaries; missing cards remain
+  explicitly unknown; malformed, oversized, aliased, or hostile cards fail
+  before summary publication.
+- PR comments require literal opt-in, a caller token, a pull-request event, and
+  documentation requiring full-commit-pinned trusted action code.
+- Fork fixtures expose no secret or write route, and all untrusted values remain
+  data rather than workflow commands or executable script.
 
 ## Handoff
 

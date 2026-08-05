@@ -5,7 +5,7 @@
 **Crosses:** [`workflow-boundary-map`, `distribution`]
 **Advances contracts:** [`AX4`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; AX4 satisfied; provider-off implementation only
 
 ## Why this exists
 

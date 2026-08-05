@@ -19,6 +19,9 @@ compatibility policy.
   receipt-bound uninstall.
 - Add the privacy-minimized Boundary Card with deterministic terminal, JSON,
   and accessible standalone script-free HTML rendering and no-replace export.
+- Add a least-privilege provider-off GitHub Action that validates optional
+  Boundary Cards into sanitized job summaries, reports missing evidence as
+  unknown, and keeps PR commenting explicitly disabled by default.
 
 ### Changed
 

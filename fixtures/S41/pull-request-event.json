@@ -1,0 +1,14 @@
+{
+  "repository": {
+    "full_name": "example/scopa-consumer"
+  },
+  "pull_request": {
+    "number": 42,
+    "head": {
+      "repo": {
+        "fork": true,
+        "full_name": "contributor/scopa-consumer"
+      }
+    }
+  }
+}
