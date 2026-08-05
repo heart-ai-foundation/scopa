@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "63da198",
+  "current_commit": "d2e5770",
   "current_phase": "phase-15-first-time-production-hardening",
   "phase_scope": "Close only the reproducible first-time finish-loop, untracked-observation, human-recovery, self-contained continuation, evidence-export boundary, and badge-grammar defects found by a fresh installed-package stress test, then repeat one fresh provider-off installed stress pass. Preserve gate-only canStop, privacy, legacy cards, canonical machine output, and every release/provider/experiment boundary.",
   "macro_delta": "macro-deltas/2026-08-05-scopa-first-time-production-hardening.md",
-  "active_protocol": "active/2026-08-05-S53-fresh-first-time-installed-requalification.md",
-  "active_objective": "Give the exact locally packed S52 candidate to one fresh agent for an offline, public-facing installed-product stress pass. Close Phase 15 only if no critical, high, or medium product finding remains. Release, merge, publication, provider traffic, experiment use, network access, and external-system action remain closed.",
+  "active_protocol": null,
+  "active_objective": "Phase 15 is complete: S52 and S53 are closed, FH1 and FH2 are satisfied, and the fresh installed-agent pass found no product finding at any severity. Pause before any new implementation, merge, release, publication, provider traffic, experiment use, or external-system action.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S53-fresh-first-time-installed-requalification.md",
     "completed/2026-08-05-S52-first-time-production-hardening.md",
     "completed/2026-08-05-S50-adversarial-virality-qualification.md",
     "completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md",
@@ -1225,7 +1226,7 @@
         {
           "id": "FH2",
           "statement": "A fresh agent independently completes the packed installed first-time journey with no critical, high, or medium product finding and no release, provider, experiment, network, privacy, or cleanup violation.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "One fresh-agent S53 installed-package stress report against new exact candidate bytes",
           "discovered_on": "2026-08-05",
           "discovered_because": "First-Time Production Hardening Macro Delta S53"

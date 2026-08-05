@@ -1,21 +1,16 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "63da198",
+  "current_commit": "d2e5770",
   "current_phase": "phase-15-first-time-production-hardening",
-  "active_protocol": "active/2026-08-05-S53-fresh-first-time-installed-requalification.md",
+  "active_protocol": null,
   "active_class": "arc",
   "active_compound": false,
-  "active_module": "release-readiness",
-  "crosses": [
-    "adoption-experience",
-    "enforcement"
-  ],
-  "advances_contracts": [
-    "FH2"
-  ],
-  "active_protocol_sha256": "sha256:2acdfad5cf052fd9c3746514ac187134fc4ee99c580457cf18728ab5f340ba6a",
-  "active_objective": "Give one fresh agent the exact locally packed S52 candidate. Require an offline\ninstall with lifecycle scripts disabled into an isolated tool root, then have\nthe agent use only package-facing documentation and output to exercise cold\nfirst insight, assistant preview/install, begin/check/view/map, tracked and\nuntracked hostility, evidence export, badge, privacy, recovery, uninstall, and\ncleanup. Retain its commands, exact candidate identity, findings, and verdict.",
+  "active_module": null,
+  "crosses": [],
+  "advances_contracts": [],
+  "active_protocol_sha256": null,
+  "active_objective": "Phase 15 is complete: S52 and S53 are closed, FH1 and FH2 are satisfied, and the fresh installed-agent pass found no product finding at any severity. Pause before any new implementation, merge, release, publication, provider traffic, experiment use, or external-system action.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

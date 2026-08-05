@@ -51,17 +51,18 @@ governed S37-S43, which are complete.
 | S50 | Adversarial virality qualification | `release-readiness` | Make the out-of-scope presentation exposure a permanent regression gate and time the cold first-contact journey from clean packed candidate bytes while retaining public 0.4.0 as the immutable regression baseline | The failure that would produce a public credibility dunk can never silently re-land | reproduced native non-goal violation, headline qualification assertion, cold installed-candidate first-insight timing, public-0.4.0 baseline checks, accumulated provider-off gates, docs exact-output corpus | S44-S49 | Stop on material finding, false green, claim drift, or any release, publication, or announcement action | `evidence/S50/` | `completed; OA7 satisfied; release closed` |
 | S51 | Measured agent-behavior artifact | `live-run` | Measure the rate at which real agent runs claim completion while a declared gate is failing, across models, as a citable artifact | Converts SCOPA's central premise into a measurement rather than an assertion | separately approved exact calls only, cost ceiling, provider-store cleanup, no assurance transfer between providers, retention of non-qualifying runs | S44-S50 plus separate explicit provider authority and allowance | **Closed. Stop before any provider intent without a separate written authority and allowance; stop on unverifiable claim framing** | `evidence/S51/` | `closed; unauthorized` |
 | S52 | First-time production hardening | `adoption-experience` | Require final Boundary Card inspection, observe tracked and untracked Git changes, simplify terminal recovery/setup, make cold continuation executable, disclose export write boundaries, and correct badge grammar | A first-time agent cannot report clean completion while SCOPA has observable boundary contacts | exact source and installed hostile journey, legacy card compatibility, machine-output parity, privacy, docs | fresh-agent Phase 14 stress report | Stop on completion drift, false clean, untracked omission, privacy leak, machine-envelope drift, or expanded authority | `evidence/S52/` | `completed; FH1 satisfied` |
-| S53 | Fresh first-time installed requalification | `release-readiness` | Give new packed bytes to one fresh agent and repeat the complete cold hostile journey | Closes the loop only when an unfamiliar consumer finds no material defect | exact candidate, offline install, public-only entry, setup/begin/check/view/export/badge/cleanup hostility | S52 and full provider-off gate | Stop on any critical/high/medium finding, false clean, privacy/cleanup failure, or release/provider intent | `evidence/S53/` | `active` |
+| S53 | Fresh first-time installed requalification | `release-readiness` | Give new packed bytes to one fresh agent and repeat the complete cold hostile journey | Closes the loop only when an unfamiliar consumer finds no material defect | exact candidate, offline install, public-only entry, setup/begin/check/view/export/badge/cleanup hostility | S52 and full provider-off gate | Stop on any critical/high/medium finding, false clean, privacy/cleanup failure, or release/provider intent | `evidence/S53/` | `completed; FH2 satisfied; clean` |
 
 S0-S28, the public R1 execution, the S29-S33 workflow-boundary-mapping arc,
 and the S34-S36 boundary-doctor adoption wedge are complete historical work.
 S37-S43 and all AX1-AX7 contracts are complete provider-off, and public 0.4.0
 is released.
 
-S52-S53 are the active Phase 15 queue governed by
-`macro-deltas/2026-08-05-scopa-first-time-production-hardening.md`. S52 is
-complete with FH1 satisfied; S53 is now the one fresh provider-off installed
-requalification. S51 remains closed and unauthorized.
+S52-S53 complete Phase 15 under
+`macro-deltas/2026-08-05-scopa-first-time-production-hardening.md`. FH1 and FH2
+are satisfied, and the fresh installed requalification found no product defect
+at any severity. The queue is paused with no active protocol. S51 remains
+closed and unauthorized.
 Release, publication, merge, announcement, provider traffic, experiment use,
 and external-system action remain closed.
 
