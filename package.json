@@ -73,7 +73,7 @@
   "scripts": {
     "protocol:sync": "node next-prompt-protocols/tools/sync-protocols.mjs",
     "protocol:check": "node next-prompt-protocols/tools/sync-protocols.mjs --check",
-    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s40 && npm run test:s41 && npm run test:s42 && npm run test:s43 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
+    "test": "node packages/conformance/src/release-gate.js && npm run test:s29 && npm run test:s30 && npm run test:s31 && npm run test:s32 && npm run test:s33 && npm run test:s34 && npm run test:s35 && npm run test:s36 && npm run test:s37 && npm run test:s38 && npm run test:s39 && npm run test:s40 && npm run test:s41 && npm run test:s42 && npm run test:s43 && npm run test:s44 && npm run test:s8 && npm run test:s9 && npm run test:s10 && npm run test:s11 && npm run test:s12 && npm run test:s14 && npm run test:s15 && npm run test:s16 && npm run test:s17 && npm run test:s21 && npm run test:s22 && npm run test:s23 && npm run test:docs",
     "test:docs": "node tools/check-docs.mjs",
     "test:s1": "node --test packages/kernel-core/test/*.test.js packages/journal/test/*.test.js",
     "test:s2": "node packages/conformance/src/run-node-tests.js packages/enforcement/test/enforcement-loop.test.js packages/enforcement/test/live-probe.test.js packages/enforcement/test/slice-definition-schema.test.js",
@@ -145,7 +145,8 @@
     "verify:case:s5": "node packages/interop/src/verify-case-cli.js",
     "verify:case:s5:artifact": "node packages/interop/src/verify-case-cli.js --export evidence/S5/scopa-case-export.jsonld --timestamp-roots fixtures/S4/freetsa-root.pem --require-timestamp --timestamp-authority-id freetsa.org-2026 --timestamp-signer-sha256 32e841a95cc1164101ffde41298ef2fc75c1c4372ef095e88a6bbd47dfb191fc",
     "validate:case:s5": "node packages/interop/src/case-validator-cli.js --export evidence/S5/scopa-case-export.jsonld",
-    "validate:case:s5:negative": "node packages/interop/src/case-validator-cli.js --export fixtures/S5/invalid-relationship.jsonld --expect-invalid"
+    "validate:case:s5:negative": "node packages/interop/src/case-validator-cli.js --export fixtures/S5/invalid-relationship.jsonld --expect-invalid",
+    "test:s44": "node packages/conformance/src/run-node-tests.js packages/cli/test/human-output.test.js"
   },
   "engines": {
     "node": ">=22"

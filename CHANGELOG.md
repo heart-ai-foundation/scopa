@@ -6,6 +6,22 @@ compatibility policy.
 
 ## Unreleased
 
+### Changed
+
+- `begin`, `check`, `status`, and `doctor` now print concise human text when
+  standard output is a terminal, and the unchanged canonical JSON envelope when
+  redirected, piped, or run in CI. `--format human` and `--format json` select
+  either explicitly. Scripts and automation are unaffected: no schema, field
+  name, or exit code changed, and `--format json` output is byte-identical to
+  `0.4.0` for the same input and state.
+- `scopa doctor --format markdown` now emits the Markdown report directly
+  instead of returning it as an escaped string inside the JSON envelope. Use
+  `--format json` for the envelope, whose `result.content` carries the same
+  report bound by `result.sourceSha256`. A pipeline that extracted the report
+  with `jq -r '.result.content'` should now read the command output directly.
+- `doctor --format` rejects an unsupported value with `--format must be human,
+  json, or markdown`.
+
 ## 0.4.0 — 2026-08-04
 
 - Add an offline installed-adoption qualifier covering under-30-second

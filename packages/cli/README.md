@@ -2,8 +2,12 @@
 
 The `scopa` command is installed by the root
 `@heart-ai-foundation/scopa` package. Running it without arguments prints a
-short human-first repository snapshot. Explicit subcommands write one canonical
-`scopa.cli-result.v1` JSON object.
+short human-first repository snapshot.
+
+`begin`, `check`, `status`, and `doctor` print concise human text at a terminal
+and one canonical `scopa.cli-result.v1` JSON object when redirected or piped;
+`--format human` and `--format json` select either explicitly. Every other
+subcommand writes the canonical JSON object.
 
 ## Install and run
 

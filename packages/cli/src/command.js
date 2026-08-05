@@ -110,6 +110,7 @@ function optionSpec(command) {
     return {
       ...common,
       '--request-json': { name: 'requestJson', required: true },
+      '--format': { name: 'format' },
     };
   }
   if (command === 'assistant') {
@@ -167,7 +168,12 @@ function optionSpec(command) {
       '--require-timestamp': { name: 'requireTimestamp', boolean: true },
     };
   }
-  if (command === 'status' || command === 'check') return common;
+  if (command === 'status' || command === 'check') {
+    return {
+      ...common,
+      '--format': { name: 'format' },
+    };
+  }
   throw new CliUsageError(`unknown command: ${command ?? '<missing>'}`);
 }
 
@@ -749,8 +755,8 @@ export async function executeCommand(argv) {
   }
   if (command === 'doctor') {
     const format = options.format ?? 'json';
-    if (!['json', 'markdown'].includes(format)) {
-      throw new CliUsageError('--format must be json or markdown');
+    if (!['human', 'json', 'markdown'].includes(format)) {
+      throw new CliUsageError('--format must be human, json, or markdown');
     }
     options = Object.freeze({ ...options, format });
     const declarationFlags = ['definition', 'matrix', 'authority'];

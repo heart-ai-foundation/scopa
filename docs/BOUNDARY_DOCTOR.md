@@ -54,15 +54,15 @@ prove that a provider, credential, network, or native-tool route is disabled.
 ## Create a shareable report
 
 ```sh
-scopa doctor --format markdown
+scopa doctor --format markdown > scopa-doctor.md
 ```
 
-The CLI still emits canonical JSON. `result.content` contains a minimized
-Markdown report, and `result.sourceSha256` binds it to the complete diagnostic.
-To extract only the Markdown:
+`--format markdown` emits the minimized Markdown report directly. For the
+canonical envelope, whose `result.content` carries the same report and whose
+`result.sourceSha256` binds it to the complete diagnostic, request JSON:
 
 ```sh
-scopa doctor --format markdown | jq -r '.result.content' > scopa-doctor.md
+scopa doctor --format json
 ```
 
 The report contains counts and fixed status terms. It omits repository paths,

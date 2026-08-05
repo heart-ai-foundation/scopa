@@ -1,0 +1,11 @@
+SCOPA TASK STATUS
+Slice       evidence
+Completion  SATISFIED — all declared gates passed
+Condition   all-gates-pass
+
+SCOPE
+Allowed paths  src/**
+Non-goals      changing dependencies
+
+Next  Completion is satisfied. Run scopa view for a shareable Boundary Card.
+This is an observation of recorded state; it does not run the gates.

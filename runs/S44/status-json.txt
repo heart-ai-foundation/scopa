@@ -1,0 +1,21 @@
+{
+  "command": "status",
+  "ok": true,
+  "result": {
+    "allowedPaths": [
+      "src/**"
+    ],
+    "amendmentPath": ".scopa/amendments/evidence.json",
+    "canStop": true,
+    "failedGates": [],
+    "gateStatus": "satisfied",
+    "lockHash": "765c33f39954627e6e46d019f63e5d8454b3b91ff4524d38155fcd4ba007ff08",
+    "nonGoals": [
+      "changing dependencies"
+    ],
+    "schema": "scopa.orientation.v1",
+    "slice": "evidence",
+    "stopCondition": "all-gates-pass"
+  },
+  "schema": "scopa.cli-result.v1"
+}

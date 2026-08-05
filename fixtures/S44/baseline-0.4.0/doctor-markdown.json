@@ -1,0 +1,24 @@
+{
+  "command": "doctor",
+  "ok": true,
+  "result": {
+    "content": "# SCOPA boundary doctor proof\n\n- Proof schema: `scopa.boundary-doctor-report.v1`\n- Source schema: `scopa.boundary-diagnostic.v1`\n- Canonical source SHA-256: `81abe24198bcfb654f02e013b04e0254cbdb5ed83d30618b2d2e6d372d59e760`\n\n## Before\n\n- SCOPA initialized: `true`\n- Scan truncated: `false`\n- Indicators detected: 5\n- Indicators unknown: 5\n- Completion candidates: 1\n- Posture: **review-required**\n\n> This proof is configuration-relative and does not claim OS sandboxing or\n> agent-wide safety. The shareable projection omits repository paths and\n> caller-supplied workflow identifiers; verify the canonical source digest\n> before relying on the projection.\n",
+    "format": "markdown",
+    "schema": "scopa.boundary-doctor-report.v1",
+    "sourceSchema": "scopa.boundary-diagnostic.v1",
+    "sourceSha256": "81abe24198bcfb654f02e013b04e0254cbdb5ed83d30618b2d2e6d372d59e760",
+    "summary": {
+      "before": {
+        "completionCandidates": 1,
+        "detected": 5,
+        "posture": "review-required",
+        "scanTruncated": false,
+        "scopaInitialized": true,
+        "unknown": 5
+      },
+      "kind": "diagnostic",
+      "terminal": null
+    }
+  },
+  "schema": "scopa.cli-result.v1"
+}

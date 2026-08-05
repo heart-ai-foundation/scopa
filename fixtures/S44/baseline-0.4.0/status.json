@@ -1,0 +1,21 @@
+{
+  "command": "status",
+  "ok": true,
+  "result": {
+    "allowedPaths": [
+      "src/**"
+    ],
+    "amendmentPath": ".scopa/amendments/request-id-logging.json",
+    "canStop": true,
+    "failedGates": [],
+    "gateStatus": "satisfied",
+    "lockHash": "e4085fd5b93ea065b0638dba14bb3c7e72e183ef4519e4c7b02a98bf5d55f096",
+    "nonGoals": [
+      "changing dependencies"
+    ],
+    "schema": "scopa.orientation.v1",
+    "slice": "request-id-logging",
+    "stopCondition": "all-gates-pass"
+  },
+  "schema": "scopa.cli-result.v1"
+}
