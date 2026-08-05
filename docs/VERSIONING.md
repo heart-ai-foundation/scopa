@@ -7,6 +7,12 @@ documented evidence contracts. It is published under Apache-2.0.
 assessment, and Boundary Doctor. It preserves the `0.2.0` command behavior and
 versioned evidence contracts while adding new interfaces.
 
+`0.4.0` adds insight-before-setup, the runtime-owned `begin` transaction,
+portable project-local Agent Skills installation, Boundary Cards,
+least-privilege pull-request reporting, and the reproducible enforcement demo.
+It preserves the prior runtime and evidence contracts while reducing the
+developer-owned setup surface.
+
 SCOPA follows Semantic Versioning syntax and treats compatibility deliberately:
 
 - while the major version is `0`, incompatible changes may occur in a minor

@@ -104,7 +104,7 @@ Boundary Doctor remains the complete machine-readable diagnosis before
 `.scopa/` exists:
 
 ```sh
-npx --yes --package @heart-ai-foundation/scopa@0.3.0 \
+npx --yes --package @heart-ai-foundation/scopa@0.4.0 \
   scopa doctor --format markdown --repo /path/to/project
 ```
 
@@ -162,7 +162,7 @@ deploy, use credentials, or change an external system.
 
 ## Status
 
-- **Current public release:** `0.3.0`
+- **Current public release:** `0.4.0`
 - **Package:** `@heart-ai-foundation/scopa`
 - **Included:** enforcement runtime, Boundary Doctor, Workflow Boundary Map,
   offline assessment, model-neutral MCP, Claude Code, and Codex integrations
@@ -178,7 +178,7 @@ deploy, use credentials, or change an external system.
 Install the current public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
 ```
 
 Then initialize and check a repository that contains a closed slice definition:
@@ -243,9 +243,9 @@ compare the npm integrity and tarball values with the checksum published in the
 corresponding GitHub Release:
 
 ```sh
-npm view @heart-ai-foundation/scopa@0.3.0 dist.integrity
-npm view @heart-ai-foundation/scopa@0.3.0 dist.tarball
-sha256sum heart-ai-foundation-scopa-0.3.0.tgz
+npm view @heart-ai-foundation/scopa@0.4.0 dist.integrity
+npm view @heart-ai-foundation/scopa@0.4.0 dist.tarball
+sha256sum heart-ai-foundation-scopa-0.4.0.tgz
 ```
 
 From a source checkout, use `npm run pack:candidate`; raw `npm pack` is not the

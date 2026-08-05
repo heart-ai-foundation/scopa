@@ -334,7 +334,7 @@ export function createBeginCapabilityMatrix(clientProfile) {
   return validateCapabilityMatrix({
     schema: 'scopa.capability-matrix.v1',
     subject: {
-      adapter: 'scopa-bootstrap@0.3.0',
+      adapter: 'scopa-bootstrap@0.4.0',
       client: PROFILE_SUBJECTS[clientProfile],
       transport: 'scopa-bootstrap-v1',
     },

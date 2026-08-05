@@ -10,7 +10,7 @@ short human-first repository snapshot. Explicit subcommands write one canonical
 Install the public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.3.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
 ```
 
 The examples below use `scopa` as the command name. After a local installation,

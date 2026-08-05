@@ -9,8 +9,8 @@ in any installed build with `scopa --help`.
 
 ## Start with the human snapshot
 
-Development builds after `0.3.0` make zero-argument `scopa` a read-only first
-look at the current repository:
+Release `0.4.0` makes zero-argument `scopa` a read-only first look at the
+current repository:
 
 ```sh
 scopa

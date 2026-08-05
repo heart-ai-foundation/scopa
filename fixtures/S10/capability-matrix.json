@@ -1,8 +1,8 @@
 {
   "schema": "scopa.capability-matrix.v1",
   "subject": {
-    "adapter": "scopa-mcp@0.3.0",
-    "client": "scopa-consumer-fixture@0.3.0",
+    "adapter": "scopa-mcp@0.4.0",
+    "client": "scopa-consumer-fixture@0.4.0",
     "transport": "mcp-stdio"
   },
   "capabilities": [
