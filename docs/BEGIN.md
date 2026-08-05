@@ -8,7 +8,7 @@ real gate argv, non-goals, and client profile.
 From this source version:
 
 ```sh
-scopa begin --request-json '{
+scopa begin --format json --request-json '{
   "schema":"scopa.begin-request.v1",
   "sliceId":"request-id-logging",
   "outcome":"Add request-ID logging without changing the public API",
@@ -27,6 +27,10 @@ scopa begin --request-json '{
 The request contract is published as
 [`scopa.begin-request.v1.schema.json`](../schemas/scopa.begin-request.v1.schema.json).
 Available profiles are `generic`, `claude-code`, and `codex`.
+
+At a terminal, `begin` prints concise human text unless a format is selected;
+a redirect or pipe receives the canonical JSON envelope. Agent instructions
+and automation should use `--format json` explicitly, as above.
 
 Before creating `.scopa/`, the runtime validates the entire request, rejects
 escaping paths and shell-shaped commands, builds a default-closed authority

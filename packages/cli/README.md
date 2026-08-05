@@ -2,15 +2,19 @@
 
 The `scopa` command is installed by the root
 `@heart-ai-foundation/scopa` package. Running it without arguments prints a
-short human-first repository snapshot. Explicit subcommands write one canonical
-`scopa.cli-result.v1` JSON object.
+short human-first repository snapshot.
+
+`begin`, `check`, `status`, and `doctor` print concise human text at a terminal
+and one canonical `scopa.cli-result.v1` JSON object when redirected or piped;
+`--format human` and `--format json` select either explicitly. Every other
+subcommand writes the canonical JSON object.
 
 ## Install and run
 
 Install the public release without lifecycle scripts:
 
 ```sh
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.5.0
 ```
 
 The examples below use `scopa` as the command name. After a local installation,
@@ -98,6 +102,9 @@ hash-bound receipt under `.scopa/`; uninstall removes only unchanged,
 receipt-bound bytes. No user-global configuration is read or written. See
 [assistant installation](../../docs/ASSISTANT_INSTALLATION.md).
 
+At a terminal, assistant actions render a concise human summary. Redirects and
+pipes retain the canonical envelope; automation should add `--format json`.
+
 ## Initialize
 
 Create a closed [slice definition](../../docs/SLICE_DEFINITION.md), then bind
@@ -145,13 +152,19 @@ Render the active map as a privacy-minimized human Boundary Card:
 scopa view
 scopa view --format html --output scopa-boundary.html
 scopa view --format json --output scopa-boundary.json
+scopa view --format badge --output scopa-boundary.svg
 ```
 
 Unlike machine-oriented subcommands, `view` prints its selected presentation
 directly. With `--output`, it writes exact repository-contained bytes with
-no-replace semantics and prints only the byte count and digest. The standalone
+no-replace semantics and prints the byte count, digest, and the fact that this
+explicit evidence export is outside the locked task mutation boundary. A
+subsequent card counts an untracked outside-path export without disclosing its
+path. The standalone
 HTML contains no script, remote asset, telemetry, path, prompt, raw gate
-output, or capability evidence. See [Boundary Card](../../docs/BOUNDARY_CARD.md).
+output, or capability evidence. The SVG badge states assurance and aggregate
+tracked and untracked observation facts without a grade or pass mark. See
+[Boundary Card](../../docs/BOUNDARY_CARD.md).
 
 Create a sanitized offline assessment, optionally compared with a baseline:
 

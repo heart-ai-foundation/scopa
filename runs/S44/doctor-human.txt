@@ -1,0 +1,11 @@
+SCOPA boundary snapshot
+
+Observed
+- SCOPA control state is present in this repository.
+- A possible completion check is available: npm test.
+
+Unknown
+- Agent tools and permissions were not measured; 5 workflow signals remain unknown.
+
+Next
+Run scopa status to inspect the active task boundary.

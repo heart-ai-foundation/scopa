@@ -1,0 +1,36 @@
+SCOPA S46 provider-off validation
+UTC: 2026-08-05T17:57:24Z
+
+npm run test:s46
+PASS — 1 test file, 5 cases using real Git repositories
+
+npm run test:s2 (first invocation)
+TRANSIENT FAIL — historical enforcement-loop test file reported exit 1
+
+node --test packages/enforcement/test/enforcement-loop.test.js
+PASS — 15/15 cases, including adversarial descendant process groups
+
+npm run test:s2 (official rerun)
+PASS — 19/19 cases
+
+npm run test:s29
+PASS — 3 test files
+
+npm run test:s40
+PASS — Boundary Card regression
+
+npm run test:s41
+PASS — pull-request privacy/permission regression
+
+npm run test:docs
+PASS — documentation check passed (38 files)
+
+npm run protocol:check
+PASS — active protocol and derived files synchronized
+
+git diff --check
+PASS
+
+Provider/model calls: 0
+Network probes: 0
+Release/publication actions: 0

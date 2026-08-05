@@ -1,0 +1,16 @@
+SCOPA TASK BOUNDARY ESTABLISHED
+Slice       evidence
+Outcome     capture S44 render evidence
+Completion  SATISFIED — all declared gates passed
+Gates       1 passed / 0 failed / 0 timed out
+Assurance   PARTIAL — an active route can bypass SCOPA
+
+SCOPE
+Allowed paths  src/**
+Non-goals      changing dependencies
+
+CONTROL SURFACES
+Controlled 8 | Uncontrolled 4 | Unknown 0
+Authority required 6 | Disabled 0 | Total 18
+
+Next  Work inside the allowed paths, then run scopa check.

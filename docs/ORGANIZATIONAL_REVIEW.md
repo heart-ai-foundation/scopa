@@ -32,5 +32,8 @@ output, customer code, or unreviewed evidence.
 
 Heart AI Foundation can provide this work, and organizations may use any
 qualified advisor. The public project remains independently usable and
-verifiable either way. For the public support and private-security boundaries,
-see [Support](../SUPPORT.md) and [Security](../SECURITY.md).
+verifiable either way. To discuss a private Heart AI Foundation engagement,
+use the [contact route](https://empathyethicist.ai/contact/). SCOPA sends no
+usage data or lead information to that route. For the public support and
+private-security boundaries, see [Support](../SUPPORT.md) and
+[Security](../SECURITY.md).

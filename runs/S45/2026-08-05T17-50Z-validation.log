@@ -1,0 +1,30 @@
+SCOPA S45 provider-off validation
+UTC: 2026-08-05T17:50:10Z
+
+npm run test:s45
+PASS — 1 test file, 3 cases
+
+npm run test:s34
+PASS — 2 test files
+
+npm run test:s36
+PASS — 2 test files
+
+npm run test:s44
+PASS — 1 test file
+
+npm run test:s41
+PASS — 1 test file
+
+npm run test:docs
+PASS — documentation check passed (38 files)
+
+npm run protocol:check
+PASS — active protocol and derived files synchronized
+
+git diff --check
+PASS
+
+Provider/model calls: 0
+Network probes: 0
+Release/publication actions: 0

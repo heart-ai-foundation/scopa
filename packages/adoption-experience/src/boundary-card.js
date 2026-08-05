@@ -9,6 +9,7 @@ import {
   canonicalJsonPretty,
   deepFreeze,
   jsonHash,
+  validateChangeObservation,
 } from '../../enforcement/src/index.js';
 import {
   validateWorkflowBoundaryMap,
@@ -25,6 +26,7 @@ const CARD_KEYS = new Set([
   'sourceMapSha256',
   'surfaces',
 ]);
+const CARD_KEYS_WITH_OBSERVED = new Set([...CARD_KEYS, 'observed']);
 const ASSURANCE_KEYS = new Set(['basis', 'level']);
 const COMPLETION_KEYS = new Set(['canStop', 'gates', 'status']);
 const GATES_KEYS = new Set(['failed', 'passed', 'timedOut', 'total']);
@@ -36,6 +38,16 @@ const SURFACES_KEYS = new Set([
   'total',
   'uncontrolled',
   'unknown',
+]);
+const OBSERVED_KEYS = new Set([
+  'basis',
+  'declaredNonGoalContacts',
+  'outsideAllowedPaths',
+  'versionControlledChanges',
+]);
+const OBSERVED_KEYS_WITH_UNTRACKED = new Set([
+  ...OBSERVED_KEYS,
+  'untrackedChanges',
 ]);
 
 export class BoundaryCardError extends Error {
@@ -87,7 +99,11 @@ function expectedAssurance(surfaces) {
 }
 
 export function validateBoundaryCard(value) {
-  exactObject(value, CARD_KEYS, 'boundary card');
+  exactObject(
+    value,
+    Object.hasOwn(value ?? {}, 'observed') ? CARD_KEYS_WITH_OBSERVED : CARD_KEYS,
+    'boundary card',
+  );
   if (value.schema !== BOUNDARY_CARD_SCHEMA) {
     throw new BoundaryCardError('unsupported boundary card schema');
   }
@@ -143,10 +159,38 @@ export function validateBoundaryCard(value) {
   if (value.scope.allowedPathRules < 1) {
     throw new BoundaryCardError('scope must contain an allowed path rule');
   }
+  if (Object.hasOwn(value, 'observed')) {
+    const includesUntracked = Object.hasOwn(value.observed, 'untrackedChanges');
+    exactObject(
+      value.observed,
+      includesUntracked ? OBSERVED_KEYS_WITH_UNTRACKED : OBSERVED_KEYS,
+      'boundary card observed changes',
+    );
+    const expectedBasis = includesUntracked
+      ? 'git-working-tree-observation-not-enforcement'
+      : 'git-tracked-working-tree-observation-not-enforcement';
+    if (value.observed.basis !== expectedBasis) {
+      throw new BoundaryCardError('observed change basis is unsupported');
+    }
+    for (const key of [
+      'versionControlledChanges',
+      ...(includesUntracked ? ['untrackedChanges'] : []),
+      'outsideAllowedPaths',
+      'declaredNonGoalContacts',
+    ]) count(value.observed[key], `observed.${key}`);
+    const totalObserved = value.observed.versionControlledChanges +
+      (value.observed.untrackedChanges ?? 0);
+    if (
+      value.observed.outsideAllowedPaths >
+        totalObserved ||
+      value.observed.declaredNonGoalContacts >
+        totalObserved
+    ) throw new BoundaryCardError('observed change counts are inconsistent');
+  }
   return deepFreeze(JSON.parse(canonicalJsonPretty(value)));
 }
 
-export function createBoundaryCard(mapValue) {
+export function createBoundaryCard(mapValue, { observation = null } = {}) {
   const map = validateWorkflowBoundaryMap(mapValue);
   const gates = {
     total: map.completion.gates.length,
@@ -154,7 +198,7 @@ export function createBoundaryCard(mapValue) {
     failed: map.completion.gates.filter((gate) => gate.status === 'failed').length,
     timedOut: map.completion.gates.filter((gate) => gate.status === 'timed-out').length,
   };
-  return validateBoundaryCard({
+  const card = {
     schema: BOUNDARY_CARD_SCHEMA,
     sourceMapSha256: jsonHash(map),
     completion: {
@@ -168,7 +212,27 @@ export function createBoundaryCard(mapValue) {
       allowedPathRules: map.scope.allowedPaths.length,
       nonGoals: map.scope.nonGoals.length,
     },
-  });
+  };
+  if (observation !== null) {
+    const observed = validateChangeObservation(observation);
+    card.observed = {
+      basis: observed.basis,
+      ...observed.summary,
+    };
+  }
+  return validateBoundaryCard(card);
+}
+
+function completionText(card) {
+  if (!card.completion.canStop) {
+    return 'BLOCKED — at least one declared gate did not pass';
+  }
+  if (
+    card.observed &&
+    (card.observed.outsideAllowedPaths > 0 ||
+      card.observed.declaredNonGoalContacts > 0)
+  ) return 'SATISFIED — WITH UNVERIFIED CHANGES';
+  return 'SATISFIED — all declared gates passed';
 }
 
 function assuranceText(card) {
@@ -183,12 +247,9 @@ function assuranceText(card) {
 
 export function renderBoundaryCardTerminal(cardValue) {
   const card = validateBoundaryCard(cardValue);
-  const status = card.completion.canStop
-    ? 'SATISFIED — all declared gates passed'
-    : 'BLOCKED — at least one declared gate did not pass';
-  return [
+  const lines = [
     'SCOPA BOUNDARY CARD',
-    `Completion  ${status}`,
+    `Completion  ${completionText(card)}`,
     `Gates       ${card.completion.gates.passed} passed / ${card.completion.gates.failed} failed / ${card.completion.gates.timedOut} timed out`,
     `Assurance   ${assuranceText(card)}`,
     '',
@@ -198,11 +259,25 @@ export function renderBoundaryCardTerminal(cardValue) {
     '',
     'SCOPE COUNTS (details withheld)',
     `Allowed path rules ${card.scope.allowedPathRules} | Non-goals ${card.scope.nonGoals}`,
+  ];
+  if (card.observed) {
+    const untracked = Object.hasOwn(card.observed, 'untrackedChanges')
+      ? card.observed.untrackedChanges
+      : 'not assessed';
+    lines.push(
+      '',
+      'OBSERVED GIT WORKING-TREE CHANGES (reporting only)',
+      `Tracked ${card.observed.versionControlledChanges} | Untracked ${untracked} | Outside allowed paths ${card.observed.outsideAllowedPaths} | Recognized non-goal contacts ${card.observed.declaredNonGoalContacts}`,
+      'Observed does not mean prevented, controlled, attributed, or unauthorized.',
+    );
+  }
+  lines.push(
     '',
     `Source map SHA-256 ${card.sourceMapSha256}`,
     'No paths, prompts, gate output, capability evidence, or secret values are included.',
     '',
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 function htmlEscape(value) {
@@ -216,9 +291,7 @@ function htmlEscape(value) {
 
 export function renderBoundaryCardHtml(cardValue) {
   const card = validateBoundaryCard(cardValue);
-  const completionLabel = card.completion.canStop
-    ? 'Satisfied — all declared gates passed'
-    : 'Blocked — at least one declared gate did not pass';
+  const completionLabel = completionText(card);
   const assuranceLabel = assuranceText(card);
   const value = (number) => htmlEscape(number);
   return `<!doctype html>
@@ -288,6 +361,16 @@ code { overflow-wrap: anywhere; }
 <dl><dt>Non-goals</dt><dd>${value(card.scope.nonGoals)}</dd></dl>
 </div>
 </section>
+${card.observed ? `<section aria-labelledby="observed-heading">
+<h2 id="observed-heading">Observed Git working-tree changes — reporting only</h2>
+<div class="grid">
+<dl><dt>Tracked</dt><dd>${value(card.observed.versionControlledChanges)}</dd></dl>
+<dl><dt>Untracked</dt><dd>${value(Object.hasOwn(card.observed, 'untrackedChanges') ? card.observed.untrackedChanges : 'not assessed')}</dd></dl>
+<dl><dt>Outside allowed paths</dt><dd>${value(card.observed.outsideAllowedPaths)}</dd></dl>
+<dl><dt>Recognized non-goal contacts</dt><dd>${value(card.observed.declaredNonGoalContacts)}</dd></dl>
+</div>
+<p class="muted">Observed does not mean prevented, controlled, attributed, or unauthorized.</p>
+</section>` : ''}
 <footer>
 <p><strong>Source map SHA-256</strong><br><code>${htmlEscape(card.sourceMapSha256)}</code></p>
 <p class="muted">No paths, prompts, gate output, capability evidence, or secret values are included. This card is not a safety, security, compliance, readiness, certification, or sandbox claim.</p>
@@ -296,6 +379,47 @@ code { overflow-wrap: anywhere; }
 </main>
 </body>
 </html>
+`;
+}
+
+function badgeAssurance(card) {
+  if (card.assurance.level === 'unknown') {
+    return 'UNKNOWN · INCOMPLETE CAPABILITY EVIDENCE';
+  }
+  if (card.assurance.level === 'partial') {
+    return 'PARTIAL · ACTIVE UNCONTROLLED ROUTE';
+  }
+  return 'FULL · ENUMERATED SURFACE ONLY';
+}
+
+function badgeObservation(card) {
+  if (!card.observed) return 'WORKING-TREE OBSERVATION UNAVAILABLE';
+  const contacts = card.observed.declaredNonGoalContacts === 1
+    ? 'CONTACT'
+    : 'CONTACTS';
+  const untracked = Object.hasOwn(card.observed, 'untrackedChanges')
+    ? `${card.observed.untrackedChanges} UNTRACKED`
+    : 'UNTRACKED NOT ASSESSED';
+  return `${untracked} · ${card.observed.outsideAllowedPaths} OUTSIDE · ${card.observed.declaredNonGoalContacts} NON-GOAL ${contacts}`;
+}
+
+export function renderBoundaryBadgeSvg(cardValue) {
+  const card = validateBoundaryCard(cardValue);
+  const assurance = badgeAssurance(card);
+  const observation = badgeObservation(card);
+  const title = `SCOPA boundary evidence. ${assurance}. ${observation}.`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scopa-badge-title scopa-badge-description" viewBox="0 0 760 76" width="760" height="76" data-source-map-sha256="${card.sourceMapSha256}">
+<title id="scopa-badge-title">${title}</title>
+<desc id="scopa-badge-description">Local fact-only projection of a validated SCOPA Boundary Card.</desc>
+<metadata>source-map-sha256:${card.sourceMapSha256}</metadata>
+<rect width="760" height="76" rx="10" fill="#18201d"/>
+<rect x="2" y="2" width="756" height="72" rx="8" fill="#fffdf7" stroke="#18201d" stroke-width="2"/>
+<rect x="2" y="2" width="224" height="72" rx="8" fill="#18201d"/>
+<text x="18" y="33" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="1">SCOPA BOUNDARY</text>
+<text x="18" y="54" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13" letter-spacing="1">EVIDENCE</text>
+<text x="244" y="31" fill="#18201d" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700">${assurance}</text>
+<text x="244" y="54" fill="#52605a" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">${observation}</text>
+</svg>
 `;
 }
 
@@ -366,5 +490,7 @@ export async function writeBoundaryCardExport({ repoRoot, output, content }) {
     path: relative,
     sha256: createHash('sha256').update(content, 'utf8').digest('hex'),
     bytes: Buffer.byteLength(content),
+    outsideTaskMutationBoundary: true,
+    basis: 'explicit-local-evidence-export-not-governed-task-write',
   });
 }

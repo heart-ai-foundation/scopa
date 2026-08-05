@@ -78,7 +78,10 @@ test('packed bytes install and remove the project-local assistant entry in clean
   assert.deepEqual(applied.result.plan, preview.result.plan);
   assert.equal(
     await readFile(path.join(target, '.agents/skills/scopa/SKILL.md'), 'utf8')
-      .then((value) => value.includes('scopa begin --request-json')),
+      .then((value) => (
+        value.includes('scopa begin --format json --request-json') &&
+        value.includes('scopa check --format json')
+      )),
     true,
   );
 

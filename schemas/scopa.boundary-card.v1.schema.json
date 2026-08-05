@@ -81,6 +81,28 @@
         "allowedPathRules": { "type": "integer", "minimum": 1 },
         "nonGoals": { "type": "integer", "minimum": 0 }
       }
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basis",
+        "versionControlledChanges",
+        "outsideAllowedPaths",
+        "declaredNonGoalContacts"
+      ],
+      "properties": {
+        "basis": {
+          "enum": [
+            "git-tracked-working-tree-observation-not-enforcement",
+            "git-working-tree-observation-not-enforcement"
+          ]
+        },
+        "versionControlledChanges": { "type": "integer", "minimum": 0 },
+        "untrackedChanges": { "type": "integer", "minimum": 0 },
+        "outsideAllowedPaths": { "type": "integer", "minimum": 0 },
+        "declaredNonGoalContacts": { "type": "integer", "minimum": 0 }
+      }
     }
   }
 }

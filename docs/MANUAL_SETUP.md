@@ -16,7 +16,7 @@ Start in a new empty directory:
 mkdir scopa-quickstart
 cd scopa-quickstart
 npm init -y
-npm install --ignore-scripts @heart-ai-foundation/scopa@0.4.0
+npm install --ignore-scripts @heart-ai-foundation/scopa@0.5.0
 ```
 
 SCOPA does not use install lifecycle scripts. For release-sensitive use, follow
@@ -43,7 +43,7 @@ continuing; real projects should author their own definition using the
 
 ```sh
 ../node_modules/.bin/scopa init --definition scopa.slice-definition.json
-../node_modules/.bin/scopa status
+../node_modules/.bin/scopa status --format json
 ```
 
 `init` should report two created files beneath `.scopa/`. The initial status is
@@ -96,7 +96,7 @@ Confirm that `workspace/consumer.txt` exists and that no
 ## 5. Recheck completion
 
 ```sh
-../node_modules/.bin/scopa check
+../node_modules/.bin/scopa check --format json
 ```
 
 The command should now exit `0` with `status: "satisfied"` and
@@ -125,8 +125,12 @@ certificate status must perform a separate authoritative CRL/OCSP check.
 
 To prove failure polarity, create another disposable repository using
 `fixtures/S10/failing.slice-definition.json`, initialize it, and run
-`scopa check`. The expected exit is `4`, the error code is
+`scopa check --format json`. The expected exit is `4`, the error code is
 `SCOPA_COMPLETION_BLOCKED`, and `canStop` remains false.
+
+The walkthrough selects JSON because it asks you to inspect exact fields. In
+the current source CLI, `status` and `check` otherwise print concise human text
+at a terminal; a redirect or pipe receives the same canonical JSON envelope.
 
 ## What this proves
 

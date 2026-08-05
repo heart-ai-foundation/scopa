@@ -1,6 +1,7 @@
 # Claims and non-claims
 
-This document defines the public assurance language for SCOPA `0.2.x`. Claims
+This document defines the public assurance language for SCOPA's current stable
+release. Claims
 are relative to the exact package, configuration, trust policy, integration,
 and evidence named by the verifier.
 

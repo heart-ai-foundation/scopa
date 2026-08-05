@@ -10,6 +10,7 @@ import {
   canonicalJsonPretty,
   createSliceLock,
   evaluateStopCondition,
+  observeVersionControlledChanges,
 } from '../../enforcement/src/index.js';
 import {
   createReferenceAgentHost,
@@ -42,6 +43,7 @@ import {
   createBoundaryCard,
   detectAssistantSurfaces,
   installAssistant,
+  renderBoundaryBadgeSvg,
   renderBoundaryCardHtml,
   renderBoundaryCardTerminal,
   renderDemoTerminal,
@@ -110,6 +112,7 @@ function optionSpec(command) {
     return {
       ...common,
       '--request-json': { name: 'requestJson', required: true },
+      '--format': { name: 'format' },
     };
   }
   if (command === 'assistant') {
@@ -117,6 +120,7 @@ function optionSpec(command) {
       ...common,
       '--client': { name: 'client' },
       '--dry-run': { name: 'dryRun', boolean: true },
+      '--format': { name: 'format' },
     };
   }
   if (command === 'view') {
@@ -167,7 +171,12 @@ function optionSpec(command) {
       '--require-timestamp': { name: 'requireTimestamp', boolean: true },
     };
   }
-  if (command === 'status' || command === 'check') return common;
+  if (command === 'status' || command === 'check') {
+    return {
+      ...common,
+      '--format': { name: 'format' },
+    };
+  }
   throw new CliUsageError(`unknown command: ${command ?? '<missing>'}`);
 }
 
@@ -574,15 +583,23 @@ async function mapCommand(options) {
 
 async function viewCommand(options) {
   const format = options.format ?? 'terminal';
-  if (!['html', 'json', 'terminal'].includes(format)) {
-    throw new CliUsageError('--format must be terminal, html, or json');
+  if (!['badge', 'html', 'json', 'terminal'].includes(format)) {
+    throw new CliUsageError('--format must be terminal, html, json, or badge');
   }
-  const card = createBoundaryCard(await workflowBoundaryMap({ repo: options.repo }));
+  const map = await workflowBoundaryMap({ repo: options.repo });
+  const observation = await observeVersionControlledChanges({
+    repoRoot: options.repo,
+    allowedPaths: map.scope.allowedPaths,
+    nonGoals: map.scope.nonGoals,
+  });
+  const card = createBoundaryCard(map, { observation });
   const content = format === 'html'
     ? renderBoundaryCardHtml(card)
-    : format === 'json'
-      ? canonicalJsonPretty(card)
-      : renderBoundaryCardTerminal(card);
+    : format === 'badge'
+      ? renderBoundaryBadgeSvg(card)
+      : format === 'json'
+        ? canonicalJsonPretty(card)
+        : renderBoundaryCardTerminal(card);
   const exported = options.output
     ? await writeBoundaryCardExport({
       repoRoot: options.repo,
@@ -643,6 +660,10 @@ export async function executeCommand(argv) {
     };
   }
   if (command === 'assistant') {
+    const format = options.format ?? 'json';
+    if (!['human', 'json'].includes(format)) {
+      throw new CliUsageError('--format must be human or json');
+    }
     if (options.action === 'detect') {
       if (options.client !== undefined || options.dryRun) {
         throw new CliUsageError('assistant detect accepts only --repo');
@@ -749,8 +770,8 @@ export async function executeCommand(argv) {
   }
   if (command === 'doctor') {
     const format = options.format ?? 'json';
-    if (!['json', 'markdown'].includes(format)) {
-      throw new CliUsageError('--format must be json or markdown');
+    if (!['human', 'json', 'markdown'].includes(format)) {
+      throw new CliUsageError('--format must be human, json, or markdown');
     }
     options = Object.freeze({ ...options, format });
     const declarationFlags = ['definition', 'matrix', 'authority'];

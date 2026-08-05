@@ -1,0 +1,34 @@
+{
+  "command": "check",
+  "ok": true,
+  "result": {
+    "canStop": true,
+    "condition": "all-gates-pass",
+    "failedGates": [],
+    "gates": [
+      {
+        "command": [
+          "npm",
+          "test"
+        ],
+        "durationMs": 363,
+        "exitCode": 0,
+        "id": "unit-tests",
+        "passed": true,
+        "schema": "scopa.gate-result.v1",
+        "stderr": "",
+        "stderrBytes": 0,
+        "stderrTruncated": false,
+        "stdout": "\n> demo-svc@1.0.0 test\n> node --test test/server.test.js\n\nTAP version 13\n# {\"requestId\":\"req-1\",\"path\":\"/\"}\n# Subtest: handles\nok 1 - handles\n  ---\n  duration_ms: 1.903002\n  type: 'test'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 124.536983\n",
+        "stdoutBytes": 297,
+        "stdoutTruncated": false,
+        "timedOut": false
+      }
+    ],
+    "lockHash": "e4085fd5b93ea065b0638dba14bb3c7e72e183ef4519e4c7b02a98bf5d55f096",
+    "schema": "scopa.stop-state.v1",
+    "sliceId": "request-id-logging",
+    "status": "satisfied"
+  },
+  "schema": "scopa.cli-result.v1"
+}

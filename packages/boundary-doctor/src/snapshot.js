@@ -64,7 +64,7 @@ export function createBoundarySnapshot(diagnostic) {
     unknown: authorityFinding(diagnostic),
     next: diagnostic.subject.scopaInitialized
       ? 'Run scopa status to inspect the active task boundary.'
-      : 'Give SCOPA_AGENT.md and your task to your coding agent.',
+      : 'Run scopa assistant install --dry-run to preview the reversible project-local agent setup.',
   });
 }
 
@@ -84,4 +84,3 @@ export function renderBoundarySnapshot(diagnostic) {
     '',
   ].join('\n');
 }
-

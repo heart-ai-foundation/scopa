@@ -1,0 +1,34 @@
+{
+  "command": "check",
+  "ok": true,
+  "result": {
+    "canStop": true,
+    "condition": "all-gates-pass",
+    "failedGates": [],
+    "gates": [
+      {
+        "command": [
+          "npm",
+          "test"
+        ],
+        "durationMs": 202,
+        "exitCode": 0,
+        "id": "unit-tests",
+        "passed": true,
+        "schema": "scopa.gate-result.v1",
+        "stderr": "",
+        "stderrBytes": 0,
+        "stderrTruncated": false,
+        "stdout": "\n> e@1.0.0 test\n> node -e 1\n\n",
+        "stdoutBytes": 29,
+        "stdoutTruncated": false,
+        "timedOut": false
+      }
+    ],
+    "lockHash": "765c33f39954627e6e46d019f63e5d8454b3b91ff4524d38155fcd4ba007ff08",
+    "schema": "scopa.stop-state.v1",
+    "sliceId": "evidence",
+    "status": "satisfied"
+  },
+  "schema": "scopa.cli-result.v1"
+}

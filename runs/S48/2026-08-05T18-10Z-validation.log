@@ -1,0 +1,25 @@
+S48 provider-off validation
+working directory: /home/dylan/scopa
+activation source: e5bc3f0
+
+INITIAL REGRESSION npm run test:s48
+  observed-card fixture omitted required reporting-only basis
+  historical sentence-fragment assertion did not match expanded fixed text
+
+PASS npm run test:s48 (after exact schema and compatibility correction)
+  S48 default-value and S41 hostile PR suites passed
+
+PASS npm run test:s41
+  5 read-only, hostile-input, comment-guard, and permission tests passed
+
+PASS npm run test:s46
+  tracked-change observation and privacy regressions passed
+
+PASS npm run test:docs
+  documentation check passed (38 files)
+
+PASS node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS git diff --check
+
+No network request occurred on the default runner path. No provider call,
+experiment, publication, release, or external-system mutation occurred.

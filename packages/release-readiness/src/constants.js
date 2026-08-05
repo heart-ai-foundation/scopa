@@ -1,5 +1,5 @@
 export const RELEASE_PACKAGE_NAME = '@heart-ai-foundation/scopa';
-export const RELEASE_VERSION = '0.4.0';
+export const RELEASE_VERSION = '0.5.0';
 export const RELEASE_LICENSE = 'Apache-2.0';
 export const RELEASE_LICENSE_SHA256 =
   'c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4';

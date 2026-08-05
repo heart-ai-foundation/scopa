@@ -2,21 +2,21 @@
 
 This is the canonical handoff target for project work. The manifest currently has no active protocol.
 
-Current commit reference: `12db637`
+Current commit reference: `d2e5770`
 
 Active protocol: `none`
-Active protocol class: `unset`
+Active protocol class: `arc`
 Active protocol compound: `false`
 
 ## Current State
 
-Phase 13 S37-S43 is complete with AX1-AX7 satisfied provider-off; no new implementation or release scope is active.
+Phase 15 is complete: S52 and S53 are closed, FH1 and FH2 are satisfied, and the fresh installed-agent pass found no product finding at any severity. Pause before any new implementation, merge, release, publication, provider traffic, experiment use, or external-system action.
 
 Module progress:
 - conformance: 3/3 (100%)
 - kernel-core: 4/4 (100%)
 - journal: 5/5 (100%)
-- enforcement: 4/4 (100%)
+- enforcement: 5/5 (100%)
 - agent-surface: 3/3 (100%)
 - legibility: 4/4 (100%)
 - depth: 4/4 (100%)
@@ -25,7 +25,7 @@ Module progress:
 - adapter-host: 3/3 (100%)
 - claude-adapter: 3/3 (100%)
 - codex-adapter: 3/3 (100%)
-- release-readiness: 3/3 (100%)
+- release-readiness: 4/4 (100%)
 - proof-integrity: 3/3 (100%)
 - distribution-hardening: 3/3 (100%)
 - release-requalification: 3/3 (100%)
@@ -35,11 +35,11 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
-- adoption-experience: 7/7 (100%)
+- adoption-experience: 13/13 (100%)
 - workflow-boundary-map: 5/5 (100%)
-- boundary-doctor: 3/3 (100%)
+- boundary-doctor: 4/4 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 90/91 (99%)
+Arc total: 99/100 (99%)
 
 ## Queued Work
 
@@ -56,7 +56,7 @@ When a new active protocol is selected:
 
 ## Current Phase
 
-- `Phase 13 Instant Value And Organic Distribution`
+- `Phase 15 First Time Production Hardening`
 
 ## Scope Boundaries
 
@@ -87,6 +87,15 @@ When a new active protocol is selected:
 - `fixtures/S41/**`
 - `fixtures/S42/**`
 - `fixtures/S43/**`
+- `fixtures/S44/**`
+- `fixtures/S45/**`
+- `fixtures/S46/**`
+- `fixtures/S47/**`
+- `fixtures/S48/**`
+- `fixtures/S49/**`
+- `fixtures/S50/**`
+- `fixtures/S52/**`
+- `fixtures/S53/**`
 - `notes/S37/**`
 - `notes/S38/**`
 - `notes/S39/**`
@@ -94,6 +103,15 @@ When a new active protocol is selected:
 - `notes/S41/**`
 - `notes/S42/**`
 - `notes/S43/**`
+- `notes/S44/**`
+- `notes/S45/**`
+- `notes/S46/**`
+- `notes/S47/**`
+- `notes/S48/**`
+- `notes/S49/**`
+- `notes/S50/**`
+- `notes/S52/**`
+- `notes/S53/**`
 - `runs/S37/**`
 - `runs/S38/**`
 - `runs/S39/**`
@@ -101,6 +119,15 @@ When a new active protocol is selected:
 - `runs/S41/**`
 - `runs/S42/**`
 - `runs/S43/**`
+- `runs/S44/**`
+- `runs/S45/**`
+- `runs/S46/**`
+- `runs/S47/**`
+- `runs/S48/**`
+- `runs/S49/**`
+- `runs/S50/**`
+- `runs/S52/**`
+- `runs/S53/**`
 - `evidence/S37/**`
 - `evidence/S38/**`
 - `evidence/S39/**`
@@ -108,4 +135,13 @@ When a new active protocol is selected:
 - `evidence/S41/**`
 - `evidence/S42/**`
 - `evidence/S43/**`
+- `evidence/S44/**`
+- `evidence/S45/**`
+- `evidence/S46/**`
+- `evidence/S47/**`
+- `evidence/S48/**`
+- `evidence/S49/**`
+- `evidence/S50/**`
+- `evidence/S52/**`
+- `evidence/S53/**`
 - `next-prompt-protocols/**`

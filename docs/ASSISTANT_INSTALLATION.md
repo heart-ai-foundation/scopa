@@ -27,6 +27,10 @@ Then apply the same plan:
 scopa assistant install
 ```
 
+At a terminal these actions print a short client, target, changed-files, and
+next-action summary. Pipes receive the canonical JSON envelope; use `--format
+json` explicitly for automation.
+
 Auto-detection supports these project-local surfaces:
 
 | Client | Detection markers | Project-local skill directory |
@@ -36,9 +40,10 @@ Auto-detection supports these project-local surfaces:
 | Generic Agent Skills | `.agents/` or a repository-level generic agent-instructions marker | `.agents/skills/scopa/` |
 
 Any assistant that discovers project-local Agent Skills can use the generic
-installation; it does not need to be Claude Code or Codex. If detection is
-unknown or ambiguous, SCOPA makes no selection and writes nothing. Choose a
-surface explicitly when you know which convention the repository uses:
+installation; it does not need to be Claude Code or Codex. With no recognized
+marker, automatic installation selects that generic project-local path. If
+multiple known client markers make detection ambiguous, SCOPA writes nothing
+and lists every explicit choice:
 
 ```sh
 scopa assistant install --client claude-code
@@ -53,11 +58,14 @@ install is idempotent. Any pre-existing target, changed installed file,
 symlinked parent, different receipt, or concurrent collision fails closed.
 
 The skill teaches the assistant to use the runtime-owned `scopa begin`
-transaction. It does not claim that installing an instruction disables native
-shell, editor, network, plugin, or provider routes. Bootstrap assurance remains
-`partial`. A generic installation proves only the local, reversible skill
-contract; it does not attest to an unknown assistant's discovery behavior or
-transfer assurance to that client.
+transaction, run the declared completion check, and then inspect `scopa view
+--format json` before reporting a clean boundary. A satisfied gate with an
+outside-path or non-goal contact is reported as `SATISFIED — WITH UNVERIFIED
+CHANGES`; unavailable observation is disclosed. The skill does not claim that
+installing an instruction disables native shell, editor, network, plugin, or
+provider routes. Bootstrap assurance remains `partial`. A generic installation
+proves only the local, reversible skill contract; it does not attest to an
+unknown assistant's discovery behavior or transfer assurance to that client.
 
 ## Uninstall
 

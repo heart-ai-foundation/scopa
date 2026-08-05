@@ -3,15 +3,24 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "12db637",
-  "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
-  "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
+  "current_commit": "d2e5770",
+  "current_phase": "phase-15-first-time-production-hardening",
+  "phase_scope": "Close only the reproducible first-time finish-loop, untracked-observation, human-recovery, self-contained continuation, evidence-export boundary, and badge-grammar defects found by a fresh installed-package stress test, then repeat one fresh provider-off installed stress pass. Preserve gate-only canStop, privacy, legacy cards, canonical machine output, and every release/provider/experiment boundary.",
+  "macro_delta": "macro-deltas/2026-08-05-scopa-first-time-production-hardening.md",
   "active_protocol": null,
-  "active_objective": "Phase 13 S37-S43 is complete with AX1-AX7 satisfied provider-off; no new implementation or release scope is active.",
-  "active_class": null,
+  "active_objective": "Phase 15 is complete: S52 and S53 are closed, FH1 and FH2 are satisfied, and the fresh installed-agent pass found no product finding at any severity. Pause before any new implementation, merge, release, publication, provider traffic, experiment use, or external-system action.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S53-fresh-first-time-installed-requalification.md",
+    "completed/2026-08-05-S52-first-time-production-hardening.md",
+    "completed/2026-08-05-S50-adversarial-virality-qualification.md",
+    "completed/2026-08-05-S49-adopter-fact-badge-and-discovery.md",
+    "completed/2026-08-05-S48-pull-request-default-value.md",
+    "completed/2026-08-05-S47-front-door-alignment.md",
+    "completed/2026-08-05-S46-out-of-scope-change-observation.md",
+    "completed/2026-08-05-S45-local-diagnostic-detail.md",
+    "completed/2026-08-05-S44-human-first-command-output.md",
     "completed/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
     "completed/2026-08-05-S42-reproducible-proof-and-handoff.md",
     "completed/2026-08-05-S41-provider-off-pr-distribution.md",
@@ -88,6 +97,15 @@
     "fixtures/S41/**",
     "fixtures/S42/**",
     "fixtures/S43/**",
+    "fixtures/S44/**",
+    "fixtures/S45/**",
+    "fixtures/S46/**",
+    "fixtures/S47/**",
+    "fixtures/S48/**",
+    "fixtures/S49/**",
+    "fixtures/S50/**",
+    "fixtures/S52/**",
+    "fixtures/S53/**",
     "notes/S37/**",
     "notes/S38/**",
     "notes/S39/**",
@@ -95,6 +113,15 @@
     "notes/S41/**",
     "notes/S42/**",
     "notes/S43/**",
+    "notes/S44/**",
+    "notes/S45/**",
+    "notes/S46/**",
+    "notes/S47/**",
+    "notes/S48/**",
+    "notes/S49/**",
+    "notes/S50/**",
+    "notes/S52/**",
+    "notes/S53/**",
     "runs/S37/**",
     "runs/S38/**",
     "runs/S39/**",
@@ -102,6 +129,15 @@
     "runs/S41/**",
     "runs/S42/**",
     "runs/S43/**",
+    "runs/S44/**",
+    "runs/S45/**",
+    "runs/S46/**",
+    "runs/S47/**",
+    "runs/S48/**",
+    "runs/S49/**",
+    "runs/S50/**",
+    "runs/S52/**",
+    "runs/S53/**",
     "evidence/S37/**",
     "evidence/S38/**",
     "evidence/S39/**",
@@ -109,6 +145,15 @@
     "evidence/S41/**",
     "evidence/S42/**",
     "evidence/S43/**",
+    "evidence/S44/**",
+    "evidence/S45/**",
+    "evidence/S46/**",
+    "evidence/S47/**",
+    "evidence/S48/**",
+    "evidence/S49/**",
+    "evidence/S50/**",
+    "evidence/S52/**",
+    "evidence/S53/**",
     "next-prompt-protocols/**"
   ],
   "non_goals": [
@@ -291,6 +336,14 @@
           "verifies_via": "Gate-mutation denial tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "OA3",
+          "statement": "Version-controlled changes outside the locked paths are observed and reported, with declared-non-goal contact counted separately, and are never presented as prevented or controlled.",
+          "status": "satisfied",
+          "verifies_via": "Real Git clean/inside/outside/non-goal polarity, actual view-command wiring, optional v1 card/schema compatibility, path-absence checks, and non-enforcement headline assertions",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
@@ -606,6 +659,14 @@
           "verifies_via": "Outside consumer reproduction and claim-boundary review",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
+        },
+        {
+          "id": "OA7",
+          "statement": "The out-of-scope presentation exposure and the cold first-contact journey are permanent regression gates.",
+          "status": "satisfied",
+          "verifies_via": "Offline installed-candidate native non-goal reproduction across JSON, terminal, PR, and badge; cold first-contact ceiling; exact v0.4.0 tag and fixture digests; and S45-S50 permanent root-gate wiring",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
@@ -1121,6 +1182,54 @@
           "verifies_via": "Cold installation, bounded first-insight timing, clean/cold assistant fixtures, visual and PR fixtures, privacy/accessibility checks, accumulated release gates, and canonical-document source binding",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S43"
+        },
+        {
+          "id": "OA1",
+          "statement": "Every documented first-contact command renders readable human output by default while its canonical JSON envelope, schema, and exit codes remain unchanged behind explicit --format json.",
+          "status": "satisfied",
+          "verifies_via": "Per-command human and JSON render fixtures in packages/cli/test/human-output.test.js, 0.4.0 envelope comparison against fixtures/S44/baseline-0.4.0, and exit-code assertions",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA4",
+          "statement": "A first-time reader in a marker-free repository can run the documented adoption commands successfully without selecting a client or reading protocol vocabulary.",
+          "status": "satisfied",
+          "verifies_via": "Marker-free generic preview/install fixtures, ambiguous-marker error completeness, explicit agent JSON under PTY, packed S39/S43 regressions, and the first-contact documentation audit",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA5",
+          "statement": "The pull-request surface reports actionable content when no boundary card exists without treating missing evidence as a favorable result.",
+          "status": "satisfied",
+          "verifies_via": "Exact no-card correction fixture, S46 observation projection continuity, no-network runner, hostile input rejection, and least-privilege workflow audit",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA6",
+          "statement": "Adopters can display a badge that states observed facts and carries the assurance basis while asserting no grade, score, or pass.",
+          "status": "satisfied",
+          "verifies_via": "Exact deterministic SVG fixture, assurance/observation polarity, forbidden-mark rejection, CLI no-replace export, privacy/accessibility checks, and repository-owned contact audit",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "FH1",
+          "statement": "The documented first-time finish loop always inspects the privacy-minimized Boundary Card after gate completion, counts tracked and untracked Git working-tree changes, and cannot report an unqualified clean boundary when an outside-path or non-goal contact is observed.",
+          "status": "satisfied",
+          "verifies_via": "Source and installed first-time hostile fixtures covering final check/view order, tracked and untracked polarity, terminal warning, privacy, assistant setup, malformed recovery, export boundary, and badge grammar",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "Fresh installed-package first-time developer stress test after Phase 14"
+        },
+        {
+          "id": "FH2",
+          "statement": "A fresh agent independently completes the packed installed first-time journey with no critical, high, or medium product finding and no release, provider, experiment, network, privacy, or cleanup violation.",
+          "status": "satisfied",
+          "verifies_via": "One fresh-agent S53 installed-package stress report against new exact candidate bytes",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "First-Time Production Hardening Macro Delta S53"
         }
       ]
     },
@@ -1228,6 +1337,14 @@
           "verifies_via": "Digest parity, redaction hostility, package inventory, and installed clean/cold process qualification",
           "discovered_on": "2026-08-03",
           "discovered_because": "Boundary Doctor Adoption Wedge Macro Delta S36"
+        },
+        {
+          "id": "OA2",
+          "statement": "Local diagnostic reads name observed indicators, categories, counts, and paths, while privacy minimization binds only to shareable projections.",
+          "status": "satisfied",
+          "verifies_via": "Exact local-render fixture, marker-rich local/shareable divergence tests, truncated-scan polarity, S34/S36/S41/S44 regressions, and documentation audit",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },

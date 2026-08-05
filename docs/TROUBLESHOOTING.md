@@ -3,6 +3,11 @@
 SCOPA fails closed. Diagnose the returned versioned envelope before changing a
 policy or broadening scope.
 
+At a terminal, `begin`, `check`, `status`, and `doctor` default to concise
+human text. Use `--format json` when following field-level troubleshooting or
+when output is consumed by an agent or script; redirects and pipes select the
+same canonical JSON automatically.
+
 ## `scopa init` refuses existing state
 
 Initialization never overwrites conflicting `.scopa/config.json` or
@@ -34,9 +39,14 @@ active slice.
 ## `scopa check` exits `4`
 
 Exit `4` means the completion boundary worked: at least one real gate is still
-blocked. Inspect `result.gates` for exit status, timeout, truncation, and
+blocked. Run `scopa check --format json` and inspect `error.details.gates` for exit status, timeout, truncation, and
 bounded stdout/stderr. Run the gate's argv directly only for local diagnosis;
 the authoritative result remains the SCOPA-run gate.
+
+When the gates pass, run `scopa view --format json` before reporting a clean
+boundary. `canStop` is a gate result; the card separately reports tracked and
+untracked Git working-tree changes outside the task paths or in contact with a
+declared non-goal.
 
 ## A gate cannot find a command
 

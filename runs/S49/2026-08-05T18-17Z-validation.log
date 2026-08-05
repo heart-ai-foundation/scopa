@@ -1,0 +1,31 @@
+S49 provider-off validation
+working directory: /home/dylan/scopa
+activation source: 01ea903
+
+PASS npm run test:s49
+  deterministic/accessibility/privacy/forbidden-semantics tests
+  unavailable and zero-observation polarity
+  exact reviewed SVG fixture
+  CLI stdout and no-replace export
+
+PASS npm run test:s40
+  Boundary Card semantic and privacy regression
+
+PASS npm run test:s46
+  tracked-change observation and qualified presentation regression
+
+PASS npm run test:s48
+  actionable no-card and PR projection regression
+
+INITIAL DOC CORRECTION npm run test:docs
+  Markdown image example resolved as a repository link before generation
+  changed to an equivalent HTML snippet; no runtime or claim change
+
+PASS npm run test:docs
+  documentation check passed (38 files)
+
+PASS node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS git diff --check
+
+No provider call, network request, telemetry, publication, release, GitHub
+setting, or external-system mutation occurred.

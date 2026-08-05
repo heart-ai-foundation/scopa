@@ -40,6 +40,10 @@ creates validated state under `.scopa/`, runs the real gates, and returns the
 actual Boundary Map. The developer does not author or review three setup
 documents before useful work can start.
 
+The agent entry selects `--format json` for fields it consumes. At a terminal,
+`begin`, `check`, `status`, and `doctor` otherwise print concise human text;
+redirects and pipes receive the canonical JSON envelope.
+
 ## 3. Read the final report
 
 The handoff should state:
@@ -47,6 +51,8 @@ The handoff should state:
 - what changed;
 - which checks passed;
 - whether SCOPA reported `canStop: true`;
+- the final Boundary Card's tracked, untracked, outside-path, and recognized
+  non-goal-contact counts, or that Git observation was unavailable;
 - which mutation route was used; and
 - what remains uncontrolled, unknown, or authority-required.
 
@@ -56,6 +62,11 @@ turn a general-purpose host into an operating-system sandbox.
 
 Publishing, deployment, paid model calls, credential use, destructive actions,
 and changes to external systems still require explicit authority.
+
+Gate completion and working-tree observation answer different questions. The
+agent must run `scopa view --format json` after the final `scopa check --format
+json`; it must not turn a nonzero outside-path or non-goal count into an
+unqualified clean-completion report.
 
 ## Prefer manual control?
 

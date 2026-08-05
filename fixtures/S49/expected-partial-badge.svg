@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scopa-badge-title scopa-badge-description" viewBox="0 0 760 76" width="760" height="76" data-source-map-sha256="85fc56d988e24cfe34ae44e8b37a2795a0da69ba02c46811423660d86f8715ea">
+<title id="scopa-badge-title">SCOPA boundary evidence. PARTIAL · ACTIVE UNCONTROLLED ROUTE. WORKING-TREE OBSERVATION UNAVAILABLE.</title>
+<desc id="scopa-badge-description">Local fact-only projection of a validated SCOPA Boundary Card.</desc>
+<metadata>source-map-sha256:85fc56d988e24cfe34ae44e8b37a2795a0da69ba02c46811423660d86f8715ea</metadata>
+<rect width="760" height="76" rx="10" fill="#18201d"/>
+<rect x="2" y="2" width="756" height="72" rx="8" fill="#fffdf7" stroke="#18201d" stroke-width="2"/>
+<rect x="2" y="2" width="224" height="72" rx="8" fill="#18201d"/>
+<text x="18" y="33" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="1">SCOPA BOUNDARY</text>
+<text x="18" y="54" fill="#fffdf7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13" letter-spacing="1">EVIDENCE</text>
+<text x="244" y="31" fill="#18201d" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15" font-weight="700">PARTIAL · ACTIVE UNCONTROLLED ROUTE</text>
+<text x="244" y="54" fill="#52605a" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">WORKING-TREE OBSERVATION UNAVAILABLE</text>
+</svg>

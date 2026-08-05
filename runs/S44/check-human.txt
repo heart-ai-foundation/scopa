@@ -1,0 +1,9 @@
+SCOPA COMPLETION CHECK
+Slice       evidence
+Completion  SATISFIED — all declared gates passed
+Gates       1 passed / 0 failed / 0 timed out
+
+DECLARED GATES
+PASS  unit-tests — pass, 213ms
+
+Next  Completion is satisfied. Run scopa view for a shareable Boundary Card.

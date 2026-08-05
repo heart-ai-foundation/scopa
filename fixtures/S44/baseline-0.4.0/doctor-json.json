@@ -1,0 +1,242 @@
+{
+  "command": "doctor",
+  "ok": true,
+  "result": {
+    "claims": {
+      "agentAuthorityMeasured": false,
+      "environmentInspected": false,
+      "fileContentsIndexed": false,
+      "networkProbed": false,
+      "repositoryMutated": false
+    },
+    "completionCandidates": [
+      {
+        "id": "package-script:test",
+        "invocation": [
+          "npm",
+          "test"
+        ],
+        "source": "package.json"
+      }
+    ],
+    "indicators": [
+      {
+        "category": "agent-config",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "agent.configuration-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "tool-extension",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "agent.hook-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "tool-extension",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "agent.mcp-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "tool-extension",
+        "count": 0,
+        "evidence": "not-probed",
+        "id": "agent.tool-authority",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "unknown"
+      },
+      {
+        "category": "browser",
+        "count": 0,
+        "evidence": "not-probed",
+        "id": "authority.browser",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "unknown"
+      },
+      {
+        "category": "credentials",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "authority.credential-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "deployment",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "authority.deployment-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "external-system",
+        "count": 0,
+        "evidence": "not-probed",
+        "id": "authority.external-systems",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "unknown"
+      },
+      {
+        "category": "network",
+        "count": 0,
+        "evidence": "not-probed",
+        "id": "authority.network",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "unknown"
+      },
+      {
+        "category": "provider",
+        "count": 0,
+        "evidence": "not-probed",
+        "id": "authority.provider",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "unknown"
+      },
+      {
+        "category": "publication",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "authority.publication-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "completion",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "completion.ci-markers",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "completion",
+        "count": 1,
+        "evidence": "bounded-package-manifest",
+        "id": "completion.package-script-candidates",
+        "paths": [
+          "package.json"
+        ],
+        "pathsTruncated": false,
+        "status": "detected"
+      },
+      {
+        "category": "host-process",
+        "count": 1,
+        "evidence": "host-process-access-check",
+        "id": "host.filesystem-write",
+        "paths": [
+          "."
+        ],
+        "pathsTruncated": false,
+        "status": "detected"
+      },
+      {
+        "category": "host-process",
+        "count": 1,
+        "evidence": "doctor-process-running",
+        "id": "host.process-execution",
+        "paths": [
+          "."
+        ],
+        "pathsTruncated": false,
+        "status": "detected"
+      },
+      {
+        "category": "instructions",
+        "count": 0,
+        "evidence": "marker-not-observed",
+        "id": "repository.instructions",
+        "paths": [],
+        "pathsTruncated": false,
+        "status": "not-detected"
+      },
+      {
+        "category": "repository",
+        "count": 1,
+        "evidence": "bounded-marker-scan",
+        "id": "repository.scan-completeness",
+        "paths": [
+          "."
+        ],
+        "pathsTruncated": false,
+        "status": "detected"
+      },
+      {
+        "category": "scopa-control",
+        "count": 2,
+        "evidence": "bounded-marker-scan",
+        "id": "scopa.control-markers",
+        "paths": [
+          ".scopa/config.json",
+          ".scopa/slice-lock.json"
+        ],
+        "pathsTruncated": false,
+        "status": "detected"
+      }
+    ],
+    "inventory": {
+      "directories": 7,
+      "entriesObserved": 16,
+      "excludedDirectories": 1,
+      "other": 0,
+      "regularFiles": 9,
+      "symlinks": 0,
+      "truncated": false,
+      "unreadable": 0
+    },
+    "limits": {
+      "excludedDirectories": [
+        ".git",
+        ".next",
+        "coverage",
+        "dist",
+        "node_modules",
+        "target",
+        "vendor"
+      ],
+      "maxDepth": 32,
+      "maxEntries": 20000,
+      "maxPathBytes": 4096,
+      "maxPathsPerIndicator": 32,
+      "maxStructuredBytes": 262144
+    },
+    "posture": {
+      "basis": "zero-state-observation-does-not-measure-agent-authority",
+      "level": "review-required"
+    },
+    "schema": "scopa.boundary-diagnostic.v1",
+    "subject": {
+      "kind": "host-process-observation",
+      "repositoryKind": "git",
+      "scopaInitialized": true
+    },
+    "summary": {
+      "completionCandidates": 1,
+      "detected": 5,
+      "notDetected": 8,
+      "totalIndicators": 18,
+      "unknown": 5
+    }
+  },
+  "schema": "scopa.cli-result.v1"
+}

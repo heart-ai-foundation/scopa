@@ -1,0 +1,20 @@
+SCOPA LOCAL BOUNDARY DIAGNOSTIC
+Detected 11 | Unknown 5 | Not detected 2 | scan complete; not-detected means marker not observed
+DETECTED  agent.configuration-markers [agent-config] count 1 — .claude/settings.json
+DETECTED  agent.mcp-markers [tool-extension] count 1 — .mcp.json
+UNKNOWN   agent.tool-authority [tool-extension] count 0 — not probed
+UNKNOWN   authority.browser [browser] count 0 — not probed
+DETECTED  authority.credential-markers [credentials] count 1 — .env.local
+DETECTED  authority.deployment-markers [deployment] count 1 — .github/workflows/deploy.yml
+UNKNOWN   authority.external-systems [external-system] count 0 — not probed
+UNKNOWN   authority.network [network] count 0 — not probed
+UNKNOWN   authority.provider [provider] count 0 — not probed
+DETECTED  authority.publication-markers [publication] count 2 — .github/workflows/release.yml, package.json
+DETECTED  completion.ci-markers [completion] count 2 — .github/workflows/deploy.yml, .github/workflows/release.yml
+DETECTED  completion.package-script-candidates [completion] count 1 — package.json
+DETECTED  host.filesystem-write [host-process] count 1 — (repository root)
+DETECTED  host.process-execution [host-process] count 1 — (repository root)
+DETECTED  repository.instructions [instructions] count 1 — AGENTS.md
+DETECTED  repository.scan-completeness [repository] count 1 — (repository root)
+CANDIDATES  npm run build; npm test
+NEXT  Run scopa assistant install --dry-run to preview the reversible project-local agent setup.

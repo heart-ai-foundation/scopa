@@ -1,0 +1,24 @@
+{
+  "schema": "scopa.public-baseline.v1",
+  "version": "0.4.0",
+  "tag": "v0.4.0",
+  "commit": "4643cb342e4de3a8641476e0b171139e08f16620",
+  "fixtures": [
+    {
+      "path": "fixtures/S44/baseline-0.4.0/check.json",
+      "sha256": "15770bb240e06553c1e9376371371beb1d1a2a3c087394d638c9deae0d5675d3"
+    },
+    {
+      "path": "fixtures/S44/baseline-0.4.0/doctor-json.json",
+      "sha256": "b45111fcfcd663057d20e591a03699f9c143a2cc49fe3e42045ff6c482c4f62f"
+    },
+    {
+      "path": "fixtures/S44/baseline-0.4.0/doctor-markdown.json",
+      "sha256": "3e1dfc663c3afe5c6ac1afce7c16d00ee3319e9a6ba06088df9a4c21c79f2d01"
+    },
+    {
+      "path": "fixtures/S44/baseline-0.4.0/status.json",
+      "sha256": "86349b5e8b57f7708dc6d1987d4bf49f3d562765ea89fbff05414ac267f5e778"
+    }
+  ]
+}

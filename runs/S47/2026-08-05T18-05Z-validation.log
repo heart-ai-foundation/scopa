@@ -1,0 +1,28 @@
+S47 provider-off validation
+working directory: /home/dylan/scopa
+activation source: 8006523
+
+PASS npm run test:s47
+  1 suite, 4 assertions groups passed
+
+INITIAL REGRESSION npm run test:s39
+  historical string assertions expected commands without --format json
+  direct test result: installer behavior passed; two stale command-string assertions failed
+
+PASS npm run test:s39 (after consumer-contract assertion correction)
+  2 suites passed
+
+PASS npm run test:s43
+  packed provider-off adoption journey passed
+
+PASS npm run test:s44
+  terminal/JSON output behavior passed
+
+PASS npm run test:docs
+  documentation check passed (38 files)
+
+PASS node next-prompt-protocols/tools/sync-protocols.mjs --check
+PASS git diff --check
+
+No provider calls, experiment use, network probes, publication, release, or
+external-system mutation occurred.

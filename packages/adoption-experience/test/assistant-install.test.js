@@ -62,11 +62,12 @@ test('assistant detection is explicit for Claude, Codex, and generic surfaces', 
 
   const unknown = await repository();
   assert.equal((await detectAssistantSurfaces(unknown)).status, 'unknown');
-  await assert.rejects(
-    installAssistant({ repoRoot: unknown, client: 'auto' }),
-    AssistantInstallError,
-  );
-  assert.deepEqual(await inventory(unknown), []);
+  const markerFree = await installAssistant({ repoRoot: unknown, client: 'auto' });
+  assert.equal(markerFree.plan.client, 'generic');
+  assert.deepEqual(markerFree.created, [
+    '.agents/skills/scopa/SKILL.md',
+    '.scopa/assistant-install.json',
+  ]);
 
   const ambiguous = await repository();
   await mkdir(path.join(ambiguous, '.claude'));
@@ -74,7 +75,13 @@ test('assistant detection is explicit for Claude, Codex, and generic surfaces', 
   assert.equal((await detectAssistantSurfaces(ambiguous)).status, 'ambiguous');
   await assert.rejects(
     installAssistant({ repoRoot: ambiguous, client: 'auto' }),
-    AssistantInstallError,
+    (error) => {
+      assert.ok(error instanceof AssistantInstallError);
+      assert.match(error.message, /claude-code/u);
+      assert.match(error.message, /codex/u);
+      assert.match(error.message, /generic/u);
+      return true;
+    },
   );
   assert.deepEqual(await inventory(ambiguous), ['.claude', '.codex']);
 });
@@ -102,7 +109,9 @@ test('dry-run, install, idempotence, and uninstall are plan-bound and reversible
     path.join(root, '.claude/skills/scopa/SKILL.md'),
     'utf8',
   );
-  assert.match(skill, /scopa begin --request-json/u);
+  assert.match(skill, /scopa begin --format json --request-json/u);
+  assert.match(skill, /scopa check --format json/u);
+  assert.match(skill, /scopa view --format json/u);
   assert.doesNotMatch(skill, /capability-matrix|authority-declarations/u);
   assert.equal((await stat(path.join(root, '.scopa/assistant-install.json'))).mode & 0o777, 0o600);
 
@@ -202,7 +211,9 @@ test('the agent entry is compact and uses only the runtime-owned bootstrap path'
     'utf8',
   );
   assert.equal(text.split(/\r?\n/u).length <= 125, true);
-  assert.match(text, /scopa begin --request-json/u);
+  assert.match(text, /scopa begin --format json --request-json/u);
+  assert.match(text, /scopa check --format json/u);
+  assert.match(text, /scopa view --format json/u);
   assert.doesNotMatch(
     text,
     /scopa\.capability-matrix|scopa\.authority-declarations|doctor --lock/u,

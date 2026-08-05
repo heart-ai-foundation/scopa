@@ -1,0 +1,31 @@
+S50 provider-off installed qualification
+working directory: /home/dylan/scopa
+activation source: e86418f
+
+PASS npm run test:s50
+  packed candidate closes native non-goal presentation exposure
+  public v0.4.0 remains an exact immutable compatibility baseline
+  focused duration: approximately 3.4 seconds
+
+PASS npm test
+  core release gate: 370 assertions; 369 pass; 1 intentional skip; 0 fail
+  named accumulated gates S29-S50, S8-S17, S21-S23: pass
+  documentation check: 38 files; pass
+  final exit: 0
+
+CANDIDATE npm pack --json --pack-destination <isolated-temp>
+  identity: @heart-ai-foundation/scopa@0.4.0 candidate bytes
+  packed bytes: 2031371
+  unpacked bytes: 8770047
+  entries: 1146
+  npm integrity: sha512-H3CsLkO1Aq48QTJyWr/pA+bynQpxeMzdTFg8+HjZcyK4UY+LgmZiq/d6/DLKOMWqY/Txg8f8rAqOSpMQFlFwjQ==
+  sha256: 1c5bbb22c8ad065e1ead4292c9d10174680081041f5a907e0a39dbfdddd89f41
+  temporary candidate removed after hashing: yes
+
+PUBLIC BASELINE
+  annotated tag: v0.4.0
+  commit: 4643cb342e4de3a8641476e0b171139e08f16620
+  retained fixture digests: all pass
+
+No provider call, experiment use, online install, publication, release, tag,
+merge, announcement, GitHub mutation, or external-system action occurred.

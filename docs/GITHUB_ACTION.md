@@ -17,14 +17,28 @@ permissions:
 Checkout credentials are not persisted. The workflow installs no package,
 runs no project script, executes no card-declared gate, receives no secret, and
 does not comment. If `scopa-boundary.json` is absent, the summary says
-completion, assurance, and scope are `UNKNOWN`; missing evidence never becomes
-a green result.
+completion, assurance, and scope are `UNKNOWN`, explains that it observed only
+the missing card, and gives one fixed correction:
+
+```sh
+scopa view --format json --output scopa-boundary.json
+```
+
+The action does not execute that command. Add the generated privacy-minimized
+card to the pull request if you want the job to validate and report it. Missing
+evidence never becomes a green result.
 
 When a card exists, the action validates `scopa.boundary-card.v1`, then reports
 only completion, counts, assurance basis, and the source-map digest. It rejects
 oversized, malformed, escaping, symlinked, or semantically inconsistent input
 before writing the summary. It never includes raw paths, prompts, gate output,
 capability evidence, card paths, environment maps, or token values.
+
+When a current card includes aggregate Git working-tree observation, the report
+shows separate tracked and untracked counts. A satisfied card with an outside-path or recognized
+non-goal contact is headed `SATISFIED — WITH UNVERIFIED CHANGES`; its canonical
+completion and `canStop` are unchanged. Observation is reporting only, not a
+claim of prevention, control, attribution, or authorization.
 
 ## Explicit comment opt-in
 
