@@ -29,11 +29,11 @@ scopa assistant install
 
 Auto-detection supports these project-local surfaces:
 
-| Client | Detection markers | Installed skill |
+| Client | Detection markers | Project-local skill directory |
 | --- | --- | --- |
-| Claude Code | `.claude/`, `.mcp.json`, or `CLAUDE.md` | `.claude/skills/scopa/SKILL.md` |
-| Codex | `.codex/` | `.agents/skills/scopa/SKILL.md` |
-| Generic Agent Skills | `.agents/` or a repository-level generic agent-instructions marker | `.agents/skills/scopa/SKILL.md` |
+| Claude Code | Claude project directory, MCP marker, or Claude instruction marker | `.claude/skills/scopa/` |
+| Codex | `.codex/` | `.agents/skills/scopa/` |
+| Generic Agent Skills | `.agents/` or a repository-level generic agent-instructions marker | `.agents/skills/scopa/` |
 
 Any assistant that discovers project-local Agent Skills can use the generic
 installation; it does not need to be Claude Code or Codex. If detection is
