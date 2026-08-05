@@ -1,11 +1,15 @@
 # SCOPA Slice Queue
 
-**Current phase transition:** `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
-**Rule:** Completed history remains immutable. S37-S43 are one principal-
-directed, provider-off implementation queue for simplicity, instant value,
-and organic distribution. The queue authorizes no provider, experiment,
-publication, release, customer, hosted-service, telemetry, deployment, or
-external-system action.
+**Current phase transition:** `macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md`
+**Rule:** Completed history remains immutable. S44-S51 are one principal-
+directed, provider-off implementation queue for legible value and organic
+adoption. The queue authorizes no provider, experiment, publication, release,
+customer, hosted-service, telemetry, deployment, or external-system action.
+S51 is queued closed and requires a separate explicit provider authority and
+allowance before any activation.
+
+**Superseded phase transition:** `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
+governed S37-S43, which are complete.
 
 | Slot | Slice | Module | Objective | Value gate | Validation gate | Dependencies | Stop/defer condition | Evidence path | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -39,10 +43,27 @@ external-system action.
 | S41 | Provider-off pull-request distribution | `adoption-experience` | Provide an opt-in least-privilege GitHub Action that reports scope and completion evidence in job summary and an explicitly enabled PR surface | SCOPA becomes repeatedly useful and visible where teams already review agent work | fork/permission hostility, read-only default, explicit comment permission, untrusted-input isolation, no-provider fixture runs | S38-S40 | Stop on implicit write permission, secret exposure, executable PR injection, certification wording, marketplace/publication action, or hosted dependency | `evidence/S41/` | `completed; AX5 satisfied` |
 | S42 | Reproducible proof and consultation handoff | `adoption-experience` | Add a deterministic local demo/case corpus that visibly catches scope escape, asserted completion, and uncontrolled-route overclaim, then bind README examples and the optional organizational review handoff to exact output | Developers see SCOPA catch real failures before being asked to trust it; consultation follows demonstrated free value | one-command demo, injected-fault polarity, exact-output docs tests, no lead capture/telemetry, free result completeness | S37-S41 | Stop on staged success, unverifiable performance claim, gated free capability, fear marketing, or docs-only implementation | `evidence/S42/` | `completed; AX6 satisfied` |
 | S43 | Installed adoption qualification and canon alignment | `release-readiness` | Qualify the complete first-run, one-prompt, visual, PR, and demo journey from clean installed bytes without provider use, then update the canonical Heart Vault SCOPA documents to the exact proven behavior | Converts simplicity and instant-helpfulness claims into reproducible evidence before any release decision and prevents internal canon drift | cold install, under-30-second first insight, zero manual control files, clean/cold generic/Claude/Codex assistant fixtures, privacy/accessibility, accumulated gates, canonical-doc source binding | S37-S42 | Stop on setup regression, claim drift, provider/network surprise, privacy issue, false green, canon overclaim, or any release/publication action | `evidence/S43/` | `completed; AX7 satisfied; release closed` |
+| S44 | Human-first command output | `adoption-experience` | Render `doctor`, `begin`, `check`, and `status` as concise human text by default while preserving every existing machine envelope behind `--format json` | Every command a first-time reader copies from the README returns readable output instead of a machine envelope | human/JSON semantic parity, exact-output docs binding, exit-code preservation, `--format markdown` no longer JSON-wrapped, no mutation or network | approved Phase 14 transition | Stop on JSON-envelope regression for machine consumers, semantic divergence between renders, exit-code drift, or claim inflation in prose | `evidence/S44/` | `active` |
+| S45 | Local diagnostic detail | `boundary-doctor` | Render named indicators, categories, counts, and observed paths for local reads, binding privacy minimization to shareable projections only | A local reader learns which surfaces exist and where without parsing JSON | local/shareable divergence proof, shareable-projection privacy corpus regression, determinism, honest absence, no favorable unknown | S44 | Stop if local detail reaches `view`, the PR surface, or any shareable projection; stop on favorable absence claim or privacy regression | `evidence/S45/` | `queued` |
+| S46 | Out-of-scope change observation | `enforcement` + `workflow-boundary-map` | Observe version-controlled changes outside the locked paths, separately count declared-non-goal contact, and qualify the completion headline additively | The native-bypass case becomes a reported finding instead of an unqualified satisfied headline | additive optional card field, `completion.status` unchanged, `scopa.boundary-card.v1` consumer compatibility, two distinct counts, clean-tree and dirty-tree polarity, no path disclosure in shareable output | S44 | **Stop if observation is presented as prevention, enforcement, or control; stop if `canStop` becomes dependent on observation; stop on shareable path disclosure** | `evidence/S46/` | `queued` |
+| S47 | Front-door alignment | `adoption-experience` | Fall back to the generic client when assistant detection is unknown, list valid clients in the detection error, unhedge the shipped first-run snapshot, promote the single-URL agent entry, and lead documentation with function before protocol lineage | A first-time reader's first three copied commands all succeed | marker-free repository install path, error-message completeness, docs exact-output binding, published-tarball parity, no capability overclaim | S44 | Stop on capability overclaim, removal of an honest limit, assurance transfer to an unverified client, or user-global mutation | `evidence/S47/` | `queued` |
+| S48 | Pull-request default value | `adoption-experience` | Replace the uninformative no-card default with the actionable next step plus what the action can honestly observe | The most public surface SCOPA owns stops defaulting to uninformative | read-only default preserved, fork/permission hostility, untrusted-input isolation, missing evidence never green, no executable PR input | S44, S46 | Stop on implicit write permission, secret exposure, executable PR injection, certification wording, or missing-evidence-as-green | `evidence/S48/` | `queued` |
+| S49 | Adopter fact badge and discovery surface | `adoption-experience` | Provide a fact-stating adopter badge, amend the blanket badge prohibition to a grade-and-score prohibition, and open the public discovery and contact surfaces | Adopters can advertise SCOPA without asserting a grade, and the consultation handoff becomes reachable | no grade/score/pass semantics, partial-assurance basis carried, deterministic badge content, no telemetry or lead capture, canon amendment consistency | S44, S46; principal canon amendment | Stop on favorable-score semantics, safe-to-merge implication, hidden analytics, lead capture, or unqualified assurance display | `evidence/S49/` | `queued` |
+| S50 | Adversarial virality qualification | `release-readiness` | Make the out-of-scope presentation exposure a permanent regression gate and time the cold first-contact journey from published bytes | The failure that would produce a public credibility dunk can never silently re-land | reproduced native non-goal violation, headline qualification assertion, cold-install first-insight timing, accumulated provider-off gates, docs exact-output corpus | S44-S49 | Stop on material finding, false green, claim drift, or any release, publication, or announcement action | `evidence/S50/` | `queued` |
+| S51 | Measured agent-behavior artifact | `live-run` | Measure the rate at which real agent runs claim completion while a declared gate is failing, across models, as a citable artifact | Converts SCOPA's central premise into a measurement rather than an assertion | separately approved exact calls only, cost ceiling, provider-store cleanup, no assurance transfer between providers, retention of non-qualifying runs | S44-S50 plus separate explicit provider authority and allowance | **Closed. Stop before any provider intent without a separate written authority and allowance; stop on unverifiable claim framing** | `evidence/S51/` | `closed; unauthorized` |
 
 S0-S28, the public R1 execution, the S29-S33 workflow-boundary-mapping arc,
 and the S34-S36 boundary-doctor adoption wedge are complete historical work.
-S37-S43 and all AX1-AX7 contracts are complete provider-off. No protocol is
-active. Any future work requires a fresh bounded posture rather than inferred
-continuation. The separate SCOPA experiment, provider traffic, customer
-activity, hosted use, publication, and any future release remain closed.
+S37-S43 and all AX1-AX7 contracts are complete provider-off, and public 0.4.0
+is released.
+
+S44-S51 are the active Phase 14 queue and are governed by
+`macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md`. S44 is
+active. S45-S50 are queued in dependency order. S51 is closed and unauthorized.
+
+Phase 14 changes presentation, observation, and exposure only. It adds no
+enforcement claim and weakens no existing limit. Two constraints bind the whole
+queue: observed changes outside the lock are never presented as prevented or
+controlled, and `canStop` remains defined solely by declared gate results. The
+separate SCOPA experiment, provider traffic, customer activity, hosted use,
+publication, and any future release remain closed.

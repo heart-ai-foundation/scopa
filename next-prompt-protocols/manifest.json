@@ -3,13 +3,13 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "12db637",
-  "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
-  "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
-  "active_protocol": null,
-  "active_objective": "Phase 13 S37-S43 is complete with AX1-AX7 satisfied provider-off; no new implementation or release scope is active.",
-  "active_class": null,
+  "current_commit": "4643cb3",
+  "current_phase": "phase-14-legible-value-and-organic-adoption",
+  "phase_scope": "Make the observations SCOPA already computes readable at first contact, report observed changes outside the lock without claiming to have prevented them, and open the public discovery and consultation surfaces, without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
+  "macro_delta": "macro-deltas/2026-08-05-scopa-organic-adoption-phase-transition.md",
+  "active_protocol": "active/2026-08-05-S44-human-first-command-output.md",
+  "active_objective": "Render doctor, begin, check, and status as concise human text by default and make --format markdown emit Markdown, preserving every canonical JSON envelope, schema, and exit code behind explicit --format json.",
+  "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
     "completed/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
@@ -291,6 +291,14 @@
           "verifies_via": "Gate-mutation denial tests",
           "discovered_on": "2026-07-26",
           "discovered_because": "SCOPA Macro Delta S2"
+        },
+        {
+          "id": "OA3",
+          "statement": "Version-controlled changes outside the locked paths are observed and reported, with declared-non-goal contact counted separately, and are never presented as prevented or controlled.",
+          "status": "open",
+          "verifies_via": "Clean-tree and dirty-tree polarity fixtures, additive card-field compatibility tests, and non-enforcement wording assertions",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
@@ -606,6 +614,14 @@
           "verifies_via": "Outside consumer reproduction and claim-boundary review",
           "discovered_on": "2026-07-27",
           "discovered_because": "SCOPA Developer Preview Macro Delta S10"
+        },
+        {
+          "id": "OA7",
+          "statement": "The out-of-scope presentation exposure and the cold first-contact journey are permanent regression gates.",
+          "status": "open",
+          "verifies_via": "Reproduced native non-goal violation with headline qualification assertion and cold-install timing from published bytes",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
@@ -1121,6 +1137,38 @@
           "verifies_via": "Cold installation, bounded first-insight timing, clean/cold assistant fixtures, visual and PR fixtures, privacy/accessibility checks, accumulated release gates, and canonical-document source binding",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S43"
+        },
+        {
+          "id": "OA1",
+          "statement": "Every documented first-contact command renders readable human output by default while its canonical JSON envelope, schema, and exit codes remain unchanged behind explicit --format json.",
+          "status": "open",
+          "verifies_via": "Per-command human and JSON render fixtures, 0.4.0 envelope byte comparison, and exit-code tables",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA4",
+          "statement": "A first-time reader in a marker-free repository can run the documented adoption commands successfully without selecting a client or reading protocol vocabulary.",
+          "status": "open",
+          "verifies_via": "Marker-free installer fixtures, detection-error completeness tests, and the docs exact-output corpus",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA5",
+          "statement": "The pull-request surface reports actionable content when no boundary card exists without treating missing evidence as a favorable result.",
+          "status": "open",
+          "verifies_via": "No-card default fixtures, fork and permission hostility cases, and untrusted-input isolation tests",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
+        },
+        {
+          "id": "OA6",
+          "statement": "Adopters can display a badge that states observed facts and carries the assurance basis while asserting no grade, score, or pass.",
+          "status": "open",
+          "verifies_via": "Deterministic badge-content fixtures and grade-semantics rejection tests",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
@@ -1228,6 +1276,14 @@
           "verifies_via": "Digest parity, redaction hostility, package inventory, and installed clean/cold process qualification",
           "discovered_on": "2026-08-03",
           "discovered_because": "Boundary Doctor Adoption Wedge Macro Delta S36"
+        },
+        {
+          "id": "OA2",
+          "statement": "Local diagnostic reads name observed indicators, categories, counts, and paths, while privacy minimization binds only to shareable projections.",
+          "status": "open",
+          "verifies_via": "Local and shareable divergence proof plus the shareable-projection privacy corpus regression",
+          "discovered_on": "2026-08-05",
+          "discovered_because": "SCOPA Macro Delta 2026-08-05 Organic Adoption Phase Transition"
         }
       ]
     },
