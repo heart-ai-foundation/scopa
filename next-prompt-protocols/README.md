@@ -2,12 +2,12 @@
 
 This is the canonical handoff target for project work. Use this folder to make future agents behave the same way, apply context in the same order, and stay within the same scope boundaries.
 
-Current commit reference: `463f64d`
+Current commit reference: `163ea28`
 
 Active protocol class: `arc`
 Active protocol compound: `false`
 Active protocol module: `adoption-experience`
-Advances contracts: `AX6`
+Advances contracts: `AX7`
 
 ## Slice Class
 
@@ -58,11 +58,11 @@ Module progress:
 - operational-resilience: 4/4 (100%)
 - dependency-closure-identity: 2/3 (67%)
 - production-live-requalification: 3/3 (100%)
-- adoption-experience: 5/7 (71%)
+- adoption-experience: 6/7 (86%)
 - workflow-boundary-map: 5/5 (100%)
 - boundary-doctor: 3/3 (100%)
 - gate-process-custody: 3/3 (100%)
-Arc total: 88/91 (97%)
+Arc total: 89/91 (98%)
 
 ## Descriptor Rung Stop Rule
 
@@ -110,52 +110,53 @@ Read in this order:
 3. `macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md`
 4. `role-context.md`
 5. `phases/phase-13/README.md`
-6. `active/2026-08-05-S42-reproducible-proof-and-handoff.md`
-7. `completed/2026-08-05-S41-provider-off-pr-distribution.md`
-8. `completed/2026-08-05-S40-local-visual-boundary-map.md`
-9. `completed/2026-08-05-S39-safe-assistant-installation.md`
-10. `completed/2026-08-05-S38-runtime-owned-task-bootstrap.md`
-11. `completed/2026-08-04-S37-instant-boundary-insight.md`
-12. `completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md`
-13. `completed/2026-08-03-S35-explicit-doctor-lock-conversion.md`
-14. `completed/2026-08-03-S34-zero-state-boundary-doctor.md`
-15. `completed/2026-08-03-S33-adversarial-usability-qualification.md`
-16. `completed/2026-08-03-S32-portable-assessment-interoperability.md`
-17. `completed/2026-08-03-S31-point-and-go-installed-journey.md`
-18. `completed/2026-08-03-S30-boundary-map-cli.md`
-19. `completed/2026-08-03-S29-workflow-boundary-map-contract.md`
-20. `completed/2026-08-03-R1F-public-release-finalization.md`
-21. `completed/2026-08-03-S28-r1-go-no-go-decision.md`
-22. `completed/2026-08-02-S27-compressed-release-consistency-review.md`
-23. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
-24. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
-25. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
-26. `completed/2026-08-01-S24-gate-process-tree-custody.md`
-27. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
-28. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
-29. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
-30. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
-31. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
-32. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
-33. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
-34. `completed/2026-07-31-S17-sustained-operational-resilience.md`
-35. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
-36. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
-37. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
-38. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
-39. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
-40. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
-41. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
-42. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
-43. `completed/2026-07-27-S8-claude-code-headless-integration.md`
-44. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
-45. `completed/2026-07-27-S6-installable-developer-surface.md`
-46. `completed/2026-07-26-S5-interop-export.md`
-47. `completed/2026-07-26-S4-signing-and-anchoring.md`
-48. `completed/2026-07-26-S3-legibility.md`
-49. `completed/2026-07-26-S2-enforcement-loop.md`
-50. `completed/2026-07-26-S0-conformance-harness.md`
-51. `completed/2026-07-26-S1-sealed-core.md`
+6. `active/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md`
+7. `completed/2026-08-05-S42-reproducible-proof-and-handoff.md`
+8. `completed/2026-08-05-S41-provider-off-pr-distribution.md`
+9. `completed/2026-08-05-S40-local-visual-boundary-map.md`
+10. `completed/2026-08-05-S39-safe-assistant-installation.md`
+11. `completed/2026-08-05-S38-runtime-owned-task-bootstrap.md`
+12. `completed/2026-08-04-S37-instant-boundary-insight.md`
+13. `completed/2026-08-03-S36-shareable-doctor-proof-and-installed-qualification.md`
+14. `completed/2026-08-03-S35-explicit-doctor-lock-conversion.md`
+15. `completed/2026-08-03-S34-zero-state-boundary-doctor.md`
+16. `completed/2026-08-03-S33-adversarial-usability-qualification.md`
+17. `completed/2026-08-03-S32-portable-assessment-interoperability.md`
+18. `completed/2026-08-03-S31-point-and-go-installed-journey.md`
+19. `completed/2026-08-03-S30-boundary-map-cli.md`
+20. `completed/2026-08-03-S29-workflow-boundary-map-contract.md`
+21. `completed/2026-08-03-R1F-public-release-finalization.md`
+22. `completed/2026-08-03-S28-r1-go-no-go-decision.md`
+23. `completed/2026-08-02-S27-compressed-release-consistency-review.md`
+24. `completed/2026-08-02-S26R3-canonical-evidence-projection-remediation.md`
+25. `completed/2026-08-01-S26-S28-r1-exact-byte-qualification-and-decision.md`
+26. `completed/2026-08-01-S25-fresh-provider-off-candidate-qualification.md`
+27. `completed/2026-08-01-S24-gate-process-tree-custody.md`
+28. `completed/2026-07-31-S23-fresh-exact-identity-reviews-and-closeout.md`
+29. `completed/2026-07-31-S22-sustained-bundled-closure-soak.md`
+30. `completed/2026-07-31-S21-fresh-candidate-production-live-matrix.md`
+31. `completed/2026-07-31-S20-bundled-exact-candidate-freeze.md`
+32. `completed/2026-07-31-S19-v2-bundled-production-closure-enforcement.md`
+33. `completed/2026-07-31-S19-publishable-dependency-closure-enforcement-stopped.md`
+34. `completed/2026-07-31-S18-exact-production-live-requalification-stopped.md`
+35. `completed/2026-07-31-S17-sustained-operational-resilience.md`
+36. `completed/2026-07-29-S16-codex-production-live-run-edge-campaign.md`
+37. `completed/2026-07-28-S15-claude-production-live-run-edge-campaign.md`
+38. `completed/2026-07-28-S14-shared-live-run-custody-and-supervision.md`
+39. `completed/2026-07-28-S13-fresh-agent-adversarial-release-requalification.md`
+40. `completed/2026-07-28-S12-installed-surface-launcher-privacy-ci-hardening.md`
+41. `completed/2026-07-27-S11-proof-contract-and-redaction-convergence.md`
+42. `completed/2026-07-27-S10-developer-preview-release-candidate.md`
+43. `completed/2026-07-27-S9-codex-headless-integration-and-parity.md`
+44. `completed/2026-07-27-S8-claude-code-headless-integration.md`
+45. `completed/2026-07-27-S7-model-neutral-adapter-bridge.md`
+46. `completed/2026-07-27-S6-installable-developer-surface.md`
+47. `completed/2026-07-26-S5-interop-export.md`
+48. `completed/2026-07-26-S4-signing-and-anchoring.md`
+49. `completed/2026-07-26-S3-legibility.md`
+50. `completed/2026-07-26-S2-enforcement-loop.md`
+51. `completed/2026-07-26-S0-conformance-harness.md`
+52. `completed/2026-07-26-S1-sealed-core.md`
 
 If a fact is not in those files or the code, verify it locally before acting.
 
@@ -189,12 +190,14 @@ After the artifacts are written, update the protocol state from the repo tip:
 
 ## Current active objective
 
-> Add one provider-off `scopa demo` command that creates an isolated temporary
-> fixture and mechanically proves scope escape denial, asserted-completion
-> rejection, and uncontrolled-route assurance-overclaim rejection, then reaches
-> a truthful terminal state and cleans up. Bind README and demo documentation to
-> exact output, and add a transparent optional organizational-review handoff
-> without lead capture or gated free functionality.
+> Build one provider-off installed-adoption qualifier for the current packed
+> bytes. Prove zero-argument first insight in under thirty seconds with no target
+> mutation; runtime-owned begin with zero manually authored SCOPA control files;
+> clean and cold assistant installation; exact demo behavior; privacy-safe and
+> accessible Boundary Card export; and valid/missing PR reporting without a
+> network call. Run the accumulated provider-off gates, then add or update the
+> canonical Heart Vault SCOPA documents with exact commit, test, behavior,
+> limitation, and supersession bindings.
 
 ## Behavior rules
 
@@ -269,4 +272,4 @@ Treat every manifest non-goal as closed unless principal direction or a ratified
 Start with:
 
 - `phases/phase-13/README.md`
-- `active/2026-08-05-S42-reproducible-proof-and-handoff.md`
+- `active/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md`

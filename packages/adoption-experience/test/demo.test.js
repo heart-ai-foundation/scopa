@@ -20,7 +20,7 @@ import {
 
 const ROOT = path.resolve(new URL('../../..', import.meta.url).pathname);
 const EXPECTED = await readFile(
-  path.join(ROOT, 'fixtures/S42/expected-output.txt'),
+  path.join(ROOT, 'fixtures/S43/expected-demo-output.txt'),
   'utf8',
 );
 

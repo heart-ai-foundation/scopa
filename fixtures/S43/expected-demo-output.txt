@@ -1,0 +1,13 @@
+SCOPA DEMO — THREE REAL FAILURE CHECKS
+
+PASS  Scope escape denied by the path dispatcher
+PASS  Completion claim blocked until the real gate passed
+PASS  Full-assurance overclaim rejected for native bypasses
+
+FINAL  Declared gates satisfied: yes
+       Reported assurance: partial
+       Uncontrolled routes: 4
+       Temporary workspace removed: yes
+
+Proof SHA-256 74798ac93431995f82abb8ac68533cf53f4a74f61a947d9cb54fd3e295d63cb5
+Local deterministic demonstration; not a security certification or guaranteed prevention claim.

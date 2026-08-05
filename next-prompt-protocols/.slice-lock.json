@@ -1,21 +1,23 @@
 {
   "lock_version": 1,
   "project": "SCOPA",
-  "current_commit": "463f64d",
+  "current_commit": "163ea28",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
-  "active_protocol": "active/2026-08-05-S42-reproducible-proof-and-handoff.md",
+  "active_protocol": "active/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
   "active_class": "arc",
   "active_compound": false,
   "active_module": "adoption-experience",
   "crosses": [
-    "enforcement",
-    "distribution"
+    "release-readiness",
+    "distribution",
+    "boundary-doctor",
+    "workflow-boundary-map"
   ],
   "advances_contracts": [
-    "AX6"
+    "AX7"
   ],
-  "active_protocol_sha256": "sha256:de1702e24f6235e9b24f69f0eb97f5122ba516adfdaaab945976cf353da4f09a",
-  "active_objective": "Add one provider-off `scopa demo` command that creates an isolated temporary\nfixture and mechanically proves scope escape denial, asserted-completion\nrejection, and uncontrolled-route assurance-overclaim rejection, then reaches\na truthful terminal state and cleans up. Bind README and demo documentation to\nexact output, and add a transparent optional organizational-review handoff\nwithout lead capture or gated free functionality.",
+  "active_protocol_sha256": "sha256:7d6a83b7082a1d45f70658f5db9b986008d93c8bf1154c1dd9edfb1bc7913dd1",
+  "active_objective": "Build one provider-off installed-adoption qualifier for the current packed\nbytes. Prove zero-argument first insight in under thirty seconds with no target\nmutation; runtime-owned begin with zero manually authored SCOPA control files;\nclean and cold assistant installation; exact demo behavior; privacy-safe and\naccessible Boundary Card export; and valid/missing PR reporting without a\nnetwork call. Run the accumulated provider-off gates, then add or update the\ncanonical Heart Vault SCOPA documents with exact commit, test, behavior,\nlimitation, and supersession bindings.",
   "allowed_files": [
     "package.json",
     "package-lock.json",

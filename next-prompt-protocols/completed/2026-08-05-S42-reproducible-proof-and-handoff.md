@@ -5,7 +5,7 @@
 **Crosses:** [`enforcement`, `distribution`]
 **Advances contracts:** [`AX6`]
 **Compound:** false
-**Status:** active; provider-off implementation only
+**Status:** completed; provider-off implementation accepted
 
 ## Why this exists
 

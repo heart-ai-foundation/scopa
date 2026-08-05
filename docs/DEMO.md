@@ -21,7 +21,7 @@ FINAL  Declared gates satisfied: yes
        Uncontrolled routes: 4
        Temporary workspace removed: yes
 
-Proof SHA-256 c7058bd0d3c1bb4f8c5c00c95097c1ae8594a57c34d66072013d3a8d6b0f6af5
+Proof SHA-256 74798ac93431995f82abb8ac68533cf53f4a74f61a947d9cb54fd3e295d63cb5
 Local deterministic demonstration; not a security certification or guaranteed prevention claim.
 ```
 
@@ -40,7 +40,9 @@ Local deterministic demonstration; not a security certification or guaranteed pr
 5. The temporary repository and escape sentinel were removed and verified
    absent.
 
-The result object is available with `scopa demo --format json`. It contains no
+The direct gate definition is path-independent, so the same installed bytes
+produce the same proof digest in different installation directories. The
+result object is available with `scopa demo --format json`. It contains no
 temporary path, prompt, environment map, gate output, provider output, or
 secret. The proof digest binds that deterministic result.
 

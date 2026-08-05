@@ -1,7 +1,7 @@
 # Phase 13 Instant Value And Organic Distribution
 
-Current commit reference: `463f64d`
-Current active protocol: `active/2026-08-05-S42-reproducible-proof-and-handoff.md`
+Current commit reference: `163ea28`
+Current active protocol: `active/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md`
 
 ## Scope
 
@@ -9,12 +9,14 @@ Reduce SCOPA to an insight-first, one-prompt developer journey and add local, tr
 
 ## Active objective
 
-> Add one provider-off `scopa demo` command that creates an isolated temporary
-> fixture and mechanically proves scope escape denial, asserted-completion
-> rejection, and uncontrolled-route assurance-overclaim rejection, then reaches
-> a truthful terminal state and cleans up. Bind README and demo documentation to
-> exact output, and add a transparent optional organizational-review handoff
-> without lead capture or gated free functionality.
+> Build one provider-off installed-adoption qualifier for the current packed
+> bytes. Prove zero-argument first insight in under thirty seconds with no target
+> mutation; runtime-owned begin with zero manually authored SCOPA control files;
+> clean and cold assistant installation; exact demo behavior; privacy-safe and
+> accessible Boundary Card export; and valid/missing PR reporting without a
+> network call. Run the accumulated provider-off gates, then add or update the
+> canonical Heart Vault SCOPA documents with exact commit, test, behavior,
+> limitation, and supersession bindings.
 
 ## Files in play
 
@@ -89,21 +91,33 @@ Descriptor-only slices are allowed only when they unlock an executable test, pro
 
 ## Verification
 
+- `npm run test:s43`
 - `npm run test:s42`
 - `npm run test:s41`
+- `npm run test:s40`
+- `npm run test:s39`
 - `npm run test:s38`
-- `npm run test:s2`
+- `npm run test:s37`
+- `npm test`
 - `npm run test:docs`
 - `node next-prompt-protocols/tools/sync-protocols.mjs --check`
-- `scopa demo` uses real dispatcher, gate, and capability-matrix validators;
-  all three injected false claims are rejected and the allowed correction
-  reaches `canStop: true` with `partial` assurance.
-- Output is deterministic, privacy-safe, exact-tested against README/docs, and
-  contains no unsupported metric or favorable generic claim.
-- The caller repository remains byte-identical, the temporary repository is
-  removed, and no network/provider/telemetry surface is touched.
-- The free proof and artifacts are complete before a plainly optional,
-  non-capturing organizational-review handoff.
+- The installed qualifier packs and installs the current bytes without using a
+  registry or source-checkout imports after installation.
+- Installed zero-argument `scopa` returns useful truthful insight in under
+  thirty seconds and leaves the target inventory byte-identical.
+- Installed `begin` creates the runtime-owned control state from one explicit
+  request while the developer manually authors zero SCOPA control files.
+- Installed assistant clean and cold-restart flows remain project-local,
+  reversible, collision-safe, and free of user-home mutation.
+- Installed demo output equals the exact S42 fixture and cleans all temporary
+  state; Boundary Card export passes privacy and accessibility assertions.
+- Installed PR valid/missing fixtures retain truthful polarity and make no
+  network or write-enabled GitHub call.
+- Package inventory contains every required runtime/doc/schema surface and no
+  protocol, evidence, note, run, private, credential, or source-only fixture.
+- Canonical Heart Vault SCOPA documents bind only proven behavior to the S43
+  source commit and evidence digest, state limitations and no-release scope,
+  and identify any superseded internal description without rewriting history.
 
 ## Handoff
 

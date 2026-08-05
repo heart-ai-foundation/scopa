@@ -3,15 +3,16 @@
   "repo_root": ".",
   "diff_base": null,
   "diff_head": null,
-  "current_commit": "463f64d",
+  "current_commit": "163ea28",
   "current_phase": "phase-13-instant-value-and-organic-distribution",
   "phase_scope": "Reduce SCOPA to an insight-first, one-prompt developer journey and add local, truthful, provider-off distribution surfaces without weakening assurance semantics or authorizing publication, release, provider, hosted, customer, telemetry, deployment, or external-system action.",
   "macro_delta": "macro-deltas/2026-08-04-scopa-instant-value-phase-transition.md",
-  "active_protocol": "active/2026-08-05-S42-reproducible-proof-and-handoff.md",
-  "active_objective": "Add one isolated deterministic demo that visibly catches scope escape, false completion, and assurance overclaim before presenting a complete-free-result optional organizational-review handoff.",
+  "active_protocol": "active/2026-08-05-S43-installed-adoption-qualification-and-canon-alignment.md",
+  "active_objective": "Qualify the complete provider-off adoption journey from clean installed bytes, then bind canonical Heart Vault SCOPA documents to the exact proven behavior and limitations.",
   "active_class": "arc",
   "active_compound": false,
   "completed_protocols": [
+    "completed/2026-08-05-S42-reproducible-proof-and-handoff.md",
     "completed/2026-08-05-S41-provider-off-pr-distribution.md",
     "completed/2026-08-05-S40-local-visual-boundary-map.md",
     "completed/2026-08-05-S39-safe-assistant-installation.md",
@@ -1107,7 +1108,7 @@
         {
           "id": "AX6",
           "statement": "A deterministic one-command demo proves SCOPA catches scope escape, asserted completion, and uncontrolled-route overclaim, and public examples reproduce exact output before presenting an optional consultation handoff.",
-          "status": "open",
+          "status": "satisfied",
           "verifies_via": "Injected-fault polarity, exact-output documentation tests, clean temporary execution, no telemetry, and complete free-result review",
           "discovered_on": "2026-08-04",
           "discovered_because": "Instant Value Phase Transition S42"

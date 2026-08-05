@@ -1,5 +1,20 @@
 # SCOPA release readiness
 
+In a source checkout, the provider-off Phase 13 adoption qualifier packs and
+installs the current bytes offline, then exercises first insight, runtime-owned
+begin, Claude and Codex project-local installation, the enforcement demo,
+Boundary Card, and PR reporting from that installation:
+
+```sh
+npm run qualify:s43:installed
+```
+
+Use `-- --output <receipt.json>` for a no-replace machine-readable receipt.
+The qualifier does not authorize publication or transfer release assurance.
+It scans first-party installed bytes and shareable outputs for private values;
+the accumulated release gates retain bundled-dependency privacy and integrity
+coverage.
+
 This package implements SCOPA's exact-byte release boundary. It validates the
 principal-approved release posture, audits required security and governance
 surfaces, packs the exact candidate, verifies its integrity, and drives a

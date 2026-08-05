@@ -8,9 +8,6 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import {
-  fileURLToPath,
-} from 'node:url';
-import {
   createReferenceAgentHost,
 } from '../../agent-surface/src/index.js';
 import {
@@ -38,7 +35,11 @@ import {
 export const DEMO_RESULT_SCHEMA = 'scopa.demo-result.v1';
 export const DEMO_VIEW_RESULT_SCHEMA = 'scopa.demo-view-result.v1';
 
-const DEMO_GATE = fileURLToPath(new URL('./demo-gate.mjs', import.meta.url));
+const DEMO_GATE_SOURCE = [
+  "const fs=require('node:fs');",
+  "const p='workspace/result.txt';",
+  "process.exit(fs.existsSync(p)&&fs.readFileSync(p,'utf8')==='DEMO_ALLOWED\\n'?0:1);",
+].join('');
 const RESULT_KEYS = new Set(['cleanup', 'faults', 'schema', 'terminal']);
 const FAULT_KEYS = new Set(['accepted', 'evidenceCode', 'id', 'injected']);
 const TERMINAL_KEYS = new Set([
@@ -129,7 +130,7 @@ function demoRequest() {
     allowedPaths: ['workspace/result.txt'],
     gates: [{
       id: 'demo-gate',
-      command: [process.execPath, DEMO_GATE],
+      command: ['node', '-e', DEMO_GATE_SOURCE],
       cwd: '.',
       timeoutMs: 10_000,
     }],

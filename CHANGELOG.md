@@ -6,6 +6,15 @@ compatibility policy.
 
 ## Unreleased
 
+- Add an offline installed-adoption qualifier covering under-30-second
+  read-only first insight, zero-manual-file task bootstrap, reversible Claude
+  and Codex project integration, exact demo output, Boundary Card privacy and
+  accessibility, and valid/missing PR reporting behind a runtime network
+  tripwire.
+- Make the demo proof digest reproducible across installation directories by
+  removing its absolute source-path binding while retaining real gate
+  execution and the historical S42 evidence unchanged.
+
 ### Added
 
 - Make zero-argument `scopa` return an immediate, read-only repository
