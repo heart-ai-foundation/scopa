@@ -13,7 +13,7 @@ jobs:
       contents: read
     steps:
       - name: Check out pull-request content without persisted credentials
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Use Node.js 22

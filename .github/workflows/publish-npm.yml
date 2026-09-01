@@ -28,13 +28,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out publisher controls
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@v7
         with:
           path: publisher
           persist-credentials: false
 
       - name: Check out exact release source
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.tag }}
           path: release-source
